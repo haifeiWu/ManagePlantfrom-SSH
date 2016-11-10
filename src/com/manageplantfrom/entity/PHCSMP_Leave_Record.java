@@ -1,6 +1,7 @@
 package com.manageplantfrom.entity;
 
 import java.io.Serializable;
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -20,16 +21,14 @@ public class PHCSMP_Leave_Record implements Serializable {
 	
 	private int Leave_Record_ID;//id（主键）
 	private String Suspect_ID;//档案编号
-//	private Date TempLeave_Time;//临时离开时间 1
-//	private String TempLeave_Reason;//临时离开原因 2
-//	private Date Return_Time;//返回时间 3
 	private Date Leave_Time;//最终离开时间
+	private Time Leave_Hour;
 	private String Leave_Reason;//离开原因（离开原因字典表ID逗号隔开）
 	private String BelongingS_Treatment_Method;//随身物品处理方式字典表ID逗号隔开
 	private String BelongingS_Treatment_Record;//未返还物品处理记录
 	private String Recipient_Person;//领取人姓名
 	private String Recipient_Person_Number;//领取人身份证号码
-	private Date Treatment_Time;//随身物品处理时间
+	private Time Treatment_Time;//随身物品处理时间
 	private int Staff_ID;//办案民警 4
 	private int Room_ID;//信息登记房间
 	
@@ -43,24 +42,6 @@ public class PHCSMP_Leave_Record implements Serializable {
 	public void setSuspect_ID(String suspect_ID) {
 		Suspect_ID = suspect_ID;
 	}
-//	public Date getTempLeave_Time() {
-//		return TempLeave_Time;
-//	}
-//	public void setTempLeave_Time(Date tempLeave_Time) {
-//		TempLeave_Time = tempLeave_Time;
-//	}
-//	public String getTempLeave_Reason() {
-//		return TempLeave_Reason;
-//	}
-//	public void setTempLeave_Reason(String tempLeave_Reason) {
-//		TempLeave_Reason = tempLeave_Reason;
-//	}
-//	public Date getReturn_Time() {
-//		return Return_Time;
-//	}
-//	public void setReturn_Time(Date return_Time) {
-//		Return_Time = return_Time;
-//	}
 	public Date getLeave_Time() {
 		return Leave_Time;
 	}
@@ -97,10 +78,10 @@ public class PHCSMP_Leave_Record implements Serializable {
 	public void setRecipient_Person_Number(String recipient_Person_Number) {
 		Recipient_Person_Number = recipient_Person_Number;
 	}
-	public Date getTreatment_Time() {
+	public Time getTreatment_Time() {
 		return Treatment_Time;
 	}
-	public void setTreatment_Time(Date treatment_Time) {
+	public void setTreatment_Time(Time treatment_Time) {
 		Treatment_Time = treatment_Time;
 	}
 	public int getLeave_Record_ID() {
@@ -137,5 +118,11 @@ public class PHCSMP_Leave_Record implements Serializable {
 	@Override
 	public String toString() {
 		return this.Suspect_ID+" "+this.Leave_Reason+""+this.Recipient_Person;
+	}
+	public Time getLeave_Hour() {
+		return Leave_Hour;
+	}
+	public void setLeave_Hour(Time leave_Hour) {
+		Leave_Hour = leave_Hour;
 	}
 }

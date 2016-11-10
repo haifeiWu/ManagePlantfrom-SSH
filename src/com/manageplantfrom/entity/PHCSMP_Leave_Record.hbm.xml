@@ -16,6 +16,7 @@
         <property name="TempLeave_Reason"/>
         <property name="Return_Time"/> -->
         <property name="Leave_Time"/>
+        <property name="Leave_Hour"/>
         <property name="Leave_Reason"/>
         <property name="BelongingS_Treatment_Method"/>
         
@@ -25,7 +26,6 @@
         <property name="Treatment_Time"/>
         <property name="Staff_ID"/>
         <property name="Room_ID"/>
-        
         <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 
 			<column name="total_record" not-null="true" default="60"/> 

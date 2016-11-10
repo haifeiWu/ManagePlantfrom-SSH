@@ -23,10 +23,10 @@
 		 	//添加下一行
 		 	var addrow = "<tr>"
 			 			+"<td>"+index+"</td>"
-						+"<td><input type=text name=temporaryLeave["+index+"].TempLeave_Time /></td>"
+						+"<td><input type=time name=temporaryLeave["+index+"].TempLeave_Time /></td>"
 						+"<td> <select name=temporaryLeave["+index+"].TempLeave_Reason> <option value=>---请选择---</option> <option value=1>扣押</option> <option value=2>暂存</option> <option value=3>代保管</option> </select> </td>"
-						+"<td><input type=text name=temporaryLeave["+index+"].Staff_ID /></td>"
-						+"<td><input type=number name=temporaryLeave["+index+"].Return_Time /></td>"
+						+"<td><input name=temporaryLeave["+index+"].Staff_ID /></td>"
+						+"<td><input type=time name=temporaryLeave["+index+"].Return_Time /></td>"
 						+"</tr>";
 		 	$(".transient_Leave tr").eq($(".transient_Leave tr").length-2).after(addrow);
 		  	addrow.find("td:eq(0)").html(num-1);
@@ -38,7 +38,7 @@
 			var len = $(".transient_Leave tr").length; //获取当前表格行数
 			var td=$(this).parent().prev().html();  //获取当前行序号
 			var delrow = $(".transient_Leave tr").get($(".transient_Leave tr").length - 2);
-			if (len>3) 
+			if (len>2) 
 			{
 				$(delrow).remove();
 				$(this).parent().prev().html($(this).parent().prev().html()-1);
@@ -48,13 +48,13 @@
 	</script>
 </head>
 <body>
-	<form class="container">
+	<form class="container" action="${pageContext.request.contextPath }" method="post">
 		<div class="row">
 			<!--嫌疑人入区信息-->
 			<h4 style="margin-top: 13px;"><b style="color: #389ac7;">Registration</b> of departure</h4>
 			<p id="left_title">离开办案区登记</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="ABS20161010-27"
+			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="Suspect_ID" value="ABS20161010-27"
 					readonly="readonly" /></h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
@@ -194,34 +194,34 @@
 				<ol class="final_Leave col-lg-12 col-md-10 col-sm-10">
 					<li>最终离开时间</li>
 					<li>离开原因</li>
-					<li><input type="date" name="name.date" /><input type="time" name="name.time" /></li>
+					<li><input type="date" name="Leave_Time" /><input type="time" name="Leave_Hour" /></li>
 					<li>
-						<select name="name.leavereason">
+						<select name="Leave_Reason">
 							<option value="">---请选择---</option>
-							<option>查证结束</option>
-							<option>刑拘</option>
-							<option>行政拘留</option>
-							<option>警告</option>
+							<option value="查证结束">查证结束</option>
+							<option value="刑拘">刑拘</option>
+							<option value="行政拘留">行政拘留</option>
+							<option value="警告">警告</option>
 						</select>
 					</li>
 					<li>随身物品处理情况:</li>
 					<li class="style_radio">
-						<input type="radio" name="name.back">全部反还
-						<input type="radio" name="name.back" />部分反还
-						<input type="radio" name="name.back" />未反还
+						<input type="radio" name="BelongingS_Treatment_Method" value="全部反还">全部反还
+						<input type="radio" name="BelongingS_Treatment_Method" value="部分反还"/>部分反还
+						<input type="radio" name="BelongingS_Treatment_Method" value="未反还"/>未反还
 					</li>
 					<li>未反还物品情况记载:</li>
-					<li><textarea name="name.write"></textarea></li>
-					<li>领取人签名:</li>
-					<li><input type="text" name="name.signature" /></li>
-					<li>身份证号码:</li>
-					<li><input type="text" name="name.phoneNum" /></li>
+					<li><textarea name="BelongingS_Treatment_Record"></textarea></li>
+					<li>领取人：</li>
+					<li><input type="text" name="Recipient_Person" /></li>
+					<li>身份证号码：</li>
+					<li><input type="text" name="Recipient_Person_Number" /></li>
 					<li>领取时间:</li>
-					<li><input type="date" name="name.getdate" /></li>
+					<li><input type="time" name="Treatment_Time" /></li>
 				</ol>
 			</div>
 			<hr style="margin-top: 3%;border: 1px solid darkgray;" />
-			<p id="signature">管理员签名:<input type="text" /></p>
+			<p id="signature">管理员:<input type="text" name="" /></p>
 			<input type="submit" value="确认提交" class="sub" />
 		</div>
 	</form>

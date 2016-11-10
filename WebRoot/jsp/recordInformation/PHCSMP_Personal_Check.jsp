@@ -46,7 +46,7 @@
 				var len = $("#woods_check tr").length; //获取当前表格行数
 				var td=$(this).parent().prev().html();  //获取当前行序号
 				var delrow = $("#woods_check tr").get($("#woods_check tr").length - 2);
-				if (len>3) 
+				if (len>2) 
 				{
 					$(delrow).remove();
 					 

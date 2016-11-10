@@ -1,5 +1,6 @@
 package com.manageplantfrom.entity;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -11,9 +12,9 @@ public class Temporary_Leave {
 	
 	private int Temporary_Leave_Id;
 	private String Suspect_ID;//档案编号
-	private Date TempLeave_Time;//临时离开时间 1
+	private Time TempLeave_Time;//临时离开时间 1
 	private String TempLeave_Reason;//临时离开原因 2
-	private Date Return_Time;//返回时间 3
+	private Time Return_Time;//返回时间 3
 	private int Staff_ID;//办案民警 4
 	private int Room_ID;//信息登记房间 5
 	
@@ -30,10 +31,10 @@ public class Temporary_Leave {
 	public void setSuspect_ID(String suspect_ID) {
 		Suspect_ID = suspect_ID;
 	}
-	public Date getTempLeave_Time() {
+	public Time getTempLeave_Time() {
 		return TempLeave_Time;
 	}
-	public void setTempLeave_Time(Date tempLeave_Time) {
+	public void setTempLeave_Time(Time tempLeave_Time) {
 		TempLeave_Time = tempLeave_Time;
 	}
 	public String getTempLeave_Reason() {
@@ -42,10 +43,10 @@ public class Temporary_Leave {
 	public void setTempLeave_Reason(String tempLeave_Reason) {
 		TempLeave_Reason = tempLeave_Reason;
 	}
-	public Date getReturn_Time() {
+	public Time getReturn_Time() {
 		return Return_Time;
 	}
-	public void setReturn_Time(Date return_Time) {
+	public void setReturn_Time(Time return_Time) {
 		Return_Time = return_Time;
 	}
 	public int getStaff_ID() {
