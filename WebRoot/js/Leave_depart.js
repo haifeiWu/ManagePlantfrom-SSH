@@ -29,12 +29,12 @@ $(function(){
 	$(".final_Leave li:eq(1)").css({"background":"#0070c0","color":"#ffffff"});
 
 	$(".final_Leave input").css({"height":"28px","width":"40%"});
-	$(".final_Leave li:eq(2) input").css({"width":"40%","margin-left":"10px"});
+	$(".final_Leave li:eq(2) input").css({"width":"80px","margin-left":"10px"});
 	$(".final_Leave li:eq(5) input").css({"width":"40px","height":"10px"});
 	$(".final_Leave li:eq(6)").css("height","80px");
 	$(".final_Leave li:eq(7)").css("height","80px");
 
-	
+
 	$(".final_Leave tr").find("td:eq(0)").css({"width":"30%","text-align":"right"});
 	//	设置date,time 的样式
 	//设置所有.human_mes中span标签的属性样式

@@ -40,7 +40,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		for (Temporary_Leave temporaryLeave : temporaryLeaves) {
 			temporaryLeave.toString();
 		}
-		
+		service.saveLeaveRecordInfor(temporaryLeaves);
 //		//通过反射加载离开办案区记录的类
 //		Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
 //		
