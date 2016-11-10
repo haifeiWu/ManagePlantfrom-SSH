@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.manageplantfrom.entity">
+
+    <class name="PHCSMP_Staff" table="PHCSMP_Staff" lazy="false">
+    
+        <id name="Staff_ID">
+            <generator class="native"/>
+        </id>
+
+		<property name="Staff_Name"></property>
+		<property name="PassWord"></property>
+		<property name="Real_Name"></property>
+		<property name="Sex"></property>
+		<property name="Duties_ID"></property>
+		<property name="Email"></property>
+		<property name="RegistedDate"></property>
+		<property name="Is_Dimission"></property>
+		
+		<property name="Phone"></property>
+		<property name="Mobile"></property>
+		<property name="Is_FirstLogin"></property>
+    </class>
+
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.manageplantfrom.entity">
+
+    <class name="PHCSMP_Dic_Leaving_Reason" table="PHCSMP_Dic_Leaving_Reason" lazy="false">
+    
+        <id name="Leaving_ID">
+            <generator class="native"/>
+        </id>
+        <property name="Leaving_Name"/>
+    </class>
+
+</hibernate-mapping>

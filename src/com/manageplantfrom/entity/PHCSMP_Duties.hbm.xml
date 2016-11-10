@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.manageplantfrom.entity">
+
+    <class name="PHCSMP_Duties" table="PHCSMP_Duties" lazy="false">
+    
+        <id name="Duties_ID">
+            <generator class="native"/>
+        </id>
+        
+        <property name="Duties_Name"/>
+        <property name="Duties_Desc"/>
+    </class>
+
+</hibernate-mapping>

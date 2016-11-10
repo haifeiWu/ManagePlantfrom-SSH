@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.manageplantfrom.entity">
+
+    <class name="PHCSMP_Role" table="PHCSMP_Role" lazy="false">
+    
+        <id name="Role_ID">
+            <generator class="native"/>
+        </id>
+        <property name="Role_Name"/>
+        <property name="Role_Description"/>
+        <property name="Is_Default_Role"/>
+    </class>
+
+</hibernate-mapping>

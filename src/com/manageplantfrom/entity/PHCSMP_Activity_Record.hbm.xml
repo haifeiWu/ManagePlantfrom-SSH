@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.manageplantfrom.entity">
+
+    <class name="PHCSMP_Activity_Record" table="PHCSMP_Activity_Record" lazy="false">
+    
+        <id name="Activity_Record_ID">
+            <generator class="native"/>
+        </id>
+        
+        <property name="Suspect_ID"></property>
+        <property name="Start_Time"/>
+        <property name="End_Time"/>
+        <property name="Room_ID"/>
+        <property name="Activity_Record"/>
+        <property name="Vedio_Number"/>
+        
+        <property name="Remark"/>
+        <property name="StaffS"/>
+        
+         <!-- 设置total_record属性为默认值 -->
+        <property name="total_record" type="java.lang.Integer"> 
+			<column name="total_record" not-null="true" default="60"/> 
+		</property>
+        
+        <property name="fill_record" type="java.lang.Integer"> 
+			<column name="fill_record" not-null="true" default="0"/> 
+		</property>
+        
+    </class>
+
+</hibernate-mapping>

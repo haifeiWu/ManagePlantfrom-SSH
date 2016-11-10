@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.manageplantfrom.entity">
+
+    <class name="PHCSMP_Dic_Keeping_Way" table="PHCSMP_Dic_Keeping_Way" lazy="false">
+    
+        <id name="Keeping_ID">
+            <generator class="native"/>
+        </id>
+        <property name="Keeping_Name"/>
+    </class>
+
+</hibernate-mapping>

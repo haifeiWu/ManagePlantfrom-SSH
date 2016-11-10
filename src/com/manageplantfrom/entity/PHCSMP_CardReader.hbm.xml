@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.manageplantfrom.entity">
+
+    <class name="PHCSMP_CardReader" table="PHCSMP_CardReader" lazy="false">
+    
+        <id name="CardReader_ID">
+            <generator class="native"/>
+        </id>
+        
+        <property name="CardReader_Name"/>
+    </class>
+
+</hibernate-mapping>

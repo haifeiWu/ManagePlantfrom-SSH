@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <!-- 乱码过滤 -->
+    <constant name="struts.i18n.encoding" value="UTF-8"/>
+
+    <package name="default" namespace="/" extends="struts-default">
+    
+		<!-- 全局变量设置 -->
+    	<global-results>
+    		<result name="loginError">/jsp/login.jsp</result>
+    	</global-results>    	
+    	
+    	<!-- 首页 -->
+		<action name="home_*" class="com.manageplantfrom.action.HomeAction" method="{1}">
+			<result name="{1}">/jsp/home/{1}.jsp</result>
+		</action>
+		
+		<action name="user_*" class="com.manageplantfrom.action.UserAction" method="{1}">
+			<result name="logout">/jsp/login.jsp</result>
+			<result name="login">/jsp/home/main.jsp</result>
+			<result name="loginError">/jsp/login.jsp</result>
+		</action>
+		
+		<!-- 嫌疑人信息 -->
+		<action name="suspect_*" class="com.manageplantfrom.action.PHCSMP_Suspect_Action" method="{1}">
+			<result name="checkUser">/jsp/recordInformation/Personnel_information.jsp</result>
+			<result name="addSuspectInfor" type="redirectAction">suspect_loadInfor</result>
+			<result name="success">/index.jsp</result>
+			<result name="input">/index.jsp</result>
+			<result name="noLogin">/jsp/recordInformation/testError.jsp</result>
+			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
+		</action>
+		
+		
+		<!-- 人身检查记录 -->
+		<action name="personalCheck_*" class="com.manageplantfrom.action.PHCSMP_Personal_Check_Action" method="{1}">
+			<result name="input">/index.jsp</result><!-- 类型错误 -->
+			<result name="addCheckPersonInfor" type="redirectAction">personalCheck_loadInfor</result>
+			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
+		</action>
+		
+		<!-- 随身财物检查记录 -->
+		<action name="belonging_*" class="com.manageplantfrom.action.PHCSMP_BelongingS_Action" method="{1}">
+			<result name="addBelongingInfor" type="redirectAction">belonging_loadInfor</result>
+			<result name="loadInfor">/jsp/recordInformation/PHCSMP_BelongingS.jsp</result>
+			<result name="input">/index.jsp</result>
+		</action>
+		
+		<!-- 信息采集 -->
+		<action name="IC_*" class="com.manageplantfrom.action.Information_Collection_Action" method="{1}">
+			<result name="input">/index.jsp</result><!-- 类型错误 -->
+			<result name="addInformationCollection" type="redirectAction">IC_loadInfor</result>
+			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
+		</action>
+		
+		<!--询问、讯问、辨认、等候、休息、饮食等活动记录 -->
+		<action name="AR_*" class="com.manageplantfrom.action.Activity_Record_Action" method="{1}">
+			<result name="input">/index.jsp</result><!-- 类型错误 -->
+			<result name="addActivityRecordInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result><!-- 跳转到其他的action -->
+			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
+		</action>
+		
+		<!--离开办案区-->
+		<action name="LR_*" class="com.manageplantfrom.action.Leave_Recod_Action" method="{1}">
+			<result name="input">/index.jsp</result><!-- 类型错误 -->
+			<result name="addLeaveRecordInfor" type="redirectAction">suspectManage_suspectInforSummary</result><!-- /jsp/recordInformation/PHCSMP_Leave_Record.jsp -->
+			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
+		</action>
+		<!-- 生成嫌疑人信息报告 -->
+		<action name="GR_*" class="com.manageplantfrom.action.GenerateReportAction" method="{1}">
+			<result name="loadInfor">/jsp/recordInformation/allInformation.jsp</result>
+		</action>
+		
+		<!-- 读卡器信息采集 -->
+		<action name="readRfid" class="com.manageplantfrom.action.RFID_ReadAction" method="readRFID">
+		</action>
+		<!-- 嫌疑人综合信息管理 -->
+		<action name="suspectManage_*" class="com.manageplantfrom.action.SuspectManageAction" method="{1}">
+			<result name="loadInfor">/jsp/suspectmanage/historyRecord.jsp</result>
+			<result name="suspectInforSummary">/jsp/recordInformation/allInformation.jsp</result>
+			<!-- 查询嫌疑人信息 -->
+			<result name="searchsuspectInfor">/jsp/suspectmanage/historyRecord.jsp</result>
+		</action>
+	</package>
+
+</struts>

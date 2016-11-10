@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.manageplantfrom.entity">
+
+    <class name="PHCSMP_Dic_Treatment_Method" table="PHCSMP_Dic_Treatment_Method" lazy="false">
+    
+        <id name="Treatment_ID">
+            <generator class="native"/>
+        </id>
+        <property name="Treatment_Name"/>
+    </class>
+
+</hibernate-mapping>
