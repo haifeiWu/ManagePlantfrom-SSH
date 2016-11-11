@@ -53,5 +53,12 @@ public class Information_Collection_Action extends BaseAction<PHCSMP_Information
 		System.out.println("Information_Collection_Action:loadInfor");
 		return "loadInfor";
 	}
+	
+	//返回修改信息采集信息
+	public String updateInfor(){
+		System.out.println("档案编号："+request.getParameter("Suspect_ID"));
+		System.out.println("updateInfor：修改信息采集信息！");
+		return "updateInfor";
+	}
 
 }

@@ -25,8 +25,6 @@
 		 	index = num-2;
 		 	var tdnum = $(".active_check tr:last()").find("td:eq(0)");
 	
-		 	//获取第二行的全部内容
-		 	/* var addrow = $(".active_check tr:eq(1)").clone(); */
 		 	var addrow = "<tr>"
 				+"<td>"+index+"</td>"
 			+"<td><input type=time style='height:30px;width:65%;text-align:center;' /></td>"
@@ -87,10 +85,10 @@
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="#"><img src="images/fgreen_03.png" /></a>
-						<a href="#"><img src="images/fgreen_03.png" /></a>
-						<a href="#"><img src="images/fgreen_03.png" /></a>
-						<a href="#"><img src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
+						<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img src="images/fgreen_03.png" /></a>
+						<a href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"><img src="images/fgreen_03.png" /></a>
+						<a href="IC_updateInfor.action?Suspect_ID=haifieisi"><img src="images/fgreen_03.png" /></a>
+						<a href="#activityReco"><img src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
 						<span>出区登记</span>
 					</div>
 
@@ -162,7 +160,7 @@
 			</div>
 			<!--活动记录登记表-->
 			<div class="row">
-				<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">活动记录登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
+				<h4 id="activityReco" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">活动记录登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
 				<table class="active_check col-lg-12 col-md-10 col-sm-10">
 					<tr>
 						<td>序号</td>
@@ -220,7 +218,7 @@
 			<input type="submit" value="确认提交" class="sub" />
 			</div>
 		</form>
-			<div style="height: 100px;"></div>
+			<div style="height: 400px;"></div>
 		
 
 </body>

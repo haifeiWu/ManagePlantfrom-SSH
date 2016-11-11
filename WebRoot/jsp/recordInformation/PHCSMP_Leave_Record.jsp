@@ -70,11 +70,11 @@
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="#"><img src="images/fgreen_03.png" /></a>
-						<a href="#"><img src="images/fgreen_03.png" /></a>
-						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
-						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
-						<a href="#"><img src="images/3-inforCollection_07.png" /></a>
+						<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img src="images/fgreen_03.png" /></a>
+						<a href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"><img src="images/fgreen_03.png" /></a>
+						<a href="IC_updateInfor.action?Suspect_ID=haifieisi"><img src="images/3-inforCollection_03.png" /></a>
+						<a href="AR_updateInfor.action?Suspect_ID=haifieisi"><img src="images/3-inforCollection_03.png" /></a>
+						<a href="#leaveReco"><img src="images/3-inforCollection_07.png" /></a>
 					</div>
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
@@ -143,9 +143,9 @@
 					</div>
 				</div>
 			</div>
-			<!--活动记录登记表-->
+			<!--离开办案区登记表-->
 			<div class="row">
-				<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">离开办案区登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
+				<h4 id="leaveReco" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">离开办案区登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
 				<p style="color: #389AC7;margin-top: 10%;margin-left:4%;font-size: large;">临时离开办案区</p>
 				<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
 					<tr>

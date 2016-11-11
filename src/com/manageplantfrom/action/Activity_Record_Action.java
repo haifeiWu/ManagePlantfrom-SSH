@@ -96,6 +96,13 @@ ServletResponseAware,ServletContextAware{
 		System.out.println("Activity_Record_Action:loadInfor");
 		return "loadInfor";
 	}
+	
+	//返回修改活动记录信息
+	public String updateInfor(){
+		System.out.println("档案编号："+request.getParameter("Suspect_ID"));
+		System.out.println("updateInfor：修改活动记录信息！");
+		return "updateInfor";
+	}
 
 	public List<PHCSMP_Activity_Record> getActivity() {
 		return activity;

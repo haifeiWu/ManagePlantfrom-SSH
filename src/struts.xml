@@ -59,6 +59,7 @@
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<result name="addInformationCollection" type="redirectAction">IC_loadInfor</result>
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
+			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 		</action>
 		
 		<!--询问、讯问、辨认、等候、休息、饮食等活动记录 -->
@@ -66,6 +67,7 @@
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<result name="addActivityRecordInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result><!-- 跳转到其他的action -->
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
+			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 		</action>
 		
 		<!--离开办案区-->

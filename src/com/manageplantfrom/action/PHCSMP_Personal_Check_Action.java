@@ -82,7 +82,7 @@ public class PHCSMP_Personal_Check_Action extends BaseAction<PHCSMP_Personal_Che
 		
 		return "loadInfor";
 	}
-	
+	//返回修改人身检查信息
 	public String updateInfor(){
 		System.out.println("档案编号："+request.getParameter("Suspect_ID"));
 		System.out.println("updateInfor：修改人身检查信息！");
