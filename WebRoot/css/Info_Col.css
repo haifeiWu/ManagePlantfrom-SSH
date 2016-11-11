@@ -134,8 +134,8 @@ input{
 
 textarea{
 	overflow: hidden;resize: none;width: 40%;height: 50px;
-	border:1.5px solid #c1c1c1;
-	-webkit-box-shadow:1px 1px 2px rgba(54,156,199,0.8)inset;
+/* 	border:1.5px solid #c1c1c1;
+	-webkit-box-shadow:1px 1px 2px rgba(54,156,199,0.8)inset; */
 	
 }
 .Message input{

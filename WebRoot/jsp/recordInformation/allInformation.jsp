@@ -8,7 +8,6 @@
 	<title>嫌疑人全部信息表</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/Suspect_All.css" />
-	<!--<link rel="stylesheet" href="css/media_home.css" />-->
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/Suspect_All.js"></script>
@@ -323,15 +322,6 @@
 								<td><input type="text" value="房间钥匙" /></td>
 								<td><input type="number" value="5" /></td>
 							</tr>
-							<tr>
-								<td>2</td>
-								<td><a>+添加</a></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
 						</table>
 						<ul class="signature col-lg-12 col-md-10 col-sm-10">
 							<li>办案人员签字:<br /><input type="text" /></li>
@@ -418,16 +408,6 @@
 							<td><input type="text" /></td>
 							<td></td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td><a>+添加</a></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
 					</table>
 				</div>
 			</form>
@@ -458,16 +438,6 @@
 								</td>
 								<td><input type="text" /></td>
 								<td><input type="time" />时间</td>
-
-							</tr>
-							<tr>
-								<td>2</td>
-								<td>
-									<a>+添加</a>
-								</td>
-								<td></td>
-								<td></td>
-								<td></td>
 
 							</tr>
 						</table>

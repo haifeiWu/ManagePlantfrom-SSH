@@ -48,5 +48,5 @@ $(function(){
 //	设置date,time 的样式
 	$(".final_Leave tr:eq(1) td:eq(0) input").css({"width":"50%","border":"1px solid #f8f8f8"});
 	
-	$(".final_Leave tr:gt(3) input").css({"width":"100%","border":"1px solid #f8f8f8"});
+	$(".final_Leave tr:gt(3) input").css({"width":"40%","border":"1px solid #f8f8f8","text-align":"center"});
 });
