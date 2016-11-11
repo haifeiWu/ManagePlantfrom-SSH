@@ -78,6 +78,11 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		}else{
 			return "noLogin";
 		}
-		
+	}
+	
+	public String updateInfor(){
+		System.out.println("档案编号："+request.getParameter("Suspect_ID"));
+		System.out.println("updateInfor：修改嫌疑人信息！");
+		return "updateInfor";
 	}
 }

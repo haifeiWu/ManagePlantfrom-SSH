@@ -39,11 +39,11 @@
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
-						<img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
-						<img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
-						<img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
-						<img src="${pageContext.request.contextPath }/images/3-inforCollection_07.png" style="margin-left: -14%;" />
+						<a href="#identityInfor"><img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" /></a>
+						<a href="#identityInfor"><img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" /></a>
+						<a href="#personInfor"><img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" /></a>
+						<a href="#enterInfor"><img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" /></a>
+						<a href="#confirm"><img src="${pageContext.request.contextPath }/images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
 						<span>入区登记完成</span>
 					</div>
 
@@ -61,7 +61,7 @@
 			<div class="container">
 				<div class="row">
 					<!--身份信息标题-->
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">身份证信息</h4>
+					<h4 id="identityInfor" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">身份证信息</h4>
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img style="width: 45%; height: 42%; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);" src="images/1-zhengmian_04.png" />
 						<img style="width: 53%; height: 90%; -webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);" src="images/1-cemian_06.png" />
@@ -114,7 +114,7 @@
 					</div>
 				</div>
 				<div class="row_1">
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
+					<h4 id="personInfor" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
 					<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
 							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">证件类型：</td>
@@ -142,7 +142,7 @@
 					</table>
 				</div>
 				<div class="row_2">
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
+					<h4 id="enterInfor" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
 					<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
 							<td>入区时间</td>
@@ -176,7 +176,7 @@
 					</table>
 				</div>
 				<div class="row_3">
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">干警签名确认</h4>
+					<h4 id="confirm" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">干警签名确认</h4>
 					<table class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
 							<td>办案民警：</td>
@@ -188,7 +188,7 @@
 					<input class="btn" type="submit" value="确认提交" onclick="Logger()"/>
 				</div>
 			</div>
-			<div class="row_4" style="height: 100px;"></div>
+			<div class="row_4" style="height: 480px;"></div>
 		</div>
 	</form>
 </body>

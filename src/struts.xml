@@ -32,10 +32,10 @@
 		<action name="suspect_*" class="com.manageplantfrom.action.PHCSMP_Suspect_Action" method="{1}">
 			<result name="checkUser">/jsp/recordInformation/Personnel_information.jsp</result>
 			<result name="addSuspectInfor" type="redirectAction">suspect_loadInfor</result>
-			<result name="success">/index.jsp</result>
 			<result name="input">/index.jsp</result>
 			<result name="noLogin">/jsp/recordInformation/testError.jsp</result>
 			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
+			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result><!-- 返回修改嫌疑人信息 -->
 		</action>
 		
 		
@@ -44,6 +44,7 @@
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<result name="addCheckPersonInfor" type="redirectAction">personalCheck_loadInfor</result>
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
+			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 		</action>
 		
 		<!-- 随身财物检查记录 -->

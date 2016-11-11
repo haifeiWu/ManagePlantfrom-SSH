@@ -41,11 +41,11 @@
 				<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 				<!--引入状态截图-->
 				<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-					<img src="images/3-inforCollection_03.png" />
-					<img src="images/3-inforCollection_03.png" />
-					<img src="images/3-inforCollection_03.png" />
-					<img src="images/3-inforCollection_03.png" />
-					<img src="images/3-inforCollection_07.png" style="margin-left: -14%;" />
+					<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img src="images/3-inforCollection_03.png" /></a>
+					<a href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"><img src="images/3-inforCollection_03.png" /></a>
+					<a href="#InforCollect"><img src="images/3-inforCollection_03.png" /></a>
+					<a href="#InforCollect"><img src="images/3-inforCollection_03.png" /></a>
+					<a href="#InforCollect"><img src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
 					<span>活动记录登记表</span>
 				</div>
 
@@ -123,7 +123,7 @@
 			<hr style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%; margin-left: 0%;" />
 			<div class="container">
 				<div class="row">
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">信息采集<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
+					<h4 id="InforCollect" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">信息采集<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
 					<table class="info_collect col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>信息采集:</td>
@@ -159,7 +159,7 @@
 						</tr>
 					</table>
 					<input class="sub" type="submit" value="确认提交" onclick="Logger()" />
-					<div class="bottom" style="height: 100px;"></div>
+					<div class="bottom" style="height: 480px;"></div>
 				</div>
 			</div>
 		</div>

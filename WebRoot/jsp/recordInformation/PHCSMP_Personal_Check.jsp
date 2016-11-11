@@ -79,11 +79,11 @@
 						<li>100%</li>
 					</ul>
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
-						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
-						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
-						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
-						<a href="#"><img src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
+						<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img src="images/3-inforCollection_03.png" /></a>
+						<a href="#readMe"><img src="images/3-inforCollection_03.png" /></a>
+						<a href="#inspect"><img src="images/3-inforCollection_03.png" /></a>
+						<a href="#belongInspect"><img src="images/3-inforCollection_03.png" /></a>
+						<a href="#belongInspect"><img src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
 						<span>信息采集登记表</span>
 					</div>
 					<!--进度的信息显示-->
@@ -160,7 +160,7 @@
 				
 				<hr style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%; margin-left: 0%;" />
 				<div class="row">
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">自述情况<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
+					<h4 id="readMe" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">自述情况<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
 					<table class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否饮酒:</td>
@@ -182,7 +182,7 @@
 							<td></td>
 						</tr>
 					</table>
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">检查情况<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
+					<h4 id="inspect" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">检查情况<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
 					<table class="checked_state col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td style="width: 20%;">体表有伤 &nbsp;&nbsp;<input type="checkbox" name="Check_Situation" /></td>
@@ -200,7 +200,7 @@
 							<td colspan="3" style="text-align: center;">被检查人/监护人：<br><input type="text" value="" /></td>
 						</tr>
 					</table>
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">随身财物检查登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
+					<h4 id="belongInspect" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">随身财物检查登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
 					<table id="woods_check" class="woods_check col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>序号</td>
@@ -250,7 +250,7 @@
 					</ul>
 				</div>
 				<input class="sub" type="submit" value="确认提交" onclick="Logger()"/>
-				<div class="row_2 col-lg-12" style="height: 100px;"></div>
+				<div class="row_2 col-lg-12" style="height: 480px;"></div>
 			</div>
 		</div>
 	</form>

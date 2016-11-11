@@ -77,7 +77,6 @@
 				<div class="row">
 					<!--进度的数据信息-->
 					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
-						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
@@ -88,7 +87,6 @@
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
 						<a href="#"><img src="images/fgreen_03.png" /></a>
 						<a href="#"><img src="images/fgreen_03.png" /></a>
 						<a href="#"><img src="images/fgreen_03.png" /></a>
@@ -98,7 +96,6 @@
 
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
-						<li>嫌疑人入所</li>
 						<li>入区登记</li>
 						<li>人身检查</li>
 						<li>信息采集</li>

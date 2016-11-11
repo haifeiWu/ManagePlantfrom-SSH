@@ -32,9 +32,8 @@ margin: 0px;
 
 /*进度条数据显示*/
 #number{
-	/*border: 1px solid red;*/
 	width: 105%;
-	margin-left: 78px;
+    margin-left: 104px;
 }
 #number li{
 	position: relative;
@@ -63,8 +62,8 @@ margin: 0px;
 /*进度条文本信息显示*/
 #txt{
 	width: 100%;
-	margin-left: 72px;
-	margin-top: -2%;
+    margin-left: 80px;
+    margin-top: -2%;
 }
 #txt li{
 	position: relative;
