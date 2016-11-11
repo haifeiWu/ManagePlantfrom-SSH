@@ -42,7 +42,7 @@
 				<!--引入状态截图-->
 				<div id="state" class="col-lg-12 col-md-10 col-sm-10">
 					<img src="images/3-inforCollection_03.png" />
-					<img src="images/fgreen_03.png" />
+					<img src="images/3-inforCollection_03.png" />
 					<img src="images/3-inforCollection_03.png" />
 					<img src="images/3-inforCollection_03.png" />
 					<img src="images/3-inforCollection_07.png" style="margin-left: -14%;" />
@@ -52,8 +52,8 @@
 				<!--进度的信息显示-->
 				<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
 					<li>入区登记</li>
-					<li>信息是否采集</li>
-					<li>采集项目登记</li>
+					<li>人身安全检查</li>
+					<li>信息采集及项目登记</li>
 					<li>信息入库</li>
 					<li>检查对比</li>
 				</ul>

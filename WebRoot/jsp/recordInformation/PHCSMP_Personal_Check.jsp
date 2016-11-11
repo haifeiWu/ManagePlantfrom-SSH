@@ -84,7 +84,7 @@
 						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
 						<a href="#"><img src="images/3-inforCollection_03.png" /></a>
 						<a href="#"><img src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
-						<span>信息采集<br>登记表</span>
+						<span>信息采集登记表</span>
 					</div>
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">

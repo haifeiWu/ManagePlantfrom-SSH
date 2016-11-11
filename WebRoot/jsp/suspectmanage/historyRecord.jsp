@@ -22,7 +22,7 @@
 			<p class="st_search col-lg-12 col-md-12 col-sm-12 text-center" style="margin: 0px;padding: 0px;">
 				<div id="txt_search" class="col-lg-12 col-md-12 col-sm-12">嫌疑人搜索</div>
 				<input type="search" id="search" />
-				<a href="#">
+				<a href="#"><!-- 响应搜索的action -->
 					<div id="btn_search"><img src="./images/search_03.png" /></div>
 				</a>
 			</p>
@@ -48,24 +48,10 @@
 						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
 						<p><input type="text" value="张德古拉.买买提" /><br>已入区<input type="time" />小时</p>
 					</td>
+					
 				</tr>
 				<tr>
-					<td>
-						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
-						<p><input type="text" value="张德古拉.买买提" /><br>已入区<input type="time" />小时</p>
-					</td>
-					<td>
-						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
-						<p><input type="text" value="张德古拉.买买提" /><br>已入区<input type="time" />小时</p>
-					</td>
-					<td>
-						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
-						<p><input type="text" value="张德古拉.买买提" /><br>已入区<input type="time" />小时</p>
-					</td>
-					<td>
-						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
-						<p><input type="text" value="张德古拉.买买提" /><br>已入区<input type="time" />小时</p>
-					</td>
+					
 				</tr>
 			</table>
 		</div>

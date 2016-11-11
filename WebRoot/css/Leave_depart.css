@@ -45,7 +45,7 @@ margin: 0px;
 #number{
 	/*border: 1px solid red;*/
 	width: 105%;
-	margin-left: 50px;
+    margin-left: 130px;
 }
 #number li{
 	position: relative;
@@ -59,8 +59,8 @@ margin: 0px;
 
 #state{
 	width: 95%;
-	height: 78px;
-	margin-left: 50px;
+    height: 78px;
+    margin-left: 130px;
 }
 #state img{
 	margin-left:0px ;
@@ -73,8 +73,8 @@ margin: 0px;
 /*进度条文本信息显示*/
 #txt{
 	width: 100%;
-	margin-left: -14px;
-	margin-top: -2%;
+    margin-left: 67px;
+    margin-top: -2%;
 }
 #txt li{
 	position: relative;
