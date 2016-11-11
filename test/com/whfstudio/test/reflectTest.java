@@ -6,7 +6,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.manageplantfrom.entity.PHCSMP_Activity_Record;
+import com.haifeiWu.entity.PHCSMP_Activity_Record;
 
 public class reflectTest {
 	public static int count = 0;

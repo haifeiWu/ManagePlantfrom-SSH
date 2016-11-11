@@ -9,7 +9,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.junit.Test;
 
-import com.manageplantfrom.utils.MyHibernateSessionFactory;
+import com.haifeiWu.utils.MyHibernateSessionFactory;
 
 public class HibrenateTest {
 	public static void main(String[] args) {

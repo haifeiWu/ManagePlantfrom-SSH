@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.manageplantfrom.entity.PHCSMP_Suspect;
-import com.manageplantfrom.service.SuspectService;
-import com.manageplantfrom.serviceImple.SuspectServiceImple;
+import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.serviceImple.SuspectServiceImple;
 
 public class testFind {
 	@Test

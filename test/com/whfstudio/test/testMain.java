@@ -9,13 +9,13 @@ import java.util.Map;
 import org.junit.Test;
 
 import com.alibaba.fastjson.JSON;
-import com.manageplantfrom.dao.BandInforDao;
-import com.manageplantfrom.dao.RoomInforDao;
-import com.manageplantfrom.daoImple.BandInforDaoImple;
-import com.manageplantfrom.daoImple.RoomInforDaoImple;
-import com.manageplantfrom.service.SuspectService;
-import com.manageplantfrom.serviceImple.SuspectServiceImple;
-import com.manageplantfrom.utils.HttpRequest;
+import com.haifeiWu.dao.BandInforDao;
+import com.haifeiWu.dao.RoomInforDao;
+import com.haifeiWu.daoImple.BandInforDaoImple;
+import com.haifeiWu.daoImple.RoomInforDaoImple;
+import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.serviceImple.SuspectServiceImple;
+import com.haifeiWu.utils.HttpRequest;
 
 public class testMain {
 public static void main(String[] args) throws IOException, InterruptedException {
