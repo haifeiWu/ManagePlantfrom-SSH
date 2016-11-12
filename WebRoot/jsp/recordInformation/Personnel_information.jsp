@@ -13,6 +13,13 @@
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/jqCss_pinfo.js"></script>
+	
+	<script type="text/javascript">
+		 $(document).ready(function(){
+		 	$("#identityImg").attr('src','images/fgreen_03.png'); 
+		 	$("#identityImg1").attr('src','images/fgreen_03.png'); 
+		 });
+	</script>
 </head>
 <body>
 	<form class="container" action="${pageContext.request.contextPath }/suspect_addSuspectInfor.action" method="POST">
@@ -39,11 +46,11 @@
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="#identityInfor"><img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" /></a>
-						<a href="#identityInfor"><img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" /></a>
-						<a href="#personInfor"><img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" /></a>
-						<a href="#enterInfor"><img src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" /></a>
-						<a href="#confirm"><img src="${pageContext.request.contextPath }/images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
+						<a href="#identityInfor"><img id="identityImg" src="images/3-inforCollection_03.png" /></a>
+						<a href="#identityInfor"><img id="identityImg1" src="images/3-inforCollection_03.png" /></a>
+						<a href="#personInfor"><img id="personInforImg" src="images/3-inforCollection_03.png" /></a>
+						<a href="#enterInfor"><img id="enterInforImg" src="images/3-inforCollection_03.png" /></a>
+						<a href="#confirm"><img id="confirmImg" src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
 						<span>入区登记完成</span>
 					</div>
 

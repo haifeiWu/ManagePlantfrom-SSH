@@ -159,6 +159,7 @@
 				</ul>
 			</form>
 			<hr style="width: 100%;border: 0.5px solid #389AC7;" />
+			<a class="col-lg-12 col-md-12 col-sm-12" id="download_All" href="#">嫌疑人入所视频文件下载</a>
 			<!-- 嫌疑人入区登记 -->
 			<form class="row">
 				<h4 id="Person_info" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">1、入区登记报告<span class="show">隐藏信息</span></h4>

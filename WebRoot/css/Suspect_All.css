@@ -79,6 +79,12 @@ h1 img{
 	width:20%;margin-top: 0%;margin-left: 78%;padding: 0px;border: none;color: #f69d1f;
 }
 
+/*下载全部信息链接*/
+#download_All{
+	margin-left: 92%;
+	padding: 0px;
+}
+
 /*进度条文本信息显示*/
 #txt{
 	width: 100%;
@@ -144,8 +150,10 @@ input{
 }
 
 textarea{
-	
 	overflow: hidden;resize: none;width: 40%;height: 50px;
+	border:1.5px solid #c1c1c1;
+	-webkit-box-shadow:1px 1px 2px rgba(54,156,199,0.8)inset;
+	
 }
 .Message input{
 	width: 50%;
@@ -228,10 +236,15 @@ textarea{
 	width: 80%;
 	margin-left: 10%;
 	margin-top: 1%;
+	text-align: center;
 }
 #people_Mes tr td{
 	border: 1px solid #389AC7;
 	height: 30px;
+}
+
+.communite_Mes{
+	border-bottom: 1px solid #389AC7; padding-bottom: 3px;color: #f69d1f;width: 14%;
 }
 /*自述情况*/
 .self_state{
@@ -249,6 +262,9 @@ margin-left: 2%;font-size: large;color: #389ac7;
 	width: 20%;
 	height: 25px;
 	margin-left: -15px;
+}
+.checkbox input{
+	height: 23px;
 }
 /*体检表样式*/
 .check{
@@ -272,6 +288,13 @@ float: inherit;
 	padding: 0px;
 	
 }
+.checked_state tr input[type='text']{
+	border: none;
+	margin-left: 1%;
+	border-bottom: 1.5px solid #389AC7;
+	background: #fff;
+}
+
 fieldset textarea{
 	width: 60%;
 	height: 120px;
@@ -285,7 +308,7 @@ padding-bottom: 3px;
 color: #f69d1f;
 width: 18%;
 margin-top: 3%;
-float: inherit;
+/*float: inherit;*/
 }
 /*随身物品检查登记表*/
 .woods_check{
@@ -306,6 +329,13 @@ float: inherit;
 	list-style: none;
 	float: left;
 	margin-left: 14%;
+}
+.signature li input{
+	border: none;
+	margin-left: 1%;
+	border-bottom: 1.5px solid #389AC7;
+	background: #fff;
+	padding-bottom: 2px;
 }
 
 /*信息采集报告*/

@@ -21,22 +21,24 @@ $(function(){
 	$(".transient_Leave tr:first").css({"background":"#0070c0","color":"#ffffff"})
 	
 
-	$(".final_Leave li:even").css("width","30%");
+	// $(".final_Leave li:even").css("width","30%");
 
-	$(".final_Leave li:odd").css("width","45%");
+	// $(".final_Leave li:odd").css("width","45%");
 
-	$(".final_Leave li:first").css({"background":"#0070c0","color":"#ffffff"});
-	$(".final_Leave li:eq(1)").css({"background":"#0070c0","color":"#ffffff"});
+	// $(".final_Leave li:first").css({"background":"#0070c0","color":"#ffffff"});
+	// $(".final_Leave li:eq(1)").css({"background":"#0070c0","color":"#ffffff"});
 
-	$(".final_Leave input").css({"height":"28px","width":"40%"});
-	$(".final_Leave li:eq(2) input").css({"width":"80px","margin-left":"10px"});
-	$(".final_Leave li:eq(5) input").css({"width":"40px","height":"10px"});
-	$(".final_Leave li:eq(6)").css("height","80px");
-	$(".final_Leave li:eq(7)").css("height","80px");
+	// $(".final_Leave input").css({"height":"28px","width":"40%"});
+	// $(".final_Leave li:eq(2) input").css({"width":"80px","margin-left":"10px"});
+	// $(".final_Leave li:eq(5) input").css({"width":"40px","height":"10px"});
+	// $(".final_Leave li:eq(6)").css("height","80px");
+	// $(".final_Leave li:eq(7)").css("height","80px");
 
 
-	$(".final_Leave tr").find("td:eq(0)").css({"width":"30%","text-align":"right"});
-	//	设置date,time 的样式
+	$(".final_Leave tr").find("td:eq(0)").css({"width":"40%","text-align":"right"});
+	
+	$(".final_Leave input[type='checkbox']").css({"width":"40px","height":"20px"});
+		//	设置date,time 的样式
 	//设置所有.human_mes中span标签的属性样式
 	$(".human_Mes span").css({"color":"rgb(211,26,23)","font-size":"small","margin-left":"90%","margin-top":"-28px"});
 	$(".human_Mes input").css({"color":"#f69d1f","width":"80px","height":"30px","background":"none",

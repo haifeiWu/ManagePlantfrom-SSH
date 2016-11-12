@@ -186,7 +186,49 @@
 			<!--最终离开办案区的信息表-->
 			<div class="row">
 				<p style="color: #389AC7;margin-top: 0%;margin-left:4%;font-size: large;">最终离开办案区:</p>
-				 <ol class="final_Leave col-lg-12 col-md-10 col-sm-10">
+				
+				<table class="final_Leave col-lg-12 col-md-12 col-sm-12">
+					<tr>
+						<td>最终离开时间</td>
+						<td>离开原因</td>
+					</tr>
+					<tr>
+						<td><input type="date" name="name.date" /><input type="time" name="name.time" /></td>
+						<td>
+							<select name="name.leavereason">
+									<option>查证结束</option>
+									<option>刑拘</option>
+									<option>行政拘留</option>
+									<option>警告</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>随身物品处理情况:</td>
+						<td>
+							<input type="radio" name="name.back" />全部反还
+							<input type="radio" name="name.back" />部分反还
+							<input type="radio" name="name.back" />未反还
+						</td>
+					</tr>
+					<tr>
+						<td>未反还物品情况记载:</td>
+						<td><textarea></textarea></td>
+					</tr>
+					<tr>
+						<td>领取人签名:</td>
+						<td><input type="text" name="name.signature" /></td>
+					</tr>
+					<tr>
+						<td>身份证号码:</td>
+						<td><input type="text" name="name.phoneNum" /></td>
+					</tr>
+					<tr>
+						<td>领取时间:</td>
+						<td><input type="date" name="name.getdate" /></td>
+					</tr>
+				</table>
+				<!--  <ol class="final_Leave col-lg-12 col-md-10 col-sm-10">
 					<li>最终离开时间</li>
 					<li>离开原因</li>
 					<li>
@@ -216,7 +258,7 @@
 					<li><input type="text" name="Recipient_Person_Number" /></li>
 					<li>领取时间:</li>
 					<li><input type="time" name="" /></li>
-				</ol>
+				</ol> -->
 			</div>
 			<hr style="margin-top: 3%;border: 1px solid darkgray;" />
 			<p id="signature">管理员:<input type="text" name="" /></p>
