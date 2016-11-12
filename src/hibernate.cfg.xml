@@ -34,45 +34,38 @@
 	<property name="hibernate.format_sql">true</property>
 	<property name="hibernate.use_sql_comments"></property>
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Activity_Record.hbm.xml" />
-	<mapping resource="com/manageplantfrom/entity/PHCSMP_Band.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Activity_Record.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Band.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_BelongingS.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Cabinet.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_CardReader.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_BelongingS.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Action_Cause.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Cabinet.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Collection_Item.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_CardReader.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Dic_IdentifyCard_Type.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Dic_Action_Cause.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Inspection_Situation.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Dic_Collection_Item.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Keeping_Way.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Dic_IdentifyCard_Type.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Leaving_Reason.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Dic_Inspection_Situation.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Treatment_Method.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Duties.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Dic_Keeping_Way.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Information_Collection.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Leave_Record.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Dic_Leaving_Reason.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Personal_Check.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Role.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Room.hbm.xml" />
 	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Dic_Treatment_Method.hbm.xml" />
-	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Duties.hbm.xml" />
-	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Information_Collection.hbm.xml" />
-	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Leave_Record.hbm.xml" />
-	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Personal_Check.hbm.xml" />
-	<mapping resource="com/manageplantfrom/entity/PHCSMP_Role.hbm.xml" />
-	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Staff_In_Role.hbm.xml" />
-	<mapping resource="com/manageplantfrom/entity/PHCSMP_Staff.hbm.xml" />
-	<mapping
-		resource="com/manageplantfrom/entity/PHCSMP_Suspect.hbm.xml" />
-	<mapping resource="com/manageplantfrom/entity/PHCSMP_Room.hbm.xml" />
-	<mapping
-		resource="com/manageplantfrom/entity/Temporary_Leave.hbm.xml" />
+		resource="com/haifeiWu/entity/PHCSMP_Staff_In_Role.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Staff.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Suspect.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/Temporary_Leave.hbm.xml" />
 
 </session-factory>
 

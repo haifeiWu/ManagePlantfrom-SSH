@@ -21,31 +21,37 @@
 			<!--搜索框设置-->
 			<p class="st_search col-lg-12 col-md-12 col-sm-12 text-center" style="margin: 0px;padding: 0px;">
 				<div id="txt_search" class="col-lg-12 col-md-12 col-sm-12">嫌疑人搜索</div>
-				<input type="search" id="search" />
+				<input type="search" name="searchInfor" id="search" />
 				<a href="#"><!-- 响应搜索的action -->
 					<div id="btn_search"><img src="./images/search_03.png" /></div>
 				</a>
 			</p>
 		</div>
+	</form>
+	<div class="container">
+		<div class="row" style="margin-top: 3%;text-align: center;">
+			<a href="#checkingPerson" style="font-size: larger;margin-right: 8%;">待查嫌疑人</a>    
+			<a href="#checkedPerson" style="font-size: larger;">历史嫌疑人</a>
+		</div>
 		<hr style="width: 100%; border: 0.5px solid #389AC7; margin-top: 5%;" />
 		<div class="row">
-			<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">待查嫌疑人</h4>
+			<h4 id="checkingPerson" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">待查嫌疑人</h4>
 			<table class="wait_check col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<tr>
 					<td>
-						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
-						<p><a href="${pageContext.request.contextPath }/GR_loadInfor.action" style="color:#f69d1f;font-size: large;">德古拉</a><br/><span>2</span>小时</p>
+						<img src="images/1-zhengmian_04.png" />
+						<p><a href="${pageContext.request.contextPath }/GR_loadInfor.action?personName=haifeisi&suspectID=haifei125345" style="color:#f69d1f;font-size: large;">德古拉</a><br/><span>2</span>小时</p>
 					</td>
 					<td>
-						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
+						<img src="images/1-zhengmian_04.png" />
 						<p><a href="#" style="color:#f69d1f;font-size: large;">德古拉</a><br/><span>2</span>小时</p>
 					</td>
 					<td>
-						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
+						<img src="images/1-zhengmian_04.png" />
 						<p><input type="text" value="雅美佳.买买提" /><br>已入区<input type="time" />小时</p>
 					</td>
 					<td>
-						<img src="${pageContext.request.contextPath }/images/1-zhengmian_04.png" />
+						<img src="images/1-zhengmian_04.png" />
 						<p><input type="text" value="张德古拉.买买提" /><br>已入区<input type="time" />小时</p>
 					</td>
 					
@@ -57,7 +63,7 @@
 		</div>
 		<p id="more" onclick="addTab()"><a href="#">更多</a></p>
 		<div class="row">
-			<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">历史嫌疑人查询</h4>
+			<h4 id="checkedPerson" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">历史嫌疑人查询</h4>
 			<table class="total col-lg-12 col-md-10 col-sm-12">
 				<tr>
 					<td>入区人员统计时间</td>
@@ -120,6 +126,7 @@
 			</table>
 		</div>
 		<p id="smore" onclick="addTable()"><a href="#">更多</a></p>
-	</form>
+		<div class="row_2 col-lg-12" style="height: 450px;"></div>
+	</div>
 </body>
 </html>

@@ -56,8 +56,38 @@ ServletResponseAware,ServletContextAware {
 	
 	public String loadInfor(){
 		System.out.println("嫌疑人入区信息报告");
+		
+//		System.out.println("嫌疑人姓名："+request.getParameter("personName"));
+//		System.out.println("档案编号："+request.getParameter("suspectID"));
+		/*
+		 * 加载当前嫌疑人的所有的信息
+		 */
+//		//获取档案编号
+//		String suspectId = (String) request.getAttribute("suspectId");
+//		//查找嫌疑人入区信息
+//		PHCSMP_Suspect suspect = suspectService.findInforBySuspetcId(suspectId);
+//		//嫌疑人随身物品检查信息
+//		PHCSMP_BelongingS belongingS = inforService.findInforBySuspetcId(suspectId);
+//		//嫌疑人人身检查信息
+//		PHCSMP_Personal_Check personal_Check = checkService.findInforBySuspetcId(suspectId);
+//		//嫌疑人询问讯问记录信息
+//		PHCSMP_Activity_Record activity_Record = activityRecordService.findInforBySuspetcId(suspectId);
+//		//嫌疑人信息采集记录
+//		PHCSMP_Information_Collection information_Collection = collectionService.findInforBySuspetcId(suspectId);
+//		//嫌疑人出区信息记录
+//		PHCSMP_Leave_Record leave_Record = leaveRecodService.findInforBySuspetcId(suspectId);
+//		
+//		//将查找到的信息放入request中，然后从页面加载
+//		request.setAttribute("suspect",suspect );
+//		request.setAttribute("belongingS",belongingS );
+//		request.setAttribute("personal_Check",personal_Check );
+//		request.setAttribute("activity_Record",activity_Record );
+//		request.setAttribute("information_Collection",information_Collection );
+//		request.setAttribute("leave_Record",leave_Record );
 		return "loadInfor";
 	}
+	
+	
 	
 	public String suspectInforSummary(){
 		/*

@@ -221,39 +221,36 @@
 						<table id="people_Mes" class="col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td>身份证种类:</td>
-								<td colspan="3"><input type="checkbox" value="护照" />护照</td>
+								<td colspan="4"><input type="checkbox" value="护照" />护照</td>
 							</tr>
 							<tr>
 								<td>证件号码:</td>
-								<td colspan="3"><input type="text" value="12319283279" /></td>
+								<td colspan="4"><input type="text" value="12319283279" /></td>
 							</tr>
 							<tr>
 								<td>现住址:</td>
-								<td colspan="3"><input type="text" value="六道河三里沟光荣村7组" /></td>
+								<td colspan="4"><input type="text" value="六道河三里沟光荣村7组" /></td>
 							</tr>
 							<tr>
 								<td>联系方式:</td>
-								<td colspan="3"><input type="text" value="15337898699" /></td>
+								<td colspan="4"><input type="text" value="15337898699" /></td>
 							</tr>
 							<tr>
 								<td>入区时间:</td>
 								<td><input type="date" /><input type="time" /></td>
 								<td>RFID:</td>
-								<td><input type="text" value="RD312" /></td>
+								<td colspan="4"><input type="text" value="RD312" /></td>
 							</tr>
 							<tr>
 								<td rowspan="2">进入办案区原因:</td>
 								<td>案由:</td>
-								<td colspan="2"><input type="text" value="迫于我公安强大通缉压力自首" /></td>
-							</tr>
-							<tr>
-								<td colspan="4"><input type="checkbox" value="投案自首" />投案自首</td>
+								<td colspan="4"><input type="text" value="迫于我公安强大通缉压力自首" /></td>
 							</tr>
 							<tr>
 								<td>办案民警签名:</td>
-								<td><input type="text" /></td>
+								<td><input type="text" readonly="readonly"/></td>
 								<td>管理员签名:</td>
-								<td><input type="text" /></td>
+								<td><input type="text" readonly="readonly"/></td>
 							</tr>
 						</table>
 					</div>
