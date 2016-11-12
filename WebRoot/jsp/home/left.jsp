@@ -127,7 +127,7 @@ $(document).ready(function (){
     
     <dd><div class="title"><span><img src="images/leftico04.png" /></span>系统日志管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath}/Log_execute.action" target="rightFrame" >查看日志</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>

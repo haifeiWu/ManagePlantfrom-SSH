@@ -117,7 +117,7 @@ public class PHCSMP_Leave_Record implements Serializable {
 	
 	@Override
 	public String toString() {
-		return this.Suspect_ID+" "+this.Leave_Reason+""+this.Recipient_Person;
+		return this.Suspect_ID+" "+this.Leave_Reason+" "+this.Recipient_Person;
 	}
 	public Time getLeave_Hour() {
 		return Leave_Hour;

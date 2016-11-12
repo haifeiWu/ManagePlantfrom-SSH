@@ -12,11 +12,26 @@
 
     <package name="default" namespace="/" extends="struts-default">
     
+    	<interceptors>
+            <!-- 定义权限控制拦截器 -->
+            <interceptor name="Interceptor_LogInfo"
+                class="com.haifeiWu.utils.Interceptor_LogInfo" />
+            <!-- 定义一个包含权限控制的拦截器栈 -->
+            <interceptor-stack name="mydefault">
+                <interceptor-ref name="defaultStack" />
+                <interceptor-ref name="Interceptor_LogInfo" />
+            </interceptor-stack>
+        </interceptors>
+        
+        <!-- 定义默认拦截器 -->
+        <default-interceptor-ref name="mydefault" />
+		
 		<!-- 全局变量设置 -->
     	<global-results>
     		<result name="loginError">/jsp/login.jsp</result>
     	</global-results>    	
     	
+		
     	<!-- 首页 -->
 		<action name="home_*" class="com.haifeiWu.action.HomeAction" method="{1}">
 			<result name="{1}">/jsp/home/{1}.jsp</result>

@@ -66,6 +66,7 @@
 	<mapping resource="com/haifeiWu/entity/PHCSMP_Staff.hbm.xml" />
 	<mapping resource="com/haifeiWu/entity/PHCSMP_Suspect.hbm.xml" />
 	<mapping resource="com/haifeiWu/entity/Temporary_Leave.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_LogInfo.hbm.xml" />
 
 </session-factory>
 

@@ -23,10 +23,10 @@
 		 	//添加下一行
 		 	var addrow = "<tr>"
 			 			+"<td>"+index+"</td>"
-						+"<td><input type=time name= /></td>"
+						+"<td><input type=time name=temporaryLeave["+index+"].TempLeave_Time /></td>"
 						+"<td> <select name=temporaryLeave["+index+"].TempLeave_Reason> <option value=>---请选择---</option> <option value=1>扣押</option> <option value=2>暂存</option> <option value=3>代保管</option> </select> </td>"
-						+"<td><input name= /></td>"
-						+"<td><input type=time name= /></td>"
+						+"<td><input name=temporaryLeave["+index+"].Staff_ID /></td>"
+						+"<td><input type=time name=temporaryLeave["+index+"].TempLeave_Time /></td>"
 						+"</tr>";
 		 	$(".transient_Leave tr").eq($(".transient_Leave tr").length-2).after(addrow);
 		  	addrow.find("td:eq(0)").html(num-1);
@@ -157,17 +157,17 @@
 					</tr>
 					<tr>
 						<td>0</td>
-						<td><input type="time" name="" /></td>
+						<td><input type="time" name="temporaryLeave[0].TempLeave_Time" /></td>
 						<td id="select">
 							<select name="temporaryLeave[0].TempLeave_Reason">
 								<option value="">---请选择---</option>
-								<option value="101">101</option>
-								<option value="102">102</option>
-								<option value="103">103</option>
+								<option value="扣押">扣押</option>
+								<option value="暂存">暂存</option>
+								<option value="代保管">代保管</option>
 							</select>
 						</td>
-						<td><input name="" /></td>
-						<td><input type="time" name="" /></td>
+						<td><input name="temporaryLeave[0].Staff_ID" /></td>
+						<td><input type="time" name="temporaryLeave[0].Return_Time" /></td>
 					</tr>
 					<tr>
 						<td>2</td>
@@ -193,72 +193,45 @@
 						<td>离开原因</td>
 					</tr>
 					<tr>
-						<td><input type="date" name="name.date" /><input type="time" name="name.time" /></td>
 						<td>
-							<select name="name.leavereason">
-									<option>查证结束</option>
-									<option>刑拘</option>
-									<option>行政拘留</option>
-									<option>警告</option>
+							<input type="date" name="Leave_Time" />
+							<input type="time" name="" />
+						</td>
+						<td>
+							<select name="Leave_Reason">
+								<option value="">---请选择---</option>
+								<option value="查证结束">查证结束</option>
+								<option value="刑拘">刑拘</option>
+								<option value="行政拘留">行政拘留</option>
+								<option value="警告">警告</option>
 							</select>
 						</td>
 					</tr>
 					<tr>
 						<td>随身物品处理情况:</td>
 						<td>
-							<input type="radio" name="name.back" />全部反还
-							<input type="radio" name="name.back" />部分反还
-							<input type="radio" name="name.back" />未反还
+							<input type="radio" name="BelongingS_Treatment_Method" value="全部反还">全部反还
+							<input type="radio" name="BelongingS_Treatment_Method" value="部分反还"/>部分反还
+							<input type="radio" name="BelongingS_Treatment_Method" value="未反还"/>未反还
 						</td>
 					</tr>
 					<tr>
 						<td>未反还物品情况记载:</td>
-						<td><textarea></textarea></td>
+						<td><textarea name="BelongingS_Treatment_Record"></textarea></td>
 					</tr>
 					<tr>
 						<td>领取人签名:</td>
-						<td><input type="text" name="name.signature" /></td>
+						<td><input type="text" name="Recipient_Person" /></td>
 					</tr>
 					<tr>
 						<td>身份证号码:</td>
-						<td><input type="text" name="name.phoneNum" /></td>
+						<td><input type="text" name="Recipient_Person_Number" /></td>
 					</tr>
 					<tr>
 						<td>领取时间:</td>
-						<td><input type="date" name="name.getdate" /></td>
+						<td><input type="time" name="" /></td>
 					</tr>
 				</table>
-				<!--  <ol class="final_Leave col-lg-12 col-md-10 col-sm-10">
-					<li>最终离开时间</li>
-					<li>离开原因</li>
-					<li>
-						<input type="date" name="Leave_Time" />
-						<input type="time" name="" />
-					</li>
-					<li>
-						<select name="Leave_Reason">
-							<option value="">---请选择---</option>
-							<option value="查证结束">查证结束</option>
-							<option value="刑拘">刑拘</option>
-							<option value="行政拘留">行政拘留</option>
-							<option value="警告">警告</option>
-						</select>
-					</li>
-					<li>随身物品处理情况：</li>
-					<li class="style_radio">
-						<input type="radio" name="BelongingS_Treatment_Method" value="全部反还">全部反还
-						<input type="radio" name="BelongingS_Treatment_Method" value="部分反还"/>部分反还
-						<input type="radio" name="BelongingS_Treatment_Method" value="未反还"/>未反还
-					</li>
-					<li>未反还物品情况记载:</li>
-					<li><textarea name="BelongingS_Treatment_Record"></textarea></li>
-					<li>领取人：</li>
-					<li><input type="text" name="Recipient_Person" /></li>
-					<li>身份证号码：</li>
-					<li><input type="text" name="Recipient_Person_Number" /></li>
-					<li>领取时间:</li>
-					<li><input type="time" name="" /></li>
-				</ol> -->
 			</div>
 			<hr style="margin-top: 3%;border: 1px solid darkgray;" />
 			<p id="signature">管理员:<input type="text" name="" /></p>

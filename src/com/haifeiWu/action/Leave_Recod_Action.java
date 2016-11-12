@@ -34,11 +34,13 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	public String addLeaveRecordInfor() throws Exception{
 		
 		//打印提交的单条信息
-		System.out.println(model.toString());
+		System.out.println("单条信息："+model.toString());
+		
 		//打印list信息
 		List<Temporary_Leave>  temporaryLeaves = this.getTemporaryLeave();
+		System.out.println("多条信息："+temporaryLeaves.size());
 		for (Temporary_Leave temporaryLeave : temporaryLeaves) {
-			temporaryLeave.toString();
+			System.out.println(temporaryLeave.toString());
 		}
 //		service.saveLeaveRecordInfor(temporaryLeaves);
 //		//通过反射加载离开办案区记录的类
