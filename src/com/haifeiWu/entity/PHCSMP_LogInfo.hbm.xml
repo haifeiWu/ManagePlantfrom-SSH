@@ -3,7 +3,7 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.manageplantfrom.entity">
+<hibernate-mapping package="com.haifeiWu.entity">
 
 <!-- 日志信息表 -->
     <class name="PHCSMP_LogInfo" table="PHCSMP_LogInfo" lazy="false">

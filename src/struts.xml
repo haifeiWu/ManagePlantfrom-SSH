@@ -99,12 +99,18 @@
 		<!-- 读卡器信息采集 -->
 		<action name="readRfid" class="com.haifeiWu.action.RFID_ReadAction" method="readRFID">
 		</action>
+		
 		<!-- 嫌疑人综合信息管理 -->
 		<action name="suspectManage_*" class="com.haifeiWu.action.SuspectManageAction" method="{1}">
 			<result name="loadInfor">/jsp/suspectmanage/historyRecord.jsp</result>
 			<result name="suspectInforSummary">/jsp/recordInformation/allInformation.jsp</result>
 			<!-- 查询嫌疑人信息 -->
 			<result name="searchsuspectInfor">/jsp/suspectmanage/historyRecord.jsp</result>
+		</action>
+		
+		<!-- 查看日志 -->
+		<action name="Log_execute"  class="com.haifeiWu.action.Log_Action" >
+			<result>/jsp/log/log_Read.jsp</result>
 		</action>
 	</package>
 
