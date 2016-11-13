@@ -66,6 +66,23 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	public String loadInfor(){
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
 		
+		if(user == null){
+			return "unLoginState";
+		}else{
+			List<PHCSMP_Band> list = service.findAllBundInfor();
+			List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType =  service.findAllIdentifyCardType();
+			List<PHCSMP_Dic_Action_Cause> actionCause =  service.findAllSuspectCause();
+			
+			request.setAttribute("bundList",list);
+			request.setAttribute("identifyCardType",identifyCardType);
+			request.setAttribute("actionCause", actionCause);
+			return "loadInfor";
+		}
+	}
+	
+	public String unlogin_load(){
+		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
+		
 		List<PHCSMP_Band> list = service.findAllBundInfor();
 		List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType =  service.findAllIdentifyCardType();
 		List<PHCSMP_Dic_Action_Cause> actionCause =  service.findAllSuspectCause();
@@ -73,11 +90,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		request.setAttribute("bundList",list);
 		request.setAttribute("identifyCardType",identifyCardType);
 		request.setAttribute("actionCause", actionCause);
-		if(user!=null){
-			return "loadInfor";
-		}else{
-			return "noLogin";
-		}
+		return "unlogin_load";
 	}
 	
 	public String updateInfor(){
