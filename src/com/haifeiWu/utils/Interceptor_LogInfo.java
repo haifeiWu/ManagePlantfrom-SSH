@@ -41,14 +41,12 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
       //如果有下一个拦截器执行下一个拦截器，否则执行目标action
         invocation.invoke();
        System.out.println("进来没有");
-        PHCSMP_Staff sysUser = (PHCSMP_Staff)session.get("users");  
-       System.out.println(sysUser);
+       PHCSMP_Staff sysUser = (PHCSMP_Staff)session.get("user");  
        
+       System.out.println(sysUser.getStaff_Name());
        if(sysUser!=null){
-        //String	Staff_ID =sysUser.getStaff_ID()+""; 
        String Staff_ID2=sysUser.getStaff_Name()+"";
     
-       //System.out.println(Staff_ID); 
        Staff_Name=Staff_ID2;            
        } 
            
@@ -58,7 +56,6 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
              	 Operation_Time=getDate();
         		 Operation_Info= "登录";
         		 Operation_Model="用户登入";
-        	
         		 Staff_Name1=Staff_Name;
         		 addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model);  
         	 }
@@ -71,14 +68,10 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
         		 addSysLog(Operation_Time,Staff_Name1,Operation_Info,Operation_Model);  
         	 }
         }
-     
         
-      
-       System.out.println("0.0.0");
         if(action instanceof Activity_Record_Action){
-        	
-        	  String Suspect_ID = (String)session.get("Suspect_ID");  
-              System.out.println(Suspect_ID);
+        	String Suspect_ID = (String)session.get("Suspect_ID");  
+//            System.out.println(Suspect_ID);
               
         	if(method.equals("loadInfor")){
         		Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
@@ -94,8 +87,8 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
              System.out.println(Suspect_ID);
              if(method.equals("addBelongingInfor")){
             	 Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
-         		Operation_Time=getDate();
-         		Operation_Model="安全检查-随身物品登记";
+         		 Operation_Time=getDate();
+         		 Operation_Model="安全检查-随身物品登记";
          		 addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model);           	 
              }
         }
@@ -105,33 +98,31 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
              System.out.println(Suspect_ID);
         	if(method.equals("loadInfor")){
         		 Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
-          		Operation_Time=getDate();
-          		Operation_Model="安全检查-人生检查";
+          		 Operation_Time=getDate();
+          		 Operation_Model="安全检查-人生检查";
           		 addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model); 
         	}
-        	
         }
         
         if(action instanceof PHCSMP_Suspect_Action){
-       	 String Suspect_ID = (String)session.get("Suspect_ID");  
+        	String Suspect_ID = (String)session.get("Suspect_ID");  
             System.out.println(Suspect_ID);
        	if(method.equals("addSuspectInfor")){
-       		    Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
-         		Operation_Time=getDate();
-         		Operation_Model="入区人员信息登记";
-         		 addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model); 
+       		Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
+     		Operation_Time=getDate();
+     		Operation_Model="入区人员信息登记";
+     		addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model);
+     		}
        	}
-       	
-       }
         
         if(action instanceof Leave_Recod_Action){
           	 String Suspect_ID = (String)session.get("Suspect_ID");  
                System.out.println(Suspect_ID);
           	if(method.equals("addLeaveRecordInfor")){
-          		    Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
-            		Operation_Time=getDate();
-            		Operation_Model="出区信息登记";
-            		 addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model); 
+      		    Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
+        		Operation_Time=getDate();
+        		Operation_Model="出区信息登记";
+        		addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model); 
           	}
           	
           }
@@ -140,10 +131,10 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
          	 String Suspect_ID = (String)session.get("Suspect_ID");  
               System.out.println(Suspect_ID);
          	if(method.equals("loadInfor")){
-         		    Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
+         		Operation_Info="增加"+Suspect_ID+"号嫌疑人信息";
            		Operation_Time=getDate();
            		Operation_Model="信息采集";
-           		 addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model); 
+           		addSysLog(Operation_Time,Staff_Name,Operation_Info,Operation_Model); 
          	}
          	
          }
