@@ -3,6 +3,7 @@ package com.haifeiWu.action;
 import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.SuspectService;
@@ -50,8 +51,20 @@ public class Information_Collection_Action extends BaseAction<PHCSMP_Information
 //		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(4);
 ////		//将信息从数据库查找到之后，存入session，更新session
 //		request.setAttribute("SuspectInfor", SuspectInfor);
-		System.out.println("Information_Collection_Action:loadInfor");
-		return "loadInfor";
+		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
+		
+		if(user == null){
+			return "unLoginState";
+		}else{
+			System.out.println("Information_Collection_Action:loadInfor");
+			return "loadInfor";
+		}
+		
+	}
+	
+	public String unlogin_load(){
+		
+		return "unlogin_load";
 	}
 	
 	//返回修改信息采集信息

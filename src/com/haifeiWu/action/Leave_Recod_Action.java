@@ -6,6 +6,7 @@ import java.util.List;
 import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.serviceImple.LeaveRecodServiceImple;
@@ -56,16 +57,27 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		
 //		LeaveRecodService service = new LeaveRecodServiceImple();
 //		service.saveLeaveRecordInfor(model);
+		
 		System.out.println("Leave_Recod_Action:addLeaveRecordInfor");
 		return "addLeaveRecordInfor";
 	}
 	/*加载界面信息*/
 	public String loadInfor(){
-		System.out.println("Leave_Recod_Action:loadInfor");
-		return "loadInfor";
+		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
+		
+		if(user == null){
+			return "unLoginState";
+		}else{
+			System.out.println("Leave_Recod_Action:loadInfor");
+			return "loadInfor";
+		}
 	}
 	
-	
+	//未登录状态时
+	public String unlogin_load(){
+		return "unlogin_load";
+	}
+
 	public List<Temporary_Leave> getTemporaryLeave() {
 		return temporaryLeave;
 	}

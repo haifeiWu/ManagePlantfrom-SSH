@@ -81,7 +81,6 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	}
 	
 	public String unlogin_load(){
-		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
 		
 		List<PHCSMP_Band> list = service.findAllBundInfor();
 		List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType =  service.findAllIdentifyCardType();

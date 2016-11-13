@@ -7,6 +7,7 @@ import java.util.List;
 import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.PersonalCheckService;
@@ -73,14 +74,24 @@ public class PHCSMP_Personal_Check_Action extends BaseAction<PHCSMP_Personal_Che
 	 */
 	public String loadInfor(){
 		System.out.println("loadInfor");
+		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
+		
+		if(user == null){
+			return "unLoginState";
+		}else{
+			return "loadInfor";
+		}
 //		SuspectService suspectService = new SuspectServiceImple();
 //		int roomId = 1;
 //		System.out.println("wuhaifei");
 //		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(roomId);
 //		//将信息从数据库查找到之后，存入session
 //		request.setAttribute("SuspectInfor", SuspectInfor);
+	}
+	
+	public String unlogin_load(){
 		
-		return "loadInfor";
+		return "unlogin_load";
 	}
 	//返回修改人身检查信息
 	public String updateInfor(){
