@@ -11,16 +11,12 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.util.ServletContextAware;
 
-import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
-import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Staff;
-import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.serviceImple.ActivityRecordServiceImple;
 import com.haifeiWu.serviceImple.SuspectServiceImple;
-import com.haifeiWu.utils.CompleteCheck;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**

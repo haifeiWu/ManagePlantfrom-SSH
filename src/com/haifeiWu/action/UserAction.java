@@ -13,6 +13,10 @@ import com.haifeiWu.serviceImple.UserServiceImple;
  */
 public class UserAction extends BaseAction<PHCSMP_Staff> {
 	
+	/**
+	 * 用户登录功能的实现
+	 * @return
+	 */
 	public String login(){
 		UserService userService = new UserServiceImple();
 		PHCSMP_Staff user = userService.findUserByStaffNameAndPwd(model.getStaff_Name(),model.getPassWord());
