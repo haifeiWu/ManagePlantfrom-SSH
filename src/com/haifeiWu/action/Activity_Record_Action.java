@@ -31,7 +31,7 @@ ServletResponseAware,ServletContextAware{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+	private int[] arr = new int[5];
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ServletContext application;
@@ -91,7 +91,6 @@ ServletResponseAware,ServletContextAware{
 ////		//将信息从数据库查找到之后，存入session，更新session
 //		request.setAttribute("SuspectInfor", SuspectInfor);
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
-		
 		if(user == null){
 			return "unLoginState";
 		}else{

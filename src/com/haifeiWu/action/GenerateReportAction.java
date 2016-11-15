@@ -20,6 +20,7 @@ import com.haifeiWu.serviceImple.InformationCollectionServiceImple;
 import com.haifeiWu.serviceImple.LeaveRecodServiceImple;
 import com.haifeiWu.serviceImple.PersonalCheckServiceImple;
 import com.haifeiWu.serviceImple.SuspectServiceImple;
+import com.haifeiWu.utils.FTPClientUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -125,6 +126,32 @@ ServletResponseAware,ServletContextAware {
 		 */
 		System.out.println("SuspectManageAction:searchsuspectInfor");
 		return "searchsuspectInfor";
+	}
+	
+	public String downFile() throws Exception{
+		FTPClientUtils ftp = new FTPClientUtils();
+		ftp.setHost("192.168.1.96");
+		ftp.setPort(21);
+		ftp.setBinaryTransfer(true);
+		ftp.setPassiveMode(true);
+		ftp.setEncoding("utf-8");
+		String date = request.getParameter("date");
+		String fileName = request.getParameter("fileName");
+		System.out.println("入区时间："+date+"\n文件名："+fileName);
+		
+		String[] str = date.split("-");
+		StringBuilder str1 = new StringBuilder();
+		for (int i = 0; i < str.length; i++) {
+//			System.out.println(str[i]);
+			str1.append(str[i]+"/");
+			System.out.println(str1);
+		}
+		String downLoadFile = str1.toString()+fileName;
+		boolean flag = ftp
+				.get("/recordfiles/"+downLoadFile,"F://testDownLoad/"+fileName);
+		System.out.println("下载目录：/recordfiles/"+downLoadFile);
+		System.out.println("下载成功："+flag);
+		return "downFile";
 	}
 
 	@Override

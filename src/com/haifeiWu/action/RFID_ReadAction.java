@@ -46,12 +46,12 @@ ServletResponseAware,ServletContextAware {
 	private int roomId = 0;
 	private int bandId = 0;//手环id
 	private String identificationCard = "wuhaifei1230343";
-	
+	//录播系统的操作指令
 	private String SetSplitType = "http://192.168.1.96:8765/SxSetSplitType.psp";//切换第一个画面
-	private String StartRecording = "http://192.168.1.96:8765/SxStartRecording.psp";
-	private String StopRecording = "http://192.168.1.96:8765/SxStopRecording.psp";
-	private String PauseRecording = "http://192.168.1.96:8765/SxPauseRecording.psp";
-	private String RestartRecording = "http://192.168.1.96:8765/SxRestartRecording.psp";
+	private String StartRecording = "http://192.168.1.96:8765/SxStartRecording.psp";//开始录像
+	private String StopRecording = "http://192.168.1.96:8765/SxStopRecording.psp";//停止录像
+	private String PauseRecording = "http://192.168.1.96:8765/SxPauseRecording.psp";//暂停录像
+	private String RestartRecording = "http://192.168.1.96:8765/SxRestartRecording.psp";//重新开始录像
 	
 	SuspectService suspectService = new SuspectServiceImple();
 	
@@ -89,8 +89,8 @@ ServletResponseAware,ServletContextAware {
         		PHCSMP_Suspect person = suspectService.selectPersonInforByBandID(bandId);
         		map2.put("input", "4.1");
         		map1.put("subPicInfo", map2);
-        		String json2 = JSON.toJSONString(map1);
-    	        json2  =json2.substring(0,31)+"["+json2.substring(31,63)+"]"+json2.substring(63,79);
+        		String json2 = JSON.toJSONString(map1);//封装json字符串，使用fastjson
+    	        json2  =json2.substring(0,31)+"["+json2.substring(31,63)+"]"+json2.substring(63,79);//封装json字符串，使用fastjson
     	        //激活第一个摄像头
     	        String str1 = HttpRequest.sendOkMCVPost(SetSplitType,json2);
     	        System.out.println("激活第一个摄像头"+str1);
@@ -109,7 +109,7 @@ ServletResponseAware,ServletContextAware {
                 }
         	}
         }else{
-        	if(wristId.equals("FFFFFFFF")&&roomId == 4){
+        	if(wristId.equals("FFFFFFFF")&&roomId == 4){//当嫌疑出区后，自动停止录播系统录像
         		//发停止录像指令
         		String str = HttpRequest.sendOkMCVPost(StopRecording, null);
         		System.out.println("发停止录像指令："+str);
