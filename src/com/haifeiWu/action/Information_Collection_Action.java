@@ -46,13 +46,11 @@ public class Information_Collection_Action extends BaseAction<PHCSMP_Information
 	
 	//加载信息，
 	public String loadInfor(){
-//		SuspectService suspectService = new SuspectServiceImple();
-////		System.out.println("wuhaifei");
-//		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(4);
-////		//将信息从数据库查找到之后，存入session，更新session
-//		request.setAttribute("SuspectInfor", SuspectInfor);
-		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
+		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(2);
+		//将信息从数据库查找到之后，存入session，更新session
+		request.setAttribute("SuspectInfor", SuspectInfor);
 		
+		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
 		if(user == null){
 			return "unLoginState";
 		}else{

@@ -129,6 +129,7 @@
 		<!-- 查看日志 -->
 		<action name="Log_execute"  class="com.haifeiWu.action.Log_Action" >
 			<result>/jsp/log/log_Read.jsp</result>
-		</action>	</package>
+		</action>	
+	</package>
 
 </struts>

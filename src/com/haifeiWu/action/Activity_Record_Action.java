@@ -13,6 +13,7 @@ import org.apache.struts2.util.ServletContextAware;
 
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Staff;
+import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.serviceImple.ActivityRecordServiceImple;
@@ -84,12 +85,9 @@ ServletResponseAware,ServletContextAware{
 	 * @return
 	 */
 	public String loadInfor(){
-//		
-//		SuspectService suspectService = new SuspectServiceImple();
-//		System.out.println("wuhaifei");
-//		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(5);
-////		//将信息从数据库查找到之后，存入session，更新session
-//		request.setAttribute("SuspectInfor", SuspectInfor);
+		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(3);
+//		将信息从数据库查找到之后，存入session，更新session
+		request.setAttribute("SuspectInfor", SuspectInfor);
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
 		if(user == null){
 			return "unLoginState";

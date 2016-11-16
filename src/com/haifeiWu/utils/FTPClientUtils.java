@@ -14,8 +14,7 @@ import org.apache.commons.net.ftp.FTPReply;
 import org.apache.log4j.Logger;
 
 /**
- * FTP服务器文件下载
- * 
+ * FTP服务器文件下载工具类
  * @author wuhaifei
  * @d2016年11月15日
  */

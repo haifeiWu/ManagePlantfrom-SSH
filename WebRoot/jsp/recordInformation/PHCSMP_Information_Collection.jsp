@@ -21,7 +21,7 @@
 			<h4 style="margin-top: 13px;"><b style="color: #389ac7;">Personnal</b> information Collection</h4>
 			<p id="left_title">嫌疑人信息采集</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="ABS20161010-27"
+			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="Suspect_ID" value="${SuspectInfor.Suspect_ID }"
 					readonly="readonly" /></h5>
 
 			<!--进度条信息设置-->

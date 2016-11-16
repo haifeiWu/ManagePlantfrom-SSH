@@ -142,7 +142,6 @@ ServletResponseAware,ServletContextAware {
 		String[] str = date.split("-");
 		StringBuilder str1 = new StringBuilder();
 		for (int i = 0; i < str.length; i++) {
-//			System.out.println(str[i]);
 			str1.append(str[i]+"/");
 			System.out.println(str1);
 		}

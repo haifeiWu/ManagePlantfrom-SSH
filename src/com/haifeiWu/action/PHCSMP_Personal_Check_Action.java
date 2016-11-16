@@ -35,6 +35,8 @@ public class PHCSMP_Personal_Check_Action extends BaseAction<PHCSMP_Personal_Che
 	private PersonalCheckService service = new PersonalCheckServiceImple();
 	//随身物品登记
 	private BelongingInforService belongingInforService = new BelongingInforServiceImple();
+	//嫌疑人基本信息
+	SuspectService suspectService = new SuspectServiceImple();
 	
 	/**
 	 * 添加用户人身检查信息
@@ -76,17 +78,15 @@ public class PHCSMP_Personal_Check_Action extends BaseAction<PHCSMP_Personal_Che
 		System.out.println("loadInfor");
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
 		
+		int roomId = 1;
+		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(roomId);
+		//将信息从数据库查找到之后，存入session
+		request.setAttribute("SuspectInfor", SuspectInfor);
 		if(user == null){
 			return "unLoginState";
 		}else{
 			return "loadInfor";
 		}
-//		SuspectService suspectService = new SuspectServiceImple();
-//		int roomId = 1;
-//		System.out.println("wuhaifei");
-//		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(roomId);
-//		//将信息从数据库查找到之后，存入session
-//		request.setAttribute("SuspectInfor", SuspectInfor);
 	}
 	
 	public String unlogin_load(){

@@ -7,9 +7,12 @@ import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Staff;
+import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.LeaveRecodService;
+import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.serviceImple.LeaveRecodServiceImple;
+import com.haifeiWu.serviceImple.SuspectServiceImple;
 import com.haifeiWu.utils.CompleteCheck;
 
 /**
@@ -26,7 +29,8 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private LeaveRecodService service = new LeaveRecodServiceImple();
 	
 	private List<Temporary_Leave>  temporaryLeave = new ArrayList<Temporary_Leave>();
-	
+	//嫌疑人信息
+	private SuspectService suspectService = new SuspectServiceImple();
 	/**
 	 * 点击画面中的“下一步”，提交信息并转发到suspectManage_suspectInforSummary.action
 	 * @return
@@ -64,6 +68,9 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	/*加载界面信息*/
 	public String loadInfor(){
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
+		PHCSMP_Suspect SuspectInfor =  suspectService.findInfroByActiveCode(4);
+		//将信息从数据库查找到之后，存入session，更新session
+		request.setAttribute("SuspectInfor", SuspectInfor);
 		
 		if(user == null){
 			return "unLoginState";
