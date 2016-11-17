@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
-<script language="JavaScript" src="${pageContext.request.contextPath }/js/jquery.js"></script>
+<script language="JavaScript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 <script language="JavaScript" src="${pageContext.request.contextPath }/js/cloud.js" ></script>
 
 <script language="javascript">

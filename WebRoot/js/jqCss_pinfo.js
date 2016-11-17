@@ -33,3 +33,96 @@ $(document).ready(function(){
 	//设置干警签名的表格td高度
 	$(".signatuer_Mes tr td").css("height","30px");
 });
+
+window.onload = function(){
+	// 设置进度条变化
+	if ($(".Message input[type='text']").val()!="") {
+		$("#state img:lt(2)").attr("src","./images/fgreen_03.png");
+
+		}
+		else{
+		$("#state img:lt(2)").attr("src","./images/3-inforCollection_03.png");
+
+		}
+		$(".Message input[type='text']").change(function(){
+	// console.log($(this).val())
+		if ($(this).val()!="") {
+		$("#state img:lt(2)").attr("src","./images/fgreen_03.png");
+
+		}
+		else{
+		$("#state img:lt(2)").attr("src","./images/3-inforCollection_03.png");
+
+		}
+			
+		});
+	//设置人员联系信息进度条变化
+	$(document).ready(function(){
+
+		var num=0;
+		$(".Mes_tab input[type='checkbox']").change(function()
+			{
+			if($(this).is(":checked"))
+			{
+				$("#state img:eq(2)").attr("src","./images/fgreen_03.png");
+				++num;
+			}
+			else
+				--num;
+			if(num==0)
+				$("#state img:eq(2)").attr("src","./images/3-inforCollection_03.png");
+		});
+
+	 
+
+	});
+	// 设置进入办案区信息进度
+	$(document).ready(function(){
+		if ($(".Mes_case input[type='date']").val()!="") {
+		$("#state img:eq(3)").attr("src","./images/fgreen_03.png");
+
+		}
+		else{
+		$("#state img:eq(3)").attr("src","./images/3-inforCollection_03.png");
+
+		}
+		$(".Mes_case input[type='date']").change(function(){
+	// console.log($(this).val())
+		if ($(this).val()!="") {
+		$("#state img:eq(3)").attr("src","./images/fgreen_03.png");
+
+		}
+		else{
+		$("#state img:eq(3)").attr("src","./images/3-inforCollection_03.png");
+
+		}
+			
+		});
+	});
+	// 干警签名确认
+	$(document).ready(function(){
+
+		if ($(".signatuer_Mes input:lt(2)").val()!="") {
+		$("#state img:eq(4)").attr("src","./images/fgreen_07.png");
+
+		}
+		else{
+		$("#state img:eq(4)").attr("src","./images/3-inforCollection_07.png");
+
+		}
+		$(".signatuer_Mes input:lt(2)").change(function(){
+	// console.log($(this).val())
+		if ($(this).val()!="") {
+		$("#state img:eq(4)").attr("src","./images/fgreen_07.png");
+
+		}
+		else{
+		$("#state img:eq(4)").attr("src","./images/3-inforCollection_07.png");
+
+		}
+			
+		});
+
+
+	});
+}
