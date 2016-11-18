@@ -1,7 +1,6 @@
 package com.haifeiWu.action;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +21,7 @@ import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.serviceImple.SuspectServiceImple;
 import com.haifeiWu.utils.HttpRequest;
+import com.haifeiWu.utils.PropertiesReadUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -47,11 +47,11 @@ ServletResponseAware,ServletContextAware {
 	private int bandId = 0;//手环id
 	private String identificationCard = "wuhaifei1230343";
 	//录播系统的操作指令
-	private String SetSplitType = "http://192.168.1.96:8765/SxSetSplitType.psp";//切换第一个画面
-	private String StartRecording = "http://192.168.1.96:8765/SxStartRecording.psp";//开始录像
-	private String StopRecording = "http://192.168.1.96:8765/SxStopRecording.psp";//停止录像
-	private String PauseRecording = "http://192.168.1.96:8765/SxPauseRecording.psp";//暂停录像
-	private String RestartRecording = "http://192.168.1.96:8765/SxRestartRecording.psp";//重新开始录像
+//	private String SetSplitType = "http://192.168.1.96:8765/SxSetSplitType.psp";//切换第一个画面
+//	private String StartRecording = "http://192.168.1.96:8765/SxStartRecording.psp";//开始录像
+//	private String StopRecording = "http://192.168.1.96:8765/SxStopRecording.psp";//停止录像
+//	private String PauseRecording = "http://192.168.1.96:8765/SxPauseRecording.psp";//暂停录像
+//	private String RestartRecording = "http://192.168.1.96:8765/SxRestartRecording.psp";//重新开始录像
 	
 	SuspectService suspectService = new SuspectServiceImple();
 	
@@ -92,7 +92,7 @@ ServletResponseAware,ServletContextAware {
         		String json2 = JSON.toJSONString(map1);//封装json字符串，使用fastjson
     	        json2  =json2.substring(0,31)+"["+json2.substring(31,63)+"]"+json2.substring(63,79);//封装json字符串，使用fastjson
     	        //激活第一个摄像头
-    	        String str1 = HttpRequest.sendOkMCVPost(SetSplitType,json2);
+    	        String str1 = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("SetSplitType"),json2);
     	        System.out.println("激活第一个摄像头"+str1);
     	        response.getWriter().write("first room:"+str1);
     	        //获取身份证号
@@ -102,7 +102,7 @@ ServletResponseAware,ServletContextAware {
     	        	//将身份号放入map中
     	        	map.put("identificationCard", person.getIdentifyCard_Number());
 	    	        String json = JSON.toJSONString(map);
-	    	        str1 = HttpRequest.sendOkMCVPost(StartRecording,json);
+	    	        str1 = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("StartRecording"),json);
 	    	        response.getWriter().write("start record:"+str1);
 	    	    	System.out.println("开始录像："+str1);
 	                isRecording=true;
@@ -111,7 +111,7 @@ ServletResponseAware,ServletContextAware {
         }else{
         	if(wristId.equals("FFFFFFFF")&&roomId == 4){//当嫌疑出区后，自动停止录播系统录像
         		//发停止录像指令
-        		String str = HttpRequest.sendOkMCVPost(StopRecording, null);
+        		String str = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("StopRecording"), null);
         		System.out.println("发停止录像指令："+str);
         		RFID_ReadAction.isEmpty = true;//释放房间
         		return;
@@ -133,7 +133,7 @@ ServletResponseAware,ServletContextAware {
 	        		map1.put("subPicInfo", map2);
 	        		String json2 = JSON.toJSONString(map1);
 	    	        json2  =json2.substring(0,31)+"["+json2.substring(31,63)+"]"+json2.substring(63,79);
-	    	        String str1 = HttpRequest.sendOkMCVPost(SetSplitType,json2);
+	    	        String str1 = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("SetSplitType"),json2);
 	    	    	System.out.println("第二个房间开始录像："+str1);
 	        	}else if(roomId==3){
 	        		//更新嫌疑人所在的房间
@@ -143,7 +143,7 @@ ServletResponseAware,ServletContextAware {
 	        		map1.put("subPicInfo", map2);
 	        		String json2 = JSON.toJSONString(map1);
 	    	        json2  =json2.substring(0,31)+"["+json2.substring(31,63)+"]"+json2.substring(63,79);
-	    	        String str1 = HttpRequest.sendOkMCVPost(SetSplitType,json2);
+	    	        String str1 = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("SetSplitType"),json2);
 	    	    	System.out.println("第三个房间开始录像："+str1);
 	        	}else if(roomId==4){
 	        		//更新嫌疑人所在的房间
@@ -152,7 +152,7 @@ ServletResponseAware,ServletContextAware {
 	        		map1.put("subPicInfo", map2);
 	        		String json2 = JSON.toJSONString(map1);
 	    	        json2  =json2.substring(0,31)+"["+json2.substring(31,63)+"]"+json2.substring(63,79);
-	    	        String str1 = HttpRequest.sendOkMCVPost(SetSplitType,json2);
+	    	        String str1 = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("SetSplitType"),json2);
 	    	    	System.out.println("第四个房间开始录像："+str1);
 	        	}
         }else{
@@ -161,14 +161,14 @@ ServletResponseAware,ServletContextAware {
         if(isRecording==true){
         	isRecording=false;
         	//发送暂停录像指令
-        	String str1 = HttpRequest.sendOkMCVPost(PauseRecording,null);
+        	String str1 = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("PauseRecording"),null);
         	//打印返回的状态码
         	System.out.println("暂停录像:"+str1);
         }
         else{
 	        //发送重新开始录像指令
 	        isRecording=true;
-	        String str1 = HttpRequest.sendOkMCVPost(RestartRecording,null);
+	        String str1 = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("RestartRecording"),null);
 	    	//打印返回的状态码
 	    	System.out.println("重新开始录像:"+str1);
         }
