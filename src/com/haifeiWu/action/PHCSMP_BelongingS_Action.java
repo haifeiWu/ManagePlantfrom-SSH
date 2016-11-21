@@ -21,7 +21,6 @@ public class PHCSMP_BelongingS_Action extends BaseAction<PHCSMP_BelongingS> {
 
 	/**
 	 * 添加用户随身物品检查记录
-	 * 
 	 * @return
 	 * @throws Exception
 	 */
