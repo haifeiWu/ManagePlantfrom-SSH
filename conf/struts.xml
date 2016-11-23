@@ -117,6 +117,8 @@
 		
 		<!-- 读卡器信息采集 -->
 		<action name="readRfid" class="com.haifeiWu.action.RFID_ReadAction" method="readRFID">
+			<result name="stopRecord">/jsp/RfidRead/StopRecord.jsp</result>
+			<result name="operateSucess">/jsp/RfidRead/OperateSuccess.jsp</result>
 		</action>
 		
 		<!-- 嫌疑人综合信息管理 -->

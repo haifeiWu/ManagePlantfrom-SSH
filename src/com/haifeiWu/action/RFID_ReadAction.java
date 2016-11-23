@@ -55,7 +55,7 @@ ServletResponseAware,ServletContextAware {
 	
 	SuspectService suspectService = new SuspectServiceImple();
 	
-	public void readRFID() throws IOException{
+	public String readRFID() throws IOException{
 	
 		RoomInforDao roomInfor = new RoomInforDaoImple();//查询房间号的dao
 		BandInforDao bandInforDao = new BandInforDaoImple();
@@ -114,7 +114,7 @@ ServletResponseAware,ServletContextAware {
         		String str = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("StopRecording"), null);
         		System.out.println("发停止录像指令："+str);
         		RFID_ReadAction.isEmpty = true;//释放房间
-        		return;
+        		return "stopRecord";//停止录像
         	}
 	        if(!oldDeviceId.equals(deviceId)){//如果设备号发生改变
 	        	RFID_ReadAction.oldDeviceId = deviceId;//更新设备号
@@ -174,7 +174,7 @@ ServletResponseAware,ServletContextAware {
         }
     }
     }
-        
+        return "operateSucess";//操作成功
 	}
 
 	@Override
