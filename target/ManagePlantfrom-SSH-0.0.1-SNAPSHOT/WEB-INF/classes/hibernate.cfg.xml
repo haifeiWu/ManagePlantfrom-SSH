@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+<session-factory>
+
+	<!-- 配置数据库连接信息 -->
+	<property name="connection.driver_class">
+		com.mysql.jdbc.Driver
+	</property>
+	<property name="connection.url">
+		<!-- 乱码解决 -->
+		<![CDATA[jdbc:mysql://123.206.8.147:3306/PHCSMP?useUnicode=true&characterEncoding=utf8]]>
+	</property>
+	<!-- 用户名 -->
+	<property name="connection.username">root</property>
+	<!-- 密码 -->
+	<property name="connection.password">123</property>
+	<!-- 数据库方言 -->
+	<property name="dialect">
+		org.hibernate.dialect.MySQL5Dialect
+	</property>
+
+	<!-- 2，其他配置 -->
+	<property name="show_sql">true</property>
+	<property name="hbm2ddl.auto">update</property>
+	<property name="hibernate.current_session_context_class">
+		thread
+	</property>
+
+	<property name="hibernate.format_sql">true</property>
+	<property name="hibernate.use_sql_comments"></property>
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Activity_Record.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Band.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_BelongingS.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Cabinet.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_CardReader.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Action_Cause.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Collection_Item.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Dic_IdentifyCard_Type.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Inspection_Situation.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Keeping_Way.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Leaving_Reason.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Dic_Treatment_Method.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Duties.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Information_Collection.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Leave_Record.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Personal_Check.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Role.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Room.hbm.xml" />
+	<mapping
+		resource="com/haifeiWu/entity/PHCSMP_Staff_In_Role.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Staff.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_Suspect.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/Temporary_Leave.hbm.xml" />
+	<mapping resource="com/haifeiWu/entity/PHCSMP_LogInfo.hbm.xml" />
+
+</session-factory>
+
+</hibernate-configuration>

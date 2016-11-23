@@ -1,0 +1,311 @@
+*,div{
+	margin: 0px;
+	padding: 0px;
+}
+body{
+	font-family: "微软雅黑";
+	overflow-x: hidden;
+}
+h1{
+	font-family: "微软雅黑";
+	font-size: xx-large;
+}
+.img_first{
+
+	width: 15%;
+	height: 18%;
+	/*float: left;*/
+}
+.img_second{
+	position: absolute;
+    width: 60%;
+    height: 100%;
+    /*margin-top: 1%;*/
+    margin-left: 25%;
+    float: left;
+    z-index: 50;
+
+}
+
+.left_title{
+	height: 500px;
+	padding: 0px;
+}
+
+span{
+	color: #71b8fa;
+	margin-left: 2%;
+}
+h1{
+	font-family: '微软雅黑';
+	color: #FFFFFF;
+	margin-left: 18%;
+	margin-top: -8%;
+	text-shadow: 0 2px #000000;
+	position: absolute;
+	z-index: 60;
+}
+h3{
+	font-family: '微软雅黑';
+	color: #FFFFFF;
+	margin-left: 18%;
+	margin-top: -8%;
+	text-shadow: 0 2px #000000;
+	position: absolute;
+	z-index: 60;
+	/*font-size: 24px;*/
+	margin-top: -3%;
+}
+h4{
+	padding: 0px;
+	/*margin-top: -1%;*/
+}
+h5{ 
+	position: absolute;
+	border-bottom: 2px solid #71b8fa; 
+	padding-bottom: 3px;
+	margin-top: -1%; 
+	margin-left: 2%;
+	display: inline-block;	
+}
+/*所有input标签属性设置*/
+input{
+	border: none;
+	background: #f1f1f1;
+}
+
+textarea{
+	overflow: hidden;resize: none;width: 40%;height: 50px;
+	border:1.5px solid #c1c1c1;
+	-webkit-box-shadow:1px 1px 2px rgba(54,156,199,0.8)inset;
+	
+}
+.Message input{
+	width: 50%;
+	
+}
+.record_num{
+	/*width: 98%;*/
+	padding: 0px;
+	border-bottom:1.5px solid #389ac7 ;
+	padding-bottom: 5px;
+	/*margin-top: 15px;*/
+	display: inline-block;
+}
+/*数据显示*/
+.num_1{
+	margin-top: -8%;
+	margin-left: -88%;
+	color: #f69d1f;
+	position: absolute;
+}
+.num_2{
+	margin-top: -8%;
+	margin-left: -68%;
+	color: #f69d1f;
+	position: absolute;
+}
+.num_3{
+	margin-top: -8%;
+	margin-left: -49%;
+	color: #f69d1f;
+	position: absolute;
+}
+.num_4{
+	margin-top: -8%;
+	margin-left: -30%;
+	color: #f69d1f;
+	position: absolute;
+}
+.num_5{
+	margin-top: -8%;
+	margin-left: -10%;
+	color: #f69d1f;
+	position: absolute;
+}
+/*数据文本标记*/
+
+.txt{
+	position: absolute;
+	margin-left: 4%;
+	margin-top: -4%;
+	color: #f69d1f;
+	
+}
+.identity_card{
+	margin-top: 1%;
+	margin-left: -66%;
+	color: #f69d1f;
+	position: absolute;
+}
+.commit{
+	margin-top: 1%;
+	margin-left: -49%;
+	color: #f69d1f;
+	position: absolute;
+}
+.case{
+	margin-top: 1%;
+	margin-left: -29%;
+	color: #f69d1f;
+	position: absolute;
+}
+.sure{
+	margin-top: 1%;
+	margin-left: -10%;
+	color: #f69d1f;
+	position: absolute;
+}
+/*进度条状态*/
+.state_1{
+	width: 25px;
+	height: 43px;
+	border-radius: 36px;
+	border: 7px solid #5b9bd5;
+	margin-top: -5%;
+	margin-left: 7.5%;
+}
+
+.state_2{
+	width: 25px;
+	height: 43px;
+	border-radius: 36px;
+	border: 7px solid #5b9bd5;
+	margin-top: -5%;
+	margin-left: 29%;
+	position: absolute;
+}
+
+.state_3{
+	width: 25px;
+	height: 43px;
+	border-radius: 36px;
+	border: 7px solid #5b9bd5;
+	margin-top: -5%;
+	margin-left: 49%;
+}
+.state_4{
+	width: 25px;
+	height: 43px;
+	border-radius: 36px;
+	border: 7px solid #5b9bd5;
+	margin-top: -5%;
+	margin-left: 69%;
+}
+.state_5{
+	width: 25px;
+	height: 43px;
+	border-radius: 36px;
+	border: 7px solid #5b9bd5;
+	margin-top: -5%;
+	margin-left: 89%;
+}
+
+.pic{
+	margin-top: 1%;
+}
+.indenty_ID{
+	width: 75%;
+	height: 30px;
+	margin-left: -5%;
+	margin-top: -2%;
+	line-height: 30px;
+	background:#f1f1f1;
+	-webkit-box-shadow:2px 4px 4px rgba(0,0,0,0.8);
+}
+.info_id{
+	background: #389ac7;
+	width: 98%;
+	margin-left: 2%;
+	/*margin-top: -1%;*/
+	height: 40px;
+	line-height: 40px;
+	color: #fff;
+	text-align: center;
+}
+.date_pic{
+	background: #389ac7;
+	width: 94%;
+	height: 30%;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 40px;
+	margin-top: 0.2%;
+	-webkit-box-shadow: 2px 3px 4px rgba(0,1,1,0.8);
+}
+/*身份证信息表*/
+.Message{
+	margin-left: -4.7%;
+	margin-top: -2%;
+	width: 75%;
+	height: 90%;
+	padding: 0px;
+	/*border: 1px solid #1B6D85;*/
+	
+}
+/*身份证信息的行与列*/
+.Message tr td{
+	padding: 0px;
+	/*border: 1.5px solid #389ac7;*/
+	height: 10px;
+}
+.human_Mes{
+	width: 80%;
+	height: 30px;
+	color: #f69d1f;
+	line-height: 30px;
+	background:#f1f1f1;
+	-webkit-box-shadow:2px 4px 4px rgba(0,0,0,0.8);
+	
+}
+/*人员联系表格框架*/
+.Mes_tab{
+	border: 1.5px solid #389ac7;
+	-webkit-box-shadow: 2px 1px 1px rgba(56,150,180,0.6);
+	margin-top: 0.5%;
+	width: 80%;
+}
+.Mes_tab tr td{
+	border: 1.5px solid #389ac7;
+}
+
+.Mes_case tr td{
+	border: 1.5px solid #389ac7;
+}
+
+.signatuer_Mes tr td{
+	border: 1.5px solid #389ac7;
+}
+/*进入办案区信息表*/
+.Mes_case{
+	border: 1.5px solid #389ac7;
+	-webkit-box-shadow: 2px 1px 1px rgba(56,150,180,0.6);
+	margin-top: 0.5%;
+	width: 80%;
+	height: 30%;
+}
+
+/*干警签名*/
+.signatuer_Mes{
+	border: 1.5px solid #389ac7;
+	-webkit-box-shadow: 2px 1px 1px rgba(56,150,180,0.6);
+	margin-top: 0.5%;
+	width: 55%;
+	height: 30%;
+}
+
+.btn{
+	width: 12%; height: 36px;color: #fff; background: #389ac7; margin-left: 2%; 
+	margin-top:%;float: left;border: none;
+}
+ol li{
+	list-style: none;
+	width: 25%;
+	float: left;
+}
+.head_title{
+	/*position: absolute;*/
+	background: -webkit-linear-gradient(left,rgba(0,6,251,1) 0%,rgba(0,6,251,0.7) 65%,rgba(0,6,251,0.1) 100%);
+	background: -o-linear-gradient(left,rgba(0,6,251,1) 0%,rgba(0,6,251,0.7) 65%,rgba(0,6,251,0.1) 100%);
+	background: -moz-linear-gradient(left,rgba(0,6,251,1) 0%,rgba(0,6,251,0.7) 65%,rgba(0,6,251,0.1) 100%;
+}

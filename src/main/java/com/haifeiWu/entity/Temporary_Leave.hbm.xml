@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.haifeiWu.entity">
+
+    <class name="Temporary_Leave" table="Temporary_Leave" lazy="false">
+    
+        <id name="Temporary_Leave_Id">
+            <generator class="native"/>
+        </id>
+        
+        <property name="Suspect_ID"></property>
+        <property name="TempLeave_Time"/>
+        <property name="TempLeave_Reason"/>
+        <property name="Return_Time"/>
+        
+        <property name="Staff_ID"/>
+        <property name="Room_ID"/>
+        
+    </class>
+
+</hibernate-mapping>
