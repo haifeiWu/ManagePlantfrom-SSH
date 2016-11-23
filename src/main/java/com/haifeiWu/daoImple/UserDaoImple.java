@@ -22,7 +22,7 @@ public class UserDaoImple extends DaoSupportImpl<PHCSMP_Staff> implements UserDa
 	public PHCSMP_Staff findUserByStaffNameAndPwd(String staff_Name,
 			String passWord) {
 		
-			session = getSession();
+			session = getSession();//MySessionFactory.getCurrentSession();
 			tx = session.beginTransaction();//开启事务
 			
 			hql = "from PHCSMP_Staff where Staff_Name=? and PassWord=?";

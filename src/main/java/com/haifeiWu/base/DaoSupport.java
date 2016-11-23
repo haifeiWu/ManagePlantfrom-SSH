@@ -1,8 +1,5 @@
 package com.haifeiWu.base;
 
-import java.util.List;
-
-
 public interface DaoSupport<T> {
 
 	/**

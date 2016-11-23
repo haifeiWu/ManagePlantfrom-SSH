@@ -74,7 +74,9 @@ com\haifeiWu\entity\PHCSMP_Suspect.class
 com\haifeiWu\entity\PHCSMP_Dic_Keeping_Way.class
 com\haifeiWu\utils\Interceptor_LogInfo.class
 com\haifeiWu\service\LeaveRecodService.class
+com\haifeiWu\utils\MySessionFactory$SingletonInstance.class
 com\haifeiWu\daoImple\PersonalCheckDaoImple.class
+com\haifeiWu\utils\MySessionFactory$1.class
 com\haifeiWu\entity\PHCSMP_Room.class
 com\haifeiWu\serviceImple\UserServiceImple.class
 com\haifeiWu\daoImple\RoomInforDaoImple.class
