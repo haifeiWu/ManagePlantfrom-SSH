@@ -62,6 +62,9 @@ ServletResponseAware,ServletContextAware {
 		List<PHCSMP_Suspect> suspectInfor =  suspectService.getSectionSuspectData();
 		//将信息放入到request中
 		request.setAttribute("suspectInfor", suspectInfor);
+		for (PHCSMP_Suspect phcsmp_Suspect : suspectInfor) {
+			System.err.println(phcsmp_Suspect.toString());
+		}
 		return "loadInfor";
 	}
 	

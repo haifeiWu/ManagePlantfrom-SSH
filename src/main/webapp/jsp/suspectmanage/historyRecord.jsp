@@ -40,8 +40,10 @@
 			<table class="wait_check col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<tr>
 					<c:forEach items="${suspectInfor}" var="item" varStatus="status">
-						<img src="images/1-zhengmian_04.png" />
-						<p><a href="${pageContext.request.contextPath }/GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.Suspect_ID}" style="color:#f69d1f;font-size: large;">德古拉</a><br/><span>2</span>小时</p>
+						<td>
+							<img src="images/1-zhengmian_04.png" />
+							<p><a href="${pageContext.request.contextPath }/GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}" style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a><br/><span>2</span>小时</p>
+						</td>
 					</c:forEach>
 					<%-- <td>
 						<img src="images/1-zhengmian_04.png" />

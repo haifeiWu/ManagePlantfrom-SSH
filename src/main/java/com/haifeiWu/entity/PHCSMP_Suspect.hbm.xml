@@ -11,7 +11,7 @@
             <generator class="native"/>
         </id>
         
-        <property name="Suspect_ID"/>
+        <property name="suspect_ID"/>
         <property name="band_ID"/>
         <property name="suspect_Name"/>
         <property name="birthday"/>
