@@ -80,7 +80,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 
 	@Override
 	public List<PHCSMP_Dic_IdentifyCard_Type> findAllIdentifyCardType() {
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();//MySessionFactory.getCurrentSession();
 		tx = session.beginTransaction();//开启事务
 		
 		hql = "from PHCSMP_Dic_IdentifyCard_Type";
@@ -93,7 +93,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 
 	@Override
 	public List<PHCSMP_Dic_Action_Cause> findAllSuspectCause() {
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();//MySessionFactory.getCurrentSession();
 		tx = session.beginTransaction();//开启事务
 		
 		hql = "from PHCSMP_Dic_Action_Cause";

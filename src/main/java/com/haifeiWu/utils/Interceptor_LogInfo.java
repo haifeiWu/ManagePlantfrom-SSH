@@ -5,7 +5,9 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.haifeiWu.action.Activity_Record_Action;
 import com.haifeiWu.action.Information_Collection_Action;
@@ -21,14 +23,21 @@ import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
 
 public class Interceptor_LogInfo extends AbstractInterceptor {
 	
-	 private String Operation_Info;  
-	 private String Real_Name;
+	 /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String Operation_Info;  
 	 private String Operation_Time;
 	 private String Operation_Model;
 	 private String Staff_Name1;
 	 private String Staff_Name;
+	 
+	 @Autowired
+	 private SessionFactory sessionFactory;
+	 
 	 private PHCSMP_LogInfo logInfo =new PHCSMP_LogInfo();
-//	 protected Logger log = Logger.getLogger(); 
 	
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
@@ -150,8 +159,8 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 	private Transaction tx = null;
 	private Session session = null;
 	private void addSysLog(String Operation_Time,String Staff_Name,String Operation_Info,String Operation_Model) {
-		session=MySessionFactory.getCurrentSession();
-		tx = session.beginTransaction();//
+		session=this.sessionFactory.getCurrentSession();
+		tx = session.beginTransaction();
 		logInfo.setOperation_Info(Operation_Info);
 		logInfo.setOperation_Model(Operation_Model);
 		logInfo.setOperation_Time(Operation_Time);
