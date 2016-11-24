@@ -1,5 +1,7 @@
 package com.haifeiWu.action;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.util.ServletContextAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -50,10 +53,15 @@ ServletResponseAware,ServletContextAware {
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ServletContext application;
-
+	
+	@Autowired
+	private SuspectService suspectService;//嫌疑人信息管理
 	
 	public String loadInfor(){
 		System.out.println("历史记录，待办信息");
+		List<PHCSMP_Suspect> suspectInfor =  suspectService.getSectionSuspectData();
+		//将信息放入到request中
+		request.setAttribute("suspectInfor", suspectInfor);
 		return "loadInfor";
 	}
 	

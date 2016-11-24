@@ -67,4 +67,9 @@ public class SuspectServiceImple implements SuspectService {
 		return suspectDao.selectPersonInforByBandID(bandId);
 	}
 
+	@Override
+	public List<PHCSMP_Suspect> getSectionSuspectData() {
+		return suspectDao.getSectionSuspectData();
+	}
+
 }

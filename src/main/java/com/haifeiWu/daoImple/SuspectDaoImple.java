@@ -116,4 +116,18 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 		return phcsmp_Suspect;
 	}
 
+	@Override
+	public List<PHCSMP_Suspect> getSectionSuspectData() {
+		session = this.getSession();
+		tx = session.beginTransaction();//开启事务
+		
+		hql = "FROM PHCSMP_Suspect";
+		Query query = session.createQuery(hql).setFirstResult(0).setMaxResults(5);;
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		
+		tx.commit();//提交事务
+		return phcsmp_Suspect;
+	}
+
 }

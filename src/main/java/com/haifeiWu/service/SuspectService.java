@@ -66,5 +66,11 @@ public interface SuspectService {
 	 * @return
 	 */
 	PHCSMP_Suspect selectPersonInforByBandID(int bandId);
+	
+	/**
+	 * 获取数据库中的部分嫌疑人数据
+	 * @return
+	 */
+	List<PHCSMP_Suspect> getSectionSuspectData();
 
 }

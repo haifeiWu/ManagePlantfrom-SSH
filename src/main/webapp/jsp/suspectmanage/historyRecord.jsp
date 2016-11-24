@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 
@@ -38,7 +39,11 @@
 			<h4 id="checkingPerson" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">待查嫌疑人</h4>
 			<table class="wait_check col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<tr>
-					<td>
+					<c:forEach items="${suspectInfor}" var="item" varStatus="status">
+						<img src="images/1-zhengmian_04.png" />
+						<p><a href="${pageContext.request.contextPath }/GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.Suspect_ID}" style="color:#f69d1f;font-size: large;">德古拉</a><br/><span>2</span>小时</p>
+					</c:forEach>
+					<%-- <td>
 						<img src="images/1-zhengmian_04.png" />
 						<p><a href="${pageContext.request.contextPath }/GR_loadInfor.action?personName=haifeisi&suspectID=haifei125345" style="color:#f69d1f;font-size: large;">德古拉</a><br/><span>2</span>小时</p>
 					</td>
@@ -53,8 +58,7 @@
 					<td>
 						<img src="images/1-zhengmian_04.png" />
 						<p><input type="text" value="张德古拉.买买提" /><br>已入区<input type="time" />小时</p>
-					</td>
-					
+					</td> --%>
 				</tr>
 				<tr>
 					
