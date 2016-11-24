@@ -51,21 +51,15 @@ ServletResponseAware,ServletContextAware {
 	private int roomId = 0;
 	private int bandId = 0;//手环id
 	private String identificationCard = "wuhaifei1230343";
-	//录播系统的操作指令
-//	private String SetSplitType = "http://192.168.1.96:8765/SxSetSplitType.psp";//切换第一个画面
-//	private String StartRecording = "http://192.168.1.96:8765/SxStartRecording.psp";//开始录像
-//	private String StopRecording = "http://192.168.1.96:8765/SxStopRecording.psp";//停止录像
-//	private String PauseRecording = "http://192.168.1.96:8765/SxPauseRecording.psp";//暂停录像
-//	private String RestartRecording = "http://192.168.1.96:8765/SxRestartRecording.psp";//重新开始录像
 	
 	@Autowired
 	private SuspectService suspectService;
-	
+	@Autowired
+	private RoomInforDao roomInforDao;//查询房间号的dao
+	@Autowired
+	private BandInforDao bandInforDao;
 	public String readRFID() throws IOException{
 	
-		RoomInforDao roomInfor = new RoomInforDaoImple();//查询房间号的dao
-		BandInforDao bandInforDao = new BandInforDaoImple();
-		
 		String deviceId = request.getParameter("deviceId");//设备号
         String wristId = request.getParameter("wristId");//手环id
         String txID = request.getParameter("txID");//天线id
@@ -84,7 +78,7 @@ ServletResponseAware,ServletContextAware {
         if(RFID_ReadAction.isEmpty == true){//如果房间为空
         	RFID_ReadAction.isEmpty = false;
         	//查找房间号
-        	roomId =  roomInfor.findRoomIDByDeviceId(deviceId);
+        	roomId =  roomInforDao.findRoomIDByDeviceId(deviceId);
         	//查找手环id
         	bandId = bandInforDao.findBandIdByWristId(wristId);
         	//将房间的编号放入的session域中
@@ -125,7 +119,7 @@ ServletResponseAware,ServletContextAware {
 	        if(!oldDeviceId.equals(deviceId)){//如果设备号发生改变
 	        	RFID_ReadAction.oldDeviceId = deviceId;//更新设备号
 	        	//根据设备id查找房间id，然后根据房间id，向录播设备发送信息开启
-	        	roomId =  roomInfor.findRoomIDByDeviceId(deviceId);
+	        	roomId = roomInforDao.findRoomIDByDeviceId(deviceId);
 	        	//将房间的编号放入的session域中
 	        	request.getSession().setAttribute("roomId", roomId);
 	        	//将手环id放入session域中

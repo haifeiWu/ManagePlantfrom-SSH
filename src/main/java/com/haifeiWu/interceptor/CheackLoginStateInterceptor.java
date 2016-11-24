@@ -17,7 +17,7 @@ public class CheackLoginStateInterceptor extends AbstractInterceptor {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	public static int flag = 0;
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
 		System.out.println("检查登录状态的拦截器----->");
@@ -26,12 +26,19 @@ public class CheackLoginStateInterceptor extends AbstractInterceptor {
 		String namespace = invocation.getProxy().getNamespace();
 		String actionName = invocation.getProxy().getActionName();
 		String actionUrl = namespace + actionName; // 对应的权限URL
-		
 		System.out.println("登录状态检测："+actionUrl);
-		
 		if(user == null){
 			if(actionUrl.startsWith("/user_login")){
-				return invocation.invoke();//如果去登陆,放行去登录
+				return invocation.invoke();//如果去登陆，或者是树莓派的请求，放行去登录
+			}else if(actionUrl.startsWith("/readRfid")){
+				System.out.println("树莓派请求进来----------------->\n");
+				CheackLoginStateInterceptor.flag =CheackLoginStateInterceptor.flag + 1;
+				if(CheackLoginStateInterceptor.flag > 1){
+					CheackLoginStateInterceptor.flag = 0;//清零
+					return "frequentVisit";
+				}else{
+					return invocation.invoke();
+				}
 			}else{
 				return "unLoginState";//未登录状态
 			}
