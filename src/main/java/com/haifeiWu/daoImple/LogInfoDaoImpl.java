@@ -7,19 +7,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
+import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.LogInfoDao;
 import com.haifeiWu.entity.PHCSMP_LogInfo;
-import com.haifeiWu.utils.MySessionFactory;
 
 @Repository("logInfoDao")
-public class LogInfoDaoImpl implements LogInfoDao  {  
+public class LogInfoDaoImpl extends DaoSupportImpl<PHCSMP_LogInfo> implements LogInfoDao  {  
     /** 
      * 通过hql语句得到数据库中记录总数 
      */  
     @Override  
     public int getAllRowCount(String hql)  
     {  
-        Session session = MySessionFactory.getCurrentSession();  
+        Session session = this.getSession();  
         Transaction tx = null;  
         int allRows = 0;  
         try  
@@ -53,7 +53,7 @@ public class LogInfoDaoImpl implements LogInfoDao  {
     @Override  
     public List<PHCSMP_LogInfo> queryByPage(String hql, int offset, int pageSize)  
     {  
-        Session session =MySessionFactory.getCurrentSession();   
+        Session session = this.getSession();
         Transaction tx = null;  
         List<PHCSMP_LogInfo> list = null;  
           

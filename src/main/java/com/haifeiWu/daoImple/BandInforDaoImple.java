@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.BandInforDao;
 import com.haifeiWu.entity.PHCSMP_Band;
-import com.haifeiWu.utils.MySessionFactory;
+
+
 @Repository("bandInforDao")
 public class BandInforDaoImple extends DaoSupportImpl<PHCSMP_Band> implements BandInforDao {
 
@@ -33,7 +34,7 @@ public class BandInforDaoImple extends DaoSupportImpl<PHCSMP_Band> implements Ba
 
 	@Override
 	public int findBandIdByWristId(String wristId) {
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		hql = "select p.band_ID from PHCSMP_Band p where remark=?";
 		Query query = session.createQuery(hql);

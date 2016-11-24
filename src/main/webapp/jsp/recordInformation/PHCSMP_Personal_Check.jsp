@@ -65,7 +65,7 @@
 			<h4 style="margin-top: 13px;"><b style="color: #389ac7;">Personnal</b> safety check</h4>
 			<p id="left_title">人身安全检查登记</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="Suspect_ID" value="${SuspectInfor.Suspect_ID }"
+			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="Suspect_ID" value=""
 					readonly="readonly" /></h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">

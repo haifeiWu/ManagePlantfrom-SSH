@@ -28,7 +28,7 @@ public class ActivityRecordDaoImple extends DaoSupportImpl<PHCSMP_Activity_Recor
 	@Override
 	public void saveActivitysInfor(List<PHCSMP_Activity_Record> activitys) {
 		int i=0;
-		session = MySessionFactory.getCurrentSession();
+		session = getSession();
 		tx = session.beginTransaction();//开启事务
 		for (PHCSMP_Activity_Record activity : activitys) {
 			i++;

@@ -6,13 +6,14 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 import com.haifeiWu.action.RFID_ReadAction;
+import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.RoomInforDao;
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.utils.MySessionFactory;
 
 @Repository("roomInforDao")
-public class RoomInforDaoImple implements RoomInforDao {
+public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements RoomInforDao {
 
 	private Transaction tx = null;
 	private Session session = null;
@@ -20,7 +21,7 @@ public class RoomInforDaoImple implements RoomInforDao {
 	
 	@Override
 	public int findRoomIDByDeviceId(String deviceId) {
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		
 		hql = "from PHCSMP_Room where CardReader_ID=?";

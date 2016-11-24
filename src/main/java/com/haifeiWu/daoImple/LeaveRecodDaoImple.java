@@ -21,7 +21,7 @@ public class LeaveRecodDaoImple extends DaoSupportImpl<PHCSMP_Leave_Record> impl
 	@Override
 	public void saveLeaveRecordInfor(List<Temporary_Leave> temporaryLeaves) {
 		int i=0;
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		for (Temporary_Leave temporaryLeave : temporaryLeaves) {
 			i++;

@@ -11,9 +11,7 @@ import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.SuspectDao;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
-import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
-import com.haifeiWu.utils.MySessionFactory;
 
 /**
  * SuspectDaoImple  dao实现层
@@ -29,7 +27,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 	
 	@Override
 	public void suspectDao(PHCSMP_Suspect model) {
-		session = MySessionFactory.getCurrentSession();
+		session =this.getSession();
 		tx = session.beginTransaction();//开启事务
 		session.save(model);
 		tx.commit();//提交事务
@@ -37,7 +35,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 
 	@Override
 	public PHCSMP_Suspect findInfroByActiveCodeAndBandID(int roomId, int bandId) {
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		
 		hql = "from PHCSMP_Suspect where is_Active=? and band_ID=?";
@@ -52,7 +50,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 
 	@Override
 	public PHCSMP_Suspect findInfroByActiveCode(int roomId) {
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		
 		hql = "from PHCSMP_Suspect where is_Active=?";
@@ -67,7 +65,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 	@Override
 	public int updateSuspectInforByBandId(int bandId, int roomId) {
 		
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		hql="update PHCSMP_Suspect p set p.is_Active= ? where p.band_ID= ?";
 		Query query = session.createQuery(hql);
@@ -80,7 +78,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 
 	@Override
 	public List<PHCSMP_Dic_IdentifyCard_Type> findAllIdentifyCardType() {
-		session = this.getSession();//MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		
 		hql = "from PHCSMP_Dic_IdentifyCard_Type";
@@ -106,7 +104,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 
 	@Override
 	public PHCSMP_Suspect selectPersonInforByBandID(int bandId) {
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		
 		hql = "from PHCSMP_Suspect where band_ID=?";

@@ -24,7 +24,7 @@ public class BelongingInforDaoImple extends DaoSupportImpl<PHCSMP_BelongingS> im
 	@Override
 	public void savesaveBelongInforList(List<PHCSMP_BelongingS> belongs) {
 		int i=0;
-		session = MySessionFactory.getCurrentSession();
+		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		for (PHCSMP_BelongingS belong : belongs) {
 			i++;
