@@ -24,6 +24,7 @@ import com.haifeiWu.serviceImple.LeaveRecodServiceImple;
 import com.haifeiWu.serviceImple.PersonalCheckServiceImple;
 import com.haifeiWu.serviceImple.SuspectServiceImple;
 import com.haifeiWu.utils.FTPClientUtils;
+import com.haifeiWu.utils.PropertiesReadUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -64,12 +65,15 @@ ServletResponseAware,ServletContextAware {
 	@Autowired
 	private LeaveRecodService leaveRecodService;
 	
-	
+	/**
+	 * 生成嫌疑人入区信息报告
+	 * @return
+	 */
 	public String loadInfor(){
 		System.out.println("嫌疑人入区信息报告");
 		
-//		System.out.println("嫌疑人姓名："+request.getParameter("personName"));
-//		System.out.println("档案编号："+request.getParameter("suspectID"));
+		System.out.println("嫌疑人姓名："+request.getParameter("personName"));
+		System.out.println("档案编号："+request.getParameter("suspectID"));
 		/*
 		 * 加载当前嫌疑人的所有的信息
 		 */
@@ -97,8 +101,6 @@ ServletResponseAware,ServletContextAware {
 //		request.setAttribute("leave_Record",leave_Record );
 		return "loadInfor";
 	}
-	
-	
 	
 	public String suspectInforSummary(){
 		/*
@@ -130,17 +132,22 @@ ServletResponseAware,ServletContextAware {
 		System.out.println("SuspectManageAction:suspectInforSummary");
 		return "suspectInforSummary";
 	}
+	/**
+	 * 嫌疑人信息搜索
+	 * @return
+	 */
 	public String searchsuspectInfor(){
-		/*
-		 *根据 
-		 */
 		System.out.println("SuspectManageAction:searchsuspectInfor");
 		return "searchsuspectInfor";
 	}
-	
+	/**
+	 * 嫌疑人入区视频文件文件下载
+	 * @return
+	 * @throws Exception
+	 */
 	public String downFile() throws Exception{
 		FTPClientUtils ftp = new FTPClientUtils();
-		ftp.setHost("192.168.1.96");
+		ftp.setHost(PropertiesReadUtils.getString("remoteServerIP"));
 		ftp.setPort(21);
 		ftp.setBinaryTransfer(true);
 		ftp.setPassiveMode(true);

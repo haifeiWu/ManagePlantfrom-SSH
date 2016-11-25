@@ -5,7 +5,7 @@ import java.io.InputStream;
 import java.util.Properties;
 
 /**
- * 讀取配置文件的工具類
+ * 读取配置文件的工具类
  * @author wuhaifei
  * @d2016年11月18日
  */

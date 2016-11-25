@@ -22,7 +22,7 @@
 			<!--搜索框设置-->
 			<p class="st_search col-lg-12 col-md-12 col-sm-12 text-center" style="margin: 0px;padding: 0px;">
 				<div id="txt_search" class="col-lg-12 col-md-12 col-sm-12">嫌疑人搜索</div>
-				<input type="search" name="searchInfor" id="search" />
+				<input type="text" name="searchInfor" id="search" />
 				<a href="#"><!-- 响应搜索的action -->
 					<div id="btn_search"><img src="./images/search_03.png" /></div>
 				</a>

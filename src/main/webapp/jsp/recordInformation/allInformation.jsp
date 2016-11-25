@@ -159,6 +159,7 @@
 				</ul>
 			</form>
 			<hr style="width: 100%;border: 0.5px solid #389AC7;" />
+			<!-- 文件下载链接 -->
 			<a class="col-lg-12 col-md-12 col-sm-12" id="download_All" href="${pageContext.request.contextPath }/GR_downFile.action?date=2016-11-10&fileName=123_425184199203091528_2016111021_0100.MP4">嫌疑人入所视频文件下载</a>
 			<!-- 嫌疑人入区登记 -->
 			<form class="row">
