@@ -146,12 +146,12 @@ ServletResponseAware,ServletContextAware {
 	 * @throws Exception
 	 */
 	public String downFile() throws Exception{
-		FTPClientUtils ftp = new FTPClientUtils();
-		ftp.setHost(PropertiesReadUtils.getString("remoteServerIP"));
-		ftp.setPort(21);
-		ftp.setBinaryTransfer(true);
-		ftp.setPassiveMode(true);
-		ftp.setEncoding("utf-8");
+//		FTPClientUtils ftp = new FTPClientUtils();
+//		ftp.setHost(PropertiesReadUtils.getString("remoteServerIP"));
+//		ftp.setPort(21);
+//		ftp.setBinaryTransfer(true);
+//		ftp.setPassiveMode(true);
+//		ftp.setEncoding("utf-8");
 		String date = request.getParameter("date");
 		String fileName = request.getParameter("fileName");
 		System.out.println("入区时间："+date+"\n文件名："+fileName);
@@ -163,10 +163,11 @@ ServletResponseAware,ServletContextAware {
 			System.out.println(str1);
 		}
 		String downLoadFile = str1.toString()+fileName;
-		boolean flag = ftp
-				.get("/recordfiles/"+downLoadFile,"F://testDownLoad/"+fileName);
+		
+		response.sendRedirect("ftp://"+PropertiesReadUtils.getString("remoteServerIP")+"/recordfiles/"+downLoadFile);
+		
 		System.out.println("下载目录：/recordfiles/"+downLoadFile);
-		System.out.println("下载成功："+flag);
+		System.out.println("下载成功："+true);
 		return "downFile";
 	}
 

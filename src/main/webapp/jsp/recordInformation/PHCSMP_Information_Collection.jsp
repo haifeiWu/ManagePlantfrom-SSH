@@ -79,7 +79,7 @@
 						<tr style="padding: 0px;">
 							<!--图片引入-->
 							<td rowspan="5">
-								<img style="width:100%;height: 75%;margin-left: -2%;" src="images/1-IDlogo_09.png" />
+								<img style="width:89%;height: 75%;margin-left: -2%;" src="images/1-IDlogo_09.png" />
 								<p class="info_id">身份证照</p>
 							</td>
 							<!--<td></td>-->
