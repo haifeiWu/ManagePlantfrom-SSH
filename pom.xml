@@ -25,6 +25,13 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<!--添加开源时间/日期库-->
+		<dependency>
+		  <groupId>joda-time</groupId>
+		  <artifactId>joda-time</artifactId>
+		  <version>2.6</version>
+		</dependency>		
+		
 		<!-- FTP网络连接 -->
 		<dependency>
 		    <groupId>commons-net</groupId>
