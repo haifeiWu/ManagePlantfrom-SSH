@@ -60,9 +60,9 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	 */
 	PHCSMP_Suspect selectPersonInforByBandID(int bandId);
 	/**
-	 * 获取数据库中的部分嫌疑人数据
+	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
 	 * @return
 	 */
-	List<PHCSMP_Suspect> getSectionSuspectData();
+	List<PHCSMP_Suspect> getCheckingSuspect(int is_OutOf);
 
 }

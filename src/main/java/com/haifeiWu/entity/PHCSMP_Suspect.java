@@ -31,9 +31,20 @@ public class PHCSMP_Suspect {
 	private int is_Active;// 是否激活（默认未激活0）
 	private String tdentityID_Imag;// 身份证照片的url
 	private String take_Picture;// 现场拍摄照片的url
-
+	
+	private int is_OutOf;//是否出区，代表该嫌疑人是历史嫌疑人
+	
 	private int total_record;// 需要填写的总记录数
 	private int fill_record;// 当前填写的记录数
+
+
+	public int getIs_OutOf() {
+		return is_OutOf;
+	}
+
+	public void setIs_OutOf(int is_OutOf) {
+		this.is_OutOf = is_OutOf;
+	}
 
 	public String getNow_address() {
 		return now_address;

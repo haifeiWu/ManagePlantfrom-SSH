@@ -117,12 +117,13 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements S
 	}
 
 	@Override
-	public List<PHCSMP_Suspect> getSectionSuspectData() {
+	public List<PHCSMP_Suspect> getCheckingSuspect(int is_OutOf) {
 		session = this.getSession();
 		tx = session.beginTransaction();//开启事务
 		
-		hql = "FROM PHCSMP_Suspect";
-		Query query = session.createQuery(hql).setFirstResult(0).setMaxResults(5);;
+		hql = "FROM PHCSMP_Suspect WHERE is_OutOf = ?";
+		Query query = session.createQuery(hql).setFirstResult(0).setMaxResults(5);
+		query.setParameter(0, is_OutOf);
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
 		

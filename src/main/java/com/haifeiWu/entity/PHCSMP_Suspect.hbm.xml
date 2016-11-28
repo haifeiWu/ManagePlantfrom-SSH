@@ -26,9 +26,10 @@
         <property name="enter_Time"/>
         <property name="staff_ID"/>
         <property name="is_Active"/>
-        
         <property name="tdentityID_Imag"/>
         <property name="take_Picture"/>
+        <property name="is_OutOf"/>
+        
         
         
         <!-- 设置total_record属性为默认值 -->

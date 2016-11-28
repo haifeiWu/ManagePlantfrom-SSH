@@ -13,70 +13,63 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.haifeiWu.base.BaseAction;
-import com.haifeiWu.entity.PHCSMP_Activity_Record;
-import com.haifeiWu.entity.PHCSMP_BelongingS;
-import com.haifeiWu.entity.PHCSMP_Information_Collection;
-import com.haifeiWu.entity.PHCSMP_Leave_Record;
-import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
-import com.haifeiWu.service.ActivityRecordService;
-import com.haifeiWu.service.BelongingInforService;
-import com.haifeiWu.service.InformationCollectionService;
-import com.haifeiWu.service.LeaveRecodService;
-import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
-import com.haifeiWu.serviceImple.ActivityRecordServiceImple;
-import com.haifeiWu.serviceImple.BelongingInforServiceImple;
-import com.haifeiWu.serviceImple.InformationCollectionServiceImple;
-import com.haifeiWu.serviceImple.LeaveRecodServiceImple;
-import com.haifeiWu.serviceImple.PersonalCheckServiceImple;
-import com.haifeiWu.serviceImple.SuspectServiceImple;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
 
 /**
  * 嫌疑人信息管理action，待查嫌疑人信息，历史嫌疑人信息
+ * 
  * @author wuhaifei
  * @d2016年10月17日
  */
 @Controller
 @Scope("prototype")
-public class SuspectManageAction extends ActionSupport implements ServletRequestAware,
-ServletResponseAware,ServletContextAware {
-	
+public class SuspectManageAction extends ActionSupport implements
+		ServletRequestAware, ServletResponseAware, ServletContextAware {
+
 	/**
-	 * 
+	 * UUID
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ServletContext application;
-	
+
 	@Autowired
-	private SuspectService suspectService;//嫌疑人信息管理
-	
-	public String loadInfor(){
+	private SuspectService suspectService;// 嫌疑人信息管理
+
+	/**
+	 * 加载嫌疑人信息
+	 * 
+	 * @return
+	 */
+	public String loadInfor() {
 		System.out.println("历史记录，待办信息");
-		List<PHCSMP_Suspect> suspectInfor =  suspectService.getSectionSuspectData();
-		//将信息放入到request中
-		request.setAttribute("suspectInfor", suspectInfor);
-		for (PHCSMP_Suspect phcsmp_Suspect : suspectInfor) {
+		// 获取待查嫌疑人信息
+		List<PHCSMP_Suspect> suspectCheckInfor = suspectService
+				.getCheckingSuspect(0);
+		// 获取出区嫌疑人数据
+		List<PHCSMP_Suspect> suspectCheckedInfor = suspectService
+				.getCheckingSuspect(1);
+		// 将信息放入到request中
+		request.setAttribute("suspectCheckInfor", suspectCheckInfor);
+		request.setAttribute("suspectCheckedInfor", suspectCheckedInfor);
+		for (PHCSMP_Suspect phcsmp_Suspect : suspectCheckInfor) {
 			System.err.println(phcsmp_Suspect.toString());
 		}
 		return "loadInfor";
 	}
-	
-	public String suspectInforSummary(){
-		
-		System.out.println("SuspectManageAction:suspectInforSummary");
-		return "suspectInforSummary";
-	}
-	public String searchsuspectInfor(){
-		/*
-		 *根据姓名与档案编号查找信息 
-		 */
+
+	/**
+	 * 根据姓名或者档案编号查找嫌疑人信息
+	 * 
+	 * @return
+	 */
+	public String searchsuspectInfor() {
+		String str = request.getParameter("searchInfor");
+		System.out.println("查询条件：" + str);
 		System.out.println("SuspectManageAction:searchsuspectInfor");
 		return "searchsuspectInfor";
 	}

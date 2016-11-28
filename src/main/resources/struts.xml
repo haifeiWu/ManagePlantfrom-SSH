@@ -14,7 +14,7 @@
     	 <interceptors>
             <!--日志拦截器-->
             <interceptor name="Interceptor_LogInfo"
-                class="com.haifeiWu.utils.Interceptor_LogInfo" />
+                class="com.haifeiWu.interceptor.Interceptor_LogInfo" />
            <!--  检查登录状态的拦截器 -->
             <interceptor name="CheackLoginStateInterceptor"
                 class="com.haifeiWu.interceptor.CheackLoginStateInterceptor" />
@@ -125,9 +125,8 @@
 		<!-- 嫌疑人综合信息管理 -->
 		<action name="suspectManage_*" class="com.haifeiWu.action.SuspectManageAction" method="{1}">
 			<result name="loadInfor">/jsp/suspectmanage/historyRecord.jsp</result>
-			<result name="suspectInforSummary">/jsp/recordInformation/allInformation.jsp</result>
 			<!-- 查询嫌疑人信息 -->
-			<result name="searchsuspectInfor">/jsp/suspectmanage/historyRecord.jsp</result>
+			<result name="searchsuspectInfor">/jsp/suspectmanage/suspectInforList.jsp</result>
 		</action>
 		<!-- 查看日志 -->
 		<action name="Log_execute"  class="com.haifeiWu.action.Log_Action" >

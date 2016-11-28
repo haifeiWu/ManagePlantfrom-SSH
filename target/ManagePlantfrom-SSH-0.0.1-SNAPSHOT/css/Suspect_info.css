@@ -61,6 +61,19 @@ margin-left: 0%;
 	margin-top: 5%;
 }
 
+.st_search .serachImg{
+	width: 70px;
+    height: 51px;
+    float: left;
+    /* border: 1px solid red; */
+    background: #212e3e;
+    margin-top: 3%;
+    border-radius: 4px;
+    margin-left: 0%;
+    /* width: 62%; */
+    margin-left: 0%;
+    margin-top: 3%;
+}
 .human_Mes{
 	width: 100%;
 	margin-top: 2%;
@@ -137,8 +150,13 @@ color: #f69d1f;
 	float: left;list-style: none;
 }
 .total input{
-	text-align:center;width:150px;height:30px;background:#0070c0;
-	color:#000;font-size:large;border: none;
+	text-align:center;
+	width:150px;
+	height:30px;
+	background:#0070c0;
+	color:#e0b511;
+	font-size:large;
+	border: none;
 }
 .All_total{
 	width: 100%;
