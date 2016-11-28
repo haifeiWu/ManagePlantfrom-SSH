@@ -16,6 +16,11 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 public class HomeAction extends ActionSupport {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2941802033175754434L;
+
 	public String top() {
 		return "top";
 	}

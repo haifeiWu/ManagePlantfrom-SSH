@@ -36,7 +36,6 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int[] arr = new int[5];
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ServletContext application;
