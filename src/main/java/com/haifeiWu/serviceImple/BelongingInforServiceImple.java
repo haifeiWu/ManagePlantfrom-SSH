@@ -12,12 +12,14 @@ import com.haifeiWu.service.BelongingInforService;
 
 /**
  * 随身物品检查记录的service层代码实现
+ * 
  * @author wuhaifei
  * @d2016年8月16日
  */
 @Service("belongingInforService")
-public class BelongingInforServiceImple extends DaoSupportImpl<PHCSMP_BelongingS> implements BelongingInforService {
-	
+public class BelongingInforServiceImple extends
+		DaoSupportImpl<PHCSMP_BelongingS> implements BelongingInforService {
+
 	@Autowired
 	private BelongingInforDao belongingInforDao;
 

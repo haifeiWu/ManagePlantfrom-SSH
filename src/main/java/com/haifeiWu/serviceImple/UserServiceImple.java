@@ -9,14 +9,14 @@ import com.haifeiWu.service.UserService;
 
 @Service("userService")
 public class UserServiceImple implements UserService {
-	
+
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Override
 	public PHCSMP_Staff findUserByStaffNameAndPwd(String staff_Name,
 			String passWord) {
-		return userDao.findUserByStaffNameAndPwd(staff_Name,passWord);
+		return userDao.findUserByStaffNameAndPwd(staff_Name, passWord);
 	}
 
 }

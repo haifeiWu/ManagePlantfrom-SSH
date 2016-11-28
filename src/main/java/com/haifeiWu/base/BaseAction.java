@@ -16,24 +16,26 @@ import com.opensymphony.xwork2.ModelDriven;
 /**
  * 
  * @author wuhaifei
- *
+ * 
  * @date 2016年8月10日
  */
-public class BaseAction<T> extends ActionSupport implements ModelDriven<T>,ServletRequestAware,
-												ServletResponseAware,ServletContextAware{
+public class BaseAction<T> extends ActionSupport implements ModelDriven<T>,
+		ServletRequestAware, ServletResponseAware, ServletContextAware {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	protected T model;
-	
+
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ServletContext application;
-	//继承的问题？？？？
-	public BaseAction(){
-		ParameterizedType pt = (ParameterizedType) this.getClass().getGenericSuperclass();
+
+	// 继承的问题？？？？
+	public BaseAction() {
+		ParameterizedType pt = (ParameterizedType) this.getClass()
+				.getGenericSuperclass();
 		@SuppressWarnings("unchecked")
 		Class<T> clazz = (Class<T>) pt.getActualTypeArguments()[0];
 		// 通过反射创建model的实例
@@ -41,9 +43,9 @@ public class BaseAction<T> extends ActionSupport implements ModelDriven<T>,Servl
 			model = clazz.newInstance();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} 
+		}
 	}
-	
+
 	@Override
 	public void setServletContext(ServletContext application) {
 		this.application = application;

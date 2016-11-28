@@ -3,24 +3,22 @@ package com.haifeiWu.entity;
 import java.io.Serializable;
 
 /**
- * 身份证件种类字典表
- * （身份证、军官证。。。。？）
+ * 身份证件种类字典表 （身份证、军官证。。。。？）
+ * 
  * @author wuhaifei
- *
+ * 
  * @date 2016年8月9日
  */
 public class PHCSMP_Dic_IdentifyCard_Type implements Serializable {
+
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	
-	
+	private static final long serialVersionUID = 4073521317085785588L;
+
 	private int type_ID;
 	private String type_Name;
-	
-	
-	
+
 	public int getType_ID() {
 		return type_ID;
 	}
@@ -39,6 +37,6 @@ public class PHCSMP_Dic_IdentifyCard_Type implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.type_ID+" "+this.type_Name;
+		return this.type_ID + " " + this.type_Name;
 	}
 }

@@ -14,7 +14,7 @@
     	 <interceptors>
             <!--日志拦截器-->
             <interceptor name="Interceptor_LogInfo"
-                class="com.haifeiWu.utils.Interceptor_LogInfo" />
+                class="com.haifeiWu.interceptor.Interceptor_LogInfo" />
            <!--  检查登录状态的拦截器 -->
             <interceptor name="CheackLoginStateInterceptor"
                 class="com.haifeiWu.interceptor.CheackLoginStateInterceptor" />

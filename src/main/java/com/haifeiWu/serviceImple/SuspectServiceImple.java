@@ -14,16 +14,17 @@ import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.SuspectService;
 
 /**
- * 登录犯罪嫌疑人信息的service实现类 
+ * 登录犯罪嫌疑人信息的service实现类
+ * 
  * @author wuhaifei
  * @d2016年8月14日
  */
 @Service("suspectService")
 public class SuspectServiceImple implements SuspectService {
-	
+
 	@Autowired
 	private SuspectDao suspectDao;
-	
+
 	@Autowired
 	private BandInforDao bundInforDao;
 
@@ -34,7 +35,7 @@ public class SuspectServiceImple implements SuspectService {
 
 	@Override
 	public PHCSMP_Suspect findInfroByActiveCodeAndBandID(int roomId, int bandId) {
-		return suspectDao.findInfroByActiveCodeAndBandID(roomId,bandId);
+		return suspectDao.findInfroByActiveCodeAndBandID(roomId, bandId);
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class SuspectServiceImple implements SuspectService {
 
 	@Override
 	public int updateSuspectInforByBandId(int bandId, int roomId) {
-		return suspectDao.updateSuspectInforByBandId(bandId,roomId);
+		return suspectDao.updateSuspectInforByBandId(bandId, roomId);
 	}
 
 	@Override

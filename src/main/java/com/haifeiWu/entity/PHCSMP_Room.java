@@ -4,10 +4,16 @@ import java.io.Serializable;
 
 /**
  * 房间信息表
+ * 
  * @author wuhaifei
  * @d2016年9月8日
  */
 public class PHCSMP_Room implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5462954138759630229L;
+
 	private int Room_ID;
 	private String Room_Name;
 	private String CardReader_ID;

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>离石区公安局智能化派出所系统</title>
 <link href="${pageContext.request.contextPath }/css/style.css" rel="stylesheet" type="text/css" />
 <script language="JavaScript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 <script language="JavaScript" src="${pageContext.request.contextPath }/js/cloud.js" ></script>
@@ -28,7 +28,7 @@
       <div id="cloud2" class="cloud"></div>
     </div>  
 <div class="logintop">    
-    <span>欢迎登录办案流程标准化智能管理平台</span>    
+    <span>欢迎登录离石区公安局智能化派出所系统</span>    
     <ul>
     <li><a href="#">回首页</a></li>
     <li><a href="#">帮助</a></li>

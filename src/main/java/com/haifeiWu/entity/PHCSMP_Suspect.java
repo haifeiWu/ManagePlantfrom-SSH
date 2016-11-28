@@ -1,8 +1,7 @@
 package com.haifeiWu.entity;
 
+import java.io.Serializable;
 import java.util.Date;
-
-import org.hibernate.annotations.Columns;
 
 /**
  * 进入人员基本信息表
@@ -11,8 +10,12 @@ import org.hibernate.annotations.Columns;
  * 
  * @date 2016年8月9日
  */
-@SuppressWarnings("unused")
-public class PHCSMP_Suspect {
+public class PHCSMP_Suspect implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5439411933114979140L;
+
 	private int id;
 	private String suspect_ID;// 档案编号（主键）
 	private int band_ID;// 手环ID
@@ -26,17 +29,16 @@ public class PHCSMP_Suspect {
 	private String suspected_Cause;// 进入办案区原因（案由字典表中ID用逗号分隔）
 	private Date enter_Time;// 进入办案区时间
 	private String staff_ID;// 办案民警
-	private String address;//家庭住址
-	private String now_address;//家庭住址
+	private String address;// 家庭住址
+	private String now_address;// 家庭住址
 	private int is_Active;// 是否激活（默认未激活0）
 	private String tdentityID_Imag;// 身份证照片的url
 	private String take_Picture;// 现场拍摄照片的url
-	
-	private int is_OutOf;//是否出区，代表该嫌疑人是历史嫌疑人
-	
+
+	private int is_OutOf;// 是否出区，代表该嫌疑人是历史嫌疑人
+
 	private int total_record;// 需要填写的总记录数
 	private int fill_record;// 当前填写的记录数
-
 
 	public int getIs_OutOf() {
 		return is_OutOf;
@@ -53,7 +55,7 @@ public class PHCSMP_Suspect {
 	public void setNow_address(String now_address) {
 		this.now_address = now_address;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}

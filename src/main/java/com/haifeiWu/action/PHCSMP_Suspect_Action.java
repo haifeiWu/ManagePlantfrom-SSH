@@ -11,89 +11,98 @@ import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.SuspectService;
-import com.haifeiWu.serviceImple.SuspectServiceImple;
 
 /**
  * 嫌疑人入区信息登记的action
+ * 
  * @author wuhaifei
  * @d2016年10月17日
  */
 public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
-	
+
 	/**
-	 * 
+	 * UUID
 	 */
 	private static final long serialVersionUID = -5503195229207984964L;
-	
+
 	@Autowired
 	private SuspectService suspectService;
-	
-	/*检查用户登录信息*/
-	public String checkUser(){
-		PHCSMP_Staff user =  (PHCSMP_Staff) request.getSession().getAttribute("user");
-		
-		if(user!=null){
+
+	/* 检查用户登录信息 */
+	public String checkUser() {
+		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
+				"user");
+
+		if (user != null) {
 			return "checkUser";
-		}else{
+		} else {
 			return "loginError";
 		}
 	}
+
 	/**
 	 * 添加嫌疑人信息，并设置相关字段
+	 * 
 	 * @return addSuspectInfor
 	 * @throws Exception
 	 */
-	public String addSuspectInfor() throws Exception{
-		//设置激活码为房间号
-//		model.setIs_Active((Integer)request.getSession().getAttribute("roomId"));
+	public String addSuspectInfor() throws Exception {
+		// 设置激活码为房间号
+		// model.setIs_Active((Integer)request.getSession().getAttribute("roomId"));
 		System.out.println("addSuspectInfor：action");
 		System.out.println(model.toString());
-		
-//		Class<?> c = Class.forName(PHCSMP_Suspect.class.getName());
-//		
-//		int count = CompleteCheck.IsEqualsNull(model, c);
-//		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-//		
-//		model.setFill_record(fieldsNumber-count-3);//设置已填写的字段数
-//		model.setTotal_record(fieldsNumber-3);//设置应填写的字段
-//		System.out.println("未填写的字段："+count);
-//		System.out.println("总字段："+fieldsNumber);
-//		/*第一个添加嫌疑人的信息直接设置已填写的字段即可*/
+
+		// Class<?> c = Class.forName(PHCSMP_Suspect.class.getName());
+		//
+		// int count = CompleteCheck.IsEqualsNull(model, c);
+		// int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
+		//
+		// model.setFill_record(fieldsNumber-count-3);//设置已填写的字段数
+		// model.setTotal_record(fieldsNumber-3);//设置应填写的字段
+		// System.out.println("未填写的字段："+count);
+		// System.out.println("总字段："+fieldsNumber);
+		// /*第一个添加嫌疑人的信息直接设置已填写的字段即可*/
 		suspectService.saveSuspectInfor(model);
 		return "addSuspectInfor";
 	}
-	//加载数据库的手环id信息
-	public String loadInfor(){
-		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute("user");
-		
-		if(user == null){
+
+	// 加载数据库的手环id信息
+	public String loadInfor() {
+		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
+				"user");
+
+		if (user == null) {
 			return "unLoginState";
-		}else{
+		} else {
 			List<PHCSMP_Band> list = suspectService.findAllBundInfor();
-			List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType =  suspectService.findAllIdentifyCardType();
-			List<PHCSMP_Dic_Action_Cause> actionCause =  suspectService.findAllSuspectCause();
-			
-			request.setAttribute("bundList",list);
-			request.setAttribute("identifyCardType",identifyCardType);
+			List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
+					.findAllIdentifyCardType();
+			List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
+					.findAllSuspectCause();
+
+			request.setAttribute("bundList", list);
+			request.setAttribute("identifyCardType", identifyCardType);
 			request.setAttribute("actionCause", actionCause);
 			return "loadInfor";
 		}
 	}
-	
-	public String unlogin_load(){
-		
+
+	public String unlogin_load() {
+
 		List<PHCSMP_Band> list = suspectService.findAllBundInfor();
-		List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType =  suspectService.findAllIdentifyCardType();
-		List<PHCSMP_Dic_Action_Cause> actionCause =  suspectService.findAllSuspectCause();
-		
-		request.setAttribute("bundList",list);
-		request.setAttribute("identifyCardType",identifyCardType);
+		List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
+				.findAllIdentifyCardType();
+		List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
+				.findAllSuspectCause();
+
+		request.setAttribute("bundList", list);
+		request.setAttribute("identifyCardType", identifyCardType);
 		request.setAttribute("actionCause", actionCause);
 		return "unlogin_load";
 	}
-	
-	public String updateInfor(){
-		System.out.println("档案编号："+request.getParameter("Suspect_ID"));
+
+	public String updateInfor() {
+		System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
 		System.out.println("updateInfor：修改嫌疑人信息！");
 		return "updateInfor";
 	}

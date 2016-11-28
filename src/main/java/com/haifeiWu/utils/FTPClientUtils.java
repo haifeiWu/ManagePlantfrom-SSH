@@ -15,6 +15,7 @@ import org.apache.log4j.Logger;
 
 /**
  * FTP服务器文件下载工具类
+ * 
  * @author wuhaifei
  * @d2016年11月15日
  */
@@ -23,16 +24,16 @@ public class FTPClientUtils {
 	private Logger logger = Logger.getLogger(this.getClass().getName());
 	/** logger */
 	protected final Logger log = Logger.getLogger(getClass());
-	private String host;//主机号
-	private int port;//端口号
-	private String username;//用户名
-	private String password;//登录密码
-	private boolean binaryTransfer = true;//二进制传输
+	private String host;// 主机号
+	private int port;// 端口号
+	private String username;// 用户名
+	private String password;// 登录密码
+	private boolean binaryTransfer = true;// 二进制传输
 	private boolean passiveMode = true;
-	private String encoding = "UTF-8";//编码方式
-	private int clientTimeout = 3000;//连接等待时间
-	private boolean flag = true;//标志位
-	
+	private String encoding = "UTF-8";// 编码方式
+	private int clientTimeout = 3000;// 连接等待时间
+	private boolean flag = true;// 标志位
+
 	public String getHost() {
 		return host;
 	}
@@ -400,6 +401,7 @@ public class FTPClientUtils {
 
 	/**
 	 * 列出远程目录下所有的文件
+	 * 
 	 * @param remotePath
 	 *            远程目录名
 	 * @return 远程目录下所有文件名的列表，目录不存在或者目录下没有文件时返回0长度的数组

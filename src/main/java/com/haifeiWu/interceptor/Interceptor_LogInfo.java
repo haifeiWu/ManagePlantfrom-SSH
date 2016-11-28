@@ -26,7 +26,7 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4038608603015636463L;
 
 	private String Operation_Info;
 	private String Operation_Time;

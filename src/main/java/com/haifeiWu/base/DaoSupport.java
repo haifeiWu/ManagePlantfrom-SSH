@@ -15,9 +15,10 @@ public interface DaoSupport<T> {
 	 * @param entity
 	 */
 	void update(T entity);
-	
+
 	/**
 	 * 根据档案编号查找嫌疑人信息
+	 * 
 	 * @param suspectId
 	 * @return
 	 */

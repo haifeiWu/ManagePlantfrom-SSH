@@ -10,9 +10,15 @@ import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.LeaveRecodService;
 
+/**
+ * 出区登记
+ * 
+ * @author wuhaifei
+ * @d2016年11月28日
+ */
 @Service("leaveRecodService")
 public class LeaveRecodServiceImple implements LeaveRecodService {
-	
+
 	@Autowired
 	private LeaveRecodDao leaveRecodDao;
 
@@ -25,5 +31,5 @@ public class LeaveRecodServiceImple implements LeaveRecodService {
 	public void saveLeaveRecordInfor(List<Temporary_Leave> temporaryLeaves) {
 		leaveRecodDao.saveLeaveRecordInfor(temporaryLeaves);
 	}
-	
+
 }

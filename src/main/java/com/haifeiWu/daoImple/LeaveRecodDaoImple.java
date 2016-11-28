@@ -10,28 +10,28 @@ import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.LeaveRecodDao;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.Temporary_Leave;
-import com.haifeiWu.utils.MySessionFactory;
 
 @Repository("leaveRecodDao")
-public class LeaveRecodDaoImple extends DaoSupportImpl<PHCSMP_Leave_Record> implements LeaveRecodDao {
+public class LeaveRecodDaoImple extends DaoSupportImpl<PHCSMP_Leave_Record>
+		implements LeaveRecodDao {
 
 	private Transaction tx = null;
 	private Session session = null;
-	
+
 	@Override
 	public void saveLeaveRecordInfor(List<Temporary_Leave> temporaryLeaves) {
-		int i=0;
+		int i = 0;
 		session = this.getSession();
-		tx = session.beginTransaction();//开启事务
+		tx = session.beginTransaction();// 开启事务
 		for (Temporary_Leave temporaryLeave : temporaryLeaves) {
 			i++;
 			session.save(temporaryLeave);
-		    if(i%5==0){//以每5个数据作为一个处理单元
-		        session.flush();
-		        session.clear();
-		    }
+			if (i % 5 == 0) {// 以每5个数据作为一个处理单元
+				session.flush();
+				session.clear();
+			}
 		}
-		tx.commit();//提交事务
+		tx.commit();// 提交事务
 	}
 
 }

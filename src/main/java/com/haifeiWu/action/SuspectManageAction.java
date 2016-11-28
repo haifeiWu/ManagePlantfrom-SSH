@@ -1,6 +1,8 @@
 package com.haifeiWu.action;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -68,9 +70,23 @@ public class SuspectManageAction extends ActionSupport implements
 	 * @return
 	 */
 	public String searchsuspectInfor() {
-		String str = request.getParameter("searchInfor");
-		System.out.println("查询条件：" + str);
-		System.out.println("SuspectManageAction:searchsuspectInfor");
+		String searchInfor = request.getParameter("searchInfor");
+		/*
+		 * 通过正则表达式来区分档案号与嫌疑人姓名
+		 */
+		Pattern p = Pattern.compile("^[A-Za-z0-9]{4,40}$");
+		Matcher m = p.matcher(searchInfor);
+		boolean result = m.find();
+
+		if (result) {
+			// 根据档案编号查询嫌疑人信息
+			// PHCSMP_Suspect suspect = suspectService
+			// .serachInforBySuspectId(searchInfor);
+			// System.out.println("档案编号：" + searchInfor);
+		} else {
+			// System.out.println("嫌疑人姓名：" + searchInfor);
+		}
+
 		return "searchsuspectInfor";
 	}
 

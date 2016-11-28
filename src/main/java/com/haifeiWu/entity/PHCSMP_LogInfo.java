@@ -1,13 +1,20 @@
 package com.haifeiWu.entity;
 
+import java.io.Serializable;
+
 // 日志信息表 -->
-public class PHCSMP_LogInfo {
+public class PHCSMP_LogInfo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8729816995392362934L;
+
 	private int Log_ID;
-	private String  Operation_Time;
-	private String  Staff_Name;
-	private String 	Operation_Info;
+	private String Operation_Time;
+	private String Staff_Name;
+	private String Operation_Info;
 	private String Operation_Model;
-	
+
 	public PHCSMP_LogInfo(int log_ID, String operation_Time, String staff_Name,
 			String operation_Info, String operation_Model) {
 		super();
@@ -58,7 +65,7 @@ public class PHCSMP_LogInfo {
 		Operation_Model = operation_Model;
 	}
 
-	public PHCSMP_LogInfo(){}
-	
-	
+	public PHCSMP_LogInfo() {
+	}
+
 }

@@ -7,27 +7,28 @@ import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 主页面 的设计
+ * 
  * @author wuhaifei
- *
+ * 
  * @date 2016年8月9日
  */
 @Controller
 @Scope("prototype")
 public class HomeAction extends ActionSupport {
-	
-	public String top(){
+
+	public String top() {
 		return "top";
 	}
-	
-	public String left(){
+
+	public String left() {
 		return "left";
 	}
-	
-	public String index(){
+
+	public String index() {
 		return "index";
 	}
-	
-	public String main(){
+
+	public String main() {
 		return "main";
 	}
 }

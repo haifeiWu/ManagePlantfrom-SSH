@@ -47,6 +47,7 @@ com\haifeiWu\dao\LeaveRecodDao.class
 com\haifeiWu\serviceImple\BelongingInforServiceImple.class
 com\haifeiWu\entity\PHCSMP_Dic_Inspection_Situation.class
 com\haifeiWu\entity\PHCSMP_Duties.class
+com\haifeiWu\interceptor\Interceptor_LogInfo.class
 com\haifeiWu\entity\PHCSMP_Band.class
 com\haifeiWu\entity\PHCSMP_Role.class
 com\haifeiWu\entity\PHCSMP_Staff_In_Role.class
@@ -72,7 +73,6 @@ com\haifeiWu\serviceImple\SuspectServiceImple.class
 com\haifeiWu\utils\PropertiesReadUtils$SingletonInstance.class
 com\haifeiWu\entity\PHCSMP_Suspect.class
 com\haifeiWu\entity\PHCSMP_Dic_Keeping_Way.class
-com\haifeiWu\utils\Interceptor_LogInfo.class
 com\haifeiWu\service\LeaveRecodService.class
 com\haifeiWu\utils\MySessionFactory$SingletonInstance.class
 com\haifeiWu\daoImple\PersonalCheckDaoImple.class
