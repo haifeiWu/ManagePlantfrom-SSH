@@ -2,7 +2,12 @@ package com.haifeiWu.entity;
 
 import java.io.Serializable;
 
-// 日志信息表 -->
+/**
+ * 日志信息表
+ * 
+ * @author wuhaifei
+ * @d2016年11月29日
+ */
 public class PHCSMP_LogInfo implements Serializable {
 	/**
 	 * 

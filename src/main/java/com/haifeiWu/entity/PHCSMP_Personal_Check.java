@@ -1,15 +1,13 @@
 package com.haifeiWu.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
 
 /**
  * 进入人员人身检查信息表
  * 
  * @author wuhaifei
  * 
- * @date 2016年8月9日
+ * @String 2016年8月9日
  */
 public class PHCSMP_Personal_Check implements Serializable {
 
@@ -31,9 +29,9 @@ public class PHCSMP_Personal_Check implements Serializable {
 	// private int Keeping_ID;// 保管措施（随身物品保管措施字典表中ID逗号隔开）
 	// private String Cabinet_Number;// 保管柜编号
 	// 人身检查日期
-	private Date Check_Date;
-	private Time start_time;
-	private Time end_time;
+	private String Check_Date;
+	private String start_time;
+	private String end_time;
 	// 自述症状
 	private String isDrink;// 是否饮酒
 	private String isDiseases;// 是否传染性疾病
@@ -115,76 +113,27 @@ public class PHCSMP_Personal_Check implements Serializable {
 		this.fill_record = fill_record;
 	}
 
-	// public String getBelonging_Number() {
-	// return Belonging_Number;
-	// }
-	//
-	// public void setBelonging_Number(String belonging_Number) {
-	// Belonging_Number = belonging_Number;
-	// }
-	//
-	// public String getBelonging_Name_Character() {
-	// return Belonging_Name_Character;
-	// }
-	//
-	// public void setBelonging_Name_Character(String belonging_Name_Character)
-	// {
-	// Belonging_Name_Character = belonging_Name_Character;
-	// }
-	//
-	// public int getBelonging_Count() {
-	// return Belonging_Count;
-	// }
-	//
-	// public void setBelonging_Count(int belonging_Count) {
-	// Belonging_Count = belonging_Count;
-	// }
-	//
-	// public String getBelonging_Unit() {
-	// return Belonging_Unit;
-	// }
-	//
-	// public void setBelonging_Unit(String belonging_Unit) {
-	// Belonging_Unit = belonging_Unit;
-	// }
-	//
-	// public int getKeeping_ID() {
-	// return Keeping_ID;
-	// }
-	//
-	// public void setKeeping_ID(int keeping_ID) {
-	// Keeping_ID = keeping_ID;
-	// }
-	//
-	// public String getCabinet_Number() {
-	// return Cabinet_Number;
-	// }
-	//
-	// public void setCabinet_Number(String cabinet_Number) {
-	// Cabinet_Number = cabinet_Number;
-	// }
-
-	public Time getEnd_time() {
+	public String getEnd_time() {
 		return end_time;
 	}
 
-	public void setEnd_time(Time end_time) {
+	public void setEnd_time(String end_time) {
 		this.end_time = end_time;
 	}
 
-	public Time getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
 
-	public void setStart_time(Time start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
 
-	public Date getCheck_Date() {
+	public String getCheck_Date() {
 		return Check_Date;
 	}
 
-	public void setCheck_Date(Date check_Date) {
+	public void setCheck_Date(String check_Date) {
 		Check_Date = check_Date;
 	}
 

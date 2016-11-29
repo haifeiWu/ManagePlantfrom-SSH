@@ -1,7 +1,6 @@
 package com.haifeiWu.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 询问、讯问等活动记录表
@@ -20,8 +19,8 @@ public class PHCSMP_Activity_Record implements Serializable {
 	private int Activity_Record_ID;
 
 	private String Suspect_ID;// 档案编号
-	private Date Start_Time;// 开始时间
-	private Date End_Time;// 结束时间
+	private String Start_Time;// 开始时间
+	private String End_Time;// 结束时间
 	private int Room_ID;// 房间ID
 	private String Activity_Record;// 活动内容
 	private String Vedio_Number;// 音频视频编码
@@ -39,19 +38,19 @@ public class PHCSMP_Activity_Record implements Serializable {
 		Suspect_ID = suspect_ID;
 	}
 
-	public Date getStart_Time() {
+	public String getStart_Time() {
 		return Start_Time;
 	}
 
-	public void setStart_Time(Date start_Time) {
+	public void setStart_Time(String start_Time) {
 		Start_Time = start_Time;
 	}
 
-	public Date getEnd_Time() {
+	public String getEnd_Time() {
 		return End_Time;
 	}
 
-	public void setEnd_Time(Date end_Time) {
+	public void setEnd_Time(String end_Time) {
 		End_Time = end_Time;
 	}
 

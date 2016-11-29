@@ -1,8 +1,6 @@
 package com.haifeiWu.entity;
 
 import java.io.Serializable;
-import java.sql.Time;
-import java.util.Date;
 
 /**
  * 离开办案区登记表 PHCSMP_Leave_Record
@@ -20,14 +18,14 @@ public class PHCSMP_Leave_Record implements Serializable {
 
 	private int Leave_Record_ID;// id（主键）
 	private String Suspect_ID;// 档案编号
-	private Date Leave_Time;// 最终离开时间
-	private Time Leave_Hour;
+	private String Leave_Time;// 最终离开时间
+	private String Leave_Hour;
 	private String Leave_Reason;// 离开原因（离开原因字典表ID逗号隔开）
 	private String BelongingS_Treatment_Method;// 随身物品处理方式字典表ID逗号隔开
 	private String BelongingS_Treatment_Record;// 未返还物品处理记录
 	private String Recipient_Person;// 领取人姓名
 	private String Recipient_Person_Number;// 领取人身份证号码
-	private Time Treatment_Time;// 随身物品处理时间
+	private String Treatment_Time;// 随身物品处理时间
 	private int Staff_ID;// 办案民警 4
 	private int Room_ID;// 信息登记房间
 
@@ -42,11 +40,11 @@ public class PHCSMP_Leave_Record implements Serializable {
 		Suspect_ID = suspect_ID;
 	}
 
-	public Date getLeave_Time() {
+	public String getLeave_Time() {
 		return Leave_Time;
 	}
 
-	public void setLeave_Time(Date leave_Time) {
+	public void setLeave_Time(String leave_Time) {
 		Leave_Time = leave_Time;
 	}
 
@@ -92,11 +90,11 @@ public class PHCSMP_Leave_Record implements Serializable {
 		Recipient_Person_Number = recipient_Person_Number;
 	}
 
-	public Time getTreatment_Time() {
+	public String getTreatment_Time() {
 		return Treatment_Time;
 	}
 
-	public void setTreatment_Time(Time treatment_Time) {
+	public void setTreatment_Time(String treatment_Time) {
 		Treatment_Time = treatment_Time;
 	}
 
@@ -146,11 +144,11 @@ public class PHCSMP_Leave_Record implements Serializable {
 				+ this.Recipient_Person;
 	}
 
-	public Time getLeave_Hour() {
+	public String getLeave_Hour() {
 		return Leave_Hour;
 	}
 
-	public void setLeave_Hour(Time leave_Hour) {
+	public void setLeave_Hour(String leave_Hour) {
 		Leave_Hour = leave_Hour;
 	}
 }

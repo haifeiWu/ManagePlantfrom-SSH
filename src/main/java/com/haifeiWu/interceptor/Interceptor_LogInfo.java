@@ -41,9 +41,8 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
-		System.out.println("--------------->日志拦截器");
 
-		Map session = invocation.getInvocationContext().getSession();
+		Map<?, ?> session = invocation.getInvocationContext().getSession();
 		Object action = invocation.getAction();
 		String method = invocation.getProxy().getMethod();
 		if (StringUtils.isBlank(method))
@@ -52,7 +51,7 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 		invocation.invoke();
 		PHCSMP_Staff sysUser = (PHCSMP_Staff) session.get("user");
 
-		System.out.println(sysUser.getStaff_Name());
+		// System.out.println(sysUser.getStaff_Name());
 		if (sysUser != null) {
 			String Staff_ID2 = sysUser.getStaff_Name() + "";
 

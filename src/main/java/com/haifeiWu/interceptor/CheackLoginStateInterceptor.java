@@ -23,14 +23,14 @@ public class CheackLoginStateInterceptor extends AbstractInterceptor {
 
 	@Override
 	public String intercept(ActionInvocation invocation) throws Exception {
-		System.out.println("检查登录状态的拦截器----->");
+		// System.out.println("检查登录状态的拦截器----->");
 		PHCSMP_Staff user = (PHCSMP_Staff) ServletActionContext.getContext()
 				.getSession().get("user");// 从session域中获取user
 
 		String namespace = invocation.getProxy().getNamespace();
 		String actionName = invocation.getProxy().getActionName();
 		String actionUrl = namespace + actionName; // 对应的权限URL
-		System.out.println("登录状态检测：" + actionUrl);
+		// System.out.println("登录状态检测：" + actionUrl);
 		if (user == null) {
 			if (actionUrl.startsWith("/user_login")) {
 				return invocation.invoke();// 如果去登陆，或者是树莓派的请求，放行去登录

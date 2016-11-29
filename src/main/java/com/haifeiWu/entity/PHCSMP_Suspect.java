@@ -1,14 +1,13 @@
 package com.haifeiWu.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 进入人员基本信息表
  * 
  * @author wuhaifei
  * 
- * @date 2016年8月9日
+ * @String 2016年8月9日
  */
 public class PHCSMP_Suspect implements Serializable {
 	/**
@@ -27,7 +26,7 @@ public class PHCSMP_Suspect implements Serializable {
 	private String type_ID;// 证件类型
 	private String identifyCard_Number;// 证件号码
 	private String suspected_Cause;// 进入办案区原因（案由字典表中ID用逗号分隔）
-	private Date enter_Time;// 进入办案区时间
+	private String enter_Time;// 进入办案区时间
 	private String staff_ID;// 办案民警
 	private String address;// 家庭住址
 	private String now_address;// 家庭住址
@@ -80,11 +79,11 @@ public class PHCSMP_Suspect implements Serializable {
 		this.suspect_ID = suspect_ID;
 	}
 
-	public Date getEnter_Time() {
+	public String getEnter_Time() {
 		return enter_Time;
 	}
 
-	public void setEnter_Time(Date enter_Time) {
+	public void setEnter_Time(String enter_Time) {
 		this.enter_Time = enter_Time;
 	}
 

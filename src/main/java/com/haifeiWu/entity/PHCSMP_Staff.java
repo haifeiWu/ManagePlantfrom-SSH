@@ -1,14 +1,13 @@
 package com.haifeiWu.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * 用户信息表
  * 
  * @author wuhaifei
  * 
- * @date 2016年8月9日
+ * @String 2016年8月9日
  */
 public class PHCSMP_Staff implements Serializable {
 	/**
@@ -23,7 +22,7 @@ public class PHCSMP_Staff implements Serializable {
 	private String Sex;// 性别
 	private int Duties_ID;// 职务ID
 	private String Email;// 邮箱
-	private Date RegistedDate;// 注册日期
+	private String RegistedDate;// 注册日期
 	private String Is_Dimission;// 是否离职
 	private String Phone;// 移动电话
 	private String Mobile;// 固话
@@ -77,11 +76,11 @@ public class PHCSMP_Staff implements Serializable {
 		Email = email;
 	}
 
-	public Date getRegistedDate() {
+	public String getRegistedDate() {
 		return RegistedDate;
 	}
 
-	public void setRegistedDate(Date registedDate) {
+	public void setRegistedDate(String registedDate) {
 		RegistedDate = registedDate;
 	}
 

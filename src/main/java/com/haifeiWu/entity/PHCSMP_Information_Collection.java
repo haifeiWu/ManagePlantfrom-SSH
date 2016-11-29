@@ -1,8 +1,6 @@
 package com.haifeiWu.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
 
 /***
  * 进入人员信息采集表
@@ -26,9 +24,9 @@ public class PHCSMP_Information_Collection implements Serializable {
 	private String Is_Checked;// 是否检查对比
 
 	// 人身检查日期
-	private Date IC_Date;
-	private Time start_time;
-	private Time end_time;
+	private String IC_Date;
+	private String start_time;
+	private String end_time;
 
 	private int Staff_ID;// 办案民警
 	private int Room_ID;// 信息登记房间
@@ -116,27 +114,27 @@ public class PHCSMP_Information_Collection implements Serializable {
 		this.fill_record = fill_record;
 	}
 
-	public Date getIC_Date() {
+	public String getIC_Date() {
 		return IC_Date;
 	}
 
-	public void setIC_Date(Date iC_Date) {
+	public void setIC_Date(String iC_Date) {
 		IC_Date = iC_Date;
 	}
 
-	public Time getStart_time() {
+	public String getStart_time() {
 		return start_time;
 	}
 
-	public void setStart_time(Time start_time) {
+	public void setStart_time(String start_time) {
 		this.start_time = start_time;
 	}
 
-	public Time getEnd_time() {
+	public String getEnd_time() {
 		return end_time;
 	}
 
-	public void setEnd_time(Time end_time) {
+	public void setEnd_time(String end_time) {
 		this.end_time = end_time;
 	}
 }
