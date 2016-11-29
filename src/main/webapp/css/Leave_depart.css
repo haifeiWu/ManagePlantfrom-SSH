@@ -136,8 +136,9 @@ input{
 
 textarea{
 	overflow: hidden;resize: none;width: 40%;height: 50px;
-	/* border:1.5px solid #c1c1c1;
-	-webkit-box-shadow:1px 1px 2px rgba(54,156,199,0.8)inset; */
+/* 	border:1.5px solid #c1c1c1; */
+	/* -webkit-box-shadow:1px 1px 2px rgba(54,156,199,0.8)inset; */
+	
 }
 .Message input{
 	width: 50%;
@@ -183,7 +184,7 @@ textarea{
 /*身份证照下方文字信息*/
 .info_id{
 	background: #389ac7;
-	width: 87%;
+	width: 98%;
 	margin-left: 0%;
 	/*margin-top: -1%;*/
 	height: 40px;
@@ -233,8 +234,6 @@ textarea{
 }
 
 .final_Leave tr td{
-	/*list-style: none;*/
-	/*float: left;*/
 	border-collapse: 2px;
 	height: 34px;
 	line-height: 34px;

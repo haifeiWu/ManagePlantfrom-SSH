@@ -87,34 +87,33 @@
 									<p class="info_id">身份证照</p>
 								</td>
 								<!--<td></td>-->
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名:<input type="text" readonly="readonly" name="suspect_Name" value="德古拉" /></td>
+								<td colspan="2">姓名:<input type="text" readonly="readonly" name="suspect_Name" value="德古拉" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：<input style="text-align: center;" type="text" name="sex" value="男" readonly="readonly"
+								<td>性别：<input style="text-align: center;" type="text" name="sex" value="男" readonly="readonly"
 									/></td>
 								<td>民族：<input type="text" name="nation" value="汉" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出生日期：<input type="text" style="width:20%;" name="birthday" value="1961" readonly="readonly" />年<input
+								<td colspan="2">出生日期：<input type="text" style="width:20%;" name="birthday" value="1961" readonly="readonly" />年<input
 										type="text" readonly="readonly" style="width:20%;text-align: center;" name="birthday" value="8" /> 月
 									<input type="text" style="width:25%;" name="birthday" value="12" readonly="readonly" />日</td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
 
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;家庭住址：</td>
+								<td colspan="2">家庭住址：</td>
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" name="address" rows="1" cols="30">&nbsp;&nbsp;&nbsp;山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea readonly="readonly" name="address" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							<tr>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证号码</td>
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="identifyCard_Number" value="140104196108123556" readonly="readonly" /></td>
+								<td><div style="margin-left: 38px;">身份证号码</div></td>
+								<td colspan="2"><input type="text" name="identifyCard_Number" value="140104196108123556" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 41%; margin-left: -2%;" />

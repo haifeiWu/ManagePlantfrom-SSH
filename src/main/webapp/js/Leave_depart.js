@@ -19,23 +19,8 @@ $(function(){
 	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "7%","text-align":"left"});
 	//设置离开办案区登记表的样式
 	$(".transient_Leave tr:first").css({"background":"#0070c0","color":"#ffffff"})
-	
 
-	// $(".final_Leave li:even").css("width","30%");
-
-	// $(".final_Leave li:odd").css("width","45%");
-
-	// $(".final_Leave li:first").css({"background":"#0070c0","color":"#ffffff"});
-	// $(".final_Leave li:eq(1)").css({"background":"#0070c0","color":"#ffffff"});
-
-	// $(".final_Leave input").css({"height":"28px","width":"40%"});
-	// $(".final_Leave li:eq(2) input").css({"width":"80px","margin-left":"10px"});
-	// $(".final_Leave li:eq(5) input").css({"width":"40px","height":"10px"});
-	// $(".final_Leave li:eq(6)").css("height","80px");
-	// $(".final_Leave li:eq(7)").css("height","80px");
-
-
-	$(".final_Leave tr").find("td:eq(0)").css({"width":"40%","text-align":"right"});
+	$(".final_Leave tr").find("td:eq(0)").css({"width":"40%","text-align":"center"});
 	
 	$(".final_Leave input[type='checkbox']").css({"width":"40px","height":"20px"});
 		//	设置date,time 的样式
@@ -48,3 +33,58 @@ $(function(){
 
 
 });
+
+window.onload = function(){
+// 设置进度条变化
+if ($(".Message input[type='text']").val()!="") {
+	$("#state img:eq(0)").attr("src","./images/fgreen_03.png");
+
+	}
+	else{
+	$("#state img:eq(0)").attr("src","./images/3-信息采集_03.png");
+
+	}
+	$(".Message input[type='text']").change(function(){
+// console.log($(this).val())
+	if ($(this).val()!="") {
+	$("#state img:eq(0)").attr("src","./images/fgreen_03.png");
+
+	}
+	else{
+	$("#state img:eq(0)").attr("src","./images/3-信息采集_03.png");
+
+	}
+		
+	});
+
+// 出区登记
+
+$(document).ready(function(){
+
+	if ($(".transient_Leave input:lt(2)").val()!="") {
+	$("#state img:eq(5)").attr("src","./images/fgreen_07.png");
+
+	}
+	else{
+	$("#state img:eq(5)").attr("src","./images/3-信息采集_07.png");
+
+	}
+	$(".transient_Leave input:lt(2)").change(function(){
+// console.log($(this).val())
+	if ($(this).val()!="") {
+	$("#state img:eq(5)").attr("src","./images/fgreen_07.png");
+
+	}
+	else{
+	$("#state img:eq(5)").attr("src","./images/3-信息采集_07.png");
+
+	}
+		
+	});
+
+
+});
+
+
+
+}

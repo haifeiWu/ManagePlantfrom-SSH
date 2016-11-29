@@ -1,12 +1,12 @@
 package com.haifeiWu.interceptor;
 
-import java.text.SimpleDateFormat;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.haifeiWu.action.Activity_Record_Action;
@@ -183,10 +183,7 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 	 * 获取时间
 	 */
 	private String getDate() {
-		java.util.Date date = new java.util.Date();
-		java.sql.Date logData = new java.sql.Date(date.getTime());// 当前时间
-		Operation_Time = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"))
-				.format(logData); // date转String
-		return Operation_Time;
+		String date = new DateTime().toString("yyyy-MM-dd HH:mm:ss");
+		return date;
 	}
 }

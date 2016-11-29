@@ -9,9 +9,13 @@
 	<title>嫌疑人信息采集</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/Info_Col.css" />
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/Info_collection.js"></script>
+	
 </head>
 
 <body>
@@ -72,7 +76,6 @@
 				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 					<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
-					<!--<hr style="width: 100%; border: 1px solid red; padding: 0px;margin-top: 100%;margin-left: -5%; "/>-->
 
 					<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
@@ -83,34 +86,33 @@
 								<p class="info_id">身份证照</p>
 							</td>
 							<!--<td></td>-->
-							<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
+							<td colspan="2">姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
 						</tr>
 						<!--第二行 性别 民族-->
 						<tr>
-
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
+							<td>性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
 								/></td>
 							<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
 						</tr>
 						<!--第三行 出生-->
 						<tr>
 
-							<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出生日期：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
+							<td colspan="2">出生日期：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
 									type="text" readonly="readonly" style="width:20%;text-align: center;" value="8" /> 月
 								<input type="text" style="width:25%;" value="12" readonly="readonly" />日</td>
 						</tr>
 						<!--第四行身份证住址-->
 						<tr>
 
-							<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;住址：</td>
+							<td colspan="2">住址：</td>
 						</tr>
 						<tr>
 							<!--<td></td>-->
-							<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">&nbsp;&nbsp;&nbsp;山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+							<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 						</tr>
 						<tr>
-							<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证号码</td>
-							<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="140104196108123556" readonly="readonly" /></td>
+							<td><div style="margin-left: 38px;">身份证号码</div></td>
+							<td colspan="2"><input type="text" value="140104196108123556" readonly="readonly" /></td>
 						</tr>
 					</table>
 					<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 40%; margin-left: -2%;" />
@@ -118,8 +120,28 @@
 				</div>
 			</div>
 			<!--身份证信息结束-->
-			<div class="check_time row_1">信息采集起止时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" name="IC_Date" />&nbsp;<input type="time" name="start_time" />至&nbsp;<input type="time" name="end_time"
-				/></div>
+			<div class="form-group">
+                <label for="dtp_input1" class="check_time">信息采集起始时间：</label>
+                <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+                    <input class="form-control" name="start_time" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                </div>
+				<input type="hidden" id="dtp_input1" value="" /><br/>
+            </div>
+            <script type="text/javascript">
+			  $('.form_datetime').datetimepicker({
+			      	language:  'zh-CN',
+			        format: 'yyyy-mm-dd hh:ii',
+			        weekStart: 1,
+			        todayBtn:  1,
+					autoclose: 1,
+					todayHighlight: 1,
+					startView: 2,
+					forceParse: 0,
+			        showMeridian: 1
+			    });
+    		</script>
 			<hr style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%; margin-left: 0%;" />
 			<div class="container">
 				<div class="row">

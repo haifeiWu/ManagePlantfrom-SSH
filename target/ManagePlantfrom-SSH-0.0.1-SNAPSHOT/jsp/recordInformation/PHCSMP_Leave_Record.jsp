@@ -1,4 +1,4 @@
-type="redirectAction"<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
@@ -9,10 +9,13 @@ type="redirectAction"<%@ page language="java" contentType="text/html; charset=UT
 	<title>离开办案区登记</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/Leave_depart.css" />
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/Leave_depart.js"></script>
-	<script>
+	<script type="text/javascript">
 	var index = 0;
 	$(function(){
 	 $("#add").click(function()
@@ -109,34 +112,32 @@ type="redirectAction"<%@ page language="java" contentType="text/html; charset=UT
 									<p class="info_id">身份证照</p>
 								</td>
 								<!--<td></td>-->
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
+								<td colspan="2">姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
+								<td>性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
 									/></td>
 								<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出生：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
+								<td colspan="2">出生：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
 										type="text" readonly="readonly" style="width:20%;text-align: center;" value="8" /> 月
 									<input type="text" style="width:25%;" value="12" readonly="readonly" />日</td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
-
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证住址：</td>
+								<td colspan="2">身份证住址：</td>
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">&nbsp;&nbsp;&nbsp;山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							<tr>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证号码</td>
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="140104196108123556" readonly="readonly" /></td>
+								<td><div style="margin-left: 38px;">身份证号码</div></td>
+								<td colspan="2"><input type="text" value="140104196108123556" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 40%; margin-left: -2%;" />
@@ -194,8 +195,27 @@ type="redirectAction"<%@ page language="java" contentType="text/html; charset=UT
 					</tr>
 					<tr>
 						<td>
-							<input type="date" name="Leave_Time" />
-							<input type="time" name="" />
+							<div class="form-group" style="height: 30px;" >
+				                <div class="input-group date form_datetime col-md-5" style="margin-left: 30%;margin-top: 2%;" data-date="2012-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+				                    <input class="form-control" name="" size="8" type="text" value="" readonly>
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				                </div>
+								<input type="hidden" id="dtp_input1" value="" /><br/>
+				            </div>
+				            <script type="text/javascript">
+							  $('.form_datetime').datetimepicker({
+							      	language:  'zh-CN',
+							        format: 'yyyy-mm-dd hh:ii',
+							        weekStart: 1,
+							        todayBtn:  1,
+									autoclose: 1,
+									todayHighlight: 1,
+									startView: 2,
+									forceParse: 0,
+							        showMeridian: 1
+							    });
+				    		</script>
 						</td>
 						<td>
 							<select name="Leave_Reason">
@@ -232,13 +252,13 @@ type="redirectAction"<%@ page language="java" contentType="text/html; charset=UT
 						<td><input type="time" name="" /></td>
 					</tr>
 				</table>
+				
 			</div>
 			<hr style="margin-top: 3%;border: 1px solid darkgray;" />
 			<p id="signature">管理员:<input type="text" name="" /></p>
 		</div>
 		<input type="submit" value="确认提交" class="sub" />
 	</form>
-
 			<div style="height: 100px;"></div>
 </body>
 

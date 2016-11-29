@@ -49,8 +49,15 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	public String addSuspectInfor() throws Exception {
 		// 设置激活码为房间号
 		// model.setIs_Active((Integer)request.getSession().getAttribute("roomId"));
-		System.out.println("addSuspectInfor：action");
-		System.out.println(model.toString());
+
+		StringBuilder sb = new StringBuilder();
+		String[] arr = model.getBirthday().split(", ");
+		for (int i = 0; i < arr.length; i++) {
+			sb.append(arr[i] + "-");
+		}
+		String date = sb.toString().substring(0, sb.toString().length() - 1);
+		model.setBirthday(date);
+		System.out.println(date);
 
 		// Class<?> c = Class.forName(PHCSMP_Suspect.class.getName());
 		//
@@ -61,7 +68,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		// model.setTotal_record(fieldsNumber-3);//设置应填写的字段
 		// System.out.println("未填写的字段："+count);
 		// System.out.println("总字段："+fieldsNumber);
-		// /*第一个添加嫌疑人的信息直接设置已填写的字段即可*/
+		 /*第一个添加嫌疑人的信息直接设置已填写的字段即可*/
 		suspectService.saveSuspectInfor(model);
 		return "addSuspectInfor";
 	}

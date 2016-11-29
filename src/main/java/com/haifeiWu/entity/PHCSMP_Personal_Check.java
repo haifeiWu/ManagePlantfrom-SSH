@@ -155,6 +155,7 @@ public class PHCSMP_Personal_Check implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.Suspect_ID + " " + this.Check_Situation;
+		return this.Suspect_ID + " " + this.Check_Situation + " "
+				+ this.Check_Date;
 	}
 }

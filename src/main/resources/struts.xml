@@ -107,7 +107,7 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addLeaveRecordInfor" type="redirectAction">suspectManage_suspectInforSummary</result><!-- /jsp/recordInformation/PHCSMP_Leave_Record.jsp -->
+			<!-- <result name="addLeaveRecordInfor" type="redirectAction"></result> -->
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
 		</action>
 		<!-- 生成嫌疑人信息报告 -->

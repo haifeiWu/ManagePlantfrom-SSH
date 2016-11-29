@@ -3,6 +3,7 @@ package com.haifeiWu.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -52,10 +53,10 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	public String addCheckPersonInfor() throws Exception {
 
-		/* 通过反射加载类的信息 */
-		System.out
-				.println("PHCSMP_Personal_Check_Action：addCheckPersonInfor\n\n");
 		System.out.println("单条信息：" + model.toString());
+
+		model.setEnd_time(new DateTime().toString("yyyy-MM-dd HH:mm"));// 设置人身检查的结束时间
+		model.setStart_time(model.getCheck_Date());// 设置人参检查的开始时间
 		List<PHCSMP_BelongingS> belongs = this.getBelong();
 		for (PHCSMP_BelongingS belong : belongs) {
 			belong.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
