@@ -7,14 +7,15 @@
 <head>
 	<meta charset="UTF-8">
 	<title>离开办案区登记</title>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/Leave_depart.css" />
 	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
-	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/Leave_depart.js"></script>
+	
 	<script type="text/javascript">
 	var index = 0;
 	$(function(){
@@ -26,13 +27,29 @@
 		 	//添加下一行
 		 	var addrow = "<tr>"
 			 			+"<td>"+index+"</td>"
-						+"<td><input type=time name=temporaryLeave["+index+"].TempLeave_Time /></td>"
+						+"<td style=width:35%;>"
+						+"<div class='form-group' style='height: 30px;' >"
+						+"<div class='input-group date form_time col-md-5' style='margin-left: 30%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
+               			+"<input class=form-control name=temporaryLeave["+index+"].TempLeave_Time type=text readonly>"
+                    	+"<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
+						+"<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
+                		+"</div>"
+						+"<input type='hidden' id='dtp_input1'/><br/>"
+            			+"</td>" 
 						+"<td> <select name=temporaryLeave["+index+"].TempLeave_Reason> <option value=>---请选择---</option> <option value=1>扣押</option> <option value=2>暂存</option> <option value=3>代保管</option> </select> </td>"
 						+"<td><input name=temporaryLeave["+index+"].Staff_ID /></td>"
-						+"<td><input type=time name=temporaryLeave["+index+"].TempLeave_Time /></td>"
+						+"<td style=width:35%;>"
+						+"<div class='form-group' style='height: 30px;' >"
+						+"<div class='input-group date form_time col-md-5' style='margin-left: 30%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
+               			+"<input class=form-control name=temporaryLeave["+index+"].Return_Time type=text readonly>"
+                    	+"<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
+						+"<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
+                		+"</div>"
+						+"<input type='hidden' id='dtp_input1'/><br/>"
+            			+"</div> </td>"
 						+"</tr>";
 		 	$(".transient_Leave tr").eq($(".transient_Leave tr").length-2).after(addrow);
-		  	addrow.find("td:eq(0)").html(num-1);
+		  /* 	addrow.find("td:eq(0)").html(num-1); */
 			tdnum.html(num);
 		 });
 			//删除行
@@ -47,7 +64,23 @@
 				$(this).parent().prev().html($(this).parent().prev().html()-1);
 			} 	
 		});
-	});
+		
+		 $(".form_time").datetimepicker({
+	      	language:  'zh-CN',
+	        format: 'hh:ii',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			maxView: 1,
+			forceParse: 0
+	    });
+	    
+		});
+		
+		
 	</script>
 </head>
 <body>
@@ -158,7 +191,16 @@
 					</tr>
 					<tr>
 						<td>0</td>
-						<td><input type="time" name="temporaryLeave[0].TempLeave_Time" /></td>
+						<td style="width: 35%;">
+							<div class="form-group" style="height: 30px;" >
+				                <div class="input-group date form_time col-md-5" style="margin-left: 30%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
+				                    <input class="form-control" name="temporaryLeave[0].TempLeave_Time" type="text" value="" readonly>
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				                </div>
+								<input type="hidden" id="dtp_input1" value="" /><br/>
+				            </div>
+						</td>
 						<td id="select">
 							<select name="temporaryLeave[0].TempLeave_Reason">
 								<option value="">---请选择---</option>
@@ -168,7 +210,16 @@
 							</select>
 						</td>
 						<td><input name="temporaryLeave[0].Staff_ID" /></td>
-						<td><input type="time" name="temporaryLeave[0].Return_Time" /></td>
+						<td style="width: 35%;">
+							<div class="form-group" style="height: 30px;" >
+				                <div class="input-group date form_time col-md-5" style="margin-left: 30%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
+				                    <input class="form-control" name="temporaryLeave[0].Return_Time" type="text" value="" readonly>
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				                </div>
+								<input type="hidden" id="dtp_input1" value="" /><br/>
+				            </div>
+						</td>
 					</tr>
 					<tr>
 						<td>2</td>
@@ -179,9 +230,22 @@
 						<td></td>
 						<td></td>
 						<td></td>
-
 					</tr>
 				</table>
+				<!-- <script type="text/javascript">
+						  $('.form_datetime').datetimepicker({
+						      	language:  'zh-CN',
+						        format: 'hh:ii',
+						        weekStart: 1,
+						        todayBtn:  1,
+								autoclose: 1,
+								todayHighlight: 1,
+								startView: 1,
+								minView: 0,
+								maxView: 1,
+								forceParse: 0
+						    });
+				 </script> -->
 			</div>
 			<hr style="margin-top: 3%;border: 1px solid darkgray;" />
 			<!--最终离开办案区的信息表-->
@@ -196,26 +260,13 @@
 					<tr>
 						<td>
 							<div class="form-group" style="height: 30px;" >
-				                <div class="input-group date form_datetime col-md-5" style="margin-left: 30%;margin-top: 2%;" data-date="2012-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
+				                <div class="input-group date form_time col-md-5" style="margin-left: 30%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
 				                    <input class="form-control" name="" size="8" type="text" value="" readonly>
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
-									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 				                </div>
 								<input type="hidden" id="dtp_input1" value="" /><br/>
 				            </div>
-				            <script type="text/javascript">
-							  $('.form_datetime').datetimepicker({
-							      	language:  'zh-CN',
-							        format: 'yyyy-mm-dd hh:ii',
-							        weekStart: 1,
-							        todayBtn:  1,
-									autoclose: 1,
-									todayHighlight: 1,
-									startView: 2,
-									forceParse: 0,
-							        showMeridian: 1
-							    });
-				    		</script>
 						</td>
 						<td>
 							<select name="Leave_Reason">
