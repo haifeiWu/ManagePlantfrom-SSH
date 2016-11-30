@@ -22,8 +22,8 @@ $(document).ready(function(){
 	$(".active_check tr:first").css({"background":"#0070c0","color":"#ffffff"});
 	$(".active_check tr").find("td:eq(0)").css("width","5%");
 //	设置input标签
-	$(".active_check input").css("height","30px");
-	$(".active_check input:lt(4)").css("width","25%");
+//	$(".active_check .tb_activity input").css("height","30px");
+//	$(".active_check .tb_activity input:lt(4)").css("width","25%");
 //	设置human_mes样式
 //第一个标题
 	$(".human_Mes input:eq(0)").css({"border":"none","background":"none","margin-left":"1%"});

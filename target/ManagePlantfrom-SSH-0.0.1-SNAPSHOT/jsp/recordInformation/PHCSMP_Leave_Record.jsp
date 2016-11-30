@@ -19,6 +19,19 @@
 	<script type="text/javascript">
 	var index = 0;
 	$(function(){
+	
+	$(".form_time").datetimepicker({
+	      	language:  'zh-CN',
+	        format: 'hh:ii',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			maxView: 1,
+			forceParse: 0
+	    });
 	 $("#add").click(function()
 		{
 		 	var num = $(".transient_Leave tr").length;
@@ -35,7 +48,7 @@
 						+"<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
                 		+"</div>"
 						+"<input type='hidden' id='dtp_input1'/><br/>"
-            			+"</td>" 
+            			+"</div> </td>" 
 						+"<td> <select name=temporaryLeave["+index+"].TempLeave_Reason> <option value=>---请选择---</option> <option value=1>扣押</option> <option value=2>暂存</option> <option value=3>代保管</option> </select> </td>"
 						+"<td><input name=temporaryLeave["+index+"].Staff_ID /></td>"
 						+"<td style=width:35%;>"
@@ -65,19 +78,6 @@
 			} 	
 		});
 		
-		 $(".form_time").datetimepicker({
-	      	language:  'zh-CN',
-	        format: 'hh:ii',
-	        weekStart: 1,
-	        todayBtn:  1,
-			autoclose: 1,
-			todayHighlight: 1,
-			startView: 1,
-			minView: 0,
-			maxView: 1,
-			forceParse: 0
-	    });
-	    
 		});
 		
 		

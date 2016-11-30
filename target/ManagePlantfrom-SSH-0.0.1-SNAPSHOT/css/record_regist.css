@@ -133,7 +133,6 @@ textarea{
 }
 .Message input{
 	width: 50%;
-	
 }
 /*身份证信息表*/
 .Message{
@@ -202,6 +201,10 @@ textarea{
 	margin-left: 9%;
 	width: 80%;
 	font-size: inherit;
+}
+.active_check .tb_activity input{
+	height: 30px;
+	width: 65%
 }
 .active_check tr td{
 	height: 30px;

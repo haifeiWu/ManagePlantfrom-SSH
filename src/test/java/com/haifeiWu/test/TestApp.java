@@ -1,7 +1,11 @@
 package com.haifeiWu.test;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
+
+import com.haifeiWu.utils.PropertiesReadUtils;
 
 public class TestApp {
 	@Test
@@ -20,5 +24,16 @@ public class TestApp {
 	public void test02() {
 		String date = new DateTime().toString("yyyy-MM-dd HH:mm:ss");
 		System.out.println(date);
+	}
+
+	@Test
+	public void test03() {
+		DateTimeFormatter format = DateTimeFormat
+				.forPattern("yyyy-MM-dd HH:mm:ss");
+		DateTime dateTime2 = DateTime.parse(
+				PropertiesReadUtils.getString("time"), format);
+
+		String string_u = dateTime2.toString("yyyy-MM-dd HH:mm:ss");
+		System.out.println(string_u);
 	}
 }

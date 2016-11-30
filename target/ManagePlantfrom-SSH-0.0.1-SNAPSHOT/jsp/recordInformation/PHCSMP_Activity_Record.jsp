@@ -8,28 +8,68 @@
 <head>
 	<meta charset="UTF-8">
 	<title>活动记录登记</title>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/record_regist.css" />
+	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/record_regist.js"></script>
 	<script type="text/javascript">
 	var index = 0;
 	$(function(){
 			
-		
+		$(".form_time").datetimepicker({
+	      	language:  'zh-CN',
+	        format: 'hh:ii',
+	        weekStart: 1,
+	        todayBtn:  1,
+			autoclose: 1,
+			todayHighlight: 1,
+			startView: 1,
+			minView: 0,
+			maxView: 1,
+			forceParse: 0
+	    });
+	    
+	    /* <td style="width: 35%;">
+			<div class="form-group" style="height: 30px;width: 170%;">
+	              <div class="input-group date form_time col-md-5" style="margin-left: 8%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
+	                  <input class="form-control" name="activity[0].Start_Time" type="text" value="" readonly>
+	                  <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+				<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+	              </div>
+			<input type="hidden" id="dtp_input1" value="" /><br/>
+	          </div>
+	      </td> */
 		 $("#add").click(function()
 		 {
-		 	
 		 	var num = $(".active_check tr").length;
 		 	index = num-2;
 		 	var tdnum = $(".active_check tr:last()").find("td:eq(0)");
 	
 		 	var addrow = "<tr>"
 				+"<td>"+index+"</td>"
-			+"<td><input type=time style='height:30px;width:65%;text-align:center;' /></td>"
+			+"<td style='width: 35%;'>"
+			+"<div class='form-group' style='height: 30px;width: 170%;'>"
+	        +"<div class='input-group date form_time col-md-5' style='margin-left: 8%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
+	        +"<input class='form-control' name=activity["+index+"].Start_Time type='text' readonly>"
+	        +"<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
+			+"<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
+	        +"</div>"
+			+"<input type='hidden' id='dtp_input1' value='' /><br/>"
+	        +"</div></td>"
 			+"<td>——</td>"
-			+"<td><input type=time style=height:30px;width: 65%;text-align: center; /></td>"
+			+"<td style='width: 35%;'>"
+			+"<div class='form-group' style='height: 30px;width: 170%;'>"
+	        +"<div class='input-group date form_time col-md-5' style='margin-left: 8%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
+	        +"<input class='form-control' name=activity["+index+"].Start_Time type='text' readonly>"
+	        +"<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
+			+"<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
+	        +"</div>"
+			+"<input type='hidden' id='dtp_input1' value='' /><br/>"
+	        +"</div></td>"
 			+"<td> <select name=activity["+index+"].Room_ID> <option value=>---请选择---</option> <option value=101>101</option> <option value=102>102</option> <option value=103>103</option> </select> </td>"
 			+"<td> <select name=activity["+index+"].Activity_Record> <option value=>---请选择---</option> <option value=询问>询问</option> <option value=讯问>讯问</option> <option value=审讯>审讯</option><option value=传唤>传唤</option> </select> </td>"
 			+"<td><input type=text name=activity["+index+"].Vedio_Number style='height:30px;width: 65%;text-align: center;' /></td>"
@@ -44,7 +84,6 @@
 		$("#delete").click(function()
 			{
 			var len = $(".active_check tr").length; //获取当前表格行数
-			var td=$(this).parent().prev().html();  //获取当前行序号
 			var delrow = $(".active_check tr").get($(".active_check tr").length - 2);
 			if (len>2) 
 			{
@@ -123,35 +162,31 @@
 									<img style="width:89%;height: 75%;margin-left: -2%;" src="images/1-IDlogo_09.png" />
 									<p class="info_id">身份证照</p>
 								</td>
-								<!--<td></td>-->
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
+								<td colspan="2">姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
-
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
+								<td>性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
 									/></td>
 								<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出生日期：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
+								<td colspan="2">出生日期：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
 										type="text" readonly="readonly" style="width:20%;text-align: center;" value="8" /> 月
-									<input type="text" style="width:25%;" value="12" readonly="readonly" />日</td>
+								<input type="text" style="width:25%;" value="12" readonly="readonly" />日</td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
-
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;住址：</td>
+								<td colspan="2">住址：</td>
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">&nbsp;&nbsp;&nbsp;山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							<tr>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证号码</td>
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="140104196108123556" readonly="readonly" /></td>
+								<td><div style="margin-left: 38px;">身份证号码</div></td>
+								<td colspan="2"><input type="text" value="140104196108123556" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 40%; margin-left: -2%;" />
@@ -174,9 +209,27 @@
 					</tr>
 					<tr>
 						<td>0</td>
-						<td><input type="time" name=""/></td>
+						<td style="width: 35%;">
+							<div class="form-group" style="height: 30px;width: 170%;">
+				                <div class="input-group date form_time col-md-5" style="margin-left: 8%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
+				                    <input class="form-control" name="activity[0].Start_Time" type="text" value="" readonly>
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				                </div>
+								<input type="hidden" id="dtp_input1" value="" /><br/>
+				            </div>
+				        </td>
 						<td>——</td>
-						<td><input type="time" name="" /></td>
+						<td style="width: 35%;">
+							<div class="form-group" style="height: 30px;width: 170%;">
+				                <div class="input-group date form_time col-md-5" style="margin-left: 8%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
+				                    <input class="form-control" name="activity[0].End_Time" type="text" value="" readonly>
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				                </div>
+								<input type="hidden" id="dtp_input1" value="" /><br/>
+				            </div>
+				        </td>
 						<td id="select">
 							<select name="activity[0].Room_ID">
 									<option value=>---请选择---</option>	
@@ -195,8 +248,8 @@
 									<option value="传唤">传唤</option>
 							</select>
 						</td>
-						<td><input type="text" name="activity[0].Vedio_Number" value="音视频文件" /></td>
-						<td><input type="text" name="activity[0].Remark" /></td>
+						<td><input type="text" class="tb_activity" name="activity[0].Vedio_Number" value="音视频文件" /></td>
+						<td><input type="text" class="tb_activity" name="activity[0].Remark" /></td>
 					</tr>
 					<tr>
 						<td>2</td>
