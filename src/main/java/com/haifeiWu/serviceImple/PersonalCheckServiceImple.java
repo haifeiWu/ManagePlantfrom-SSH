@@ -22,4 +22,9 @@ public class PersonalCheckServiceImple implements PersonalCheckService {
 	public void saveCheckPersonInfor(PHCSMP_Personal_Check model) {
 		personalCheckDao.save(model);
 	}
+
+	@Override
+	public PHCSMP_Personal_Check findInforBySuspetcId(String suspectId) {
+		return personalCheckDao.findInforBySuspetcId(suspectId);
+	}
 }

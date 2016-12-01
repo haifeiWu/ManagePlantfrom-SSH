@@ -15,4 +15,12 @@ public interface InformationCollectionService {
 	 */
 	void saveCollectionInfor(PHCSMP_Information_Collection model);
 
+	/**
+	 * 根据档案号查询嫌疑人信息采集信息
+	 * 
+	 * @param suspectId
+	 * @return
+	 */
+	PHCSMP_Information_Collection findInforBySuspetcId(String suspectId);
+
 }

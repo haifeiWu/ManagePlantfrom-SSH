@@ -61,7 +61,7 @@
 		</tr>
 	</table>
 	<blockquote>
-		<H1>对不起，找不到该资源！</H1>
+		<H1>数据库中无数据，请添加数据后操作！</H1>
 		<p>
 	</blockquote>
 	<table width=100% cellpadding=0 cellspacing=0>

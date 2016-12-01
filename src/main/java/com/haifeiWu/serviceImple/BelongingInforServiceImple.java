@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.BelongingInforDao;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.service.BelongingInforService;
@@ -17,8 +16,7 @@ import com.haifeiWu.service.BelongingInforService;
  * @d2016年8月16日
  */
 @Service("belongingInforService")
-public class BelongingInforServiceImple extends
-		DaoSupportImpl<PHCSMP_BelongingS> implements BelongingInforService {
+public class BelongingInforServiceImple implements BelongingInforService {
 
 	@Autowired
 	private BelongingInforDao belongingInforDao;
@@ -31,5 +29,10 @@ public class BelongingInforServiceImple extends
 	@Override
 	public void saveBelongInforList(List<PHCSMP_BelongingS> belongs) {
 		belongingInforDao.savesaveBelongInforList(belongs);
+	}
+
+	@Override
+	public PHCSMP_BelongingS findInforBySuspetcId(String suspectId) {
+		return belongingInforDao.findInforBySuspetcId(suspectId);
 	}
 }

@@ -86,4 +86,12 @@ public interface SuspectService {
 	 */
 	List<PHCSMP_Suspect> getCheckingSuspect(int is_OutOf);
 
+	/**
+	 * 根据档案号查询用户信息
+	 * 
+	 * @param suspectId
+	 * @return
+	 */
+	PHCSMP_Suspect findInforBySuspetcId(String suspectId);
+
 }

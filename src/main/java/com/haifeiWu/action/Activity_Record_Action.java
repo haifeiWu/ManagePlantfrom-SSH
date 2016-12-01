@@ -74,6 +74,9 @@ public class Activity_Record_Action extends ActionSupport implements
 
 		List<PHCSMP_Activity_Record> activitys = this.getActivity();
 
+		if (activitys == null) {// 当获取的数据为空时
+			return "NULL";
+		}
 		activityRecordService.saveActivitysInfor(activitys);
 
 		for (PHCSMP_Activity_Record activity : activitys) {// 遍历list
@@ -91,6 +94,9 @@ public class Activity_Record_Action extends ActionSupport implements
 	 */
 	public String loadInfor() {
 		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(3);
+		if (SuspectInfor == null) {
+			return "NULL";
+		}
 		// 将信息从数据库查找到之后，存入session，更新session
 		request.setAttribute("SuspectInfor", SuspectInfor);
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(

@@ -20,4 +20,12 @@ public interface LeaveRecodService {
 	 */
 	void saveLeaveRecordInfor(List<Temporary_Leave> temporaryLeaves);
 
+	/**
+	 * 根据档案号查询嫌疑人用户信息
+	 * 
+	 * @param suspectId
+	 * @return
+	 */
+	PHCSMP_Leave_Record findInforBySuspetcId(String suspectId);
+
 }

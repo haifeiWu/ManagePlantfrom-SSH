@@ -73,4 +73,9 @@ public class SuspectServiceImple implements SuspectService {
 		return suspectDao.getCheckingSuspect(is_OutOf);
 	}
 
+	@Override
+	public PHCSMP_Suspect findInforBySuspetcId(String suspectId) {
+		return suspectDao.findInforBySuspetcId(suspectId);
+	}
+
 }

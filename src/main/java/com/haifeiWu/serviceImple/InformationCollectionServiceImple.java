@@ -24,4 +24,9 @@ public class InformationCollectionServiceImple implements
 	public void saveCollectionInfor(PHCSMP_Information_Collection model) {
 		informationCollectionDao.save(model);
 	}
+
+	@Override
+	public PHCSMP_Information_Collection findInforBySuspetcId(String suspectId) {
+		return informationCollectionDao.findInforBySuspetcId(suspectId);
+	}
 }

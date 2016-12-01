@@ -1,5 +1,6 @@
 package com.haifeiWu.action;
 
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,9 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	@Autowired
 	private SuspectService suspectService;
 
+	private String personName;
+	private String suspectID;
+
 	/**
 	 * 点击画面中的“下一步”，提交信息并转发到suspectManage_suspectInforSummary.action
 	 * 
@@ -47,6 +51,12 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 		// 打印提交的单条信息
 		System.out.println("单条信息：" + model.toString());
+
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(1);
+
+		this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
+				"utf-8");
+		this.suspectID = SuspectInfor.getSuspect_ID();
 
 		// 打印list信息
 		List<Temporary_Leave> temporaryLeaves = this.getTemporaryLeave();
@@ -77,9 +87,12 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	public String loadInfor() {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(4);
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(1);
 		// 将信息从数据库查找到之后，存入session，更新session
 		request.setAttribute("SuspectInfor", SuspectInfor);
+
+		// this.setPersonName(SuspectInfor.getSuspect_Name());
+		// this.setSuspectID(SuspectInfor.getSuspect_ID());
 
 		if (user == null) {
 			return "unLoginState";
@@ -100,5 +113,21 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 	public void setTemporaryLeave(List<Temporary_Leave> temporaryLeave) {
 		this.temporaryLeave = temporaryLeave;
+	}
+
+	public String getPersonName() {
+		return personName;
+	}
+
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+
+	public String getSuspectID() {
+		return suspectID;
+	}
+
+	public void setSuspectID(String suspectID) {
+		this.suspectID = suspectID;
 	}
 }

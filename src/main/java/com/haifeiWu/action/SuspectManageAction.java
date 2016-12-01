@@ -55,6 +55,9 @@ public class SuspectManageAction extends ActionSupport implements
 		// 获取出区嫌疑人数据
 		List<PHCSMP_Suspect> suspectCheckedInfor = suspectService
 				.getCheckingSuspect(1);
+		if ((suspectCheckInfor == null) || (suspectCheckedInfor == null)) {
+			return "NULL";
+		}
 		// 将信息放入到request中
 		request.setAttribute("suspectCheckInfor", suspectCheckInfor);
 		request.setAttribute("suspectCheckedInfor", suspectCheckedInfor);

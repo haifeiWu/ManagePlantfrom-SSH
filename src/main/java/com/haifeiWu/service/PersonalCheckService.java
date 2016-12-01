@@ -17,4 +17,12 @@ public interface PersonalCheckService {
 	 */
 	void saveCheckPersonInfor(PHCSMP_Personal_Check model);
 
+	/**
+	 * 根据档案号查询嫌疑人人身检查信息
+	 * 
+	 * @param suspectId
+	 * @return
+	 */
+	PHCSMP_Personal_Check findInforBySuspetcId(String suspectId);
+
 }

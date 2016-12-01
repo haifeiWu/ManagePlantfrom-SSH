@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
+import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
@@ -53,14 +54,14 @@ public class PHCSMP_BelongingS_Action extends BaseAction<PHCSMP_BelongingS> {
 	}
 
 	public String loadInfor() {
-		// SuspectService suspectService = new SuspectServiceImple();
-		// PHCSMP_Suspect SuspectInfor =
-		// suspectService.findInfroByActiveCode(2);
-		// System.out.println("name："+SuspectInfor.getSuspect_Name());
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(2);
+		if (SuspectInfor == null) {
+			return "NULL";
+		}
+		// System.out.println("name：" + SuspectInfor.getSuspect_Name());
 		// 将信息从数据库查找到之后，存入session，更新session
-		// request.setAttribute("SuspectInfor", SuspectInfor);
+		request.setAttribute("SuspectInfor", SuspectInfor);
 		System.out.println("PHCSMP_BelongingS_Action：loadInfor");
 		return "loadInfor";
 	}
-
 }

@@ -11,6 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.haifeiWu.entity.PHCSMP_Activity_Record;
+import com.haifeiWu.entity.PHCSMP_BelongingS;
+import com.haifeiWu.entity.PHCSMP_Information_Collection;
+import com.haifeiWu.entity.PHCSMP_Leave_Record;
+import com.haifeiWu.entity.PHCSMP_Personal_Check;
+import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.InformationCollectionService;
@@ -72,35 +78,42 @@ public class GenerateReportAction extends ActionSupport implements
 		/*
 		 * 加载当前嫌疑人的所有的信息
 		 */
-		// //获取档案编号
-		// String suspectId = (String) request.getAttribute("suspectId");
-		// //查找嫌疑人入区信息
-		// PHCSMP_Suspect suspect =
-		// suspectService.findInforBySuspetcId(suspectId);
-		// //嫌疑人随身物品检查信息
-		// PHCSMP_BelongingS belongingS =
-		// inforService.findInforBySuspetcId(suspectId);
-		// //嫌疑人人身检查信息
-		// PHCSMP_Personal_Check personal_Check =
-		// checkService.findInforBySuspetcId(suspectId);
-		// //嫌疑人询问讯问记录信息
-		// PHCSMP_Activity_Record activity_Record =
-		// activityRecordService.findInforBySuspetcId(suspectId);
-		// //嫌疑人信息采集记录
-		// PHCSMP_Information_Collection information_Collection =
-		// collectionService.findInforBySuspetcId(suspectId);
-		// //嫌疑人出区信息记录
-		// PHCSMP_Leave_Record leave_Record =
-		// leaveRecodService.findInforBySuspetcId(suspectId);
-		//
-		// //将查找到的信息放入request中，然后从页面加载
-		// request.setAttribute("suspect",suspect );
-		// request.setAttribute("belongingS",belongingS );
-		// request.setAttribute("personal_Check",personal_Check );
-		// request.setAttribute("activity_Record",activity_Record );
-		// request.setAttribute("information_Collection",information_Collection
-		// );
-		// request.setAttribute("leave_Record",leave_Record );
+		// 获取档案编号
+		String suspectId = (String) request.getParameter("suspectID");
+		if (suspectId == null) {
+			return "NULL";
+		}
+		// 查找嫌疑人入区信息
+		PHCSMP_Suspect suspect = suspectService.findInforBySuspetcId(suspectId);
+		// 嫌疑人随身物品检查信息
+		PHCSMP_BelongingS belongingS = belongingInforService
+				.findInforBySuspetcId(suspectId);
+		// 嫌疑人人身检查信息
+		PHCSMP_Personal_Check personal_Check = personalCheckService
+				.findInforBySuspetcId(suspectId);
+		// 嫌疑人询问讯问记录信息
+		PHCSMP_Activity_Record activity_Record = activityRecordService
+				.findInforBySuspetcId(suspectId);
+		// 嫌疑人信息采集记录
+		PHCSMP_Information_Collection information_Collection = informationCollectionService
+				.findInforBySuspetcId(suspectId);
+		// 嫌疑人出区信息记录
+		PHCSMP_Leave_Record leave_Record = leaveRecodService
+				.findInforBySuspetcId(suspectId);
+		if ((suspect == null) || (belongingS == null)
+				|| (personal_Check == null) || (activity_Record == null)
+				|| (information_Collection == null) || (leave_Record == null)) {
+			return "NULL";
+		}
+
+		// 将查找到的信息放入request中，然后从页面加载
+		request.setAttribute("suspect", suspect);
+		request.setAttribute("belongingS", belongingS);
+		request.setAttribute("personal_Check", personal_Check);
+		request.setAttribute("activity_Record", activity_Record);
+		request.setAttribute("information_Collection", information_Collection);
+		request.setAttribute("leave_Record", leave_Record);
+
 		return "loadInfor";
 	}
 
@@ -159,12 +172,6 @@ public class GenerateReportAction extends ActionSupport implements
 	 * @throws Exception
 	 */
 	public String downFile() throws Exception {
-		// FTPClientUtils ftp = new FTPClientUtils();
-		// ftp.setHost(PropertiesReadUtils.getString("remoteServerIP"));
-		// ftp.setPort(21);
-		// ftp.setBinaryTransfer(true);
-		// ftp.setPassiveMode(true);
-		// ftp.setEncoding("utf-8");
 		String date = request.getParameter("date");
 		String fileName = request.getParameter("fileName");
 		System.out.println("入区时间：" + date + "\n文件名：" + fileName);

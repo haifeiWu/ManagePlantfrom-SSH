@@ -25,4 +25,12 @@ public interface BelongingInforService {
 	 */
 	void saveBelongInforList(List<PHCSMP_BelongingS> belongs);
 
+	/**
+	 * 根据档案号查询嫌疑人随身物品信息
+	 * 
+	 * @param suspectId
+	 * @return
+	 */
+	PHCSMP_BelongingS findInforBySuspetcId(String suspectId);
+
 }

@@ -10,6 +10,7 @@ import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.utils.CompleteCheck;
 
 /**
  * 信息采集的action
@@ -34,30 +35,34 @@ public class Information_Collection_Action extends
 	// 保存信息
 	public String addInformationCollection() throws Exception {
 		// 通过反射加载身物品检查记录的类
-		System.out
-				.println("Information_Collection_Action：addInformationCollection\n\n\n");
 
-		// Class<?> c =
-		// Class.forName(PHCSMP_Information_Collection.class.getName());
-		//
-		// int count = CompleteCheck.IsEqualsNull(model, c);
-		// int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-		//
-		// model.setFill_record(fieldsNumber-count-3);//设置已填写的字段数
-		// model.setTotal_record(fieldsNumber-3);//设置应填写的字段
-		// System.out.println("未填写的字段："+count);
-		// System.out.println("总字段："+(fieldsNumber-3));
-		// System.out.println("房间号："+model.getRoom_ID());
-		// // InformationCollectionService service = new
-		// InformationCollectionServiceImple();
-		// service.saveCollectionInfor(model);
+		if (model == null) {// 当数据为空时
+			return "NULL";
+		}
+
+		Class<?> c = Class.forName(PHCSMP_Information_Collection.class
+				.getName());
+
+		int count = CompleteCheck.IsEqualsNull(model, c);
+		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
+
+		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
+		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
+		System.out.println("未填写的字段：" + count);
+		System.out.println("总字段：" + (fieldsNumber - 3));
+		System.out.println("房间号：" + model.getRoom_ID());
+
+		informationCollectionService.saveCollectionInfor(model);
 
 		return "addInformationCollection";
 	}
 
 	// 加载信息，
 	public String loadInfor() {
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(2);
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(1);
+		if (SuspectInfor == null) {
+			return "NULL";
+		}
 		// 将信息从数据库查找到之后，存入session，更新session
 		request.setAttribute("SuspectInfor", SuspectInfor);
 
@@ -66,7 +71,6 @@ public class Information_Collection_Action extends
 		if (user == null) {
 			return "unLoginState";
 		} else {
-			System.out.println("Information_Collection_Action:loadInfor");
 			return "loadInfor";
 		}
 
