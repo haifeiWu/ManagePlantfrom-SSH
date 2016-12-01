@@ -7,12 +7,12 @@
 
     <class name="PHCSMP_Role" table="PHCSMP_Role" lazy="false">
     
-        <id name="Role_ID">
+        <id name="role_ID">
             <generator class="native"/>
         </id>
-        <property name="Role_Name"/>
-        <property name="Role_Description"/>
-        <property name="Is_Default_Role"/>
+        <property name="role_Name"/>
+        <property name="role_Description"/>
+        <property name="is_Default_Role"/>
     </class>
 
 </hibernate-mapping>

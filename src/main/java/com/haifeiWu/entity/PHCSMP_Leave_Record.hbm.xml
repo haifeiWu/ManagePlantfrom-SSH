@@ -7,25 +7,22 @@
 
     <class name="PHCSMP_Leave_Record" table="PHCSMP_Leave_Record" lazy="false">
     
-        <id name="Leave_Record_ID">
+        <id name="leave_Record_ID">
             <generator class="native"/>
         </id>
         
-        <property name="Suspect_ID"></property>
-        <!-- <property name="TempLeave_Time"/>
-        <property name="TempLeave_Reason"/>
-        <property name="Return_Time"/> -->
-        <property name="Leave_Time"/>
-        <property name="Leave_Hour"/>
-        <property name="Leave_Reason"/>
-        <property name="BelongingS_Treatment_Method"/>
+        <property name="suspect_ID"></property>
+        <property name="leave_Time"/>
+        <property name="leave_Hour"/>
+        <property name="leave_Reason"/>
+        <property name="belongingS_Treatment_Method"/>
         
-        <property name="BelongingS_Treatment_Record"/>
-        <property name="Recipient_Person"/>
-        <property name="Recipient_Person_Number"/>
-        <property name="Treatment_Time"/>
-        <property name="Staff_ID"/>
-        <property name="Room_ID"/>
+        <property name="belongingS_Treatment_Record"/>
+        <property name="recipient_Person"/>
+        <property name="recipient_Person_Number"/>
+        <property name="treatment_Time"/>
+        <property name="staff_ID"/>
+        <property name="room_ID"/>
         <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 
 			<column name="total_record" not-null="true" default="60"/> 

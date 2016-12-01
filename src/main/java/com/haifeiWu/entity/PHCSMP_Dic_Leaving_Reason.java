@@ -16,23 +16,23 @@ public class PHCSMP_Dic_Leaving_Reason implements Serializable {
 	 */
 	private static final long serialVersionUID = -7404232264282641090L;
 
-	private int Leaving_ID;
-	private String Leaving_Name;
+	private int leaving_ID;
+	private String leaving_Name;
 
 	public int getLeaving_ID() {
-		return Leaving_ID;
+		return leaving_ID;
 	}
 
 	public void setLeaving_ID(int leaving_ID) {
-		Leaving_ID = leaving_ID;
+		this.leaving_ID = leaving_ID;
 	}
 
 	public String getLeaving_Name() {
-		return Leaving_Name;
+		return leaving_Name;
 	}
 
 	public void setLeaving_Name(String leaving_Name) {
-		Leaving_Name = leaving_Name;
+		this.leaving_Name = leaving_Name;
 	}
 
 }

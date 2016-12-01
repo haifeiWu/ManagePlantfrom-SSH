@@ -7,17 +7,17 @@
 
     <class name="Temporary_Leave" table="Temporary_Leave" lazy="false">
     
-        <id name="Temporary_Leave_Id">
+        <id name="temporary_Leave_Id">
             <generator class="native"/>
         </id>
         
-        <property name="Suspect_ID"></property>
-        <property name="TempLeave_Time"/>
-        <property name="TempLeave_Reason"/>
-        <property name="Return_Time"/>
+        <property name="suspect_ID"></property>
+        <property name="tempLeave_Time"/>
+        <property name="tempLeave_Reason"/>
+        <property name="return_Time"/>
         
-        <property name="Staff_ID"/>
-        <property name="Room_ID"/>
+        <property name="staff_ID"/>
+        <property name="room_ID"/>
         
     </class>
 

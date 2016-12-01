@@ -15,23 +15,23 @@ public class PHCSMP_Dic_Inspection_Situation implements Serializable {
 	 */
 	private static final long serialVersionUID = -8330438266134878347L;
 
-	private int Situation_ID;
-	private String Situation_Name;
+	private int situation_ID;
+	private String situation_Name;
 
 	public int getSituation_ID() {
-		return Situation_ID;
+		return situation_ID;
 	}
 
 	public void setSituation_ID(int situation_ID) {
-		Situation_ID = situation_ID;
+		this.situation_ID = situation_ID;
 	}
 
 	public String getSituation_Name() {
-		return Situation_Name;
+		return situation_Name;
 	}
 
 	public void setSituation_Name(String situation_Name) {
-		Situation_Name = situation_Name;
+		this.situation_Name = situation_Name;
 	}
 
 }

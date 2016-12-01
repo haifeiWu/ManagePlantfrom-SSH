@@ -7,12 +7,12 @@
 
     <class name="PHCSMP_Duties" table="PHCSMP_Duties" lazy="false">
     
-        <id name="Duties_ID">
+        <id name="duties_ID">
             <generator class="native"/>
         </id>
         
-        <property name="Duties_Name"/>
-        <property name="Duties_Desc"/>
+        <property name="duties_Name"/>
+        <property name="duties_Desc"/>
     </class>
 
 </hibernate-mapping>

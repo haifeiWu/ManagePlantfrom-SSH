@@ -7,19 +7,19 @@
 
     <class name="PHCSMP_Information_Collection" table="PHCSMP_Information_Collection" lazy="false">
     
-        <id name="Information_Collection_ID">
+        <id name="information_Collection_ID">
             <generator class="native"/>
         </id>
         
-        <property name="Suspect_ID"></property>
-        <property name="Is_Collected"/>
-        <property name="Collected_Item"/>
-        <property name="Is_Storaged"/>
-        <property name="Is_Checked"/>
-        <property name="Staff_ID"/>
-        <property name="Room_ID"/>
+        <property name="suspect_ID"></property>
+        <property name="is_Collected"/>
+        <property name="collected_Item"/>
+        <property name="is_Storaged"/>
+        <property name="is_Checked"/>
+        <property name="staff_ID"/>
+        <property name="room_ID"/>
         <!-- 信息採集日期 -->
-        <property name="IC_Date"/>
+        <property name="iC_Date"/>
         <property name="start_time"/>
         <property name="end_time"/>
         

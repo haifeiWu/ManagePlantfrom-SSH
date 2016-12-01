@@ -7,11 +7,11 @@
 
     <class name="PHCSMP_Room" table="PHCSMP_Room" lazy="false">
     
-        <id name="Room_ID">
+        <id name="room_ID">
             <generator class="native"/>
         </id>
-        <property name="Room_Name"/>
-        <property name="CardReader_ID"/>
+        <property name="room_Name"/>
+        <property name="cardReader_ID"/>
     </class>
 
 </hibernate-mapping>

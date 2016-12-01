@@ -11,15 +11,15 @@
             <generator class="native"/>
         </id>
         
-        <property name="Suspect_ID"></property>
-        <property name="Start_Time"/>
-        <property name="End_Time"/>
-        <property name="Room_ID"/>
-        <property name="Activity_Record"/>
-        <property name="Vedio_Number"/>
+        <property name="suspect_ID"></property>
+        <property name="start_Time"/>
+        <property name="end_Time"/>
+        <property name="room_ID"/>
+        <property name="activity_Record"/>
+        <property name="vedio_Number"/>
         
-        <property name="Remark"/>
-        <property name="StaffS"/>
+        <property name="remark"/>
+        <property name="staffS"/>
         
          <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 

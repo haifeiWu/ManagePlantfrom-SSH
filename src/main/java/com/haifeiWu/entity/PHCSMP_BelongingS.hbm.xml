@@ -7,21 +7,21 @@
 
     <class name="PHCSMP_BelongingS" table="PHCSMP_BelongingS" lazy="false">
     
-        <id name="BelongingS_ID">
+        <id name="belongingS_ID">
             <generator class="native"/>
         </id>
-        <property name="Suspect_ID"></property>
-        <property name="Belonging_Number"/>
-        <property name="Belonging_Name"/>
-        <property name="Belonging_Character"/>
-        <property name="Belonging_Count"/>
-        <property name="Belonging_Unit"/>
-        <property name="Keeping_ID"/>
+        <property name="suspect_ID"></property>
+        <property name="belonging_Number"/>
+        <property name="belonging_Name"/>
+        <property name="belonging_Character"/>
+        <property name="belonging_Count"/>
+        <property name="belonging_Unit"/>
+        <property name="keeping_ID"/>
         
-        <property name="Cabinet_Number"/>
-        <property name="Staff_ID"/>
-        <property name="Staff_ID_Belonging"/>
-        <property name="Room_ID"/>
+        <property name="cabinet_Number"/>
+        <property name="staff_ID"/>
+        <property name="staff_ID_Belonging"/>
+        <property name="room_ID"/>
         
         <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 

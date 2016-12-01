@@ -7,14 +7,14 @@
 
     <class name="PHCSMP_Personal_Check" table="PHCSMP_Personal_Check" lazy="false">
     
-        <id name="Check_ID">
+        <id name="check_ID">
             <generator class="native"/>
         </id>
         
-        <property name="Suspect_ID"/>
-        <property name="Self_ReportS"/>
-        <property name="Check_ReportS"/>
-        <property name="Check_Situation"/>
+        <property name="suspect_ID"/>
+        <property name="self_ReportS"/>
+        <property name="check_ReportS"/>
+        <property name="check_Situation"/>
         
         <!--随身物品信息-->
         <!-- <property name="Belonging_Number"/>
@@ -24,15 +24,15 @@
         <property name="Keeping_ID"/>
         <property name="Cabinet_Number"/> -->
         <!-- 时间信息类 -->
-        <property name="Check_Date"/>
+        <property name="check_Date"/>
         <property name="start_time"/>
         <property name="end_time"/>
         <!-- 自述症状 -->
         <property name="isDrink"/>
         <property name="isDiseases"/>
         
-        <property name="Staff_ID"/>
-        <property name="Room_ID"/>
+        <property name="staff_ID"/>
+        <property name="room_ID"/>
         
         <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 

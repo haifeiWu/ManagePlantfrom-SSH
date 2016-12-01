@@ -16,22 +16,23 @@ public class PHCSMP_Dic_Keeping_Way implements Serializable {
 	 */
 	private static final long serialVersionUID = -1779968749114998768L;
 
-	private int Keeping_ID;
-	private String Keeping_Name;
+	private int keeping_ID;
+	private String keeping_Name;
 
 	public int getKeeping_ID() {
-		return Keeping_ID;
+		return keeping_ID;
 	}
 
 	public void setKeeping_ID(int keeping_ID) {
-		Keeping_ID = keeping_ID;
+		this.keeping_ID = keeping_ID;
 	}
 
 	public String getKeeping_Name() {
-		return Keeping_Name;
+		return keeping_Name;
 	}
 
 	public void setKeeping_Name(String keeping_Name) {
-		Keeping_Name = keeping_Name;
+		this.keeping_Name = keeping_Name;
 	}
+
 }

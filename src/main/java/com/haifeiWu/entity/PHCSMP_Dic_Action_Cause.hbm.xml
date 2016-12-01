@@ -7,10 +7,10 @@
 
     <class name="PHCSMP_Dic_Action_Cause" table="PHCSMP_Dic_Action_Cause" lazy="false">
     
-        <id name="Cause_ID">
+        <id name="cause_ID">
             <generator class="native"/>
         </id>
-        <property name="Cause_Name"/>
+        <property name="cause_Name"/>
     </class>
 
 </hibernate-mapping>

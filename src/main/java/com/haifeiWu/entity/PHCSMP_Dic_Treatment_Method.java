@@ -15,22 +15,23 @@ public class PHCSMP_Dic_Treatment_Method implements Serializable {
 	 */
 	private static final long serialVersionUID = 8753863420317160895L;
 
-	private int Treatment_ID;
-	private String Treatment_Name;
+	private int treatment_ID;
+	private String treatment_Name;
 
 	public int getTreatment_ID() {
-		return Treatment_ID;
+		return treatment_ID;
 	}
 
 	public void setTreatment_ID(int treatment_ID) {
-		Treatment_ID = treatment_ID;
+		this.treatment_ID = treatment_ID;
 	}
 
 	public String getTreatment_Name() {
-		return Treatment_Name;
+		return treatment_Name;
 	}
 
 	public void setTreatment_Name(String treatment_Name) {
-		Treatment_Name = treatment_Name;
+		this.treatment_Name = treatment_Name;
 	}
+
 }

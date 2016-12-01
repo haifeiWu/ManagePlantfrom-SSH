@@ -14,31 +14,32 @@ public class PHCSMP_Room implements Serializable {
 	 */
 	private static final long serialVersionUID = 5462954138759630229L;
 
-	private int Room_ID;
-	private String Room_Name;
-	private String CardReader_ID;
+	private int room_ID;
+	private String room_Name;
+	private String cardReader_ID;
 
 	public int getRoom_ID() {
-		return Room_ID;
+		return room_ID;
 	}
 
 	public void setRoom_ID(int room_ID) {
-		Room_ID = room_ID;
+		this.room_ID = room_ID;
 	}
 
 	public String getRoom_Name() {
-		return Room_Name;
+		return room_Name;
 	}
 
 	public void setRoom_Name(String room_Name) {
-		Room_Name = room_Name;
+		this.room_Name = room_Name;
 	}
 
 	public String getCardReader_ID() {
-		return CardReader_ID;
+		return cardReader_ID;
 	}
 
 	public void setCardReader_ID(String cardReader_ID) {
-		CardReader_ID = cardReader_ID;
+		this.cardReader_ID = cardReader_ID;
 	}
+
 }

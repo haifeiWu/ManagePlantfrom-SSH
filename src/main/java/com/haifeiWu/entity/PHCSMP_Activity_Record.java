@@ -16,90 +16,90 @@ public class PHCSMP_Activity_Record implements Serializable {
 	 */
 	private static final long serialVersionUID = 5853896025376141947L;
 
-	private int Activity_Record_ID;
+	private int activity_Record_ID;
 
-	private String Suspect_ID;// 档案编号
-	private String Start_Time;// 开始时间
-	private String End_Time;// 结束时间
-	private int Room_ID;// 房间ID
-	private String Activity_Record;// 活动内容
-	private String Vedio_Number;// 音频视频编码
-	private String Remark;// 备注
-	private String StaffS;// 办案民警ID（多个民警ID间逗号间隔）
+	private String suspect_ID;// 档案编号
+	private String start_Time;// 开始时间
+	private String end_Time;// 结束时间
+	private int room_ID;// 房间ID
+	private String activity_Record;// 活动内容
+	private String vedio_Number;// 音频视频编码
+	private String remark;// 备注
+	private String staffS;// 办案民警ID（多个民警ID间逗号间隔）
 
 	private int total_record = 60;// 需要填写的总记录数
 	private int fill_record;// 当前填写的记录数
 
-	public String getSuspect_ID() {
-		return Suspect_ID;
-	}
-
-	public void setSuspect_ID(String suspect_ID) {
-		Suspect_ID = suspect_ID;
-	}
-
-	public String getStart_Time() {
-		return Start_Time;
-	}
-
-	public void setStart_Time(String start_Time) {
-		Start_Time = start_Time;
-	}
-
-	public String getEnd_Time() {
-		return End_Time;
-	}
-
-	public void setEnd_Time(String end_Time) {
-		End_Time = end_Time;
-	}
-
-	public int getRoom_ID() {
-		return Room_ID;
-	}
-
-	public void setRoom_ID(int room_ID) {
-		Room_ID = room_ID;
-	}
-
-	public String getActivity_Record() {
-		return Activity_Record;
-	}
-
-	public void setActivity_Record(String activity_Record) {
-		Activity_Record = activity_Record;
-	}
-
-	public String getVedio_Number() {
-		return Vedio_Number;
-	}
-
-	public void setVedio_Number(String vedio_Number) {
-		Vedio_Number = vedio_Number;
-	}
-
-	public String getRemark() {
-		return Remark;
-	}
-
-	public void setRemark(String remark) {
-		Remark = remark;
-	}
-
-	public String getStaffS() {
-		return StaffS;
-	}
-
-	public void setStaffS(String staffS) {
-		StaffS = staffS;
-	}
-
 	public int getActivity_Record_ID() {
-		return Activity_Record_ID;
+		return activity_Record_ID;
 	}
 
 	public void setActivity_Record_ID(int activity_Record_ID) {
-		Activity_Record_ID = activity_Record_ID;
+		this.activity_Record_ID = activity_Record_ID;
+	}
+
+	public String getSuspect_ID() {
+		return suspect_ID;
+	}
+
+	public void setSuspect_ID(String suspect_ID) {
+		this.suspect_ID = suspect_ID;
+	}
+
+	public String getStart_Time() {
+		return start_Time;
+	}
+
+	public void setStart_Time(String start_Time) {
+		this.start_Time = start_Time;
+	}
+
+	public String getEnd_Time() {
+		return end_Time;
+	}
+
+	public void setEnd_Time(String end_Time) {
+		this.end_Time = end_Time;
+	}
+
+	public int getRoom_ID() {
+		return room_ID;
+	}
+
+	public void setRoom_ID(int room_ID) {
+		this.room_ID = room_ID;
+	}
+
+	public String getActivity_Record() {
+		return activity_Record;
+	}
+
+	public void setActivity_Record(String activity_Record) {
+		this.activity_Record = activity_Record;
+	}
+
+	public String getVedio_Number() {
+		return vedio_Number;
+	}
+
+	public void setVedio_Number(String vedio_Number) {
+		this.vedio_Number = vedio_Number;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getStaffS() {
+		return staffS;
+	}
+
+	public void setStaffS(String staffS) {
+		this.staffS = staffS;
 	}
 
 	public int getTotal_record() {
@@ -120,8 +120,8 @@ public class PHCSMP_Activity_Record implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.Suspect_ID + " " + this.Activity_Record + " "
-				+ this.Vedio_Number;
+		return this.suspect_ID + " " + this.activity_Record + " "
+				+ this.vedio_Number;
 	}
 
 }

@@ -16,87 +16,95 @@ public class PHCSMP_Information_Collection implements Serializable {
 	 */
 	private static final long serialVersionUID = -1756540490806828477L;
 
-	private int Information_Collection_ID;
-	private String Suspect_ID;// 档案编号
-	private String Is_Collected;// 是否进行采集
-	private String Collected_Item;// 采集项目（采集项目字典表中ID逗号隔开，只有Is_Collected为真时有效）
-	private String Is_Storaged;// 是否入库
-	private String Is_Checked;// 是否检查对比
+	private int information_Collection_ID;
+	private String suspect_ID;// 档案编号
+	private String is_Collected;// 是否进行采集
+	private String collected_Item;// 采集项目（采集项目字典表中ID逗号隔开，只有Is_Collected为真时有效）
+	private String is_Storaged;// 是否入库
+	private String is_Checked;// 是否检查对比
 
 	// 人身检查日期
-	private String IC_Date;
+	private String iC_Date;
 	private String start_time;
 	private String end_time;
 
-	private int Staff_ID;// 办案民警
-	private int Room_ID;// 信息登记房间
-
-	private int total_record = 60;// 需要填写的总记录数
-	private int fill_record;// 当前填写的记录数
-
-	public String getSuspect_ID() {
-		return Suspect_ID;
-	}
-
-	public void setSuspect_ID(String suspect_ID) {
-		Suspect_ID = suspect_ID;
-	}
-
-	public String getIs_Collected() {
-		return Is_Collected;
-	}
-
-	public void setIs_Collected(String is_Collected) {
-		Is_Collected = is_Collected;
-	}
-
-	public String getCollected_Item() {
-		return Collected_Item;
-	}
-
-	public void setCollected_Item(String collected_Item) {
-		Collected_Item = collected_Item;
-	}
-
-	public String getIs_Storaged() {
-		return Is_Storaged;
-	}
-
-	public void setIs_Storaged(String is_Storaged) {
-		Is_Storaged = is_Storaged;
-	}
-
-	public String getIs_Checked() {
-		return Is_Checked;
-	}
-
-	public void setIs_Checked(String is_Checked) {
-		Is_Checked = is_Checked;
-	}
-
-	public int getStaff_ID() {
-		return Staff_ID;
-	}
-
-	public void setStaff_ID(int staff_ID) {
-		Staff_ID = staff_ID;
-	}
-
-	public int getRoom_ID() {
-		return Room_ID;
-	}
-
-	public void setRoom_ID(int room_ID) {
-		Room_ID = room_ID;
-	}
-
 	public int getInformation_Collection_ID() {
-		return Information_Collection_ID;
+		return information_Collection_ID;
 	}
 
 	public void setInformation_Collection_ID(int information_Collection_ID) {
-		Information_Collection_ID = information_Collection_ID;
+		this.information_Collection_ID = information_Collection_ID;
 	}
+
+	public String getSuspect_ID() {
+		return suspect_ID;
+	}
+
+	public void setSuspect_ID(String suspect_ID) {
+		this.suspect_ID = suspect_ID;
+	}
+
+	public String getIs_Collected() {
+		return is_Collected;
+	}
+
+	public void setIs_Collected(String is_Collected) {
+		this.is_Collected = is_Collected;
+	}
+
+	public String getCollected_Item() {
+		return collected_Item;
+	}
+
+	public void setCollected_Item(String collected_Item) {
+		this.collected_Item = collected_Item;
+	}
+
+	public String getIs_Storaged() {
+		return is_Storaged;
+	}
+
+	public void setIs_Storaged(String is_Storaged) {
+		this.is_Storaged = is_Storaged;
+	}
+
+	public String getIs_Checked() {
+		return is_Checked;
+	}
+
+	public void setIs_Checked(String is_Checked) {
+		this.is_Checked = is_Checked;
+	}
+
+	public String getiC_Date() {
+		return iC_Date;
+	}
+
+	public void setiC_Date(String iC_Date) {
+		this.iC_Date = iC_Date;
+	}
+
+	public int getStaff_ID() {
+		return staff_ID;
+	}
+
+	public void setStaff_ID(int staff_ID) {
+		this.staff_ID = staff_ID;
+	}
+
+	public int getRoom_ID() {
+		return room_ID;
+	}
+
+	public void setRoom_ID(int room_ID) {
+		this.room_ID = room_ID;
+	}
+
+	private int staff_ID;// 办案民警
+	private int room_ID;// 信息登记房间
+
+	private int total_record = 60;// 需要填写的总记录数
+	private int fill_record;// 当前填写的记录数
 
 	public int getTotal_record() {
 		return total_record;
@@ -112,14 +120,6 @@ public class PHCSMP_Information_Collection implements Serializable {
 
 	public void setFill_record(int fill_record) {
 		this.fill_record = fill_record;
-	}
-
-	public String getIC_Date() {
-		return IC_Date;
-	}
-
-	public void setIC_Date(String iC_Date) {
-		IC_Date = iC_Date;
 	}
 
 	public String getStart_time() {

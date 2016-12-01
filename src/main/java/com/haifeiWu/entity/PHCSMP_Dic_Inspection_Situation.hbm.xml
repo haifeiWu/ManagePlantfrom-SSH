@@ -7,10 +7,10 @@
 
     <class name="PHCSMP_Dic_Inspection_Situation" table="PHCSMP_Dic_Inspection_Situation" lazy="false">
     
-        <id name="Situation_ID">
+        <id name="situation_ID">
             <generator class="native"/>
         </id>
-        <property name="Situation_Name"/>
+        <property name="situation_Name"/>
     </class>
 
 </hibernate-mapping>

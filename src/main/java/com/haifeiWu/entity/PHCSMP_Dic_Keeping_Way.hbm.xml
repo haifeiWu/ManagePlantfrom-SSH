@@ -7,10 +7,10 @@
 
     <class name="PHCSMP_Dic_Keeping_Way" table="PHCSMP_Dic_Keeping_Way" lazy="false">
     
-        <id name="Keeping_ID">
+        <id name="keeping_ID">
             <generator class="native"/>
         </id>
-        <property name="Keeping_Name"/>
+        <property name="keeping_Name"/>
     </class>
 
 </hibernate-mapping>

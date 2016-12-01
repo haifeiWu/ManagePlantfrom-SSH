@@ -7,12 +7,12 @@
 
     <class name="PHCSMP_Cabinet" table="PHCSMP_Cabinet" lazy="false">
     
-        <id name="Cabinet_ID">
+        <id name="cabinet_ID">
             <generator class="native"/>
         </id>
         
-        <property name="Cabinet_Number"></property>
-        <property name="Cabinet_Desc"/>
+        <property name="cabinet_Number"></property>
+        <property name="cabinet_Desc"/>
     </class>
 
 </hibernate-mapping>

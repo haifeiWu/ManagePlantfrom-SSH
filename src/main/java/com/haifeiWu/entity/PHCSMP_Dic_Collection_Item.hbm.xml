@@ -7,10 +7,10 @@
 
     <class name="PHCSMP_Dic_Collection_Item" table="PHCSMP_Dic_Collection_Item" lazy="false">
     
-        <id name="Item_ID">
+        <id name="item_ID">
             <generator class="native"/>
         </id>
-        <property name="Item_Name"/>
+        <property name="item_Name"/>
     </class>
 
 </hibernate-mapping>

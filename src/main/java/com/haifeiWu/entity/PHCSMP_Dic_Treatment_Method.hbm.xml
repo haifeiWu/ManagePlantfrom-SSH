@@ -7,10 +7,10 @@
 
     <class name="PHCSMP_Dic_Treatment_Method" table="PHCSMP_Dic_Treatment_Method" lazy="false">
     
-        <id name="Treatment_ID">
+        <id name="treatment_ID">
             <generator class="native"/>
         </id>
-        <property name="Treatment_Name"/>
+        <property name="treatment_Name"/>
     </class>
 
 </hibernate-mapping>

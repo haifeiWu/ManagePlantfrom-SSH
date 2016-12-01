@@ -7,10 +7,10 @@
 
     <class name="PHCSMP_Dic_Leaving_Reason" table="PHCSMP_Dic_Leaving_Reason" lazy="false">
     
-        <id name="Leaving_ID">
+        <id name="leaving_ID">
             <generator class="native"/>
         </id>
-        <property name="Leaving_Name"/>
+        <property name="leaving_Name"/>
     </class>
 
 </hibernate-mapping>
