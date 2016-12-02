@@ -19,6 +19,35 @@
 		 	$("#identityImg").attr('src','images/fgreen_03.png'); 
 		 	$("#identityImg1").attr('src','images/fgreen_03.png'); 
 		 });
+		 
+		 window.onload = function(e){
+					var e = window.event || e;
+				// }
+				// local Storage或许会有浏览器兼容的问题
+				if(typeof(Storage)!=="undefined"){
+					if (localStorage.clickcount){
+						localStorage.clickcount=Number(localStorage.clickcount)+1;
+						if (localStorage.clickcount>999) {
+						localStorage.clickcount=0;
+						}
+					} else {
+						localStorage.clickcount=0;
+					}
+				} else {
+						alert("抱歉。浏览器不支持")
+					}
+					var date = new Date();
+					var Mon = date.getMonth()+1;
+					var datetime = parseInt(date.getDate());
+					if (datetime<10) {
+						document.getElementById("suspectID").value = "LB-HB"+"-"+date.getFullYear()+Mon+"0"+datetime+localStorage.clickcount;
+					}
+					else if(Mon<10){
+						document.getElementById("suspectID").value = "LB-HB"+"-"+date.getFullYear()+"0"+Mon+datetime+localStorage.clickcount;
+					}else if (localStorage.clickcount<10) {
+						document.getElementById("suspectID").value = "LB-HB"+"-"+date.getFullYear()+Mon+datetime+"0"+localStorage.clickcount;
+					}	
+				}
 	</script>
 </head>
 <body>
@@ -28,8 +57,7 @@
 			<h4 style="margin-top: 13px;"><b style="color: #389ac7;">Personnal</b> information registeration</h4>
 			<p id="left_title">嫌疑人入区信息登记</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="Suspect_ID" value="ABS20161010-27"
-			/></h5>
+			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="suspectID" name="Suspect_ID" value="ABS20161010-27"/></h5>
 
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">

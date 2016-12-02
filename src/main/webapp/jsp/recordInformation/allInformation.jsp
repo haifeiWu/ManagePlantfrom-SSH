@@ -160,7 +160,7 @@
 			</form>
 			<hr style="width: 100%;border: 0.5px solid #389AC7;" />
 			<!-- 文件下载链接 -->
-			<a class="col-lg-12 col-md-12 col-sm-12" id="download_All" href="${pageContext.request.contextPath }/GR_downFile.action?date=2016-11-10&fileName=123_425184199203091528_2016111021_0100.MP4">嫌疑人入所视频文件下载</a>
+			<a class="col-lg-12 col-md-12 col-sm-12" id="download_All" href="${pageContext.request.contextPath }/GR_downFile.action?date=${personal_Check.check_Date }&fileName=${suspect.identifyCard_Number }${personal_Check.check_Date }">嫌疑人入所视频文件下载</a>
 			<!-- 嫌疑人入区登记 -->
 			<form class="row">
 				<h4 id="Person_info" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">1、入区登记报告<span class="show">隐藏信息</span></h4>
@@ -184,19 +184,19 @@
 									<p class="info_id">身份证照</p>
 								</td>
 								<!--<td></td>-->
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
+								<td colspan="2">姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
+								<td>性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
 									/></td>
 								<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
 
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出生：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
+								<td colspan="2">出生：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
 										type="text" readonly="readonly" style="width:20%;text-align: center;" value="8" /> 月
 									<input type="text" style="width:25%;" value="12" readonly="readonly" />日
 								</td>
@@ -204,15 +204,15 @@
 							<!--第四行身份证住址-->
 							<tr>
 
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证住址：</td>
+								<td colspan="2">身份证住址：</td>
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">&nbsp;&nbsp;&nbsp;山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							<tr>
-								<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;身份证号码</td>
-								<td colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="140104196108123556" readonly="readonly" /></td>
+								<td><div style="margin-left: 38px;">身份证号码</div></td>
+								<td colspan="2"><input type="text" value="140104196108123556" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 41%; margin-left: -2%;" />
