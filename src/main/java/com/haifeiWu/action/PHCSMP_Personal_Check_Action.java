@@ -92,13 +92,15 @@ public class PHCSMP_Personal_Check_Action extends
 	 * @return
 	 */
 	public String loadInfor() {
-		System.out.println("loadInfor");
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
 
 		int roomId = 1;
 		PHCSMP_Suspect SuspectInfor = suspectService
 				.findInfroByActiveCode(roomId);
+		if (SuspectInfor == null) {// 当获取的数据为空时
+			return "NULL";
+		}
 		// 将信息从数据库查找到之后，存入session
 		request.setAttribute("SuspectInfor", SuspectInfor);
 

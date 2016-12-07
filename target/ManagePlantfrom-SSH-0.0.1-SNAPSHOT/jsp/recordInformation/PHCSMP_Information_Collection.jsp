@@ -25,7 +25,7 @@
 			<h4 style="margin-top: 13px;"><b style="color: #389ac7;">Personnal</b> information Collection</h4>
 			<p id="left_title">嫌疑人信息采集</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="Suspect_ID" value=""
+			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="suspect_ID" value="${SuspectInfor.suspect_ID }"
 					readonly="readonly" /></h5>
 
 			<!--进度条信息设置-->
@@ -67,7 +67,7 @@
 		<div class="container" style="margin-top: -2%;">
 			<div class="row">
 				<!--身份信息标题-->
-				<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">入区事由:<input type="text" value="治安传唤" /></h4>
+				<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">入区事由:<input type="text" value="${SuspectInfor.suspected_Cause }" /></h4>
 				<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<img style="width: 45%; height: 42%; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);" src="images/1-zhengmian_04.png" />
 					<img style="width: 53%; height: 90%; -webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);" src="images/1-cemian_06.png" />
@@ -86,11 +86,11 @@
 								<p class="info_id">身份证照</p>
 							</td>
 							<!--<td></td>-->
-							<td colspan="2">姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
+							<td colspan="2">姓名:<input type="text" readonly="readonly" value="${SuspectInfor.suspect_Name }" /></td>
 						</tr>
 						<!--第二行 性别 民族-->
 						<tr>
-							<td>性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
+							<td>性别：<input style="text-align: center;" type="text" value="${SuspectInfor.sex }" readonly="readonly"
 								/></td>
 							<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
 						</tr>
@@ -108,11 +108,11 @@
 						</tr>
 						<tr>
 							<!--<td></td>-->
-							<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+							<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">${SuspectInfor.address }</textarea></td>
 						</tr>
 						<tr>
 							<td><div style="margin-left: 38px;">身份证号码</div></td>
-							<td colspan="2"><input type="text" value="140104196108123556" readonly="readonly" /></td>
+							<td colspan="2"><input type="text" value="${SuspectInfor.identifyCard_Number }" readonly="readonly" /></td>
 						</tr>
 					</table>
 					<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 40%; margin-left: -2%;" />

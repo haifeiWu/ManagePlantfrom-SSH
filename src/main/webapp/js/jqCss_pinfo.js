@@ -26,8 +26,8 @@ $(document).ready(function(){
 
 //设置人员联系信息表的表格样式
 	$(".Mes_tab tr td").css({"border-color":"#389ac7","height":"30px"});
-	$("input[type='text']").css("height","25px");
-	$("input[type='date']").css("height","25px");
+	$("input[type='text']").css("height","31px");
+	$("input[type='date']").css("height","31px");
 	//设置进入办案区信息的td高度
 	$(".Mes_case tr td").css("height","30px");
 	//设置干警签名的表格td高度

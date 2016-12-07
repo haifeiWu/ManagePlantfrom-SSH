@@ -15,6 +15,7 @@ import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.utils.CompleteCheck;
 
 /**
  * 离开办案区的action
@@ -52,7 +53,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		// 打印提交的单条信息
 		System.out.println("单条信息：" + model.toString());
 
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(1);
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(4);
 
 		this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
 				"utf-8");
@@ -62,24 +63,24 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		List<Temporary_Leave> temporaryLeaves = this.getTemporaryLeave();
 		System.out.println("多条信息：" + temporaryLeaves.size());
 		for (Temporary_Leave temporaryLeave : temporaryLeaves) {
+			temporaryLeave.setSuspect_ID(model.getSuspect_ID());// 设置档案号
 			System.out.println(temporaryLeave.toString());
 		}
-		// service.saveLeaveRecordInfor(temporaryLeaves);
-		// //通过反射加载离开办案区记录的类
-		// Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
-		//
-		// int count = CompleteCheck.IsEqualsNull(model, c);
-		// int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-		//
-		// model.setFill_record(fieldsNumber-count-4);//设置已填写的字段数
-		// model.setTotal_record(fieldsNumber-4);//设置应填写的字段
-		// System.out.println("未填写的字段："+count);
-		// System.out.println("总字段："+fieldsNumber);
 
-		// LeaveRecodService service = new LeaveRecodServiceImple();
-		// service.saveLeaveRecordInfor(model);
+		// 通过反射加载离开办案区记录的类
+		Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
 
-		System.out.println("Leave_Recod_Action:addLeaveRecordInfor");
+		int count = CompleteCheck.IsEqualsNull(model, c);
+		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
+
+		model.setFill_record(fieldsNumber - count - 4);// 设置已填写的字段数
+		model.setTotal_record(fieldsNumber - 4);// 设置应填写的字段
+		System.out.println("未填写的字段：" + count);
+		System.out.println("总字段：" + fieldsNumber);
+
+		leaveRecodService.saveLeaveRecordInfor(temporaryLeaves);// 保存多次临时离开的信息
+		leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息
+
 		return "addLeaveRecordInfor";
 	}
 
@@ -87,12 +88,12 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	public String loadInfor() {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(1);
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(4);
+		if (SuspectInfor == null) {
+			return "NULL";
+		}
 		// 将信息从数据库查找到之后，存入session，更新session
 		request.setAttribute("SuspectInfor", SuspectInfor);
-
-		// this.setPersonName(SuspectInfor.getSuspect_Name());
-		// this.setSuspectID(SuspectInfor.getSuspect_ID());
 
 		if (user == null) {
 			return "unLoginState";

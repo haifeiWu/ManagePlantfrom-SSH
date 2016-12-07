@@ -43,7 +43,7 @@
 			+"<td style='width: 35%;'>"
 			+"<div class='form-group' style='height: 30px;width: 170%;'>"
 	        +"<div class='input-group date form_time col-md-5' style='margin-left: 8%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
-	        +"<input class='form-control' name=activity["+index+"].Start_Time type='text' readonly>"
+	        +"<input class='form-control' name=activity["+index+"].start_Time type='text' readonly>"
 	        +"<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
 			+"<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
 	        +"</div>"
@@ -53,16 +53,16 @@
 			+"<td style='width: 35%;'>"
 			+"<div class='form-group' style='height: 30px;width: 170%;'>"
 	        +"<div class='input-group date form_time col-md-5' style='margin-left: 8%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
-	        +"<input class='form-control' name=activity["+index+"].Start_Time type='text' readonly>"
+	        +"<input class='form-control' name=activity["+index+"].end_Time type='text' readonly>"
 	        +"<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
 			+"<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
 	        +"</div>"
 			+"<input type='hidden' id='dtp_input1' value='' /><br/>"
 	        +"</div></td>"
-			+"<td> <select name=activity["+index+"].Room_ID> <option value=>---请选择---</option> <option value=101>101</option> <option value=102>102</option> <option value=103>103</option> </select> </td>"
-			+"<td> <select name=activity["+index+"].Activity_Record> <option value=>---请选择---</option> <option value=询问>询问</option> <option value=讯问>讯问</option> <option value=审讯>审讯</option><option value=传唤>传唤</option> </select> </td>"
-			+"<td><input type=text name=activity["+index+"].Vedio_Number style='height:30px;width: 65%;text-align: center;' /></td>"
-			+"<td><input type=text name=activity["+index+"].Remark style='height:30px;width: 65%;text-align: center;' /></td>"
+			+"<td> <select name=activity["+index+"].room_ID> <option value=>---请选择---</option> <option value=101>101</option> <option value=102>102</option> <option value=103>103</option> </select> </td>"
+			+"<td> <select name=activity["+index+"].activity_Record> <option value=>---请选择---</option> <option value=询问>询问</option> <option value=讯问>讯问</option> <option value=审讯>审讯</option><option value=传唤>传唤</option> </select> </td>"
+			+"<td><input type=text name=activity["+index+"].vedio_Number style='height:30px;width: 65%;text-align: center;' /></td>"
+			+"<td><input type=text name=activity["+index+"].remark style='height:30px;width: 65%;text-align: center;' /></td>"
 			+"</tr>";
 		 	$(".active_check tr").eq($(".active_check tr").length-2).after(addrow);
 		  	addrow.find("td:eq(0)").html(num-1);
@@ -96,7 +96,7 @@
 			<h4 style="margin-top: 13px;"><b style="color: #389ac7;">Activity</b> record registration</h4>
 			<p id="left_title">活动记录登记</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="Suspect_ID" value="${SuspectInfor.Suspect_ID }"
+			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="suspect_ID" value="${SuspectInfor.suspect_ID }"
 					readonly="readonly" /></h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
@@ -201,7 +201,7 @@
 						<td style="width: 35%;">
 							<div class="form-group" style="height: 30px;width: 170%;">
 				                <div class="input-group date form_time col-md-5" style="margin-left: 8%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
-				                    <input class="form-control" name="activity[0].Start_Time" type="text" value="" readonly>
+				                    <input class="form-control" name="activity[0].start_Time" type="text" value="" readonly>
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 				                </div>
@@ -212,7 +212,7 @@
 						<td style="width: 35%;">
 							<div class="form-group" style="height: 30px;width: 170%;">
 				                <div class="input-group date form_time col-md-5" style="margin-left: 8%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
-				                    <input class="form-control" name="activity[0].End_Time" type="text" value="" readonly>
+				                    <input class="form-control" name="activity[0].end_Time" type="text" value="" readonly>
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 				                </div>
@@ -220,7 +220,7 @@
 				            </div>
 				        </td>
 						<td id="select">
-							<select name="activity[0].Room_ID">
+							<select name="activity[0].room_ID">
 									<option value=>---请选择---</option>	
 									<option value="101">101</option>
 									<option value="102">102</option>
@@ -229,7 +229,7 @@
 							</select>
 						</td>
 						<td id="select">
-							<select name="activity[0].Activity_Record">
+							<select name="activity[0].activity_Record">
 									<option value=>---请选择---</option>
 									<option value="询问">询问</option>
 									<option value="讯问">讯问</option>
@@ -237,8 +237,8 @@
 									<option value="传唤">传唤</option>
 							</select>
 						</td>
-						<td><input type="text" name="activity[0].Vedio_Number" value="音视频文件" style="height: 30px;text-align: center;" /></td>
-						<td><input type="text" name="activity[0].Remark" style="height: 30px;text-align: center;"/></td>
+						<td><input type="text" name="activity[0].vedio_Number" value="音视频文件" style="height: 30px;text-align: center;" /></td>
+						<td><input type="text" name="activity[0].remark" style="height: 30px;text-align: center;"/></td>
 					</tr>
 					<tr>
 						<td>2</td>

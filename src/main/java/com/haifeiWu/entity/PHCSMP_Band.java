@@ -18,6 +18,7 @@ public class PHCSMP_Band implements Serializable {
 
 	private int band_ID;// 手环ID
 	private String remark;// 备注
+	private String is_Used;
 
 	public int getBand_ID() {
 		return band_ID;
@@ -39,8 +40,16 @@ public class PHCSMP_Band implements Serializable {
 		this.remark = remark;
 	}
 
+	public String getIs_Used() {
+		return is_Used;
+	}
+
+	public void setIs_Used(String is_Used) {
+		this.is_Used = is_Used;
+	}
+
 	@Override
 	public String toString() {
-		return this.band_ID + " " + this.remark;
+		return this.band_ID + " " + this.remark + " " + this.is_Used;
 	}
 }

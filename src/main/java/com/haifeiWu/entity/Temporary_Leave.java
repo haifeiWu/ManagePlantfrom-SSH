@@ -82,6 +82,6 @@ public class Temporary_Leave implements Serializable {
 	@Override
 	public String toString() {// 重写toString方法
 
-		return "临时离开原因：" + this.tempLeave_Reason;
+		return "临时离开原因：" + this.tempLeave_Reason + "档案号：" + this.suspect_ID;
 	}
 }

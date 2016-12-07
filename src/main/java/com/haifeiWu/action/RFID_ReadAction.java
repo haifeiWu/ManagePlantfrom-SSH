@@ -143,10 +143,7 @@ public class RFID_ReadAction extends ActionSupport implements
 					RFID_ReadAction.oldDeviceId = deviceId;// 更新设备号
 					// 根据设备id查找房间id，然后根据房间id，向录播设备发送信息开启
 					roomId = roomInforDao.findRoomIDByDeviceId(deviceId);
-					// 将房间的编号放入的session域中
-					request.getSession().setAttribute("roomId", roomId);
-					// 将手环id放入session域中
-					request.getSession().setAttribute("wristId", wristId);
+					bandId = bandInforDao.findBandIdByWristId(wristId);
 					// 相应房间的设备开始录像
 					isRecording = true;
 					if (roomId == 2) {

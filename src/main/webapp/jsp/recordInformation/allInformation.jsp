@@ -154,8 +154,8 @@
 			<form class="row">
 				<h1 class="col-lg-12 col-md-10 col-sm-12"><img src="images/jinghui.png">&nbsp;&nbsp;&nbsp;&nbsp;离石区公安局嫌疑人入区报告</h1>
 				<ul class="report col-lg-12 col-md-12 col-sm-10">
-					<li>档案编号:<input type="text" /></li>
-					<li>报告时间:<input type="date" /></li>
+					<li>档案编号:<input type="text" value="${suspect.suspect_ID }" /></li>
+					<li>报告时间:<input type="date" value="${reportCreateTime }" /></li>
 				</ul>
 			</form>
 			<hr style="width: 100%;border: 0.5px solid #389AC7;" />
@@ -180,16 +180,16 @@
 								<!--图片引入-->
 								<td rowspan="5">
 
-									<img style="width:100%;height: 75%;margin-left: -2%;" src="images/1-IDlogo_09.png" />
+									<img style="width:89%;height: 75%;margin-left: -2%;" src="images/1-IDlogo_09.png" />
 									<p class="info_id">身份证照</p>
 								</td>
 								<!--<td></td>-->
-								<td colspan="2">姓名:<input type="text" readonly="readonly" value="德古拉" /></td>
+								<td colspan="2">姓名:<input type="text" readonly="readonly" value="${suspect.suspect_Name }" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 
-								<td>性别：<input style="text-align: center;" type="text" value="男" readonly="readonly"
+								<td>性别：<input style="text-align: center;" type="text" value="${suspect.sex }" readonly="readonly"
 									/></td>
 								<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
 							</tr>
@@ -208,11 +208,11 @@
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">${suspect.address }</textarea></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 38px;">身份证号码</div></td>
-								<td colspan="2"><input type="text" value="140104196108123556" readonly="readonly" /></td>
+								<td colspan="2"><input type="text" value="${suspect.identifyCard_Number }" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 41%; margin-left: -2%;" />
@@ -223,7 +223,7 @@
 						<table id="people_Mes" class="col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td>身份证种类:</td>
-								<td colspan="4"><input type="checkbox" value="护照" />护照</td>
+								<td colspan="4"><input type="text" value="${suspect.type_ID }" /></td>
 							</tr>
 							<tr>
 								<td>证件号码:</td>
@@ -231,28 +231,28 @@
 							</tr>
 							<tr>
 								<td>现住址:</td>
-								<td colspan="4"><input type="text" value="六道河三里沟光荣村7组" /></td>
+								<td colspan="4"><input type="text" value="${suspect.now_address }" /></td>
 							</tr>
 							<tr>
 								<td>联系方式:</td>
-								<td colspan="4"><input type="text" value="15337898699" /></td>
+								<td colspan="4"><input type="text" value="${suspect.phone }" /></td>
 							</tr>
 							<tr>
 								<td>入区时间:</td>
-								<td><input type="date" /><input type="time" /></td>
+								<td><input type="text" value="${suspect.enter_Time }" /></td>
 								<td>RFID:</td>
-								<td colspan="4"><input type="text" value="RD312" /></td>
+								<td colspan="4"><input type="text" value="${suspect.band_ID }" /></td>
 							</tr>
 							<tr>
 								<td rowspan="2">进入办案区原因:</td>
 								<td>案由:</td>
-								<td colspan="4"><input type="text" value="迫于我公安强大通缉压力自首" /></td>
+								<td colspan="4"><input type="text" value="${suspect.suspected_Cause }" /></td>
 							</tr>
 							<tr>
 								<td>办案民警签名:</td>
-								<td><input type="text" readonly="readonly"/></td>
+								<td><input type="text" value="admin" readonly="readonly"/></td>
 								<td>管理员签名:</td>
-								<td><input type="text" readonly="readonly"/></td>
+								<td><input type="text" value="admin" readonly="readonly"/></td>
 							</tr>
 						</table>
 					</div>
@@ -266,9 +266,9 @@
 						<p class="self_state col-lg-12 col-md-10 col-sm-10">2.1&nbsp;自述情况</p>
 						<ul class="checkbox col-lg-12 col-md-10 col-sm-10">
 							<li>是否饮酒:</li>
-							<li><input type="checkbox" value="是" />是</li>
+							<li><input type="text" value="是" /></li>
 							<li>是否患有传染性疾病:</li>
-							<li><input type="checkbox" value="否" />否</li>
+							<li><input type="text" value="否" /></li>
 						</ul>
 						<fieldset class="col-lg-12 col-md-12 col-sm-12">
 							<legend>自述症状:</legend>
@@ -490,7 +490,7 @@
 					</div>
 					<hr style="margin-top: 380px;border: 1px solid darkgray;" />
 					<!--</div>-->
-					<p id="detain_time">该嫌疑人羁押时间:&nbsp;&nbsp;<input type="time" />小时</p>
+					<p id="detain_time">该嫌疑人羁押时间:&nbsp;&nbsp;<input type="text" value="${prisonHour }" />小时</p>
 					<p id="signature">管理员签名:&nbsp;&nbsp;&nbsp;<input type="text" /></p>
 					<input id="download" type="button" value="下载" />
 					<input id="print" type="button" value="打印" />

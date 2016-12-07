@@ -32,6 +32,18 @@
 			maxView: 1,
 			forceParse: 0
 	    });
+	    
+	$(".form_datetime").datetimepicker({
+        language:  'zh-CN',
+	    format: 'yyyy-mm-dd hh:ii',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+        showMeridian: 1
+    });
 	 $("#add").click(function()
 		{
 		 	var num = $(".transient_Leave tr").length;
@@ -90,7 +102,7 @@
 			<h4 style="margin-top: 13px;"><b style="color: #389ac7;">Registration</b> of departure</h4>
 			<p id="left_title">离开办案区登记</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="Suspect_ID" value="" readonly="readonly" /></h5>
+			<h5 class="col-lg-12 col-md-10 text-center"><span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="suspect_ID" value="${SuspectInfor.suspect_ID }" readonly="readonly" /></h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
@@ -232,20 +244,6 @@
 						<td></td>
 					</tr>
 				</table>
-				<!-- <script type="text/javascript">
-						  $('.form_datetime').datetimepicker({
-						      	language:  'zh-CN',
-						        format: 'hh:ii',
-						        weekStart: 1,
-						        todayBtn:  1,
-								autoclose: 1,
-								todayHighlight: 1,
-								startView: 1,
-								minView: 0,
-								maxView: 1,
-								forceParse: 0
-						    });
-				 </script> -->
 			</div>
 			<hr style="margin-top: 3%;border: 1px solid darkgray;" />
 			<!--最终离开办案区的信息表-->
@@ -260,8 +258,8 @@
 					<tr>
 						<td>
 							<div class="form-group" style="height: 30px;" >
-				                <div class="input-group date form_time col-md-5" style="margin-left: 30%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
-				                    <input class="form-control" name="" size="8" type="text" value="" readonly>
+				                <div class="input-group date form_datetime col-md-5" style="margin-left: 20%;margin-top: 2%;width: 55%;" data-date="" data-date-format="dd MM yyyy - HH:ii" data-link-field="dtp_input1">
+				                    <input class="form-control" name="leave_Time" size="8" type="text" value="" readonly>
 				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 				                </div>
@@ -269,7 +267,7 @@
 				            </div>
 						</td>
 						<td>
-							<select name="Leave_Reason">
+							<select name="leave_Reason">
 								<option value="">---请选择---</option>
 								<option value="查证结束">查证结束</option>
 								<option value="刑拘">刑拘</option>
@@ -281,26 +279,36 @@
 					<tr>
 						<td>随身物品处理情况:</td>
 						<td>
-							<input type="radio" name="BelongingS_Treatment_Method" value="全部反还">全部反还
-							<input type="radio" name="BelongingS_Treatment_Method" value="部分反还"/>部分反还
-							<input type="radio" name="BelongingS_Treatment_Method" value="未反还"/>未反还
+							<input type="radio" name="belongingS_Treatment_Method" value="全部反还">全部反还
+							<input type="radio" name="belongingS_Treatment_Method" value="部分反还"/>部分反还
+							<input type="radio" name="belongingS_Treatment_Method" value="未反还"/>未反还
 						</td>
 					</tr>
 					<tr>
 						<td>未反还物品情况记载:</td>
-						<td><textarea name="BelongingS_Treatment_Record"></textarea></td>
+						<td><textarea name="belongingS_Treatment_Record"></textarea></td>
 					</tr>
 					<tr>
 						<td>领取人签名:</td>
-						<td><input type="text" name="Recipient_Person" /></td>
+						<td><input type="text" name="recipient_Person" /></td>
 					</tr>
 					<tr>
 						<td>身份证号码:</td>
-						<td><input type="text" name="Recipient_Person_Number" /></td>
+						<td><input type="text" name="recipient_Person_Number" /></td>
 					</tr>
 					<tr>
 						<td>领取时间:</td>
-						<td><input type="time" name="" /></td>
+						<td>
+						<!-- <input type="time" name="treatment_Time" /> -->
+							<div class="form-group" style="height: 30px;" >
+				                <div class="input-group date form_time col-md-5" style="margin-left: 30%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
+				                    <input class="form-control" name="treatment_Time" size="8" type="text" value="" readonly>
+				                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+				                </div>
+								<input type="hidden" id="dtp_input1" value="" /><br/>
+				            </div>
+						</td>
 					</tr>
 				</table>
 				

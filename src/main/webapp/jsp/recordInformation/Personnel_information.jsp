@@ -10,8 +10,11 @@
 	<title>嫌疑人入区信息录入</title>
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/person_info.css" />
+	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
+	<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/jqCss_pinfo.js"></script>
 	
 	<script type="text/javascript">
@@ -34,7 +37,7 @@
 						localStorage.clickcount=0;
 					}
 				} else {
-						alert("抱歉。浏览器不支持")
+						alert("抱歉。浏览器不支持");
 					}
 					var date = new Date();
 					var Mon = date.getMonth()+1;
@@ -179,7 +182,29 @@
 					<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
 							<td>入区时间</td>
-							<td><input type="date" name="enter_Time" /></td>
+							<td style="width: 50%;">
+								<div class="form-group" style="height: 25px;width: 76%;">
+					                <div class="input-group date form_time col-md-5" style="margin-left: 40%;margin-top: 2%;width: 55%;" data-date="" data-date-format="dd MM yyyy" data-link-format="yyyy-mm-dd" data-link-field="dtp_input1">
+					                    <input class="form-control" name="enter_Time" type="text" style=" height: 31px;" value="" readonly>
+					                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+										<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
+					                </div>
+									<input type="hidden" id="dtp_input1" value="" /><br/>
+					            </div>
+					            <script type="text/javascript">
+					            	$(".form_time").datetimepicker({
+								      	language:  'zh-CN',
+								      	format: 'yyyy-mm-dd hh:ii',
+								        weekStart: 1,
+								        todayBtn:  1,
+										autoclose: 1,
+										todayHighlight: 1,
+										startView: 2,
+										minView: 2,
+										forceParse: 0
+								    });
+					            </script>
+							</td>
 							<td style="width: 22%;">RFID手环 :</td>
 							<!--手环选择列-->
 							<td colspan="2" style="text-align-last:center ;">

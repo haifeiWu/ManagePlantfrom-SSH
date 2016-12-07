@@ -59,7 +59,7 @@ public class Information_Collection_Action extends
 
 	// 加载信息，
 	public String loadInfor() {
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(1);
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(2);
 		if (SuspectInfor == null) {
 			return "NULL";
 		}

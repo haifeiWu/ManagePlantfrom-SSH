@@ -45,8 +45,10 @@ public class Activity_Record_Action extends ActionSupport implements
 	// 嫌疑人信息
 	@Autowired
 	private SuspectService suspectService;
-	// 活动记录表list
+	// 活动记录表list，用于前台提交的多个数据
 	private List<PHCSMP_Activity_Record> activity = new ArrayList<PHCSMP_Activity_Record>();
+
+	private String suspect_ID;
 
 	/**
 	 * 添加活动记录信息
@@ -56,7 +58,7 @@ public class Activity_Record_Action extends ActionSupport implements
 	 */
 	public String addActivityRecordInfor() throws Exception {
 
-		// 通过反射加载身物品检查记录的类
+		// //通过反射加载身物品检查记录的类
 		// Class<?> c = Class.forName(PHCSMP_Activity_Record.class.getName());
 		// //统计未填写的字段
 		// int count = CompleteCheck.IsEqualsNull(model, c);
@@ -73,17 +75,17 @@ public class Activity_Record_Action extends ActionSupport implements
 		// // service.saveActivityRecordInfor(model);
 
 		List<PHCSMP_Activity_Record> activitys = this.getActivity();
-
+		suspect_ID = this.getSuspect_ID();
 		if (activitys == null) {// 当获取的数据为空时
 			return "NULL";
 		}
-		activityRecordService.saveActivitysInfor(activitys);
 
 		for (PHCSMP_Activity_Record activity : activitys) {// 遍历list
+			activity.setSuspect_ID(suspect_ID);
 			System.out.println(activity.toString());
 		}
 
-		System.out.println("Activity_Record_Action:addActivityRecordInfor");
+		activityRecordService.saveActivitysInfor(activitys);
 		return "addActivityRecordInfor";
 	}
 
@@ -142,6 +144,14 @@ public class Activity_Record_Action extends ActionSupport implements
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
+	}
+
+	public String getSuspect_ID() {
+		return suspect_ID;
+	}
+
+	public void setSuspect_ID(String suspect_ID) {
+		this.suspect_ID = suspect_ID;
 	}
 
 }

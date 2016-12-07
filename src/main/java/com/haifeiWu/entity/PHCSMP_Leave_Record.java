@@ -26,7 +26,7 @@ public class PHCSMP_Leave_Record implements Serializable {
 	private String recipient_Person;// 领取人姓名
 	private String recipient_Person_Number;// 领取人身份证号码
 	private String treatment_Time;// 随身物品处理时间
-	private int staff_ID;// 办案民警 4
+	private String staff_ID;// 办案民警 4
 	private int room_ID;// 信息登记房间
 
 	private int total_record = 60;// 需要填写的总记录数
@@ -114,11 +114,11 @@ public class PHCSMP_Leave_Record implements Serializable {
 		this.treatment_Time = treatment_Time;
 	}
 
-	public int getStaff_ID() {
+	public String getStaff_ID() {
 		return staff_ID;
 	}
 
-	public void setStaff_ID(int staff_ID) {
+	public void setStaff_ID(String staff_ID) {
 		this.staff_ID = staff_ID;
 	}
 

@@ -11,6 +11,9 @@
             <generator class="native"/>
         </id>
         <property name="remark"/>
+        <property name="is_Used" type="java.lang.String"> 
+			<column name="is_Used" not-null="true" default="0"/> 
+		</property>
     </class>
 
 </hibernate-mapping>

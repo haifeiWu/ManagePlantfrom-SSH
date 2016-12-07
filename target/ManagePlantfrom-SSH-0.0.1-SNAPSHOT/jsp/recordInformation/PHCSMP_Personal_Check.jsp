@@ -143,7 +143,7 @@
 								<td colspan="2">家庭住址：</td>
 							</tr>
 							<tr>
-								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea readonly="readonly" rows="1" cols="30">${SuspectInfor.address }</textarea></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 38px;">身份证号码</div></td>
