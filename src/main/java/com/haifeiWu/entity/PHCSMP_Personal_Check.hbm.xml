@@ -16,20 +16,12 @@
         <property name="check_ReportS"/>
         <property name="check_Situation"/>
         
-        <!--随身物品信息-->
-        <!-- <property name="Belonging_Number"/>
-        <property name="Belonging_Name_Character"/>
-        <property name="Belonging_Count"/>
-        <property name="Belonging_Unit"/>
-        <property name="Keeping_ID"/>
-        <property name="Cabinet_Number"/> -->
         <!-- 时间信息类 -->
-        <property name="check_Date"/>
-        <property name="start_time"/>
-        <property name="end_time"/>
+        <property name="check_StartTime"/>
+        <property name="check_EndTime"/>
         <!-- 自述症状 -->
-        <property name="isDrink"/>
-        <property name="isDiseases"/>
+        <property name="is_Drink"/>
+        <property name="is_Diseases"/>
         
         <property name="staff_ID"/>
         <property name="room_ID"/>

@@ -24,9 +24,8 @@ public class PHCSMP_Information_Collection implements Serializable {
 	private String is_Checked;// 是否检查对比
 
 	// 人身检查日期
-	private String iC_Date;
-	private String start_time;
-	private String end_time;
+	private String ic_StartTime;
+	private String ic_EndTime;
 
 	public int getInformation_Collection_ID() {
 		return information_Collection_ID;
@@ -76,14 +75,6 @@ public class PHCSMP_Information_Collection implements Serializable {
 		this.is_Checked = is_Checked;
 	}
 
-	public String getiC_Date() {
-		return iC_Date;
-	}
-
-	public void setiC_Date(String iC_Date) {
-		this.iC_Date = iC_Date;
-	}
-
 	public int getStaff_ID() {
 		return staff_ID;
 	}
@@ -122,19 +113,20 @@ public class PHCSMP_Information_Collection implements Serializable {
 		this.fill_record = fill_record;
 	}
 
-	public String getStart_time() {
-		return start_time;
+	public String getIc_StartTime() {
+		return ic_StartTime;
 	}
 
-	public void setStart_time(String start_time) {
-		this.start_time = start_time;
+	public void setIc_StartTime(String ic_StartTime) {
+		this.ic_StartTime = ic_StartTime;
 	}
 
-	public String getEnd_time() {
-		return end_time;
+	public String getIc_EndTime() {
+		return ic_EndTime;
 	}
 
-	public void setEnd_time(String end_time) {
-		this.end_time = end_time;
+	public void setIc_EndTime(String ic_EndTime) {
+		this.ic_EndTime = ic_EndTime;
 	}
+
 }

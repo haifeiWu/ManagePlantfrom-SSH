@@ -59,8 +59,7 @@ public class PHCSMP_Personal_Check_Action extends
 
 		// System.out.println("单条信息：" + model.toString());
 
-		model.setEnd_time(new DateTime().toString("yyyy-MM-dd HH:mm"));// 设置人身检查的结束时间
-		model.setStart_time(model.getCheck_Date());// 设置人参检查的开始时间
+		model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));// 设置人身检查的结束时间
 		List<PHCSMP_BelongingS> belongs = this.getBelong();
 		for (PHCSMP_BelongingS belong : belongs) {
 			belong.setSuspect_ID(model.getSuspect_ID());// 设置档案编号

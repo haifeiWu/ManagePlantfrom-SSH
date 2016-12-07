@@ -114,6 +114,7 @@ public class GenerateReportAction extends ActionSupport implements
 		int prisonHour = Hours.hoursBetween(startTime, endTime).getHours();
 
 		String reportCreateTime = new DateTime().toString("yyyy-MM-dd HH:mm");
+
 		if ((suspect == null) || (belongingS == null)
 				|| (personal_Check == null) || (activity_Record == null)
 				|| (information_Collection == null) || (leave_Record == null)) {

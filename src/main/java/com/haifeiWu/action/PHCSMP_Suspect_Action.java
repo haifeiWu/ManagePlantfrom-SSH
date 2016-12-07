@@ -2,6 +2,7 @@ package com.haifeiWu.action;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.haifeiWu.base.BaseAction;
@@ -79,6 +80,8 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
 
+		String entryTime = new DateTime().toString("yyy-mm-dd HH:mm");// 入区时间
+
 		if (user == null) {// 在未登录状态下
 			return "unLoginState";
 		} else {
@@ -90,6 +93,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 
 			request.setAttribute("bundList", list);
 			request.setAttribute("identifyCardType", identifyCardType);
+			request.setAttribute("entryTime", entryTime);
 			request.setAttribute("actionCause", actionCause);
 			return "loadInfor";
 		}

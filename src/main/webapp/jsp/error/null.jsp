@@ -6,7 +6,7 @@
 
 <head>
 	<meta http-equiv="content-type" content="text/html;charset=utf-8">
-	<title>504 GAEProxy Proxy Time out</title>
+	<title>Data is Null</title>
 	<style>
 		<!-- body {
 			font-family: arial, sans-serif

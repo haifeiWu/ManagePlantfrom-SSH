@@ -290,16 +290,15 @@
 					</tr>
 					<tr>
 						<td>领取人签名:</td>
-						<td><input type="text" name="recipient_Person" /></td>
+						<td><input type="text" name="" value="${SuspectInfor.suspect_Name }" /></td>
 					</tr>
 					<tr>
 						<td>身份证号码:</td>
-						<td><input type="text" name="recipient_Person_Number" /></td>
+						<td><input type="text" name="" value="${SuspectInfor.identifyCard_Number }" /></td>
 					</tr>
 					<tr>
 						<td>领取时间:</td>
 						<td>
-						<!-- <input type="time" name="treatment_Time" /> -->
 							<div class="form-group" style="height: 30px;" >
 				                <div class="input-group date form_time col-md-5" style="margin-left: 30%;margin-top: 2%;" data-date="" data-date-format="hh:ii" data-link-field="dtp_input1">
 				                    <input class="form-control" name="treatment_Time" size="8" type="text" value="" readonly>

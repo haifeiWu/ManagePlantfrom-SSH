@@ -27,6 +27,7 @@ public class PHCSMP_Suspect implements Serializable {
 	private String identifyCard_Number;// 证件号码
 	private String suspected_Cause;// 进入办案区原因（案由字典表中ID用逗号分隔）
 	private String enter_Time;// 进入办案区时间
+	private String quit_time;// 离开信息登记室时间
 	private String staff_ID;// 办案民警
 	private String address;// 家庭住址
 	private String now_address;// 家庭住址
@@ -210,6 +211,14 @@ public class PHCSMP_Suspect implements Serializable {
 	@Override
 	public String toString() {
 		return this.suspect_ID + " " + this.suspect_Name + " " + this.sex;
+	}
+
+	public String getQuit_time() {
+		return quit_time;
+	}
+
+	public void setQuit_time(String quit_time) {
+		this.quit_time = quit_time;
 	}
 
 }

@@ -24,6 +24,7 @@
         <property name="identifyCard_Number"/>
         <property name="suspected_Cause"/>
         <property name="enter_Time"/>
+         <property name="quit_time"/>
         <property name="staff_ID"/>
         <property name="is_Active"/>
         <property name="tdentityID_Imag"/>

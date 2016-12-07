@@ -266,13 +266,13 @@
 						<p class="self_state col-lg-12 col-md-10 col-sm-10">2.1&nbsp;自述情况</p>
 						<ul class="checkbox col-lg-12 col-md-10 col-sm-10">
 							<li>是否饮酒:</li>
-							<li><input type="text" value="是" /></li>
+							<li><input type="text" value="${personal_Check.is_Drink }" /></li>
 							<li>是否患有传染性疾病:</li>
-							<li><input type="text" value="否" /></li>
+							<li><input type="text" value="${personal_Check.is_Diseases }" /></li>
 						</ul>
 						<fieldset class="col-lg-12 col-md-12 col-sm-12">
 							<legend>自述症状:</legend>
-							<textarea style="height: 120px;"></textarea>
+							<textarea style="height: 120px;">${personal_Check.self_ReportS }</textarea>
 						</fieldset>
 					</div>
 					<!--体检信息表-->
@@ -281,20 +281,20 @@
 						<!--体检信息表-->
 						<table class="checked_state col-lg-12 col-md-10 col-sm-10">
 							<tr>
-								<td style="width: 20%;">体表有伤 &nbsp;&nbsp;<input type="checkbox" /></td>
-								<td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input type="checkbox" /></td>
-								<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input type="checkbox" /></td>
+								<td style="width: 20%;">${personal_Check.check_Situation }</td>
+								<!-- <td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input type="checkbox" /></td>
+								<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input type="checkbox" /></td> -->
 								<td rowspan="2"><img src="images/check_08.png" style="width: 70%; margin-left: 1%; margin-top: 3%;" /></td>
 								<!--引入体表检查图-->
 							</tr>
 							<tr>
 								<td style="text-align: left; vertical-align: top;">检查情况:</td>
-								<td colspan="2" style="text-align: left; vertical-align: top;"><textarea></textarea></td>
+								<td colspan="2" style="text-align: left; vertical-align: top;"><textarea>${personal_Check.check_ReportS }</textarea></td>
 								<!--<td></td>-->
 							</tr>
 							<tr>
-								<td>检查民警签名确认<br><input type="text" /></td>
-								<td colspan="3" style="text-align: center;">被检查人/监护人签字捺印 <br><input type="text" /></td>
+								<td>检查民警<br><input type="text" value="${personal_Check.staff_ID }" /></td>
+								<td colspan="3" style="text-align: center;">被检查人/监护人 <br><input type="text" value="${suspect.suspect_Name }" /></td>
 								<!--<td></td>-->
 							</tr>
 						</table>
@@ -323,9 +323,9 @@
 							</tr>
 						</table>
 						<ul class="signature col-lg-12 col-md-10 col-sm-10">
-							<li>办案人员签字:<br /><input type="text" /></li>
-							<li>随身财物管理员签字:<br /><input type="text" /></li>
-							<li>涉案人员签字:<br /><input type="text" /></li>
+							<li>办案人员：<br /><input type="text" value="${belongingS.staff_ID }" /></li>
+							<li>随身财物管理员：<br /><input type="text" value="${belongingS.staff_ID_Belonging }" /></li>
+							<li>涉案人员:<br /><input type="text" value="${suspect.suspect_Name }" /></li>
 						</ul>
 					</div>
 				</div>
@@ -337,32 +337,37 @@
 					<table class="info_collect col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>信息采集:</td>
-							<td>是 &nbsp;&nbsp;<input type="checkbox" /></td>
-							<td>否 &nbsp;&nbsp;<input type="checkbox" /></td>
+							<td>${information_Collection.is_Collected }</td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>采集项目:</td>
-							<td> &nbsp;&nbsp;<input type="checkbox" />身份信息</td>
+							<td>${information_Collection.collected_Item }</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<!-- <td> &nbsp;&nbsp;<input type="checkbox" />身份信息</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />指纹</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />血液</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />尿液</td>
-							<td> &nbsp;&nbsp;<input type="checkbox" />其他<input type="text" /></td>
+							<td> &nbsp;&nbsp;<input type="checkbox" />其他<input type="text" /></td> -->
 						</tr>
 						<tr>
 							<td>信息入库:</td>
-							<td>是 &nbsp;&nbsp;<input type="checkbox" /></td>
-							<td>否 &nbsp;&nbsp;<input type="checkbox" /></td>
+							<td>${information_Collection.is_Storaged }</td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>检查对比:</td>
-							<td>是 &nbsp;&nbsp;<input type="checkbox" /></td>
-							<td>否 &nbsp;&nbsp;<input type="checkbox" /></td>
+							<td>${information_Collection.is_Checked }</td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>

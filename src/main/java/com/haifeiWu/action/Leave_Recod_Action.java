@@ -88,12 +88,13 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	public String loadInfor() {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(4);
-		if (SuspectInfor == null) {
-			return "NULL";
-		}
-		// 将信息从数据库查找到之后，存入session，更新session
-		request.setAttribute("SuspectInfor", SuspectInfor);
+		// PHCSMP_Suspect SuspectInfor =
+		// suspectService.findInfroByActiveCode(4);
+		// if (SuspectInfor == null) {
+		// return "NULL";
+		// }
+		// // 将信息从数据库查找到之后，存入session，更新session
+		// request.setAttribute("SuspectInfor", SuspectInfor);
 
 		if (user == null) {
 			return "unLoginState";

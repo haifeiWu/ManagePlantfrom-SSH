@@ -19,9 +19,8 @@
         <property name="staff_ID"/>
         <property name="room_ID"/>
         <!-- 信息採集日期 -->
-        <property name="iC_Date"/>
-        <property name="start_time"/>
-        <property name="end_time"/>
+        <property name="ic_StartTime"/>
+        <property name="ic_EndTime"/>
         
         <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 

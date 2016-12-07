@@ -158,7 +158,7 @@
 				<div class="form-group">
                 <label for="dtp_input1" class="check_time">人身检查起始时间：</label>
                 <div class="input-group date form_datetime col-md-5" data-date="1979-09-16T05:25:07Z" data-date-format="dd MM yyyy - HH:ii p" data-link-field="dtp_input1">
-                    <input class="form-control" name="Check_Date" type="text" value="" readonly>
+                    <input class="form-control" name="Check_StartTime" type="text" value="" readonly>
                     <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 					<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                 </div>
@@ -184,8 +184,8 @@
 					<table class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否饮酒:</td>
-							<td>是<input type="radio" name="isDrink" /></td>
-							<td>否<input type="radio" name="isDrink" /></td>
+							<td>是<input type="radio" name="is_Drink" /></td>
+							<td>否<input type="radio" name="is_Drink" /></td>
 						</tr>
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否患有传染性疾病:</td>
@@ -217,7 +217,7 @@
 						</tr>
 						<tr>
 							<td>检查民警：<br><input type="text" name="Staff_ID" value="" /></td>
-							<td colspan="3" style="text-align: center;">被检查人/监护人：<br><input type="text" value="" /></td>
+							<td colspan="3" style="text-align: center;">被检查人/监护人：<br><input type="text" value="${SuspectInfor.suspect_Name }" /></td>
 						</tr>
 					</table>
 					<h4 id="belongInspect" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">随身财物检查登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span></h4>
@@ -265,8 +265,8 @@
 					</table>
 					<ul class="signature col-lg-12 col-md-10 col-sm-10">
 						<li>办案人员：<br /><input type="text" name="Staff_ID" /></li>
-						<li>随身财物管理员：<br /><input type="text" value="" /></li>
-						<li>涉案人员：<br /><input type="text" value="" /></li>
+						<li>随身财物管理员：<br /><input type="text" value="Staff_ID" /></li>
+						<li>涉案人员：<br /><input type="text" value="${SuspectInfor.suspect_Name }" /></li>
 					</ul>
 				</div>
 				<input class="sub" type="submit" value="确认提交" onclick="Logger()"/>
