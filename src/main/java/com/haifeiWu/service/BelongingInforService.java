@@ -33,4 +33,12 @@ public interface BelongingInforService {
 	 */
 	PHCSMP_BelongingS findInforBySuspetcId(String suspectId);
 
+	/**
+	 * 根据档案号查出所有的嫌疑人随身物品信息
+	 * 
+	 * @param suspectId
+	 * @return
+	 */
+	List<PHCSMP_BelongingS> selectBelongInfor(String suspectId);
+
 }

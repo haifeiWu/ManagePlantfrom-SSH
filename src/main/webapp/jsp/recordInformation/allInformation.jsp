@@ -107,8 +107,6 @@
 			 		}
 			 	});
 			 });   
-			 
-			
 		</script>
 </head>
 
@@ -195,7 +193,6 @@
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-
 								<td colspan="2">出生：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
 										type="text" readonly="readonly" style="width:20%;text-align: center;" value="8" /> 月
 									<input type="text" style="width:25%;" value="12" readonly="readonly" />日
@@ -203,7 +200,6 @@
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
-
 								<td colspan="2">身份证住址：</td>
 							</tr>
 							<tr>
@@ -216,7 +212,6 @@
 							</tr>
 						</table>
 						<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 41%; margin-left: -2%;" />
-
 					</div>
 					<div class="row">
 						<p style="border-bottom: 1px solid #389AC7; padding-bottom: 3px;color: #f69d1f;width: 10%;">1.2&nbsp;人员联系信息</p>
@@ -250,9 +245,9 @@
 							</tr>
 							<tr>
 								<td>办案民警签名:</td>
-								<td><input type="text" value="admin" readonly="readonly"/></td>
+								<td><input type="text" value="${suspect.staff_ID }" readonly="readonly"/></td>
 								<td>管理员签名:</td>
-								<td><input type="text" value="admin" readonly="readonly"/></td>
+								<td><input type="text" value="${suspect.staff_ID }" readonly="readonly"/></td>
 							</tr>
 						</table>
 					</div>
@@ -377,7 +372,7 @@
 			</form>
 			<!--办案区活动记录-->
 			<form class="row">
-				<h4 id="record_registr" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">4、人身安全检查<span class="show3">显示信息</span></h4>
+				<h4 id="record_registr" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">4、办案区活动记录<span class="show3">显示信息</span></h4>
 				<div id="All_forth">
 					<table class="active_check col-lg-12 col-md-10 col-sm-10">
 						<tr>
@@ -456,47 +451,48 @@
 								<td>离开原因</td>
 							</tr>
 							<tr>
-								<td><input type="date" /><input type="time" /></td>
+								<td><input type="text" value="${leave_Record.leave_Time }" readonly="readonly" /></td>
 								<td>
-									<select>
+									<input type="text" value="${leave_Record.leave_Reason}" readonly="readonly"/>
+									<!-- <select>
 										<option>查证结束</option>
 										<option>刑拘</option>
 										<option>行政拘留</option>
 										<option>警告</option>
-									</select>
+									</select> -->
 								</td>
 							</tr>
 							<tr>
 								<td>随身物品处理情况:</td>
 								<td>
-									<input type="checkbox" />全部反还
+									<input type="text" value="${leave_Record.belongingS_Treatment_Method}"/>
+									<!-- <input type="checkbox" />全部反还
 									<input type="checkbox" />部分反还
-									<input type="checkbox" />未反还
+									<input type="checkbox" />未反还 -->
 								</td>
 							</tr>
 							<tr>
 								<td>未反还物品情况记载:</td>
-								<td><textarea></textarea></td>
+								<td><textarea>${leave_Record.belongingS_Treatment_Record}</textarea></td>
 							</tr>
 							<tr>
-								<td>领取人签名:</td>
-								<td><input type="text" /></td>
+								<td>领取人：</td>
+								<td><input type="text" value="${leave_Record.recipient_Person}"/></td>
 							</tr>
 							<tr>
 								<td>身份证号码:</td>
-								<td><input type="text" /></td>
+								<td><input type="text" value="${leave_Record.recipient_Person_Number }" /></td>
 							</tr>
 							<tr>
 								<td>领取时间:</td>
-								<td><input type="date" /></td>
+								<td><input type="text" value="${leave_Record.treatment_Time }" /></td>
 							</tr>
 						</table>
-
 					</div>
 					<hr style="margin-top: 380px;border: 1px solid darkgray;" />
 					<!--</div>-->
 					<p id="detain_time">该嫌疑人羁押时间:&nbsp;&nbsp;<input type="text" value="${prisonHour }" />小时</p>
-					<p id="signature">管理员签名:&nbsp;&nbsp;&nbsp;<input type="text" /></p>
+					<p id="signature">管理员签名:&nbsp;&nbsp;&nbsp;<input type="text" value="admin" /></p>
 					<input id="download" type="button" value="下载" />
 					<input id="print" type="button" value="打印" />
 					<div style="height: 100px;"></div>

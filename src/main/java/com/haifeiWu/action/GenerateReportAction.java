@@ -1,5 +1,7 @@
 package com.haifeiWu.action;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -89,15 +91,16 @@ public class GenerateReportAction extends ActionSupport implements
 		}
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findInforBySuspetcId(suspectId);
-		// 嫌疑人随身物品检查信息
-		PHCSMP_BelongingS belongingS = belongingInforService
-				.findInforBySuspetcId(suspectId);
+		// 嫌疑人随身所有物品检查信息
+		List<PHCSMP_BelongingS> belongingS = belongingInforService
+				.selectBelongInfor(suspectId);
 		// 嫌疑人人身检查信息
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectId);
-		// 嫌疑人询问讯问记录信息
-		PHCSMP_Activity_Record activity_Record = activityRecordService
-				.findInforBySuspetcId(suspectId);
+		// 嫌疑人所有的办案区记录信息
+		List<PHCSMP_Activity_Record> activity_Record = activityRecordService
+				.selectActivityRecordInfor(suspectId);
+
 		// 嫌疑人信息采集记录
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
 				.findInforBySuspetcId(suspectId);

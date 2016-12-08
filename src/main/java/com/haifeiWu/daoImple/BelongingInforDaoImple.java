@@ -2,6 +2,7 @@ package com.haifeiWu.daoImple;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
@@ -22,6 +23,7 @@ public class BelongingInforDaoImple extends DaoSupportImpl<PHCSMP_BelongingS>
 
 	private Transaction tx = null;
 	private Session session = null;
+	private String hql = null;
 
 	@Override
 	public void savesaveBelongInforList(List<PHCSMP_BelongingS> belongs) {
@@ -39,4 +41,18 @@ public class BelongingInforDaoImple extends DaoSupportImpl<PHCSMP_BelongingS>
 		tx.commit();// 提交事务
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PHCSMP_BelongingS> selectBelongInfor(String suspectId) {
+		session = getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "from PHCSMP_BelongingS where suspect_ID=?";
+
+		Query query = session.createQuery(hql);
+		query.setParameter(0, suspectId);
+		List<PHCSMP_BelongingS> belongs = query.list();
+		tx.commit();// 提交事务
+		return belongs;
+	}
 }

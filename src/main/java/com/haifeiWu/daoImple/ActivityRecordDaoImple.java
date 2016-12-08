@@ -2,6 +2,7 @@ package com.haifeiWu.daoImple;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
@@ -22,6 +23,7 @@ public class ActivityRecordDaoImple extends
 
 	private Transaction tx = null;
 	private Session session = null;
+	private String hql = null;
 
 	@Override
 	public void saveActivitysInfor(List<PHCSMP_Activity_Record> activitys) {
@@ -37,6 +39,22 @@ public class ActivityRecordDaoImple extends
 			}
 		}
 		tx.commit();// 提交事务
+	}
+
+	@Override
+	public List<PHCSMP_Activity_Record> selectActivityRecordInfor(
+			String suspectId) {
+		session = getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "from PHCSMP_Activity_Record where suspect_ID=?";
+
+		Query query = session.createQuery(hql);
+		query.setParameter(0, suspectId);
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Activity_Record> activities = query.list();
+		tx.commit();// 提交事务
+		return activities;
 	}
 
 }

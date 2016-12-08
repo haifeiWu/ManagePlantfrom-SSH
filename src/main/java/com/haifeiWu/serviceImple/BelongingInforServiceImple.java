@@ -35,4 +35,9 @@ public class BelongingInforServiceImple implements BelongingInforService {
 	public PHCSMP_BelongingS findInforBySuspetcId(String suspectId) {
 		return belongingInforDao.findInforBySuspetcId(suspectId);
 	}
+
+	@Override
+	public List<PHCSMP_BelongingS> selectBelongInfor(String suspectId) {
+		return belongingInforDao.selectBelongInfor(suspectId);
+	}
 }

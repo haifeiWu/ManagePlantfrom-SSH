@@ -11,6 +11,12 @@ import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
 
+/**
+ * 这个action暂时是没有用的
+ * 
+ * @author wuhaifei
+ * @d2016年12月8日
+ */
 @Controller
 @Scope("prototype")
 public class PHCSMP_BelongingS_Action extends BaseAction<PHCSMP_BelongingS> {
@@ -44,11 +50,8 @@ public class PHCSMP_BelongingS_Action extends BaseAction<PHCSMP_BelongingS> {
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 
-		// BelongingInforService service = new BelongingInforServiceImple();
 		// 保存信息到数据库
 		belongingInforService.saveBelongingInfor(model);
-
-		System.out.println("addBelongingInfor:haifeisi");
 
 		return "addBelongingInfor";
 	}

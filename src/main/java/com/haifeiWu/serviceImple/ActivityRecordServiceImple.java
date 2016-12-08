@@ -33,4 +33,9 @@ public class ActivityRecordServiceImple extends
 		activityRecordDao.saveActivitysInfor(activitys);
 	}
 
+	@Override
+	public List<PHCSMP_Activity_Record> selectActivityRecordInfor(
+			String suspectId) {
+		return activityRecordDao.selectActivityRecordInfor(suspectId);
+	}
 }
