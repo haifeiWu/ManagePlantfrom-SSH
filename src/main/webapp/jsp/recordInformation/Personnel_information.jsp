@@ -120,7 +120,6 @@
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
-
 					<!--进度的数据信息-->
 					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
 						<li>0%</li>
@@ -142,7 +141,6 @@
 							id="confirmImg" src="images/3-inforCollection_07.png"
 							style="margin-left: -14%;" /></a> <span>入区登记完成</span>
 					</div>
-
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
 						<li>身份证信息</li>

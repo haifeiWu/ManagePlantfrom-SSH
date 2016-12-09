@@ -128,7 +128,7 @@ h5 {
 	display: inline-block;
 }
 /*嫌疑人正面,侧面照片*/
-.date_pic {
+/* .date_pic {
 	background: #389ac7;
 	width: 98.5%;
 	height: 30%;
@@ -137,8 +137,24 @@ h5 {
 	line-height: 40px;
 	margin-top: 0.2%;
 	-webkit-box-shadow: 2px 3px 4px rgba(0, 1, 1, 0.8);
-	-moz-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.8); /*兼容谷歌*/
-	box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.8); /*兼容IE浏览器*/
+	-moz-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.8); 兼容谷歌
+	box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.8); 兼容IE浏览器
+} */
+
+.date_pic {
+	background: #389ac7;
+	width: 246px;
+	height: 40px;
+	color: #FFFFFF;
+	text-align: center;
+	line-height: 40px;
+	position: relative;
+	left: 61px;
+	margin: 0px;
+	font-size: 12px;
+	-webkit-box-shadow: 2px 3px 4px rgba(0, 1, 1, 0.8); /*兼容谷歌*/
+	-moz-box-shadow: 2px 3px 4px rgba(0, 1, 1, 0.8); /*兼容火狐*/
+	box-shadow: 2px 3px 4px rgba(0, 1, 1, 0.8); /*兼容opera或者ie9以上*/
 }
 
 /*嫌疑人信息表样式*/
@@ -152,28 +168,28 @@ h5 {
 }
 
 #img_1 {
-	width: 45%;
-	height: 42%;
-	-webkit-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7); /*兼容火狐*/
-	-moz-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7); /*兼容谷歌*/
-	box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7); /*兼容IE浏览器*/
+	margin-left: 17%;
+	width: 120px;
+	height: 156px;
+	-webkit-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7);
+	-moz-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7);
+	box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7);
 }
-
 #img_2 {
-	width: 53%;
-	height: 90%;
-	-webkit-box-shadow: 2px 4px 4px rgba(0, 1, 1, 0.7); /*兼容火狐*/
-	-moz-box-shadow: 2px 4px 4px rgba(0, 1, 1, 0.7); /*兼容谷歌*/
-	-box-shadow: 2px 4px 4px rgba(0, 1, 1, 0.7); /*兼容IE浏览器*/
+	width: 120px;
+	height: 156px;
+	-webkit-box-shadow: 2px 4px 4px rgba(0, 1, 1, 0.7);
+	-moz-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7);
+	box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7);
 }
 
 /*设置嫌疑人信息表样式*/
 textarea {
-	overflow: hidden;
-	resize: none;
-	width: 90%;
-	height: 50px;
-	margin-left: 5%;
+	overflow: hidden;resize: none;
+	width: 88%;
+	height: 60px;
+	border:1.5px solid #c1c1c1;padding: 0px;margin: 0 auto; 
+	position: relative;left: 6%;text-align: center;
 }
 
 .Message input {
@@ -189,7 +205,7 @@ textarea {
 	display: inline-block;
 }
 
-.info_id {
+/* .info_id {
 	background: #389ac7;
 	width: 80%;
 	margin-left: 0%;
@@ -198,6 +214,17 @@ textarea {
 	line-height: 40px;
 	color: #fff;
 	text-align: center;
+} */
+
+.info_id {
+	background: #389ac7;
+	height: 30px;
+	width: 95px;
+	line-height: 30px;
+	color: #fff;
+	text-align: center;
+	position: relative;
+	top: -10px;
 }
 
 /*人身检查起止时间*/
@@ -218,7 +245,7 @@ textarea {
 	color: #f69d1f;
 	line-height: 30px;
 	background: #f1f1f1;
-	-webkit-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.8); /*兼容火狐*/
+	-webkit-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.8);
 	-moz-box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.8); /*兼容谷歌*/
 	box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.8); /*兼容opera或者ie9以上*/
 }

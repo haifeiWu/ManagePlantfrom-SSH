@@ -99,7 +99,7 @@
 							<!--图片引入-->
 							<td rowspan="5"><img
 								style="width:89%;height: 75%;margin-left: -2%;"
-								src="images/1-IDlogo_09.png" />
+								src="${SuspectInfor.tdentityID_Imag }" />
 								<p class="info_id">身份证照</p></td>
 							<!--<td></td>-->
 							<td colspan="2">姓名:<input type="text" readonly="readonly"
@@ -109,21 +109,16 @@
 						<tr>
 							<td>性别：<input style="text-align: center;" type="text"
 								value="${SuspectInfor.sex }" readonly="readonly" /></td>
-							<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
+							<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
 						</tr>
 						<!--第三行 出生-->
 						<tr>
-
-							<td colspan="2">出生日期：<input type="text" style="width:20%;"
-								value="1961" readonly="readonly" />年<input type="text"
-								readonly="readonly" style="width:20%;text-align: center;"
-								value="8" /> 月 <input type="text" style="width:25%;" value="12"
-								readonly="readonly" />日
+							<td colspan="2">出生日期：<input type="text" style="width:36%;"
+								value="${SuspectInfor.birthday }" readonly="readonly" />
 							</td>
 						</tr>
 						<!--第四行身份证住址-->
 						<tr>
-
 							<td colspan="2">住址：</td>
 						</tr>
 						<tr>
@@ -139,7 +134,6 @@
 					</table>
 					<hr
 						style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 40%; margin-left: -2%;" />
-
 				</div>
 			</div>
 			<!--身份证信息结束-->

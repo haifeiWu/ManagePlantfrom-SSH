@@ -137,26 +137,23 @@
 							readonly="readonly" />
 					</h4>
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<img
-							style="width: 45%; height: 42%; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);"
-							src="images/1-zhengmian_04.png" /> <img
-							style="width: 53%; height: 90%; -webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);"
-							src="images/1-cemian_06.png" />
+						<img id="img_1"src="images/1-zhengmian_04.png" /> 
+							<img id = "img_2"src="images/1-cemian_06.png" />
 						<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
 							&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 						<hr
-							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
+							style="width: 75%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 2%;margin-left: -28%;" />
 
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
 							<tr style="padding: 0px;">
 								<!--图片引入-->
 								<td rowspan="5" style="width: 25%;"><img
-									style="width:80%;height: 75%;margin-left: 0%;"
-									src="images/1-IDlogo_09.png" />
+									style="width: 95px;height: 108px;position: relative;top: -10px;"
+									src="${SuspectInfor.tdentityID_Imag }" />
 									<p class="info_id">身份证照</p></td>
 								<!--<td></td>-->
 								<td colspan="2">姓名:<input type="text" readonly="readonly"
@@ -166,20 +163,16 @@
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
 									value="${SuspectInfor.sex }" readonly="readonly" /></td>
-								<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
+								<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
 								<td colspan="2">出生日期：<input type="text" style="width:20%;"
-									value="1961" readonly="readonly" />年<input type="text"
-									readonly="readonly" style="width:20%;text-align: center;"
-									value="8" /> 月 <input type="text" style="width:25%;"
-									value="12" readonly="readonly" />日
+									value="${SuspectInfor.birthday }" readonly="readonly" />
 								</td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
-
 								<td colspan="2">家庭住址：</td>
 							</tr>
 							<tr>
@@ -194,7 +187,7 @@
 							</tr>
 						</table>
 						<hr
-							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 38%; margin-left: -2%;" />
+							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 29%; margin-left: -28%;" />
 					</div>
 				</div>
 				<!--第一个数据项结束-->

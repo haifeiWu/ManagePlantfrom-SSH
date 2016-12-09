@@ -7,7 +7,7 @@ $(document).ready(function(){
 $(".Message tr td").css("color","#389ac7");
 //设置第一列的样式
 //$(".Message td:first").css({"width":"30%","height":"7%"});
-$(".Message tr td :input").css({"width":"15%","color":"#080808","text-align":"center",
+$(".Message tr td :input").css({"width":"36%","color":"#080808","text-align":"center",
 	"font-family":"微软雅黑","font-size":"large","border":"hidden","background":"#fff"});
 //	设置嫌疑人信息表格中身份证住址
 $(".Message textarea").css({"width":"60%","margin-top":"0%","margin-left": "4%"});

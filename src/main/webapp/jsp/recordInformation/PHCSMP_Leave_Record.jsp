@@ -165,51 +165,45 @@
 							&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-
 						<hr
 							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
 
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
-
 							<tr style="padding: 0px;">
 								<!--图片引入-->
 								<td rowspan="5"><img
 									style="width:89%;height: 75%;margin-left: -2%;"
-									src="images/1-IDlogo_09.png" />
+									src="${SuspectInfor.tdentityID_Imag }" />
 									<p class="info_id">身份证照</p></td>
 								<!--<td></td>-->
 								<td colspan="2">姓名:<input type="text" readonly="readonly"
-									value="德古拉" /></td>
+									value="${SuspectInfor.suspect_Name }" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
-
 								<td>性别：<input style="text-align: center;" type="text"
-									value="男" readonly="readonly" /></td>
+									value="${SuspectInfor.sex }" readonly="readonly" /></td>
 								<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
 								<td colspan="2">出生：<input type="text" style="width:20%;"
-									value="1961" readonly="readonly" />年<input type="text"
-									readonly="readonly" style="width:20%;text-align: center;"
-									value="8" /> 月 <input type="text" style="width:25%;"
-									value="12" readonly="readonly" />日
+									value="${SuspectInfor.birthday }" readonly="readonly" />
 								</td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
-								<td colspan="2">身份证住址：</td>
+								<td colspan="2">住址：</td>
 							</tr>
 							<tr>
 								<!--<td></td>-->
 								<td colspan="2"><textarea readonly="readonly" rows="1"
-										cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+										cols="30">${SuspectInfor.address }</textarea></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 38px;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
-									value="140104196108123556" readonly="readonly" /></td>
+									value="${SuspectInfor.identifyCard_Number }" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr
