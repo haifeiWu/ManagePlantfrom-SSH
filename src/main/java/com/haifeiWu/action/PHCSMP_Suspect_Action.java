@@ -13,6 +13,7 @@ import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
+import com.haifeiWu.utils.CopyFile;
 
 /**
  * 嫌疑人入区信息登记的action
@@ -49,23 +50,24 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	 */
 	public String addSuspectInfor() throws Exception {
 
-		/*
-		 * 设置出生日期格式
-		 */
-		StringBuilder sb = new StringBuilder();
-		String[] arr = model.getBirthday().split(", ");
-		for (int i = 0; i < arr.length; i++) {
-			sb.append(arr[i] + "-");
-		}
-		String date = sb.toString().substring(0, sb.toString().length() - 1);
-		model.setBirthday(date);
-		System.out.println(date);
+		// 格式化获取的路径
+		String path = model.getTdentityID_Imag();
+		StringBuilder sb = new StringBuilder(path);
+		path = sb.insert(2, "\\").toString();
+		// 获取web根目录
+		String temp = application.getRealPath("/");
+		// 使用身份证的身份证号码作为身份证照片的文件名
+		String fileName = model.getIdentifyCard_Number();
+		// 得到身份证照片的相对目录
+		String picPath = "images/" + fileName + ".bmp";
+		// 设置身份证图片的相对目录，数据库中保存的是图片的web目录下的相对目录
+		model.setTdentityID_Imag(picPath);
+		// 将改图片拷贝到服务器目录下
+		CopyFile.copyFile(path, temp + "/" + picPath);
 
 		Class<?> c = Class.forName(PHCSMP_Suspect.class.getName());
-
 		int count = CompleteCheck.IsEqualsNull(model, c);
 		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-
 		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 		System.out.println("未填写的字段：" + count);

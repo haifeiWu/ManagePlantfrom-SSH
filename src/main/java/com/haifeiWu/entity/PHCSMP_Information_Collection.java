@@ -22,6 +22,11 @@ public class PHCSMP_Information_Collection implements Serializable {
 	private String collected_Item;// 采集项目（采集项目字典表中ID逗号隔开，只有Is_Collected为真时有效）
 	private String is_Storaged;// 是否入库
 	private String is_Checked;// 是否检查对比
+	private int staff_ID;// 办案民警
+	private int room_ID;// 信息登记房间
+
+	private int total_record = 60;// 需要填写的总记录数
+	private int fill_record;// 当前填写的记录数
 
 	// 人身检查日期
 	private String ic_StartTime;
@@ -90,12 +95,6 @@ public class PHCSMP_Information_Collection implements Serializable {
 	public void setRoom_ID(int room_ID) {
 		this.room_ID = room_ID;
 	}
-
-	private int staff_ID;// 办案民警
-	private int room_ID;// 信息登记房间
-
-	private int total_record = 60;// 需要填写的总记录数
-	private int fill_record;// 当前填写的记录数
 
 	public int getTotal_record() {
 		return total_record;

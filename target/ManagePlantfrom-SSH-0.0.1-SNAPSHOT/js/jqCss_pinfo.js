@@ -8,16 +8,22 @@ $(document).ready(function(){
 	$(".pic").find("img :first-child").css("-webkit-box-shadow","10px 2px 4px rgba(0,0,1,0.8)");
 
 	$(".Message td:first").css({"width":"30%","height":"7%"});
-	$(".Message tr td").css({"color":"#389ac7","text-align":"left","margin-left":"4%"});
+	/*$(".Message tr td").css({"color":"#389ac7","text-align":"left","margin-left":"4%"});*/
+	
+	$(".Message tr td").css({"color":"#389ac7","font-size":"16px","height":"30px","text-align":"left","margin-left":"4%"});
+	
 	//设置所有input标签的属性样式
-	$(".Message tr td :input").css({"width":"18%","color":"#080808","text-align":" center",
-	"font-family":"微软雅黑","font-size":"large","border":"hidden","background":"#fff"});
+	
+	$(".Message tr td :input").css({"width":"36%","color":"#080808","text-align":" center",
+		"font-family":"微软雅黑","font-size":"18px","border":"hidden","background":"#fff"});
+	
 	//设置最后一个input标签的属性样式
 	$(".Message tr td :input").last().css({"width":"80%","text-align":"left"});
 	
 	$(".Message tr").last("text-align","center");
 	
-	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "7%"});
+	/*$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "7%"});*/
+	$(".Message textarea").css({"width":"350px","margin-top":"0%","margin-left": "0%"});
 	//设置人员联系信息的背景
 	$(".human_Mes").css({"background":"#f1f1f1","-webkit-box-shadow":"2px 4px 4px rgba(0,0,0,0.8)"});
 

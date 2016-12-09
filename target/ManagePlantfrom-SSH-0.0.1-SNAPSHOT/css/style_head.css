@@ -7,9 +7,9 @@
 
 background: -webkit-linear-gradient(left, #0006bf 0%, #0006bf 40%, #f1f1f1 98%, #f1f1f1 100%); 
 
-
-background: -moz-linear-gradient(to right, rgba(0, 6, 251, 1) 0%, rgba(0, 6, 251, 0.6) 40%, rgba(0, 6, 251, 0.2) 98%, rgba(242, 242, 251, 0.3) 100%); 
-
+background: -moz-linear-gradient(to right, rgba(0, 6, 251, 1) 0%, rgba(0, 6, 251, 0.6) 40%, rgba(0, 6, 251, 0.2) 98%, rgba(242, 242, 251, 0.3) 100%);
+ 
+background:linear-gradient(to right, rgba(0, 6, 251, 1) 0%, rgba(0, 6, 251, 0.6) 40%, rgba(0, 6, 251, 0.2) 98%, rgba(242, 242, 251, 0.3) 100%); 
 }
 .img_first{
 width: 17%;

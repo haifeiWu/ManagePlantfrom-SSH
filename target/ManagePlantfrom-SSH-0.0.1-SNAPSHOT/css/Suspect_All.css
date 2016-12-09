@@ -102,10 +102,19 @@ h1 img{
 }
 /*嫌疑人信息表设置*/
 /*引入图片嫌疑人*/
-#img_1{width: 45%; height: 42%; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);}
-#img_2{width: 53%; height: 90%; -webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);}
-
+/*嫌疑人信息表设置*/
+/*引入图片嫌疑人*/
+#img_1{width: 45%; height: 42%; 
+	-webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7); /*兼容谷歌*/
+	-moz-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);	/*兼容火狐*/
+	box-shadow: 0px 2px 0px rgba(0,1,1,0.7);	/*兼容opera或者ie9以上*/
 }
+#img_2{width: 53%; height: 90%; 
+	-webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7); /*兼容谷歌*/
+	-moz-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);	/*兼容火狐*/
+	box-shadow: 0px 2px 0px rgba(0,1,1,0.7); /*兼容opera或者ie9以上*/
+}
+
 
 .left_title{
 	height: 500px;
@@ -197,7 +206,9 @@ textarea{
 	text-align: center;
 	line-height: 40px;
 	margin-top: 0.2%;
-	-webkit-box-shadow: 2px 3px 4px rgba(0,1,1,0.8);
+	-webkit-box-shadow: 2px 3px 4px rgba(0,1,1,0.8); /*兼容谷歌*/
+	-moz-box-shadow: 2px 3px 4px rgba(0,1,1,0.8); /*兼容火狐*/
+	box-shadow: 2px 3px 4px rgba(0,1,1,0.8);	/*兼容opera或者ie9以上*/
 }
 /*身份证信息表*/
 .Message{
@@ -225,6 +236,8 @@ textarea{
 	line-height: 30px;
 	background:#f1f1f1;
 	-webkit-box-shadow:2px 4px 4px rgba(0,0,0,0.8);
+	-moz-box-shadow:2px 4px 4px rgba(0,0,0,0.8);  /*兼容谷歌*/
+	box-shadow:2px 4px 4px rgba(0,0,0,0.8); /*兼容opera或者ie9以上*/
 	
 }
 .human_Mes span{

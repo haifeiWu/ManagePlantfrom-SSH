@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.haifeiWu.action.Activity_Record_Action;
 import com.haifeiWu.action.Information_Collection_Action;
 import com.haifeiWu.action.Leave_Recod_Action;
-import com.haifeiWu.action.PHCSMP_BelongingS_Action;
 import com.haifeiWu.action.PHCSMP_Personal_Check_Action;
 import com.haifeiWu.action.PHCSMP_Suspect_Action;
 import com.haifeiWu.action.UserAction;
@@ -90,18 +89,6 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 						Operation_Model);
 			}
 
-		}
-
-		if (action instanceof PHCSMP_BelongingS_Action) {
-			String Suspect_ID = (String) session.get("Suspect_ID");
-			System.out.println(Suspect_ID);
-			if (method.equals("addBelongingInfor")) {
-				Operation_Info = "增加" + Suspect_ID + "号嫌疑人信息";
-				Operation_Time = getDate();
-				Operation_Model = "安全检查-随身物品登记";
-				addSysLog(Operation_Time, Staff_Name, Operation_Info,
-						Operation_Model);
-			}
 		}
 
 		if (action instanceof PHCSMP_Personal_Check_Action) {

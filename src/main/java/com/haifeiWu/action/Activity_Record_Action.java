@@ -15,9 +15,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
+import com.haifeiWu.entity.PHCSMP_Information_Collection;
+import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
+import com.haifeiWu.service.InformationCollectionService;
+import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -31,11 +35,10 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 public class Activity_Record_Action extends ActionSupport implements
 		ServletRequestAware, ServletResponseAware, ServletContextAware {
-
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1201107017949225716L;
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ServletContext application;
@@ -45,6 +48,12 @@ public class Activity_Record_Action extends ActionSupport implements
 	// 嫌疑人信息
 	@Autowired
 	private SuspectService suspectService;
+	// 嫌疑人的人身检查信息
+	@Autowired
+	private PersonalCheckService personalCheckService;
+	// 信息采集信息登记
+	@Autowired
+	private InformationCollectionService informationCollectionService;
 	// 活动记录表list，用于前台提交的多个数据
 	private List<PHCSMP_Activity_Record> activity = new ArrayList<PHCSMP_Activity_Record>();
 
@@ -96,11 +105,24 @@ public class Activity_Record_Action extends ActionSupport implements
 	 */
 	public String loadInfor() {
 		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(3);
-		if (SuspectInfor == null) {
+
+		String suspectId = SuspectInfor.getSuspect_ID();
+
+		PHCSMP_Personal_Check personal_Check = personalCheckService
+				.findInforBySuspetcId(suspectId);
+
+		PHCSMP_Information_Collection information_Collection = informationCollectionService
+				.findInforBySuspetcId(suspectId);
+
+		if ((SuspectInfor == null) || (personal_Check == null)
+				|| (information_Collection == null)) {
 			return "NULL";
 		}
 		// 将信息从数据库查找到之后，存入session，更新session
 		request.setAttribute("SuspectInfor", SuspectInfor);
+		request.setAttribute("personal_Check", personal_Check);
+		request.setAttribute("information_Collection", information_Collection);
+
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
 		if (user == null) {

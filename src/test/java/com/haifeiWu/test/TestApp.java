@@ -1,11 +1,16 @@
 package com.haifeiWu.test;
 
+import javax.servlet.ServletContext;
+
+import org.apache.struts2.ServletActionContext;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
+import com.haifeiWu.utils.CopyFile;
 import com.haifeiWu.utils.PropertiesReadUtils;
+import com.opensymphony.xwork2.ActionContext;
 
 public class TestApp {
 	@Test
@@ -42,5 +47,49 @@ public class TestApp {
 		String string_c = new DateTime().toString("yyyy年MM月dd日 HH:mm:ss EE");
 
 		System.out.println(string_c);
+	}
+
+	public String getWebRootPath() throws Exception {
+		ActionContext actionContext = ActionContext.getContext();
+		ServletContext servletContext = (ServletContext) actionContext
+				.get(ServletActionContext.SERVLET_CONTEXT);
+		String rootPath = servletContext.getRealPath("/");
+		return rootPath;
+	}
+
+	@Test
+	public void test06() throws Exception {
+	}
+
+	@Test
+	public void test05() {
+		CopyFile.copyFile("D:\\CVRDLL\\zp.bmp", "data/zp2.bmp");
+		// 复制文件
+		// int byteread = 0; // 读取的字节数
+		// InputStream in = null;
+		// OutputStream out = null;
+		//
+		// try {
+		// in = new FileInputStream(new File("D:\\CVRDLL\\zp.bmp"));
+		// out = new FileOutputStream(new File("data/zp2.bmp"));
+		// byte[] buffer = new byte[1024];
+		//
+		// while ((byteread = in.read(buffer)) != -1) {
+		// out.write(buffer, 0, byteread);
+		// }
+		// } catch (FileNotFoundException e) {
+		// throw new RuntimeException();
+		// } catch (IOException e) {
+		// throw new RuntimeException();
+		// } finally {
+		// try {
+		// if (out != null)
+		// out.close();
+		// if (in != null)
+		// in.close();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+		// }
 	}
 }

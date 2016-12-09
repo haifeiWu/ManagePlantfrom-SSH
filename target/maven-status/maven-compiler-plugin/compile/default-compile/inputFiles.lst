@@ -34,12 +34,12 @@ D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\action\PHCSMP
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\base\BaseAction.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\daoImple\BandInforDaoImple.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\action\Leave_Recod_Action.java
+D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\utils\CopyFile.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\service\BelongingInforService.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\entity\PHCSMP_Dic_Action_Cause.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\serviceImple\SuspectServiceImple.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\entity\PHCSMP_Dic_Treatment_Method.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\entity\PHCSMP_Room.java
-D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\action\PHCSMP_BelongingS_Action.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\dao\InformationCollectionDao.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\serviceImple\LeaveRecodServiceImple.java
 D:\JavaEE\MyEclipse\ManagePlantfrom-SSH\src\main\java\com\haifeiWu\interceptor\Interceptor_LogInfo.java

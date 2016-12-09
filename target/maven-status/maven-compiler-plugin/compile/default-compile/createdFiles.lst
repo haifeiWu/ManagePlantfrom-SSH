@@ -27,6 +27,7 @@ com\haifeiWu\base\BaseAction.class
 com\haifeiWu\daoImple\LogInfoDaoImpl.class
 com\haifeiWu\serviceImple\ActivityRecordServiceImple.class
 com\haifeiWu\action\UserAction.class
+com\haifeiWu\utils\CopyFile.class
 com\haifeiWu\action\PHCSMP_Personal_Check_Action.class
 com\haifeiWu\utils\PageBean.class
 com\haifeiWu\service\LogInfoService.class
@@ -38,7 +39,6 @@ com\haifeiWu\utils\FTPClientUtils.class
 com\haifeiWu\serviceImple\LeaveRecodServiceImple.class
 com\haifeiWu\daoImple\ActivityRecordDaoImple.class
 com\haifeiWu\service\InformationCollectionService.class
-com\haifeiWu\action\PHCSMP_BelongingS_Action.class
 com\haifeiWu\action\Log_Action.class
 com\haifeiWu\dao\InformationCollectionDao.class
 com\haifeiWu\service\PersonalCheckService.class
@@ -51,6 +51,7 @@ com\haifeiWu\interceptor\Interceptor_LogInfo.class
 com\haifeiWu\entity\PHCSMP_Band.class
 com\haifeiWu\entity\PHCSMP_Role.class
 com\haifeiWu\entity\PHCSMP_Staff_In_Role.class
+com\haifeiWu\utils\CopyFile$SingletonInstance.class
 com\haifeiWu\daoImple\LeaveRecodDaoImple.class
 com\haifeiWu\dao\SuspectDao.class
 com\haifeiWu\dao\RoomInforDao.class

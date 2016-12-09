@@ -82,6 +82,8 @@ margin-left: 0%;
 	line-height: 30px;
 	background:#f1f1f1;
 	-webkit-box-shadow:2px 4px 4px rgba(0,0,0,0.8);
+	-moz-box-shadow:2px 4px 4px rgba(0,0,0,0.8);  /*兼容谷歌*/
+	box-shadow:2px 4px 4px rgba(0,0,0,0.8); /*兼容opera或者ie9以上*/
 	
 }
 /*设置待查嫌疑人表格样式*/
@@ -97,15 +99,19 @@ text-align: center;
 }
 .wait_check img{
 	width: 86%;
-	-webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+	-webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.8); /*兼容谷歌*/
+	-moz-box-shadow: 2px 2px 4px rgba(0,0,0,0.8); /*兼容火狐*/
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.8);	/*兼容opera或者ie9以上*/
 }
 .wait_check p{
-background: #0070c0;
-height: 60px;
-width: 86.5%;
-color: #FFFFFF;
-margin-left: 7%;
--webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+	background: #0070c0;
+	height: 60px;
+	width: 86.5%;
+	color: #FFFFFF;
+	margin-left: 7%;
+	-webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.8); /*兼容谷歌*/
+	-moz-box-shadow: 2px 2px 4px rgba(0,0,0,0.8);	/*兼容火狐*/
+	box-shadow: 2px 2px 4px rgba(0,0,0,0.8);	/*兼容opera或者ie9以上*/
 }
 .wait_check p a{
 color:#080808;
@@ -166,4 +172,12 @@ color: #f69d1f;
 	border: 1px solid #389AC7;
 	height: 30px;
 	text-align: center;
+}
+
+/*最新设置human_Mes下的span-------------------------------最新修改*/
+.human_Mes span{
+	color: rgb(211, 26, 23);
+	font-size: small;
+	margin-left: 90%;
+	margin-top: -28px;
 }

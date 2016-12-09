@@ -13,7 +13,6 @@ import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Staff;
-import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
@@ -91,15 +90,14 @@ public class PHCSMP_Personal_Check_Action extends
 	public String loadInfor() {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
-
-		int roomId = 1;
-		PHCSMP_Suspect SuspectInfor = suspectService
-				.findInfroByActiveCode(roomId);
-		if (SuspectInfor == null) {// 当获取的数据为空时
-			return "NULL";
-		}
+		// int roomId = 1;
+		// PHCSMP_Suspect SuspectInfor = suspectService
+		// .findInfroByActiveCode(roomId);
+		// if (SuspectInfor == null) {// 当获取的数据为空时
+		// return "NULL";
+		// }
 		// 将信息从数据库查找到之后，存入session
-		request.setAttribute("SuspectInfor", SuspectInfor);
+		// request.setAttribute("SuspectInfor", SuspectInfor);
 
 		if (user == null) {
 			logger.info("用户 " + " 使用嫌疑人人身检查字段，时间："

@@ -5,48 +5,51 @@
 
 <struts>
 
-    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
-    <constant name="struts.devMode" value="true" />
-    <!-- 乱码过滤 -->
-    <constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
+	<constant name="struts.devMode" value="true" />
+	<!-- 乱码过滤 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
 
-    <package name="default" namespace="/" extends="struts-default">
-    	 <interceptors>
-            <!--日志拦截器-->
-            <interceptor name="Interceptor_LogInfo"
-                class="com.haifeiWu.interceptor.Interceptor_LogInfo" />
-           <!--  检查登录状态的拦截器 -->
-            <interceptor name="CheackLoginStateInterceptor"
-                class="com.haifeiWu.interceptor.CheackLoginStateInterceptor" />
-          <!--   自定义拦截器栈  定义一个包含权限控制的拦截器栈 -->
-            <interceptor-stack name="mydefault">
-                <interceptor-ref name="defaultStack" />
-                <interceptor-ref name="Interceptor_LogInfo" />
-                <interceptor-ref name="CheackLoginStateInterceptor" />
-            </interceptor-stack>
-        </interceptors>
-       <!--  定义默认拦截器 -->
-        <default-interceptor-ref name="mydefault" /> 
+	<package name="default" namespace="/" extends="struts-default">
+		<interceptors>
+			<!--日志拦截器 -->
+			<interceptor name="Interceptor_LogInfo"
+				class="com.haifeiWu.interceptor.Interceptor_LogInfo" />
+			<!-- 检查登录状态的拦截器 -->
+			<interceptor name="CheackLoginStateInterceptor"
+				class="com.haifeiWu.interceptor.CheackLoginStateInterceptor" />
+			<!-- 自定义拦截器栈 定义一个包含权限控制的拦截器栈 -->
+			<interceptor-stack name="mydefault">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="Interceptor_LogInfo" />
+				<interceptor-ref name="CheackLoginStateInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+		<!-- 定义默认拦截器 -->
+		<default-interceptor-ref name="mydefault" />
 		<!-- 全局变量设置 -->
-    	<global-results>
-    		<result name="frequentVisit">/jsp/RfidRead/frequentVisit.jsp</result>
-    		<result name="loginError">/jsp/login.jsp</result>
-    		<result name="NULL">/jsp/error/null.jsp</result>
-    		<!-- <result name="unLoginState">/jsp/home/unlogin/unlogin_main.jsp</result> -->
-    	</global-results>    	
-    	<!-- 首页 -->
-		<action name="home_*" class="com.haifeiWu.action.HomeAction" method="{1}">
+		<global-results>
+			<result name="frequentVisit">/jsp/RfidRead/frequentVisit.jsp</result>
+			<result name="loginError">/jsp/login.jsp</result>
+			<result name="NULL">/jsp/error/null.jsp</result>
+			<!-- <result name="unLoginState">/jsp/home/unlogin/unlogin_main.jsp</result> -->
+		</global-results>
+		<!-- 首页 -->
+		<action name="home_*" class="com.haifeiWu.action.HomeAction"
+			method="{1}">
 			<result name="{1}">/jsp/home/{1}.jsp</result>
 		</action>
-		
-		<action name="user_*" class="com.haifeiWu.action.UserAction" method="{1}">
+
+		<action name="user_*" class="com.haifeiWu.action.UserAction"
+			method="{1}">
 			<result name="logout">/jsp/login.jsp</result>
 			<result name="login">/jsp/home/main.jsp</result>
 			<result name="loginError">/jsp/login.jsp</result>
 		</action>
-		
+
 		<!-- 嫌疑人信息 -->
-		<action name="suspect_*" class="com.haifeiWu.action.PHCSMP_Suspect_Action" method="{1}">
+		<action name="suspect_*" class="com.haifeiWu.action.PHCSMP_Suspect_Action"
+			method="{1}">
 			<!-- 当处于未登录状态时 -->
 			<result name="unLoginState">/jsp/unlogin/unlogin_Personnel_information.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/Personnel_information.jsp</result>
@@ -54,12 +57,14 @@
 			<result name="addSuspectInfor" type="redirectAction">suspect_loadInfor</result>
 			<result name="input">/index.jsp</result>
 			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
-			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result><!-- 返回修改嫌疑人信息 -->
+			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result><!-- 
+				返回修改嫌疑人信息 -->
 		</action>
-		
-		
+
+
 		<!-- 人身检查记录 -->
-		<action name="personalCheck_*" class="com.haifeiWu.action.PHCSMP_Personal_Check_Action" method="{1}">
+		<action name="personalCheck_*" class="com.haifeiWu.action.PHCSMP_Personal_Check_Action"
+			method="{1}">
 			<!-- 当处于未登录状态时 -->
 			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Personal_Check.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
@@ -69,16 +74,18 @@
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 		</action>
-		
+
 		<!-- 随身财物检查记录 -->
-		<action name="belonging_*" class="com.haifeiWu.action.PHCSMP_BelongingS_Action" method="{1}">
+		<action name="belonging_*" class="com.haifeiWu.action.PHCSMP_BelongingS_Action"
+			method="{1}">
 			<result name="addBelongingInfor" type="redirectAction">belonging_loadInfor</result>
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_BelongingS.jsp</result>
 			<result name="input">/index.jsp</result>
 		</action>
-		
+
 		<!-- 信息采集 -->
-		<action name="IC_*" class="com.haifeiWu.action.Information_Collection_Action" method="{1}">
+		<action name="IC_*"
+			class="com.haifeiWu.action.Information_Collection_Action" method="{1}">
 			<!-- 当处于未登录状态时 -->
 			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Information_Collection.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
@@ -88,51 +95,57 @@
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 		</action>
-		
+
 		<!--询问、讯问、辨认、等候、休息、饮食等活动记录 -->
-		<action name="AR_*" class="com.haifeiWu.action.Activity_Record_Action" method="{1}">
+		<action name="AR_*" class="com.haifeiWu.action.Activity_Record_Action"
+			method="{1}">
 			<!-- 当处于未登录状态时 -->
 			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Activity_Record.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addActivityRecordInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result><!-- 跳转到其他的action -->
+			<result name="addActivityRecordInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result><!-- 
+				跳转到其他的action -->
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 		</action>
-		
-		<!--离开办案区-->
-		<action name="LR_*" class="com.haifeiWu.action.Leave_Recod_Action" method="{1}">
+
+		<!--离开办案区 -->
+		<action name="LR_*" class="com.haifeiWu.action.Leave_Recod_Action"
+			method="{1}">
 			<!-- 当处于未登录状态时 -->
 			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Leave_Record.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result> 
+			<result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
 		</action>
 		<!-- 生成嫌疑人信息报告 -->
-		<action name="GR_*" class="com.haifeiWu.action.GenerateReportAction" method="{1}">
+		<action name="GR_*" class="com.haifeiWu.action.GenerateReportAction"
+			method="{1}">
 			<result name="loadInfor">/jsp/recordInformation/allInformation.jsp</result>
 			<result name="downFile">/jsp/recordInformation/allInformation.jsp</result>
 		</action>
-		
+
 		<!-- 读卡器信息采集 -->
-		<action name="readRfid" class="com.haifeiWu.action.RFID_ReadAction" method="readRFID">
+		<action name="readRfid" class="com.haifeiWu.action.RFID_ReadAction"
+			method="readRFID">
 			<result name="stopRecord">/jsp/RfidRead/StopRecord.jsp</result>
 			<result name="operateSucess">/jsp/RfidRead/OperateSuccess.jsp</result>
 		</action>
-		
+
 		<!-- 嫌疑人综合信息管理 -->
-		<action name="suspectManage_*" class="com.haifeiWu.action.SuspectManageAction" method="{1}">
+		<action name="suspectManage_*" class="com.haifeiWu.action.SuspectManageAction"
+			method="{1}">
 			<result name="loadInfor">/jsp/suspectmanage/historyRecord.jsp</result>
 			<!-- 查询嫌疑人信息 -->
 			<result name="searchsuspectInfor">/jsp/suspectmanage/suspectInforList.jsp</result>
 		</action>
 		<!-- 查看日志 -->
-		<action name="Log_execute"  class="com.haifeiWu.action.Log_Action" >
+		<action name="Log_execute" class="com.haifeiWu.action.Log_Action">
 			<result>/jsp/log/log_Read.jsp</result>
-		</action>	
+		</action>
 	</package>
 
 </struts>

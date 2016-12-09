@@ -24,28 +24,28 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		
-		<!--添加开源时间/日期库-->
+
+		<!--添加开源时间/日期库 -->
 		<dependency>
-		  <groupId>joda-time</groupId>
-		  <artifactId>joda-time</artifactId>
-		  <version>2.6</version>
-		</dependency>		
-		
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.6</version>
+		</dependency>
+
 		<!-- FTP网络连接 -->
 		<dependency>
-		    <groupId>commons-net</groupId>
-		    <artifactId>commons-net</artifactId>
-		    <version>3.3</version>
+			<groupId>commons-net</groupId>
+			<artifactId>commons-net</artifactId>
+			<version>3.3</version>
 		</dependency>
 		<!-- http网络请求 -->
 		<dependency>
-		    <groupId>com.squareup.okhttp3</groupId>
-		    <artifactId>okhttp</artifactId>
-		    <version>3.3.0</version>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>3.3.0</version>
 		</dependency>
-		
-		
+
+
 		<!-- spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -125,11 +125,8 @@
 			<version>${struts2.version}</version>
 		</dependency>
 
-		<!-- <dependency>
-			<groupId>org.apache.struts</groupId>
-			<artifactId>struts2-convention-plugin</artifactId>
-			<version>${struts2.version}</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.apache.struts</groupId> <artifactId>struts2-convention-plugin</artifactId> 
+			<version>${struts2.version}</version> </dependency> -->
 
 		<!-- log4j -->
 		<dependency>
@@ -193,11 +190,8 @@
 		</dependency>
 
 		<!-- jsp-api -->
-		<!-- <dependency>
-		    <groupId>javax.servlet</groupId>
-		    <artifactId>jsp-api</artifactId>
-		    <version>2.0</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>jsp-api</artifactId> 
+			<version>2.0</version> </dependency> -->
 
 		<dependency>
 			<groupId>javax.servlet</groupId>
