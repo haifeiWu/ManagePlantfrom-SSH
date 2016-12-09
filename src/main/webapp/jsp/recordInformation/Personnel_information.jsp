@@ -16,42 +16,88 @@
 	<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 	<script type="text/javascript" src="js/jqCss_pinfo.js"></script>
-	
-	<script type="text/javascript">
-		 $(document).ready(function(){
-		 	$("#identityImg").attr('src','images/fgreen_03.png'); 
-		 	$("#identityImg1").attr('src','images/fgreen_03.png'); 
-		 });
-		 
-		 window.onload = function(e){
-					var e = window.event || e;
-				// }
-				// local Storage或许会有浏览器兼容的问题
-				if(typeof(Storage)!=="undefined"){
-					if (localStorage.clickcount){
-						localStorage.clickcount=Number(localStorage.clickcount)+1;
-						if (localStorage.clickcount>999) {
-						localStorage.clickcount=0;
-						}
-					} else {
-						localStorage.clickcount=0;
-					}
-				} else {
-						alert("抱歉。浏览器不支持");
-					}
-					var date = new Date();
-					var Mon = date.getMonth()+1;
-					var datetime = parseInt(date.getDate());
-					if (datetime<10) {
-						document.getElementById("suspectID").value = "LB-HB"+"-"+date.getFullYear()+Mon+"0"+datetime+localStorage.clickcount;
-					}
-					else if(Mon<10){
-						document.getElementById("suspectID").value = "LB-HB"+"-"+date.getFullYear()+"0"+Mon+datetime+localStorage.clickcount;
-					}else if (localStorage.clickcount<10) {
-						document.getElementById("suspectID").value = "LB-HB"+"-"+date.getFullYear()+Mon+datetime+"0"+localStorage.clickcount;
-					}	
+	<OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7" id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
+<script type="text/javascript">
+
+
+	function ClearForm() {
+		document.all['suspect_Name'].value = "";
+		document.all['sex'].value = "";
+		document.all['suspect_Nation'].value = "";
+		document.all['birthday'].value = "";
+		document.all['address'].value = "";
+		document.all['identifyCard_Number'].value = "";
+		document.all['pic'].src = "";
+		return true;
+	}
+	function Button1_onclick() {
+		var CVR_IDCard = document.getElementById("CVR_IDCard");
+		var strReadResult = CVR_IDCard.ReadCard();
+		if (strReadResult == "0") {
+			alert(strReadResult);
+			ClearForm();
+			document.all['suspect_Name'].value = CVR_IDCard.Name;
+			document.all['sex'].value = CVR_IDCard.Sex;
+			document.all['suspect_Nation'].value = CVR_IDCard.Nation;
+			document.all['birthday'].value = CVR_IDCard.Born;
+			document.all['address'].value = CVR_IDCard.Address;
+			document.all['identifyCard_Number'].value = CVR_IDCard.CardNo;
+			document.all['pic'].src = CVR_IDCard.Pic;
+		} else {
+			ClearForm();
+			alert(strReadResult);
+		}
+
+	}
+
+	/* function Button3_onclick() {
+		var CVR_IDCard = document.getElementById("CVR_IDCard");
+		CVR_IDCard.AboutBox();
+	}*/	
+ 
+	function Logger(){
+		alert("信息提交成功！");
+	}
+
+	$(document).ready(function() {
+		$("#identityImg").attr('src', 'images/fgreen_03.png');
+		$("#identityImg1").attr('src', 'images/fgreen_03.png');
+	});
+
+	window.onload = function(e) {
+		//var e = window.event || e;
+		// }
+		// local Storage或许会有浏览器兼容的问题
+		if (typeof (Storage) !== "undefined") {
+			if (localStorage.clickcount) {
+				localStorage.clickcount = Number(localStorage.clickcount) + 1;
+				if (localStorage.clickcount > 999) {
+					localStorage.clickcount = 0;
 				}
-	</script>
+			} else {
+				localStorage.clickcount = 0;
+			}
+		} else {
+			alert("抱歉。浏览器不支持");
+		}
+		var date = new Date();
+		var Mon = date.getMonth() + 1;
+		var datetime = parseInt(date.getDate());
+		if (datetime < 10) {
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+					+ date.getFullYear() + Mon + "0" + datetime
+					+ localStorage.clickcount;
+		} else if (Mon < 10) {
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+					+ date.getFullYear() + "0" + Mon + datetime
+					+ localStorage.clickcount;
+		} else if (localStorage.clickcount < 10) {
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+					+ date.getFullYear() + Mon + datetime + "0"
+					+ localStorage.clickcount;
+		}
+	}
+</script>
 </head>
 <body>
 	<form class="container" action="${pageContext.request.contextPath }/suspect_addSuspectInfor.action" method="POST">
@@ -102,7 +148,7 @@
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img style="width: 45%; height: 42%; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);" src="images/1-zhengmian_04.png" />
 						<img style="width: 53%; height: 90%; -webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);" src="images/1-cemian_06.png" />
-						<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日 &nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime } &nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
@@ -113,7 +159,7 @@
 							<tr style="padding: 0px;">
 								<!--图片引入-->
 								<td rowspan="5">
-									<img style="width:89%;height: 75%;margin-left: -2%;" src="images/1-IDlogo_09.png" />
+									<img id="pic" src="images/1-IDlogo_09.png" style="width:89%;height: 75%;margin-left: -2%;"/>
 									<p class="info_id">身份证照</p>
 								</td>
 								<!--<td></td>-->
@@ -122,23 +168,18 @@
 							<!--第二行 性别 民族-->
 							<tr>
 
-								<td>性别：<input style="text-align: center;" type="text" name="sex" value="男" readonly="readonly"
-									/></td>
-								<td>民族：<input type="text" name="nation" value="汉" readonly="readonly" /></td>
+								<td>性别：<input style="text-align: center;" type="text" name="sex" value="男" readonly="readonly"/></td>
+								<td>民族：<input type="text" name="suspect_Nation" value="汉" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:20%;" name="birthday" value="1961" readonly="readonly" />年<input
-										type="text" readonly="readonly" style="width:20%;text-align: center;" name="birthday" value="8" /> 月
-									<input type="text" style="width:25%;" name="birthday" value="12" readonly="readonly" />日</td>
+								<td colspan="2">出生日期：<input type="text" style="width:60%;" name="birthday" value="1961" readonly="readonly" /></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
-
 								<td colspan="2">家庭住址：</td>
 							</tr>
 							<tr>
-								<!--<td></td>-->
 								<td colspan="2"><textarea readonly="readonly" name="address" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							<tr>
@@ -148,6 +189,11 @@
 						</table>
 						<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 41%; margin-left: -2%;" />
 					</div>
+					
+					<div>
+						<input class="btn" type="button" value="读卡" onclick="return Button1_onclick()" style="margin-left: 86%;"/>
+					</div>
+					
 				</div>
 				<div class="row_1">
 					<h4 id="personInfor" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
@@ -250,11 +296,5 @@
 		</div>
 	</form>
 </body>
-
-<script type="text/javascript">
-	function Logger(){
-		alert("信息提交成功！");
-	}
-</script>
 
 </html>

@@ -82,6 +82,8 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 
 		String entryTime = new DateTime().toString("yyy-mm-dd HH:mm");// 入区时间
 
+		String nEntryTime = new DateTime().toString("yyyy年MM月dd日");// 入区时间
+
 		if (user == null) {// 在未登录状态下
 			return "unLoginState";
 		} else {
@@ -91,6 +93,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
 					.findAllSuspectCause();
 
+			request.setAttribute("nEntryTime", nEntryTime);
 			request.setAttribute("bundList", list);
 			request.setAttribute("identifyCardType", identifyCardType);
 			request.setAttribute("entryTime", entryTime);

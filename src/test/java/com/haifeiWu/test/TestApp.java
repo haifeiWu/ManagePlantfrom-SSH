@@ -36,4 +36,11 @@ public class TestApp {
 		String string_u = dateTime2.toString("yyyy-MM-dd HH:mm:ss");
 		System.out.println(string_u);
 	}
+
+	@Test
+	public void test04() {
+		String string_c = new DateTime().toString("yyyy年MM月dd日 HH:mm:ss EE");
+
+		System.out.println(string_c);
+	}
 }

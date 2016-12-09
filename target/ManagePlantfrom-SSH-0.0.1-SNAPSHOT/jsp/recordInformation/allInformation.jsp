@@ -107,8 +107,6 @@
 			 		}
 			 	});
 			 });   
-			 
-			
 		</script>
 </head>
 
@@ -195,7 +193,6 @@
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-
 								<td colspan="2">出生：<input type="text" style="width:20%;" value="1961" readonly="readonly" />年<input
 										type="text" readonly="readonly" style="width:20%;text-align: center;" value="8" /> 月
 									<input type="text" style="width:25%;" value="12" readonly="readonly" />日
@@ -203,7 +200,6 @@
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
-
 								<td colspan="2">身份证住址：</td>
 							</tr>
 							<tr>
@@ -216,7 +212,6 @@
 							</tr>
 						</table>
 						<hr style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 41%; margin-left: -2%;" />
-
 					</div>
 					<div class="row">
 						<p style="border-bottom: 1px solid #389AC7; padding-bottom: 3px;color: #f69d1f;width: 10%;">1.2&nbsp;人员联系信息</p>
@@ -250,9 +245,9 @@
 							</tr>
 							<tr>
 								<td>办案民警签名:</td>
-								<td><input type="text" value="admin" readonly="readonly"/></td>
+								<td><input type="text" value="${suspect.staff_ID }" readonly="readonly"/></td>
 								<td>管理员签名:</td>
-								<td><input type="text" value="admin" readonly="readonly"/></td>
+								<td><input type="text" value="${suspect.staff_ID }" readonly="readonly"/></td>
 							</tr>
 						</table>
 					</div>
@@ -266,13 +261,13 @@
 						<p class="self_state col-lg-12 col-md-10 col-sm-10">2.1&nbsp;自述情况</p>
 						<ul class="checkbox col-lg-12 col-md-10 col-sm-10">
 							<li>是否饮酒:</li>
-							<li><input type="text" value="是" /></li>
+							<li><input type="text" value="${personal_Check.is_Drink }" /></li>
 							<li>是否患有传染性疾病:</li>
-							<li><input type="text" value="否" /></li>
+							<li><input type="text" value="${personal_Check.is_Diseases }" /></li>
 						</ul>
 						<fieldset class="col-lg-12 col-md-12 col-sm-12">
 							<legend>自述症状:</legend>
-							<textarea style="height: 120px;"></textarea>
+							<textarea style="height: 120px;">${personal_Check.self_ReportS }</textarea>
 						</fieldset>
 					</div>
 					<!--体检信息表-->
@@ -281,20 +276,20 @@
 						<!--体检信息表-->
 						<table class="checked_state col-lg-12 col-md-10 col-sm-10">
 							<tr>
-								<td style="width: 20%;">体表有伤 &nbsp;&nbsp;<input type="checkbox" /></td>
-								<td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input type="checkbox" /></td>
-								<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input type="checkbox" /></td>
+								<td style="width: 20%;">${personal_Check.check_Situation }</td>
+								<!-- <td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input type="checkbox" /></td>
+								<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input type="checkbox" /></td> -->
 								<td rowspan="2"><img src="images/check_08.png" style="width: 70%; margin-left: 1%; margin-top: 3%;" /></td>
 								<!--引入体表检查图-->
 							</tr>
 							<tr>
 								<td style="text-align: left; vertical-align: top;">检查情况:</td>
-								<td colspan="2" style="text-align: left; vertical-align: top;"><textarea></textarea></td>
+								<td colspan="2" style="text-align: left; vertical-align: top;"><textarea>${personal_Check.check_ReportS }</textarea></td>
 								<!--<td></td>-->
 							</tr>
 							<tr>
-								<td>检查民警签名确认<br><input type="text" /></td>
-								<td colspan="3" style="text-align: center;">被检查人/监护人签字捺印 <br><input type="text" /></td>
+								<td>检查民警<br><input type="text" value="${personal_Check.staff_ID }" /></td>
+								<td colspan="3" style="text-align: center;">被检查人/监护人 <br><input type="text" value="${suspect.suspect_Name }" /></td>
 								<!--<td></td>-->
 							</tr>
 						</table>
@@ -323,9 +318,9 @@
 							</tr>
 						</table>
 						<ul class="signature col-lg-12 col-md-10 col-sm-10">
-							<li>办案人员签字:<br /><input type="text" /></li>
-							<li>随身财物管理员签字:<br /><input type="text" /></li>
-							<li>涉案人员签字:<br /><input type="text" /></li>
+							<li>办案人员：<br /><input type="text" value="${belongingS.staff_ID }" /></li>
+							<li>随身财物管理员：<br /><input type="text" value="${belongingS.staff_ID_Belonging }" /></li>
+							<li>涉案人员:<br /><input type="text" value="${suspect.suspect_Name }" /></li>
 						</ul>
 					</div>
 				</div>
@@ -337,32 +332,37 @@
 					<table class="info_collect col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>信息采集:</td>
-							<td>是 &nbsp;&nbsp;<input type="checkbox" /></td>
-							<td>否 &nbsp;&nbsp;<input type="checkbox" /></td>
+							<td>${information_Collection.is_Collected }</td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>采集项目:</td>
-							<td> &nbsp;&nbsp;<input type="checkbox" />身份信息</td>
+							<td>${information_Collection.collected_Item }</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<!-- <td> &nbsp;&nbsp;<input type="checkbox" />身份信息</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />指纹</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />血液</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />尿液</td>
-							<td> &nbsp;&nbsp;<input type="checkbox" />其他<input type="text" /></td>
+							<td> &nbsp;&nbsp;<input type="checkbox" />其他<input type="text" /></td> -->
 						</tr>
 						<tr>
 							<td>信息入库:</td>
-							<td>是 &nbsp;&nbsp;<input type="checkbox" /></td>
-							<td>否 &nbsp;&nbsp;<input type="checkbox" /></td>
+							<td>${information_Collection.is_Storaged }</td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>检查对比:</td>
-							<td>是 &nbsp;&nbsp;<input type="checkbox" /></td>
-							<td>否 &nbsp;&nbsp;<input type="checkbox" /></td>
+							<td>${information_Collection.is_Checked }</td>
+							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -372,7 +372,7 @@
 			</form>
 			<!--办案区活动记录-->
 			<form class="row">
-				<h4 id="record_registr" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">4、人身安全检查<span class="show3">显示信息</span></h4>
+				<h4 id="record_registr" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">4、办案区活动记录<span class="show3">显示信息</span></h4>
 				<div id="All_forth">
 					<table class="active_check col-lg-12 col-md-10 col-sm-10">
 						<tr>
@@ -451,47 +451,48 @@
 								<td>离开原因</td>
 							</tr>
 							<tr>
-								<td><input type="date" /><input type="time" /></td>
+								<td><input type="text" value="${leave_Record.leave_Time }" readonly="readonly" /></td>
 								<td>
-									<select>
+									<input type="text" value="${leave_Record.leave_Reason}" readonly="readonly"/>
+									<!-- <select>
 										<option>查证结束</option>
 										<option>刑拘</option>
 										<option>行政拘留</option>
 										<option>警告</option>
-									</select>
+									</select> -->
 								</td>
 							</tr>
 							<tr>
 								<td>随身物品处理情况:</td>
 								<td>
-									<input type="checkbox" />全部反还
+									<input type="text" value="${leave_Record.belongingS_Treatment_Method}"/>
+									<!-- <input type="checkbox" />全部反还
 									<input type="checkbox" />部分反还
-									<input type="checkbox" />未反还
+									<input type="checkbox" />未反还 -->
 								</td>
 							</tr>
 							<tr>
 								<td>未反还物品情况记载:</td>
-								<td><textarea></textarea></td>
+								<td><textarea>${leave_Record.belongingS_Treatment_Record}</textarea></td>
 							</tr>
 							<tr>
-								<td>领取人签名:</td>
-								<td><input type="text" /></td>
+								<td>领取人：</td>
+								<td><input type="text" value="${leave_Record.recipient_Person}"/></td>
 							</tr>
 							<tr>
 								<td>身份证号码:</td>
-								<td><input type="text" /></td>
+								<td><input type="text" value="${leave_Record.recipient_Person_Number }" /></td>
 							</tr>
 							<tr>
 								<td>领取时间:</td>
-								<td><input type="date" /></td>
+								<td><input type="text" value="${leave_Record.treatment_Time }" /></td>
 							</tr>
 						</table>
-
 					</div>
 					<hr style="margin-top: 380px;border: 1px solid darkgray;" />
 					<!--</div>-->
 					<p id="detain_time">该嫌疑人羁押时间:&nbsp;&nbsp;<input type="text" value="${prisonHour }" />小时</p>
-					<p id="signature">管理员签名:&nbsp;&nbsp;&nbsp;<input type="text" /></p>
+					<p id="signature">管理员签名:&nbsp;&nbsp;&nbsp;<input type="text" value="admin" /></p>
 					<input id="download" type="button" value="下载" />
 					<input id="print" type="button" value="打印" />
 					<div style="height: 100px;"></div>
