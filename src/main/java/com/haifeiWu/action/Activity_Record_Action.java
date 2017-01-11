@@ -24,6 +24,7 @@ import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 
 /**
  * 活动记录
@@ -65,7 +66,7 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * @return
 	 * @throws Exception
 	 */
-	public String addActivityRecordInfor() throws Exception {
+	public String addActivityRecordInfor() throws java.lang.Exception {
 
 		// //通过反射加载身物品检查记录的类
 		// Class<?> c = Class.forName(PHCSMP_Activity_Record.class.getName());
