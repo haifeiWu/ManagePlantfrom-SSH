@@ -14,6 +14,10 @@
         <property name="is_Used" type="java.lang.String"> 
 			<column name="is_Used" not-null="true" default="0"/> 
 		</property>
+		<!-- wxy增加V1.2版本的字段 -->
+		<property name="band_Type" type="java.lang.Integer"> 
+			<column name="band_Type" not-null="true"/> 
+		</property>
     </class>
 
 </hibernate-mapping>

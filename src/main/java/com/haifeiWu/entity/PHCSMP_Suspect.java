@@ -1,6 +1,7 @@
 package com.haifeiWu.entity;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 /**
  * 进入人员基本信息表
@@ -29,16 +30,83 @@ public class PHCSMP_Suspect implements Serializable {
 	private String enter_Time;// 进入办案区时间
 	private String quit_time;// 离开信息登记室时间
 	private String staff_ID;// 办案民警
+	//此记录数据字典中没有，用来记录嫌疑人个人信息
 	private String address;// 家庭住址
 	private String now_address;// 家庭住址
 	private int is_Active;// 是否激活（默认未激活0）
 	private String tdentityID_Imag;// 身份证照片的base64码
 	private String take_Picture;// 现场拍摄照片的url
-
 	private int is_OutOf;// 是否出区，代表该嫌疑人是历史嫌疑人
-
+	//用来记录填写完整度
 	private int total_record;// 需要填写的总记录数
 	private int fill_record;// 当前填写的记录数
+
+	//wxy增加V1.2版本的字段
+	private int process_Now;//当前所处的流程状态，对应PHCSMP_Dic_Process表中的Process_ID，整个流程结束后置为-1
+	private int room_Now;//当前涉案人员所处的房间编号，对应PHCSMP_Room表中的Room_ID
+	private Blob identityCard_Photo;//对应数据库中的Blob数据类型，用来存储身份证照片
+	private String frontal_Photo;//正面照图像文件地址
+	private String sideWays_Photo;//侧面照图像文件地址
+	private int recordVideo_State;//录像状态，0：不进行录像1：录像还未启动2：录像已经启动3：录像结束
+	private int is_RecordVideo_DownLoad;//录像文件是否下载成功，0没有下载成功，1下载成功
+	
+	
+	
+	public Blob getIdentityCard_Photo() {
+		return identityCard_Photo;
+	}
+
+	public void setIdentityCard_Photo(Blob identityCard_Photo) {
+		this.identityCard_Photo = identityCard_Photo;
+	}
+
+	public int getProcess_Now() {
+		return process_Now;
+	}
+
+	public void setProcess_Now(int process_Now) {
+		this.process_Now = process_Now;
+	}
+
+	public int getRoom_Now() {
+		return room_Now;
+	}
+
+	public void setRoom_Now(int room_Now) {
+		this.room_Now = room_Now;
+	}
+
+	public String getFrontal_Photo() {
+		return frontal_Photo;
+	}
+
+	public void setFrontal_Photo(String frontal_Photo) {
+		this.frontal_Photo = frontal_Photo;
+	}
+
+	public String getSideWays_Photo() {
+		return sideWays_Photo;
+	}
+
+	public void setSideWays_Photo(String sideWays_Photo) {
+		this.sideWays_Photo = sideWays_Photo;
+	}
+
+	public int getRecordVideo_State() {
+		return recordVideo_State;
+	}
+
+	public void setRecordVideo_State(int recordVideo_State) {
+		this.recordVideo_State = recordVideo_State;
+	}
+
+	public int getIs_RecordVideo_DownLoad() {
+		return is_RecordVideo_DownLoad;
+	}
+
+	public void setIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad) {
+		this.is_RecordVideo_DownLoad = is_RecordVideo_DownLoad;
+	}
 
 	public int getIs_OutOf() {
 		return is_OutOf;

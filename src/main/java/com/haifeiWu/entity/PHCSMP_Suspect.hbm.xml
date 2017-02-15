@@ -31,8 +31,6 @@
         <property name="take_Picture"/>
         <property name="is_OutOf"/>
         
-        
-        
         <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 
 			<column name="total_record" not-null="true" default="20"/> 
@@ -41,6 +39,23 @@
         <property name="fill_record" type="java.lang.Integer"> 
 			<column name="fill_record" not-null="true" default="0"/> 
 		</property>
+        
+        <!-- wxy增加V1.2版本的字段 -->
+         <property name="process_Now" type="java.lang.Integer"> 
+			<column name="process_Now" not-null="true"/>
+		</property>
+        <property name="room_Now"></property>
+        <!-- 映射成Blob类型 -->
+        <property name="identityCard_Photo" type="java.sql.Blob">  
+            <column name="identityCard_Photo"/>  
+        </property>  
+        <property name="frontal_Photo"></property>
+        <property name="sideWays_Photo"></property>
+        <property name="recordVideo_State"></property>
+        <!-- 设置下载结束的默认值为0 -->
+        <property name="is_RecordVideo_DownLoad" type="java.lang.Integer">
+        	<column name="is_RecordVideo_DownLoad" not-null="true" default="0"/> 
+        </property>
         
     </class>
 

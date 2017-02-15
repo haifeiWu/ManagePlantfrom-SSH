@@ -17,6 +17,36 @@ public class PHCSMP_Room implements Serializable {
 	private int room_ID;
 	private String room_Name;
 	private String cardReader_ID;
+	//wxy增加V1.2版本的字段
+	private int process_ID;//房间是属于哪个流程的
+	private int line_Number;//连接录播系统线路编号（1-Line_Count）
+	private String room_IPAddress;//房间IP地址及通讯端口
+	
+	
+	
+	public int getProcess_ID() {
+		return process_ID;
+	}
+
+	public void setProcess_ID(int process_ID) {
+		this.process_ID = process_ID;
+	}
+
+	public int getLine_Number() {
+		return line_Number;
+	}
+
+	public void setLine_Number(int line_Number) {
+		this.line_Number = line_Number;
+	}
+
+	public String getRoom_IPAddress() {
+		return room_IPAddress;
+	}
+
+	public void setRoom_IPAddress(String room_IPAddress) {
+		this.room_IPAddress = room_IPAddress;
+	}
 
 	public int getRoom_ID() {
 		return room_ID;
