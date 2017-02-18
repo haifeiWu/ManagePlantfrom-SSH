@@ -74,14 +74,19 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<!-- 配置事务增强处理Bean，指定事务管理器 -->
+	<!-- 配置事务增强处理Bean，指定事务管理器 
+		tx:advice事务通知定义，指定事务属性，transaction-manager指定事务管理器
+	-->
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-		<!-- 配置详细事务处理语义 -->
+		<!-- 配置详细事务处理语义  tx:attributes指定要拦截的方法 -->
 		<tx:attributes>
+			<!-- REQUIRED：支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。
+				 SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行。  -->
+			<!-- required传播行为为required，isolation是隔离级别 -->
 			<tx:method name="insert*" propagation="REQUIRED" />
 			<tx:method name="update*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
-
+			<!-- read-only默认false，不是只读 -->
 			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
 			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
 			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />

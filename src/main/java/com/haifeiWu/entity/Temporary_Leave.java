@@ -3,7 +3,7 @@ package com.haifeiWu.entity;
 import java.io.Serializable;
 
 /**
- * 臨時離開原因javabean
+ * 临时离开原因
  * 
  * @author wuhaifei
  * @d2016年11月8日

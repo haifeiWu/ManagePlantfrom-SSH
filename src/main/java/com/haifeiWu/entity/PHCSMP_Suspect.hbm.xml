@@ -56,6 +56,9 @@
         <property name="is_RecordVideo_DownLoad" type="java.lang.Integer">
         	<column name="is_RecordVideo_DownLoad" not-null="true" default="0"/> 
         </property>
+        <!--  
+        	<property name="startOrPauseVideo"></property>
+        -->
         
     </class>
 

@@ -37,7 +37,7 @@ public class HttpRequest {
 		BufferedReader in = null;
 		try {
 			String urlNameString = url + "?" + param;
-			URL realUrl = new URL(urlNameString);
+			URL realUrl = new URL(urlNameString);//传入字符串会create一个url
 			// 打开和URL之间的连接
 			URLConnection connection = realUrl.openConnection();
 			// 设置通用的请求属性

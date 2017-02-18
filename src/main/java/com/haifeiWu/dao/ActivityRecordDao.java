@@ -6,7 +6,7 @@ import com.haifeiWu.base.DaoSupport;
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 
 /**
- * 
+ * 询问、讯问活动
  * @author wuhaifei
  * @d2016年10月10日
  */

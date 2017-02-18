@@ -21,9 +21,7 @@ public class PHCSMP_Room implements Serializable {
 	private int process_ID;//房间是属于哪个流程的
 	private int line_Number;//连接录播系统线路编号（1-Line_Count）
 	private String room_IPAddress;//房间IP地址及通讯端口
-	
-	
-	
+
 	public int getProcess_ID() {
 		return process_ID;
 	}

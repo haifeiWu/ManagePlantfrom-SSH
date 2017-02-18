@@ -105,7 +105,7 @@
 		action="${pageContext.request.contextPath }/LR_addLeaveRecordInfor.action"
 		method="post">
 		<div class="row">
-			<!--嫌疑人入区信息-->
+			<!--嫌疑人离开办案区-->
 			<h4 style="margin-top: 13px;">
 				<b style="color: #389ac7;">Registration</b> of departure
 			</h4>

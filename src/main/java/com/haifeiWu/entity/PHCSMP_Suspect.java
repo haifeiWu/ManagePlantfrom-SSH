@@ -47,9 +47,12 @@ public class PHCSMP_Suspect implements Serializable {
 	private Blob identityCard_Photo;//对应数据库中的Blob数据类型，用来存储身份证照片
 	private String frontal_Photo;//正面照图像文件地址
 	private String sideWays_Photo;//侧面照图像文件地址
-	private int recordVideo_State;//录像状态，0：不进行录像1：录像还未启动2：录像已经启动3：录像结束
+	private int recordVideo_State;//录像状态，0：不进行录像      1：录像还未启动         2：录像已经启动       3：录像结束
 	private int is_RecordVideo_DownLoad;//录像文件是否下载成功，0没有下载成功，1下载成功
 	
+	//此属性待定
+	//wxy增加刷卡时的指令为开始还是暂停
+	//private int startOrPauseVideo;// 0，发开始指令     1发暂停指令
 	
 	
 	public Blob getIdentityCard_Photo() {

@@ -15,5 +15,5 @@ import com.haifeiWu.entity.PHCSMP_Personal_Check;
 @Repository("personalCheckDao")
 public class PersonalCheckDaoImple extends
 		DaoSupportImpl<PHCSMP_Personal_Check> implements PersonalCheckDao {
-
+			
 }

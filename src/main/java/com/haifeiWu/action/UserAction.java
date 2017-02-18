@@ -38,11 +38,11 @@ public class UserAction extends BaseAction<PHCSMP_Staff> {
 	public String login() {
 		PHCSMP_Staff user = userService.findUserByStaffNameAndPwd(
 				model.getStaff_Name(), model.getPassWord());
-
+		//这些是业务逻辑，不应出现在控制器层
 		if (user != null) {
 			request.getSession().setAttribute("user", user);
 			System.out.println("用户登录……\n\n");
-
+			//日志功能也不应出现在控制器层，而是service层进行封装
 			logger.info("用户 " + user.getStaff_Name() + " 登录系统，时间："
 					+ new DateTime().toString("yyyy-MM-dd hh:mm a E"));
 

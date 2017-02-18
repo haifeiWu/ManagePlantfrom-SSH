@@ -89,6 +89,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		if (user == null) {// 在未登录状态下
 			return "unLoginState";
 		} else {
+			//登录状态下，
 			List<PHCSMP_Band> list = suspectService.findAllBundInfor();
 			List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
 					.findAllIdentifyCardType();

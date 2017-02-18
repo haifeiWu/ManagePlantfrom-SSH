@@ -16,4 +16,5 @@ import com.haifeiWu.entity.PHCSMP_Information_Collection;
 public class InformationCollectionDaoImple extends
 		DaoSupportImpl<PHCSMP_Information_Collection> implements
 		InformationCollectionDao {
+			
 }

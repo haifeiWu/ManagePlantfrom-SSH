@@ -2,10 +2,12 @@ package com.haifeiWu.serviceImple;
 
 import java.util.List;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.haifeiWu.dao.BandInforDao;
+import com.haifeiWu.dao.PublicDao;
 import com.haifeiWu.dao.SuspectDao;
 import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
@@ -27,12 +29,14 @@ public class SuspectServiceImple implements SuspectService {
 
 	@Autowired
 	private BandInforDao bundInforDao;
+	
+	private PublicDao<PHCSMP_Dic_Action_Cause> dao;
 
 	@Override
 	public void saveSuspectInfor(PHCSMP_Suspect model) {
 		suspectDao.save(model);
 	}
-
+	@Test
 	@Override
 	public PHCSMP_Suspect findInfroByActiveCodeAndBandID(int roomId, int bandId) {
 		return suspectDao.findInfroByActiveCodeAndBandID(roomId, bandId);
@@ -57,10 +61,9 @@ public class SuspectServiceImple implements SuspectService {
 	public List<PHCSMP_Dic_IdentifyCard_Type> findAllIdentifyCardType() {
 		return suspectDao.findAllIdentifyCardType();
 	}
-
 	@Override
 	public List<PHCSMP_Dic_Action_Cause> findAllSuspectCause() {
-		return suspectDao.findAllSuspectCause();
+		return dao.findAllInfor();
 	}
 
 	@Override
@@ -77,5 +80,5 @@ public class SuspectServiceImple implements SuspectService {
 	public PHCSMP_Suspect findInforBySuspetcId(String suspectId) {
 		return suspectDao.findInforBySuspetcId(suspectId);
 	}
-
+	
 }

@@ -21,7 +21,9 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 	private Transaction tx = null;
 	private Session session = null;
 	private String hql = "";
-
+	/**
+	 * 根据读卡器的ID查询房间的ID
+	 */
 	@Override
 	public int findRoomIDByDeviceId(String deviceId) {
 		session = this.getSession();
@@ -30,7 +32,7 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 		hql = "from PHCSMP_Room where CardReader_ID=?";
 
 		Query query = session.createQuery(hql);
-		query.setParameter(0, deviceId);
+		query.setParameter(0, deviceId);//deviceId就是读卡器的ID
 		PHCSMP_Room room = (PHCSMP_Room) query.uniqueResult();
 		tx.commit();// 提交事务
 		return room.getRoom_ID();

@@ -8,7 +8,11 @@ import org.springframework.stereotype.Repository;
 import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.UserDao;
 import com.haifeiWu.entity.PHCSMP_Staff;
-
+/**
+ * 办案民警staff
+ * @author WXY
+ *
+ */
 @Repository("userDao")
 public class UserDaoImple extends DaoSupportImpl<PHCSMP_Staff> implements
 		UserDao {
@@ -16,7 +20,9 @@ public class UserDaoImple extends DaoSupportImpl<PHCSMP_Staff> implements
 	private Transaction tx = null;
 	private Session session = null;
 	private String hql = "";
-
+	/**
+	 * 通过用户名和密码查找民警，登录功能使用
+	 */
 	@Override
 	public PHCSMP_Staff findUserByStaffNameAndPwd(String staff_Name,
 			String passWord) {
