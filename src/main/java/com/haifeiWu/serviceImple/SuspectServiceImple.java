@@ -2,12 +2,10 @@ package com.haifeiWu.serviceImple;
 
 import java.util.List;
 
-import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.haifeiWu.dao.BandInforDao;
-import com.haifeiWu.dao.PublicDao;
 import com.haifeiWu.dao.SuspectDao;
 import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
@@ -29,14 +27,11 @@ public class SuspectServiceImple implements SuspectService {
 
 	@Autowired
 	private BandInforDao bundInforDao;
-	
-	private PublicDao<PHCSMP_Dic_Action_Cause> dao;
 
 	@Override
 	public void saveSuspectInfor(PHCSMP_Suspect model) {
 		suspectDao.save(model);
 	}
-	@Test
 	@Override
 	public PHCSMP_Suspect findInfroByActiveCodeAndBandID(int roomId, int bandId) {
 		return suspectDao.findInfroByActiveCodeAndBandID(roomId, bandId);
@@ -63,7 +58,7 @@ public class SuspectServiceImple implements SuspectService {
 	}
 	@Override
 	public List<PHCSMP_Dic_Action_Cause> findAllSuspectCause() {
-		return dao.findAllInfor();
+		return suspectDao.findAllSuspectCause();
 	}
 
 	@Override

@@ -12,6 +12,6 @@ public interface RoomInforDao {
 	 * @param deviceId
 	 * @return
 	 */
-	int findRoomIDByDeviceId(String deviceId);
+	int findRoomIDByCardReaderID(String cardReaderID);
 
 }

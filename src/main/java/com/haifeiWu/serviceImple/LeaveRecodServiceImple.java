@@ -37,4 +37,5 @@ public class LeaveRecodServiceImple implements LeaveRecodService {
 		return leaveRecodDao.findInforBySuspetcId(suspectId);
 	}
 
+
 }

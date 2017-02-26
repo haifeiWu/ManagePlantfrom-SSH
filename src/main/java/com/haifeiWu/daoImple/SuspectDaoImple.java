@@ -85,7 +85,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		return count;
 	}
 	/**
-	 * 查询所有证件类型
+	 * 查询所有证件类型,不需要经过反射，
 	 */
 	@Override
 	public List<PHCSMP_Dic_IdentifyCard_Type> findAllIdentifyCardType() {
@@ -152,5 +152,4 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		tx.commit();// 提交事务
 		return phcsmp_Suspect;
 	}
-
 }

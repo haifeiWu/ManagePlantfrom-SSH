@@ -11,10 +11,8 @@ import java.lang.reflect.Field;
 public class CompleteCheck {
 	/**
 	 * @Description : 判断类中所有属性值是否为空
-	 * @param obj
-	 *            操作对象
-	 * @param c
-	 *            操作类，用于获取类中的方法
+	 * @param obj    操作对象
+	 * @param c      操作类，用于获取类中的方法
 	 * @return 返回实体类中值不为空的字段的个数
 	 */
 	public static int IsEqualsNull(Object obj, Class<?> c) {
@@ -64,5 +62,13 @@ public class CompleteCheck {
 			}
 		}
 		return count;
+	}
+	/**
+	 * 完整性检查，传入一个对象，传入该对象对应的类
+	 * @param obj
+	 * @param c
+	 */
+	public static void completeCheck(Object obj,Class<?> c){
+		
 	}
 }

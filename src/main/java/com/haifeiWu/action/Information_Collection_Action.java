@@ -35,11 +35,9 @@ public class Information_Collection_Action extends
 	// 保存信息
 	public String addInformationCollection() throws Exception {
 		// 通过反射加载身物品检查记录的类
-
 		if (model == null) {// 当数据为空时
 			return "NULL";
 		}
-
 		Class<?> c = Class.forName(PHCSMP_Information_Collection.class
 				.getName());
 
@@ -59,10 +57,11 @@ public class Information_Collection_Action extends
 
 	// 加载信息，
 	public String loadInfor() {
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(2);
-		if (SuspectInfor == null) {
-			return "NULL";
-		}
+		
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(2);//根据房间号找嫌疑人
+//		if (SuspectInfor == null) {
+//			return "NULL";
+//		}
 		// 将信息从数据库查找到之后，存入session，更新session
 		request.setAttribute("SuspectInfor", SuspectInfor);
 

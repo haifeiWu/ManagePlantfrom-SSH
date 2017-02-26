@@ -99,7 +99,7 @@
 							<!--图片引入-->
 							<td rowspan="5"><img
 								style="width:89%;height: 75%;margin-left: -2%;"
-								src="${SuspectInfor.tdentityID_Imag }" />
+								src="${SuspectInfor.identityID_Imag }" />
 								<p class="info_id">身份证照</p></td>
 							<!--<td></td>-->
 							<td colspan="2">姓名:<input type="text" readonly="readonly"

@@ -13,7 +13,9 @@
         
         <property name="suspect_ID"></property>
         <property name="leave_Time"/>
+        <!--  
         <property name="leave_Hour"/>
+        -->
         <property name="leave_Reason"/>
         <property name="belongingS_Treatment_Method"/>
         

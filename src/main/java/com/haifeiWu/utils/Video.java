@@ -1,4 +1,4 @@
-package com.haifeiWu.AVUtils;
+package com.haifeiWu.utils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,17 +14,9 @@ import com.alibaba.fastjson.JSON;
 import com.haifeiWu.dao.BandInforDao;
 import com.haifeiWu.dao.RoomInforDao;
 import com.haifeiWu.service.SuspectService;
-import com.haifeiWu.utils.HttpRequest;
-import com.haifeiWu.utils.PropertiesReadUtils;
 
-/**
- * 录像指令的实现类,此类没有修改数据库中的信息，像recordVideo_state,请在相应的action中维护
- * 
- * @author WXY
- *
- */
-public class VideoImpl implements Video {
-	
+public class Video {
+
 	@Autowired
 	private SuspectService suspectService;
 	@Autowired
@@ -32,26 +24,23 @@ public class VideoImpl implements Video {
 	@Autowired
 	private BandInforDao bandInforDao;
 	
-	@Override
-	public String startRecording(int bandID, int cardReader_ID) throws IOException {
+	public String startRecording(String bandID, String cardReader_ID) throws IOException {
 		
 		return videoSupport(bandID, cardReader_ID, "StartRecording");
 	}
-	@Override
-	public String stopRecording(int bandID, int cardReader_ID) throws IOException {
+	public String stopRecording(String bandID, String cardReader_ID) throws IOException {
 		return videoSupport(bandID, cardReader_ID, "StopRecording");
 	}
 
-	@Override
-	public String pauseRecording(int bandID, int cardReader_ID) throws IOException  {
+	public String pauseRecording(String bandID, String cardReader_ID) throws IOException  {
 		return videoSupport(bandID, cardReader_ID, "PauseRecording");
 	}
 
-	@Override
-	public String restartRecording(int bandID, int cardReader_ID) throws IOException  {
+	public String restartRecording(String bandID, String cardReader_ID) throws IOException  {
 		return videoSupport(bandID, cardReader_ID, "RestartRecording");
 	}
-	private String videoSupport(int bandID, int cardReader_ID,String command) throws IOException {
+	
+	private String videoSupport(String bandID, String cardReader_ID,String command) throws IOException {
 		String result="";
 		if(isValid()){
 			String identificationCard=findIdentificationCard(bandID);//通过bandID找到嫌疑人身份ID
@@ -68,14 +57,12 @@ public class VideoImpl implements Video {
 		return result;
 	}
 
-	
-	
 	/**
 	 * 切换录制源，不对外暴露
 	 * @return
 	 * @throws IOException 
 	 */
-	private String switchRecording(int cardReader_ID,String identificationCard,int roomId) throws IOException {
+	private String switchRecording(String cardReader_ID,String identificationCard,int roomId) throws IOException {
 		String result="";
 		String json=packjson(cardReader_ID, identificationCard, roomId);
 		result=HttpRequest.sendOkMCVPost(PropertiesReadUtils.getString("switchRecording"), json);
@@ -87,7 +74,7 @@ public class VideoImpl implements Video {
 	 * @param identificationCard
 	 * @return
 	 */
-	private String packjson(int cardReader_ID,String identificationCard){
+	private String packjson(String cardReader_ID,String identificationCard){
 		
 		Map<String, Object> map = new HashMap<String, Object>();//存放的是设备ID和身份证号
 		map.put("policeId", cardReader_ID);//设备ID
@@ -102,7 +89,7 @@ public class VideoImpl implements Video {
 	 * @param roomID
 	 * @return
 	 */
-	private String packjson(int cardReader_ID,String identificationCard,int roomId){
+	private String packjson(String cardReader_ID,String identificationCard,int roomId){
 		
 		Map<String, Object> map = new HashMap<String, Object>();//存放的是设备ID和身份证号
 		map.put("policeId", cardReader_ID);//设备ID
@@ -116,7 +103,7 @@ public class VideoImpl implements Video {
 	 * 通过手环ID去查找身份信息，然后返回身份证号
 	 * @return
 	 */
-	private String findIdentificationCard(int bandID){
+	private String findIdentificationCard(String bandID){
 		
 		return "";
 	}
@@ -125,7 +112,7 @@ public class VideoImpl implements Video {
 	 * @param cardReader_ID
 	 * @return
 	 */
-	private int findRoomId(int cardReader_ID) {
+	private int findRoomId(String cardReader_ID) {
 		
 		return 0;
 	}
@@ -143,5 +130,4 @@ public class VideoImpl implements Video {
 		//有效则可以调用摄像头，无效则不能调用摄像头
 		return hours>2;
 	} 
-
 }

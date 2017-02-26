@@ -64,7 +64,9 @@ public class RFID_ReadAction extends ActionSupport implements
 
 		String deviceId = request.getParameter("deviceId");// 设备号
 		String wristId = request.getParameter("wristId");// 手环id
-
+		/**
+		 * 读卡，发送录像指令，webSocket刷新页面（注意只有开始指令刷新），几乎是同时进行的，
+		 */
 		DateTimeFormatter format = DateTimeFormat
 				.forPattern("yyyy-MM-dd HH:mm:ss");
 		DateTime endTime = DateTime.parse(
@@ -88,7 +90,8 @@ public class RFID_ReadAction extends ActionSupport implements
 			if (RFID_ReadAction.isEmpty == true) {// 如果房间为空，按照之前的版本，就是第一个流程，
 				RFID_ReadAction.isEmpty = false;
 				// 查找房间号
-				roomId = roomInforDao.findRoomIDByDeviceId(deviceId);
+				roomId = roomInforDao.findRoomIDByCardReaderID(deviceId);
+				//roomId = roomInforDao.findRoomIDByDeviceId(deviceId);
 				// 查找手环id
 				bandId = bandInforDao.findBandIdByWristId(wristId);
 				// 将房间的编号放入的session域中
@@ -140,7 +143,7 @@ public class RFID_ReadAction extends ActionSupport implements
 				if (!oldDeviceId.equals(deviceId)) {// 如果设备号发生改变
 					RFID_ReadAction.oldDeviceId = deviceId;// 更新设备号
 					// 根据设备id查找房间id，然后根据房间id，向录播设备发送信息开启
-					roomId = roomInforDao.findRoomIDByDeviceId(deviceId);
+					roomId = roomInforDao.findRoomIDByCardReaderID(deviceId);
 					bandId = bandInforDao.findBandIdByWristId(wristId);
 					// 相应房间的设备开始录像
 					isRecording = true;

@@ -15,10 +15,10 @@ public class PHCSMP_LogInfo implements Serializable {
 	private static final long serialVersionUID = 8729816995392362934L;
 
 	private int Log_ID;
-	private String Operation_Time;
-	private String Staff_Name;
-	private String Operation_Info;
-	private String Operation_Model;
+	private String Operation_Time;//操作时间
+	private String Staff_Name;//操作用户
+	private String Operation_Info;//操作内容
+	private String Operation_Model;//操作模块
 
 	public PHCSMP_LogInfo(int log_ID, String operation_Time, String staff_Name,
 			String operation_Info, String operation_Model) {
