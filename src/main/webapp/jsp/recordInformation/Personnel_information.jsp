@@ -43,13 +43,23 @@
 			document.all['birthday'].value = CVR_IDCard.Born;
 			document.all['address'].value = CVR_IDCard.Address;
 			document.all['identifyCard_Number'].value = CVR_IDCard.CardNo;
-			/**/
+			/* 之前的代码，逻辑是直接存放照片，bug
 			var str = CVR_IDCard.Pic;
 			var myStr = new Array();
 			myStr = str.split("\\");
 			var path = "/upload/" + myStr[myStr.length - 1];
 			document.all['pic'].src = path;
 			document.all['tdentityID_Imag'].value = str;
+			*/
+			/**
+			 * Date:2017.02.26
+			 * author:whf
+			 * change:直接存放base64码
+			 */
+			 var str = CVR_IDCard.Picture;//读取身份证照片的base64码
+			 var base64 = "data:image/jpg;base64"+str;//更改成代码中可以直接显示的base64编码的格式
+			 document.all['pic'].src = base64;//用于显示身份证照片
+			 document.all['tdentityID_Imag'].value = base64;//用于将base64码存放到数据库中
 		} else {
 			ClearForm();
 			alert(strReadResult);

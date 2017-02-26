@@ -32,7 +32,7 @@ public class PHCSMP_Suspect implements Serializable {
 	private String address;// 家庭住址
 	private String now_address;// 家庭住址
 	private int is_Active;// 是否激活（默认未激活0）
-	private String tdentityID_Imag;// 身份证照片的url
+	private String tdentityID_Imag;// 身份证照片的base64码
 	private String take_Picture;// 现场拍摄照片的url
 
 	private int is_OutOf;// 是否出区，代表该嫌疑人是历史嫌疑人
