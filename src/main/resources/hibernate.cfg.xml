@@ -41,6 +41,8 @@
 		<mapping resource="com/haifeiWu/entity/PHCSMP_LogInfo.hbm.xml" />
 		<!-- wxy 添加POJO类 -->
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Dic_Process.hbm.xml" />
+		<mapping resource="com/haifeiWu/entity/PHCSMP_Process_Log.hbm.xml" />
+
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Line.hbm.xml" />
 	</session-factory>
 

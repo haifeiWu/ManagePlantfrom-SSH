@@ -31,7 +31,6 @@
         <property name="tdentityID_Imag"/>
         <property name="take_Picture"/>
         <property name="is_OutOf"/>
-        -->
         <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 
 			<column name="total_record" not-null="true" default="20"/> 
@@ -46,7 +45,9 @@
 			<column name="process_Now" not-null="true"/>
 		</property>
         <property name="room_Now"></property>
+
         <property name="identityCard_Photo"></property>  
+
         <property name="frontal_Photo"></property>
         <property name="sideWays_Photo"></property>
         <property name="recordVideo_State"></property>
@@ -54,9 +55,6 @@
         <property name="is_RecordVideo_DownLoad" type="java.lang.Integer">
         	<column name="is_RecordVideo_DownLoad" not-null="true" default="0"/> 
         </property>
-        <!--  
-        	<property name="startOrPauseVideo"></property>
-        -->
         
     </class>
 

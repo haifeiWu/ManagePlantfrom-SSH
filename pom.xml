@@ -227,7 +227,7 @@
 					<webXml>src/main/webapp/WEB-INF/web.xml</webXml>
 				</configuration>
 			</plugin>
-			<!-- generate java doc -->
+			<!-- 生成java doc的插件generate java doc -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
@@ -257,7 +257,18 @@
 					</configuration>
 				</configuration>
 			</plugin>
-
+			<!-- 
+				设置默认的jdk版本，（经过测试，暂时不支持jdk1.8，如需jdk1.8需要自己手动更改）
+			 -->
+			<plugin>  
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-compiler-plugin</artifactId>  
+                <version>3.3</version>  
+                <configuration>  
+                    <source>1.7</source>  
+                    <target>1.7</target>  
+                </configuration>  
+            </plugin>  
 		</plugins>
 	</build>
 </project>

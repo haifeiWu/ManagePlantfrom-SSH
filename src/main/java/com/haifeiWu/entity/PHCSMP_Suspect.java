@@ -28,6 +28,7 @@ public class PHCSMP_Suspect implements Serializable {
 	private String identifyCard_Number;// 证件号码
 	private String suspected_Cause;// 进入办案区原因（案由字典表中ID用逗号分隔）
 	private String enter_Time;// 进入办案区时间
+
 	//private String quit_time;// 离开信息登记室时间
 	private String staff_ID;// 办案民警,此处的办案民警是哪个流程的民警，还是多个隔开
 	//此记录数据字典中没有，用来记录嫌疑人个人信息
@@ -37,6 +38,7 @@ public class PHCSMP_Suspect implements Serializable {
 	///private String identityID_Imag;// 身份证照片的url,冲突
 	//private String take_Picture;// 现场拍摄照片的url，冲突
 	//private int is_OutOf;// 是否出区，代表该嫌疑人是历史嫌疑人 ,有疑问
+
 	//用来记录填写完整度
 	private int total_record;// 需要填写的总记录数
 	private int fill_record;// 当前填写的记录数
@@ -58,35 +60,27 @@ public class PHCSMP_Suspect implements Serializable {
 		return identityCard_Photo;
 	}
 
-	
-	
+
 	public int getProcess_Now() {
 		return process_Now;
 	}
-
-
 
 	public void setProcess_Now(int process_Now) {
 		this.process_Now = process_Now;
 	}
 
-
-
 	public int getRoom_Now() {
 		return room_Now;
 	}
-
-
 
 	public void setRoom_Now(int room_Now) {
 		this.room_Now = room_Now;
 	}
 
-
-
 	public void setIdentityCard_Photo(String identityCard_Photo) {
 		this.identityCard_Photo = identityCard_Photo;
 	}
+
 
 	public String getFrontal_Photo() {
 		return frontal_Photo;
