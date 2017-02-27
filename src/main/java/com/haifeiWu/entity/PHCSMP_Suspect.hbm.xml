@@ -25,12 +25,10 @@
         <property name="suspected_Cause"/>
         <property name="enter_Time"/>
         <property name="staff_ID"/>
-        <!--  删除表意重复的字段
-         <property name="quit_time"/>
-        <property name="is_Active"/>
-        <property name="tdentityID_Imag"/>
-        <property name="take_Picture"/>
-        <property name="is_OutOf"/>
+        <!--  删除表意重复的字段 -->
+        <!--   <property name="quit_time"/>
+        <property name="identityID_Imag"/>
+        <property name="take_Picture"/>-->
         <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 
 			<column name="total_record" not-null="true" default="20"/> 
@@ -41,9 +39,7 @@
 		</property>
         
         <!-- wxy增加V1.2版本的字段 -->
-         <property name="process_Now" type="java.lang.Integer"> 
-			<column name="process_Now" not-null="true"/>
-		</property>
+         <property name="process_Now"></property>
         <property name="room_Now"></property>
 
         <property name="identityCard_Photo"></property>  

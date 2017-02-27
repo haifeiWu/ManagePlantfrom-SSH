@@ -25,48 +25,16 @@ import com.haifeiWu.daoImple.SuspectDaoImple;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.utils.CopyFile;
 import com.haifeiWu.utils.PropertiesReadUtils;
+import com.haifeiWu.utils.Video;
 import com.opensymphony.xwork2.ActionContext;
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"/spring/ch2/topic7/ApplicationContext-test.xml"})
-
-//@RunWith(value = SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations={"/spring.xml"})
 
 public class TestApp {
-	//@Autowired
-    //private ApplicationContext applicationContext;
-//	@Autowired
-//	private SuspectDao dao;
-//	@Autowired
-//	private DaoSupport<PHCSMP_Dic_Action_Cause> daoSupport;
-	
 	@Test
-	public void testDaoSupport(){
-		
-		System.out.println("开始测试");
-		SuspectDao dao=new SuspectDaoImple();
-		List<PHCSMP_Dic_Action_Cause> listaa=null;
-		try{
-			listaa=dao.findAllSuspectCause();
-		}catch(Exception ex){
-			System.out.println("可能是没有装配");
-			ex.printStackTrace();
-		}
-		
-		for(PHCSMP_Dic_Action_Cause element : listaa){
-			System.out.println(element.toString());
-		}
-		System.out.println("dao测试通过");
-//		
-//		//DaoSupport<PHCSMP_Dic_Action_Cause> daoSupport=new DaoSupportImpl<PHCSMP_Dic_Action_Cause>();
-//		List<PHCSMP_Dic_Action_Cause> list=daoSupport.findAllInfor();
-//		for(PHCSMP_Dic_Action_Cause element : list){
-//			System.out.println(element.toString());
-//		}
+	public void testVideo() {
+		//Video video=new Video();
+		//video.startRecording(1, cardReader_ID)
 	}
-
-	
 	
 	
 //	@Test

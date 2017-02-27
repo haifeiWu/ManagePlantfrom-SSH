@@ -104,7 +104,7 @@ public class Video {
 	 * @return
 	 */
 	private String findIdentificationCard(String bandID){
-		
+		//sus
 		return "";
 	}
 	/**
