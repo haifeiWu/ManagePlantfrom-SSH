@@ -19,8 +19,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.haifeiWu.base.DaoSupport;
 import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.ActivityRecordDao;
+import com.haifeiWu.dao.LineDao;
 import com.haifeiWu.dao.SuspectDao;
 import com.haifeiWu.daoImple.ActivityRecordDaoImple;
+import com.haifeiWu.daoImple.LineDaoImple;
 import com.haifeiWu.daoImple.SuspectDaoImple;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Line;
@@ -31,12 +33,6 @@ import com.opensymphony.xwork2.ActionContext;
 
 
 public class TestApp {
-	@Test
-	public void testVideo() {
-		//Video video=new Video();
-		//video.startRecording(1, cardReader_ID)
-	}
-	
 	
 //	@Test
 //	public void test01() {
@@ -118,4 +114,11 @@ public class TestApp {
 //		// }
 //	}
 	
+	/*@Autowired 
+	private LineDao lineDao;
+	@Test
+	public void test07(){
+		lineDao.findAllInfor();
+	}*/
+
 }
