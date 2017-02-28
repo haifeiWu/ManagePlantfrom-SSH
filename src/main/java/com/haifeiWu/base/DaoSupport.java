@@ -55,5 +55,8 @@ public interface DaoSupport<T> {
 	 * 可增加一个更新方法，传入更新的属性和根据哪个属性更新，再传入对应的值
 	 * 
 	 */
+
+	public T findObj();
+	
 	
 }

@@ -1,19 +1,37 @@
 package com.haifeiWu.serviceImple;
 
-import com.haifeiWu.service.LineService;
+import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+
+
+import com.haifeiWu.dao.LineDao;
+import com.haifeiWu.entity.PHCSMP_Line;
+import com.haifeiWu.service.LineService;
+@Service("LineService")
 public class LineServiceImple implements LineService {
 
+	@Autowired
+	private LineDao lineDao;
+	
+	
+	private PHCSMP_Line line;
 	@Override
-	public void startLine(String bandID, String cardReader_ID) {
+	public void startLine() {
 		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
-	public void closeLine(String bandID, String cardReader_ID) {
+	public void closeLine() {
 		// TODO Auto-generated method stub
-		
+		line=lineDao.findObj();
+		line.setLine_Used(line.getLine_Used()-1);
+		lineDao.save(line);
+	
 	}
-
 }

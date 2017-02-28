@@ -23,6 +23,7 @@ import com.haifeiWu.dao.SuspectDao;
 import com.haifeiWu.daoImple.ActivityRecordDaoImple;
 import com.haifeiWu.daoImple.SuspectDaoImple;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
+import com.haifeiWu.entity.PHCSMP_Line;
 import com.haifeiWu.utils.CopyFile;
 import com.haifeiWu.utils.PropertiesReadUtils;
 import com.haifeiWu.utils.Video;
@@ -116,4 +117,5 @@ public class TestApp {
 //		// }
 //		// }
 //	}
+	
 }
