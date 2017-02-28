@@ -19,8 +19,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.haifeiWu.base.DaoSupport;
 import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.ActivityRecordDao;
+import com.haifeiWu.dao.LineDao;
 import com.haifeiWu.dao.SuspectDao;
 import com.haifeiWu.daoImple.ActivityRecordDaoImple;
+import com.haifeiWu.daoImple.LineDaoImple;
 import com.haifeiWu.daoImple.SuspectDaoImple;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.utils.CopyFile;
@@ -116,4 +118,11 @@ public class TestApp {
 //		// }
 //		// }
 //	}
+	
+	/*@Autowired 
+	private LineDao lineDao;
+	@Test
+	public void test07(){
+		lineDao.findAllInfor();
+	}*/
 }
