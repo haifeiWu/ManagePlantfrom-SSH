@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import com.haifeiWu.dao.LineDao;
 import com.haifeiWu.entity.PHCSMP_Line;
 import com.haifeiWu.service.LineService;
@@ -30,12 +31,14 @@ public class LineServiceImple implements LineService {
 	@Override
 	public void startLine() {
 		line=lineDao.findObj();
-		line.setLine_Used(line.getLine_Used()-1);
+		line.setLine_Used(line.getLine_Used()+1);
 		lineDao.save(line);
 	}
 
 	@Override
 	public void closeLine() {
-		
-	}
+     line=lineDao.findObj();
+		line.setLine_Used(line.getLine_Used()-1);
+		lineDao.save(line);
+  }
 }

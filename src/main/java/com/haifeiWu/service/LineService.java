@@ -1,5 +1,11 @@
 package com.haifeiWu.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.haifeiWu.dao.LineDao;
+import com.haifeiWu.entity.PHCSMP_Line;
+
 import com.haifeiWu.entity.PHCSMP_Suspect;
 
 /**
@@ -15,7 +21,7 @@ public interface LineService {
 	public boolean isFull();
 	
 	/**
-	 * 开启一路录像
+	 * 开启一路录像，判断是否饱和，并维护RecordVideo_State字段,置0或1
 	 */
 	public void startLine();
 	/**

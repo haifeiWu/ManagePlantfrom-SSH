@@ -25,6 +25,7 @@ import com.haifeiWu.daoImple.ActivityRecordDaoImple;
 import com.haifeiWu.daoImple.LineDaoImple;
 import com.haifeiWu.daoImple.SuspectDaoImple;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
+import com.haifeiWu.entity.PHCSMP_Line;
 import com.haifeiWu.utils.CopyFile;
 import com.haifeiWu.utils.PropertiesReadUtils;
 import com.haifeiWu.utils.Video;
@@ -32,12 +33,6 @@ import com.opensymphony.xwork2.ActionContext;
 
 
 public class TestApp {
-	@Test
-	public void testVideo() {
-		//Video video=new Video();
-		//video.startRecording(1, cardReader_ID)
-	}
-	
 	
 //	@Test
 //	public void test01() {
@@ -125,4 +120,5 @@ public class TestApp {
 	public void test07(){
 		lineDao.findAllInfor();
 	}*/
+
 }
