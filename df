@@ -1,0 +1,341 @@
+[33mcommit 0c962510eb4d198d912a2c3273ebb31fc3763420[m
+Author: XiaoYu <18103412880@163.com>
+Date:   Wed Feb 15 09:55:47 2017 +0800
+
+    tomcat sevlet/jsp dependency
+
+[33mcommit 44ad882cd34f48376de859c26a6f7ca1ed2fed31[m
+Author: XiaoYu <18103412880@163.com>
+Date:   Wed Feb 15 09:41:43 2017 +0800
+
+    wxy add V1.2 POJO(src/main/java/com/haifeiwu/entity)
+
+[33mcommit f206c8ff15627a811d9d6f47eb8aa579cfc8c4d7[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Jan 11 17:43:26 2017 +0800
+
+    更新
+
+[33mcommit 8d4c7bd5e7c6152718ba9c66ecc7b3816b7dcf66[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Dec 9 22:06:35 2016 +0800
+
+    更新
+
+[33mcommit 1a05d11b2ac388792837992979b031847aa3e732[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Dec 9 21:11:05 2016 +0800
+
+    添加读取身份证信息的功能
+
+[33mcommit b73e1296eb504b845727bff420b56c25ba61938e[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Dec 9 09:38:04 2016 +0800
+
+    css样式，兼容浏览器
+
+[33mcommit 007c00be5f269d29cf5d83ae1f99901bba16cba3[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Dec 8 18:01:56 2016 +0800
+
+    修改bug
+
+[33mcommit 4832e125aa3f05fcf4e1afbaf874a02c51e7622c[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Dec 7 21:42:01 2016 +0800
+
+    更新
+
+[33mcommit 263cfd8c070b825c8b9d38f3bbb20def476519e9[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Dec 7 20:04:07 2016 +0800
+
+    修复bug
+
+[33mcommit 11f0ca6c36085177ddc54701b756b3a266a48a95[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Mon Dec 5 10:29:27 2016 +0800
+
+    更新
+
+[33mcommit 76510ab6d66e0177642b6a7f16de9ec8dff4b7ca[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Dec 2 20:38:10 2016 +0800
+
+    添加档案号自动生成的功能
+
+[33mcommit a922544500fe887112e2470e647bd0b5a612e70f[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Dec 1 15:21:05 2016 +0800
+
+    更新
+
+[33mcommit 364e72ffa4b6e700e1653d863b16a9585013a10e[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Dec 1 14:49:19 2016 +0800
+
+    添加判空操作
+
+[33mcommit 6b21e0ebf97cab98bc8173c7631f07f9c5d476f7[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Nov 30 17:32:28 2016 +0800
+
+    更新
+
+[33mcommit 1488c4f75be6058171176cae60de943436b27cc5[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Nov 30 17:10:55 2016 +0800
+
+    设置断点
+
+[33mcommit b8bea2eca7beb03d06b48c330bb67f9eacfa9049[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Nov 30 14:21:32 2016 +0800
+
+    更新
+
+[33mcommit 9593f6d4b83416255a6012764cfddff8d28b602b[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Tue Nov 29 22:21:59 2016 +0800
+
+    实现时间等功能
+
+[33mcommit 43d29a2c66cb6f319e5b42682c4712b8ca25d09d[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Tue Nov 29 14:10:45 2016 +0800
+
+    将时间日期改为以字符串形式存储
+
+[33mcommit ffcb04b59306aacb1230d29cf3a87dc7410ce7c7[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Mon Nov 28 22:10:50 2016 +0800
+
+    格式化代码
+
+[33mcommit f15435a25285d8ab6b545dbc8ebe318088509053[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Mon Nov 28 21:00:21 2016 +0800
+
+    格式化代码
+
+[33mcommit 03c07d40272930791cc8ccd82e5cfc88016c6073[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Mon Nov 28 17:53:01 2016 +0800
+
+    添加嫌疑人信息搜索功能
+
+[33mcommit bbd305ee567f957b1f5bd3f589d839f14f0c1630[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sat Nov 26 21:53:35 2016 +0800
+
+    添加时间处理工具类库
+
+[33mcommit e30f6e9df0d93e47873439ae5de527d5e1819a44[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 25 18:29:41 2016 +0800
+
+    ftp下载与页面调优
+
+[33mcommit ffbde0647c0f10125d5f00b9da3f1974c359ae05[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 25 11:04:54 2016 +0800
+
+    嫌疑人入区信息报告优化
+
+[33mcommit 902f77a7f885184b6f5d27b34171abd35370cbcc[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 24 23:17:26 2016 +0800
+
+    嫌疑人信息搜索列表页面优化
+
+[33mcommit 9e4ba3822435e88f7f4452773ab25147b96b0910[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 24 22:31:05 2016 +0800
+
+    优化嫌疑人管理页面
+
+[33mcommit ade8a9c115fed00b52ad94709669ff803446a323[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 24 17:56:09 2016 +0800
+
+    优化树莓派的请求接口
+
+[33mcommit 0fa61ccb2ecaa1599008fe6f57f49b20db070041[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 24 11:35:24 2016 +0800
+
+    更新
+
+[33mcommit cc94992788fc8c734e5e6a3f99a6a8720b7cc45e[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 24 10:47:09 2016 +0800
+
+    日志功能修复
+
+[33mcommit 0dd075f5754f1f8ca33ed34bd27a51ce634e71b4[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Nov 23 23:49:55 2016 +0800
+
+    更新
+
+[33mcommit 8b7b2a1dd1699805aefdd2a3f92c919482a1fe5f[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Nov 23 22:27:01 2016 +0800
+
+    重构代码结构，使用maven管理工程，添加Spring框架
+
+[33mcommit 402f06305dc625f877a5c90fa48589751ea07d7e[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Nov 23 22:21:23 2016 +0800
+
+    重新改变代码结构，使用maven管理项目，添加Spring框架
+
+[33mcommit 45e524526c3125919843ee09c2aa4feb30a8a197[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Nov 23 17:17:18 2016 +0800
+
+    添加Rfid操作成功的返回页面，添加druid数据库连接池
+
+[33mcommit 8b2c83107313d298d366984a5a9b9cd56f4f6314[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Mon Nov 21 15:24:13 2016 +0800
+
+    更新
+
+[33mcommit 1e3f9dc2f91ef30fe82201d5102b07612fa4f3b6[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 18 18:13:38 2016 +0800
+
+    将写死的参数更新成配置文件读取
+
+[33mcommit a9145f7acfe0f01da35d5e17e7d9dbd32a2fdb42[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 18 18:04:24 2016 +0800
+
+    添加读取properties文件的工具类
+
+[33mcommit 7abd01fc872b46e0469b43ea5e9e3d365659707c[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 18 17:13:13 2016 +0800
+
+    将相关内容更改成可配置的配置文件形式
+
+[33mcommit ba987d0cc0c1f03b77da73744e0e841488f3d8fe[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 17 14:11:39 2016 +0800
+
+    添加ftp下载，页面调优
+
+[33mcommit 4b986873c4211e6fcaf47b831d76f46a7c7163bf[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Wed Nov 16 09:39:23 2016 +0800
+
+    添加ftp下载功能
+
+[33mcommit 70ae4cd32f4d0dc9a3c791bb7df1809660e2ec59[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Tue Nov 15 11:16:38 2016 +0800
+
+    添加ftp下载远程服务器视频功能
+
+[33mcommit c780274d6a2f06f67c71430d36b4842571ce28b6[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sun Nov 13 22:01:36 2016 +0800
+
+    更新
+
+[33mcommit dbd31889040eb3492cc5c7f7ff9140e9f348f4bc[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sun Nov 13 18:17:19 2016 +0800
+
+    根据访问的url分离页面
+
+[33mcommit 6c58cd1f2a6686a714f4c5b064db6ab061522469[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sun Nov 13 17:25:30 2016 +0800
+
+    添加单独访问重定义页面功能
+
+[33mcommit ab9fd9b6a6ea445bb11aa6296d2b79301b33304a[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sun Nov 13 10:43:11 2016 +0800
+
+    日志功能优化，添加时间工具类
+
+[33mcommit 992878ef91ab2a55fff6e763f3ddcd68f390c4c0[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sat Nov 12 20:19:56 2016 +0800
+
+    日志功能优化
+
+[33mcommit edcb77fb58a722828f3048fd7472c57999c84b24[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sat Nov 12 20:06:14 2016 +0800
+
+    添加系统日志功能
+
+[33mcommit 1b779ddbd2df9253371f02e342942089f840e327[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sat Nov 12 16:38:30 2016 +0800
+
+    修改数据提交方式
+
+[33mcommit ba65689e280ee04d74b8ddb50f3b951c28b18a2a[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Sat Nov 12 11:21:43 2016 +0800
+
+    2016-11-12更新
+
+[33mcommit 4ad5c4da2c8ece96f8a2ec01b5cc7bc28365fafe[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 11 20:36:51 2016 +0800
+
+    修改包名
+
+[33mcommit a569f020d5821098be01b96d07efb04101f4ae0f[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 11 19:53:42 2016 +0800
+
+    页面更新
+
+[33mcommit c76048b34b30b06386adb2d09877e6f3e7c0d566[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 11 17:26:16 2016 +0800
+
+    进度条跳转返回修改信息
+
+[33mcommit 0cd55b7c2d473ae39355011385607b86c7668ac6[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 11 17:10:32 2016 +0800
+
+    进度条功能完善
+
+[33mcommit 19a6c7b140796b34a6f217be022ad9b076b600b1[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 11 15:57:36 2016 +0800
+
+    css优化
+
+[33mcommit c2940ffb8820c43c4aaab48ae85e0f859d767f35[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Fri Nov 11 10:34:40 2016 +0800
+
+    添加js效果
+
+[33mcommit 178d43165c593a2fb84294084046276aa842ae1e[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 10 21:31:26 2016 +0800
+
+    更新dao层
+
+[33mcommit 04af56f7788c71f66c2a578d8756008cca1bceac[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 10 20:22:03 2016 +0800
+
+    更新
+
+[33mcommit fad22dd6f3ed2d0ef9a79b996e98fab23c070eac[m
+Author: haifeiWu <1253242444@qq.com>
+Date:   Thu Nov 10 19:47:28 2016 +0800
+
+    项目初建

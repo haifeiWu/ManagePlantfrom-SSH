@@ -19,7 +19,8 @@ import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
 
 /**
- * 人身检查记录信息
+ * 人身检查记录信息，对应第二个页面
+ * 人身检查，随身物品登记
  * 
  * @author wuhaifei
  * @d2016年8月14日
@@ -65,7 +66,7 @@ public class PHCSMP_Personal_Check_Action extends
 		personalCheckService.saveCheckPersonInfor(model);// 保存人身检查记录
 		belongingInforService.saveBelongInforList(belongs);// 批量保存随身物品信息
 		/*
-		 * 统计系统中填写与未填写的字段
+		 * 统计系统中填写与未填写的字段,该部分代码可封装到完整性检查中
 		 */
 		Class<?> c = Class.forName(PHCSMP_Personal_Check.class.getName());// 通过反射找到该类的字段
 

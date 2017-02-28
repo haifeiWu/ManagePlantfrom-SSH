@@ -42,12 +42,12 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 	public String intercept(ActionInvocation invocation) throws Exception {
 
 		Map<?, ?> session = invocation.getInvocationContext().getSession();
-		Object action = invocation.getAction();
-		String method = invocation.getProxy().getMethod();
+		Object action = invocation.getAction();//获取调用的action
+		String method = invocation.getProxy().getMethod();//method是调用的action中的方法名
 		if (StringUtils.isBlank(method))
 			method = "method";
 		// 如果有下一个拦截器执行下一个拦截器，否则执行目标action
-		invocation.invoke();
+		invocation.invoke();//先执行action，结束之后再执行记录日志的工作
 		PHCSMP_Staff sysUser = (PHCSMP_Staff) session.get("user");
 
 		// System.out.println(sysUser.getStaff_Name());
@@ -79,7 +79,7 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 		}
 
 		if (action instanceof Activity_Record_Action) {
-			String Suspect_ID = (String) session.get("Suspect_ID");
+			String Suspect_ID = (String) session.get("Suspect_ID");//通过session将这个值放入
 
 			if (method.equals("loadInfor")) {
 				Operation_Info = "增加" + Suspect_ID + "号嫌疑人信息";
@@ -88,7 +88,7 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 				addSysLog(Operation_Time, Staff_Name, Operation_Info,
 						Operation_Model);
 			}
-
+			
 		}
 
 		if (action instanceof PHCSMP_Personal_Check_Action) {
@@ -97,7 +97,7 @@ public class Interceptor_LogInfo extends AbstractInterceptor {
 			if (method.equals("loadInfor")) {
 				Operation_Info = "增加" + Suspect_ID + "号嫌疑人信息";
 				Operation_Time = getDate();
-				Operation_Model = "安全检查-人生检查";
+				Operation_Model = "安全检查-人身检查";
 				addSysLog(Operation_Time, Staff_Name, Operation_Info,
 						Operation_Model);
 			}

@@ -36,9 +36,8 @@ public interface SuspectService {
 	 * @return
 	 */
 	List<PHCSMP_Band> findAllBundInfor();
-
 	/**
-	 * 根据激活码查找嫌疑人信息
+	 * 根据激活码查找嫌疑人信息,实现时注意对ProcessID的判断
 	 * 
 	 * @param roomId
 	 *            房间号
@@ -93,5 +92,4 @@ public interface SuspectService {
 	 * @return
 	 */
 	PHCSMP_Suspect findInforBySuspetcId(String suspectId);
-
 }

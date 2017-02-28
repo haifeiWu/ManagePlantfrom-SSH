@@ -27,5 +27,4 @@ public interface LeaveRecodService {
 	 * @return
 	 */
 	PHCSMP_Leave_Record findInforBySuspetcId(String suspectId);
-
 }

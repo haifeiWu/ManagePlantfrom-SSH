@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.haifeiWu.entity">
+	<!--wxy 流程字典表  -->
+    <class name="PHCSMP_Dic_Process" table="PHCSMP_Dic_Process" lazy="false">
+    
+        <id name="process_ID">
+            <generator class="native"/>
+        </id>
+
+		<property name="process_Name"></property>
+		
+    </class>
+
+</hibernate-mapping>

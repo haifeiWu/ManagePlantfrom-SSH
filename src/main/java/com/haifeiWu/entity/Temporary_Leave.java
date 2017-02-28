@@ -3,7 +3,7 @@ package com.haifeiWu.entity;
 import java.io.Serializable;
 
 /**
- * 臨時離開原因javabean
+ * 临时离开原因
  * 
  * @author wuhaifei
  * @d2016年11月8日
@@ -81,7 +81,6 @@ public class Temporary_Leave implements Serializable {
 
 	@Override
 	public String toString() {// 重写toString方法
-
 		return "临时离开原因：" + this.tempLeave_Reason + "档案号：" + this.suspect_ID;
 	}
 }

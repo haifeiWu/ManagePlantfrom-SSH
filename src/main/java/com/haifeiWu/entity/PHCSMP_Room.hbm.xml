@@ -12,6 +12,10 @@
         </id>
         <property name="room_Name"/>
         <property name="cardReader_ID"/>
+        <!-- wxy增加V1.2版本的字段 -->
+        <property name="process_ID"></property>
+        <property name="line_Number"></property>
+        <property name="room_IPAddress"></property>
     </class>
 
 </hibernate-mapping>

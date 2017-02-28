@@ -65,7 +65,9 @@ $(document).ready(function (){
         fs.cols = "180,*";
     }
 </script>
-
+<!-- websocket主动推送可写在这里 -->
+<!-- 推送的原理是js实现a标签的点击事件-->
+<!-- 如果实现不了的话，，可以使用js中Windows的location强制跳转，target为rightFrame，左侧也要实现点击该a标签的样式 -->
 </head> 
 
 <body style="background:#f0f9fd;">
@@ -78,6 +80,7 @@ $(document).ready(function (){
     <span><img src="images/leftico01.png" /></span>办案区信息管理
     </div>
     	<ul class="menuson">
+    	<!-- a标签请求action，返回的页面的结果显示在rightFrame -->
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspect_loadInfor.action" target="rightFrame">入区人员信息登记</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/personalCheck_loadInfor.action" target="rightFrame">人身安全检查</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/IC_loadInfor.action" target="rightFrame">信息采集</a><i></i></li>

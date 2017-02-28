@@ -105,7 +105,7 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * @return
 	 */
 	public String loadInfor() {
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(3);
+		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(1);
 
 		String suspectId = SuspectInfor.getSuspect_ID();
 
@@ -114,7 +114,7 @@ public class Activity_Record_Action extends ActionSupport implements
 
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
 				.findInforBySuspetcId(suspectId);
-
+		//这是之前的版本，必须完成之前的业务才能进行询问/讯问，此处需要修改
 		if ((SuspectInfor == null) || (personal_Check == null)
 				|| (information_Collection == null)) {
 			return "NULL";

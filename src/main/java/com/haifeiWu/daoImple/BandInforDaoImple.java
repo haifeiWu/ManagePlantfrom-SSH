@@ -18,7 +18,9 @@ public class BandInforDaoImple extends DaoSupportImpl<PHCSMP_Band> implements
 	private String hql = "";
 	private Transaction tx = null;
 	private Session session = null;
-
+	/**
+	 * 此方法可以抽象到DaoSupport中，提高代码复用度
+	 */
 	@Override
 	public List<PHCSMP_Band> findAllBundInfor() {
 		session = this.getSession();
@@ -31,7 +33,10 @@ public class BandInforDaoImple extends DaoSupportImpl<PHCSMP_Band> implements
 
 		return list;
 	}
-
+	/**
+	 * 此处的命名可以优化，同一属性使用多个变量名，影响阅读
+	 * bandID是自动生成的主键（1,2,3），remark是手环的编号，类似身份证号
+	 */
 	@Override
 	public int findBandIdByWristId(String wristId) {
 		session = this.getSession();

@@ -12,6 +12,11 @@
         </id>
         
         <property name="cardReader_Name"/>
+        <!--wxy增加V1.2版本的字段-->
+        <property name="cardReader_Type" type="java.lang.Integer"> 
+			<column name="cardReader_Type" not-null="true"/> 
+		</property>
+        
     </class>
 
 </hibernate-mapping>

@@ -54,7 +54,7 @@
 	<table border=0 cellpadding=2 cellspacing=0 width=100%>
 		<tr>
 			<td bgcolor=#3366cc>
-				<font face=arial,sans-serif color=#ffffff><b>Message</b></td>
+				<font face=arial,sans-serif color=#ffffff ><b>Message</b></font></td>
 		</tr>
 		<tr>
 			<td> </td>

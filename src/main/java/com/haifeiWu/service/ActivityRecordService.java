@@ -39,5 +39,4 @@ public interface ActivityRecordService {
 	 * @return
 	 */
 	List<PHCSMP_Activity_Record> selectActivityRecordInfor(String suspectId);
-
 }

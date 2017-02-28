@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<!-- 该页面是停止录像之后跳转的页面 -->
 	<%
 		String str = "StopRecord------------->\n";
 		response.getWriter().write(str);

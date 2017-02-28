@@ -32,7 +32,6 @@ public class SuspectServiceImple implements SuspectService {
 	public void saveSuspectInfor(PHCSMP_Suspect model) {
 		suspectDao.save(model);
 	}
-
 	@Override
 	public PHCSMP_Suspect findInfroByActiveCodeAndBandID(int roomId, int bandId) {
 		return suspectDao.findInfroByActiveCodeAndBandID(roomId, bandId);
@@ -57,7 +56,6 @@ public class SuspectServiceImple implements SuspectService {
 	public List<PHCSMP_Dic_IdentifyCard_Type> findAllIdentifyCardType() {
 		return suspectDao.findAllIdentifyCardType();
 	}
-
 	@Override
 	public List<PHCSMP_Dic_Action_Cause> findAllSuspectCause() {
 		return suspectDao.findAllSuspectCause();
@@ -77,5 +75,5 @@ public class SuspectServiceImple implements SuspectService {
 	public PHCSMP_Suspect findInforBySuspetcId(String suspectId) {
 		return suspectDao.findInforBySuspetcId(suspectId);
 	}
-
+	
 }

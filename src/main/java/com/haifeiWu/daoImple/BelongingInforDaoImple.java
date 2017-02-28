@@ -24,7 +24,10 @@ public class BelongingInforDaoImple extends DaoSupportImpl<PHCSMP_BelongingS>
 	private Transaction tx = null;
 	private Session session = null;
 	private String hql = null;
-
+	
+	/**
+	 * 批量保存
+	 */
 	@Override
 	public void savesaveBelongInforList(List<PHCSMP_BelongingS> belongs) {
 		int i = 0;
@@ -40,7 +43,9 @@ public class BelongingInforDaoImple extends DaoSupportImpl<PHCSMP_BelongingS>
 		}
 		tx.commit();// 提交事务
 	}
-
+	/**
+	 * 查询多条结果
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<PHCSMP_BelongingS> selectBelongInfor(String suspectId) {

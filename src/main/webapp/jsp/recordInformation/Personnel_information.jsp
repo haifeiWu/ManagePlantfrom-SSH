@@ -182,7 +182,7 @@
 								<!--图片引入-->
 								<td rowspan="5"><img id="pic" src="images/1-IDlogo_09.png"
 									style="width: 95px;height: 108px;position: relative;top: -10px;" />
-									<input type="hidden" name="tdentityID_Imag" value="value">
+									<input type="hidden" name="identityID_Imag" value="value">
 									<p class="info_id">身份证照</p></td>
 								<td colspan="2">姓名:<input type="text" readonly="readonly"
 									name="suspect_Name" value="德古拉" /></td>

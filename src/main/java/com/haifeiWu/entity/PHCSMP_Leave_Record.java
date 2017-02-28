@@ -19,7 +19,7 @@ public class PHCSMP_Leave_Record implements Serializable {
 	private int leave_Record_ID;// id（主键）
 	private String suspect_ID;// 档案编号
 	private String leave_Time;// 最终离开时间
-	private String leave_Hour;
+	//private String leave_Hour;
 	private String leave_Reason;// 离开原因（离开原因字典表ID逗号隔开）
 	private String belongingS_Treatment_Method;// 随身物品处理方式字典表ID逗号隔开
 	private String belongingS_Treatment_Record;// 未返还物品处理记录
@@ -56,13 +56,13 @@ public class PHCSMP_Leave_Record implements Serializable {
 		this.leave_Time = leave_Time;
 	}
 
-	public String getLeave_Hour() {
-		return leave_Hour;
-	}
-
-	public void setLeave_Hour(String leave_Hour) {
-		this.leave_Hour = leave_Hour;
-	}
+//	public String getLeave_Hour() {
+//		return leave_Hour;
+//	}
+//
+//	public void setLeave_Hour(String leave_Hour) {
+//		this.leave_Hour = leave_Hour;
+//	}
 
 	public String getLeave_Reason() {
 		return leave_Reason;

@@ -17,7 +17,9 @@ public class LeaveRecodDaoImple extends DaoSupportImpl<PHCSMP_Leave_Record>
 
 	private Transaction tx = null;
 	private Session session = null;
-
+	/**
+	 * 批量保存
+	 */
 	@Override
 	public void saveLeaveRecordInfor(List<Temporary_Leave> temporaryLeaves) {
 		int i = 0;

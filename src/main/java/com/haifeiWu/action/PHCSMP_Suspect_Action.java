@@ -40,12 +40,10 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			return "loginError";
 		}
 	}
-
 	/**
-	 * 添加嫌疑人信息，并设置相关字段
-	 * 
-	 * @return addSuspectInfor
-	 * @throws Exception
+	 * 将图片拷贝到服务器下
+	 * @param path
+	 * @param fileName
 	 */
 	public String addSuspectInfor() throws Exception {
 
@@ -61,20 +59,19 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		 * model.setTdentityID_Imag(picPath); // 将改图片拷贝到服务器目录下
 		 * CopyFile.copyFile(path, temp + "/" + picPath);
 		 */
-
 		Class<?> c = Class.forName(PHCSMP_Suspect.class.getName());
-		int count = CompleteCheck.IsEqualsNull(model, c);
-		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
+		int count = CompleteCheck.IsEqualsNull(model, c);//获取model对象不为空的字段的个数
+		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);//返回实体类中总字段数
+		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数，，，3应该是除去主键、FillRecord、TotalRecord
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
-		/* 第一个添加嫌疑人的信息直接设置已填写的字段即可 */
-		suspectService.saveSuspectInfor(model);
+		
+		suspectService.saveSuspectInfor(model);//保存嫌疑人信息，
 		return "addSuspectInfor";
 	}
 
-	// 加载数据库的手环id信息
+	// 加载数据库的信息
 	public String loadInfor() {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
@@ -86,6 +83,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		if (user == null) {// 在未登录状态下
 			return "unLoginState";
 		} else {
+			//登录状态下，
 			List<PHCSMP_Band> list = suspectService.findAllBundInfor();
 			List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
 					.findAllIdentifyCardType();
@@ -117,7 +115,6 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 
 	public String updateInfor() {
 		System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
-
 		System.out.println("updateInfor：修改嫌疑人信息！");
 		return "updateInfor";
 	}
