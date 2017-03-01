@@ -127,7 +127,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	 * 应该结合手环id，嫌疑人id进行查询
 	 */
 	@Override
-	public PHCSMP_Suspect selectPersonInforByBandID(int bandId,int suspectId) {
+	public PHCSMP_Suspect selectPersonInforByBandID(int bandId) {
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
@@ -135,7 +135,6 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 
 		Query query = session.createQuery(hql);
 		query.setParameter(0, bandId);
-		query.setParameter(1, suspectId);
 		PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();
 
 		tx.commit();// 提交事务

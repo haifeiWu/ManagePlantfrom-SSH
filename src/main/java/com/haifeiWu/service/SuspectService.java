@@ -76,7 +76,7 @@ public interface SuspectService {
 	 * @param bandId
 	 * @return
 	 */
-	PHCSMP_Suspect selectPersonInforByBandID(int bandId,int suspectId);
+	PHCSMP_Suspect selectPersonInforByBandID(int bandId);
 
 	/**
 	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
