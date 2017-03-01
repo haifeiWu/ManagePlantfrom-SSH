@@ -68,7 +68,4 @@ public class SuspectServiceImple implements SuspectService {
 		return suspectDao.findBySuspectID(suspectId);
 		//return suspectDao.findByPropertyName("suspect_ID", suspectId);
 	}
-	
-	
-	
 }

@@ -57,4 +57,5 @@ public interface SuspectService {
 	List<PHCSMP_Dic_Action_Cause> findAllSuspectCause();
 
 	public PHCSMP_Suspect findBySuspetcId(String suspectId);
+
 }

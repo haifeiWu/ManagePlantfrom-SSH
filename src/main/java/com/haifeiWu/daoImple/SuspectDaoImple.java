@@ -54,6 +54,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	public PHCSMP_Suspect findBySuspectID(String suspectID) {
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
+
 		hql = "from PHCSMP_Suspect where suspect_ID=? and process_Now!=-1";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, suspectID);
@@ -105,19 +106,20 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		//query.setParameter(0, Process_ID);
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
-
 		tx.commit();// 提交事务
 		return phcsmp_Suspect;
 	}
 	@Override
 	public List<PHCSMP_Suspect> getOnPoliceSuspect() {
+
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
 		hql = "FROM PHCSMP_Suspect WHERE Process_Now != -1";
 		Query query = session.createQuery(hql).setFirstResult(0)
 				.setMaxResults(5);
-		//query.setParameter(0, Process_ID);
+
+		query.setParameter(0, Process_Now);
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
 

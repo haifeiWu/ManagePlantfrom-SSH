@@ -58,5 +58,7 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	 * 
 	 * @return
 	 */
+
 	public List<PHCSMP_Suspect> getOnPoliceSuspect();
+
 }
