@@ -83,7 +83,9 @@ public interface SuspectService {
 	 * 
 	 * @return
 	 */
-	List<PHCSMP_Suspect> getCheckingSuspect(int Process_ID);
+
+	List<PHCSMP_Suspect> getCheckingSuspect(int Process_Now);
+
 
 	/**
 	 * 根据档案号查询用户信息

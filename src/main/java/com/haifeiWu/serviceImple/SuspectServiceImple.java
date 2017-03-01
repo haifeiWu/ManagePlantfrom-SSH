@@ -67,8 +67,9 @@ public class SuspectServiceImple implements SuspectService {
 	}
 
 	@Override
-	public List<PHCSMP_Suspect> getCheckingSuspect(int Process_ID) {
-		return suspectDao.getCheckingSuspect(Process_ID);
+	public List<PHCSMP_Suspect> getCheckingSuspect(int Process_Now) {
+		return suspectDao.getCheckingSuspect(Process_Now);
+
 	}
 
 	@Override

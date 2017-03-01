@@ -81,7 +81,9 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 		//此处is_Active和roomID一致
+
 		hql = "update PHCSMP_Suspect p set p.room_Now= ? where p.band_ID= ? and process_Now!=-1";
+
 		Query query = session.createQuery(hql);
 		query.setInteger(0, roomId);
 		query.setInteger(1, bandId);
@@ -129,7 +131,8 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
-		hql = "from PHCSMP_Suspect where band_ID=? and suspect_ID=?";
+		hql = "from PHCSMP_Suspect where band_ID=? and process_Now!=-1";
+
 		Query query = session.createQuery(hql);
 		query.setParameter(0, bandId);
 		query.setParameter(1, suspectId);
@@ -143,14 +146,18 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	 * 此方法在统计的页面使用
 	 */
 	@Override
-	public List<PHCSMP_Suspect> getCheckingSuspect(int Process_ID) {
+
+	public List<PHCSMP_Suspect> getCheckingSuspect(int Process_Now) {
+
+
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
 		hql = "FROM PHCSMP_Suspect WHERE Process_Now = ?";
 		Query query = session.createQuery(hql).setFirstResult(0)
 				.setMaxResults(5);
-		query.setParameter(0, Process_ID);
+		query.setParameter(0, Process_Now);
+
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
 
