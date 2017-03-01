@@ -51,6 +51,7 @@ public class RFID_ReadAction extends ActionSupport implements
 	public static boolean isRecording = false;// 是否处于录像状态，初始状态为否
 	private int roomId = 0;
 	private int bandId = 0;// 手环id
+	private int suspect_ID=0;//嫌疑人id
 	private String identificationCard = "wuhaifei1230343";
 
 	@Autowired

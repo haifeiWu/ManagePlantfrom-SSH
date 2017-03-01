@@ -83,7 +83,7 @@ public interface SuspectService {
 	 * 
 	 * @return
 	 */
-	List<PHCSMP_Suspect> getCheckingSuspect(int is_OutOf);
+	List<PHCSMP_Suspect> getCheckingSuspect(int Process_Now);
 
 	/**
 	 * 根据档案号查询用户信息

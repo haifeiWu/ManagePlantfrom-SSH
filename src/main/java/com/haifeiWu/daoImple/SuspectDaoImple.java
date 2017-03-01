@@ -44,7 +44,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 		//ActiveCode和is_Active和roomId是一个属性，就是房间号
-		hql = "from PHCSMP_Suspect where is_Active=? and band_ID=?";
+		hql = "from PHCSMP_Suspect where is_Active=? and band_ID=? and process_Now!=-1";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, roomId);
 		query.setParameter(1, bandId);
@@ -59,7 +59,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
-		hql = "from PHCSMP_Suspect where is_Active=?";
+		hql = "from PHCSMP_Suspect where room_Now=?";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, roomId);
 		PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();
@@ -76,7 +76,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 		//此处is_Active和roomID一致
-		hql = "update PHCSMP_Suspect p set p.is_Active= ? where p.band_ID= ?";
+		hql = "update PHCSMP_Suspect p set p.is_Active= ? where p.band_ID= ? and process_Now!=-1";
 		Query query = session.createQuery(hql);
 		query.setInteger(0, roomId);
 		query.setInteger(1, bandId);
@@ -125,7 +125,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
-		hql = "from PHCSMP_Suspect where band_ID=?";
+		hql = "from PHCSMP_Suspect where band_ID=? and process_Now!=-1";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, bandId);
 		PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();
@@ -138,14 +138,14 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	 * 此方法在统计的页面使用
 	 */
 	@Override
-	public List<PHCSMP_Suspect> getCheckingSuspect(int is_OutOf) {
+	public List<PHCSMP_Suspect> getCheckingSuspect(int Process_Now) {
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
-		hql = "FROM PHCSMP_Suspect WHERE is_OutOf = ?";
+		hql = "FROM PHCSMP_Suspect WHERE Process_Now = ?";
 		Query query = session.createQuery(hql).setFirstResult(0)
 				.setMaxResults(5);
-		query.setParameter(0, is_OutOf);
+		query.setParameter(0, Process_Now);
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
 

@@ -30,12 +30,21 @@ import com.opensymphony.xwork2.ActionContext;
 
 
 public class TestApp {
-	@Test
-	public void testVideo() {
-		//Video video=new Video();
-		//video.startRecording(1, cardReader_ID)
-	}
+
+//	public void test01(){
+//		
+//		SuspectDaoImple sd=new SuspectDaoImple();
+//		System.out.println(sd.selectPersonInforByBandID(1, 1));
+//		
+//	}
 	
+
+//	@Test
+//	public void testVideo() {
+//		//Video video=new Video();
+//		//video.startRecording(1, cardReader_ID)
+//	}
+//	
 	
 //	@Test
 //	public void test01() {

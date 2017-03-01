@@ -74,6 +74,6 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	 * 
 	 * @return
 	 */
-	List<PHCSMP_Suspect> getCheckingSuspect(int is_OutOf);
+	List<PHCSMP_Suspect> getCheckingSuspect(int process_Now);
 
 }
