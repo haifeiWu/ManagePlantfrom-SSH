@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
+
+
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
 /**
@@ -29,7 +31,6 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	@SuppressWarnings("unchecked")
 	public DaoSupportImpl() {
 		Class s=this.getClass();
-		//使用反射技术得到T的真实类型
 		ParameterizedType pt=null;
 		// 获取当前new的对象的 泛型的父类 类型
 		pt = (ParameterizedType) s.getGenericSuperclass(); 
@@ -140,4 +141,14 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 		return list;
 	}
 	
+	@Override
+	public T findObj() {
+		tx = getSession().beginTransaction();// 开启事务
+		String hql = "from " + clazz.getName();
+		Query query = getSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		T entity = (T) query.uniqueResult();
+		tx.commit();// 提交事务
+		return entity;
+	}
 }

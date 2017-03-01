@@ -7,6 +7,8 @@
 
 	<constant name="struts.enable.DynamicMethodInvocation" value="false" />
 	<constant name="struts.devMode" value="true" />
+	<!-- 排除对webSocket的拦截 -->
+	<constant name="struts.action.excludePattern" value="/websocket"></constant>
 	<!-- 乱码过滤 -->
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 
@@ -146,6 +148,7 @@
 		<action name="Log_execute" class="com.haifeiWu.action.Log_Action">
 			<result>/jsp/log/log_Read.jsp</result>
 		</action>
+		
 	</package>
 
 </struts>

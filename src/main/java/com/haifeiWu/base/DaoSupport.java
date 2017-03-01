@@ -44,6 +44,11 @@ public interface DaoSupport<T> {
 	 */
 	public List<T> findAllInfor();
 	/**
+	 * 查询对象
+	 * @return
+	 */
+	public T findObj();
+	/**
 	 * 通过一个属性查询多条记录
 	 * @param PropertyName
 	 * @param value
@@ -55,5 +60,8 @@ public interface DaoSupport<T> {
 	 * 可增加一个更新方法，传入更新的属性和根据哪个属性更新，再传入对应的值
 	 * 
 	 */
+
+	public T findObj();
+	
 	
 }

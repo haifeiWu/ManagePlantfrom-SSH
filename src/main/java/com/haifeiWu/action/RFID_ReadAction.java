@@ -37,7 +37,6 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 public class RFID_ReadAction extends ActionSupport implements
 		ServletRequestAware, ServletResponseAware, ServletContextAware {
-
 	/**
 	 * UUID
 	 */
@@ -74,7 +73,11 @@ public class RFID_ReadAction extends ActionSupport implements
 				PropertiesReadUtils.getString("time"), format);//endtime
 		DateTime startTime = new DateTime();
 		int hours = Hours.hoursBetween(startTime, endTime).getHours();
-		
+		/**
+		 * 获取嫌疑人ID，判断录像状态，调用录像指令
+		 * 更新其房间号，ProcessID，
+		 * 
+		 */
 		if (hours > 2) {// 正常状态
 
 			Map<String, String> map = new HashMap<String, String>();//存放的是设备ID和身份证号
