@@ -58,7 +58,7 @@ public class Information_Collection_Action extends
 	// 加载信息，
 	public String loadInfor() {
 		
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(2);//根据房间号找嫌疑人
+		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(2);//根据房间号找嫌疑人
 //		if (SuspectInfor == null) {
 //			return "NULL";
 //		}

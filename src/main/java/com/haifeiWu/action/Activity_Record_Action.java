@@ -105,7 +105,7 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * @return
 	 */
 	public String loadInfor() {
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(1);
+		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(1);
 
 		String suspectId = SuspectInfor.getSuspect_ID();
 

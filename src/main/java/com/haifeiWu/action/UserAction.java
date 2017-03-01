@@ -47,8 +47,6 @@ public class UserAction extends BaseAction<PHCSMP_Staff> {
 				model.getStaff_Name(), model.getPassWord());
 		if (user != null) {
 			request.getSession().setAttribute("user", user);
-			request.getSession().setAttribute("ip", request.getRemoteAddr());
-			System.out.println("登录的ip   "+request.getRemoteAddr());
 			//日志功能
 			logger.info("用户 " + user.getStaff_Name() + " 登录系统，时间："
 					+ new DateTime().toString("yyyy-MM-dd hh:mm a E"));

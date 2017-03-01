@@ -37,7 +37,7 @@ public class LineServiceImple implements LineService {
 
 	@Override
 	public void closeLine() {
-     line=lineDao.findObj();
+		line=lineDao.findObj();
 		line.setLine_Used(line.getLine_Used()-1);
 		lineDao.save(line);
   }

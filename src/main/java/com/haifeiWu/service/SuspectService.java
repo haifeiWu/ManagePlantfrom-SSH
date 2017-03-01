@@ -19,42 +19,28 @@ public interface SuspectService {
 	 * 
 	 * @param model
 	 */
-	void saveSuspectInfor(PHCSMP_Suspect model);
-
+	public void saveSuspect(PHCSMP_Suspect model);
+	public PHCSMP_Suspect findByBandID(int bandId);
+	public PHCSMP_Suspect findByRoomID(int roomId);
 	/**
-	 * 根据房间号与手环编号查找嫌疑人信息
+	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
 	 * 
-	 * @param roomId
-	 * @param bandId
 	 * @return
 	 */
-	PHCSMP_Suspect findInfroByActiveCodeAndBandID(int roomId, int bandId);
+	public List<PHCSMP_Suspect> getLeavePoliceSuspect();
 
+	/**
+	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
+	 * 
+	 * @return
+	 */
+	public List<PHCSMP_Suspect> getOnPoliceSuspect();
 	/**
 	 * 查出所有的手环信息，用于用户注册
 	 * 
 	 * @return
 	 */
 	List<PHCSMP_Band> findAllBundInfor();
-	/**
-	 * 根据激活码查找嫌疑人信息,实现时注意对ProcessID的判断
-	 * 
-	 * @param roomId
-	 *            房间号
-	 * @return 嫌疑人的实体类信息
-	 */
-	PHCSMP_Suspect findInfroByActiveCode(int roomId);
-
-	/**
-	 * 根据手环id更新activeCode
-	 * 
-	 * @param bandId
-	 *            手环id
-	 * @param roomId
-	 *            房间号
-	 * @return
-	 */
-	int updateSuspectInforByBandId(int bandId, int roomId);
 
 	/**
 	 * 查找数据库中的所有身份证类型的数据
@@ -70,26 +56,5 @@ public interface SuspectService {
 	 */
 	List<PHCSMP_Dic_Action_Cause> findAllSuspectCause();
 
-	/**
-	 * 根据手环ID查找用户信息
-	 * 
-	 * @param bandId
-	 * @return
-	 */
-	PHCSMP_Suspect selectPersonInforByBandID(int bandId,int suspectId);
-
-	/**
-	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
-	 * 
-	 * @return
-	 */
-	List<PHCSMP_Suspect> getCheckingSuspect(int Process_ID);
-
-	/**
-	 * 根据档案号查询用户信息
-	 * 
-	 * @param suspectId
-	 * @return
-	 */
-	PHCSMP_Suspect findInforBySuspetcId(String suspectId);
+	public PHCSMP_Suspect findBySuspetcId(String suspectId);
 }

@@ -67,7 +67,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 		
-		suspectService.saveSuspectInfor(model);//保存嫌疑人信息，
+		suspectService.saveSuspect(model);//保存嫌疑人信息，
 		return "addSuspectInfor";
 	}
 

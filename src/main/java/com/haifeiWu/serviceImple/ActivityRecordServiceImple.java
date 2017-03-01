@@ -38,4 +38,5 @@ public class ActivityRecordServiceImple extends
 			String suspectId) {
 		return activityRecordDao.selectActivityRecordInfor(suspectId);
 	}
+
 }

@@ -50,11 +50,9 @@ public class SuspectManageAction extends ActionSupport implements
 	public String loadInfor() {
 		System.out.println("历史记录，待办信息");
 		// 获取待查嫌疑人信息
-		List<PHCSMP_Suspect> suspectCheckInfor = suspectService
-				.getCheckingSuspect(0);
+		List<PHCSMP_Suspect> suspectCheckInfor = suspectService.getOnPoliceSuspect();
 		// 获取出区嫌疑人数据
-		List<PHCSMP_Suspect> suspectCheckedInfor = suspectService
-				.getCheckingSuspect(1);
+		List<PHCSMP_Suspect> suspectCheckedInfor = suspectService.getLeavePoliceSuspect();
 		if ((suspectCheckInfor == null) || (suspectCheckedInfor == null)) {
 			return "NULL";
 		}

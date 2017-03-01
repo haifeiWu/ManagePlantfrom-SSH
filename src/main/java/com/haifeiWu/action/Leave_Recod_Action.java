@@ -53,7 +53,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		// 打印提交的单条信息
 		System.out.println("单条信息：" + model.toString());
 
-		PHCSMP_Suspect SuspectInfor = suspectService.findInfroByActiveCode(4);
+		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(4);
 
 		this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
 				"utf-8");

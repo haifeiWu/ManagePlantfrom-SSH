@@ -29,12 +29,12 @@ public class SuspectServiceImple implements SuspectService {
 	private BandInforDao bundInforDao;
 
 	@Override
-	public void saveSuspectInfor(PHCSMP_Suspect model) {
+	public void saveSuspect(PHCSMP_Suspect model) {
 		suspectDao.save(model);
 	}
 	@Override
-	public PHCSMP_Suspect findInfroByActiveCodeAndBandID(int roomId, int bandId) {
-		return suspectDao.findInfroByActiveCodeAndBandID(roomId, bandId);
+	public PHCSMP_Suspect findByBandID(int bandId) {
+		return suspectDao.findByBandId(bandId);
 	}
 
 	@Override
@@ -43,15 +43,9 @@ public class SuspectServiceImple implements SuspectService {
 	}
 
 	@Override
-	public PHCSMP_Suspect findInfroByActiveCode(int roomId) {
-		return suspectDao.findInfroByActiveCode(roomId);
+	public PHCSMP_Suspect findByRoomID(int roomId) {
+		return suspectDao.findByRoomID(roomId);
 	}
-
-	@Override
-	public int updateSuspectInforByBandId(int bandId, int roomId) {
-		return suspectDao.updateSuspectInforByBandId(bandId, roomId);
-	}
-
 	@Override
 	public List<PHCSMP_Dic_IdentifyCard_Type> findAllIdentifyCardType() {
 		return suspectDao.findAllIdentifyCardType();
@@ -60,20 +54,21 @@ public class SuspectServiceImple implements SuspectService {
 	public List<PHCSMP_Dic_Action_Cause> findAllSuspectCause() {
 		return suspectDao.findAllSuspectCause();
 	}
-
+	//根据Process_Now查的两个表
 	@Override
-	public PHCSMP_Suspect selectPersonInforByBandID(int bandId,int suspectId) {
-		return suspectDao.selectPersonInforByBandID(bandId,suspectId);
+	public List<PHCSMP_Suspect> getLeavePoliceSuspect() {
+		return suspectDao.getLeavePoliceSuspect();
 	}
-
 	@Override
-	public List<PHCSMP_Suspect> getCheckingSuspect(int Process_ID) {
-		return suspectDao.getCheckingSuspect(Process_ID);
+	public List<PHCSMP_Suspect> getOnPoliceSuspect() {
+		return suspectDao.getOnPoliceSuspect();
 	}
-
 	@Override
-	public PHCSMP_Suspect findInforBySuspetcId(String suspectId) {
-		return suspectDao.findInforBySuspetcId(suspectId);
+	public PHCSMP_Suspect findBySuspetcId(String suspectId) {
+		return suspectDao.findBySuspectID(suspectId);
+		//return suspectDao.findByPropertyName("suspect_ID", suspectId);
 	}
+	
+	
 	
 }
