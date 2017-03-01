@@ -46,7 +46,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	 * @param fileName
 	 */
 	public String addSuspectInfor() throws Exception {
-
+		System.out.println("远程Addr"+request.getRemoteAddr());
 		/**
 		 * Date:2017.02.26 author:whf
 		 * 
