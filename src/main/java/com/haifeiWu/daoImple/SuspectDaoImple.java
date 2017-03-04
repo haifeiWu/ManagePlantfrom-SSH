@@ -100,7 +100,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
-		hql = "FROM PHCSMP_Suspect WHERE Process_Now = -1";
+		hql = "FROM PHCSMP_Suspect WHERE process_Now = -1";
 		Query query = session.createQuery(hql).setFirstResult(0)
 				.setMaxResults(5);
 		//query.setParameter(0, Process_ID);
@@ -115,11 +115,11 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
-		hql = "FROM PHCSMP_Suspect WHERE Process_Now != -1";
+		hql = "FROM PHCSMP_Suspect WHERE process_Now != -1";
 		Query query = session.createQuery(hql).setFirstResult(0)
 				.setMaxResults(5);
 
-		query.setParameter(0, Process_Now);
+		//query.setParameter(0, Process_Now);
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
 

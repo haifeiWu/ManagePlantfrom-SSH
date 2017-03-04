@@ -69,9 +69,7 @@ $(document).ready(function (){
 	var websocket = null;
      //判断当前浏览器是否支持WebSocket
      if ('WebSocket' in window) {
-     	alert('正在创建连接');
          websocket = new WebSocket("ws://127.0.0.1:8888/ManagePlantfrom-SSH/websocket");
-         alert('websocket被实例化');
      }
      else {
          alert('当前浏览器 Not support websocket');
@@ -85,12 +83,15 @@ $(document).ready(function (){
      //连接成功建立的回调方法
      websocket.onopen = function () {
          alert("WebSocket连接成功");
+         var ip=getcookie("ip");
+         if(ip!=null){
+         	websocket.send(ip);
+         }
     };
  
      //接收到消息的回调方法
      websocket.onmessage = function (event) {
-         alert("消息");
-         
+		$("suspect").trigger("click");
      };
  
      //连接关闭的回调方法
@@ -102,14 +103,25 @@ $(document).ready(function (){
      window.onbeforeunload = function () {
          closeWebSocket();
      };
-
- 
      //关闭WebSocket连接
      function closeWebSocket() {
          websocket.close();
      }
- 
-     
+     //获取cookie
+     function getcookie(objname){//获取指定名称的cookie的值
+		var arrstr = document.cookie.split("; ");
+		for(var i = 0;i < arrstr.length;i++){
+			var temp = arrstr[i].split("=");
+			if(temp[0] == objname) return unescape(temp[1]);
+		}
+	}
+	
+     //实现主动刷新的jsp
+    
+	
+	function send(){
+		websocket.send("1");
+	}
 </script>
 <!-- websocket主动推送可写在这里 -->
 <!-- 推送的原理是js实现a标签的点击事件-->
@@ -127,11 +139,11 @@ $(document).ready(function (){
     </div>
     	<ul class="menuson">
     	<!-- a标签请求action，返回的页面的结果显示在rightFrame -->
-        <li><cite></cite><a href="${pageContext.request.contextPath }/suspect_loadInfor.action" target="rightFrame">入区人员信息登记</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/personalCheck_loadInfor.action" target="rightFrame">人身安全检查</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/IC_loadInfor.action" target="rightFrame">信息采集</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/AR_loadInfor.action" target="rightFrame">询问讯问记录</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/LR_loadInfor.action" target="rightFrame">出区信息登记</a><i></i></li>
+        <li><cite></cite><a id="suspect" class="suspect" href="${pageContext.request.contextPath }/suspect_loadInfor.action" target="rightFrame">入区人员信息登记</a><i></i></li>
+        <li><cite></cite><a class="personalCheck" href="${pageContext.request.contextPath }/personalCheck_loadInfor.action" target="rightFrame">人身安全检查</a><i></i></li>
+        <li><cite></cite><a class="inforCollect" href="${pageContext.request.contextPath }/IC_loadInfor.action" target="rightFrame">信息采集</a><i></i></li>
+        <li><cite></cite><a class="activityRecord" href="${pageContext.request.contextPath }/AR_loadInfor.action" target="rightFrame">询问讯问记录</a><i></i></li>
+        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/LR_loadInfor.action" target="rightFrame">出区信息登记</a><i></i></li>
         </ul>    
     </dd>
         
@@ -201,5 +213,6 @@ $(document).ready(function (){
     </ul>
     </dd>   
     </dl>
+    <input type="button" onclick="send()" value="diandian"/>
 </body>
 </html>

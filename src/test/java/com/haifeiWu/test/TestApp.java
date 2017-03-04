@@ -26,6 +26,11 @@ import com.haifeiWu.daoImple.LineDaoImple;
 import com.haifeiWu.daoImple.SuspectDaoImple;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Line;
+import com.haifeiWu.entity.PHCSMP_Room;
+import com.haifeiWu.service.RoomService;
+import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.serviceImple.RoomServiceImple;
+import com.haifeiWu.serviceImple.SuspectServiceImple;
 import com.haifeiWu.utils.CopyFile;
 import com.haifeiWu.utils.PropertiesReadUtils;
 import com.haifeiWu.utils.Video;
@@ -121,5 +126,16 @@ public class TestApp {
 	public void test07(){
 		lineDao.findAllInfor();
 	}*/
+	
+	@Test
+	public void test(){
+//		RoomService rooms = new RoomServiceImple();
+//		PHCSMP_Room room=rooms.findByRoomID(1);
+//		System.out.println("roomId: "+room.getRoom_ID());
+		
+//		SuspectDao sus = new SuspectDaoImple();
+//		System.out.println(sus.findByBandId(1).getAddress());
+		
+	}
 
 }

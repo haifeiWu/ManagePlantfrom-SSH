@@ -59,7 +59,7 @@
 			 var str = CVR_IDCard.Picture;//读取身份证照片的base64码
 			 var base64 = "data:image/jpg;base64"+str;//更改成代码中可以直接显示的base64编码的格式
 			 document.all['pic'].src = base64;//用于显示身份证照片
-			 document.all['tdentityID_Imag'].value = base64;//用于将base64码存放到数据库中
+			 document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {
 			ClearForm();
 			alert(strReadResult);
@@ -182,7 +182,7 @@
 								<!--图片引入-->
 								<td rowspan="5"><img id="pic" src="images/1-IDlogo_09.png"
 									style="width: 95px;height: 108px;position: relative;top: -10px;" />
-									<input type="hidden" name="identityID_Imag" value="value">
+									<input type="hidden" name="identityCard_Photo" value="value">
 									<p class="info_id">身份证照</p></td>
 								<td colspan="2">姓名:<input type="text" readonly="readonly"
 									name="suspect_Name" value="德古拉" /></td>

@@ -16,6 +16,7 @@ public interface RoomInforDao extends DaoSupport<PHCSMP_Room>{
 	 * @param deviceId
 	 * @return
 	 */
-	int findRoomIDByCardReaderID(String cardReaderID);
+	int findRoomIDByCardReaderID(int cardReaderID);
 
+	public PHCSMP_Room findByRoomID(int roomID);
 }
