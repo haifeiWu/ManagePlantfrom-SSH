@@ -61,7 +61,7 @@ public interface DaoSupport<T> {
 	 * 
 	 */
 
-	public T findObj();
+	//public T findObj();
 	
 	
 }
