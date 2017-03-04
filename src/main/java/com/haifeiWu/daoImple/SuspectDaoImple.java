@@ -95,7 +95,18 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 
 	
 
-	@Override
+// 	@Override
+// 	public PHCSMP_Suspect selectPersonInforByBandID(int bandId) {
+// 		session = this.getSession();
+// 		tx = session.beginTransaction();// 开启事务
+
+// 		hql = "from PHCSMP_Suspect where band_ID=? and process_Now!=-1";
+
+// 		Query query = session.createQuery(hql);
+// 		query.setParameter(0, bandId);
+// 		PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();
+
+//   }
 	public List<PHCSMP_Suspect> getLeavePoliceSuspect() {
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务

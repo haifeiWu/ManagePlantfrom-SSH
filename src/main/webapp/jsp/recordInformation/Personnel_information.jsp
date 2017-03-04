@@ -50,7 +50,7 @@
 			var path = "/upload/" + myStr[myStr.length - 1];
 			document.all['pic'].src = path;
 			document.all['tdentityID_Imag'].value = str;
-			*/
+			 */
 			/**
 			 * Date:2017.02.26
 			 * author:whf
@@ -123,8 +123,9 @@
 			<p id="left_title">嫌疑人入区信息登记</p>
 			<!--设置标题：档案编号：-->
 			<h5 class="col-lg-12 col-md-10 text-center">
-				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="text" id="suspectID" name="Suspect_ID" value="ABS20161010-27" />
+				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+				<input style="width:200px;" type="text" id="suspectID"
+					name="Suspect_ID" value="${SuspectInfor.suspect_ID }" />
 			</h5>
 
 			<!--进度条信息设置-->
@@ -174,7 +175,7 @@
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<hr
-							style="width: 75%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 2%;margin-left: -28%;" />
+							style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
 
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
@@ -184,38 +185,37 @@
 									style="width: 95px;height: 108px;position: relative;top: -10px;" />
 									<input type="hidden" name="identityCard_Photo" value="value">
 									<p class="info_id">身份证照</p></td>
-								<td colspan="2">姓名:<input type="text" readonly="readonly"
-									name="suspect_Name" value="德古拉" /></td>
+								<td colspan="2">姓名:<input type="text" name="suspect_Name"
+									value="德古拉" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
-									name="sex" value="男" readonly="readonly" /></td>
-								<td>民族：<input type="text" name="nation" value="汉"
-									readonly="readonly" /></td>
+									name="sex" value="男" /></td>
+								<td>民族：<input type="text" name="nation" value="汉" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
 								<td colspan="2">出生日期：<input type="text" style="width:60%;"
-									name="birthday" value="1961" readonly="readonly" /></td>
+									name="birthday" value="1961" /></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
 								<td colspan="2">家庭住址：</td>
 							</tr>
+							
 							<tr>
-								<td colspan="2"><textarea readonly="readonly"
-										name="address" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea name="address" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
+							
 							<tr>
 								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
-									name="identifyCard_Number" value="140104196108123556"
-									readonly="readonly" /></td>
+									name="identifyCard_Number" value="140104196108123556" /></td>
 							</tr>
 						</table>
 						<hr
-							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 29%; margin-left: -28%;" />
+							style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
 					</div>
 					<div>
 						<input class="btn" type="button" value="读卡"
@@ -228,7 +228,7 @@
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
 					<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
-							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">证件类型：</td>
+							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" >证件类型：</td>
 							<td>
 								<ol>
 									<!--  -->
@@ -241,7 +241,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>证件号码:</td>
+							<td >证件号码:</td>
 							<td><input type="text" name="" /></td>
 						</tr>
 						<tr>
@@ -249,7 +249,7 @@
 							<td><textarea id="nAddress" name="now_address">居无定所</textarea></td>
 						</tr>
 						<tr>
-							<td>联系方式（手机或固定电话）：</td>
+							<td>联系方式<br>（手机或固定电话）：</td>
 							<td><input type="text" name="phone" /></td>
 						</tr>
 					</table>
