@@ -65,7 +65,7 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	}
 
 	@Override
-	public T findInforBySuspetcId(String suspectId) {
+	public T findSuspectPublicById(String suspectId) {
 
 		String hql = "from " + clazz.getName() + " t where t.suspect_ID=?";
 
@@ -107,7 +107,7 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	@Override
 	public T findByPropertyName(String propertyName, Object value) {
 		//String hql = "from " +  + " t where t."+propertyName+"=?";
-		String hql = "from " + clazz.getName() + " t where t."+propertyName+"=?";
+		String hql = "from " + clazz.getName() + " t where t."+propertyName+" = ? ";
 		System.out.println(hql);
 		tx = getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);
@@ -139,16 +139,5 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 				.list();
 		tx.commit();// 提交事务
 		return list;
-	}
-	
-	@Override
-	public T findObj() {
-		tx = getSession().beginTransaction();// 开启事务
-		String hql = "from " + clazz.getName();
-		Query query = getSession().createQuery(hql);
-		@SuppressWarnings("unchecked")
-		T entity = (T) query.uniqueResult();
-		tx.commit();// 提交事务
-		return entity;
 	}
 }

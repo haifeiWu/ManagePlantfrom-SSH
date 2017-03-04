@@ -25,6 +25,6 @@ public class PersonalCheckServiceImple implements PersonalCheckService {
 
 	@Override
 	public PHCSMP_Personal_Check findInforBySuspetcId(String suspectId) {
-		return personalCheckDao.findInforBySuspetcId(suspectId);
+		return personalCheckDao.findSuspectPublicById(suspectId);
 	}
 }

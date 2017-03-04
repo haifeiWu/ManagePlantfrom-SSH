@@ -1,7 +1,6 @@
 package com.haifeiWu.entity;
 
 import java.io.Serializable;
-import java.sql.Blob;
 
 /**
  * 进入人员基本信息表
@@ -29,37 +28,37 @@ public class PHCSMP_Suspect implements Serializable {
 	private String suspected_Cause;// 进入办案区原因（案由字典表中ID用逗号分隔）
 	private String enter_Time;// 进入办案区时间
 
-	//private String quit_time;// 离开信息登记室时间
+	// private String quit_time;// 离开信息登记室时间
 	private String staff_ID;// 办案民警,此处的办案民警是哪个流程的民警，还是多个隔开
-	//此记录数据字典中没有，用来记录嫌疑人个人信息
+	// 此记录数据字典中没有，用来记录嫌疑人个人信息
 	private String address;// 家庭住址
 	private String now_address;// 家庭住址
-	//private int is_Active;// 是否激活（默认未激活0），这个是房间号，取消该属性
-	///private String identityID_Imag;// 身份证照片的url,冲突
-	//private String take_Picture;// 现场拍摄照片的url，冲突
-	//private int is_OutOf;// 是否出区，代表该嫌疑人是历史嫌疑人 ,有疑问
+	// private int is_Active;// 是否激活（默认未激活0），这个是房间号，取消该属性
+	// /private String identityID_Imag;// 身份证照片的url,冲突
+	// private String take_Picture;// 现场拍摄照片的url，冲突
+	// private int is_OutOf;// 是否出区，代表该嫌疑人是历史嫌疑人 ,有疑问
 
-	//用来记录填写完整度
+	// 用来记录填写完整度
 	private int total_record;// 需要填写的总记录数
 	private int fill_record;// 当前填写的记录数
 
-	//wxy增加V1.2版本的字段
-	private int process_Now;//当前所处的流程状态，对应PHCSMP_Dic_Process表中的Process_ID，整个流程结束后置为-1
-	private int room_Now;//当前涉案人员所处的房间编号，对应PHCSMP_Room表中的Room_ID
-	private String identityCard_Photo;//对应数据库中的Blob数据类型，用来存储身份证照片
-	private String frontal_Photo;//正面照图像文件地址
-	private String sideWays_Photo;//侧面照图像文件地址
-	private int recordVideo_State;//录像状态，0：不进行录像      1：录像还未启动         2：录像已经启动       3：录像结束
-	private int is_RecordVideo_DownLoad;//录像文件是否下载成功，0没有下载成功，1下载成功
-	
-	//此属性待定
-	//wxy增加刷卡时的指令为开始还是暂停
-	//private int startOrPauseVideo;// 0，发开始指令     1发暂停指令
-	
+	// wxy增加V1.2版本的字段
+	private int process_Now;// 当前所处的流程状态，对应PHCSMP_Dic_Process表中的Process_ID，整个流程结束后置为-1
+	private int room_Now;// 当前涉案人员所处的房间编号，对应PHCSMP_Room表中的Room_ID
+	private String identityCard_Photo;// 对应数据库中的Blob数据类型，用来存储身份证照片
+	private String frontal_Photo;// 正面照图像文件地址
+	private String sideWays_Photo;// 侧面照图像文件地址
+	private int recordVideo_State;// 录像状态，0：不进行录像 1：录像还未启动 2：录像已经启动 3：录像暂停
+									// 4：录像结束
+	private int is_RecordVideo_DownLoad;// 录像文件是否下载成功，0没有下载成功，1下载成功
+
+	// 此属性待定
+	// wxy增加刷卡时的指令为开始还是暂停
+	// private int startOrPauseVideo;// 0，发开始指令 1发暂停指令
+
 	public String getIdentityCard_Photo() {
 		return identityCard_Photo;
 	}
-
 
 	public int getProcess_Now() {
 		return process_Now;
@@ -80,7 +79,6 @@ public class PHCSMP_Suspect implements Serializable {
 	public void setIdentityCard_Photo(String identityCard_Photo) {
 		this.identityCard_Photo = identityCard_Photo;
 	}
-
 
 	public String getFrontal_Photo() {
 		return frontal_Photo;
@@ -113,6 +111,7 @@ public class PHCSMP_Suspect implements Serializable {
 	public void setIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad) {
 		this.is_RecordVideo_DownLoad = is_RecordVideo_DownLoad;
 	}
+
 	public String getNow_address() {
 		return now_address;
 	}
@@ -152,7 +151,7 @@ public class PHCSMP_Suspect implements Serializable {
 	public void setEnter_Time(String enter_Time) {
 		this.enter_Time = enter_Time;
 	}
-	
+
 	public int getId() {
 		return id;
 	}

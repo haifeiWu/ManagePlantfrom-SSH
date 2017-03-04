@@ -34,7 +34,7 @@ public class LeaveRecodServiceImple implements LeaveRecodService {
 
 	@Override
 	public PHCSMP_Leave_Record findInforBySuspetcId(String suspectId) {
-		return leaveRecodDao.findInforBySuspetcId(suspectId);
+		return leaveRecodDao.findSuspectPublicById(suspectId);
 	}
 
 

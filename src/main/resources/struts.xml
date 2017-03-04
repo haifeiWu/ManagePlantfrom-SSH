@@ -23,8 +23,8 @@
 			<!-- 自定义拦截器栈 定义一个包含权限控制的拦截器栈 -->
 			<interceptor-stack name="mydefault">
 				<interceptor-ref name="defaultStack" />
-				<interceptor-ref name="Interceptor_LogInfo" />
-				<interceptor-ref name="CheackLoginStateInterceptor" />
+				<!-- <interceptor-ref name="Interceptor_LogInfo" />
+				<interceptor-ref name="CheackLoginStateInterceptor" /> -->
 			</interceptor-stack>
 		</interceptors>
 		<!-- 定义默认拦截器 -->

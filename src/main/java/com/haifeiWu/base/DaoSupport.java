@@ -26,11 +26,11 @@ public interface DaoSupport<T> {
 	 */
 	public void saveBatch(List<T> list);
 	/**
-	 * 根据档案编号查找嫌疑人信息
+	 * 注意该方法的使用，只能用于一张表中一个suspectID对应一条记录
 	 * @param suspectId
 	 * @return
 	 */
-	public T findInforBySuspetcId(String suspectId);
+	public T findSuspectPublicById(String suspectId);
 	/**
 	 * 通过属性名和属性值去查询
 	 * @param PropertyName 要查询的属性名称
@@ -43,11 +43,7 @@ public interface DaoSupport<T> {
 	 * @return
 	 */
 	public List<T> findAllInfor();
-	/**
-	 * 查询对象
-	 * @return
-	 */
-	public T findObj();
+	
 	/**
 	 * 通过一个属性查询多条记录
 	 * @param PropertyName
@@ -59,9 +55,4 @@ public interface DaoSupport<T> {
 	 * 需要的话再加一个通过两个属性名和属性值查询的
 	 * 可增加一个更新方法，传入更新的属性和根据哪个属性更新，再传入对应的值
 	 * 
-	 */
-
-	//public T findObj();
-	
-	
 }

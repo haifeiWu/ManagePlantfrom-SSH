@@ -21,7 +21,7 @@ public interface LineService {
 	public boolean isFull();
 	
 	/**
-	 * 开启一路录像，判断是否饱和，并维护RecordVideo_State字段,置0或1
+	 * 开启一路录像，判断是否饱和，
 	 */
 	public void startLine();
 	/**

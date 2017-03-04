@@ -90,7 +90,7 @@ public class GenerateReportAction extends ActionSupport implements
 			return "NULL";
 		}
 		// 查找嫌疑人入区信息
-		PHCSMP_Suspect suspect = suspectService.findInforBySuspetcId(suspectId);
+		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
 		// 嫌疑人随身所有物品检查信息
 		List<PHCSMP_BelongingS> belongingS = belongingInforService
 				.selectBelongInfor(suspectId);

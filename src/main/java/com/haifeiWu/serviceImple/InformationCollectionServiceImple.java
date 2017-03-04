@@ -27,6 +27,6 @@ public class InformationCollectionServiceImple implements
 
 	@Override
 	public PHCSMP_Information_Collection findInforBySuspetcId(String suspectId) {
-		return informationCollectionDao.findInforBySuspetcId(suspectId);
+		return informationCollectionDao.findSuspectPublicById(suspectId);
 	}
 }
