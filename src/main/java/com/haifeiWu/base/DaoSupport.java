@@ -6,32 +6,39 @@ public interface DaoSupport<T> {
 
 	/**
 	 * 保存实体
+	 * 
 	 * @param entity
 	 */
 	public void save(T entity);
 
 	/**
 	 * 更新实体
+	 * 
 	 * @param entity
 	 */
 	public void update(T entity);
-	
 	/**
 	 * 删除实体
+	 * 
 	 * @param entity
 	 */
 	public void delete(T entity);
+
 	/**
 	 * 批量保存
+	 * 
 	 * @param list
 	 */
 	public void saveBatch(List<T> list);
+
 	/**
 	 * 注意该方法的使用，只能用于一张表中一个suspectID对应一条记录
+	 * 
 	 * @param suspectId
 	 * @return
 	 */
 	public T findSuspectPublicById(String suspectId);
+
 	/**
 	 * 注意该方法的使用，用于一张表中一个suspectID对应一条记录
 	 * @param suspectId
@@ -41,19 +48,25 @@ public interface DaoSupport<T> {
 	
 	/**
 	 * 通过属性名和属性值去查询
-	 * @param PropertyName 要查询的属性名称
-	 * @param value 该属性的值
+	 * 
+	 * @param PropertyName
+	 *            要查询的属性名称
+	 * @param value
+	 *            该属性的值
 	 * @return
 	 */
-	public T findByPropertyName(String propertyName,Object value);
+	public T findByPropertyName(String propertyName, Object value);
+
 	/**
 	 * 查询该表所有信息
+	 * 
 	 * @return
 	 */
 	public List<T> findAllInfor();
-	
+
 	/**
 	 * 通过一个属性查询多条记录
+	 * 
 	 * @param PropertyName
 	 * @param value
 	 * @return
@@ -65,4 +78,5 @@ public interface DaoSupport<T> {
 	 * 
 	 */
 	
+
 }

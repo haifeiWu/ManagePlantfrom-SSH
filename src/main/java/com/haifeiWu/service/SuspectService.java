@@ -20,8 +20,11 @@ public interface SuspectService {
 	 * @param model
 	 */
 	public void saveSuspect(PHCSMP_Suspect model);
+
 	public PHCSMP_Suspect findByBandID(int bandId);
+
 	public PHCSMP_Suspect findByRoomID(int roomId);
+
 	/**
 	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
 	 * 
@@ -35,6 +38,7 @@ public interface SuspectService {
 	 * @return
 	 */
 	public List<PHCSMP_Suspect> getOnPoliceSuspect();
+
 	/**
 	 * 查出所有的手环信息，用于用户注册
 	 * 
@@ -56,6 +60,13 @@ public interface SuspectService {
 	 */
 	List<PHCSMP_Dic_Action_Cause> findAllSuspectCause();
 
+	/**
+	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
+	 * 
+	 * @return
+	 */
 	public PHCSMP_Suspect findBySuspetcId(String suspectId);
+
+	public void updateSuspect(PHCSMP_Suspect suspectInfor);
 
 }

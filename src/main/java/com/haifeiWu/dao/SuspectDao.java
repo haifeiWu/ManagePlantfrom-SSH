@@ -46,12 +46,15 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	public List<PHCSMP_Dic_Action_Cause> findAllSuspectCause();
 
 
-	/**
-	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
-	 * 
-	 * @return
-	 */
+// 	*
+// 	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
+// 	 * 
+// 	 * @return
+	
+// 	PHCSMP_Suspect selectPersonInforByBandID(int bandId);
+
 	public List<PHCSMP_Suspect> getLeavePoliceSuspect();
+
 
 	/**
 	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据

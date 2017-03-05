@@ -32,6 +32,7 @@ public class SuspectServiceImple implements SuspectService {
 	public void saveSuspect(PHCSMP_Suspect model) {
 		suspectDao.save(model);
 	}
+
 	@Override
 	public PHCSMP_Suspect findByBandID(int bandId) {
 		return suspectDao.findByBandId(bandId);
@@ -46,26 +47,37 @@ public class SuspectServiceImple implements SuspectService {
 	public PHCSMP_Suspect findByRoomID(int roomId) {
 		return suspectDao.findByRoomID(roomId);
 	}
+
 	@Override
 	public List<PHCSMP_Dic_IdentifyCard_Type> findAllIdentifyCardType() {
 		return suspectDao.findAllIdentifyCardType();
 	}
+
 	@Override
 	public List<PHCSMP_Dic_Action_Cause> findAllSuspectCause() {
 		return suspectDao.findAllSuspectCause();
 	}
-	//根据Process_Now查的两个表
+
+	// 根据Process_Now查的两个表
 	@Override
 	public List<PHCSMP_Suspect> getLeavePoliceSuspect() {
 		return suspectDao.getLeavePoliceSuspect();
 	}
+
 	@Override
 	public List<PHCSMP_Suspect> getOnPoliceSuspect() {
 		return suspectDao.getOnPoliceSuspect();
 	}
+
 	@Override
 	public PHCSMP_Suspect findBySuspetcId(String suspectId) {
 		return suspectDao.findBySuspectID(suspectId);
-		//return suspectDao.findByPropertyName("suspect_ID", suspectId);
+		// return suspectDao.findByPropertyName("suspect_ID", suspectId);
+	}
+
+	@Override
+	public void updateSuspect(PHCSMP_Suspect suspectInfor) {
+		suspectDao.update(suspectInfor);
+
 	}
 }

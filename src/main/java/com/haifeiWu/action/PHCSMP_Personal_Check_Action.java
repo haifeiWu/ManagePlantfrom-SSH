@@ -12,15 +12,15 @@ import org.springframework.stereotype.Controller;
 import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
-import com.haifeiWu.entity.PHCSMP_Staff;
+import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.PersonalCheckService;
+import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
 
 /**
- * 人身检查记录信息，对应第二个页面
- * 人身检查，随身物品登记
+ * 人身检查记录信息，对应第二个页面 人身检查，随身物品登记
  * 
  * @author wuhaifei
  * @d2016年8月14日
@@ -48,6 +48,8 @@ public class PHCSMP_Personal_Check_Action extends
 	// 嫌疑人基本信息
 	@Autowired
 	SuspectService suspectService;
+	@Autowired
+	private RoomService roomService;
 
 	/**
 	 * 添加用户人身检查信息
@@ -56,6 +58,11 @@ public class PHCSMP_Personal_Check_Action extends
 	 * @throws Exception
 	 */
 	public String addCheckPersonInfor() throws Exception {
+		// 维护进出门的标志位
+		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
+		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
+		SuspectInfor.setCardReader_Switch(0);
+		suspectService.saveSuspect(SuspectInfor);
 
 		model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));// 设置人身检查的结束时间
 		List<PHCSMP_BelongingS> belongs = this.getBelong();
@@ -65,19 +72,7 @@ public class PHCSMP_Personal_Check_Action extends
 		}
 		personalCheckService.saveCheckPersonInfor(model);// 保存人身检查记录
 		belongingInforService.saveBelongInforList(belongs);// 批量保存随身物品信息
-		/*
-		 * 统计系统中填写与未填写的字段,该部分代码可封装到完整性检查中
-		 */
-		Class<?> c = Class.forName(PHCSMP_Personal_Check.class.getName());// 通过反射找到该类的字段
-
-		int count = CompleteCheck.IsEqualsNull(model, c);
-		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-
-		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
-		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
-		System.out.println("未填写的字段：" + count);
-		System.out.println("总字段：" + fieldsNumber);
-
+		fullCheck();
 		logger.info("用户 " + " 提交用户嫌疑人人身检查信息，时间："
 				+ new DateTime().toString("yyyy-MM-dd hh:mm a E"));
 		return "addCheckPersonInfor";
@@ -89,26 +84,20 @@ public class PHCSMP_Personal_Check_Action extends
 	 * @return
 	 */
 	public String loadInfor() {
-		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
-				"user");
-		// int roomId = 1;
-		// PHCSMP_Suspect SuspectInfor = suspectService
-		// .findInfroByActiveCode(roomId);
-		// if (SuspectInfor == null) {// 当获取的数据为空时
-		// return "NULL";
-		// }
-		// 将信息从数据库查找到之后，存入session
-		// request.setAttribute("SuspectInfor", SuspectInfor);
+		// PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
+		// "user");
+		// 维护进出门的标志位
+		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
+		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
+		SuspectInfor.setCardReader_Switch(1);
+		suspectService.saveSuspect(SuspectInfor);
 
-		if (user == null) {
-			logger.info("用户 " + " 使用嫌疑人人身检查字段，时间："
-					+ new DateTime().toString("yyyy-MM-dd hh:mm a E"));
-			return "unLoginState";
-		} else {
-			logger.info("用户 " + user.getStaff_Name() + " 使用嫌疑人人身检查字段，时间："
-					+ new DateTime().toString("yyyy-MM-dd hh:mm a E"));
-			return "loadInfor";
-		}
+		String suspectId = SuspectInfor.getSuspect_ID();
+		request.setAttribute("SuspectInfor", SuspectInfor);
+		// logger.info("用户 " + " 使用嫌疑人人身检查字段，时间："
+		// + new DateTime().toString("yyyy-MM-dd hh:mm a E"));
+		return "unLoginState";
+
 	}
 
 	public String unlogin_load() {
@@ -129,5 +118,17 @@ public class PHCSMP_Personal_Check_Action extends
 
 	public void setBelong(List<PHCSMP_BelongingS> belongs) {
 		this.belong = belongs;
+	}
+
+	private void fullCheck() throws ClassNotFoundException {
+		Class<?> c = Class.forName(PHCSMP_Personal_Check.class.getName());// 通过反射找到该类的字段
+
+		int count = CompleteCheck.IsEqualsNull(model, c);
+		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
+
+		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
+		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
+		System.out.println("未填写的字段：" + count);
+		System.out.println("总字段：" + fieldsNumber);
 	}
 }

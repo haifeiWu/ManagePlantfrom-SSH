@@ -51,6 +51,7 @@ public class PHCSMP_Suspect implements Serializable {
 	private int recordVideo_State;// 录像状态，0：不进行录像 1：录像还未启动 2：录像已经启动 3：录像暂停
 									// 4：录像结束
 	private int is_RecordVideo_DownLoad;// 录像文件是否下载成功，0没有下载成功，1下载成功
+	private int cardReader_Switch;// 3-4新增属性默认是0，，判断0 发进指令 ，，，1发出的指令
 
 	// 此属性待定
 	// wxy增加刷卡时的指令为开始还是暂停
@@ -58,6 +59,14 @@ public class PHCSMP_Suspect implements Serializable {
 
 	public String getIdentityCard_Photo() {
 		return identityCard_Photo;
+	}
+
+	public int getCardReader_Switch() {
+		return cardReader_Switch;
+	}
+
+	public void setCardReader_Switch(int cardReader_Switch) {
+		this.cardReader_Switch = cardReader_Switch;
 	}
 
 	public int getProcess_Now() {
@@ -250,7 +259,26 @@ public class PHCSMP_Suspect implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.suspect_ID + " " + this.suspect_Name + " " + this.sex;
+		return "PHCSMP_Suspect [id=" + id + ", suspect_ID=" + suspect_ID
+				+ ", band_ID=" + band_ID + ", suspect_Name=" + suspect_Name
+				+ ", sex=" + sex + ", birthday=" + birthday + ", nation="
+				+ nation + ", phone=" + phone + ", type_ID=" + type_ID
+				+ ", identifyCard_Number=" + identifyCard_Number
+				+ ", suspected_Cause=" + suspected_Cause + ", enter_Time="
+				+ enter_Time + ", staff_ID=" + staff_ID + ", address="
+				+ address + ", now_address=" + now_address + ", total_record="
+				+ total_record + ", fill_record=" + fill_record
+				+ ", process_Now=" + process_Now + ", room_Now=" + room_Now
+				+ ", identityCard_Photo=" + identityCard_Photo
+				+ ", frontal_Photo=" + frontal_Photo + ", sideWays_Photo="
+				+ sideWays_Photo + ", recordVideo_State=" + recordVideo_State
+				+ ", is_RecordVideo_DownLoad=" + is_RecordVideo_DownLoad
+				+ ", cardReader_Switch=" + cardReader_Switch + "]";
 	}
+
+	// @Override
+	// public String toString() {
+	// return this.suspect_ID + " " + this.suspect_Name + " " + this.sex;
+	// }
 
 }

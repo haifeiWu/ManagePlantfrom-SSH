@@ -45,17 +45,17 @@
 			<li><a href="#">关于</a></li>
 		</ul>
 	</div>
-
+	<div style="position: absolute; top: 200px;left: 650px;">
+				<font color="red" size="20px"><s:fielderror fieldName="loginError"
+						theme="simple" /></font>
+	</div>
 	<div class="loginbody">
 
 		<span class="systemlogo"></span>
-
+			
 		<div class="loginbox">
 
-			<div>
-				<font color="red"><s:fielderror fieldName="loginError"
-						theme="simple" /></font>
-			</div>
+			
 			<form action="${pageContext.request.contextPath}/user_login.action"
 				method="post">
 				<ul>

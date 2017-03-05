@@ -11,6 +11,7 @@ import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
 
@@ -29,6 +30,8 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 
 	@Autowired
 	private SuspectService suspectService;
+	@Autowired
+	private LineService lineService;
 
 	/* 检查用户登录信息 */
 	public String checkUser() {
@@ -40,13 +43,14 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			return "loginError";
 		}
 	}
+
 	/**
 	 * 将图片拷贝到服务器下
+	 * 
 	 * @param path
 	 * @param fileName
 	 */
 	public String addSuspectInfor() throws Exception {
-		System.out.println("远程Addr"+request.getRemoteAddr());
 		/**
 		 * Date:2017.02.26 author:whf
 		 * 
@@ -59,16 +63,26 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		 * model.setTdentityID_Imag(picPath); // 将改图片拷贝到服务器目录下
 		 * CopyFile.copyFile(path, temp + "/" + picPath);
 		 */
+		fullCheck();
+
+		// 回路饱和性验证
+		if (lineService.isFull()) {// 可以录像
+			model.setRecordVideo_State(1);
+		}
+		// System.out.println(model.toString());
+		suspectService.saveSuspect(model);// 保存嫌疑人信息，
+		return "addSuspectInfor";
+	}
+
+	private void fullCheck() throws ClassNotFoundException {
 		Class<?> c = Class.forName(PHCSMP_Suspect.class.getName());
-		int count = CompleteCheck.IsEqualsNull(model, c);//获取model对象不为空的字段的个数
-		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);//返回实体类中总字段数
-		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数，，，3应该是除去主键、FillRecord、TotalRecord
+		int count = CompleteCheck.IsEqualsNull(model, c);// 获取model对象不为空的字段的个数
+		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);// 返回实体类中总字段数
+		model.setFill_record(fieldsNumber - count - 3);//
+		// 设置已填写的字段数，，，3应该是除去主键、FillRecord、TotalRecord
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
-		
-		suspectService.saveSuspect(model);//保存嫌疑人信息，
-		return "addSuspectInfor";
 	}
 
 	// 加载数据库的信息
@@ -83,18 +97,18 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		if (user == null) {// 在未登录状态下
 			return "unLoginState";
 		} else {
-			//登录状态下，
+			// 登录状态下，查询字典表的信息，存放到request中
 			List<PHCSMP_Band> list = suspectService.findAllBundInfor();
 			List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
 					.findAllIdentifyCardType();
 			List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
 					.findAllSuspectCause();
-
 			request.setAttribute("nEntryTime", nEntryTime);
 			request.setAttribute("bundList", list);
 			request.setAttribute("identifyCardType", identifyCardType);
 			request.setAttribute("entryTime", entryTime);
 			request.setAttribute("actionCause", actionCause);
+
 			return "loadInfor";
 		}
 	}
@@ -106,7 +120,6 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 				.findAllIdentifyCardType();
 		List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
 				.findAllSuspectCause();
-
 		request.setAttribute("bundList", list);
 		request.setAttribute("identifyCardType", identifyCardType);
 		request.setAttribute("actionCause", actionCause);
