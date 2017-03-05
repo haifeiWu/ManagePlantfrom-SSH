@@ -86,6 +86,7 @@ public class Activity_Record_Action extends ActionSupport implements
 
 		for (PHCSMP_Activity_Record activity : activitys) {// 遍历list
 			activity.setSuspect_ID(suspect_ID);
+			activity.setRoom_ID(roomId);
 			System.out.println("-----------------------" + activity.toString());
 		}
 
@@ -114,24 +115,26 @@ public class Activity_Record_Action extends ActionSupport implements
 	public String loadInfor() {
 		// 维护进出门的标志位
 		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		SuspectInfor.setCardReader_Switch(1);
-		suspectService.saveSuspect(SuspectInfor);
+		PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(roomId);
+		// System.out.println("=------------------------------------"
+		// + suspectInfor.toString());
+		suspectInfor.setCardReader_Switch(1);
+		suspectService.updateSuspect(suspectInfor);
 
-		request.setAttribute("SuspectInfor", SuspectInfor);//
+		// 测试
+		// PHCSMP_Suspect test = suspectService.findByRoomID(roomId);
+		// System.out.println("=------------------------------------"
+		// + test.toString());
+		request.setAttribute("SuspectInfor", suspectInfor);//
 		// 将信息从数据库查找到之后，存入session，更新session
 		PHCSMP_Personal_Check personal_Check = personalCheckService
-				.findInforBySuspetcId(SuspectInfor.getSuspect_ID());
-		if (personal_Check != null) {
-			request.setAttribute("personal_Check", personal_Check);
-		}
+				.findInforBySuspetcId(suspectInfor.getSuspect_ID());
+		System.out.println("-----------------------------"
+				+ personal_Check.toString());
+		request.setAttribute("personal_Check", personal_Check);
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
-				.findInforBySuspetcId(SuspectInfor.getSuspect_ID());
-		if (information_Collection != null) {
-			request.setAttribute("information_Collection",
-					information_Collection);
-		}
-
+				.findInforBySuspetcId(suspectInfor.getSuspect_ID());
+		request.setAttribute("information_Collection", information_Collection);
 		// PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 		// "user");
 		// if (user == null) {

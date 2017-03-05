@@ -214,6 +214,49 @@
 					</div>
 				</div>
 			</div>
+			<!--人身检查-->
+			<c:if test="${!empty personal_Check }"> 
+				<div class="container" style="margin-top: 0%;">
+					<div class="row">
+						<!--身份信息标题-->
+						<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
+							style="margin-top: 0%;">
+							人身检查信息:
+						</h4>
+						
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+	
+							<hr
+								style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
+	
+							<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8" style="height:150px;">
+								<tr style="padding: 0px;">
+									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">自述症状</p></td>
+									<td ><input type="text" style="width: 280px !important;" readonly="readonly" value="${personal_Check.self_ReportS}" /></td>
+									<td><p style="margin-left: 10px; margin-top:10px !important;  width: 100px !important;">信息登记房间</p></td>
+									<td><input type="text" style="width: 160px !important;" readonly="readonly" value="${personal_Check.room_ID}" /></td>
+								</tr>
+								<tr>
+									<td><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">人身检查状态</p></td>
+									<td><input type="text"  style="width: 280px !important;" readonly="readonly" value="${personal_Check.check_Situation}" /></td>
+									<td><p style="margin-left: 10px; margin-top:10px;  width: 100px !important;">办案民警</p></td>
+									<td><input type="text" style="width: 160px !important;"  readonly="readonly" value="${personal_Check.staff_ID}" /></td>
+								</tr>
+								<tr>
+									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">检查情况</p></td>
+									<td><input type="text" style="width: 280px !important;" readonly="readonly" value="${personal_Check.check_ReportS}" /></td>
+								</tr>
+							</table>
+							<hr
+								style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 10%; margin-left: -2%;" />
+						</div>
+					</div>
+				</div>
+			</c:if>
+			<!-- 信息采集 --> 
+			<c:if test="${!empty information_Collection}">
+				
+			</c:if>
 			<!--活动记录登记表-->
 			<div class="row">
 				<h4 id="activityReco"

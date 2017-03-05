@@ -259,19 +259,21 @@ public class PHCSMP_Suspect implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PHCSMP_Suspect [suspect_ID=" + suspect_ID + ", band_ID="
-				+ band_ID + ", suspect_Name=" + suspect_Name + ", sex=" + sex
-				+ ", birthday=" + birthday + ", nation=" + nation + ", phone="
-				+ phone + ", type_ID=" + type_ID + ", identifyCard_Number="
-				+ identifyCard_Number + ", suspected_Cause=" + suspected_Cause
-				+ ", enter_Time=" + enter_Time + ", staff_ID=" + staff_ID
-				+ ", address=" + address + ", now_address=" + now_address
-				+ ", total_record=" + total_record + ", fill_record="
-				+ fill_record + ", process_Now=" + process_Now + ", room_Now="
-				+ room_Now + ", identityCard_Photo=" + identityCard_Photo
+		return "PHCSMP_Suspect [id=" + id + ", suspect_ID=" + suspect_ID
+				+ ", band_ID=" + band_ID + ", suspect_Name=" + suspect_Name
+				+ ", sex=" + sex + ", birthday=" + birthday + ", nation="
+				+ nation + ", phone=" + phone + ", type_ID=" + type_ID
+				+ ", identifyCard_Number=" + identifyCard_Number
+				+ ", suspected_Cause=" + suspected_Cause + ", enter_Time="
+				+ enter_Time + ", staff_ID=" + staff_ID + ", address="
+				+ address + ", now_address=" + now_address + ", total_record="
+				+ total_record + ", fill_record=" + fill_record
+				+ ", process_Now=" + process_Now + ", room_Now=" + room_Now
+				+ ", identityCard_Photo=" + identityCard_Photo
 				+ ", frontal_Photo=" + frontal_Photo + ", sideWays_Photo="
 				+ sideWays_Photo + ", recordVideo_State=" + recordVideo_State
-				+ ", is_RecordVideo_DownLoad=" + is_RecordVideo_DownLoad + "]";
+				+ ", is_RecordVideo_DownLoad=" + is_RecordVideo_DownLoad
+				+ ", cardReader_Switch=" + cardReader_Switch + "]";
 	}
 
 	// @Override
