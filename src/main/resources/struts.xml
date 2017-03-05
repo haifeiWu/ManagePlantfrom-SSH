@@ -121,7 +121,9 @@
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
+			<result name="addTemporaryLeaveInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
+			
 		</action>
 		<!-- 生成嫌疑人信息报告 -->
 		<action name="GR_*" class="com.haifeiWu.action.GenerateReportAction"

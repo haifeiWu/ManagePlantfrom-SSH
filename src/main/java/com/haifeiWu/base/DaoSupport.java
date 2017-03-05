@@ -15,6 +15,7 @@ public interface DaoSupport<T> {
 	 * @param entity
 	 */
 	public void update(T entity);
+	
 	/**
 	 * 删除实体
 	 * @param entity
@@ -31,6 +32,13 @@ public interface DaoSupport<T> {
 	 * @return
 	 */
 	public T findSuspectPublicById(String suspectId);
+	/**
+	 * 注意该方法的使用，用于一张表中一个suspectID对应一条记录
+	 * @param suspectId
+	 * @return
+	 */
+	public T findTemporaryLeaveInfoById(String suspectId);
+	
 	/**
 	 * 通过属性名和属性值去查询
 	 * @param PropertyName 要查询的属性名称
@@ -56,4 +64,5 @@ public interface DaoSupport<T> {
 	 * 可增加一个更新方法，传入更新的属性和根据哪个属性更新，再传入对应的值
 	 * 
 	 */
+	
 }
