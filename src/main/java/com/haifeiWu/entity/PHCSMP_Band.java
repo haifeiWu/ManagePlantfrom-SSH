@@ -19,10 +19,9 @@ public class PHCSMP_Band implements Serializable {
 	private int band_ID;// 手环ID
 	private String remark;// 备注
 	private String is_Used;
-	//wxy增加V1.2版本的字段
-	private int band_Type;//手环类型（0：RFID、1：ID）
-	
-	
+	// wxy增加V1.2版本的字段
+	private int band_Type;// 手环类型（0：RFID、1：ID）
+
 	public int getBand_Type() {
 		return band_Type;
 	}

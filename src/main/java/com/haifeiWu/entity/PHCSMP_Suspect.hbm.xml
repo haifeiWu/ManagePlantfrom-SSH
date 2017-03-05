@@ -39,17 +39,27 @@
 		</property>
         
         <!-- wxy增加V1.2版本的字段 -->
-         <property name="process_Now"></property>
-        <property name="room_Now"></property>
+         <property name="process_Now" type="java.lang.Integer" >
+         	<column name="process_Now" not-null="true" default="0"/> 
+         </property>
+        <property name="room_Now" type="java.lang.Integer">
+        	<column name="room_Now" not-null="true" default="0"/> 
+        </property>
 
         <property name="identityCard_Photo"></property>  
 
         <property name="frontal_Photo"></property>
         <property name="sideWays_Photo"></property>
-        <property name="recordVideo_State"></property>
+        <property name="recordVideo_State" type="java.lang.Integer">
+        	<column name="recordVideo_State" not-null="true" default="0"/> 
+        </property>
         <!-- 设置下载结束的默认值为0 -->
         <property name="is_RecordVideo_DownLoad" type="java.lang.Integer">
         	<column name="is_RecordVideo_DownLoad" not-null="true" default="0"/> 
+        </property>
+        <!-- 2017.3.4增加 -->
+        <property name="cardReader_Switch" type="java.lang.Integer">
+        	<column name="cardReader_Switch" not-null="true" default="0"/> 
         </property>
         
     </class>

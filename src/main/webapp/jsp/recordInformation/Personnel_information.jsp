@@ -184,34 +184,33 @@
 									style="width: 95px;height: 108px;position: relative;top: -10px;" />
 									<input type="hidden" name="identityCard_Photo" value="value">
 									<p class="info_id">身份证照</p></td>
-								<td colspan="2">姓名:<input type="text" readonly="readonly"
+								<td colspan="2">姓名:<input type="text" 
 									name="suspect_Name" value="德古拉" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
-									name="sex" value="男" readonly="readonly" /></td>
-								<td>民族：<input type="text" name="nation" value="汉"
-									readonly="readonly" /></td>
+									name="sex" value="男"/></td>
+								<td>民族：<input type="text" name="nation" value="汉" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
 								<td colspan="2">出生日期：<input type="text" style="width:60%;"
-									name="birthday" value="1961" readonly="readonly" /></td>
+									name="birthday" value="1961" /></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
 								<td colspan="2">家庭住址：</td>
 							</tr>
 							<tr>
-								<td colspan="2"><textarea readonly="readonly"
-										name="address" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea
+										name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
-									name="identifyCard_Number" value="140104196108123556"
-									readonly="readonly" /></td>
+									name="identifyCard_Number" value="140104196108123556"/>
+								</td>
 							</tr>
 						</table>
 						<hr
@@ -223,7 +222,7 @@
 					</div>
 
 				</div>
-				<div class="row_1">
+				<div class="row_1" style="height: 270px; ">
 					<h4 id="personInfor"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
 					<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -298,11 +297,13 @@
 									</c:forEach>
 							</select>
 						</tr>
+						<!--  -->
 						<tr>
 							<td rowspan="4">进入办案区原因：</td>
-							<td>案由：</td>
-							<td colspan="3"><input type="text" name="suspected_Cause" /></td>
+							<!-- <td>案由：</td>
+							<td colspan="3"><input type="text" name="suspected_Cause" /></td> -->
 						</tr>
+						
 						<tr>
 							<td colspan="3">
 								<ol>
@@ -319,13 +320,13 @@
 				<div class="row_3">
 					<h4 id="confirm"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">干警签名确认</h4>
-					<table
-						class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<table class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12" style="width: 450px;">
 						<tr>
-							<td>办案民警：</td>
-							<td><input type="text" name="staff_ID" /></td>
-							<td>管理员：</td>
-							<td><input type="text" name="" value="${users.real_Name }" /></td>
+							<td style="width: 12%;">办案民警：</td>
+							<td style="width: 24%;text-align: center;"><input type="text" name="staff_ID" style="width:250px;" /></td>
+							<!--  <td>管理员：</td>
+							<td><input type="text" name="" value="${users.real_Name }" style="width:250px " /></td>
+							-->
 						</tr>
 					</table>
 					<input class="btn" type="submit" value="确认提交" onclick="Logger()" />

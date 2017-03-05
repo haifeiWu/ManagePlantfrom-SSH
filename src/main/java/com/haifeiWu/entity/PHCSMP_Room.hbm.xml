@@ -14,7 +14,9 @@
         <property name="cardReader_ID"/>
         <!-- wxy增加V1.2版本的字段 -->
         <property name="process_ID"></property>
-        <property name="line_Number"></property>
+        <property name="line_Number" type="java.lang.Integer">
+        	<column name="line_Number" not-null="true" default="0"></column>
+        </property>
         <property name="room_IPAddress"></property>
     </class>
 

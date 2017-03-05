@@ -66,46 +66,56 @@ public class RFID_ReadAction extends ActionSupport implements
 		// 调用录像,并更新录像状态(判断)// 更新嫌疑人信息，房间号、流程号
 		VedioCommandAndUpdateMessage(suspect, room);
 		// 调用websocket，干嘛用，并没啥用，作用就是像当前房间对应页面自动刷新页面
+
 		return null;// 操作成功
 	}
 
+	// 0 / 1 的 切 换 在业务逻辑中完成，只需判断
+	/**
+	 * 根据新需求更改，根据房间号和Record_Status switch和
+	 * RoomID改，录像状态的切换，（0/1入区时，1->2RFID中，3结束LeaveAction）
+	 * 
+	 * @param suspect
+	 * @param room
+	 * @throws IOException
+	 */
 	private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect,
 			PHCSMP_Room room) throws IOException {
-		if (suspect.getRecordVideo_State() != 0) {
+		if (suspect.getRecordVideo_State() != 0) {// 如果是0，也要进行相应的更新等操作
 			if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
 				Video.startRecording(room.getCardReader_ID(),
-						room.getRoom_ID(), suspect.getIdentifyCard_Number());
-				updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID(),
-						2);
-			} else if (suspect.getRecordVideo_State() == 2) {
-				// 房间号与之前一致,录像状态2，发暂停指令，置3
-				if (suspect.getRoom_Now() == room.getRoom_ID()) {
-					Video.pauseRecording(room.getCardReader_ID(),
-							room.getRoom_ID(), suspect.getIdentifyCard_Number());
-					updateSuspect(suspect, room.getRoom_ID(),
-							room.getProcess_ID(), 3);
-				} else {// 房间号与之前不一致，发重新开始指令，置2
+						room.getLine_Number(), suspect.getIdentifyCard_Number());
+				updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID());
+				save(suspect);
+			} else {// 录像状态2
+				if (suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
 					Video.restartRecording(room.getCardReader_ID(),
-							room.getRoom_ID(), suspect.getIdentifyCard_Number());
+							room.getLine_Number(),
+							suspect.getIdentifyCard_Number());
 					updateSuspect(suspect, room.getRoom_ID(),
-							room.getProcess_ID(), 2);
+							room.getProcess_ID());
+					suspect.setRecordVideo_State(2);
+					save(suspect);
+				} else {// 发暂停指令,不更新信息
+					Video.pauseRecording(room.getCardReader_ID(),
+							room.getLine_Number(),
+							suspect.getIdentifyCard_Number());
 				}
-			} else {// 这时录像状态为3
-				// 房间号与之前一致,发重新开始指令，置2
-				// 房间号与之前不一致，发重新开始指令，置2
-				Video.restartRecording(room.getCardReader_ID(),
-						room.getRoom_ID(), suspect.getIdentifyCard_Number());
-				updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID(),
-						2);
+			}
+		} else {// 状态为0，进的时候更新，出的时候不更新
+			if (suspect.getCardReader_Switch() == 0) {
+				updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID());
 			}
 		}
 	}
 
-	private void updateSuspect(PHCSMP_Suspect suspect, int roomID,
-			int processID, int recordVideo_State) {
+	private void updateSuspect(PHCSMP_Suspect suspect, int roomID, int processID) {
 		suspect.setRoom_Now(roomID);
 		suspect.setProcess_Now(processID);
-		suspect.setRecordVideo_State(recordVideo_State);
+	}
+
+	private void save(PHCSMP_Suspect suspect) {
+		suspectService.saveSuspect(suspect);
 	}
 
 	@Override
@@ -122,4 +132,36 @@ public class RFID_ReadAction extends ActionSupport implements
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
 	}
+
+	// private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect,
+	// PHCSMP_Room room) throws IOException {
+	// if (suspect.getRecordVideo_State() != 0) {
+	// if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
+	// Video.startRecording(room.getCardReader_ID(),
+	// room.getRoom_ID(), suspect.getIdentifyCard_Number());
+	// updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID(),
+	// 2);
+	// } else if (suspect.getRecordVideo_State() == 2) {
+	// // 房间号与之前一致,录像状态2，发暂停指令，置3
+	// if (suspect.getRoom_Now() == room.getRoom_ID()) {
+	// Video.pauseRecording(room.getCardReader_ID(),
+	// room.getRoom_ID(), suspect.getIdentifyCard_Number());
+	// updateSuspect(suspect, room.getRoom_ID(),
+	// room.getProcess_ID(), 3);
+	// } else {// 房间号与之前不一致，发重新开始指令，置2
+	// Video.restartRecording(room.getCardReader_ID(),
+	// room.getRoom_ID(), suspect.getIdentifyCard_Number());
+	// updateSuspect(suspect, room.getRoom_ID(),
+	// room.getProcess_ID(), 2);
+	// }
+	// } else {// 这时录像状态为3
+	// // 房间号与之前一致,发重新开始指令，置2
+	// // 房间号与之前不一致，发重新开始指令，置2
+	// Video.restartRecording(room.getCardReader_ID(),
+	// room.getRoom_ID(), suspect.getIdentifyCard_Number());
+	// updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID(),
+	// 2);
+	// }
+	// }
+	// }
 }

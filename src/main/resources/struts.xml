@@ -13,22 +13,25 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 
 	<package name="default" namespace="/" extends="struts-default">
-		<interceptors>
-			<!--日志拦截器 -->
+		<!-- <interceptors>
+			日志拦截器 
 			<interceptor name="Interceptor_LogInfo"
 				class="com.haifeiWu.interceptor.Interceptor_LogInfo" />
-			<!-- 检查登录状态的拦截器 -->
+				
+			检查登录状态的拦截器 
 			<interceptor name="CheackLoginStateInterceptor"
 				class="com.haifeiWu.interceptor.CheackLoginStateInterceptor" />
-			<!-- 自定义拦截器栈 定义一个包含权限控制的拦截器栈 -->
+				
+			自定义拦截器栈 定义一个包含权限控制的拦截器栈
 			<interceptor-stack name="mydefault">
-				<interceptor-ref name="defaultStack" />
-				<!-- <interceptor-ref name="Interceptor_LogInfo" />
-				<interceptor-ref name="CheackLoginStateInterceptor" /> -->
+				<interceptor-ref name="defaultStack" /> 
+				<interceptor-ref name="Interceptor_LogInfo" />
+				<interceptor-ref name="CheackLoginStateInterceptor" /> 
 			</interceptor-stack>
-		</interceptors>
-		<!-- 定义默认拦截器 -->
-		<default-interceptor-ref name="mydefault" />
+			
+		</interceptors> -->
+		<!-- 定义默认拦截器 
+		<default-interceptor-ref name="mydefault" />-->
 		<!-- 全局变量设置 -->
 		<global-results>
 			<result name="frequentVisit">/jsp/RfidRead/frequentVisit.jsp</result>

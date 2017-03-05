@@ -120,8 +120,19 @@ public class PHCSMP_Activity_Record implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.suspect_ID + " " + this.activity_Record + " "
-				+ this.vedio_Number;
+		return "PHCSMP_Activity_Record [activity_Record_ID="
+				+ activity_Record_ID + ", suspect_ID=" + suspect_ID
+				+ ", start_Time=" + start_Time + ", end_Time=" + end_Time
+				+ ", room_ID=" + room_ID + ", activity_Record="
+				+ activity_Record + ", vedio_Number=" + vedio_Number
+				+ ", remark=" + remark + ", staffS=" + staffS
+				+ ", total_record=" + total_record + ", fill_record="
+				+ fill_record + "]";
 	}
+
+	// @Override
+	// public String toString() {
+	// return this.suspect_ID + " " + this.start_Time + " " + this.end_Time;
+	// }
 
 }
