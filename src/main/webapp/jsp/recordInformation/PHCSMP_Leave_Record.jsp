@@ -105,15 +105,21 @@
 		$(".transient").hide();
 		$(".final").show();
 		$(".two").addClass("bg");
-		$(".two").css({"color":"#fff"});
+		$(".two").css({
+			"color" : "#fff"
+		});
 		$(".two").click(function() {
 			$(".transient").hide();
 			$(".final").show();
 			$(".two").removeClass("originbg");
 			$(".two").addClass("bg");
 			$(".on").addClass("originbg");
-			$(".two").css({"color":"#fff"});
-			$(".on").css({"color":"#000"});
+			$(".two").css({
+				"color" : "#fff"
+			});
+			$(".on").css({
+				"color" : "#000"
+			});
 		});
 		$(".on").click(function() {
 			$(".transient").show();
@@ -121,8 +127,12 @@
 			$(".on").removeClass("originbg");
 			$(".on").addClass("bg");
 			$(".two").addClass("originbg");
-			$(".on").css({"color":"#fff"});
-			$(".two").css({"color":"#000"});
+			$(".on").css({
+				"color" : "#fff"
+			});
+			$(".two").css({
+				"color" : "#000"
+			});
 		});
 
 	});
@@ -139,7 +149,7 @@
 			<!--设置标题：档案编号：-->
 			<h5 class="col-lg-12 col-md-10 text-center">
 				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="text" name="suspect_ID" value="${SuspectInfor.suspect_ID }"
+					type="text" name="suspect_ID" value="${suspectInfor.suspect_ID }"
 					readonly="readonly" />
 			</h5>
 			<!--进度条信息设置-->
@@ -195,72 +205,72 @@
 							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
 
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
-						<tr style="padding: 0px;">
-							<!--图片引入-->
-							<td rowspan="7"><img
-								style="width:89%;height: 75%;margin-left: -2%;"
-								src="${SuspectInfor.tdentityID_Imag }" />
-								<p class="info_id">身份证照</p></td>
-							<!--<td></td>-->
-							<td colspan="2">姓名:<input type="text" readonly="readonly"
-								value="${SuspectInfor.suspect_Name }" /></td>
-						</tr>
-						<!--第二行 性别 民族-->
-						<tr>
-							<td>性别：<input style="text-align: center;" type="text"
-								value="${SuspectInfor.sex }" readonly="readonly" /></td>
-							<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
-						</tr>
-						<!--第三行 出生-->
-						<tr>
-							<td colspan="2">出生：<input type="text" style="width:20%;"
-								value="${SuspectInfor.birthday }" readonly="readonly" />
-							</td>
-						</tr>
-						<!--第四行身份证住址-->
-						<tr>
-							<td colspan="2">住址：</td>
+							<tr style="padding: 0px;">
+								<!--图片引入-->
+								<td rowspan="7"><img
+									style="width:89%;height: 75%;margin-left: -2%;" <%-- src="${suspectInfor.tdentityID_Imag }" --%> />
+									<p class="info_id">身份证照</p></td>
+								<!--<td></td>-->
+								<td colspan="2">姓名:<input type="text" readonly="readonly"
+									value="${suspectInfor.suspect_Name }" /></td>
+							</tr>
+							<!--第二行 性别 民族-->
+							<tr>
+								<td>性别：<input style="text-align: center;" type="text"
+									value="${suspectInfor.sex }" readonly="readonly" /></td>
+								<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
+							</tr>
+							<!--第三行 出生-->
+							<tr>
+								<td colspan="2">出生：<input type="text" style="width:20%;"
+									value="${suspectInfor.birthday }" readonly="readonly" />
+								</td>
+							</tr>
+							<!--第四行身份证住址-->
+							<tr>
+								<td colspan="2">住址：</td>
 
-						</tr>
+							</tr>
 
-						<tr>
+							<tr>
 
-							<td colspan="2"><div style="margin-left: 25px;">
-									<textarea readonly="readonly" rows="1" cols="30">${SuspectInfor.address }</textarea>
-								</div></td>
-						</tr>
-						<tr>
-							<td></td>
-						</tr>
-						<tr>
-							<td colspan="2">身份证号码：<input type="text"
-								value="${SuspectInfor.identifyCard_Number }" readonly="readonly" /></td>
-							</td>
-						</tr>
+								<td colspan="2"><div style="margin-left: 25px;">
+										<textarea readonly="readonly" rows="1" cols="30">${suspectInfor.address }</textarea>
+									</div></td>
+							</tr>
+							<tr>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="2">身份证号码：<input type="text"
+									value="${suspectInfor.identifyCard_Number }"
+									readonly="readonly" /></td>
+								</td>
+							</tr>
 
-					</table>
+						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 		<!--离开办案区登记表-->
 		<div class="container">
-		<div class="row" >
-			<h4 id="leaveReco"
-				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				离开办案区登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
-			</h4>
-		<div id="tab">
-			<ul>
-				<li class="on">临时离开办案区</li>
-				<li class="two">最终离开办案区</li>
-			</ul>
-		</div>
-	</div>
+			<div class="row">
+				<h4 id="leaveReco"
+					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					离开办案区登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
+				</h4>
+				<div id="tab">
+					<ul>
+						<li class="on">临时离开办案区</li>
+						<li class="two">最终离开办案区</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
 	<form class="transient"
-		action="${pageContext.request.contextPath }/LR_addTransientLeaveInfor.action"
+		action="${pageContext.request.contextPath }/LR_addTemporaryLeaveInfor.action"
 		method="post">
 		<div class="container">
 			<div class="row">
@@ -272,48 +282,95 @@
 						<td>办案部门负责人签名</td>
 						<td>返回时间</td>
 					</tr>
-					<tr>
-						<td>0</td>
-						<td style="width: 35%;">
-							<div class="form-group" style="height: 30px;">
-								<div class="input-group date form_time col-md-5"
-									style="margin-left: 30%;margin-top: 2%;" data-date=""
-									data-date-format="hh:ii" data-link-field="dtp_input1">
-									<input class="form-control"
-										name="temporaryLeave[0].TempLeave_Time" type="text" value=""
-										readonly> <span class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-time"></span></span>
+					<c:if test="${!empty temporaryLeave }">
+						<tr>
+							<td>0</td>
+							<td style="width: 35%;">
+								<div class="form-group" style="height: 50px;">
+									<div class="input-group date form_time col-md-5"
+										style="margin-left: 30%;margin-top: 8%;" data-date=""
+										data-date-format="hh:ii" data-link-field="dtp_input1">
+										<input class="form-control" name="tempLeave_Time" type="text"
+											value="${temporaryLeave.tempLeave_Time }"
+											style="width:100px;margin-left:-25px;"> <span
+											class="input-group-addon"><span
+											class="glyphicon glyphicon-remove"></span></span> <span
+											class="input-group-addon"><span
+											class="glyphicon glyphicon-time"></span></span>
+									</div>
+									<input type="hidden" id="dtp_input1" value="" /><br />
 								</div>
-								<input type="hidden" id="dtp_input1" value="" /><br />
-							</div>
-						</td>
-						<td id="select"><select
-							name="temporaryLeave[0].TempLeave_Reason">
-								<option value="">---请选择---</option>
-								<option value="扣押">扣押</option>
-								<option value="暂存">暂存</option>
-								<option value="代保管">代保管</option>
-						</select></td>
-						<td style="padding:6px 0 6px 0"><input style="border-radius:6px;border:1px solid #ccc;" name="temporaryLeave[0].Staff_ID" /></td>
-						<td style="width: 35%;">
-							<div class="form-group" style="height: 30px;">
-								<div class="input-group date form_time col-md-5"
-									style="margin-left: 30%;margin-top: 2%;" data-date=""
-									data-date-format="hh:ii" data-link-field="dtp_input1">
-									<input class="form-control"
-										name="temporaryLeave[0].Return_Time" type="text" value=""
-										readonly> <span class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-time"></span></span>
+							</td>
+							<td id="select"><select name="tempLeave_Reason">
+									<option value="${temporaryLeave.tempLeave_Reason }">${temporaryLeave.tempLeave_Reason }</option>
+									<option value="扣押">扣押</option>
+									<option value="暂存">暂存</option>
+									<option value="代保管">代保管</option>
+							</select></td>
+							<td style="padding:6px 0 6px 0"><input name="staff_ID"
+								type="text" style="border-radius:6px;border:1px solid #ccc;"
+								value="${temporaryLeave.staff_ID }" /></td>
+							<td style="width: 35%;">
+								<div class="form-group" style="height: 30px;">
+									<div class="input-group date form_time col-md-5"
+										style="margin-left: 30%;margin-top: 2%;" data-date=""
+										data-date-format="hh:ii" data-link-field="dtp_input1">
+										<input class="form-control" name="return_Time" type="text"
+											value="${temporaryLeave.return_Time }"> <span
+											class="input-group-addon"><span
+											class="glyphicon glyphicon-remove"></span></span> <span
+											class="input-group-addon"><span
+											class="glyphicon glyphicon-time"></span></span>
+									</div>
+									<input type="hidden" id="dtp_input1" value="" /><br />
 								</div>
-								<input type="hidden" id="dtp_input1" value="" /><br />
-							</div>
-						</td>
-					</tr>
-					<tr>
+							</td>
+						</tr>
+					</c:if>
+
+					<c:if test="${empty temporaryLeave }">
+						<tr>
+							<td>0</td>
+							<td style="width: 35%;">
+								<div class="form-group" style="height: 30px;">
+									<div class="input-group date form_time col-md-5"
+										style="margin-left: 30%;margin-top: 2%;" data-date=""
+										data-date-format="hh:ii" data-link-field="dtp_input1">
+										<input class="form-control" name="tempLeave_Time" type="text"
+											value="" readonly> <span class="input-group-addon"><span
+											class="glyphicon glyphicon-remove"></span></span> <span
+											class="input-group-addon"><span
+											class="glyphicon glyphicon-time"></span></span>
+									</div>
+									<input type="hidden" id="dtp_input1" value="" /><br />
+								</div>
+							</td>
+							<td id="select"><select name="tempLeave_Reason">
+									<option value="">---请选择---</option>
+									<option value="扣押">扣押</option>
+									<option value="暂存">暂存</option>
+									<option value="代保管">代保管</option>
+							</select></td>
+							<td style="padding:6px 0 6px 0"><input type="text"
+								name="staff_ID" value=""
+								style="border-radius:6px;border:1px solid #ccc;" /></td>
+							<td style="width: 35%;">
+								<div class="form-group" style="height: 30px;">
+									<div class="input-group date form_time col-md-5"
+										style="margin-left: 30%;margin-top: 2%;" data-date=""
+										data-date-format="hh:ii" data-link-field="dtp_input1">
+										<input class="form-control" name="return_Time" type="text"
+											value="" readonly> <span class="input-group-addon"><span
+											class="glyphicon glyphicon-remove"></span></span> <span
+											class="input-group-addon"><span
+											class="glyphicon glyphicon-time"></span></span>
+									</div>
+									<input type="hidden" id="dtp_input1" value="" /><br />
+								</div>
+							</td>
+						</tr>
+					</c:if>
+					<!-- <tr>
 						<td>2</td>
 						<td>
 							<div class="btn" id="add">+添加</div>
@@ -322,7 +379,7 @@
 						<td></td>
 						<td></td>
 						<td></td>
-					</tr>
+					</tr> -->
 				</table>
 			</div>
 			<div class="row" style="margin-top:30px">
@@ -332,7 +389,7 @@
 				<input type="submit" value="确认提交" class="sub" />
 			</div>
 		</div>
-		
+
 	</form>
 	<!--最终离开办案区的信息表-->
 	<form class="final"
@@ -359,7 +416,7 @@
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
 						</td>
-						
+
 					</tr>
 					<tr>
 						<td>离开原因</td>
@@ -381,17 +438,20 @@
 					</tr>
 					<tr>
 						<td>未反还物品情况记载:</td>
-						<td ><textarea name="belongingS_Treatment_Record" style="border-radius:6px;"></textarea></td>
+						<td><textarea name="belongingS_Treatment_Record"
+								style="border-radius:6px;"></textarea></td>
 					</tr>
 					<tr>
 						<td>领取人签名:</td>
-						<td style="padding:8px 0 8px 0"><input style="border-radius:6px;border:1px solid #ccc;" type="text" name=""
-							value="${SuspectInfor.suspect_Name }" /></td>
+						<td style="padding:8px 0 8px 0"><input
+							style="border-radius:6px;border:1px solid #ccc;" type="text"
+							name="" value="" /></td>
 					</tr>
 					<tr>
 						<td>身份证号码:</td>
-						<td style="padding:8px 0 8px 0"><input style="border-radius:6px;border:1px solid #ccc;" type="text" name=""
-							value="${SuspectInfor.identifyCard_Number }" /></td>
+						<td style="padding:8px 0 8px 0"><input
+							style="border-radius:6px;border:1px solid #ccc;" type="text"
+							name="" value="" /></td>
 					</tr>
 					<tr>
 						<td>领取时间:</td>
