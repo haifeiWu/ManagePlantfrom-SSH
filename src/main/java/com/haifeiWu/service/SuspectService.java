@@ -56,6 +56,11 @@ public interface SuspectService {
 	 */
 	List<PHCSMP_Dic_Action_Cause> findAllSuspectCause();
 
+	/**
+	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
+	 * 
+	 * @return
+	 */
 	public PHCSMP_Suspect findBySuspetcId(String suspectId);
 
 }
