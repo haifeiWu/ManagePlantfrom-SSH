@@ -14,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 
+
+
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
 /**
@@ -63,7 +65,7 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 		getSession().update(entity);
 		tx.commit();// 提交事务
 	}
-
+	
 	@Override
 	public T findSuspectPublicById(String suspectId) {
 
@@ -140,4 +142,19 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 		tx.commit();// 提交事务
 		return list;
 	}
+    //查找当前嫌疑人出区返回时间为空的信息
+	@Override
+	public T findTemporaryLeaveInfoById(String suspectId) {
+		String hql = "from " + clazz.getName() + " t where t.suspect_ID=? and t.return_Time is null";
+		System.out.println(hql+"=---------------");
+		tx = getSession().beginTransaction();// 开启事务
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, suspectId);
+		@SuppressWarnings("unchecked")
+		T entity = (T) query.uniqueResult();
+		tx.commit();// 提交事务
+		return entity;
+	}
+
+	
 }
