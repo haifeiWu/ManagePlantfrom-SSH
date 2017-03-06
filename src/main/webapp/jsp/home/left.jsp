@@ -91,7 +91,43 @@ $(document).ready(function (){
  
      //接收到消息的回调方法
      websocket.onmessage = function (event) {
-		$("suspect").trigger("click");
+     	var aTag=document.getElementById(event.data);//获取到要实现模拟触发的元素
+     	aTag.attachEvent("onclick",function(){
+     		
+     	});
+     	
+     	mouseEvent.init
+/*      	alert("获取到节点"+event.data);
+     	aElement.target=_blank;alert("设置作用域"+event.data);
+     	aElement.click();alert("模拟点击"+event.data); */
+/*      	var oCreateEvt = $D.createEvent('MouseEvents');//模拟鼠标对象
+		oCreateEvt.initMouseEvent('click',true,true,document.defaultView,0,0,0,0,0,false,false,false,false,0,null);
+		
+		$(id).dispatchEvent(oCreateEvt); */
+		//调用document对象的createEventObject方法得到一个event的对象实例。
+/* 		var event = document.createEventObject();
+		event.eventType = 'click';
+		//触发document上绑定的自定义事件ondataavailable
+		document.fireEvent('ondataavailable', event);//事件处理的名称和创建的事件对象
+		//触发obj元素上绑定click事件
+		document.getElementById("test").onclick = function () {
+			obj.fireEvent('onclick', event);
+		}; */
+		//可以获取到a的href，去请求，并在rightFrame显示
+/* 		alert("收到消息"+event.data);
+		var aElement=document.getElementById(event.data);//获取到要实现模拟触发的元素
+		alert("获取到要实现模拟触发的元素");
+		var clickEvent=aElement.createEventObject();//创建事件
+		alert("创建事件");
+		clickEvent.eventType='click';//事件的类型为click
+		alert("事件的类型为click");
+		document.fireEvent('aElement', clickEvent);//触发事件
+		alert("--------------消息处理完毕-----------------"); */
+/* 		document.getElementById($(event.data)).onclick = function () {
+			obj.fireEvent('onclick', event);
+		};
+		aElement.dispatchEvent(event); */
+		
      };
  
      //连接关闭的回调方法

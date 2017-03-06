@@ -11,6 +11,7 @@ import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.BandService;
 import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
@@ -32,15 +33,35 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	private SuspectService suspectService;
 	@Autowired
 	private LineService lineService;
+	@Autowired
+	private BandService bandService;
 
-	/* 检查用户登录信息 */
-	public String checkUser() {
+	// 加载数据库的信息
+	public String loadInfor() {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
-		if (user != null) {
-			return "checkUser";
+
+		String entryTime = new DateTime().toString("yyy-mm-dd HH:mm");// 入区时间
+
+		String nEntryTime = new DateTime().toString("yyyy年MM月dd日");// 入区时间
+		// 饱和性验证
+
+		if (user == null) {// 在未登录状态下
+			return "unLoginState";
 		} else {
-			return "loginError";
+			// 登录状态下，查询字典表的信息，存放到request中
+			List<PHCSMP_Band> list = bandService.findAvailableBand();
+			List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
+					.findAllIdentifyCardType();
+			List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
+					.findAllSuspectCause();
+			request.setAttribute("nEntryTime", nEntryTime);
+			request.setAttribute("bundList", list);
+			request.setAttribute("identifyCardType", identifyCardType);
+			request.setAttribute("entryTime", entryTime);
+			request.setAttribute("actionCause", actionCause);
+
+			return "loadInfor";
 		}
 	}
 
@@ -69,9 +90,29 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		if (lineService.isFull()) {// 可以录像
 			model.setRecordVideo_State(1);
 		}
-		// System.out.println(model.toString());
+		// 更新手环的is_Used状态
+		PHCSMP_Band band = bandService.findBandById(model.getBand_ID());
+		band.setIs_Used("1");
+		bandService.update(band);
+		// if (bandService.find)
+		// suspectService.updateSuspect(suspectInfor);
+		System.out.println("----------------------" + model.toString());
 		suspectService.saveSuspect(model);// 保存嫌疑人信息，
+		System.out.println("----------------------"
+				+ suspectService.findBySuspetcId(model.getSuspect_ID())
+						.toString());
 		return "addSuspectInfor";
+	}
+
+	/* 检查用户登录信息 */
+	public String checkUser() {
+		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
+				"user");
+		if (user != null) {
+			return "checkUser";
+		} else {
+			return "loginError";
+		}
 	}
 
 	private void fullCheck() throws ClassNotFoundException {
@@ -85,46 +126,18 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		System.out.println("总字段：" + fieldsNumber);
 	}
 
-	// 加载数据库的信息
-	public String loadInfor() {
-		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
-				"user");
-
-		String entryTime = new DateTime().toString("yyy-mm-dd HH:mm");// 入区时间
-
-		String nEntryTime = new DateTime().toString("yyyy年MM月dd日");// 入区时间
-
-		if (user == null) {// 在未登录状态下
-			return "unLoginState";
-		} else {
-			// 登录状态下，查询字典表的信息，存放到request中
-			List<PHCSMP_Band> list = suspectService.findAllBundInfor();
-			List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
-					.findAllIdentifyCardType();
-			List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
-					.findAllSuspectCause();
-			request.setAttribute("nEntryTime", nEntryTime);
-			request.setAttribute("bundList", list);
-			request.setAttribute("identifyCardType", identifyCardType);
-			request.setAttribute("entryTime", entryTime);
-			request.setAttribute("actionCause", actionCause);
-
-			return "loadInfor";
-		}
-	}
-
-	public String unlogin_load() {
-
-		List<PHCSMP_Band> list = suspectService.findAllBundInfor();
-		List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
-				.findAllIdentifyCardType();
-		List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
-				.findAllSuspectCause();
-		request.setAttribute("bundList", list);
-		request.setAttribute("identifyCardType", identifyCardType);
-		request.setAttribute("actionCause", actionCause);
-		return "unlogin_load";
-	}
+	// public String unlogin_load() {
+	//
+	// List<PHCSMP_Band> list = bandService.findAllBundInfor();
+	// List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
+	// .findAllIdentifyCardType();
+	// List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
+	// .findAllSuspectCause();
+	// request.setAttribute("bundList", list);
+	// request.setAttribute("identifyCardType", identifyCardType);
+	// request.setAttribute("actionCause", actionCause);
+	// return "unlogin_load";
+	// }
 
 	public String updateInfor() {
 		System.out.println("档案编号：" + request.getParameter("Suspect_ID"));

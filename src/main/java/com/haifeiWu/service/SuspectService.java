@@ -2,7 +2,6 @@ package com.haifeiWu.service;
 
 import java.util.List;
 
-import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
 import com.haifeiWu.entity.PHCSMP_Suspect;
@@ -38,13 +37,6 @@ public interface SuspectService {
 	 * @return
 	 */
 	public List<PHCSMP_Suspect> getOnPoliceSuspect();
-
-	/**
-	 * 查出所有的手环信息，用于用户注册
-	 * 
-	 * @return
-	 */
-	List<PHCSMP_Band> findAllBundInfor();
 
 	/**
 	 * 查找数据库中的所有身份证类型的数据

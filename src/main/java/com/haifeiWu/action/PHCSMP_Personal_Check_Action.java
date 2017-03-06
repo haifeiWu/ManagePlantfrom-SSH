@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
+import com.haifeiWu.entity.PHCSMP_Cabinet;
+import com.haifeiWu.entity.PHCSMP_Dic_Inspection_Situation;
+import com.haifeiWu.entity.PHCSMP_Dic_Keeping_Way;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.BelongingInforService;
@@ -52,33 +55,6 @@ public class PHCSMP_Personal_Check_Action extends
 	private RoomService roomService;
 
 	/**
-	 * 添加用户人身检查信息
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
-	public String addCheckPersonInfor() throws Exception {
-		// 维护进出门的标志位
-		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		SuspectInfor.setCardReader_Switch(0);
-		suspectService.saveSuspect(SuspectInfor);
-
-		model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));// 设置人身检查的结束时间
-		List<PHCSMP_BelongingS> belongs = this.getBelong();
-		for (PHCSMP_BelongingS belong : belongs) {
-			belong.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
-			belong.setRoom_ID(model.getRoom_ID());// 设置登记信息的房间编号
-		}
-		personalCheckService.saveCheckPersonInfor(model);// 保存人身检查记录
-		belongingInforService.saveBelongInforList(belongs);// 批量保存随身物品信息
-		fullCheck();
-		logger.info("用户 " + " 提交用户嫌疑人人身检查信息，时间："
-				+ new DateTime().toString("yyyy-MM-dd hh:mm a E"));
-		return "addCheckPersonInfor";
-	}
-
-	/**
 	 * 加载上一个房间的嫌疑人的信息
 	 * 
 	 * @return
@@ -94,10 +70,56 @@ public class PHCSMP_Personal_Check_Action extends
 
 		String suspectId = SuspectInfor.getSuspect_ID();
 		request.setAttribute("SuspectInfor", SuspectInfor);
-		// logger.info("用户 " + " 使用嫌疑人人身检查字段，时间："
-		// + new DateTime().toString("yyyy-MM-dd hh:mm a E"));
-		return "unLoginState";
+		// 人身检查记录字
+		List<PHCSMP_Dic_Inspection_Situation> InspectionSituationType = personalCheckService
+				.findAllInspectionSituation();
 
+		request.setAttribute("InspectionSituationType", InspectionSituationType);
+		// 随身物品保管措施
+		List<PHCSMP_Dic_Keeping_Way> Keeping_WayType = personalCheckService
+				.findAllKeepingWay();
+		for (PHCSMP_Dic_Keeping_Way phcsmp_Dic_Keeping_Way : Keeping_WayType) {
+			System.out.println(phcsmp_Dic_Keeping_Way.toString());
+		}
+		request.setAttribute("Keeping_WayType", Keeping_WayType);
+
+		// 保管柜信息
+		List<PHCSMP_Cabinet> PHCSMPCabinetType = personalCheckService
+				.findAllPHCSMPCabinet();
+		for (PHCSMP_Cabinet phcsmp_Cabinet : PHCSMPCabinetType) {
+			System.out.println(PHCSMPCabinetType.toString());
+		}
+		request.setAttribute("PHCSMPCabinetType", PHCSMPCabinetType);
+
+		return "loadInfor";
+
+	}
+
+	/**
+	 * 添加用户人身检查信息
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String addCheckPersonInfor() throws Exception {
+		// 维护进出门的标志位
+		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
+		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
+		SuspectInfor.setCardReader_Switch(0);
+		suspectService.updateSuspect(SuspectInfor);
+
+		model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));// 设置人身检查的结束时间
+		List<PHCSMP_BelongingS> belongs = this.getBelong();
+		for (PHCSMP_BelongingS belong : belongs) {
+			belong.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
+			belong.setRoom_ID(model.getRoom_ID());// 设置登记信息的房间编号
+		}
+		personalCheckService.saveCheckPersonInfor(model);// 保存人身检查记录
+		belongingInforService.saveBelongInforList(belongs);// 批量保存随身物品信息
+		fullCheck();
+		logger.info("用户 " + " 提交用户嫌疑人人身检查信息，时间："
+				+ new DateTime().toString("yyyy-MM-dd hh:mm a E"));
+		return "addCheckPersonInfor";
 	}
 
 	public String unlogin_load() {

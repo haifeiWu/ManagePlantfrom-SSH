@@ -25,7 +25,7 @@
 				.click(
 						function() {
 							var num = $("#woods_check tr").length;
-							index = num - 2;
+							index = num -1;
 							var tdnum = $("#woods_check tr:last()").find(
 									"td:eq(0)");
 							//添加下一行
@@ -55,7 +55,7 @@
 							$("#woods_check tr").eq(
 									$("#woods_check tr").length - 2).after(
 									addrow);
-							addrow.find("td:eq(0)").html(num - 1);
+							//addrow.find("td:eq(0)").html(num - 1);
 
 							tdnum.html(num);
 
@@ -138,9 +138,9 @@
 					</h4>
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img id="img_1"src="images/1-zhengmian_04.png" /> 
-							<img id = "img_2"src="images/1-cemian_06.png" />
-						<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
-							&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
+						<img id = "img_2"src="images/1-cemian_06.png" />
+						<p  class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
+							&nbsp; &nbsp; 嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
@@ -151,9 +151,9 @@
 
 							<tr style="padding: 0px;">
 								<!--图片引入-->
-								<td rowspan="5" style="width: 25%;"><img
+								<td rowspan="6" style="width: 25%;"><img
 									style="width: 95px;height: 108px;position: relative;top: -10px;"
-									src="${SuspectInfor.tdentityID_Imag }" />
+									src="${SuspectInfor.identityCard_Photo }" />
 									<p class="info_id">身份证照</p></td>
 								<!--<td></td>-->
 								<td colspan="2">姓名:<input type="text" readonly="readonly"
@@ -180,14 +180,14 @@
 										cols="30">${SuspectInfor.address }</textarea></td>
 							</tr>
 							<tr>
-								<td><div style="margin-left: 38px;">身份证号码</div></td>
+								<td><div style="margin-left: 0px;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
 									value="${SuspectInfor.identifyCard_Number }"
 									readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr
-							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 29%; margin-left: -28%;" />
+							style="width: 90%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 30%; margin-left: -28%;" />
 					</div>
 				</div>
 				<!--第一个数据项结束-->
@@ -230,13 +230,13 @@
 					<table class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否饮酒:</td>
-							<td>是<input type="radio" name="is_Drink" /></td>
-							<td>否<input type="radio" name="is_Drink" /></td>
+							<td>是<input type="radio" name="is_Drink" value="是"/></td>
+							<td>否<input type="radio" name="is_Drink" value="否" /></td>
 						</tr>
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否患有传染性疾病:</td>
-							<td>是<input type="radio" name="isDiseases" /></td>
-							<td>否<input type="radio" name="isDiseases" /></td>
+							<td>是<input type="radio" name="is_Diseases" value="是"/></td>
+							<td>否<input type="radio" name="is_Diseases" value="否"/></td>
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -254,14 +254,17 @@
 					</h4>
 					<table class="checked_state col-lg-12 col-md-10 col-sm-10">
 						<tr>
-							<td style="width: 20%;">体表有伤 &nbsp;&nbsp;<input
-								type="checkbox" name="Check_Situation" /></td>
-							<td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input
+						<c:forEach items="${InspectionSituationType }" var="item" varStatus="status">
+							
+							<td style="width: 20%;">${item.situation_Name } &nbsp;&nbsp;<input
+								type="checkbox" name="Check_Situation" value="${item.situation_Name }"/></td>
+						</c:forEach>
+							<!-- <td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input
 								type="checkbox" name="Check_Situation" /></td>
 							<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input
 								type="checkbox" name="Check_Situation" /></td>
 							<td rowspan="2"><img src="images/check_08.png"
-								style="width: 70%; margin-left: 1%; margin-top: 3%;" /></td>
+								style="width: 70%; margin-left: 1%; margin-top: 3%;" /></td> -->
 							<!--引入体表检查图-->
 						</tr>
 						<tr>
@@ -305,12 +308,21 @@
 								name="belong[0].Belonging_Unit" /></td>
 							<td><select name="belong[0].Keeping_ID">
 									<option value="">---请选择---</option>
-									<option value="1">扣押</option>
-									<option value="2">暂存</option>
-									<option value="3">代保管</option>
+									<c:forEach items="${Keeping_WayType }" var="item" varStatus="status">
+										<option value="item.keeping_ID">${item.keeping_Name }</option>
+									</c:forEach>
+									
+									<!-- <option value="2">暂存</option>
+									<option value="3">代保管</option> -->
 							</select></td>
-							<td><input type="text" value="5"
-								name="belong[0].Cabinet_Number" /></td>
+							<td>
+								<select name="belong[0].Cabinet_Number">
+										<option value="">---请选择---</option>
+										<c:forEach items="${PHCSMPCabinetType }" var="item" varStatus="status">
+											<option value="item.cabinet_Number">${item.cabinet_Number }</option>
+										</c:forEach>
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td>2</td>

@@ -69,11 +69,13 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * @throws Exception
 	 */
 	public String addActivityRecordInfor() throws java.lang.Exception {
+
 		// 维护进出门的标志位
-		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		SuspectInfor.setCardReader_Switch(0);
-		suspectService.saveSuspect(SuspectInfor);
+		// int roomId =
+		// roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
+		// PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
+		// SuspectInfor.setCardReader_Switch(0);
+		// suspectService.saveSuspect(SuspectInfor);
 		// //通过反射加载身物品检查记录的类
 		// fullCheck();
 
@@ -86,7 +88,7 @@ public class Activity_Record_Action extends ActionSupport implements
 
 		for (PHCSMP_Activity_Record activity : activitys) {// 遍历list
 			activity.setSuspect_ID(suspect_ID);
-			activity.setRoom_ID(roomId);
+			activity.setRoom_ID(1);
 			System.out.println("-----------------------" + activity.toString());
 		}
 
@@ -120,7 +122,6 @@ public class Activity_Record_Action extends ActionSupport implements
 		// + suspectInfor.toString());
 		suspectInfor.setCardReader_Switch(1);
 		suspectService.updateSuspect(suspectInfor);
-
 		// 测试
 		// PHCSMP_Suspect test = suspectService.findByRoomID(roomId);
 		// System.out.println("=------------------------------------"

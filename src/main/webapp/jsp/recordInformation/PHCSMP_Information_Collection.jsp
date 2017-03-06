@@ -99,7 +99,7 @@
 							<!--图片引入-->
 							<td rowspan="5"><img
 								style="width:89%;height: 75%;margin-left: -2%;"
-								src="${SuspectInfor.identityID_Imag }" />
+								src="${SuspectInfor.identityCard_Photo }" />
 								<p class="info_id">身份证照</p></td>
 							<!--<td></td>-->
 							<td colspan="2">姓名:<input type="text" readonly="readonly"
@@ -109,7 +109,8 @@
 						<tr>
 							<td>性别：<input style="text-align: center;" type="text"
 								value="${SuspectInfor.sex }" readonly="readonly" /></td>
-							<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
+							<td>民族：<input type="text" value="${SuspectInfor.nation }"
+								readonly="readonly" /></td>
 						</tr>
 						<!--第三行 出生-->
 						<tr>
@@ -143,8 +144,8 @@
 					data-date="1979-09-16T05:25:07Z"
 					data-date-format="dd MM yyyy - HH:ii p"
 					data-link-field="dtp_input1">
-					<input class="form-control" name="start_time" type="text" value=""
-						readonly> <span class="input-group-addon"><span
+					<input class="form-control" name="ic_StartTime" type="text"
+						value="" readonly> <span class="input-group-addon"><span
 						class="glyphicon glyphicon-remove"></span></span> <span
 						class="input-group-addon"><span
 						class="glyphicon glyphicon-th"></span></span>
@@ -172,47 +173,82 @@
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						信息采集<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
 					</h4>
+
 					<table class="info_collect col-lg-12 col-md-10 col-sm-10">
+
 						<tr>
 							<td>信息采集:</td>
-							<td>是 &nbsp;&nbsp;<input type="radio" name="Is_Collected" /></td>
-							<td>否 &nbsp;&nbsp;<input type="radio" name="Is_Collected" /></td>
+							<td><input type="radio" name="Is_Collected" value="是"
+								checked />是</td>
+							<td><input type="radio" name="Is_Collected" value="否" />否</td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
+						
 						<tr>
 							<td>采集项目:</td>
-							<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item" />身份信息
-							</td>
-							<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item" />指纹
-							</td>
-							<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item" />血液
-							</td>
-							<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item" />尿液
-							</td>
+							<!--  -->
+							<c:forEach items="${collectionItem}" var="items"
+								varStatus="status">
+								<td><input type="checkbox" name="Collected_Item" value="${items.item_Name }" />${items.item_Name }
+								</td>
+							</c:forEach>
 							<td>&nbsp;&nbsp;其他<input type="text" name="Collected_Item" /></td>
+							<td>
+								<!--  	
+									<a class="btn btn-success"  href="toAddCourse">添加项目</a>
+									<a class="text-danger glyphicon glyphicon-remove" href="dropCourse?id=${course.id }"></a>
+									<a class="btn btn-success"  href="toSelectCourse">查询</a> 
+									<a class="text-success glyphicon glyphicon-refresh" href="toUpdateCourse?id=${course.id }"></a>
+								-->
+						</td>
+							
 						</tr>
+						
+						<!--  
+							<tr>
+								<td>采集项目:</td>
+								<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item"
+									value="身份信息" />身份信息
+								</td>
+								<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item"
+									value="指纹" />指纹
+								</td>
+								<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item"
+									value="血液" />血液
+								</td>
+								<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item"
+									value="尿液" />尿液
+								</td>
+								<td>&nbsp;&nbsp;其他<input type="text" name="Collected_Item" /></td>
+							</tr>
+						-->
 						<tr>
 							<td>信息入库:</td>
-							<td>是 &nbsp;&nbsp;<input type="radio" name="Is_Storaged" /></td>
-							<td>否 &nbsp;&nbsp;<input type="radio" name="Is_Storaged" /></td>
+							<td><input type="radio" name="Is_Storaged" value="是" checked />是
+							</td>
+							<td><input type="radio" name="Is_Storaged" value="否" />否</td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
+						
 						<tr>
 							<td>检查对比:</td>
-							<td>是 &nbsp;&nbsp;<input type="radio" name="Is_Checked" /></td>
-							<td>否 &nbsp;&nbsp;<input type="radio" name="Is_Checked" /></td>
+							<td><input type="radio" name="Is_Checked" value="是" checked />是
+							</td>
+							<td><input type="radio" name="Is_Checked" value="否" />否</td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
+
 					</table>
 					<input class="sub" type="submit" value="确认提交" onclick="Logger()" />
 					<div class="bottom" style="height: 480px;"></div>
 				</div>
+
 			</div>
 		</div>
 	</form>
