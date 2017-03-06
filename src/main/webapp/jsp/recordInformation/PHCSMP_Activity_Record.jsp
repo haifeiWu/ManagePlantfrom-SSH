@@ -54,7 +54,6 @@
 									+ "</div>"
 									+ "<input type='hidden' id='dtp_input1' value='' /><br/>"
 									+ "</div></td>"
-									+ "<td>——</td>"
 									+ "<td style='width: 35%;'>"
 									+ "<div class='form-group' style='height: 30px;width: 170%;'>"
 									+ "<div class='input-group date form_time col-md-5' style='margin-left: 8%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
@@ -64,11 +63,7 @@
 									+ "</div>"
 									+ "<input type='hidden' id='dtp_input1' value='' /><br/>"
 									+ "</div></td>"
-									+ "<td> <select name=activity["+index+"].room_ID> <option value=>---请选择---</option> <option value=101>101</option> <option value=102>102</option> <option value=103>103</option> </select> </td>"
 									+ "<td> <select name=activity["+index+"].activity_Record> <option value=>---请选择---</option> <option value=询问>询问</option> <option value=讯问>讯问</option> <option value=审讯>审讯</option><option value=传唤>传唤</option> </select> </td>"
-									+ "<td><input type=text name=activity["
-									+ index
-									+ "].vedio_Number style='height:30px;width: 65%;text-align: center;' /></td>"
 									+ "<td><input type=text name=activity["
 									+ index
 									+ "].remark style='height:30px;width: 65%;text-align: center;' /></td>"
@@ -214,6 +209,49 @@
 					</div>
 				</div>
 			</div>
+			<!--人身检查-->
+			<c:if test="${!empty personal_Check }"> 
+				<div class="container" style="margin-top: 0%;">
+					<div class="row">
+						<!--身份信息标题-->
+						<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
+							style="margin-top: 0%;">
+							人身检查信息:
+						</h4>
+						
+						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+	
+							<hr
+								style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
+	
+							<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8" style="height:150px;">
+								<tr style="padding: 0px;">
+									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">自述症状</p></td>
+									<td ><input type="text" style="width: 280px !important;" readonly="readonly" value="${personal_Check.self_ReportS}" /></td>
+									<td><p style="margin-left: 10px; margin-top:10px !important;  width: 100px !important;">信息登记房间</p></td>
+									<td><input type="text" style="width: 160px !important;" readonly="readonly" value="${personal_Check.room_ID}" /></td>
+								</tr>
+								<tr>
+									<td><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">人身检查状态</p></td>
+									<td><input type="text"  style="width: 280px !important;" readonly="readonly" value="${personal_Check.check_Situation}" /></td>
+									<td><p style="margin-left: 10px; margin-top:10px;  width: 100px !important;">办案民警</p></td>
+									<td><input type="text" style="width: 160px !important;"  readonly="readonly" value="${personal_Check.staff_ID}" /></td>
+								</tr>
+								<tr>
+									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">检查情况</p></td>
+									<td><input type="text" style="width: 280px !important;" readonly="readonly" value="${personal_Check.check_ReportS}" /></td>
+								</tr>
+							</table>
+							<hr
+								style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 10%; margin-left: -2%;" />
+						</div>
+					</div>
+				</div>
+			</c:if>
+			<!-- 信息采集 --> 
+			<c:if test="${!empty information_Collection}">
+				
+			</c:if>
 			<!--活动记录登记表-->
 			<div class="row">
 				<h4 id="activityReco"
@@ -224,54 +262,43 @@
 					<tr>
 						<td>序号</td>
 						<td>开始时间</td>
-						<td>至</td>
 						<td>结束时间</td>
-						<td>房间名称</td>
 						<td>活动内容</td>
-						<td>音视频编码</td>
+<!-- 						<td>音视频编码</td> -->
 						<td>备注</td>
 					</tr>
 					<tr>
 						<td>0</td>
-						<td style="width: 35%;">
-							<div class="form-group" style="height: 30px;width: 170%;">
+						<td style="width: 23%;">
+							<div class="form-group" style="height: 30px;width: 130%;">
 								<div class="input-group date form_time col-md-5"
-									style="margin-left: 8%;margin-top: 2%;" data-date=""
-									data-date-format="hh:ii" data-link-field="dtp_input1">
-									<input class="form-control" name="activity[0].start_Time"
-										type="text" value="" readonly><br /> <span
+									style="margin-left: 3%;margin-top: 2%;" data-date=""
+									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+									<input style="width: 130px" class="form-control" name="activity[0].start_Time"
+										type="text" value="" readonly><!--  <span
 										class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
+										class="glyphicon glyphicon-remove"> --></span></span> <span
 										class="input-group-addon"><span
 										class="glyphicon glyphicon-time"></span></span>
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
 						</td>
-						<td>——</td>
-						<td style="width: 35%;">
-							<div class="form-group" style="height: 30px;width: 170%;">
+						<td style="width: 23%;">
+							<div class="form-group" style="height: 30px;width: 130%;">
 								<div class="input-group date form_time col-md-5"
-									style="margin-left: 8%;margin-top: 2%;" data-date=""
-									data-date-format="hh:ii" data-link-field="dtp_input1">
-									<input class="form-control" name="activity[0].end_Time"
-										type="text" value="" readonly> 
-										<br /> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
+									style="margin-left: 3%;margin-top: 2%;" data-date=""
+									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
+									<input style="width: 130px" class="form-control" name="activity[0].end_Time"
+										type="text" value="" readonly> <!-- <span
+										class="input-group-addon"> --><!-- <span
+										class="glyphicon glyphicon-remove"> --></span></span> <span
 										class="input-group-addon"><span
 										class="glyphicon glyphicon-time"></span></span>
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
 						</td>
-						<td id="select"><select name="activity[0].room_ID">
-								<option value=>---请选择---</option>
-								<option value="101">101</option>
-								<option value="102">102</option>
-								<option value="103">103</option>
-								<option value="104">104</option>
-						</select></td>
 						<td id="select"><select name="activity[0].activity_Record">
 								<option value=>---请选择---</option>
 								<option value="询问">询问</option>
@@ -279,10 +306,10 @@
 								<option value="审讯">审讯</option>
 								<option value="传唤">传唤</option>
 						</select></td>
-						<td><input type="text" name="activity[0].vedio_Number"
-							value="音视频文件" style="height: 30px;text-align: center;" /></td>
+<!-- 						<td><input type="text" name="activity[0].vedio_Number"
+							value="音视频文件" style="height: 30px;text-align: center;" /></td> -->
 						<td><input type="text" name="activity[0].remark"
-							style="height: 30px;text-align: center;" /></td>
+							style="width:250px; height: 30px;text-align: center;" /></td>
 					</tr>
 					<tr>
 						<td>2</td>
@@ -293,17 +320,11 @@
 						<td></td>
 						<td></td>
 						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
 					</tr>
 				</table>
 			</div>
 			<p class="row_1">
-				注：1、按照公安部规定，嫌疑人进入办案区，需完整完成“入区登记、人身检查及信息采集”流程后<br />方可进行询问讯问等后续工作;
-			</p>
-			<p class="row_2">
-				2、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记<br />遗漏.
+				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记<br />遗漏.
 			</p>
 			<input type="submit" value="确认提交" class="sub" />
 		</div>

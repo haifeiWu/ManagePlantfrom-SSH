@@ -36,7 +36,7 @@
 		var CVR_IDCard = document.getElementById("CVR_IDCard");
 		var strReadResult = CVR_IDCard.ReadCard();
 		if (strReadResult == "0") {
-			ClearForm();
+			//ClearForm();//清空的意思
 			document.all['suspect_Name'].value = CVR_IDCard.Name;
 			document.all['sex'].value = CVR_IDCard.Sex;
 			document.all['nation'].value = CVR_IDCard.Nation;
@@ -57,7 +57,7 @@
 			 * change:直接存放base64码
 			 */
 			 var str = CVR_IDCard.Picture;//读取身份证照片的base64码
-			 var base64 = "data:image/jpg;base64"+str;//更改成代码中可以直接显示的base64编码的格式
+			 var base64 = "data:image/jpg;base64，"+str;//更改成代码中可以直接显示的base64编码的格式
 			 document.all['pic'].src = base64;//用于显示身份证照片
 			 document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {

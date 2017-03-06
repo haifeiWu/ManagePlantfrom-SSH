@@ -86,7 +86,7 @@ public class RFID_ReadAction extends ActionSupport implements
 				Video.startRecording(room.getCardReader_ID(),
 						room.getLine_Number(), suspect.getIdentifyCard_Number());
 				updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID());
-				save(suspect);
+				update(suspect);
 			} else {// 录像状态2
 				if (suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
 					Video.restartRecording(room.getCardReader_ID(),
@@ -95,7 +95,7 @@ public class RFID_ReadAction extends ActionSupport implements
 					updateSuspect(suspect, room.getRoom_ID(),
 							room.getProcess_ID());
 					suspect.setRecordVideo_State(2);
-					save(suspect);
+					update(suspect);
 				} else {// 发暂停指令,不更新信息
 					Video.pauseRecording(room.getCardReader_ID(),
 							room.getLine_Number(),
@@ -114,8 +114,8 @@ public class RFID_ReadAction extends ActionSupport implements
 		suspect.setProcess_Now(processID);
 	}
 
-	private void save(PHCSMP_Suspect suspect) {
-		suspectService.saveSuspect(suspect);
+	private void update(PHCSMP_Suspect suspect) {
+		suspectService.updateSuspect(suspect);
 	}
 
 	@Override

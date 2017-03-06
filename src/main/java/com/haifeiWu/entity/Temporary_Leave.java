@@ -23,13 +23,34 @@ public class Temporary_Leave implements Serializable {
 	private String staff_ID;// 办案民警 4
 	private int room_ID;// 信息登记房间 5
 
+	
+	public Temporary_Leave() {
+		super();
+	}
+
+	public Temporary_Leave(int temporary_Leave_Id, String suspect_ID,
+			String tempLeave_Time, String tempLeave_Reason, String return_Time,
+			String staff_ID, int room_ID) {
+		super();
+		this.temporary_Leave_Id = temporary_Leave_Id;
+		this.suspect_ID = suspect_ID;
+		this.tempLeave_Time = tempLeave_Time;
+		this.tempLeave_Reason = tempLeave_Reason;
+		this.return_Time = return_Time;
+		this.staff_ID = staff_ID;
+		this.room_ID = room_ID;
+	}
+
+
 	public int getTemporary_Leave_Id() {
 		return temporary_Leave_Id;
 	}
 
+
 	public void setTemporary_Leave_Id(int temporary_Leave_Id) {
 		this.temporary_Leave_Id = temporary_Leave_Id;
 	}
+
 
 	public String getSuspect_ID() {
 		return suspect_ID;
@@ -79,8 +100,10 @@ public class Temporary_Leave implements Serializable {
 		this.room_ID = room_ID;
 	}
 
+
 	@Override
 	public String toString() {// 重写toString方法
-		return "临时离开原因：" + this.tempLeave_Reason + "档案号：" + this.suspect_ID;
+		return "临时离开原因：" + this.tempLeave_Reason + "档案号：" + this.suspect_ID+"员工编号："+this.staff_ID+"返回时间："+this.return_Time;
 	}
+	
 }

@@ -1,5 +1,8 @@
 package com.haifeiWu.service;
 
+import java.util.List;
+
+import com.haifeiWu.entity.PHCSMP_Dic_Collection_Item;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
 
 /**
@@ -23,4 +26,5 @@ public interface InformationCollectionService {
 	 */
 	PHCSMP_Information_Collection findInforBySuspetcId(String suspectId);
 
+	public List<PHCSMP_Dic_Collection_Item> findAllCollectionItem();
 }
