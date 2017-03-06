@@ -14,10 +14,12 @@ import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.LeaveRecodService;
+import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.utils.CompleteCheck;
+import com.haifeiWu.utils.Video;
 
 /**
  * 离开办案区的action
@@ -42,6 +44,9 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private RoomService roomService;
 	@Autowired
 	private TemporaryLeaveService temporaryLeaveService;
+	@Autowired
+	private LineService lineService;
+
 	private Temporary_Leave temporaryLeave;
 	private PHCSMP_Suspect suspectInfor;
 	private String tempLeave_Time;
@@ -62,20 +67,25 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		// 打印提交的单条信息
 		System.out.println("单条信息：" + model.toString());
 
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(4);
+		// 获得RoomIP地址
 
+		String ip = request.getRemoteAddr();
+
+		PHCSMP_Room room = roomService.findbyIp(ip);
+		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(room
+				.getRoom_ID());
 		this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
 				"utf-8");
 		this.suspectID = SuspectInfor.getSuspect_ID();
 
-		/*// 打印list信息
-		List<Temporary_Leave> temporaryLeaves = this.getTemporaryLeave();
-		System.out.println("多条信息：" + temporaryLeaves.size());
-		for (Temporary_Leave temporaryLeave : temporaryLeaves) {
-			temporaryLeave.setSuspect_ID(model.getSuspect_ID());// 设置档案号
-			System.out.println(temporaryLeave.toString());
-		}
-*/
+		/*
+		 * // 打印list信息 List<Temporary_Leave> temporaryLeaves =
+		 * this.getTemporaryLeave(); System.out.println("多条信息：" +
+		 * temporaryLeaves.size()); for (Temporary_Leave temporaryLeave :
+		 * temporaryLeaves) {
+		 * temporaryLeave.setSuspect_ID(model.getSuspect_ID());// 设置档案号
+		 * System.out.println(temporaryLeave.toString()); }
+		 */
 		// 通过反射加载离开办案区记录的类
 		Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
 
@@ -87,12 +97,31 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 
-		/*leaveRecodService.saveLeaveRecordInfor(temporaryLeaves);// 保存多次临时离开的信息
-*/		leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息
+		/*
+		 * leaveRecodService.saveLeaveRecordInfor(temporaryLeaves);//
+		 * 保存多次临时离开的信息
+		 */
+		leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息
+
+		SuspectInfor.setRecordVideo_State(3);
+		SuspectInfor.setProcess_Now(-1);
+		SuspectInfor.setCardReader_Switch(1);
+		suspectService.updateSuspect(SuspectInfor);
+		System.out.println("state=" + SuspectInfor.getRecordVideo_State() + " "
+				+ "Process_Now=" + SuspectInfor.getProcess_Now());
+
+		// 停止录像
+
+		String stopRecording = Video.stopRecording(room.getCardReader_ID(),
+				room.getLine_Number(), SuspectInfor.getIdentifyCard_Number());
+		System.out.println("停止录像");
+
+		// 释放回路
+		lineService.closeLine();
+		System.out.println("释放回路");
 
 		return "addLeaveRecordInfor";
 	}
-	
 	//保存临时出区的信息
 	public String addTemporaryLeaveInfor(){
 		String roomIP=request.getRemoteAddr();
@@ -114,15 +143,15 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		//如果是出区保存信息,是出区返回则更新信息
 		if(temporaryLeave!=null){
 			temporaryLeaveService.updateTemporaryLeaveInfo(temporary_Leave);
-			System.out.println("嫌疑人出区返回"+temporary_Leave.getReturn_Time());
-		}else{
+			System.out.println("嫌疑人出区返回" + temporary_Leave.getReturn_Time());
+		} else {
 			temporaryLeaveService.saveTemporaryLeaveInfo(temporary_Leave);
 			System.out.println("嫌疑人出区");
 		}
-		
+
 		return "addTemporaryLeaveInfor";
 	}
-	
+
 	/* 加载界面信息 */
 	public String loadInfor(){
 		//加载嫌疑人信息 
@@ -217,6 +246,5 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	public void setStaff_ID(String staff_ID) {
 		this.staff_ID = staff_ID;
 	}
-	
-	
+
 }
