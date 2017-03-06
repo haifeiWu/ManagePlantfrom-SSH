@@ -122,6 +122,12 @@
 			});
 		});
 		$(".on").click(function() {
+		//如果表中有一条属于当前嫌疑人的出区返回时间为空则进行提示
+			
+			if($(".tempLeave_Time").attr("value").trim()!=null){
+				alert("经系统查询 该嫌疑人为出区返回！请填写返回时间！");
+			}
+			
 			$(".transient").show();
 			$(".final").hide();
 			$(".on").removeClass("originbg");
@@ -133,6 +139,8 @@
 			$(".two").css({
 				"color" : "#000"
 			});
+			
+			
 		});
 
 	});
@@ -290,7 +298,7 @@
 									<div class="input-group date form_time col-md-5"
 										style="margin-left: 30%;margin-top: 8%;" data-date=""
 										data-date-format="hh:ii" data-link-field="dtp_input1">
-										<input class="form-control" name="tempLeave_Time" type="text"
+										<input class="form-control tempLeave_Time" name="tempLeave_Time" type="text"
 											value="${temporaryLeave.tempLeave_Time }"
 											style="width:100px;margin-left:-25px;"> <span
 											class="input-group-addon"><span
