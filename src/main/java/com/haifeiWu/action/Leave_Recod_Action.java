@@ -98,12 +98,19 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		String roomIP=request.getRemoteAddr();
 		PHCSMP_Room room=roomService.findbyIp(roomIP);
 		suspectInfor=suspectService.findByRoomID(room.getRoom_ID());
+		
+		// 维护进出门的标志位
+		suspectInfor.setCardReader_Switch(0);
+		suspectService.updateSuspect(suspectInfor);
+		
 		//获取前台表单数据，并封装成对象.
 		Temporary_Leave temporary_Leave=new Temporary_Leave(0,suspectInfor.getSuspect_ID(),
 				tempLeave_Time, tempLeave_Reason, return_Time, model.getStaff_ID(), room.getRoom_ID());
+		
 		// 打印提交的单条信息
 		System.out.println(temporary_Leave.toString());
 		temporaryLeave=temporaryLeaveService.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
+		
 		//如果是出区保存信息,是出区返回则更新信息
 		if(temporaryLeave!=null){
 			temporaryLeaveService.updateTemporaryLeaveInfo(temporary_Leave);
@@ -122,8 +129,15 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		String roomIP=request.getRemoteAddr();
 		PHCSMP_Room room=roomService.findbyIp(roomIP);
 		suspectInfor=suspectService.findByRoomID(room.getRoom_ID());
+		
+		// 维护进出门的标志位
+		suspectInfor.setCardReader_Switch(1);
+		suspectService.updateSuspect(suspectInfor);
+		System.out.println(suspectInfor.getCardReader_Switch()+"---------------->");
+		
 		//判断是否出区返回
 		temporaryLeave=temporaryLeaveService.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
+		
 		//判断是否登录
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
