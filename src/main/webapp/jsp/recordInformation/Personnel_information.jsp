@@ -239,8 +239,7 @@
 									<!--  -->
 									<c:forEach items="${identifyCardType}" var="item"
 										varStatus="status">
-										<li><input type="checkbox" name="type_ID"
-											value="${item.type_Name }" />${item.type_Name }</li>
+										<li><input type="checkbox" name="type_ID" value="${item.type_Name }" style="width:30px;"/>${item.type_Name }</li>
 									</c:forEach>
 								</ol>
 							</td>
@@ -306,8 +305,7 @@
 						<!--  -->
 						<tr>
 							<td rowspan="4">进入办案区原因：</td>
-							<!-- <td>案由：</td>
-							<td colspan="3"><input type="text" name="suspected_Cause" /></td> -->
+							
 						</tr>
 						
 						<tr>
@@ -315,8 +313,8 @@
 								<ol>
 									<!-- 遍历案由数据的字段 -->
 									<c:forEach items="${actionCause}" var="item" varStatus="status">
-										<li><input type="checkbox" name="suspected_Cause"
-											value="${item.cause_Name }" />${item.cause_Name }</li>
+										<li>${item.cause_Name }<input type="checkbox" name="suspected_Cause"
+											value="${item.cause_Name }" style="width:30px;" /></li>
 									</c:forEach>
 								</ol>
 							</td>
@@ -330,9 +328,7 @@
 						<tr>
 							<td style="width: 12%;">办案民警：</td>
 							<td style="width: 24%;text-align: center;"><input type="text" name="staff_ID" style="width:250px;" /></td>
-							<!--  <td>管理员：</td>
-							<td><input type="text" name="" value="${users.real_Name }" style="width:250px " /></td>
-							-->
+							
 						</tr>
 					</table>
 					<input class="btn" type="submit" value="确认提交" onclick="Logger()" />
