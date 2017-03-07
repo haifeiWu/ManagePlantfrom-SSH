@@ -91,9 +91,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			model.setRecordVideo_State(1);
 		}
 		// 更新手环的is_Used状态
-		PHCSMP_Band band = bandService.findBandById(model.getBand_ID());
-		band.setIs_Used("1");
-		bandService.update(band);
+		bandService.update(1, model.getBand_ID());
 		// if (bandService.find)
 		// suspectService.updateSuspect(suspectInfor);
 		System.out.println("----------------------" + model.toString());
@@ -101,6 +99,14 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		System.out.println("----------------------"
 				+ suspectService.findBySuspetcId(model.getSuspect_ID())
 						.toString());
+
+		// 测试
+		// List<PHCSMP_Band> test = bandService.findAllBundInfor();
+		// for (PHCSMP_Band t : test) {
+		// System.out.println("------------------------------------>"
+		// + t.toString());
+		// }
+
 		return "addSuspectInfor";
 	}
 

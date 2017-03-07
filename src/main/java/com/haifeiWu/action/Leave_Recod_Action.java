@@ -1,18 +1,19 @@
 package com.haifeiWu.action;
 
 import java.net.URLDecoder;
-import java.net.UnknownHostException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.base.BaseAction;
+import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
+import com.haifeiWu.service.BandService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.RoomService;
@@ -46,6 +47,8 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private TemporaryLeaveService temporaryLeaveService;
 	@Autowired
 	private LineService lineService;
+	@Autowired
+	private BandService bandService;
 
 	private Temporary_Leave temporaryLeave;
 	private PHCSMP_Suspect suspectInfor;
@@ -102,11 +105,8 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		 * 保存多次临时离开的信息
 		 */
 		leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息
-
-		SuspectInfor.setRecordVideo_State(3);
-		SuspectInfor.setProcess_Now(-1);
-		SuspectInfor.setCardReader_Switch(1);
-		suspectService.updateSuspect(SuspectInfor);
+		// suspectService.updateSuspect(SuspectInfor);
+		suspectService.updateLeaveState(3, -1, 1, suspectInfor.getSuspect_ID());
 		System.out.println("state=" + SuspectInfor.getRecordVideo_State() + " "
 				+ "Process_Now=" + SuspectInfor.getProcess_Now());
 
@@ -119,30 +119,36 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		// 释放回路
 		lineService.closeLine();
 		System.out.println("释放回路");
-
+		// 释放手环
+		PHCSMP_Band band = bandService.findBandById(suspectInfor.getBand_ID());
+		band.setIs_Used(0);
 		return "addLeaveRecordInfor";
 	}
-	//保存临时出区的信息
-	public String addTemporaryLeaveInfor(){
-		String roomIP=request.getRemoteAddr();
-		PHCSMP_Room room=roomService.findbyIp(roomIP);
-		suspectInfor=suspectService.findByRoomID(room.getRoom_ID());
-		
+
+	// 保存临时出区的信息
+	public String addTemporaryLeaveInfor() {
+		String roomIP = request.getRemoteAddr();
+		PHCSMP_Room room = roomService.findbyIp(roomIP);
+		suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
 		// 维护进出门的标志位
-		suspectInfor.setCardReader_Switch(0);
-		suspectService.updateSuspect(suspectInfor);
-		
-		//获取前台表单数据，并封装成对象.
-		Temporary_Leave temporary_Leave=new Temporary_Leave(0,suspectInfor.getSuspect_ID(),
-				tempLeave_Time, tempLeave_Reason, return_Time, model.getStaff_ID(), room.getRoom_ID());
-		
+		suspectService.updateSwitch(0, suspectInfor.getSuspect_ID());
+
+		// 获取前台表单数据，并封装成对象.
+		Temporary_Leave temporary_Leave = new Temporary_Leave(0,
+				suspectInfor.getSuspect_ID(), tempLeave_Time, tempLeave_Reason,
+				return_Time, model.getStaff_ID(), room.getRoom_ID());
+
 		// 打印提交的单条信息
 		System.out.println(temporary_Leave.toString());
-		temporaryLeave=temporaryLeaveService.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
-		
-		//如果是出区保存信息,是出区返回则更新信息
-		if(temporaryLeave!=null){
-			temporaryLeaveService.updateTemporaryLeaveInfo(temporary_Leave);
+		temporaryLeave = temporaryLeaveService
+				.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
+
+		// 如果是出区保存信息,是出区返回则更新信息
+		if (temporaryLeave != null) {
+			// temporaryLeaveService.updateTemporaryLeaveInfo(temporary_Leave);
+			temporaryLeaveService.updateReturnTime(
+					temporary_Leave.getReturn_Time(),
+					temporary_Leave.getSuspect_ID());
 			System.out.println("嫌疑人出区返回" + temporary_Leave.getReturn_Time());
 		} else {
 			temporaryLeaveService.saveTemporaryLeaveInfo(temporary_Leave);
@@ -153,21 +159,22 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	}
 
 	/* 加载界面信息 */
-	public String loadInfor(){
-		//加载嫌疑人信息 
-		String roomIP=request.getRemoteAddr();
-		PHCSMP_Room room=roomService.findbyIp(roomIP);
-		suspectInfor=suspectService.findByRoomID(room.getRoom_ID());
-		
+	public String loadInfor() {
+		// 加载嫌疑人信息
+		String roomIP = request.getRemoteAddr();
+		PHCSMP_Room room = roomService.findbyIp(roomIP);
+		suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
+
 		// 维护进出门的标志位
-		suspectInfor.setCardReader_Switch(1);
-		suspectService.updateSuspect(suspectInfor);
-		System.out.println(suspectInfor.getCardReader_Switch()+"---------------->");
-		
-		//判断是否出区返回
-		temporaryLeave=temporaryLeaveService.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
-		
-		//判断是否登录
+		suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
+		System.out.println(suspectInfor.getCardReader_Switch()
+				+ "---------------->");
+
+		// 判断是否出区返回
+		temporaryLeave = temporaryLeaveService
+				.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
+
+		// 判断是否登录
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
 		if (user == null) {

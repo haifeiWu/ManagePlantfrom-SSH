@@ -67,7 +67,7 @@ public class RFID_ReadAction extends ActionSupport implements
 		VedioCommandAndUpdateMessage(suspect, room);
 		// 调用websocket，干嘛用，并没啥用，作用就是像当前房间对应页面自动刷新页面
 
-		return null;// 操作成功
+		return "operateSucess";// 操作成功
 	}
 
 	// 0 / 1 的 切 换 在业务逻辑中完成，只需判断
@@ -85,38 +85,43 @@ public class RFID_ReadAction extends ActionSupport implements
 			if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
 				Video.startRecording(room.getCardReader_ID(),
 						room.getLine_Number(), suspect.getIdentifyCard_Number());
-				updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID());
-				update(suspect);
+				suspectService.updateSuspect(room.getRoom_ID(),
+						room.getProcess_ID(), suspect.getSuspect_ID());
+				// update(suspect);
 			} else {// 录像状态2
 				if (suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
 					Video.restartRecording(room.getCardReader_ID(),
 							room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
-					updateSuspect(suspect, room.getRoom_ID(),
-							room.getProcess_ID());
-					suspect.setRecordVideo_State(2);
-					update(suspect);
+					suspectService.updateSuspect(room.getRoom_ID(), 2,
+							room.getProcess_ID(), suspect.getSuspect_ID());
+					// suspect.setRecordVideo_State(2);
+					// update(suspect);
 				} else {// 发暂停指令,不更新信息
-					Video.pauseRecording(room.getCardReader_ID(),
-							room.getLine_Number(),
+					String result = Video.pauseRecording(
+							room.getCardReader_ID(), room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
+					System.out
+							.println("----------------->暂停录像的结果：---" + result);
 				}
 			}
 		} else {// 状态为0，进的时候更新，出的时候不更新
 			if (suspect.getCardReader_Switch() == 0) {
-				updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID());
+				suspectService.updateSuspect(room.getRoom_ID(),
+						room.getProcess_ID(), suspect.getSuspect_ID());
 			}
 		}
 	}
 
-	private void updateSuspect(PHCSMP_Suspect suspect, int roomID, int processID) {
-		suspect.setRoom_Now(roomID);
-		suspect.setProcess_Now(processID);
-	}
+	// private void updateSuspect(PHCSMP_Suspect suspect, int roomID, int
+	// processID) {
+	// suspect.setRoom_Now(roomID);
+	// suspect.setProcess_Now(processID);
+	// }
 
-	private void update(PHCSMP_Suspect suspect) {
-		suspectService.updateSuspect(suspect);
-	}
+	// private void update(PHCSMP_Suspect suspect) {
+	// suspectService.updateSuspect(suspect);
+	// }
 
 	@Override
 	public void setServletContext(ServletContext application) {

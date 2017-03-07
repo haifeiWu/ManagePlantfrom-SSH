@@ -27,9 +27,16 @@ public class BandServiceImple extends DaoSupportImpl<PHCSMP_Band> implements
 		return bandInforDao.findAllBundInfor();
 	}
 
+	// @Override
+	// public void update(PHCSMP_Band model) {
+	// bandInforDao.update(model);
+	// }
+
 	@Override
-	public void update(PHCSMP_Band entity) {
-		bandInforDao.update(entity);
+	public void update(int isUsed, int bandID) {
+		// bandInforDao.update(entity);
+		bandInforDao.updateIsUsedByBandId(isUsed, bandID);
+
 	}
 
 	@Override

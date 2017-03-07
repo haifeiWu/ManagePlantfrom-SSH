@@ -23,4 +23,5 @@ public interface BandInforDao extends DaoSupport<PHCSMP_Band> {
 	 */
 	int findBandIdByWristId(String wristId);
 
+	public void updateIsUsedByBandId(int isUsed, int bandID);
 }

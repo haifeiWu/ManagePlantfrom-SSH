@@ -59,6 +59,16 @@ public interface SuspectService {
 	 */
 	public PHCSMP_Suspect findBySuspetcId(String suspectId);
 
-	public void updateSuspect(PHCSMP_Suspect suspectInfor);
+	public void updateSwitch(int cardReader_Switch, String suspect_ID);
+
+	public void updateLeaveState(int recordVideo_State, int process_Now,
+			int cardReader_Switch, String suspetcId);
+
+	public void updateSuspect(int room_Now, int process_Now,
+			int recordVideo_State, String suspect_ID);
+
+	public void updateSuspect(int room_Now, int process_Now, String suspect_ID);
+
+	// public void updateSuspect(PHCSMP_Suspect suspectInfor);
 
 }

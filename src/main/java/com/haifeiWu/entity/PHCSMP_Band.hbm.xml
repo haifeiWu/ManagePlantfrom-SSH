@@ -4,20 +4,16 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.haifeiWu.entity">
-
-    <class name="PHCSMP_Band" table="PHCSMP_Band" lazy="false">
+    <class name="PHCSMP_Band" table="PHCSMP_Band" dynamic-update="true" lazy="false">
     
         <id name="band_ID">
             <generator class="native"/>
         </id>
         <property name="remark"/>
-        <property name="is_Used" type="java.lang.String"> 
-			<column name="is_Used" not-null="true" default="0"/> 
-		</property>
+        
+        <property name="is_Used"/> 
 		<!-- wxy增加V1.2版本的字段 -->
-		<property name="band_Type" type="java.lang.Integer"> 
-			<column name="band_Type" not-null="true"/> 
-		</property>
+		<property name="band_Type"/> 
     </class>
 
 </hibernate-mapping>

@@ -2,6 +2,7 @@ package com.haifeiWu.action;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -47,7 +48,7 @@ public class Information_Collection_Action extends
 			return "NULL";
 		}
 		fullCheck();
-
+		model.setIc_EndTime(new DateTime().toString("yyy-mm-dd HH:mm"));
 		informationCollectionService.saveCollectionInfor(model);
 
 		return "addInformationCollection";
@@ -58,8 +59,7 @@ public class Information_Collection_Action extends
 		// 维护进出门的标志位
 		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
 		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		SuspectInfor.setCardReader_Switch(1);
-		suspectService.updateSuspect(SuspectInfor);
+		suspectService.updateSwitch(1, SuspectInfor.getSuspect_ID());
 		// 将嫌疑人信息存放到request中
 		request.setAttribute("SuspectInfor", SuspectInfor);
 		List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService

@@ -19,7 +19,9 @@ public interface BandService {
 	 */
 	List<PHCSMP_Band> findAllBundInfor();
 
-	public void update(PHCSMP_Band entity);
+	public void update(int isUsed, int bandID);
+
+	// public void update(PHCSMP_Band model);
 
 	public PHCSMP_Band findBandById(int bandId);
 }

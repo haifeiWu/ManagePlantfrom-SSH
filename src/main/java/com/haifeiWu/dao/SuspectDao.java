@@ -31,7 +31,9 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	 * @return
 	 */
 	public PHCSMP_Suspect findByBandId(int bandId);
+
 	public PHCSMP_Suspect findBySuspectID(String suspectID);
+
 	/**
 	 * 查找数据库中的所有的身份证类型的数据
 	 * 
@@ -45,16 +47,14 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	 */
 	public List<PHCSMP_Dic_Action_Cause> findAllSuspectCause();
 
+	// *
+	// * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
+	// *
+	// * @return
 
-// 	*
-// 	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
-// 	 * 
-// 	 * @return
-	
-// 	PHCSMP_Suspect selectPersonInforByBandID(int bandId);
+	// PHCSMP_Suspect selectPersonInforByBandID(int bandId);
 
 	public List<PHCSMP_Suspect> getLeavePoliceSuspect();
-
 
 	/**
 	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
@@ -63,5 +63,7 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	 */
 
 	public List<PHCSMP_Suspect> getOnPoliceSuspect();
+
+	public void updateSwitch(int i, String suspect_ID);
 
 }

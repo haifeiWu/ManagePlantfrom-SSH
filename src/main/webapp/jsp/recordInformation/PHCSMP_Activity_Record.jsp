@@ -21,7 +21,7 @@
 <script type="text/javascript">
 	var index = 0;
 	$(function() {
-		$(".form_time").datetimepicker({
+		/* $(".form_time").datetimepicker({
 			language : 'zh-CN',
 			format : 'hh:ii',
 			weekStart : 1,
@@ -32,7 +32,7 @@
 			minView : 0,
 			maxView : 1,
 			forceParse : 0
-		});
+		}); */
 
 		$("#add")
 				.click(
@@ -71,7 +71,7 @@
 							$(".active_check tr").eq(
 									$(".active_check tr").length - 2).after(
 									addrow);
-							addrow.find("td:eq(0)").html(num + 1);
+							addrow.find("td:eq(0)").html(num - 1);
 
 							tdnum.html(num);
 						});
@@ -265,20 +265,22 @@
 	
 							<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8" style="height:150px;">
 								<tr style="padding: 0px;">
-									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">办案民警</p></td>
-									<td ><input type="text" style="width: 280px !important;" readonly="readonly" value="${information_Collection.staff_ID}" /></td>
+									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">是否入库</p></td>
+									<td><input type="text" style="width: 280px !important;" readonly="readonly" value="${information_Collection.is_Storaged}" /></td>
 									<td><p style="margin-left: 10px; margin-top:10px !important;  width: 100px !important;">信息登记房间</p></td>
 									<td><input type="text" style="width: 160px !important;" readonly="readonly" value="${information_Collection.room_ID}" /></td>
 								</tr>
 								<tr>
 									<td><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">是否进行采集</p></td>
 									<td><input type="text"  style="width: 280px !important;" readonly="readonly" value="${information_Collection.is_Collected}" /></td>
-									<td><p style="margin-left: 10px; margin-top:10px;  width: 100px !important;">采集项目</p></td>
-									<td><input type="text" style="width: 160px !important;"  readonly="readonly" value="${information_Collection.collected_Item}" /></td>
+									
+									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">办案民警</p></td>
+									<td ><input type="text" style="width: 280px !important;" readonly="readonly" value="${information_Collection.staff_ID}" /></td>
 								</tr>
 								<tr>
-									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">是否入库</p></td>
-									<td><input type="text" style="width: 280px !important;" readonly="readonly" value="${information_Collection.is_Storaged}" /></td>
+								<td><p style="margin-left: 10px; margin-top:10px;  width: 100px !important;">采集项目</p></td>
+									<td><input type="text" style="width: 280px !important;"  readonly="readonly" value="${information_Collection.collected_Item}" /></td>
+									
 								</tr>
 							</table>
 							<hr
@@ -298,15 +300,14 @@
 						<td>序号</td>
 						<td>开始时间</td>
 						<td>结束时间</td>
-						<td>活动内容</td>
-<!-- 						<td>音视频编码</td> -->
+						<td>活动内容</td><!-- 						<td>音视频编码</td> -->
 						<td>备注</td>
 					</tr>
 					<tr>
 						<td>0</td>
 						<td style="width: 23%;">
 							<div class="form-group" style="height: 30px;width: 130%;">
-								<div class="input-group date form_time col-md-5"
+								<div class="input-group date form_datetime col-md-5"
 									style="margin-left: 3%;margin-top: 2%;" data-date=""
 									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
 									<input style="width: 130px" class="form-control" name="activity[0].start_Time"
@@ -318,10 +319,23 @@
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
+							<script type="text/javascript">
+								$('.form_datetime').datetimepicker({
+									language : 'zh-CN',
+									format : 'yyyy-mm-dd hh:ii',
+									weekStart : 1,
+									todayBtn : 1,
+									autoclose : 1,
+									todayHighlight : 1,
+									startView : 2,
+									forceParse : 0,
+									showMeridian : 1
+								});
+							</script>
 						</td>
 						<td style="width: 23%;">
 							<div class="form-group" style="height: 30px;width: 130%;">
-								<div class="input-group date form_time col-md-5"
+								<div class="input-group date form_datetime col-md-5"
 									style="margin-left: 3%;margin-top: 2%;" data-date=""
 									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
 									<input style="width: 130px" class="form-control" name="activity[0].end_Time"
@@ -333,6 +347,19 @@
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
+							<script type="text/javascript">
+								$('.form_datetime').datetimepicker({
+									language : 'zh-CN',
+									format : 'yyyy-mm-dd hh:ii',
+									weekStart : 1,
+									todayBtn : 1,
+									autoclose : 1,
+									todayHighlight : 1,
+									startView : 2,
+									forceParse : 0,
+									showMeridian : 1
+								});
+							</script>
 						</td>
 						<td id="select"><select name="activity[0].activity_Record">
 								<option value=>---请选择---</option>
@@ -341,8 +368,6 @@
 								<option value="审讯">审讯</option>
 								<option value="传唤">传唤</option>
 						</select></td>
-<!-- 						<td><input type="text" name="activity[0].vedio_Number"
-							value="音视频文件" style="height: 30px;text-align: center;" /></td> -->
 						<td><input type="text" name="activity[0].remark"
 							style="width:250px; height: 30px;text-align: center;" /></td>
 					</tr>

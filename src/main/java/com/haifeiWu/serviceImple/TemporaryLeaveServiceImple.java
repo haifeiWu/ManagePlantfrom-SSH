@@ -8,18 +8,21 @@ import com.haifeiWu.dao.TemporaryLeaveDao;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.TemporaryLeaveService;
 
-@Service("TemporaryLeaveService")
-public class TemporaryLeaveServiceImple extends DaoSupportImpl<Temporary_Leave> implements TemporaryLeaveService{
+@Service("temporaryLeaveService")
+public class TemporaryLeaveServiceImple extends DaoSupportImpl<Temporary_Leave>
+		implements TemporaryLeaveService {
 	@Autowired
 	private TemporaryLeaveDao temporaryLeaveDao;
+
 	@Override
 	public Temporary_Leave IsTemporaryLeaveReturn(String suspectId) {
-		Temporary_Leave temporaryLeave=temporaryLeaveDao.findTemporaryLeaveInfoById(suspectId);
-		if(temporaryLeave!=null){
-			//不为空则是出区返回
+		Temporary_Leave temporaryLeave = temporaryLeaveDao
+				.findTemporaryLeaveInfoById(suspectId);
+		if (temporaryLeave != null) {
+			// 不为空则是出区返回
 			return temporaryLeave;
-		}else{
-			//出区
+		} else {
+			// 出区
 			return null;
 		}
 	}
@@ -28,9 +31,16 @@ public class TemporaryLeaveServiceImple extends DaoSupportImpl<Temporary_Leave> 
 	public void saveTemporaryLeaveInfo(Temporary_Leave obj) {
 		temporaryLeaveDao.save(obj);
 	}
+
+	// @Override
+	// public void updateTemporaryLeaveInfo(Temporary_Leave obj) {
+	// temporaryLeaveDao.update(obj);
+	// }
+
 	@Override
-	public void updateTemporaryLeaveInfo(Temporary_Leave obj) {
-		temporaryLeaveDao.update(obj);
+	public void updateReturnTime(String return_Time, String suspect_ID) {
+		String hql = "update Temporary_Leave s set s.return_Time=? where s.suspect_ID=?";
+		temporaryLeaveDao.update(hql, return_Time, suspect_ID);
 	}
-	
+
 }

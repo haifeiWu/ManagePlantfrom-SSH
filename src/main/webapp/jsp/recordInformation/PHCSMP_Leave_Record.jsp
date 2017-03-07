@@ -124,9 +124,9 @@
 		$(".on").click(function() {
 		//如果表中有一条属于当前嫌疑人的出区返回时间为空则进行提示
 			
-			if($(".tempLeave_Time").attr("value").trim()!=null){
+			 if($(".tempLeave_Time").attr("value")!=null){
 				alert("经系统查询 该嫌疑人为出区返回！请填写返回时间！");
-			}
+			} 
 			
 			$(".transient").show();
 			$(".final").hide();
@@ -139,7 +139,6 @@
 			$(".two").css({
 				"color" : "#000"
 			});
-			
 			
 		});
 

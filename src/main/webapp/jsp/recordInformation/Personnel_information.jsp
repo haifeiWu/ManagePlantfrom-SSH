@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" %>
 <!-- 加载jstl的c标签库 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -20,6 +20,7 @@
 <script type="text/javascript" src="js/jqCss_pinfo.js"></script>
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
+
 <script type="text/javascript">
 	function ClearForm() {
 		document.all['suspect_Name'].value = "";
@@ -112,6 +113,7 @@
 </script>
 </head>
 <body>
+
 	<form class="container"
 		action="${pageContext.request.contextPath }/suspect_addSuspectInfor.action"
 		enctype="multipart/form-data" method="POST">

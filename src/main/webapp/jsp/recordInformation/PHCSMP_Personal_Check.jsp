@@ -25,7 +25,7 @@
 				.click(
 						function() {
 							var num = $("#woods_check tr").length;
-							index = num -1;
+							index = num -2;
 							var tdnum = $("#woods_check tr:last()").find(
 									"td:eq(0)");
 							//添加下一行
@@ -47,15 +47,17 @@
 									+ "<td><input type=text name=belong["
 									+ index
 									+ "].Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
-									+ "<td> <select name=belong["+index+"].Keeping_ID> <option value=>---请选择---</option> <option value=1>扣押</option> <option value=2>暂存</option> <option value=3>代保管</option> </select> </td>"
-									+ "<td><input type=text name=belong["
+									+ "<td> <select name=belong["
+									+index
+									+"].Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> </select> </td>"
+									+ "<td> <select name=belong["
 									+ index
-									+ "].Cabinet_Number style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
+									+ "].Cabinet_Number> <option value=>---请选择---</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> </select> </td>"
 									+ "</tr>";
 							$("#woods_check tr").eq(
 									$("#woods_check tr").length - 2).after(
 									addrow);
-							//addrow.find("td:eq(0)").html(num - 1);
+							addrow.find("td:eq(0)").html(num - 1);
 
 							tdnum.html(num);
 
@@ -309,7 +311,7 @@
 							<td><select name="belong[0].Keeping_ID">
 									<option value="">---请选择---</option>
 									<c:forEach items="${Keeping_WayType }" var="item" varStatus="status">
-										<option value="item.keeping_ID">${item.keeping_Name }</option>
+										<option value="${item.keeping_ID}">${item.keeping_Name }</option>
 									</c:forEach>
 									
 									<!-- <option value="2">暂存</option>
@@ -319,7 +321,7 @@
 								<select name="belong[0].Cabinet_Number">
 										<option value="">---请选择---</option>
 										<c:forEach items="${PHCSMPCabinetType }" var="item" varStatus="status">
-											<option value="item.cabinet_Number">${item.cabinet_Number }</option>
+											<option value="${item.cabinet_Number}">${item.cabinet_Number }</option>
 										</c:forEach>
 								</select>
 							</td>
@@ -342,7 +344,7 @@
 						<li>办案人员：<br />
 						<input type="text" name="Staff_ID" /></li>
 						<li>随身财物管理员：<br />
-						<input type="text" value="Staff_ID" /></li>
+						<input type="text" value="staff_ID_Belonging" /></li>
 						<li>涉案人员：<br />
 						<input type="text" value="${SuspectInfor.suspect_Name }" /></li>
 					</ul>

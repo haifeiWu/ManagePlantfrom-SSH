@@ -119,9 +119,9 @@ public class Activity_Record_Action extends ActionSupport implements
 		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
 		PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(roomId);
 		// System.out.println("=------------------------------------"
-		// + suspectInfor.toString());
-		suspectInfor.setCardReader_Switch(1);
-		suspectService.updateSuspect(suspectInfor);
+		// // + suspectInfor.toString());
+		// suspectInfor.setCardReader_Switch(1);
+		suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
 		// 测试
 		// PHCSMP_Suspect test = suspectService.findByRoomID(roomId);
 		// System.out.println("=------------------------------------"
@@ -129,7 +129,7 @@ public class Activity_Record_Action extends ActionSupport implements
 		request.setAttribute("SuspectInfor", suspectInfor);//
 		// 将信息从数据库查找到之后，存入session，更新session
 		PHCSMP_Personal_Check personal_Check = personalCheckService
-				.findInforBySuspetcId(suspectInfor.getSuspect_ID());
+				.findInforBySuspetcId(suspectInfor.getSuspect_ID());// 人身检查记录查出不止一条，考虑一对多，和多对多
 		System.out.println("-----------------------------"
 				+ personal_Check.toString());
 		request.setAttribute("personal_Check", personal_Check);
