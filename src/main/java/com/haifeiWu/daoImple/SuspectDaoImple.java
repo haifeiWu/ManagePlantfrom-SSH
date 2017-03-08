@@ -143,7 +143,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	@Override
 	public void updateSwitch(int i, String suspect_ID) {
 		hql = "update PHCSMP_Suspect s set s.cardReader_Switch=? where s.suspect_ID=?";
-		update(suspect_ID, i, suspect_ID);
+		update(hql, i, suspect_ID);
 	}
 
 	// /**

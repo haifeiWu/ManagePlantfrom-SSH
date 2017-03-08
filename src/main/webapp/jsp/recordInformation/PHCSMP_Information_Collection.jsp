@@ -171,7 +171,7 @@
 				<div class="row">
 					<h4 id="InforCollect"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						信息采集<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
+						信息采集<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 					</h4>
 
 					<table class="info_collect col-lg-12 col-md-10 col-sm-10">

@@ -25,7 +25,7 @@
 				.click(
 						function() {
 							var num = $("#woods_check tr").length;
-							index = num -2;
+							index = num -1;
 							var tdnum = $("#woods_check tr:last()").find(
 									"td:eq(0)");
 							//添加下一行
@@ -57,7 +57,7 @@
 							$("#woods_check tr").eq(
 									$("#woods_check tr").length - 2).after(
 									addrow);
-							addrow.find("td:eq(0)").html(num - 1);
+							//addrow.find("td:eq(0)").html(num - 1);
 
 							tdnum.html(num);
 
@@ -135,7 +135,7 @@
 				<div class="row">
 					<!--身份信息标题，入区事由应填写上一房间民警填写的事由-->
 					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						入区事由：<input type="text" value="${SuspectInfor.suspected_Cause }"
+						入区事由：<input style="width:400px ! important;" type="text" value="${SuspectInfor.suspected_Cause }"
 							readonly="readonly" />
 					</h4>
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
@@ -229,7 +229,7 @@
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						自述情况<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
 					</h4>
-					<table class="zishu_state col-lg-12 col-md-10 col-sm-10">
+					<table style="margin-left: 25px !important;" class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否饮酒:</td>
 							<td>是<input type="radio" name="is_Drink" value="是"/></td>
@@ -252,13 +252,13 @@
 					</table>
 					<h4 id="inspect"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						检查情况<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
+						检查情况<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 					</h4>
-					<table class="checked_state col-lg-12 col-md-10 col-sm-10">
-						<tr>
+					<table style="margin:0px 25px !important; margin-top:15px !important; block;"  class="checked_state col-lg-12 col-md-10 col-sm-10">
+						<tr style="margin:10px 0 !important;display: block; ">
 						<c:forEach items="${InspectionSituationType }" var="item" varStatus="status">
 							
-							<td style="width: 20%;">${item.situation_Name } &nbsp;&nbsp;<input
+							<td style="width: 10%;">${item.situation_Name } &nbsp;&nbsp;<input
 								type="checkbox" name="Check_Situation" value="${item.situation_Name }"/></td>
 						</c:forEach>
 							<!-- <td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input
@@ -269,23 +269,22 @@
 								style="width: 70%; margin-left: 1%; margin-top: 3%;" /></td> -->
 							<!--引入体表检查图-->
 						</tr>
-						<tr>
-							<td style="text-align: left; vertical-align: top;">检查情况:</td>
-							<td colspan="2" style="text-align: left; vertical-align: top;"><textarea
-									name="Check_ReportS"></textarea></td>
+						<tr style="margin:10px 0px !important;display: block;">
+							<td colspan="3"style="text-align: left; vertical-align: top;">检查情况：<input type="text" name="Check_ReportS"/></td>
+							<!-- <td colspan="2" style="text-align: left; vertical-align: top;">
+							<input type="text" name="Check_ReportS"/></td> -->
 						</tr>
-						<tr>
-							<td>检查民警：<br>
-							<input type="text" name="Staff_ID" value="" /></td>
-							<td colspan="3" style="text-align: center;">被检查人/监护人：<br>
-							<input type="text" value="${SuspectInfor.suspect_Name }" /></td>
+						<tr style="margin:10px 0 !important;display: block;">
+							<td>检查民警：<input type="text" name="Staff_ID" value="" /></td>
+							<%-- <td colspan="3" style="text-align: center;">被检查人/监护人：
+							<input type="text" value="${SuspectInfor.suspect_Name }" /></td> --%>
 						</tr>
 					</table>
 					<h4 id="belongInspect"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						随身财物检查登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
+						随身财物检查登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 					</h4>
-					<table id="woods_check"
+					<table style="margin-left:75px !important;" id="woods_check"
 						class="woods_check col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>序号</td>
@@ -344,9 +343,9 @@
 						<li>办案人员：<br />
 						<input type="text" name="Staff_ID" /></li>
 						<li>随身财物管理员：<br />
-						<input type="text" value="staff_ID_Belonging" /></li>
-						<li>涉案人员：<br />
-						<input type="text" value="${SuspectInfor.suspect_Name }" /></li>
+						<input type="text" name="Staff_ID_Belonging" /></li>
+						<%-- <li>涉案人员：<br />
+						<input type="text" value="${SuspectInfor.suspect_Name }" /></li> --%>
 					</ul>
 				</div>
 				<input class="sub" type="submit" value="确认提交" onclick="Logger()" />

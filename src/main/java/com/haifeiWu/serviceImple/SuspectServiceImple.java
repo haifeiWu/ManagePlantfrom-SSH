@@ -73,7 +73,7 @@ public class SuspectServiceImple implements SuspectService {
 	@Override
 	public void updateLeaveState(int recordVideo_State, int process_Now,
 			int cardReader_Switch, String suspetcId) {
-		String hql = "update PHCSMP_Suspect s set s.recordVideo_State=? s.process_Now=? s.cardReader_Switch=? where s.band_ID=?";
+		String hql = "update PHCSMP_Suspect s set s.recordVideo_State=? , s.process_Now=? , s.cardReader_Switch=? where s.suspect_ID=?";
 		suspectDao.update(hql, recordVideo_State, process_Now,
 				cardReader_Switch, suspetcId);
 
@@ -82,7 +82,7 @@ public class SuspectServiceImple implements SuspectService {
 	@Override
 	public void updateSuspect(int room_Now, int process_Now,
 			int recordVideo_State, String suspect_ID) {
-		String hql = "update PHCSMP_Suspect s set s.room_Now=? s.process_Now=? s.recordVideo_State=? where s.suspect_ID=?";
+		String hql = "update PHCSMP_Suspect s set s.room_Now=? , s.process_Now=? , s.recordVideo_State=? where s.suspect_ID=?";
 		suspectDao.update(hql, recordVideo_State, room_Now, process_Now,
 				recordVideo_State, suspect_ID);
 
@@ -90,7 +90,7 @@ public class SuspectServiceImple implements SuspectService {
 
 	@Override
 	public void updateSuspect(int room_Now, int process_Now, String suspect_ID) {
-		String hql = "update PHCSMP_Suspect s set s.room_Now=? s.process_Now=? where s.suspect_ID=?";
+		String hql = "update PHCSMP_Suspect s set s.room_Now=? , s.process_Now=? where s.suspect_ID=?";
 		suspectDao.update(hql, room_Now, process_Now, suspect_ID);
 	}
 }

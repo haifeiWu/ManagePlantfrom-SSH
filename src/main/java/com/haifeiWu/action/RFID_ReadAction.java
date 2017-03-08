@@ -55,11 +55,22 @@ public class RFID_ReadAction extends ActionSupport implements
 
 	// @Autowired
 	// private BandInforDao bandInforDao;
+	public String testSwitch() throws IOException {
+		Video.switchRecording(1, "1", 1);
+		return "ok";
+	}
 
-	public String readRFID() throws IOException {
+	public String readRFID() {
+		// try {
+		// Video.switchRecording(1, "1", 1);
+		// } catch (IOException e) {
+		// System.out.println(e.toString());
+		// }
+		// return "ok";
 		// 获取BandID和CardReader_ID
 		int cardReader_ID = Integer.parseInt(request.getParameter("deviceId"));// 设备号
-		int bandId = Integer.parseInt(request.getParameter("wristId"));// 手环id
+		int bandId = Integer.parseInt(request.getParameter("wristId"));//
+		// 手环id
 		// 通过获取的属性获取嫌疑人当前信息和所在房间的信息
 		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
 		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
@@ -80,37 +91,43 @@ public class RFID_ReadAction extends ActionSupport implements
 	 * @throws IOException
 	 */
 	private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect,
-			PHCSMP_Room room) throws IOException {
-		if (suspect.getRecordVideo_State() != 0) {// 如果是0，也要进行相应的更新等操作
-			if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
-				Video.startRecording(room.getCardReader_ID(),
-						room.getLine_Number(), suspect.getIdentifyCard_Number());
-				suspectService.updateSuspect(room.getRoom_ID(),
-						room.getProcess_ID(), suspect.getSuspect_ID());
-				// update(suspect);
-			} else {// 录像状态2
-				if (suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
-					Video.restartRecording(room.getCardReader_ID(),
+			PHCSMP_Room room) {
+		try {
+			if (suspect.getRecordVideo_State() != 0) {// 如果是0，也要进行相应的更新等操作
+				if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
+					Video.startRecording(room.getCardReader_ID(),
 							room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
-					suspectService.updateSuspect(room.getRoom_ID(), 2,
+					suspectService.updateSuspect(room.getRoom_ID(),
 							room.getProcess_ID(), suspect.getSuspect_ID());
-					// suspect.setRecordVideo_State(2);
 					// update(suspect);
-				} else {// 发暂停指令,不更新信息
-					String result = Video.pauseRecording(
-							room.getCardReader_ID(), room.getLine_Number(),
-							suspect.getIdentifyCard_Number());
-					System.out
-							.println("----------------->暂停录像的结果：---" + result);
+				} else {// 录像状态2
+					if (suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
+						Video.restartRecording(room.getCardReader_ID(),
+								room.getLine_Number(),
+								suspect.getIdentifyCard_Number());
+						suspectService.updateSuspect(room.getRoom_ID(), 2,
+								room.getProcess_ID(), suspect.getSuspect_ID());
+						// suspect.setRecordVideo_State(2);
+						// update(suspect);
+					} else {// 发暂停指令,不更新信息
+						String result = Video.pauseRecording(
+								room.getCardReader_ID(), room.getLine_Number(),
+								suspect.getIdentifyCard_Number());
+						System.out.println("----------------->暂停录像的结果：---"
+								+ result);
+					}
+				}
+			} else {// 状态为0，进的时候更新，出的时候不更新
+				if (suspect.getCardReader_Switch() == 0) {
+					suspectService.updateSuspect(room.getRoom_ID(),
+							room.getProcess_ID(), suspect.getSuspect_ID());
 				}
 			}
-		} else {// 状态为0，进的时候更新，出的时候不更新
-			if (suspect.getCardReader_Switch() == 0) {
-				suspectService.updateSuspect(room.getRoom_ID(),
-						room.getProcess_ID(), suspect.getSuspect_ID());
-			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
+
 	}
 
 	// private void updateSuspect(PHCSMP_Suspect suspect, int roomID, int

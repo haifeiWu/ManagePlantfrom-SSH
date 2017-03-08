@@ -62,7 +62,6 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	public T findSuspectPublicById(String suspectId) {
 
 		String hql = "from " + clazz.getName() + " t where t.suspect_ID=?";
-
 		System.out.println(hql);
 		tx = getSession().beginTransaction();// 开启事务
 
@@ -70,7 +69,6 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 		query.setParameter(0, suspectId);
 		@SuppressWarnings("unchecked")
 		T entity = (T) query.uniqueResult();
-
 		tx.commit();// 提交事务
 
 		return entity;

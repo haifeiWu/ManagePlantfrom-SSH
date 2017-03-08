@@ -137,6 +137,7 @@
 			method="readRFID">
 			<result name="stopRecord">/jsp/RfidRead/StopRecord.jsp</result>
 			<result name="operateSucess">/jsp/RfidRead/OperateSuccess.jsp</result>
+			<result name="ok">/jsp/RfidRead/OperateSuccess.jsp</result>
 		</action>
 
 		<!-- 嫌疑人综合信息管理 -->

@@ -38,6 +38,7 @@ public interface DaoSupport<T> {
 	 * 
 	 * @param suspectId
 	 * @return
+	 * @throws Exception
 	 */
 	public T findSuspectPublicById(String suspectId);
 
