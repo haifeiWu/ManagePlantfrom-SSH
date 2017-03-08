@@ -30,7 +30,7 @@
 		document.all['address'].value = "";
 		document.all['identifyCard_Number'].value = "";
 		document.all['pic'].src = "";
-		document.all['tdentityID_Imag'].value = "";
+		document.all['identityCard_Photo'].value = "";
 		return true;
 	}
 	function Button1_onclick() {
@@ -58,7 +58,7 @@
 			 * change:直接存放base64码
 			 */
 			 var str = CVR_IDCard.Picture;//读取身份证照片的base64码
-			 var base64 = "data:image/jpg;base64，"+str;//更改成代码中可以直接显示的base64编码的格式
+			 var base64 = "data:image/jpg;base64,"+str;//更改成代码中可以直接显示的base64编码的格式
 			 document.all['pic'].src = base64;//用于显示身份证照片
 			 document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {

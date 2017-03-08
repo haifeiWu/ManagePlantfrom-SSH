@@ -57,9 +57,6 @@ public class PHCSMP_Suspect implements Serializable {
 	// wxy增加刷卡时的指令为开始还是暂停
 	// private int startOrPauseVideo;// 0，发开始指令 1发暂停指令
 
-	public String getIdentityCard_Photo() {
-		return identityCard_Photo;
-	}
 
 	public int getCardReader_Switch() {
 		return cardReader_Switch;
@@ -85,9 +82,6 @@ public class PHCSMP_Suspect implements Serializable {
 		this.room_Now = room_Now;
 	}
 
-	public void setIdentityCard_Photo(String identityCard_Photo) {
-		this.identityCard_Photo = identityCard_Photo;
-	}
 
 	public String getFrontal_Photo() {
 		return frontal_Photo;
@@ -276,9 +270,12 @@ public class PHCSMP_Suspect implements Serializable {
 				+ ", cardReader_Switch=" + cardReader_Switch + "]";
 	}
 
-	// @Override
-	// public String toString() {
-	// return this.suspect_ID + " " + this.suspect_Name + " " + this.sex;
-	// }
+	public String getIdentityCard_Photo() {
+		return identityCard_Photo;
+	}
+
+	public void setIdentityCard_Photo(String identityCard_Photo) {
+		this.identityCard_Photo = identityCard_Photo;
+	}
 
 }

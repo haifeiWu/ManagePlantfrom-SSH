@@ -96,10 +96,11 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		// suspectService.updateSuspect(suspectInfor);
 		System.out.println("----------------------" + model.toString());
 		suspectService.saveSuspect(model);// 保存嫌疑人信息，
-		System.out.println("----------------------"
-				+ suspectService.findBySuspetcId(model.getSuspect_ID())
-						.toString());
+//		System.out.println("----------------------"
+//				+ suspectService.findBySuspetcId(model.getSuspect_ID())
+//						.toString());
 
+		System.out.println(model.getIdentityCard_Photo());
 		// 测试
 		// List<PHCSMP_Band> test = bandService.findAllBundInfor();
 		// for (PHCSMP_Band t : test) {
