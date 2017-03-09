@@ -80,6 +80,12 @@
 					入区事由:<input type="text" value="${SuspectInfor.suspected_Cause }" />
 				</h4>
 				<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
+							id="img_2" src="images/1-cemian_06.png" />
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }&nbsp;
+							&nbsp; &nbsp;嫌疑人入区登记照片</p>
+				</div>
+				<!-- <div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<img
 						style="width: 45%; height: 42%; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);"
 						src="images/1-zhengmian_04.png" /> <img
@@ -87,7 +93,7 @@
 						src="images/1-cemian_06.png" />
 					<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
 						&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
-				</div>
+				</div>  -->
 				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 					<hr
@@ -98,7 +104,7 @@
 						<tr style="padding: 0px;">
 							<!--图片引入-->
 							<td rowspan="5"><img
-								style="width:89%;height: 75%;margin-left: -2%;"
+								style="width:95px;height:108px;"
 								src="${SuspectInfor.identityCard_Photo }" />
 								<p class="info_id">身份证照</p></td>
 							<!--<td></td>-->
@@ -128,16 +134,15 @@
 									cols="30">${SuspectInfor.address }</textarea></td>
 						</tr>
 						<tr>
-							<td><div style="margin-left: 38px;">身份证号码</div></td>
+							<td><div style="margin-left: 4%;">身份证号码</div></td>
 							<td colspan="2"><input type="text"
 								value="${SuspectInfor.identifyCard_Number }" readonly="readonly" /></td>
 						</tr>
 					</table>
-					<hr
-						style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 40%; margin-left: -2%;" />
 				</div>
 			</div>
 			<!--身份证信息结束-->
+			<!-- 
 			<div class="form-group">
 				<label for="dtp_input1" class="check_time">信息采集起始时间：</label>
 				<div class="input-group date form_datetime col-md-5"
@@ -164,9 +169,11 @@
 					forceParse : 0,
 					showMeridian : 1
 				});
-			</script>
-			<hr
-				style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%; margin-left: 0%;" />
+			</script>  -->
+			<!--  
+				<hr
+					style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%; margin-left: 0%;" />
+			-->	
 			<div class="container">
 				<div class="row">
 					<h4 id="InforCollect"
