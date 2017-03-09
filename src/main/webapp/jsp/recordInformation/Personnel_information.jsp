@@ -209,8 +209,7 @@
 							</tr>
 							
 							<tr>
-								<td colspan="2"><textarea
-										name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							
 							<tr>
