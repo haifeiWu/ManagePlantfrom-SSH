@@ -131,7 +131,7 @@
 						<tr>
 							<!--<td></td>-->
 							<td colspan="2"><textarea readonly="readonly" rows="1"
-									cols="30">${SuspectInfor.address }</textarea></td>
+									cols="45">${SuspectInfor.address }</textarea></td>
 						</tr>
 						<tr>
 							<td><div style="margin-left: 4%;">身份证号码</div></td>
