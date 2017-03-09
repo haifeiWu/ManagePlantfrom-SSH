@@ -6,7 +6,7 @@ $(function(){
 //	设置身份照片
 	$(".Message td:first").css({"width":"30%","height":"7%"});
 //	设置身份证信息表的input标签
-	$(".Message tr td :input").css({"width":"18%","color":"#080808","text-align":" center",
+	$(".Message tr td :input").css({"width":"36%","color":"#080808","text-align":" center",
 	"font-family":"微软雅黑","font-size":"large","border":"hidden","background":"#fff"});
 	//设置最后一个input标签的属性样式
 	$(".Message tr td :input").last().css({"width":"80%","text-align":"left"});
@@ -16,7 +16,7 @@ $(function(){
 	//设置第二个.human_Mes 标题的样式
 	$(".human_Mes:eq(0)").css("margin-top","0%")
 	
-	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "7%","text-align":"left"});
+	$(".Message textarea").css({"width":"100%","margin-top":"-0%","margin-left": "7%","text-align":"left"});
 	//设置离开办案区登记表的样式
 	$(".transient_Leave tr:first").css({"background":"#0070c0","color":"#ffffff"})
 
