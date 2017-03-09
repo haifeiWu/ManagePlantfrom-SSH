@@ -1,5 +1,7 @@
 package com.haifeiWu.dao;
 
+import java.util.List;
+
 import com.haifeiWu.base.DaoSupport;
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Room;
@@ -19,4 +21,9 @@ public interface RoomInforDao extends DaoSupport<PHCSMP_Room>{
 	int findRoomIDByCardReaderID(int cardReaderID);
 
 	public PHCSMP_Room findByRoomID(int roomID);
+	
+	/**
+	 * 查找所有的房间信息
+	 */
+	public List<PHCSMP_Room> findRoom();
 }

@@ -1,5 +1,7 @@
 package com.haifeiWu.daoImple;
 
+import java.util.List;
+
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.RoomInforDao;
 import com.haifeiWu.entity.PHCSMP_Room;
+import com.haifeiWu.entity.PHCSMP_Suspect;
 
 /**
  * 
@@ -50,5 +53,21 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 		PHCSMP_Room room = (PHCSMP_Room) query.uniqueResult();
 		tx.commit();// 提交事务
 		return room;
+	}
+	@Override
+	public List<PHCSMP_Room> findRoom() {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "FROM PHCSMP_Room ";
+		Query query = session.createQuery(hql).setFirstResult(0)
+				.setMaxResults(5);
+
+		//query.setParameter(0, Process_Now);
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Room> phcsmp_Rooms = query.list();
+
+		tx.commit();// 提交事务
+		return phcsmp_Rooms;
 	}
 }
