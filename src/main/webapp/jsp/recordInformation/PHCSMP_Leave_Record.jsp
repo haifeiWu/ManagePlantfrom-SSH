@@ -201,61 +201,59 @@
 					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						入区事由:<input type="text" value="治安传唤" />
 					</h4>
+					<!--疑犯个人身份证信息-->
+			<div class="container">
+				<div class="row">
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
 							id="img_2" src="images/1-cemian_06.png" />
-						<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
-							&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }&nbsp;
+							&nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<hr
-							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
+							style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
 
-						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
+							<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 							<tr style="padding: 0px;">
 								<!--图片引入-->
-								<td rowspan="7"><img
-									style="width:89%;height: 75%;margin-left: -2%;" <%-- src="${suspectInfor.tdentityID_Imag }" --%> />
+								<td rowspan="5"><img id="pic" src="${suspectInfor.identityCard_Photo }"
+									style="width: 95px;height: 108px;position: relative;top: 0px;" />
+									<input type="hidden" name="identityCard_Photo" value="value">
 									<p class="info_id">身份证照</p></td>
-								<!--<td></td>-->
-								<td colspan="2">姓名:<input type="text" readonly="readonly"
-									value="${suspectInfor.suspect_Name }" /></td>
+								<td colspan="2">姓名:<input type="text" 
+									name="suspect_Name" value="${suspectInfor.suspect_Name }" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
-									value="${suspectInfor.sex }" readonly="readonly" /></td>
-								<td>民族：<input type="text" value="汉" readonly="readonly" /></td>
+									name="sex" value="${suspectInfor.sex }"/></td>
+								<td>民族：<input type="text" name="nation" value="汉" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生：<input type="text" style="width:20%;"
-									value="${suspectInfor.birthday }" readonly="readonly" />
-								</td>
+								<td colspan="2">出生日期：<input type="text" style="width:60%;"
+									name="birthday" value="${suspectInfor.birthday }" /></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
-								<td colspan="2">住址：</td>
-
-							</tr>
-
-							<tr>
-
-								<td colspan="2"><div style="margin-left: 25px;">
-										<textarea readonly="readonly" rows="1" cols="30">${suspectInfor.address }</textarea>
-									</div></td>
+								<td colspan="2">家庭住址：</td>
 							</tr>
 							<tr>
-								<td></td>
+								<td colspan="2"><textarea
+										name="address" rows="1" cols="45">${suspectInfor.address }</textarea></td>
 							</tr>
+							
 							<tr>
-								<td colspan="2">身份证号码：<input type="text"
-									value="${suspectInfor.identifyCard_Number }"
-									readonly="readonly" /></td>
+								<td><div style="margin-left: 4%;">身份证号码</div></td>
+								<td colspan="2"><input type="text"
+									name="identifyCard_Number" value="${suspectInfor.identifyCard_Number }"/>
 								</td>
-							</tr>
 
+							</tr>
 						</table>
+						<hr
+							style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
 					</div>
 				</div>
 			</div>
@@ -294,12 +292,12 @@
 							<td>0</td>
 							<td style="width: 35%;">
 								<div class="form-group" style="height: 50px;">
-									<div class="input-group date form_time col-md-5"
-										style="margin-left: 30%;margin-top: 8%;" data-date=""
+									<div style="width:100px!important;" class="input-group date form_time"
+										style="margin-left: 19%;margin-top: 8%;width:60px;" data-date=""
 										data-date-format="hh:ii" data-link-field="dtp_input1">
 										<input class="form-control tempLeave_Time" name="tempLeave_Time" type="text"
 											value="${temporaryLeave.tempLeave_Time }"
-											style="width:100px;margin-left:-25px;"> <span
+											style="width:100px!important;margin-left:-25px;"> <span
 											class="input-group-addon"><span
 											class="glyphicon glyphicon-remove"></span></span> <span
 											class="input-group-addon"><span
@@ -340,8 +338,8 @@
 							<td>0</td>
 							<td style="width: 35%;">
 								<div class="form-group" style="height: 30px;">
-									<div class="input-group date form_time col-md-5"
-										style="margin-left: 30%;margin-top: 2%;" data-date=""
+									<div class="input-group date form_time col-md-7"
+										style="margin-left: 19%;margin-top: 2%;" data-date=""
 										data-date-format="hh:ii" data-link-field="dtp_input1">
 										<input class="form-control" name="tempLeave_Time" type="text"
 											value="" readonly> <span class="input-group-addon"><span
@@ -363,8 +361,8 @@
 								style="border-radius:6px;border:1px solid #ccc;" /></td>
 							<td style="width: 35%;">
 								<div class="form-group" style="height: 30px;">
-									<div class="input-group date form_time col-md-5"
-										style="margin-left: 30%;margin-top: 2%;" data-date=""
+									<div class="input-group date form_time col-md-7"
+										style="margin-left: 19%;margin-top: 2%;" data-date=""
 										data-date-format="hh:ii" data-link-field="dtp_input1">
 										<input class="form-control" name="return_Time" type="text"
 											value="" readonly> <span class="input-group-addon"><span
@@ -445,19 +443,19 @@
 					</tr>
 					<tr>
 						<td>未反还物品情况记载:</td>
-						<td><textarea name="belongingS_Treatment_Record"
-								style="border-radius:6px;"></textarea></td>
+						<td style="padding: 8px 0;"><input name="belongingS_Treatment_Record"
+								style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;"/></td>
 					</tr>
 					<tr>
 						<td>领取人签名:</td>
 						<td style="padding:8px 0 8px 0"><input
-							style="border-radius:6px;border:1px solid #ccc;" type="text"
+							style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
 							name="" value="" /></td>
 					</tr>
 					<tr>
 						<td>身份证号码:</td>
 						<td style="padding:8px 0 8px 0"><input
-							style="border-radius:6px;border:1px solid #ccc;" type="text"
+							style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
 							name="" value="" /></td>
 					</tr>
 					<tr>
