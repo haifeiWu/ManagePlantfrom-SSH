@@ -91,16 +91,18 @@ h1 {
 
 /*引入图片嫌疑人,正面与侧面*/
 #img_1 {
-	width: 45%;
-	height: 42%;
+	margin-left: 17%;
+	width: 120px;
+	height: 156px;
 	-webkit-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7); /*兼容谷歌*/
 	-moz-box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7); /*兼容火狐*/
 	box-shadow: 0px 2px 0px rgba(0, 1, 1, 0.7); /*兼容ie*/
 }
 
 #img_2 {
-	width: 53%;
-	height: 90%;
+	
+	width: 120px;
+	height: 156px;
 	-webkit-box-shadow: 2px 4px 4px rgba(0, 1, 1, 0.7); /*兼容谷歌*/
 	-moz-box-shadow: 2px 4px 4px rgba(0, 1, 1, 0.7); /*兼容火狐*/
 	box-shadow: 2px 4px 4px rgba(0, 1, 1, 0.7); /*兼容opera或者ie9以上*/
@@ -215,22 +217,25 @@ textarea {
 /*身份证照下方文字信息*/
 .info_id {
 	background: #389ac7;
-	width: 87%;
-	margin-left: 0%;
-	height: 40px;
-	line-height: 40px;
+	height: 30px;
+	width: 95px;
+	
+	line-height: 30px;
 	color: #fff;
 	text-align: center;
 }
 /*照片正面,侧面下方文字信息*/
 .date_pic {
 	background: #389ac7;
-	width: 98.5%;
-	height: 30%;
+	width: 246px;
+	height: 40px;
 	color: #FFFFFF;
 	text-align: center;
 	line-height: 40px;
-	margin-top: 0.2%;
+	position: relative;
+	left: 51px;
+	margin: 0px;
+	font-size: 12px;
 	-webkit-box-shadow: 2px 3px 4px rgba(0, 1, 1, 0.8); /*兼容谷歌*/
 	-moz-box-shadow: 2px 3px 4px rgba(0, 1, 1, 0.8); /*兼容火狐*/
 	box-shadow: 2px 3px 4px rgba(0, 1, 1, 0.8); /*兼容opera或者ie9以上*/

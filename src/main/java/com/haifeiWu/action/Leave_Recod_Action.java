@@ -1,5 +1,7 @@
 package com.haifeiWu.action;
 
+import java.net.URLDecoder;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -73,21 +75,16 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		String ip = request.getRemoteAddr();
 
 		PHCSMP_Room room = roomService.findbyIp(ip);
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(room
-				.getRoom_ID());
-		/*
-		 * this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
-		 * "utf-8"); this.suspectID = SuspectInfor.getSuspect_ID();
-		 */
+		int room_id=room.getRoom_ID();
+		System.out.println("获取到roomid为"+room_id);
+		PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(room_id
+				);
+		
+//		this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
+//				"utf-8");
+//		this.suspectID = SuspectInfor.getSuspect_ID();
 
-		/*
-		 * // 打印list信息 List<Temporary_Leave> temporaryLeaves =
-		 * this.getTemporaryLeave(); System.out.println("多条信息：" +
-		 * temporaryLeaves.size()); for (Temporary_Leave temporaryLeave :
-		 * temporaryLeaves) {
-		 * temporaryLeave.setSuspect_ID(model.getSuspect_ID());// 设置档案号
-		 * System.out.println(temporaryLeave.toString()); }
-		 */
+		
 		// 通过反射加载离开办案区记录的类
 		Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
 
@@ -99,22 +96,17 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 
-		/*
-		 * leaveRecodService.saveLeaveRecordInfor(temporaryLeaves);//
-		 * 保存多次临时离开的信息
-		 */
+		
 		leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息
 		// suspectService.updateSuspect(SuspectInfor);
-		System.out.println("------------------->"
-				+ suspectInfor.getSuspect_ID());
-		suspectService.updateLeaveState(3, -1, 1, suspectInfor.getSuspect_ID());// 有可能是suspect为空
-		System.out.println("state=" + SuspectInfor.getRecordVideo_State() + " "
-				+ "Process_Now=" + SuspectInfor.getProcess_Now());
+		suspectService.updateLeaveState(3, -1, 1, suspectInfor.getSuspect_ID());
+		System.out.println("state=" + suspectInfor.getRecordVideo_State() + " "
+				+ "Process_Now=" + suspectInfor.getProcess_Now());
 
 		// 停止录像
 
 		String stopRecording = Video.stopRecording(room.getCardReader_ID(),
-				room.getLine_Number(), SuspectInfor.getIdentifyCard_Number());
+				room.getLine_Number(), suspectInfor.getIdentifyCard_Number());
 		System.out.println("停止录像");
 
 		// 释放回路
@@ -174,10 +166,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		// 判断是否出区返回
 		temporaryLeave = temporaryLeaveService
 				.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
-		/*
-		 * System.out .println(temporaryLeave.toString() +
-		 * "------------------------------------------------------------->");
-		 */
+
 		// 判断是否登录
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");

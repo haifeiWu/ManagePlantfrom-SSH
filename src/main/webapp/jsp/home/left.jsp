@@ -108,9 +108,9 @@ $(document).ready(function (){
     </ul>    
     </dd> 
     
-    <dd><div class="title"><span><img src="images/leftico03.png" /></span>采集设备管理</div>
+    <dd><div class="title"><span><img src="images/leftico03.png" /></span>房间管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/roomManage_loadInfor.action" target="rightFrame">查看所有房间</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>

@@ -38,6 +38,12 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	private static final long serialVersionUID = 1L;
 
+	//记录开始时间的私有变量
+	private String start_time_time;
+	
+
+	
+
 	// 用于多条记录的提取，一条人身检查记录对应多个随身物品登记记录
 	private List<PHCSMP_BelongingS> belong = new ArrayList<PHCSMP_BelongingS>();
 	private Logger logger = Logger
@@ -67,7 +73,8 @@ public class PHCSMP_Personal_Check_Action extends
 		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
 		SuspectInfor.setCardReader_Switch(1);
 		suspectService.saveSuspect(SuspectInfor);
-
+		start_time_time= new DateTime().toString("yyyy-MM-dd HH:mm");
+		request.setAttribute("start_time_time", start_time_time);
 		String suspectId = SuspectInfor.getSuspect_ID();
 		request.setAttribute("SuspectInfor", SuspectInfor);
 		// 人身检查记录字
@@ -90,7 +97,8 @@ public class PHCSMP_Personal_Check_Action extends
 			System.out.println(PHCSMPCabinetType.toString());
 		}
 		request.setAttribute("PHCSMPCabinetType", PHCSMPCabinetType);
-
+//		System.out.println("开始时间："+start_time_time.toString());
+		
 		return "loadInfor";
 
 	}
@@ -103,9 +111,11 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	public String addCheckPersonInfor() throws Exception {
 		// 维护进出门的标志位
+//		System.out.println("加载开始时间前："+start_time_time.toString());
 		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
 		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
 		suspectService.updateSwitch(0, SuspectInfor.getSuspect_ID());
+//		model.setCheck_StartTime(start_time_time);
 		model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));// 设置人身检查的结束时间
 		String[] str = model.getStaff_ID().split(",");
 		model.setStaff_ID(str[0]);
@@ -124,11 +134,13 @@ public class PHCSMP_Personal_Check_Action extends
 			// + belong.toString());
 
 		}
+//		System.out.println("加载开始时间后："+start_time_time.toString());
 		personalCheckService.saveCheckPersonInfor(model);// 保存人身检查记录
 		belongingInforService.saveBelongInforList(belongs);// 批量保存随身物品信息
 		fullCheck();
 		// logger.info("用户 " + " 提交用户嫌疑人人身检查信息，时间："
 		// + new DateTime().toString("yyyy-MM-dd hh:mm a E"));
+//		System.out.println("开始时间："+start_time_time.toString());
 		return "addCheckPersonInfor";
 	}
 
@@ -162,5 +174,12 @@ public class PHCSMP_Personal_Check_Action extends
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
+	}
+	public String getStart_time_time() {
+		return start_time_time;
+	}
+
+	public void setStart_time_time(String start_time_time) {
+		this.start_time_time = start_time_time;
 	}
 }

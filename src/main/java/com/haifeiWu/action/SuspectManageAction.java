@@ -20,7 +20,7 @@ import com.haifeiWu.service.SuspectService;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * 嫌疑人信息管理action，待查嫌疑人信息，历史嫌疑人信息
+ * 嫌疑人信息管理action，待查嫌疑人信息，历史嫌疑人信息/demoone
  * 
  * @author wuhaifei
  * @d2016年10月17日

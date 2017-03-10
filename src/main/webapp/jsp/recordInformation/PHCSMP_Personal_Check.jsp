@@ -147,13 +147,13 @@
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 						<hr
-							style="width: 75%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 2%;margin-left: -28%;" />
+							style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
 
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
 							<tr style="padding: 0px;">
 								<!--图片引入-->
-								<td rowspan="6" style="width: 25%;"><img
+								<td rowspan="5" style="width: 25%;"><img
 									style="width: 95px;height: 108px;position: relative;top: -10px;"
 									src="${SuspectInfor.identityCard_Photo }" />
 									<p class="info_id">身份证照</p></td>
@@ -165,11 +165,12 @@
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
 									value="${SuspectInfor.sex }" readonly="readonly" /></td>
+									
 								<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:20%;"
+								<td colspan="2">出生日期：<input type="text" style="width:60%;"
 									value="${SuspectInfor.birthday }" readonly="readonly" />
 								</td>
 							</tr>
@@ -179,22 +180,25 @@
 							</tr>
 							<tr>
 								<td colspan="2"><textarea readonly="readonly" rows="1"
-										cols="30">${SuspectInfor.address }</textarea></td>
+										cols="45">${SuspectInfor.address }</textarea></td>
 							</tr>
 							<tr>
-								<td><div style="margin-left: 0px;">身份证号码</div></td>
+								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
 									value="${SuspectInfor.identifyCard_Number }"
 									readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr
-							style="width: 90%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 30%; margin-left: -28%;" />
+							style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
 					</div>
 				</div>
+				
+				<input type="hidden"  name="Check_StartTime" value="${start_time_time}"> 
+					
 				<!--第一个数据项结束-->
 				<!-- <div class="check_time row_1">人身检查起止时间: -->
-				<div class="form-group">
+				<!-- <div class="form-group">
 					<label for="dtp_input1" class="check_time">人身检查起始时间：</label>
 					<div class="input-group date form_datetime col-md-5"
 						data-date="1979-09-16T05:25:07Z"
@@ -207,7 +211,7 @@
 							class="glyphicon glyphicon-th"></span></span>
 					</div>
 					<input type="hidden" id="dtp_input1" value="" /><br />
-				</div>
+				</div> -->
 				<script type="text/javascript">
 					$('.form_datetime').datetimepicker({
 						language : 'zh-CN',
@@ -227,7 +231,7 @@
 				<div class="row">
 					<h4 id="readMe"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						自述情况<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
+						自述情况<span class="col-lg-12 col-md-12 col-sm-12"></span>
 					</h4>
 					<table style="margin-left: 25px !important;" class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
@@ -241,6 +245,14 @@
 							<td>否<input type="radio" name="is_Diseases" value="否"/></td>
 						</tr>
 						<tr>
+							<td>
+							自述症状:
+							</td>
+							<td> <input type="text" name="Self_ReportS" style="height: 23px; " value="健康状况良好">
+							</td>
+							
+						</tr>
+						<!-- <tr>
 							<td colspan="2">
 								<fieldset>
 									<legend>自述症状:</legend>
@@ -248,7 +260,7 @@
 								</fieldset>
 							</td>
 							<td></td>
-						</tr>
+						</tr> -->
 					</table>
 					<h4 id="inspect"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -264,21 +276,34 @@
 							<!-- <td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input
 								type="checkbox" name="Check_Situation" /></td>
 							<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input
-								type="checkbox" name="Check_Situation" /></td>
-							<td rowspan="2"><img src="images/check_08.png"
-								style="width: 70%; margin-left: 1%; margin-top: 3%;" /></td> -->
+								type="checkbox" name="Check_Situation" /></td>-->
+							<!-- <td rowspan="3"><img src="images/check_08.png"
+								style="width: 50%;position: relative; margin-left: 10%; margin-top: 3%;" /></td> --> 
 							<!--引入体表检查图-->
 						</tr>
-						<tr style="margin:10px 0px !important;display: block;">
-							<td colspan="3"style="text-align: left; vertical-align: top;">检查情况：<input type="text" name="Check_ReportS"/></td>
+						<tr style="padding: 0px; margin:10px 0px !important;display: block;">
+							<td>
+								<table>
+									<tr>
+									<td colspan="3"style="text-align: left; vertical-align: top;">检查情况：<textarea  name="Check_ReportS"/></textarea></td>
+									</tr>
+									<tr>
+									<td colspan="3"style="text-align: left;padding-top: 10px; vertical-align: ">检查民警：<input type="text" name="Staff_ID" value=""/></td>
+									</tr>
+								</table>
+							</td>
+							<!-- <td colspan="3"style="text-align: left; vertical-align: top;">检查情况：<input type="text" name="Check_ReportS"/></td> -->
+							<td rowspan="3"><img src="images/check_08.png"
+								style="width:70% ;  margin-left: 15%; margin-top: 0%;" /></td>
 							<!-- <td colspan="2" style="text-align: left; vertical-align: top;">
 							<input type="text" name="Check_ReportS"/></td> -->
 						</tr>
-						<tr style="margin:10px 0 !important;display: block;">
-							<td>检查民警：<input type="text" name="Staff_ID" value="" /></td>
+						<!-- <tr style="margin:10px 0 !important;display: block;">
+							<td colspan="3"style="text-align: left; vertical-align: top;">检查民警：<input type="text" name="Staff_ID" value="" /></td>
+							
 							<%-- <td colspan="3" style="text-align: center;">被检查人/监护人：
 							<input type="text" value="${SuspectInfor.suspect_Name }" /></td> --%>
-						</tr>
+						</tr> -->
 					</table>
 					<h4 id="belongInspect"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -340,10 +365,10 @@
 						</tr>
 					</table>
 					<ul class="signature col-lg-12 col-md-10 col-sm-10">
-						<li>办案人员：<br />
-						<input type="text" name="Staff_ID" /></li>
-						<li>随身财物管理员：<br />
-						<input type="text" name="Staff_ID_Belonging" /></li>
+						<li>办案人员：<input type="text" name="Staff_ID"><br />
+						</li>
+						<li>随身财物管理员：<input type="text" name="Staff_ID_Belonging"><br />
+						</li>
 						<%-- <li>涉案人员：<br />
 						<input type="text" value="${SuspectInfor.suspect_Name }" /></li> --%>
 					</ul>

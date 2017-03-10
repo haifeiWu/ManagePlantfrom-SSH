@@ -30,7 +30,7 @@
 		document.all['address'].value = "";
 		document.all['identifyCard_Number'].value = "";
 		document.all['pic'].src = "";
-		document.all['tdentityID_Imag'].value = "";
+		document.all['identityCard_Photo'].value = "";
 		return true;
 	}
 	function Button1_onclick() {
@@ -58,7 +58,7 @@
 			 * change:直接存放base64码
 			 */
 			 var str = CVR_IDCard.Picture;//读取身份证照片的base64码
-			 var base64 = "data:image/jpg;base64，"+str;//更改成代码中可以直接显示的base64编码的格式
+			 var base64 = "data:image/jpg;base64,"+str;//更改成代码中可以直接显示的base64编码的格式
 			 document.all['pic'].src = base64;//用于显示身份证照片
 			 document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {
@@ -177,7 +177,7 @@
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<hr
-							style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
+							style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
 
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
@@ -209,8 +209,7 @@
 							</tr>
 							
 							<tr>
-								<td colspan="2"><textarea
-										name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							
 							<tr>
@@ -222,11 +221,11 @@
 							</tr>
 						</table>
 						<hr
-							style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
+							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
 					</div>
 					<div>
 						<input class="btn" type="button" value="读卡"
-							onclick="return Button1_onclick()" style="margin-left: 86%;" />
+							onclick="return Button1_onclick()" style="margin-left: 83%;margin-top: -6.5%;" />
 					</div>
 
 				</div>
@@ -235,7 +234,7 @@
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
 					<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
-							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" >证件类型：</td>
+							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align:center;">证件类型：</td>
 							<td>
 								<ol>
 									<!--  -->
@@ -247,15 +246,17 @@
 							</td>
 						</tr>
 						<tr>
-							<td >证件号码:</td>
+							<td style="text-align:center;">证件号码:</td>
 							<td><input type="text" name="" /></td>
 						</tr>
 						<tr>
-							<td>现住址：</td>
-							<td><textarea id="nAddress" name="now_address">居无定所</textarea></td>
+							<td style="text-align:center;">现住址：</td>
+							<td>
+								<input type="text" name="" />
+							</td>
 						</tr>
 						<tr>
-							<td>联系方式<br>（手机或固定电话）：</td>
+							<td style="text-align:center;">联系方式：</td>
 							<td><input type="text" name="phone" /></td>
 						</tr>
 					</table>
@@ -265,7 +266,7 @@
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
 					<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
-							<td>入区时间</td>
+							<td style="text-align:center;">入区时间:</td>
 							<td style="width: 50%;">
 								<div class="form-group" style="height: 25px;width: 76%;">
 									<div class="input-group date form_time col-md-5"
@@ -294,7 +295,7 @@
 									});
 								</script>
 							</td>
-							<td style="width: 22%;">RFID手环 :</td>
+							<td style="width: 22%;text-align:center;">RFID手环 :</td>
 							<!--手环选择列-->
 							<td colspan="2" style="text-align-last:center ;"><select
 								name="band_ID" id="band_ID">
@@ -306,7 +307,7 @@
 						</tr>
 						<!--  -->
 						<tr>
-							<td rowspan="4">进入办案区原因：</td>
+							<td rowspan="4" style="text-align:center;">进入办案区原因：</td>
 							
 						</tr>
 						

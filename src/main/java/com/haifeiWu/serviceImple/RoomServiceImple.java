@@ -1,5 +1,7 @@
 package com.haifeiWu.serviceImple;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,11 @@ public class RoomServiceImple extends DaoSupportImpl<PHCSMP_Room> implements
 	@Override
 	public PHCSMP_Room findByCardReaderID(int cardReaderID) {
 		return roomInforDao.findByPropertyName("cardReader_ID", cardReaderID);
+	}
+
+	@Override
+	public List<PHCSMP_Room> findAllRoom() {
+		return roomInforDao.findAllInfor();
 	}
 
 }
