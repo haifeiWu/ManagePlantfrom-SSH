@@ -5,13 +5,13 @@ $(document).ready(function(){
 	$("#state img").last().css("margin-left","-11%");
 //	设置#state中span属性
 	$("#state span").css({"color":"#f69d1f","width":"120px","text-align":"center"});
-	$(".Message tr td").css("color","#389ac7");
+	$(".Message tr td").css({"color":"#389ac7","font-size":"16px","height":"30px","text-align":"left","margin-left":"4%"});
 	//设置第一列的样式
 	$(".Message td:first").css({"width":"30%","height":"7%"});
-	$(".Message tr td :input").css({"width":"15%","color":"#080808","text-align":"center",
+	$(".Message tr td :input").css({"width":"37%","color":"#080808","text-align":"center",
 		"font-family":"微软雅黑","font-size":"large","border":"hidden","background":"#fff"});
 	//	设置嫌疑人信息表格中身份证住址
-	$(".Message textarea").css({"width":"70%","margin-top":"0%","margin-left": "6%"});
+	$(".Message textarea").css({"width":"70%","margin-top":"0%","margin-left": "0%"});
 	//设置最后一个input标签的属性样式
 	$(".Message tr td :input").last().css({"width":"80%","text-align":"left"});
 	
