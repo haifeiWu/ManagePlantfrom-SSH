@@ -48,14 +48,23 @@ public class Video {
 		String result = "";
 		if (isValid()) {
 			String json = packjson(cardReader_ID, identificationCard);// 封装json数据
+
 			if (command.equals("StartRecording")
 					|| command.equals("RestartRecording")) {// 切换录制源
 				result = switchRecording(cardReader_ID, identificationCard,
 						room_ID);
 			}
 			// 调用相应的录像指令
-			result = HttpRequest.sendOkMCVPost(
-					PropertiesReadUtils.getString(command), json);
+			for (int i = 1; i <= 3; i++) {
+				result = HttpRequest.sendOkMCVPost(
+						PropertiesReadUtils.getString(command), json);
+				if (result.equals(200))
+					break;
+				else if (i == 3) {
+					throw new IOException("调用" + command + "的指令失败，" + "错误代码："
+							+ result);
+				}
+			}
 		}
 		return result;
 	}
@@ -66,12 +75,19 @@ public class Video {
 	 * @return
 	 * @throws IOException
 	 */
-	private static String switchRecording(int cardReader_ID,
+	public static String switchRecording(int cardReader_ID,
 			String identificationCard, int roomId) throws IOException {
 		String result = "";
 		String json = packjson(cardReader_ID, identificationCard, roomId);
-		result = HttpRequest.sendOkMCVPost(
-				PropertiesReadUtils.getString("switchRecording"), json);
+		for (int i = 1; i <= 3; i++) {
+			result = HttpRequest.sendOkMCVPost(
+					PropertiesReadUtils.getString("SwitchRecording"), json);
+			if (result.equals(200))
+				break;
+			else if (i == 3) {
+				throw new IOException("调用切换录制源的指令失败");
+			}
+		}
 		return result;
 	}
 

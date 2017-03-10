@@ -22,7 +22,7 @@ $(document).ready(function(){
 	$(".check_time input[type=date]").css({"width":"160px","margin-left":"3%"});
 	//设置所有.human_mes中span标签的属性样式
 	$(".human_Mes span").css({"color":"rgb(211,26,23)","font-size":"small","margin-left":"90%","margin-top":"-28px"});
-	$(".human_Mes input").css({"color":"#f69d1f","width":"80px","height":"30px","background":"none",
+	$(".human_Mes input").css({"color":"#f69d1f","width":"300px","height":"30px","background":"none",
 	"border":"none","margin-left":"1%"});
 //	设置采集信息第二行第二列以后的字体颜色
 	$(".info_collect tr:eq(1)").find("td:gt(0)").css("color","#101010");

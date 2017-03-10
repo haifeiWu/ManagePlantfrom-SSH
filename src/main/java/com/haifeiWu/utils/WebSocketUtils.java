@@ -11,10 +11,6 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.haifeiWu.service.RoomService;
-
 /**
  * websocket的服务器端
  * 
@@ -30,9 +26,6 @@ public class WebSocketUtils {
 	 * 
 	 * 嫌疑人表中有当前手环信息，流程和房间号，房间表中有IP webSocket应在连接上的时候查出房间号，用房间号标识每个连接
 	 */
-	@Autowired
-	private RoomService roomService;
-
 	// 与某个客户端的连接会话，需要通过它来给客户端发送数据
 	private ConcurrentMap<String, WebSocketUtils> map = new ConcurrentHashMap<String, WebSocketUtils>();
 
@@ -83,10 +76,10 @@ public class WebSocketUtils {
 
 			System.out.println(roomId);
 
-			if (roomService == null) {
-				System.out
-						.println("----------------->roomService---====null<--------------------");
-			}
+			// if (roomService == null) {
+			// System.out
+			// .println("----------------->roomService---====null<--------------------");
+			// }
 
 			// PHCSMP_Room room=roomService.findByRoomID(roomId);
 			// System.out.println("roomId:----->>>>>>>>>>>>> "+room.getRoom_ID());
@@ -114,6 +107,8 @@ public class WebSocketUtils {
 			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理
 			try {
 				item.session.getBasicRemote().sendText(result);
+				System.out.println("---------------------" + result
+						+ "-------------------------");
 			} catch (IOException e) {
 				System.out.println("没有找到相应的客户端");
 				// e.printStackTrace();

@@ -1,10 +1,14 @@
 package com.haifeiWu.action;
 
+import java.util.List;
+
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.base.BaseAction;
+import com.haifeiWu.entity.PHCSMP_Dic_Collection_Item;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
@@ -44,21 +48,23 @@ public class Information_Collection_Action extends
 			return "NULL";
 		}
 		fullCheck();
-
+		model.setIc_EndTime(new DateTime().toString("yyy-mm-dd HH:mm"));
 		informationCollectionService.saveCollectionInfor(model);
 
 		return "addInformationCollection";
 	}
 
 	// 加载信息，
-	public String loadInfor() {
+	public String loadInfor() {// 注意处理房间号找不到异常，或者嫌疑人房间号为空的异常
 		// 维护进出门的标志位
 		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
 		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		SuspectInfor.setCardReader_Switch(1);
-		suspectService.saveSuspect(SuspectInfor);
-
+		suspectService.updateSwitch(1, SuspectInfor.getSuspect_ID());
+		// 将嫌疑人信息存放到request中
 		request.setAttribute("SuspectInfor", SuspectInfor);
+		List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
+				.findAllCollectionItem();
+		request.setAttribute("collectionItem", collectionItem);
 
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");

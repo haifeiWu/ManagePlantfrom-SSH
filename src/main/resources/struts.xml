@@ -124,7 +124,9 @@
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
+			<result name="addTemporaryLeaveInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
+
 		</action>
 		<!-- 生成嫌疑人信息报告 -->
 		<action name="GR_*" class="com.haifeiWu.action.GenerateReportAction"
@@ -147,19 +149,16 @@
 			<!-- 查询嫌疑人信息 -->
 			<result name="searchsuspectInfor">/jsp/suspectmanage/suspectInforList.jsp</result>
 		</action>
-		
 		<!-- 查看日志 -->
 		<action name="Log_execute" class="com.haifeiWu.action.Log_Action">
 			<result>/jsp/log/log_Read.jsp</result>
 		</action>
 		
-		<!-- 所有房间信息 -->
 		<action name="roomManage_*" class="com.haifeiWu.action.RoomManageAction"
 			method="{1}">
 			<result name="loadInfor">/jsp/roommanage/room.jsp</result>
 			<result name="null">/jsp/error/400.jsp</result>
 		</action>
-		
 	</package>
 
 </struts>

@@ -29,14 +29,12 @@ public class LineServiceImple implements LineService {
 	@Override
 	public void startLine() {
 		line = lineDao.findObj();
-		line.setLine_Used(line.getLine_Used() + 1);
-		lineDao.save(line);
+		lineDao.updateLineUsed(line.getLine_Used() + 1);
 	}
 
 	@Override
 	public void closeLine() {
 		line = lineDao.findObj();
-		line.setLine_Used(line.getLine_Used() - 1);
-		lineDao.save(line);
+		lineDao.updateLineUsed(line.getLine_Used() - 1);
 	}
 }

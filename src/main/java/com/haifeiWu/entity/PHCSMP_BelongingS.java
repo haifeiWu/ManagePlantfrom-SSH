@@ -147,7 +147,21 @@ public class PHCSMP_BelongingS implements Serializable {
 
 	@Override
 	public String toString() {
-		return "物品名称：" + this.belonging_Name + "物品数量：" + this.belonging_Count;
+		return "PHCSMP_BelongingS [belongingS_ID=" + belongingS_ID
+				+ ", suspect_ID=" + suspect_ID + ", belonging_Number="
+				+ belonging_Number + ", belonging_Name=" + belonging_Name
+				+ ", belonging_Character=" + belonging_Character
+				+ ", belonging_Count=" + belonging_Count + ", belonging_Unit="
+				+ belonging_Unit + ", keeping_ID=" + keeping_ID
+				+ ", cabinet_Number=" + cabinet_Number + ", staff_ID="
+				+ staff_ID + ", staff_ID_Belonging=" + staff_ID_Belonging
+				+ ", room_ID=" + room_ID + ", total_record=" + total_record
+				+ ", fill_record=" + fill_record + "]";
 	}
+
+	// @Override
+	// public String toString() {
+	// return "物品名称：" + this.belonging_Name + "物品数量：" + this.belonging_Count;
+	// }
 
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" %>
 <!-- 加载jstl的c标签库 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -20,6 +20,7 @@
 <script type="text/javascript" src="js/jqCss_pinfo.js"></script>
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
+
 <script type="text/javascript">
 	function ClearForm() {
 		document.all['suspect_Name'].value = "";
@@ -29,14 +30,14 @@
 		document.all['address'].value = "";
 		document.all['identifyCard_Number'].value = "";
 		document.all['pic'].src = "";
-		document.all['tdentityID_Imag'].value = "";
+		document.all['identityCard_Photo'].value = "";
 		return true;
 	}
 	function Button1_onclick() {
 		var CVR_IDCard = document.getElementById("CVR_IDCard");
 		var strReadResult = CVR_IDCard.ReadCard();
 		if (strReadResult == "0") {
-			ClearForm();
+			//ClearForm();//清空的意思
 			document.all['suspect_Name'].value = CVR_IDCard.Name;
 			document.all['sex'].value = CVR_IDCard.Sex;
 			document.all['nation'].value = CVR_IDCard.Nation;
@@ -57,7 +58,7 @@
 			 * change:直接存放base64码
 			 */
 			 var str = CVR_IDCard.Picture;//读取身份证照片的base64码
-			 var base64 = "data:image/jpg;base64"+str;//更改成代码中可以直接显示的base64编码的格式
+			 var base64 = "data:image/jpg;base64,"+str;//更改成代码中可以直接显示的base64编码的格式
 			 document.all['pic'].src = base64;//用于显示身份证照片
 			 document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {
@@ -112,6 +113,7 @@
 </script>
 </head>
 <body>
+
 	<form class="container"
 		action="${pageContext.request.contextPath }/suspect_addSuspectInfor.action"
 		enctype="multipart/form-data" method="POST">
@@ -207,8 +209,7 @@
 							</tr>
 							
 							<tr>
-								<td colspan="2"><textarea
-										name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
 							
 							<tr>

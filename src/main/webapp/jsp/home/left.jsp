@@ -65,71 +65,12 @@ $(document).ready(function (){
         fs.cols = "180,*";
     }
 	
-//websocket 
-	var websocket = null;
-     //判断当前浏览器是否支持WebSocket
-     if ('WebSocket' in window) {
-         websocket = new WebSocket("ws://127.0.0.1:8888/ManagePlantfrom-SSH/websocket");
-     }
-     else {
-         alert('当前浏览器 Not support websocket');
-     }
- 
-     //连接发生错误的回调方法
-     websocket.onerror = function (evt) {
-         alert("WebSocket连接发生错误");
-         
-     };
-     //连接成功建立的回调方法
-     websocket.onopen = function () {
-         alert("WebSocket连接成功");
-         var ip=getcookie("ip");
-         if(ip!=null){
-         	websocket.send(ip);
-         }
-    };
- 
-     //接收到消息的回调方法
-     websocket.onmessage = function (event) {
-		$("suspect").trigger("click");
-     };
- 
-     //连接关闭的回调方法
-     websocket.onclose = function () {
-         alert("WebSocket连接关闭");
-     };
- 
-     //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
-     window.onbeforeunload = function () {
-         closeWebSocket();
-     };
-     //关闭WebSocket连接
-     function closeWebSocket() {
-         websocket.close();
-     }
-     //获取cookie
-     function getcookie(objname){//获取指定名称的cookie的值
-		var arrstr = document.cookie.split("; ");
-		for(var i = 0;i < arrstr.length;i++){
-			var temp = arrstr[i].split("=");
-			if(temp[0] == objname) return unescape(temp[1]);
-		}
-	}
-	
-     //实现主动刷新的jsp
-    
-	
-	function send(){
-		websocket.send("1");
-	}
+
 </script>
-<!-- websocket主动推送可写在这里 -->
-<!-- 推送的原理是js实现a标签的点击事件-->
-<!-- 如果实现不了的话，，可以使用js中Windows的location强制跳转，target为rightFrame，左侧也要实现点击该a标签的样式 -->
 </head> 
 
 <body style="background:#f0f9fd;">
-	 
+	 	<input style="width: 200px; color: red;" type="button" onclick="send()" value="diandian"/>
 	<div class="lefttop" id="lefttop1"><span style="cursor:pointer;"></span>导航栏</div>
     <dl class="leftmenu">
         
@@ -213,6 +154,6 @@ $(document).ready(function (){
     </ul>
     </dd>   
     </dl>
-    <input type="button" onclick="send()" value="diandian"/>
+    
 </body>
 </html>
