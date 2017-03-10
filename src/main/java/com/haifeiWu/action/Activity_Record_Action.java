@@ -130,8 +130,8 @@ public class Activity_Record_Action extends ActionSupport implements
 		// 将信息从数据库查找到之后，存入session，更新session
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectInfor.getSuspect_ID());// 人身检查记录查出不止一条，考虑一对多，和多对多
-		System.out.println("-----------------------------"
-				+ personal_Check.toString());
+		// System.out.println("-----------------------------"
+		// + personal_Check.toString());
 		request.setAttribute("personal_Check", personal_Check);
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
 				.findInforBySuspetcId(suspectInfor.getSuspect_ID());

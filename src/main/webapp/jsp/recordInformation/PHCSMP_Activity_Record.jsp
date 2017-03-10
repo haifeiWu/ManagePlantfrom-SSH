@@ -21,9 +21,9 @@
 <script type="text/javascript">
 	var index = 0;
 	$(function() {
-		/* $(".form_time").datetimepicker({
+		 $(".form_time").datetimepicker({
 			language : 'zh-CN',
-			format : 'hh:ii',
+			format : 'yyyy-mm-dd hh:ii',
 			weekStart : 1,
 			todayBtn : 1,
 			autoclose : 1,
@@ -32,7 +32,7 @@
 			minView : 0,
 			maxView : 1,
 			forceParse : 0
-		}); */
+		}); 
 
 		$("#add")
 				.click(
@@ -45,24 +45,36 @@
 							var addrow = "<tr>" + "<td>"
 									+ index
 									+ "</td>"
-									+ "<td style='width: 35%;'>"
-									+ "<div class='form-group' style='height: 30px;width: 170%;'>"
-									+ "<div class='input-group date form_time col-md-5' style='margin-left: 8%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
-									+ "<input class='form-control' name=activity["+index+"].start_Time type='text' readonly>"
-									+ "<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
-									+ "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
-									+ "</div>"
-									+ "<input type='hidden' id='dtp_input1' value='' /><br/>"
-									+ "</div></td>"
-									+ "<td style='width: 35%;'>"
-									+ "<div class='form-group' style='height: 30px;width: 170%;'>"
-									+ "<div class='input-group date form_time col-md-5' style='margin-left: 8%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
-									+ "<input class='form-control' name=activity["+index+"].end_Time type='text' readonly>"
-									+ "<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
-									+ "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
-									+ "</div>"
-									+ "<input type='hidden' id='dtp_input1' value='' /><br/>"
-									+ "</div></td>"
+									+ "<td style='width: 23%;'>"
+							+"<div class='form-group' style='height: 30px;width: 170%;'>"
+								+"<div class='input-group date form_time col-md-5'"
+									+"style='margin-left: 8%;margin-top: 2%;'"
+									+"data-date-format='yyyy-mm-dd hh:ii' data-link-field='dtp_input1'>"
+									+"<input class='form-control' name='activity["+index+"].start_Time'"
+									+	"type='text' readonly> <span"
+									+	"class='input-group-addon'><span"
+									+	"class='glyphicon glyphicon-remove'></span></span> <span"
+									+	"class='input-group-addon'><span"
+									+	"class='glyphicon glyphicon-time'></span></span>"
+								+"</div>"
+								+"<input type='hidden' id='dtp_input1' /><br />"
+							+"</div>"
+						+"</td>"
+									+"<td style='width: 23%;'>"
+							+"<div class='form-group' style='height: 30px;width: 170%;'>"
+								+"<div class='input-group date form_time col-md-5'"
+									+"style='margin-left: 8%;margin-top: 2%;'"
+									+"data-date-format='yyyy-mm-dd hh:ii' data-link-field='dtp_input1'>"
+									+"<input class='form-control' name='activity["+index+"].start_Time'"
+									+	"type='text' readonly> <span"
+									+	"class='input-group-addon'><span"
+									+	"class='glyphicon glyphicon-remove'></span></span> <span"
+									+	"class='input-group-addon'><span"
+									+	"class='glyphicon glyphicon-time'></span></span>"
+								+"</div>"
+								+"<input type='hidden' id='dtp_input1' /><br />"
+							+"</div>"
+						+"</td>"
 									+ "<td> <select name=activity["+index+"].activity_Record> <option value=>---请选择---</option> <option value=询问>询问</option> <option value=讯问>讯问</option> <option value=审讯>审讯</option><option value=传唤>传唤</option> </select> </td>"
 									+ "<td><input type=text name=activity["
 									+ index
@@ -71,9 +83,9 @@
 							$(".active_check tr").eq(
 									$(".active_check tr").length - 2).after(
 									addrow);
-							addrow.find("td:eq(0)").html(num - 1);
+							//addrow.find("td:eq(0)").html(num - 1);
 
-							tdnum.html(num);
+							tdnum.html(num-1);
 						});
 		//删除行
 		$("#delete").click(
@@ -306,60 +318,34 @@
 					<tr>
 						<td>0</td>
 						<td style="width: 23%;">
-							<div class="form-group" style="height: 30px;width: 130%;">
-								<div class="input-group date form_datetime col-md-5"
-									style="margin-left: 3%;margin-top: 2%;" data-date=""
+							<div class="form-group" style="height: 30px;width: 170%;">
+								<div class="input-group date form_time col-md-5"
+									style="margin-left: 8%;margin-top: 2%;" 
 									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-									<input style="width: 130px" class="form-control" name="activity[0].start_Time"
-										type="text" value="" readonly><!--  <span
+									<input class="form-control" name="activity[0].start_Time"
+										type="text" value="" readonly> <span
 										class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"> --></span></span> <span
+										class="glyphicon glyphicon-remove"></span></span> <span
 										class="input-group-addon"><span
 										class="glyphicon glyphicon-time"></span></span>
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
-							<script type="text/javascript">
-								$('.form_datetime').datetimepicker({
-									language : 'zh-CN',
-									format : 'yyyy-mm-dd hh:ii',
-									weekStart : 1,
-									todayBtn : 1,
-									autoclose : 1,
-									todayHighlight : 1,
-									startView : 2,
-									forceParse : 0,
-									showMeridian : 1
-								});
-							</script>
 						</td>
 						<td style="width: 23%;">
-							<div class="form-group" style="height: 30px;width: 130%;">
-								<div class="input-group date form_datetime col-md-5"
-									style="margin-left: 3%;margin-top: 2%;" data-date=""
-									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-									<input style="width: 130px" class="form-control" name="activity[0].end_Time"
-										type="text" value="" readonly> <!-- <span
-										class="input-group-addon"> --><!-- <span
-										class="glyphicon glyphicon-remove"> --></span></span> <span
+							<div class="form-group" style="height: 30px;width: 170%;">
+								<div class="input-group date form_time col-md-5"
+									style="margin-left: 8%;margin-top: 2%;" data-date=""
+									data-date-format="hh:ii" data-link-field="dtp_input1">
+									<input class="form-control" name="activity[0].end_Time"
+										type="text" value="" readonly> <span
+										class="input-group-addon"><span
+										class="glyphicon glyphicon-remove"></span></span> <span
 										class="input-group-addon"><span
 										class="glyphicon glyphicon-time"></span></span>
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
-							<script type="text/javascript">
-								$('.form_datetime').datetimepicker({
-									language : 'zh-CN',
-									format : 'yyyy-mm-dd hh:ii',
-									weekStart : 1,
-									todayBtn : 1,
-									autoclose : 1,
-									todayHighlight : 1,
-									startView : 2,
-									forceParse : 0,
-									showMeridian : 1
-								});
-							</script>
 						</td>
 						<td id="select"><select name="activity[0].activity_Record">
 								<option value=>---请选择---</option>
@@ -372,7 +358,7 @@
 							style="width:250px; height: 30px;text-align: center;" /></td>
 					</tr>
 					<tr>
-						<td>2</td>
+						<td>1</td>
 						<td>
 							<div class="btn" id="add">+添加</div>
 							<div class="btn" id="delete">-删除</div>

@@ -292,10 +292,10 @@
 					<c:if test="${!empty temporaryLeave }">
 						<tr>
 							<td>0</td>
-							<td style="width: 35%;">
+							<td>
 								<div class="form-group" style="height: 50px;">
 									<div class="input-group date form_time col-md-5"
-										style="margin-left: 30%;margin-top: 8%;" data-date=""
+										style="width:100px;margin-left: 25%;margin-top: 8%;padding-left:20px;padding-right:30px;" data-date=""
 										data-date-format="hh:ii" data-link-field="dtp_input1">
 										<input class="form-control tempLeave_Time" name="tempLeave_Time" type="text"
 											value="${temporaryLeave.tempLeave_Time }"
@@ -317,17 +317,20 @@
 							<td style="padding:6px 0 6px 0"><input name="staff_ID"
 								type="text" style="border-radius:6px;border:1px solid #ccc;"
 								value="${temporaryLeave.staff_ID }" /></td>
-							<td style="width: 35%;">
+							<td>
 								<div class="form-group" style="height: 30px;">
 									<div class="input-group date form_time col-md-5"
-										style="margin-left: 30%;margin-top: 2%;" data-date=""
+										style="margin-left:30px;padding-left:30px;margin-top:8%" data-date=""
 										data-date-format="hh:ii" data-link-field="dtp_input1">
-										<input class="form-control" name="return_Time" type="text"
-											value="${temporaryLeave.return_Time }"> <span
-											class="input-group-addon"><span
-											class="glyphicon glyphicon-remove"></span></span> <span
-											class="input-group-addon"><span
-											class="glyphicon glyphicon-time"></span></span>
+										<input class="form-control" name="return_Time" type="text" style="width:85px;"
+											value="${temporaryLeave.return_Time }">
+											 <span class="input-group-addon">
+												<span class="glyphicon glyphicon-remove"></span>
+											</span> 
+											<span class="input-group-addon">
+												<span class="glyphicon glyphicon-time"></span>
+											</span>
+											
 									</div>
 									<input type="hidden" id="dtp_input1" value="" /><br />
 								</div>
@@ -338,7 +341,7 @@
 					<c:if test="${empty temporaryLeave }">
 						<tr>
 							<td>0</td>
-							<td style="width: 35%;">
+							<td style="width: 55%;">
 								<div class="form-group" style="height: 30px;">
 									<div class="input-group date form_time col-md-5"
 										style="margin-left: 30%;margin-top: 2%;" data-date=""
@@ -364,7 +367,7 @@
 							<td style="width: 35%;">
 								<div class="form-group" style="height: 30px;">
 									<div class="input-group date form_time col-md-5"
-										style="margin-left: 30%;margin-top: 2%;" data-date=""
+										style="margin-left: 20%;margin-top: 2%;" data-date=""
 										data-date-format="hh:ii" data-link-field="dtp_input1">
 										<input class="form-control" name="return_Time" type="text"
 											value="" readonly> <span class="input-group-addon"><span

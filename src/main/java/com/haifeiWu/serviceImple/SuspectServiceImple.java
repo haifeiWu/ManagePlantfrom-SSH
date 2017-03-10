@@ -83,8 +83,8 @@ public class SuspectServiceImple implements SuspectService {
 	public void updateSuspect(int room_Now, int process_Now,
 			int recordVideo_State, String suspect_ID) {
 		String hql = "update PHCSMP_Suspect s set s.room_Now=? , s.process_Now=? , s.recordVideo_State=? where s.suspect_ID=?";
-		suspectDao.update(hql, recordVideo_State, room_Now, process_Now,
-				recordVideo_State, suspect_ID);
+		suspectDao.update(hql, room_Now, process_Now, recordVideo_State,
+				suspect_ID);
 
 	}
 

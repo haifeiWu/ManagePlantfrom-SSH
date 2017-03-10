@@ -58,7 +58,9 @@ public class Video {
 			for (int i = 1; i <= 3; i++) {
 				result = HttpRequest.sendOkMCVPost(
 						PropertiesReadUtils.getString(command), json);
-				if (result.equals(200))
+				Map<String, Object> str = (Map<String, Object>) JSON
+						.parse(result);
+				if (str.get("code").equals(200))
 					break;
 				else if (i == 3) {
 					throw new IOException("调用" + command + "的指令失败，" + "错误代码："
@@ -82,10 +84,13 @@ public class Video {
 		for (int i = 1; i <= 3; i++) {
 			result = HttpRequest.sendOkMCVPost(
 					PropertiesReadUtils.getString("SwitchRecording"), json);
-			if (result.equals(200))
+			Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
+			System.out.println("-------------------------->" + str);
+
+			if (str.get("code").equals(200))
 				break;
 			else if (i == 3) {
-				throw new IOException("调用切换录制源的指令失败");
+				throw new IOException("调用切换录制源的指令失败" + result);
 			}
 		}
 		return result;

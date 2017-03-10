@@ -1,7 +1,5 @@
 package com.haifeiWu.action;
 
-import java.net.URLDecoder;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -77,9 +75,10 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		PHCSMP_Room room = roomService.findbyIp(ip);
 		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(room
 				.getRoom_ID());
-		this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
-				"utf-8");
-		this.suspectID = SuspectInfor.getSuspect_ID();
+		/*
+		 * this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
+		 * "utf-8"); this.suspectID = SuspectInfor.getSuspect_ID();
+		 */
 
 		/*
 		 * // 打印list信息 List<Temporary_Leave> temporaryLeaves =
@@ -106,7 +105,9 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		 */
 		leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息
 		// suspectService.updateSuspect(SuspectInfor);
-		suspectService.updateLeaveState(3, -1, 1, suspectInfor.getSuspect_ID());
+		System.out.println("------------------->"
+				+ suspectInfor.getSuspect_ID());
+		suspectService.updateLeaveState(3, -1, 1, suspectInfor.getSuspect_ID());// 有可能是suspect为空
 		System.out.println("state=" + SuspectInfor.getRecordVideo_State() + " "
 				+ "Process_Now=" + SuspectInfor.getProcess_Now());
 
@@ -173,7 +174,10 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		// 判断是否出区返回
 		temporaryLeave = temporaryLeaveService
 				.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
-
+		/*
+		 * System.out .println(temporaryLeave.toString() +
+		 * "------------------------------------------------------------->");
+		 */
 		// 判断是否登录
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");

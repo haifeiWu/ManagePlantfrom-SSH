@@ -138,13 +138,15 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	@Override
 	public T findTemporaryLeaveInfoById(String suspectId) {
 		String hql = "from " + clazz.getName()
-				+ " t where t.suspect_ID=? and t.return_Time is null";
+				+ " t where t.suspect_ID=? and t.return_Time=''";
 		System.out.println(hql + "=---------------");
 		tx = getSession().beginTransaction();// 开启事务
+
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, suspectId);
 		@SuppressWarnings("unchecked")
 		T entity = (T) query.uniqueResult();
+
 		tx.commit();// 提交事务
 		return entity;
 	}
