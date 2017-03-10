@@ -70,7 +70,6 @@ $(document).ready(function (){
 </head> 
 
 <body style="background:#f0f9fd;">
-	 	<input style="width: 200px; color: red;" type="button" onclick="send()" value="diandian"/>
 	<div class="lefttop" id="lefttop1"><span style="cursor:pointer;"></span>导航栏</div>
     <dl class="leftmenu">
         

@@ -75,7 +75,8 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addCheckPersonInfor" type="redirectAction">personalCheck_loadInfor</result>
+			<!-- <result name="addCheckPersonInfor" type="redirectAction">personalCheck_loadInfor</result> -->
+			<result name="addCheckPersonInfor">/jsp/home/index.jsp</result>
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 		</action>

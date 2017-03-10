@@ -248,7 +248,7 @@
 							<td>
 							自述症状:
 							</td>
-							<td> <input type="text" name="Self_ReportS" style="height: 23px; " value="健康状况良好">
+							<td> <input type="text" name="Self_ReportS" style="height: 23px; width:350px;" value="健康状况良好">
 							</td>
 							
 						</tr>
@@ -365,16 +365,15 @@
 						</tr>
 					</table>
 					<ul class="signature col-lg-12 col-md-10 col-sm-10">
-						<li>办案人员：<input type="text" name="Staff_ID"><br />
-						</li>
-						<li>随身财物管理员：<input type="text" name="Staff_ID_Belonging"><br />
+						<li style="margin-left: 65px;">办案人员：<input type="text" name="Staff_ID">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随身财物管理员：<input type="text" name="Staff_ID_Belonging">
 						</li>
 						<%-- <li>涉案人员：<br />
 						<input type="text" value="${SuspectInfor.suspect_Name }" /></li> --%>
 					</ul>
 				</div>
-				<input class="sub" type="submit" value="确认提交" onclick="Logger()" />
-				<div class="row_2 col-lg-12" style="height: 480px;"></div>
+				<input style="margin-top: 10px;" class="sub" type="submit" value="确认提交" onclick="Logger()" />
+				<div class="row_2 col-lg-12" style="height: 180px;"></div>
 			</div>
 		</div>
 	</form>

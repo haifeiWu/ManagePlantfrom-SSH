@@ -27,15 +27,15 @@ public class WebSocketUtils {
 	 * 嫌疑人表中有当前手环信息，流程和房间号，房间表中有IP webSocket应在连接上的时候查出房间号，用房间号标识每个连接
 	 */
 	// 与某个客户端的连接会话，需要通过它来给客户端发送数据
-	private ConcurrentMap<String, WebSocketUtils> map = new ConcurrentHashMap<String, WebSocketUtils>();
+	private static ConcurrentMap<String, WebSocketUtils> map = new ConcurrentHashMap<String, WebSocketUtils>();
 
 	private Session session;
 
 	/**
 	 * 树莓派传递过来的手环ID和读卡器 该方法会调用WebSocket的onmessage方法，将对应页面传递到客户端，客户端发出相应的请求
 	 */
-	public void flushPage(String bandID, String cardReader_ID) {
-
+	public void flushPage(String message) {
+		onMessage(message);
 	}
 
 	/**
@@ -68,53 +68,20 @@ public class WebSocketUtils {
 	 */
 	@OnMessage
 	public void onMessage(String message) {
-		if (message.split("\\.").length != 4) {
-			System.out.println("消息是刷新的消息");
-
-			int roomId = 0;
-			roomId = Integer.parseInt(message);
-
-			System.out.println(roomId);
-
-			// if (roomService == null) {
-			// System.out
-			// .println("----------------->roomService---====null<--------------------");
-			// }
-
-			// PHCSMP_Room room=roomService.findByRoomID(roomId);
-			// System.out.println("roomId:----->>>>>>>>>>>>> "+room.getRoom_ID());
-
-			String ip = "127.0.0.1";// room.getRoom_IPAddress();
-			int processID = 1;// room.getProcess_ID();
-			String result = "";
-			switch (processID) {
-			case 1:
-				result = "suspect";
-				break;
-			case 2:
-				result = "suspect";
-				break;
-			case 3:
-				result = "suspect";
-				break;
-			case 4:
-				result = "suspect";
-				break;
-			case 5:
-				result = "suspect";
-				break;
-			}
-			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理
-			try {
+		System.out.println("---------------------" + message.split("&").length);
+		if (message.split("&").length == 2) {// 刷新页面
+			String[] str = message.split("&");
+			String result = str[0];// result对应的是需要刷新的页面
+			String ip = str[1];
+			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理,对象为空
+			try {// 异常处理，循环三次
 				item.session.getBasicRemote().sendText(result);
 				System.out.println("---------------------" + result
 						+ "-------------------------");
 			} catch (IOException e) {
 				System.out.println("没有找到相应的客户端");
-				// e.printStackTrace();
-				// continue;
 			}
-		} else {
+		} else {// 发送的只是ip，用来识别客户端地址
 			System.out.println("来自客户端的消息:" + message);
 			map.put(message, this);
 		}

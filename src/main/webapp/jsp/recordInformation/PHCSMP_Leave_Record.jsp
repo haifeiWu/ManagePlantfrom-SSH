@@ -24,7 +24,7 @@
 
 		$(".form_time").datetimepicker({
 			language : 'zh-CN',
-			format : 'hh:ii',
+			format : 'yyyy-mm-dd hh:ii',
 			weekStart : 1,
 			todayBtn : 1,
 			autoclose : 1,
@@ -291,13 +291,13 @@
 						<tr>
 							<td>0</td>
 							<td style="width: 35%;">
-								<div class="form-group" style="height: 50px;">
+								<div class="form-group" style="height: 30px; margin-left: 80px;">
 									<div style="width:100px!important;" class="input-group date form_time"
 										style="margin-left: 19%;margin-top: 8%;width:60px;" data-date=""
-										data-date-format="hh:ii" data-link-field="dtp_input1">
+										data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
 										<input class="form-control tempLeave_Time" name="tempLeave_Time" type="text"
 											value="${temporaryLeave.tempLeave_Time }"
-											style="width:100px!important;margin-left:-25px;"> <span
+											style="width:150px!important;margin-left:-25px;"> <span
 											class="input-group-addon"><span
 											class="glyphicon glyphicon-remove"></span></span> <span
 											class="input-group-addon"><span
@@ -318,10 +318,11 @@
 							<td style="width: 35%;">
 								<div class="form-group" style="height: 30px;">
 									<div class="input-group date form_time col-md-5"
-										style="margin-left: 30%;margin-top: 2%;" data-date=""
-										data-date-format="hh:ii" data-link-field="dtp_input1">
+										style="margin-left: 25%;margin-top: 2%;" data-date=""
+										data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
 										<input class="form-control" name="return_Time" type="text"
-											value="${temporaryLeave.return_Time }"> <span
+											value="${temporaryLeave.return_Time }"
+											style="width:150px!important;margin-left:-25px;"> <span
 											class="input-group-addon"><span
 											class="glyphicon glyphicon-remove"></span></span> <span
 											class="input-group-addon"><span
@@ -390,8 +391,9 @@
 			<div class="row" style="margin-top:30px">
 				<p id="signature">
 					管理员:<input type="text" name="" />
+					<input type="submit" value="确认提交" class="sub" />
 				</p>
-				<input type="submit" value="确认提交" class="sub" />
+				<
 			</div>
 		</div>
 
