@@ -14,7 +14,7 @@ $(document).ready(function(){
 	
 	//设置所有input标签的属性样式
 	
-	$(".Message tr td :input").css({"width":"36%","color":"#080808","text-align":" center",
+	$(".Message tr td :input").css({"width":"47%","color":"#080808","text-align":" center",
 		"font-family":"微软雅黑","font-size":"18px","border":"hidden","background":"#fff"});
 	
 	//设置最后一个input标签的属性样式

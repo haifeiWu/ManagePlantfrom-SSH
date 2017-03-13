@@ -200,7 +200,7 @@
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:60%;"
+								<td colspan="2">出生日期：<input type="text" style="width:70%;"
 									name="birthday" value="1961" /></td>
 							</tr>
 							<!--第四行身份证住址-->
@@ -223,9 +223,9 @@
 						<hr
 							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
 					</div>
-					<div>
+					<div style="z-index:1;position:absolute;left:910px;top:450px;width:850px;">
 						<input class="btn" type="button" value="读卡"
-							onclick="return Button1_onclick()" style="margin-left: 83%;margin-top: -6.5%;" />
+							onclick="return Button1_onclick()"  />
 					</div>
 
 				</div>
