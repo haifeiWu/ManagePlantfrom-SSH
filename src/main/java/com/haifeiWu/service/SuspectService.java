@@ -69,6 +69,8 @@ public interface SuspectService {
 
 	public void updateSuspect(int room_Now, int process_Now, String suspect_ID);
 
+	// public PHCSMP_Suspect findByRemark(String remark);
+
 	// public void updateSuspect(PHCSMP_Suspect suspectInfor);
 
 }

@@ -388,12 +388,16 @@
 					</tr> -->
 				</table>
 			</div>
-			<div class="row" style="margin-top:30px">
-				<p id="signature">
+			<div class="row" style="margin-top:30px;width:1000px;">
+				<div style="float:left;width:400px;margin-left: 150px"><p id="signature">
 					管理员:<input type="text" name="" />
+					
+					</p>
+				</div>
+				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
 					<input type="submit" value="确认提交" class="sub" />
-				</p>
-				<
+				</div>
+				
 			</div>
 		</div>
 
@@ -480,11 +484,16 @@
 					</tr>
 				</table>
 			</div>
-			<div class="row" style="margin-top:30px">
+			<div class="row" style="margin-top:30px;width:1000px;">
+				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
 					管理员:<input type="text" name="" />
-				</p>
-				<input type="submit" value="确认提交" class="sub" />
+					</p>
+				</div>
+				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
+					<input type="submit" value="确认提交" class="sub" />
+				</div>
+				
 			</div>
 		</div>
 	</form>

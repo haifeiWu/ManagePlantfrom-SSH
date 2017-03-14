@@ -1,13 +1,10 @@
 package com.haifeiWu.action;
 
-import java.net.URLDecoder;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.base.BaseAction;
-import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.entity.PHCSMP_Staff;
@@ -75,16 +72,14 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		String ip = request.getRemoteAddr();
 
 		PHCSMP_Room room = roomService.findbyIp(ip);
-		int room_id=room.getRoom_ID();
-		System.out.println("获取到roomid为"+room_id);
-		PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(room_id
-				);
-		
-//		this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
-//				"utf-8");
-//		this.suspectID = SuspectInfor.getSuspect_ID();
+		int room_id = room.getRoom_ID();
+		System.out.println("获取到roomid为" + room_id);
+		PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(room_id);
 
-		
+		// this.personName = URLDecoder.decode(SuspectInfor.getSuspect_Name(),
+		// "utf-8");
+		// this.suspectID = SuspectInfor.getSuspect_ID();
+
 		// 通过反射加载离开办案区记录的类
 		Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
 
@@ -96,10 +91,10 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 
-		
 		leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息
 		// suspectService.updateSuspect(SuspectInfor);
-		suspectService.updateLeaveState(3, -1, 1, suspectInfor.getSuspect_ID());
+		// 将录像的标志位置为0
+		suspectService.updateLeaveState(3, -1, 0, suspectInfor.getSuspect_ID());
 		System.out.println("state=" + suspectInfor.getRecordVideo_State() + " "
 				+ "Process_Now=" + suspectInfor.getProcess_Now());
 
@@ -113,8 +108,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		lineService.closeLine();
 		System.out.println("释放回路");
 		// 释放手环
-		PHCSMP_Band band = bandService.findBandById(suspectInfor.getBand_ID());
-		band.setIs_Used(0);
+		bandService.update(0, suspectInfor.getBand_ID());
 		return "addLeaveRecordInfor";
 	}
 

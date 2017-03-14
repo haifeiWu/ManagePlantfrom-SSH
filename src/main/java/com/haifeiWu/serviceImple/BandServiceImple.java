@@ -43,4 +43,9 @@ public class BandServiceImple extends DaoSupportImpl<PHCSMP_Band> implements
 	public PHCSMP_Band findBandById(int bandId) {
 		return bandInforDao.findByPropertyName("band_ID", bandId);
 	}
+
+	@Override
+	public PHCSMP_Band findByRemark(String remark) {
+		return bandInforDao.findByPropertyName("remark", remark);
+	}
 }

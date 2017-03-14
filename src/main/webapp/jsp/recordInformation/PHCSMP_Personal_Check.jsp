@@ -25,7 +25,7 @@
 				.click(
 						function() {
 							var num = $("#woods_check tr").length;
-							index = num -1;
+							index = num - 2;
 							var tdnum = $("#woods_check tr:last()").find(
 									"td:eq(0)");
 							//添加下一行
@@ -49,15 +49,15 @@
 									+ "].Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
 									+ "<td> <select name=belong["
 									+index
-									+"].Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> </select> </td>"
+									+"].Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
 									+ "<td> <select name=belong["
 									+ index
-									+ "].Cabinet_Number> <option value=>---请选择---</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> </select> </td>"
+									+ "].Cabinet_Number> <option value=>---请选择---</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> <lect> </td>"
 									+ "</tr>";
 							$("#woods_check tr").eq(
 									$("#woods_check tr").length - 2).after(
 									addrow);
-							//addrow.find("td:eq(0)").html(num - 1);
+							addrow.find("td:eq(0)").html(num - 1);
 
 							tdnum.html(num);
 
@@ -322,15 +322,15 @@
 							<td>保管柜号</td>
 						</tr>
 						<tr>
-							<td>1</td>
+							<td>0</td>
 							<td><input type="text" name="belong[0].Belonging_Name"
-								value="房间钥匙" /></td>
+								value="" /></td>
 							<td><input type="text" name="belong[0].Belonging_Character"
-								value="房间钥匙" /></td>
+								value="" /></td>
 							<td><input type="text" name="belong[0].Belonging_Number" /></td>
 							<td><input type="number" value="1"
 								name="belong[0].Belonging_Count" /></td>
-							<td><input type="text" value="把"
+							<td><input type="text" value="个"
 								name="belong[0].Belonging_Unit" /></td>
 							<td><select name="belong[0].Keeping_ID">
 									<option value="">---请选择---</option>

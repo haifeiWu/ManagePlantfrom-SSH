@@ -42,13 +42,13 @@ public interface DaoSupport<T> {
 	 */
 	public T findSuspectPublicById(String suspectId);
 
-	/**
-	 * 注意该方法的使用，用于一张表中一个suspectID对应一条记录
-	 * 
-	 * @param suspectId
-	 * @return
-	 */
-	public T findTemporaryLeaveInfoById(String suspectId);
+	// /**
+	// * 注意该方法的使用，用于一张表中一个suspectID对应一条记录
+	// *
+	// * @param suspectId
+	// * @return
+	// */
+	// public T findTemporaryLeaveInfoById(String suspectId);
 
 	/**
 	 * 通过属性名和属性值去查询

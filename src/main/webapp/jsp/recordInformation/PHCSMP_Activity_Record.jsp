@@ -166,9 +166,9 @@
 					</h4>
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img
-							style="width: 45%; height: 42%; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);"
+							style="margin-left:17%; width: 120px; height: 156px; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);"
 							src="images/1-zhengmian_04.png" /> <img
-							style="width: 53%; height: 90%; -webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);"
+							style="width: 120px; height: 156px; -webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);"
 							src="images/1-cemian_06.png" />
 						<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
 							&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
@@ -176,28 +176,28 @@
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 						<hr
-							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
+							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -3%;" />
 
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
 							<tr style="padding: 0px;">
 								<!--图片引入-->
 								<td rowspan="5"><img
-									style="width:89%;height: 75%;margin-left: -2%;"
+									style="width:95px;height: 108px;"
 									src="${SuspectInfor.identityCard_Photo }" />
 									<p class="info_id">身份证照</p></td>
-								<td colspan="2">姓名:<input type="text" readonly="readonly"
+								<td colspan="2">姓名:<input type="text" readonly="readonly" style="width:36%;"
 									value="${SuspectInfor.suspect_Name }" /></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
-								<td>性别：<input style="text-align: center;" type="text"
+								<td>性别：<input style="text-align: center; width:36%;" type="text"
 									value="${SuspectInfor.sex }" readonly="readonly" /></td>
 								<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:36%;"
+								<td colspan="2">出生日期：<input type="text" style="width:42%;"
 									value="${SuspectInfor.birthday }" readonly="readonly" />
 								</td>
 							</tr>
@@ -207,17 +207,17 @@
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" rows="1"
+								<td colspan="2"><textarea readonly="readonly" rows="1" style="width: 350px;margin-left: 10%;" 
 										cols="30">${SuspectInfor.address }</textarea></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 38px;">身份证号码</div></td>
-								<td colspan="2"><input type="text"
+								<td colspan="2"><input type="text" style="width:80%;"
 									value="${SuspectInfor.identifyCard_Number  }" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr
-							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 40%; margin-left: -2%;" />
+							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 30%; margin-left: -3%;" />
 					</div>
 				</div>
 			</div>

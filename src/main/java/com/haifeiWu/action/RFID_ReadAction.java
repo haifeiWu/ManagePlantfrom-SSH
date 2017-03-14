@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.BandService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.Video;
@@ -54,6 +55,8 @@ public class RFID_ReadAction extends ActionSupport implements
 
 	@Autowired
 	private RoomService roomService;// 查询房间号的dao
+	@Autowired
+	private BandService bandService;
 
 	// @Autowired
 	// private BandInforDao bandInforDao;
@@ -64,10 +67,16 @@ public class RFID_ReadAction extends ActionSupport implements
 
 	public String readRFID() throws IOException, InterruptedException {
 		// 获取BandID和CardReader_ID
-		int cardReader_ID = Integer.parseInt(request.getParameter("deviceId"));// 设备号
-		int bandId = Integer.parseInt(request.getParameter("wristId"));//
-		// 手环id
+		String cardReader_Name = request.getParameter("deviceId");// 设备号
+		String remark = request.getParameter("wristId");
+		System.out.println(request.getParameter("deviceId")
+				+ "-------------------cardReader_Name-----------");
+		System.out.println(request.getParameter("wristId")
+				+ "-------------------remark-----------");
 		// 通过获取的属性获取嫌疑人当前信息和所在房间的信息
+		int bandId = bandService.findByRemark(remark).getBand_ID();
+		int cardReader_ID = roomService.findByCardReaderName(cardReader_Name)
+				.getCardReader_ID();
 		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
 		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
 		// 调用录像,并更新录像状态(判断)// 更新嫌疑人信息，房间号、流程号

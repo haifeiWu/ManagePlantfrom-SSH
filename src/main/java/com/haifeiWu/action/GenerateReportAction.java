@@ -11,8 +11,6 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.util.ServletContextAware;
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -109,10 +107,10 @@ public class GenerateReportAction extends ActionSupport implements
 				.findInforBySuspetcId(suspectId);
 
 		// 犯人羁押时间
-		DateTimeFormatter format = DateTimeFormat
-				.forPattern("yyyy-MM-dd HH:mm");
-		DateTime startTime = DateTime.parse(suspect.getEnter_Time(), format);
-		DateTime endTime = DateTime.parse(leave_Record.getLeave_Time(), format);
+		// DateTimeFormatter format = DateTimeFormat
+		// .forPattern("yyyy-MM-dd HH:mm");
+		DateTime startTime = DateTime.parse(suspect.getEnter_Time());
+		DateTime endTime = DateTime.parse(leave_Record.getLeave_Time());
 
 		int prisonHour = Hours.hoursBetween(startTime, endTime).getHours();
 

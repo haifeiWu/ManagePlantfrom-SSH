@@ -24,4 +24,6 @@ public interface BandService {
 	// public void update(PHCSMP_Band model);
 
 	public PHCSMP_Band findBandById(int bandId);
+
+	public PHCSMP_Band findByRemark(String remark);
 }
