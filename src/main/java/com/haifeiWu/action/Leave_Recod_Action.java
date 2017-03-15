@@ -1,18 +1,23 @@
 package com.haifeiWu.action;
-
 import java.io.IOException;
+
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.base.BaseAction;
+import com.haifeiWu.entity.PHCSMP_Dic_Keeping_Way;
+import com.haifeiWu.entity.PHCSMP_Dic_Leaving_Reason;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.BandService;
+import com.haifeiWu.service.DicService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.RoomService;
@@ -48,6 +53,8 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private LineService lineService;
 	@Autowired
 	private BandService bandService;
+	@Autowired
+	private DicService dicService;
 
 	private Temporary_Leave temporaryLeave;
 	private PHCSMP_Suspect suspectInfor;

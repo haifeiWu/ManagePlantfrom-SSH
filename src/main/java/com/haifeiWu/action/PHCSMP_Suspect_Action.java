@@ -68,6 +68,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			e.printStackTrace();
 			response.getWriter().write("<script> alert('信息加载失败！'); </script>");
 			response.getWriter().flush();
+
 		}
 		return "loadInfor";
 	}
@@ -143,6 +144,17 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		}
 	}
 
+	/**
+	 * Date:2017.02.26 author:whf
+	 * 
+	 * // 格式化获取的路径 String path = model.getTdentityID_Imag(); StringBuilder sb =
+	 * new StringBuilder(path); path = sb.insert(2, "\\").toString(); //
+	 * 获取web根目录 String temp = application.getRealPath("/"); //
+	 * 使用身份证的身份证号码作为身份证照片的文件名 String fileName = model.getIdentifyCard_Number();
+	 * // 得到身份证照片的相对目录 String picPath = "images/" + fileName + ".bmp"; //
+	 * 设置身份证图片的相对目录，数据库中保存的是图片的web目录下的相对目录 model.setTdentityID_Imag(picPath); //
+	 * 将改图片拷贝到服务器目录下 CopyFile.copyFile(path, temp + "/" + picPath);
+	 */
 	/* 检查用户登录信息 */
 	public String checkUser() {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
@@ -164,19 +176,6 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 	}
-
-	// public String unlogin_load() {
-	//
-	// List<PHCSMP_Band> list = bandService.findAllBundInfor();
-	// List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
-	// .findAllIdentifyCardType();
-	// List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
-	// .findAllSuspectCause();
-	// request.setAttribute("bundList", list);
-	// request.setAttribute("identifyCardType", identifyCardType);
-	// request.setAttribute("actionCause", actionCause);
-	// return "unlogin_load";
-	// }
 
 	public String updateInfor() {
 		System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
