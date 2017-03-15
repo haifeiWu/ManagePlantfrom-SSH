@@ -94,6 +94,11 @@ public class SuspectServiceImple implements SuspectService {
 		suspectDao.update(hql, room_Now, process_Now, suspect_ID);
 	}
 
+	@Override
+	public void updateSuspect(PHCSMP_Suspect suspectInfor) {
+		suspectDao.updateSuspect(suspectInfor);
+	}
+
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
 	// // TODO Auto-generated method stub

@@ -65,5 +65,5 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	public List<PHCSMP_Suspect> getOnPoliceSuspect();
 
 	public void updateSwitch(int i, String suspect_ID);
-
+	public void updateSuspect(PHCSMP_Suspect suspectInfor);
 }

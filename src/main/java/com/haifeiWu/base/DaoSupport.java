@@ -2,6 +2,8 @@ package com.haifeiWu.base;
 
 import java.util.List;
 
+import com.haifeiWu.entity.PHCSMP_Suspect;
+
 public interface DaoSupport<T> {
 
 	/**
@@ -25,6 +27,13 @@ public interface DaoSupport<T> {
 	 * @param entity
 	 */
 	public void delete(T entity);
+	
+	/**
+	 * 删除实体
+	 * 
+	 * @param entity
+	 */
+	public void deleteBySuspectID(String suspect_ID);
 
 	/**
 	 * 批量保存
@@ -81,4 +90,5 @@ public interface DaoSupport<T> {
 	 * 
 	 */
 
+	/*public void updateSuspect(PHCSMP_Suspect suspect);*/
 }
