@@ -33,6 +33,8 @@
 			maxView : 1,
 			forceParse : 0
 		}); 
+		
+	
 
 		$("#add")
 				.click(
@@ -78,6 +80,20 @@
 							//addrow.find("td:eq(0)").html(num - 1);
 
 							tdnum.html(num-1);
+							
+							 $(".form_time").datetimepicker({
+			language : 'zh-CN',
+			format : 'yyyy-mm-dd hh:ii',
+			weekStart : 1,
+			todayBtn : 1,
+			autoclose : 1,
+			todayHighlight : 1,
+			startView : 1,
+			minView : 0,
+			maxView : 1,
+			forceParse : 0
+		}); 
+							
 						});
 		//删除行
 		$("#delete").click(
@@ -95,6 +111,7 @@
 				});
 
 	});
+	
 </script>
 </head>
 

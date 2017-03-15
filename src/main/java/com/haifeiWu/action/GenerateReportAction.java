@@ -20,12 +20,14 @@ import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.utils.PropertiesReadUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -66,6 +68,8 @@ public class GenerateReportAction extends ActionSupport implements
 	// 嫌疑人出区信息登记
 	@Autowired
 	private LeaveRecodService leaveRecodService;
+	@Autowired
+	private TemporaryLeaveService temporaryLeaveService;
 
 	/**
 	 * 生成嫌疑人入区信息报告
@@ -77,33 +81,48 @@ public class GenerateReportAction extends ActionSupport implements
 
 		System.out.println("嫌疑人姓名：" + request.getParameter("personName"));
 		System.out.println("档案编号：" + request.getParameter("suspectID"));
+		
+		
+		
 		/*
 		 * 加载当前嫌疑人的所有的信息
 		 */
 		// 获取档案编号
 		String suspectId = (String) request.getParameter("suspectID");
+		//String suspectId="LB-HB-2017308186";
+		
 		if (suspectId == null) {
 			return "NULL";
 		}
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
-		// 嫌疑人随身所有物品检查信息
+		System.out.println("suspect="+suspect);
+		// 嫌疑人随身所有物品检查信息s
 		List<PHCSMP_BelongingS> belongingS = belongingInforService
 				.selectBelongInfor(suspectId);
+		System.out.println("belongingS="+belongingS);
+		
 		// 嫌疑人人身检查信息
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectId);
+		System.out.println("personal_Check="+personal_Check);
 		// 嫌疑人所有的办案区记录信息
 		List<PHCSMP_Activity_Record> activity_Record = activityRecordService
 				.selectActivityRecordInfor(suspectId);
+		System.out.println("activity_Record="+activity_Record);
 
 		// 嫌疑人信息采集记录
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
 				.findInforBySuspetcId(suspectId);
+		System.out.println("information_Collection="+information_Collection);
+		
 		// 嫌疑人出区信息记录
 		PHCSMP_Leave_Record leave_Record = leaveRecodService
 				.findInforBySuspetcId(suspectId);
-
+		System.out.println("leave_Record="+leave_Record);
+		//暂时离区
+		List<Temporary_Leave> temporaryLeaves=temporaryLeaveService.selectTemporaryLeavesInfor(suspectId);		
+		System.out.println("leave_Record="+temporaryLeaves);
 		// 犯人羁押时间
 		// DateTimeFormatter format = DateTimeFormat
 		// .forPattern("yyyy-MM-dd HH:mm");
@@ -116,7 +135,7 @@ public class GenerateReportAction extends ActionSupport implements
 
 		if ((suspect == null) || (belongingS == null)
 				|| (personal_Check == null) || (activity_Record == null)
-				|| (information_Collection == null) || (leave_Record == null)) {
+				|| (information_Collection == null) || (leave_Record == null)||(temporaryLeaves==null)) {
 			return "NULL";
 		}
 
