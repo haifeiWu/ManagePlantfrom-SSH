@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 <!DOCTYPE html>
 <html>
 
@@ -156,10 +158,8 @@
 				</ul>
 			</form>
 			<hr style="width: 100%;border: 0.5px solid #389AC7;" />
-			<!-- 文件下载链接 -->
-			<a class="col-lg-12 col-md-12 col-sm-12" id="download_All"
-				href="${pageContext.request.contextPath }/GR_downFile.action?date=${personal_Check.check_Date }&fileName=${suspect.identifyCard_Number }${personal_Check.check_Date }">嫌疑人入所视频文件下载</a>
-			<!-- 嫌疑人入区登记 -->
+			<!-- 文件下载链接   "-->
+			
 			<form class="row">
 				<h4 id="Person_info"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -183,7 +183,7 @@
 								<!--图片引入-->
 								<td rowspan="5"><img
 									style="width:89%;height: 75%;margin-left: -2%;"
-									src="images/1-IDlogo_09.png" />
+									src="${suspect.identityCard_Photo } " />
 									<p class="info_id">身份证照</p></td>
 								<!--<td></td>-->
 								<td colspan="2">姓名:<input type="text" readonly="readonly"
@@ -198,11 +198,8 @@
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生：<input type="text" style="width:20%;"
-									value="1961" readonly="readonly" />年<input type="text"
-									readonly="readonly" style="width:20%;text-align: center;"
-									value="8" /> 月 <input type="text" style="width:25%;"
-									value="12" readonly="readonly" />日
+								<td colspan="2">出生：<input type="text" style="width:40%;"
+									value="${suspect.birthday }"readonly="readonly" />
 								</td>
 							</tr>
 							<!--第四行身份证住址-->
@@ -228,42 +225,42 @@
 							style="border-bottom: 1px solid #389AC7; padding-bottom: 3px;color: #f69d1f;width: 10%;">1.2&nbsp;人员联系信息</p>
 						<table id="people_Mes" class="col-lg-12 col-md-10 col-sm-10">
 							<tr>
-								<td>身份证种类:</td>
+								<td style="text-align: center;">身份证种类:</td>
 								<td colspan="4"><input type="text"
 									value="${suspect.type_ID }" /></td>
 							</tr>
 							<tr>
-								<td>证件号码:</td>
-								<td colspan="4"><input type="text" value="12319283279" /></td>
+								<td style="text-align: center;">证件号码:</td>
+								<td colspan="4"><input type="text" value="${suspect.identifyCard_Number }" /></td>
 							</tr>
 							<tr>
-								<td>现住址:</td>
+								<td style="text-align: center;">现住址:</td>
 								<td colspan="4"><input type="text"
 									value="${suspect.now_address }" /></td>
 							</tr>
 							<tr>
-								<td>联系方式:</td>
+								<td style="text-align: center;">联系方式:</td>
 								<td colspan="4"><input type="text"
 									value="${suspect.phone }" /></td>
 							</tr>
 							<tr>
-								<td>入区时间:</td>
+								<td style="text-align: center;">入区时间:</td>
 								<td><input type="text" value="${suspect.enter_Time }" /></td>
-								<td>RFID:</td>
+								<td style="text-align: center;">RFID:</td>
 								<td colspan="4"><input type="text"
 									value="${suspect.band_ID }" /></td>
 							</tr>
 							<tr>
-								<td rowspan="2">进入办案区原因:</td>
-								<td>案由:</td>
+								<td style="text-align: center;">进入办案区原因:</td>
+								
 								<td colspan="4"><input type="text"
 									value="${suspect.suspected_Cause }" /></td>
 							</tr>
 							<tr>
-								<td>办案民警签名:</td>
+								<td style="text-align: center;">办案民警签名:</td>
 								<td><input type="text" value="${suspect.staff_ID }"
 									readonly="readonly" /></td>
-								<td>管理员签名:</td>
+								<td style="text-align: center;">管理员签名:</td>
 								<td><input type="text" value="${suspect.staff_ID }"
 									readonly="readonly" /></td>
 							</tr>
@@ -288,8 +285,8 @@
 								value="${personal_Check.is_Diseases }" /></li>
 						</ul>
 						<fieldset class="col-lg-12 col-md-12 col-sm-12">
-							<legend>自述症状:</legend>
-							<textarea style="height: 120px;">${personal_Check.self_ReportS }</textarea>
+							<p><font size="4">自述症状：</font><input style="height: 30px;width: 80%;"value="${personal_Check.self_ReportS }"></p>
+							
 						</fieldset>
 					</div>
 					<!--体检信息表-->
@@ -298,22 +295,25 @@
 						<!--体检信息表-->
 						<table class="checked_state col-lg-12 col-md-10 col-sm-10">
 							<tr>
-								<td style="width: 20%;">${personal_Check.check_Situation }</td>
+								<td style="padding-left: 100px;">人身检查状态</td><td style="width: 20%;">${personal_Check.check_Situation }</td>
 								<!-- <td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input type="checkbox" /></td>
 								<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input type="checkbox" /></td> -->
 								<td rowspan="2"><img src="images/check_08.png"
-									style="width: 70%; margin-left: 1%; margin-top: 3%;" /></td>
+									style="width: 30%; margin-left: 1%; margin-top: 3%;" /></td>
 								<!--引入体表检查图-->
 							</tr>
 							<tr>
-								<td style="text-align: left; vertical-align: top;">检查情况:</td>
-								<td colspan="2" style="text-align: left; vertical-align: top;"><textarea>${personal_Check.check_ReportS }</textarea></td>
+								<td style="padding-left: 100px; vertical-align: top;">检查情况:</td>
+								<td  style="text-align: left; vertical-align: top;"><textarea>${personal_Check.check_ReportS }</textarea></td>
 								<!--<td></td>-->
 							</tr>
 							<tr>
-								<td>检查民警<br> <input type="text"
-									value="${personal_Check.staff_ID }" /></td>
-								<td colspan="3" style="text-align: center;">被检查人/监护人 <br>
+								<td style="padding-left: 100px;">
+									<div  >检查民警<br> <input type="text"
+									value="${personal_Check.staff_ID }" />
+									</div>
+								</td>
+								<td colspan="3">被检查人/监护人 <br>
 									<input type="text" value="${suspect.suspect_Name }" /></td>
 								<!--<td></td>-->
 							</tr>
@@ -332,21 +332,25 @@
 								<td>保管措施</td>
 								<td>保管柜号</td>
 							</tr>
+							
+							<c:forEach items="${belongingS }" var="item">
 							<tr>
-								<td>1</td>
-								<td><input type="text" value="房间钥匙" /></td>
-								<td><input type="text" value="房间钥匙" /></td>
-								<td><input type="number" value="2" /></td>
-								<td><input type="text" value="把" /></td>
-								<td><input type="text" value="房间钥匙" /></td>
-								<td><input type="number" value="5" /></td>
+								<td>${item.belongingS_ID }</td>
+								<td>${item.belonging_Name }</td>
+								<td>${item.belonging_Number }</td>
+								<td>${item.belonging_Count }</td>
+								<td>${item.belonging_Unit }</td>
+								<td>${item.keeping_ID }</td>
+								<td>${item.cabinet_Number }</td>
+								
 							</tr>
+				</c:forEach>
 						</table>
-						<ul class="signature col-lg-12 col-md-10 col-sm-10">
+				 <ul class="signature col-lg-12 col-md-10 col-sm-10">
 							<li>办案人员：<br /> <input type="text"
-								value="${belongingS.staff_ID }" /></li>
+								value="${belongingS[0].staff_ID }" /></li>
 							<li>随身财物管理员：<br /> <input type="text"
-								value="${belongingS.staff_ID_Belonging }" /></li>
+								value="${belongingS[0].staff_ID_Belonging }" /></li>
 							<li>涉案人员:<br /> <input type="text"
 								value="${suspect.suspect_Name }" /></li>
 						</ul>
@@ -411,32 +415,25 @@
 					<table class="active_check col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>序号</td>
-							<td colspan="3">时间</td>
-							<td>房间名称</td>
+							<td>开始时间</td>
+							<td>结束时间</td>
+							<td>房间ID</td>
 							<td>活动内容</td>
 							<td>音视频编码</td>
 							<td>备注</td>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>——</td>
-							<td><input type="time" />时间</td>
-							<td id="select"><select>
-									<option>101</option>
-									<option>102</option>
-									<option>103</option>
-									<option>104</option>
-							</select></td>
-							<td id="select"><select>
-									<option>询问</option>
-									<option>讯问</option>
-									<option>审讯</option>
-									<option>传唤</option>
-							</select></td>
-							<td><input type="text" value="音视频文件" /></td>
-							<td><input type="text" /></td>
-							<td></td>
-						</tr>
+						
+						<c:forEach items="${activity_Record }" var="item">
+							<tr>
+								<td>${item.activity_Record_ID }</td>
+								<td>${item.start_Time }</td>
+								<td>${item.end_Time }</td>
+								<td>${item.room_ID }</td>
+								<td>${item.activity_Record }</td>
+								<td>${item.vedio_Number }</td>
+								<td>${item.remark }</td>
+							</tr>
+						</c:forEach>
 					</table>
 				</div>
 			</form>
@@ -458,19 +455,15 @@
 								<td>办案部门负责人签名</td>
 								<td>返回时间</td>
 							</tr>
+							<c:forEach items="${temporaryLeaves }" var="it">
 							<tr>
-								<td>1</td>
-								<td><input type="time" />时间</td>
-								<td id="select"><select>
-										<option>101</option>
-										<option>102</option>
-										<option>103</option>
-										<option>104</option>
-								</select></td>
-								<td><input type="text" /></td>
-								<td><input type="time" />时间</td>
-
+								<td>${it.temporary_Leave_Id }</td>
+								<td>${it.tempLeave_Time }</td>
+								<td>${it.tempLeave_Reason }</td>
+								<td>${it.staff_ID }</td>
+								<td>${it.return_Time }</td>
 							</tr>
+						</c:forEach>
 						</table>
 					</div>
 					<hr style="margin-top: 180px;border: 1px solid darkgray;" />
@@ -480,52 +473,39 @@
 							style="color: #389AC7;margin-top: 2%;margin-left:4%;font-size: inherit;">最终离开办案区:</p>
 						<table class="final_Leave col-lg-12 col-md-10 col-sm-10">
 							<tr>
-								<td>最终离开时间</td>
-								<td>离开原因</td>
+								<td style="text-align: center;">最终离开时间</td>
+								<td>${leave_Record.leave_Time }</td>
 							</tr>
 							<tr>
-								<td><input type="text" value="${leave_Record.leave_Time }"
-									readonly="readonly" /></td>
-								<td><input type="text" value="${leave_Record.leave_Reason}"
-									readonly="readonly" /> <!-- <select>
-										<option>查证结束</option>
-										<option>刑拘</option>
-										<option>行政拘留</option>
-										<option>警告</option>
-									</select> --></td>
+								<td style="text-align: center;">离开原因</td>
+								<td>${leave_Record.leave_Reason}</td>
 							</tr>
 							<tr>
-								<td>随身物品处理情况:</td>
-								<td><input type="text"
-									value="${leave_Record.belongingS_Treatment_Method}" /> <!-- <input type="checkbox" />全部反还
-									<input type="checkbox" />部分反还
-									<input type="checkbox" />未反还 --></td>
+								<td style="text-align: center;">随身物品处理情况:</td>
+								<td>${leave_Record.belongingS_Treatment_Method} 
+								</td>
 							</tr>
 							<tr>
-								<td>未反还物品情况记载:</td>
+								<td style="text-align: center;">未反还物品情况记载:</td>
 								<td><textarea>${leave_Record.belongingS_Treatment_Record}</textarea></td>
 							</tr>
 							<tr>
-								<td>领取人：</td>
-								<td><input type="text"
-									value="${leave_Record.recipient_Person}" /></td>
+								<td style="text-align: center;">领取人：</td>
+								<td>${leave_Record.recipient_Person}"</td>
 							</tr>
 							<tr>
-								<td>身份证号码:</td>
-								<td><input type="text"
-									value="${leave_Record.recipient_Person_Number }" /></td>
+								<td style="text-align: center;">身份证号码:</td>
+								<td>
+									${leave_Record.recipient_Person_Number }</td>
 							</tr>
 							<tr>
-								<td>领取时间:</td>
-								<td><input type="text"
-									value="${leave_Record.treatment_Time }" /></td>
+								<td style="text-align: center;">领取时间:</td>
+								<td>${leave_Record.treatment_Time }</td>
 							</tr>
 						</table>
 					</div>
 					<hr style="margin-top: 380px;border: 1px solid darkgray;" />
-					<p id="detain_time">
-						该嫌疑人羁押时间:&nbsp;&nbsp;<input type="text" value="${prisonHour }" />小时
-					</p>
+					
 					<p id="signature">
 						管理员签名:&nbsp;&nbsp;&nbsp;<input type="text" value="admin" />
 					</p>

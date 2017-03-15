@@ -36,7 +36,7 @@
 		<global-results>
 			<result name="frequentVisit">/jsp/RfidRead/frequentVisit.jsp</result>
 			<result name="loginError">/jsp/login.jsp</result>
-			<result name="NULL">/jsp/error/null.jsp</result>
+			<result name="NULL">/jsp/error/null.jsp</result> 
 			<!-- <result name="unLoginState">/jsp/home/unlogin/unlogin_main.jsp</result> -->
 		</global-results>
 		<!-- 首页 -->

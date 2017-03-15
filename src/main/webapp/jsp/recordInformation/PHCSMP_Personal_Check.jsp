@@ -25,34 +25,35 @@
 				.click(
 						function() {
 							var num = $("#woods_check tr").length;
-							index = num -1;
+							index = num - 1;
 							var tdnum = $("#woods_check tr:last()").find(
 									"td:eq(0)");
+							var lineNum=index-1;
 							//添加下一行
 							var addrow = "<tr>" + "<td>"
-									+ index
+									+ lineNum
 									+ "</td>"
 									+ "<td><input type=text name=belong["
-									+ index
+									+ lineNum
 									+ "].Belonging_Name style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);'/></td>"
 									+ "<td><input type=text name=belong["
-									+ index
+									+ lineNum
 									+ "].Belonging_Character style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
 									+ "<td><input type=text name=belong["
-									+ index
+									+ lineNum
 									+ "].Belonging_Number style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
 									+ "<td><input type=number name=belong["
-									+ index
+									+ lineNum
 									+ "].Belonging_Count style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
 									+ "<td><input type=text name=belong["
-									+ index
+									+ lineNum
 									+ "].Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
 									+ "<td> <select name=belong["
-									+index
-									+"].Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> </select> </td>"
+									+ lineNum
+									+"].Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
 									+ "<td> <select name=belong["
-									+ index
-									+ "].Cabinet_Number> <option value=>---请选择---</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> </select> </td>"
+									+ lineNum
+									+ "].Cabinet_Number> <option value=>---请选择---</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> <lect> </td>"
 									+ "</tr>";
 							$("#woods_check tr").eq(
 									$("#woods_check tr").length - 2).after(
@@ -324,13 +325,13 @@
 						<tr>
 							<td>1</td>
 							<td><input type="text" name="belong[0].Belonging_Name"
-								value="房间钥匙" /></td>
+								value="" /></td>
 							<td><input type="text" name="belong[0].Belonging_Character"
-								value="房间钥匙" /></td>
+								value="" /></td>
 							<td><input type="text" name="belong[0].Belonging_Number" /></td>
 							<td><input type="number" value="1"
 								name="belong[0].Belonging_Count" /></td>
-							<td><input type="text" value="把"
+							<td><input type="text" value="个"
 								name="belong[0].Belonging_Unit" /></td>
 							<td><select name="belong[0].Keeping_ID">
 									<option value="">---请选择---</option>
