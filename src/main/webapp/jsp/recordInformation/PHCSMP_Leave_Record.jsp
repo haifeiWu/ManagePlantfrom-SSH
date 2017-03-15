@@ -459,13 +459,13 @@
 						<td>领取人签名:</td>
 						<td style="padding:8px 0 8px 0"><input
 							style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
-							name="" value="" /></td>
+							name="recipient_Person" value="" /></td>
 					</tr>
 					<tr>
 						<td>身份证号码:</td>
 						<td style="padding:8px 0 8px 0"><input
 							style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
-							name="" value="" /></td>
+							name="recipient_Person_Number" value="" /></td>
 					</tr>
 					<tr>
 						<td>领取时间:</td>
@@ -490,7 +490,7 @@
 			<div class="row" style="margin-top:30px;width:1000px;">
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
-					管理员:<input type="text" name="" />
+					管理员:<input type="text" name="staff_ID" />
 					</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">

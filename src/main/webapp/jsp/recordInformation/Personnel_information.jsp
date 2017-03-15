@@ -3,7 +3,7 @@
 <!-- 加载jstl的c标签库 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html class="contain">
 
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -20,8 +20,39 @@
 <script type="text/javascript" src="js/jqCss_pinfo.js"></script>
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
-
+<script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript">
+/* 
+	$(function(){
+		   $("#addInfoForm").on("submit",function(){
+		        if($("#band_ID").val().trim()=="0"){
+		           alert("提交失败，请先填写手环id");
+		        }
+				else{
+					$.post("${pageContext.request.contextPath }/suspect_addSuspectInfor.action",function(page){
+						$(".contain").html(page);
+					});
+				}
+				 return false; 
+			});   
+		});	 */
+		
+		 /* if($(".message").val()=="success"){
+			alert("信息提交成功！");
+			window.location="${pageContext.request.contextPath }/home_index.action";
+		 }else if($(".message").val()=="error"){
+		 	alert("信息提交失败");
+		 } */
+	
+	 	/* $(".submit").off();
+		$(".submit").on("click",function(){
+			 if($("#band_ID").val().trim()=="0"){
+			 	 	$(".submit").addClass("disaled");
+			 	 	alert("提交失败，请先填写手环id");
+			 	 }
+		 }); */
+	 
+		
 	function ClearForm() {
 		document.all['suspect_Name'].value = "";
 		document.all['sex'].value = "";
@@ -68,10 +99,13 @@
 
 	}
 
+
+
 /* 	function Logger() {
 		alert("信息提交成功！");
 	}
  */
+
 	$(document).ready(function() {
 		$("#identityImg").attr('src', 'images/fgreen_03.png');
 		$("#identityImg1").attr('src', 'images/fgreen_03.png');
@@ -114,9 +148,12 @@
 </head>
 <body>
 
-	<form class="container"
+	<form class="container" id="addInfoForm"
 		action="${pageContext.request.contextPath }/suspect_addSuspectInfor.action"
 		enctype="multipart/form-data" method="POST">
+		<c:if test="${!empty message }">
+			<input class="message" type="hidden" value=${message }>
+		</c:if>
 		<div class="row">
 			<!--嫌疑人入区信息-->
 			<h4 style="margin-top: 13px;">
@@ -252,7 +289,7 @@
 						<tr>
 							<td style="text-align:center;">现住址：</td>
 							<td>
-								<input type="text" name="" />
+								<input type="text" name="now_address" />
 							</td>
 						</tr>
 						<tr>
@@ -334,7 +371,8 @@
 							
 						</tr>
 					</table>
-					<input class="btn" type="submit" value="确认提交"/>
+					<input class="btn" type="submit" value="确认提交" class="submit"/>
+
 				</div>
 			</div>
 			<div class="row_4" style="height: 480px;"></div>
