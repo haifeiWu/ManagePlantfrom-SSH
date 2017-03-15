@@ -93,4 +93,15 @@ public class SuspectServiceImple implements SuspectService {
 		String hql = "update PHCSMP_Suspect s set s.room_Now=? , s.process_Now=? where s.suspect_ID=?";
 		suspectDao.update(hql, room_Now, process_Now, suspect_ID);
 	}
+
+	@Override
+	public void updateSuspect(PHCSMP_Suspect suspectInfor) {
+		suspectDao.updateSuspect(suspectInfor);
+	}
+
+	// @Override
+	// public PHCSMP_Suspect findByRemark(String remark) {
+	// // TODO Auto-generated method stub
+	// return suspectDao.findByPropertyName("remark", remark);
+	// }
 }

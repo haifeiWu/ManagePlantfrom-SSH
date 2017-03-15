@@ -142,6 +142,7 @@
 				</div>
 			</div>
 			<!--身份证信息结束-->
+			<input type="hidden" name="ic_StartTime" value="${start_Time }">
 			<!-- 
 			<div class="form-group">
 				<label for="dtp_input1" class="check_time">信息采集起始时间：</label>
@@ -260,9 +261,9 @@
 		</div>
 	</form>
 </body>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	function Logger() {
 		alert("信息提交成功");
 	}
-</script>
+</script> -->
 </html>

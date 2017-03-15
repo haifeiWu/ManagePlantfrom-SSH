@@ -27,4 +27,6 @@ public interface InformationCollectionService {
 	PHCSMP_Information_Collection findInforBySuspetcId(String suspectId);
 
 	public List<PHCSMP_Dic_Collection_Item> findAllCollectionItem();
+
+	public void deleteInforCollect(PHCSMP_Information_Collection old);
 }

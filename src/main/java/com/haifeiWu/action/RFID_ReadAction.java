@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.BandService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.Video;
@@ -54,6 +55,8 @@ public class RFID_ReadAction extends ActionSupport implements
 
 	@Autowired
 	private RoomService roomService;// 查询房间号的dao
+	@Autowired
+	private BandService bandService;
 
 	// @Autowired
 	// private BandInforDao bandInforDao;
@@ -64,10 +67,16 @@ public class RFID_ReadAction extends ActionSupport implements
 
 	public String readRFID() throws IOException, InterruptedException {
 		// 获取BandID和CardReader_ID
-		int cardReader_ID = Integer.parseInt(request.getParameter("deviceId"));// 设备号
-		int bandId = Integer.parseInt(request.getParameter("wristId"));//
-		// 手环id
+		String cardReader_Name = request.getParameter("deviceId");// 设备号
+		String remark = request.getParameter("wristId");
+		System.out.println(request.getParameter("deviceId")
+				+ "-------------------cardReader_Name-----------");
+		System.out.println(request.getParameter("wristId")
+				+ "-------------------remark-----------");
 		// 通过获取的属性获取嫌疑人当前信息和所在房间的信息
+		int bandId = bandService.findByRemark(remark).getBand_ID();
+		int cardReader_ID = roomService.findByCardReaderName(cardReader_Name)
+				.getCardReader_ID();
 		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
 		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
 		// 调用录像,并更新录像状态(判断)// 更新嫌疑人信息，房间号、流程号
@@ -127,7 +136,9 @@ public class RFID_ReadAction extends ActionSupport implements
 				System.out.println("----------------->调用开始录像的结果：---" + result);
 				// update(suspect);
 			} else {// 录像状态2
-				if (suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
+				// 房间号有变化或者标志位为0，开始指令
+				if (suspect.getRoom_Now() != room.getRoom_ID()
+						|| suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
 					String result = Video.restartRecording(
 							room.getCardReader_ID(), room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
@@ -137,16 +148,18 @@ public class RFID_ReadAction extends ActionSupport implements
 							+ result);
 					// suspect.setRecordVideo_State(2);
 					// update(suspect);
-				} else {// 发暂停指令,不更新信息
+				} else {// 发暂停指令,更新录像状态位为0
 					String result = Video.pauseRecording(
 							room.getCardReader_ID(), room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
 					System.out.println("----------------->调用暂停录像的结果：---"
 							+ result);
+					suspectService.updateSwitch(0, suspect.getSuspect_ID());
 				}
 			}
 		} else {// 状态为0，进的时候更新，出的时候不更新
-			if (suspect.getCardReader_Switch() == 0) {
+			if (suspect.getRoom_Now() != room.getRoom_ID()
+					|| suspect.getCardReader_Switch() == 0) {
 				suspectService.updateSuspect(room.getRoom_ID(),
 						room.getProcess_ID(), suspect.getSuspect_ID());
 			}

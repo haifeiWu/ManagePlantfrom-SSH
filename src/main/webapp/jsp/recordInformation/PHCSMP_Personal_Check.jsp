@@ -50,6 +50,7 @@
 									+ "].Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
 									+ "<td> <select name=belong["
 									+ lineNum
+
 									+"].Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
 									+ "<td> <select name=belong["
 									+ lineNum
@@ -79,13 +80,25 @@
 				});
 
 	});
+/* 	$(function(){
+		if($("#message").val()=="success"){
+			alert("信息添加成功");
+ 			window.location="${pageContext.request.contextPath }/home_index.action";
+		}else{
+			if($("#message").val()=="error"){
+				alert("信息提交失败");
+			}
+		}
+	}); */
 </script>
 </head>
-
 <body>
 	<form class="container"
 		action="${pageContext.request.contextPath }/personalCheck_addCheckPersonInfor.action"
 		method="post">
+		<c:if test="${! empty message}">
+			<input id="message" type="hidden" value=${message } />
+		</c:if>
 		<div class="row">
 			<h4 style="margin-top: 13px;">
 				<b style="color: #389ac7;">Personnal</b> safety check
@@ -237,19 +250,19 @@
 					<table style="margin-left: 25px !important;" class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否饮酒:</td>
-							<td>是<input type="radio" name="is_Drink" value="是"/></td>
+							<td>是<input type="radio" name="is_Drink" value="是" /></td>
 							<td>否<input type="radio" name="is_Drink" value="否" /></td>
 						</tr>
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否患有传染性疾病:</td>
-							<td>是<input type="radio" name="is_Diseases" value="是"/></td>
-							<td>否<input type="radio" name="is_Diseases" value="否"/></td>
+							<td>是<input  type="radio" name="is_Diseases" value="是"  ${checkRecord.is_Diseases == '是' ? checked :''}  /></td>
+							<td>否<input  type="radio" name="is_Diseases" value="否"  ${checkRecord.is_Diseases == '否' ? checked :''} /></td>
 						</tr>
 						<tr>
 							<td>
 							自述症状:
 							</td>
-							<td> <input type="text" name="Self_ReportS" style="height: 23px; width:350px;" value="健康状况良好">
+							<td> <input type="text" name="Self_ReportS" style="height: 23px; width:350px;" value="${checkRecord.self_ReportS }">
 							</td>
 							
 						</tr>
@@ -380,9 +393,9 @@
 	</form>
 </body>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	function Logger() {
 		alert("信息提交成功！");
 	}
-</script>
+</script> -->
 </html>

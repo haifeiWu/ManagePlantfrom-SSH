@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.haifeiWu.base.DaoSupportImpl;
+import com.haifeiWu.dao.CardReaderDao;
 import com.haifeiWu.dao.RoomInforDao;
+import com.haifeiWu.entity.PHCSMP_CardReader;
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.service.RoomService;
 
@@ -16,6 +18,8 @@ public class RoomServiceImple extends DaoSupportImpl<PHCSMP_Room> implements
 
 	@Autowired
 	private RoomInforDao roomInforDao;
+	@Autowired
+	private CardReaderDao cardReaderDao;
 
 	@Override
 	public PHCSMP_Room findbyIp(String ip) {
@@ -41,6 +45,12 @@ public class RoomServiceImple extends DaoSupportImpl<PHCSMP_Room> implements
 	@Override
 	public List<PHCSMP_Room> findAllRoom() {
 		return roomInforDao.findAllInfor();
+	}
+
+	@Override
+	public PHCSMP_CardReader findByCardReaderName(String cardReader_Name) {
+		return cardReaderDao.findByPropertyName("cardReader_Name",
+				cardReader_Name);
 	}
 
 }

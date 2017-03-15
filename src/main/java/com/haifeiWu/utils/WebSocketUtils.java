@@ -68,15 +68,19 @@ public class WebSocketUtils {
 	 */
 	@OnMessage
 	public void onMessage(String message) {
-		System.out.println("---------------------" + message.split("&").length);
+		System.out.println("---------------------websocket收到消息的长度"
+				+ message.split("&").length);
 		if (message.split("&").length == 2) {// 刷新页面
 			String[] str = message.split("&");
 			String result = str[0];// result对应的是需要刷新的页面
 			String ip = str[1];
+			System.out.println("-------------ip & result" + ip + "  " + result);
 			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理,对象为空
+			System.out.println("-------------要将消息发给websocket的对象" + item);
 			try {// 异常处理，循环三次
+				System.out.println("-------------->准备发送");
 				item.session.getBasicRemote().sendText(result);
-				System.out.println("---------------------" + result
+				System.out.println("-----------------发送成功----" + result
 						+ "-------------------------");
 			} catch (IOException e) {
 				System.out.println("没有找到相应的客户端");

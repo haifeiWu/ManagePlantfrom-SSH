@@ -146,6 +146,12 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		update(hql, i, suspect_ID);
 	}
 
+	@Override
+	public void updateSuspect(PHCSMP_Suspect suspectInfor) {
+		deleteBySuspectID(suspectInfor.getSuspect_ID());
+		save(suspectInfor);
+	}
+
 	// /**
 	// * 根据手环ID查询嫌疑人，新的需求中是否还需要对其他字段进行判断？（因为使用过同一ID的有多个嫌疑人）
 	// * 该方法需要更改

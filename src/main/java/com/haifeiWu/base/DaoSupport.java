@@ -2,6 +2,8 @@ package com.haifeiWu.base;
 
 import java.util.List;
 
+import com.haifeiWu.entity.PHCSMP_Suspect;
+
 public interface DaoSupport<T> {
 
 	/**
@@ -25,6 +27,13 @@ public interface DaoSupport<T> {
 	 * @param entity
 	 */
 	public void delete(T entity);
+	
+	/**
+	 * 删除实体
+	 * 
+	 * @param entity
+	 */
+	public void deleteBySuspectID(String suspect_ID);
 
 	/**
 	 * 批量保存
@@ -42,13 +51,13 @@ public interface DaoSupport<T> {
 	 */
 	public T findSuspectPublicById(String suspectId);
 
-	/**
-	 * 注意该方法的使用，用于一张表中一个suspectID对应一条记录
-	 * 
-	 * @param suspectId
-	 * @return
-	 */
-	public T findTemporaryLeaveInfoById(String suspectId);
+	// /**
+	// * 注意该方法的使用，用于一张表中一个suspectID对应一条记录
+	// *
+	// * @param suspectId
+	// * @return
+	// */
+	// public T findTemporaryLeaveInfoById(String suspectId);
 
 	/**
 	 * 通过属性名和属性值去查询
@@ -76,9 +85,12 @@ public interface DaoSupport<T> {
 	 * @return
 	 */
 	public List<T> findListByPropertyName(String propertyName, Object value);
+
 	/**
 	 * 需要的话再加一个通过两个属性名和属性值查询的 可增加一个更新方法，传入更新的属性和根据哪个属性更新，再传入对应的值
 	 * 
 	 */
+	/*public void updateSuspect(PHCSMP_Suspect suspect);*/
 
+	public void deleteBySuspectID(String suspect_ID);
 }

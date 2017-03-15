@@ -1,5 +1,6 @@
 package com.haifeiWu.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -35,9 +36,11 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	private LineService lineService;
 	@Autowired
 	private BandService bandService;
+	private String message;
 
 	// 加载数据库的信息
-	public String loadInfor() {
+	public String loadInfor() throws IOException {
+		try{
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
 
@@ -60,9 +63,14 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			request.setAttribute("identifyCardType", identifyCardType);
 			request.setAttribute("entryTime", entryTime);
 			request.setAttribute("actionCause", actionCause);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+			response.getWriter().write("<script> alert('信息加载失败！'); </script>");
+			response.getWriter().flush();
 
-			return "loadInfor";
 		}
+		return "loadInfor";
 	}
 
 	/**
@@ -70,8 +78,9 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	 * 
 	 * @param path
 	 * @param fileName
+	 * @throws IOException 
 	 */
-	public String addSuspectInfor() throws Exception {
+	public String addSuspectInfor() throws IOException{
 		/**
 		 * Date:2017.02.26 author:whf
 		 * 
@@ -84,33 +93,68 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		 * model.setTdentityID_Imag(picPath); // 将改图片拷贝到服务器目录下
 		 * CopyFile.copyFile(path, temp + "/" + picPath);
 		 */
-		fullCheck();
-
-		// 回路饱和性验证
-		if (lineService.isFull()) {// 可以录像
-			model.setRecordVideo_State(1);
+		try{
+				
+			fullCheck();
+			//手环必须填写
+			if(model.getBand_ID()==0){
+				response.getWriter().write("<script> alert('提交失败，请填写手环'); </script>");
+				response.getWriter().flush();
+				return "loadInfor";
+			}
+			// 更新手环的is_Used状态
+			bandService.update(1, model.getBand_ID());
+			
+			// if (bandService.find)
+			// suspectService.updateSuspect(suspectInfor);
+			System.out.println("----------------------" + model.toString());
+			/*suspectService.saveSuspect(model);// 保存嫌疑人信息，
+			
+	*/		// 回路饱和性验证
+			if (lineService.isFull()) {// 可以录像
+				model.setRecordVideo_State(1);
+			}
+			//System.out.println(3/0);
+			PHCSMP_Suspect suspect=suspectService.findBySuspetcId(model.getSuspect_ID());
+			if(suspect==null){
+				suspectService.saveSuspect(model);// 保存嫌疑人信息，
+			}else{
+				suspectService.updateSuspect(model);//更新嫌疑人信息
+			}
+			
+			
+	//		System.out.println("----------------------"
+	//				+ suspectService.findBySuspetcId(model.getSuspect_ID())
+	//						.toString());
+	
+			System.out.println(model.getIdentityCard_Photo());
+			// 测试
+			// List<PHCSMP_Band> test = bandService.findAllBundInfor();
+			// for (PHCSMP_Band t : test) {
+			// System.out.println("------------------------------------>"
+			// + t.toString());
+			// }
+			
+			return "success";
+		
+		}catch(Exception e){
+			response.getWriter().write("<script> alert('提交失败，请重新提交'); </script>");
+			response.getWriter().flush();
+			return "loadInfor";
 		}
-		// 更新手环的is_Used状态
-		bandService.update(1, model.getBand_ID());
-		// if (bandService.find)
-		// suspectService.updateSuspect(suspectInfor);
-		System.out.println("----------------------" + model.toString());
-		suspectService.saveSuspect(model);// 保存嫌疑人信息，
-//		System.out.println("----------------------"
-//				+ suspectService.findBySuspetcId(model.getSuspect_ID())
-//						.toString());
-
-		System.out.println(model.getIdentityCard_Photo());
-		// 测试
-		// List<PHCSMP_Band> test = bandService.findAllBundInfor();
-		// for (PHCSMP_Band t : test) {
-		// System.out.println("------------------------------------>"
-		// + t.toString());
-		// }
-
-		return "addSuspectInfor";
 	}
 
+	/**
+	 * Date:2017.02.26 author:whf
+	 * 
+	 * // 格式化获取的路径 String path = model.getTdentityID_Imag(); StringBuilder sb =
+	 * new StringBuilder(path); path = sb.insert(2, "\\").toString(); //
+	 * 获取web根目录 String temp = application.getRealPath("/"); //
+	 * 使用身份证的身份证号码作为身份证照片的文件名 String fileName = model.getIdentifyCard_Number();
+	 * // 得到身份证照片的相对目录 String picPath = "images/" + fileName + ".bmp"; //
+	 * 设置身份证图片的相对目录，数据库中保存的是图片的web目录下的相对目录 model.setTdentityID_Imag(picPath); //
+	 * 将改图片拷贝到服务器目录下 CopyFile.copyFile(path, temp + "/" + picPath);
+	 */
 	/* 检查用户登录信息 */
 	public String checkUser() {
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
@@ -133,22 +177,18 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		System.out.println("总字段：" + fieldsNumber);
 	}
 
-	// public String unlogin_load() {
-	//
-	// List<PHCSMP_Band> list = bandService.findAllBundInfor();
-	// List<PHCSMP_Dic_IdentifyCard_Type> identifyCardType = suspectService
-	// .findAllIdentifyCardType();
-	// List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
-	// .findAllSuspectCause();
-	// request.setAttribute("bundList", list);
-	// request.setAttribute("identifyCardType", identifyCardType);
-	// request.setAttribute("actionCause", actionCause);
-	// return "unlogin_load";
-	// }
-
 	public String updateInfor() {
 		System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
 		System.out.println("updateInfor：修改嫌疑人信息！");
 		return "updateInfor";
 	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
 }

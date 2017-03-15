@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.haifeiWu.entity.PHCSMP_Suspect;
+
 /**
  * 有了DaoSupport之后，使用通用的更新（update，insert，save），通过嫌疑人ID的查询也可使用这里的查询方法
  */
@@ -44,7 +46,8 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	 * 该save方法是通用的
 	 */
 	public void save(T entity) {
-		tx = getSession().beginTransaction();// 开启事务
+		Session session = getSession();
+		tx = session.beginTransaction();// 开启事务
 		getSession().save(entity);
 		tx.commit();// 提交事务
 	}
@@ -97,6 +100,9 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 
 	}
 
+	/**
+	 * 不唯一结果的异常怎么处理，最后都要返回T，在Action层处理
+	 */
 	@Override
 	public T findByPropertyName(String propertyName, Object value) {
 		// String hql = "from " + + " t where t."+propertyName+"=?";
@@ -134,29 +140,24 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 		return list;
 	}
 
-	// 查找当前嫌疑人出区返回时间为空的信息
 	@Override
-	public T findTemporaryLeaveInfoById(String suspectId) {
-		String hql = "from " + clazz.getName()
-				+ " t where t.suspect_ID=? and t.return_Time=''";
-		System.out.println(hql + "=---------------");
-		tx = getSession().beginTransaction();// 开启事务
-
-		Query query = getSession().createQuery(hql);
-		query.setParameter(0, suspectId);
-		@SuppressWarnings("unchecked")
-		T entity = (T) query.uniqueResult();
-
-		tx.commit();// 提交事务
-		return entity;
-	}
-
 	public void update(String hql, Object... args) {
 		tx = this.getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);
 		for (int i = 0; i < args.length; i++) {
 			query.setParameter(i, args[i]);
 		}
+		query.executeUpdate();
+		tx.commit();// 提交事务
+	}
+
+	@Override
+	public void deleteBySuspectID(String suspect_ID) {
+
+		String hql = "delete from " + clazz.getName() + " where suspect_ID=?";
+		tx = getSession().beginTransaction();// 开启事务
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, suspect_ID);
 		query.executeUpdate();
 		tx.commit();// 提交事务
 	}

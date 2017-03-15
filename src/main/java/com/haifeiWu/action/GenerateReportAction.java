@@ -41,7 +41,6 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 public class GenerateReportAction extends ActionSupport implements
 		ServletRequestAware, ServletResponseAware, ServletContextAware {
-
 	/**
 	 * 
 	 */

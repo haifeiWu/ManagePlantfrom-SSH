@@ -1,5 +1,6 @@
 package com.haifeiWu.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.joda.time.DateTime;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_Dic_Collection_Item;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
-import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.RoomService;
@@ -37,48 +37,64 @@ public class Information_Collection_Action extends
 	private RoomService roomService;
 
 	// 保存信息
-	public String addInformationCollection() throws Exception {
-		// 维护进出门的标志位
-		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		SuspectInfor.setCardReader_Switch(1);
-		suspectService.saveSuspect(SuspectInfor);
-		// 通过反射加载身物品检查记录的类
-		if (model == null) {// 当数据为空时
-			return "NULL";
-		}
-		fullCheck();
-		model.setIc_EndTime(new DateTime().toString("yyy-mm-dd HH:mm"));
-		informationCollectionService.saveCollectionInfor(model);
+	public String addInformationCollection() throws IOException {
+		try {
+			// 维护进出门的标志位
+			int roomId = roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID();
+			String suspectId = suspectService.findByRoomID(roomId)
+					.getSuspect_ID();
+			if (model != null) {
+				model.setIc_EndTime(new DateTime().toString("yyyy-mm-dd HH:mm"));
+				model.setRoom_ID(roomId);
+				fullCheck();
+				PHCSMP_Information_Collection old = informationCollectionService
+						.findInforBySuspetcId(suspectId);
+				if (old != null) {// 删除
+					informationCollectionService.deleteInforCollect(old);
+					informationCollectionService.saveCollectionInfor(model);
+				}
+				// 插入
+				informationCollectionService.saveCollectionInfor(model);
 
-		return "addInformationCollection";
-	}
-
-	// 加载信息，
-	public String loadInfor() {// 注意处理房间号找不到异常，或者嫌疑人房间号为空的异常
-		// 维护进出门的标志位
-		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		suspectService.updateSwitch(1, SuspectInfor.getSuspect_ID());
-		// 将嫌疑人信息存放到request中
-		request.setAttribute("SuspectInfor", SuspectInfor);
-		List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
-				.findAllCollectionItem();
-		request.setAttribute("collectionItem", collectionItem);
-
-		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
-				"user");
-		if (user == null) {
-			return "unLoginState";
-		} else {
+			}
+			// 提示成功
+			response.getWriter().write("<script>alert('后台提交成功');</script>");
+			response.getWriter().flush();
+			return "success";
+		} catch (Exception e) {
+			response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
+			response.getWriter().flush();
 			return "loadInfor";
 		}
 	}
 
-	public String unlogin_load() {
-
-		return "unlogin_load";
+	// 加载信息，
+	public String loadInfor() throws IOException {// 注意处理房间号找不到异常，或者嫌疑人房间号为空的异常
+		// 维护进出门的标志位
+		try {
+			int roomId = roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID();
+			PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
+			List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
+					.findAllCollectionItem();
+			request.setAttribute("start_Time",
+					new DateTime().toString("yyyy-MM-dd HH:mm"));
+			request.setAttribute("SuspectInfor", SuspectInfor);
+			request.setAttribute("collectionItem", collectionItem);
+			suspectService.updateSwitch(1, SuspectInfor.getSuspect_ID());
+		} catch (Exception e) {
+			// response.getWriter().write(
+			// "<script>alert('信息检查加载异常，房间信息有误或未能正常加载嫌疑人信息');</script>");
+			// response.getWriter().flush();
+		}
+		return "loadInfor";
 	}
+
+	// public String unlogin_load() {
+	//
+	// return "unlogin_load";
+	// }
 
 	// 返回修改信息采集信息
 	public String updateInfor() {
@@ -93,7 +109,6 @@ public class Information_Collection_Action extends
 
 		int count = CompleteCheck.IsEqualsNull(model, c);
 		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-
 		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 		System.out.println("未填写的字段：" + count);
