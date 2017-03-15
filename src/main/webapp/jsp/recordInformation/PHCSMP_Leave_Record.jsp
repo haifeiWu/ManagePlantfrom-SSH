@@ -352,10 +352,10 @@
 								</div>
 							</td>
 							<td id="select"><select name="tempLeave_Reason">
-									<option value="">---请选择---</option>
-									<option value="扣押">扣押</option>
-									<option value="暂存">暂存</option>
-									<option value="代保管">代保管</option>
+								<option value="">---请选择---</option>
+								<c:forEach items="${leaveReason }" var="v" varStatus="status">
+									<option value="${v.leaving_Name }">${v.leaving_Name }</option>
+								</c:forEach>
 							</select></td>
 							<td style="padding:6px 0 6px 0"><input type="text"
 								name="staff_ID" value=""
@@ -433,18 +433,21 @@
 						<td>离开原因</td>
 						<td><select name="leave_Reason">
 								<option value="">---请选择---</option>
-								<option value="查证结束">查证结束</option>
+								<c:forEach items="${leaveReason }" var="v" varStatus="status">
+									<option value="${v.leaving_Name }">${v.leaving_Name }</option>
+								</c:forEach>
+								<!-- <option value="查证结束">查证结束</option>
 								<option value="刑拘">刑拘</option>
 								<option value="行政拘留">行政拘留</option>
-								<option value="警告">警告</option>
+								<option value="警告">警告</option> -->
 						</select></td>
 					</tr>
 					<tr>
 						<td class="td">随身物品处理情况:</td>
-						<td><input type="radio" name="belongingS_Treatment_Method"
-							value="全部反还">全部反还 <input type="radio"
-							name="belongingS_Treatment_Method" value="部分反还" />部分反还 <input
-							type="radio" name="belongingS_Treatment_Method" value="未反还" />未反还
+						<td>
+							<c:forEach items="${keepingWay }" var="v" varStatus="status">
+								<input type="radio" name="belongingS_Treatment_Method" value="${v.keeping_Name }">${v.keeping_Name }
+							</c:forEach>
 						</td>
 					</tr>
 					<tr>

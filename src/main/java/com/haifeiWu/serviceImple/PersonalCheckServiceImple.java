@@ -57,4 +57,10 @@ public class PersonalCheckServiceImple implements PersonalCheckService {
 	public List<PHCSMP_Cabinet> findAllPHCSMPCabinet() {
 		return cabinetDao.findAllInfor();
 	}
+
+	@Override
+	public void deleteInfor(String suspectId) {
+		personalCheckDao.deleteBySuspectID(suspectId);
+
+	}
 }

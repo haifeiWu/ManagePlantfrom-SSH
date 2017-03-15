@@ -37,6 +37,7 @@
 			<result name="frequentVisit">/jsp/RfidRead/frequentVisit.jsp</result>
 			<result name="loginError">/jsp/login.jsp</result>
 			<result name="NULL">/jsp/error/null.jsp</result>
+			<result name="success">/jsp/home/index.jsp</result>
 			<!-- <result name="unLoginState">/jsp/home/unlogin/unlogin_main.jsp</result> -->
 		</global-results>
 		<!-- 首页 -->
@@ -62,23 +63,23 @@
 			<result name="addSuspectInfor" type="redirectAction">suspect_loadInfor</result>
 			<result name="input">/index.jsp</result>
 			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
-			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result><!-- 
-				返回修改嫌疑人信息 -->
+			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result>
+			<result name="NONE"></result>
+			<!-- 返回修改嫌疑人信息 -->
 		</action>
 
 
 		<!-- 人身检查记录 -->
-		<action name="personalCheck_*" class="com.haifeiWu.action.PHCSMP_Personal_Check_Action"
-			method="{1}">
+		<action name="personalCheck_*" class="com.haifeiWu.action.PHCSMP_Personal_Check_Action" method="{1}">
 			<!-- 当处于未登录状态时 -->
-			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Personal_Check.jsp</result>
-			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
+			<!-- <result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Personal_Check.jsp</result>
+			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result> -->
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<!-- <result name="addCheckPersonInfor" type="redirectAction">personalCheck_loadInfor</result> -->
-			<result name="addCheckPersonInfor">/jsp/home/index.jsp</result>
-			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
-			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
+			<!-- <result name="addCheckPersonInfor">/jsp/home/index.jsp</result> -->
+			<result name="loadInfor" >/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
+			<!-- <result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result> -->
 		</action>
 
 		<!-- 随身财物检查记录 -->
