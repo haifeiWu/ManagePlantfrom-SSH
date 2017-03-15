@@ -89,8 +89,8 @@ public class GenerateReportAction extends ActionSupport implements
 		 * 加载当前嫌疑人的所有的信息
 		 */
 		// 获取档案编号
-	//	String suspectId = (String) request.getParameter("suspectID");
-		String suspectId="LB-HB-2017308186";
+		String suspectId = (String) request.getParameter("suspectID");
+		//String suspectId="LB-HB-2017308186";
 		
 		if (suspectId == null) {
 			return "NULL";
