@@ -39,4 +39,10 @@ public class InformationCollectionServiceImple implements
 	public List<PHCSMP_Dic_Collection_Item> findAllCollectionItem() {
 		return dicCollectionItemDao.findAllInfor();
 	}
+
+	@Override
+	public void deleteInforCollect(PHCSMP_Information_Collection old) {
+		informationCollectionDao.deleteBySuspectID(old.getSuspect_ID());
+
+	}
 }

@@ -10,7 +10,6 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.util.ServletContextAware;
 import org.joda.time.DateTime;
-import org.joda.time.Hours;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -40,7 +39,6 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 public class GenerateReportAction extends ActionSupport implements
 		ServletRequestAware, ServletResponseAware, ServletContextAware {
-
 	/**
 	 * 
 	 */
@@ -109,10 +107,10 @@ public class GenerateReportAction extends ActionSupport implements
 		// 犯人羁押时间
 		// DateTimeFormatter format = DateTimeFormat
 		// .forPattern("yyyy-MM-dd HH:mm");
-		DateTime startTime = DateTime.parse(suspect.getEnter_Time());
-		DateTime endTime = DateTime.parse(leave_Record.getLeave_Time());
+		// DateTime startTime = DateTime.parse(suspect.getEnter_Time());
+		// DateTime endTime = DateTime.parse(leave_Record.getLeave_Time());
 
-		int prisonHour = Hours.hoursBetween(startTime, endTime).getHours();
+		// int prisonHour = Hours.hoursBetween(startTime, endTime).getHours();
 
 		String reportCreateTime = new DateTime().toString("yyyy-MM-dd HH:mm");
 
@@ -129,7 +127,7 @@ public class GenerateReportAction extends ActionSupport implements
 		request.setAttribute("activity_Record", activity_Record);
 		request.setAttribute("information_Collection", information_Collection);
 		request.setAttribute("leave_Record", leave_Record);
-		request.setAttribute("prisonHour", prisonHour);
+		// request.setAttribute("prisonHour", prisonHour);
 		request.setAttribute("reportCreateTime", reportCreateTime);
 
 		return "loadInfor";

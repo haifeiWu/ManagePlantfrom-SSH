@@ -45,40 +45,32 @@
 							var addrow = "<tr>" + "<td>"
 									+ index
 									+ "</td>"
-									+ "<td style='width: 23%;'>"
-							+"<div class='form-group' style='height: 30px;width: 170%;'>"
+									+ "<td style='width: 38%;'>"
+							+"<div class='form-group' style='height: 30px;width: 190%;'>"
 								+"<div class='input-group date form_time col-md-5'"
 									+"style='margin-left: 8%;margin-top: 2%;'"
 									+"data-date-format='yyyy-mm-dd hh:ii' data-link-field='dtp_input1'>"
-									+"<input class='form-control' name='activity["+index+"].start_Time'"
-									+	"type='text' readonly> <span"
-									+	"class='input-group-addon'><span"
-									+	"class='glyphicon glyphicon-remove'></span></span> <span"
-									+	"class='input-group-addon'><span"
-									+	"class='glyphicon glyphicon-time'></span></span>"
+									+"<input class='form-control' name='activity["+index+"].start_Time' type='text'>  "
+									+	"<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span> "
+									+   "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
 								+"</div>"
 								+"<input type='hidden' id='dtp_input1' /><br />"
 							+"</div>"
 						+"</td>"
-									+"<td style='width: 23%;'>"
-							+"<div class='form-group' style='height: 30px;width: 170%;'>"
+									+"<td style='width: 38%;'>"
+							+"<div class='form-group' style='height: 30px;width: 190%;'>"
 								+"<div class='input-group date form_time col-md-5'"
 									+"style='margin-left: 8%;margin-top: 2%;'"
 									+"data-date-format='yyyy-mm-dd hh:ii' data-link-field='dtp_input1'>"
-									+"<input class='form-control' name='activity["+index+"].start_Time'"
-									+	"type='text' readonly> <span"
-									+	"class='input-group-addon'><span"
-									+	"class='glyphicon glyphicon-remove'></span></span> <span"
-									+	"class='input-group-addon'><span"
-									+	"class='glyphicon glyphicon-time'></span></span>"
+									+"<input class='form-control' name='activity["+index+"].end_Time' type='text'> "
+									+	"<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span> "
+									+   "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
 								+"</div>"
 								+"<input type='hidden' id='dtp_input1' /><br />"
 							+"</div>"
 						+"</td>"
 									+ "<td> <select name=activity["+index+"].activity_Record> <option value=>---请选择---</option> <option value=询问>询问</option> <option value=讯问>讯问</option> <option value=审讯>审讯</option><option value=传唤>传唤</option> </select> </td>"
-									+ "<td><input type=text name=activity["
-									+ index
-									+ "].remark style='height:30px;width: 65%;text-align: center;' /></td>"
+									+"<td><input type='text' name='activity["+index+"].remark' style='width:250px; height: 30px;text-align: center;' /></td>"
 									+ "</tr>";
 							$(".active_check tr").eq(
 									$(".active_check tr").length - 2).after(
@@ -307,7 +299,7 @@
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					活动记录登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
 				</h4>
-				<table class="active_check col-lg-12 col-md-10 col-sm-10">
+				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 30px !important;width:960px !important; ">
 					<tr>
 						<td>序号</td>
 						<td>开始时间</td>
@@ -317,38 +309,36 @@
 					</tr>
 					<tr>
 						<td>0</td>
-						<td style="width: 23%;">
-							<div class="form-group" style="height: 30px;width: 170%;">
+						<td style="width: 38%;">
+							<div class="form-group" style="height: 30px;width: 190%;">
 								<div class="input-group date form_time col-md-5"
 									style="margin-left: 8%;margin-top: 2%;" 
 									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
 									<input class="form-control" name="activity[0].start_Time"
-										type="text" value="" readonly> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-time"></span></span>
+										type="text" value="" readonly> 
+										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> 
+										<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
 						</td>
-						<td style="width: 23%;">
-							<div class="form-group" style="height: 30px;width: 170%;">
+						<td style="width: 38%;">
+							<div class="form-group" style="height: 30px;width: 190%;">
 								<div class="input-group date form_time col-md-5"
 									style="margin-left: 8%;margin-top: 2%;" data-date=""
-									data-date-format="hh:ii" data-link-field="dtp_input1">
+									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
 									<input class="form-control" name="activity[0].end_Time"
-										type="text" value="" readonly> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-time"></span></span>
+										type="text" value="" readonly> 
+										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> 
+										<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
 						</td>
 						<td id="select"><select name="activity[0].activity_Record">
-								<option value=>---请选择---</option>
+						<!-- c:foreach -->
+								<option value=>---请选择---</option><%-- 
+								<c:forEach items="${ }" var="v"></c:forEach> --%>
 								<option value="询问">询问</option>
 								<option value="讯问">讯问</option>
 								<option value="审讯">审讯</option>

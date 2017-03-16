@@ -1,5 +1,6 @@
 package com.haifeiWu.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +24,8 @@ import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.utils.CompleteCheck;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.tools.internal.ws.wsdl.document.jaxws.Exception;
 
 /**
  * 活动记录
@@ -60,96 +61,96 @@ public class Activity_Record_Action extends ActionSupport implements
 	// 活动记录表list，用于前台提交的多个数据
 	private List<PHCSMP_Activity_Record> activitys = new ArrayList<PHCSMP_Activity_Record>();
 
-	private String suspect_ID;
+	// private String suspect_ID;
 
 	/**
 	 * 添加活动记录信息
 	 * 
 	 * @return
+	 * @throws IOException
 	 * @throws Exception
 	 */
-	public String addActivityRecordInfor() throws java.lang.Exception {
+	public String addActivityRecordInfor() throws IOException {
+		try {
+			// 维护进出门的标志位
+			int roomId = roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID();
+			String suspectId = suspectService.findByRoomID(roomId)
+					.getSuspect_ID();
+			List<PHCSMP_Activity_Record> validActivitys = new ArrayList<PHCSMP_Activity_Record>();
+			for (PHCSMP_Activity_Record activity : activitys) {// 遍历list
+				if (!(activity.getStart_Time().equals("") || activity
+						.getStart_Time() == null)) {
+					activity.setSuspect_ID(suspectId);
+					activity.setRoom_ID(1);
+					fullCheck(activity);
 
-		// 维护进出门的标志位
-		// int roomId =
-		// roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		// PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		// SuspectInfor.setCardReader_Switch(0);
-		// suspectService.saveSuspect(SuspectInfor);
-		// //通过反射加载身物品检查记录的类
-		// fullCheck();
-
-		List<PHCSMP_Activity_Record> activitys = this.getActivity();
-		suspect_ID = this.getSuspect_ID();
-		if (activitys == null) {// 当获取的数据为空时
-			System.out.println("------------------活动信息为空---------");
-			return "NULL";
+					validActivitys.add(activity);
+				}
+				System.out.println("--------------------------"
+						+ activity.toString() + "---------------");
+			}
+			activityRecordService.saveActivitysInfor(validActivitys);
+			// 提示成功
+			response.getWriter().write("<script>alert('后台提交成功');</script>");
+			response.getWriter().flush();
+			return "success";
+		} catch (Exception e) {
+			response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
+			response.getWriter().flush();
+			return "loadInfor";
 		}
-
-		for (PHCSMP_Activity_Record activity : activitys) {// 遍历list
-			activity.setSuspect_ID(suspect_ID);
-			activity.setRoom_ID(1);
-			System.out.println("-----------------------" + activity.toString());
-		}
-
-		activityRecordService.saveActivitysInfor(activitys);
-		return "addActivityRecordInfor";
 	}
 
-	// private void fullCheck() {
-	// Class<?> c = Class.forName(PHCSMP_Activity_Record.class.getName());
-	// // 统计未填写的字段
-	// int count = CompleteCheck.IsEqualsNull(model, c);
-	// // 统计所有的字段
-	// int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-	//
-	// model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
-	// model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
-	// System.out.println("未填写的字段：" + count);
-	// System.out.println("总字段：" + (fieldsNumber - 3));
-	// }
+	private void fullCheck(PHCSMP_Activity_Record activity)
+			throws ClassNotFoundException {
+		Class<?> c = Class.forName(PHCSMP_Activity_Record.class.getName());
+		// 统计未填写的字段
+		int count = CompleteCheck.IsEqualsNull(activity, c);
+		// 统计所有的字段
+		int fieldsNumber = CompleteCheck.getFieldsNumber(activity, c);
+
+		activity.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
+		activity.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
+	}
 
 	/**
 	 * 加载活动记录信息
 	 * 
 	 * @return
+	 * @throws IOException
 	 */
-	public String loadInfor() {
-		// 维护进出门的标志位
-		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(roomId);
-		// System.out.println("=------------------------------------"
-		// // + suspectInfor.toString());
-		// suspectInfor.setCardReader_Switch(1);
-		suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
-		// 测试
-		// PHCSMP_Suspect test = suspectService.findByRoomID(roomId);
-		// System.out.println("=------------------------------------"
-		// + test.toString());
-		request.setAttribute("SuspectInfor", suspectInfor);//
-		// 将信息从数据库查找到之后，存入session，更新session
-		PHCSMP_Personal_Check personal_Check = personalCheckService
-				.findInforBySuspetcId(suspectInfor.getSuspect_ID());// 人身检查记录查出不止一条，考虑一对多，和多对多
-		// System.out.println("-----------------------------"
-		// + personal_Check.toString());
-		request.setAttribute("personal_Check", personal_Check);
-		PHCSMP_Information_Collection information_Collection = informationCollectionService
-				.findInforBySuspetcId(suspectInfor.getSuspect_ID());
-		request.setAttribute("information_Collection", information_Collection);
-		// PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
-		// "user");
-		// if (user == null) {
-		// return "unLoginState";
-		// } else {
-		// System.out
-		// .println("-----------------Activity_Record_Action:loadInfor---------------");
+	public String loadInfor() throws IOException {
+		try {
+			// 维护进出门的标志位
+			int roomId = roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID();
+			PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(roomId);
+			PHCSMP_Personal_Check personal_Check = personalCheckService
+					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
+			PHCSMP_Information_Collection information_Collection = informationCollectionService
+					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
+
+			request.setAttribute("personal_Check", personal_Check);
+			request.setAttribute("SuspectInfor", suspectInfor);
+			request.setAttribute("information_Collection",
+					information_Collection);
+
+			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
+		} catch (java.lang.Exception e) {
+			response.getWriter()
+					.write("<script>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
+			response.getWriter().flush();
+			// System.out
+			// .println("当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确");
+		}
 		return "loadInfor";
 	}
 
-	// 未登录状态时
-	public String unlogin_load() {
-		return "unlogin_load";
-	}
+	// // 未登录状态时
+	// public String unlogin_load() {
+	// return "unlogin_load";
+	// }
 
 	// 返回修改活动记录信息
 	public String updateInfor() {
@@ -181,12 +182,12 @@ public class Activity_Record_Action extends ActionSupport implements
 		this.request = request;
 	}
 
-	public String getSuspect_ID() {
-		return suspect_ID;
-	}
-
-	public void setSuspect_ID(String suspect_ID) {
-		this.suspect_ID = suspect_ID;
-	}
+	// public String getSuspect_ID() {
+	// return suspect_ID;
+	// }
+	//
+	// public void setSuspect_ID(String suspect_ID) {
+	// this.suspect_ID = suspect_ID;
+	// }
 
 }

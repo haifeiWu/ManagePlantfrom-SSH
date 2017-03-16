@@ -35,4 +35,6 @@ public interface PersonalCheckService {
 	public List<PHCSMP_Dic_Keeping_Way> findAllKeepingWay();
 
 	public List<PHCSMP_Cabinet> findAllPHCSMPCabinet();
+
+	public void deleteInfor(String suspectId);
 }

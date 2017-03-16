@@ -153,7 +153,8 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 
 	@Override
 	public void deleteBySuspectID(String suspect_ID) {
-		String hql = "delete from "+clazz.getName()+" where suspect_ID=?";
+
+		String hql = "delete from " + clazz.getName() + " where suspect_ID=?";
 		tx = getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, suspect_ID);

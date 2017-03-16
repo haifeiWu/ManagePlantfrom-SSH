@@ -1,5 +1,6 @@
 package com.haifeiWu.action;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,17 +34,9 @@ import com.haifeiWu.utils.CompleteCheck;
 public class PHCSMP_Personal_Check_Action extends
 		BaseAction<PHCSMP_Personal_Check> {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
-	//记录开始时间的私有变量
-	private String start_time_time;
-	
-
-	
-
+	// 记录开始时间的私有变量
+	// private String start_time_time;
 	// 用于多条记录的提取，一条人身检查记录对应多个随身物品登记记录
 	private List<PHCSMP_BelongingS> belong = new ArrayList<PHCSMP_BelongingS>();
 	private Logger logger = Logger
@@ -61,93 +54,96 @@ public class PHCSMP_Personal_Check_Action extends
 	private RoomService roomService;
 
 	/**
-	 * 加载上一个房间的嫌疑人的信息
-	 * 
-	 * @return
+	 * 加载当前房间的嫌疑人的信息
 	 */
 	public String loadInfor() {
-		// PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
-		// "user");
-		// 维护进出门的标志位
-		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		SuspectInfor.setCardReader_Switch(1);
-		suspectService.saveSuspect(SuspectInfor);
-		start_time_time= new DateTime().toString("yyyy-MM-dd HH:mm");
-		request.setAttribute("start_time_time", start_time_time);
-		String suspectId = SuspectInfor.getSuspect_ID();
-		request.setAttribute("SuspectInfor", SuspectInfor);
-		// 人身检查记录字
-		List<PHCSMP_Dic_Inspection_Situation> InspectionSituationType = personalCheckService
-				.findAllInspectionSituation();
-
-		request.setAttribute("InspectionSituationType", InspectionSituationType);
-		// 随身物品保管措施
-		List<PHCSMP_Dic_Keeping_Way> Keeping_WayType = personalCheckService
-				.findAllKeepingWay();
-		for (PHCSMP_Dic_Keeping_Way phcsmp_Dic_Keeping_Way : Keeping_WayType) {
-			System.out.println(phcsmp_Dic_Keeping_Way.toString());
+		try {
+			// 维护进出门的标志位
+			int roomId = roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID();
+			PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
+			String suspectId = SuspectInfor.getSuspect_ID();
+			String start_time_time = new DateTime()
+					.toString("yyyy-MM-dd HH:mm");// 记录人身检查的开始时间
+			List<PHCSMP_Dic_Inspection_Situation> InspectionSituationType = personalCheckService
+					.findAllInspectionSituation();// 人身检查记录字
+			List<PHCSMP_Dic_Keeping_Way> Keeping_WayType = personalCheckService
+					.findAllKeepingWay();// 随身物品保管措施
+			List<PHCSMP_Cabinet> PHCSMPCabinetType = personalCheckService
+					.findAllPHCSMPCabinet();// 保管柜信息
+			request.setAttribute("start_time_time", start_time_time);
+			request.setAttribute("SuspectInfor", SuspectInfor);
+			request.setAttribute("InspectionSituationType",
+					InspectionSituationType);
+			request.setAttribute("Keeping_WayType", Keeping_WayType);
+			request.setAttribute("PHCSMPCabinetType", PHCSMPCabinetType);
+			// 保证单条记录
+			PHCSMP_Personal_Check checkRecord = personalCheckService
+					.findInforBySuspetcId(suspectId);
+			if (checkRecord != null) {
+				request.setAttribute("checkRecord", checkRecord);
+			}
+			// 更新录像状态的标志位
+			suspectService.updateSwitch(1, suspectId);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		request.setAttribute("Keeping_WayType", Keeping_WayType);
-
-		// 保管柜信息
-		List<PHCSMP_Cabinet> PHCSMPCabinetType = personalCheckService
-				.findAllPHCSMPCabinet();
-		for (PHCSMP_Cabinet phcsmp_Cabinet : PHCSMPCabinetType) {
-			System.out.println(PHCSMPCabinetType.toString());
-		}
-		request.setAttribute("PHCSMPCabinetType", PHCSMPCabinetType);
-//		System.out.println("开始时间："+start_time_time.toString());
-		
 		return "loadInfor";
-
 	}
 
 	/**
 	 * 添加用户人身检查信息
 	 * 
-	 * @return
-	 * @throws Exception
+	 * @throws IOException
 	 */
-	public String addCheckPersonInfor() throws Exception {
-		// 维护进出门的标志位
-//		System.out.println("加载开始时间前："+start_time_time.toString());
-		int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-		PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
-		suspectService.updateSwitch(0, SuspectInfor.getSuspect_ID());
-//		model.setCheck_StartTime(start_time_time);
-		model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));// 设置人身检查的结束时间
-		String[] str = model.getStaff_ID().split(",");
-		model.setStaff_ID(str[0]);
-
-		System.out.println("---------------------------->model"
-				+ model.toString());
-		List<PHCSMP_BelongingS> belongs = this.getBelong();
-		for (PHCSMP_BelongingS belong : belongs) {// staff_ID_Belonging=null,房间号
-			System.out.println("------------------------------->"
-					+ belong.toString());
-			belong.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
-			belong.setRoom_ID(roomId);// 设置登记信息的房间编号
-			belong.setStaff_ID(str[1].equals("") ? null : str[1]);
-
-			// System.out.println("------------------------------->"
-			// + belong.toString());
-
+	public String addCheckPersonInfor() throws IOException {
+		try {
+			int roomId = roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID();
+			String suspectId = suspectService.findByRoomID(roomId)
+					.getSuspect_ID();
+			// 设置人身检查的结束时间
+			model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));
+			model.setRoom_ID(roomId);
+			String[] str = model.getStaff_ID().split(",");
+			model.setStaff_ID(str[0]);
+			List<PHCSMP_BelongingS> belongs = this.getBelong();
+			List<PHCSMP_BelongingS> vaildBelong = new ArrayList<PHCSMP_BelongingS>();// 填写的有效信息
+			for (PHCSMP_BelongingS belong : belongs) {// 要考虑物品为空的情况
+				if (!belong.getBelonging_Name().equals("")) {// 提交的信息为空
+					belong.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
+					belong.setRoom_ID(roomId);// 设置登记信息的房间编号
+					belong.setStaff_ID(str[1].equals("") ? null : str[1]);
+					vaildBelong.add(belong);
+				}
+			}
+			fullCheck();
+			// 判断要更新还是插入
+			PHCSMP_Personal_Check old = personalCheckService
+					.findInforBySuspetcId(suspectId);
+			if (old != null) {// 删去
+				personalCheckService.deleteInfor(suspectId);
+			}
+			// 保存人身检查记录
+			personalCheckService.saveCheckPersonInfor(model);
+			if (vaildBelong.size() != 0) {
+				belongingInforService.saveBelongInforList(vaildBelong);// 批量保存随身物品信息
+			}
+			// 提示成功
+			response.getWriter().write("<script>alert('后台提交成功');</script>");
+			response.getWriter().flush();
+			return "success";
+		} catch (Exception e) {
+			response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
+			response.getWriter().flush();
+			return "loadInfor";
 		}
-//		System.out.println("加载开始时间后："+start_time_time.toString());
-		personalCheckService.saveCheckPersonInfor(model);// 保存人身检查记录
-		belongingInforService.saveBelongInforList(belongs);// 批量保存随身物品信息
-		fullCheck();
-		// logger.info("用户 " + " 提交用户嫌疑人人身检查信息，时间："
-		// + new DateTime().toString("yyyy-MM-dd hh:mm a E"));
-//		System.out.println("开始时间："+start_time_time.toString());
-		return "addCheckPersonInfor";
 	}
 
-	public String unlogin_load() {
-
-		return "unlogin_load";
-	}
+	// public String unlogin_load() {
+	//
+	// return "unlogin_load";
+	// }
 
 	// 返回修改人身检查信息
 	public String updateInfor() {
@@ -175,11 +171,12 @@ public class PHCSMP_Personal_Check_Action extends
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 	}
-	public String getStart_time_time() {
-		return start_time_time;
-	}
 
-	public void setStart_time_time(String start_time_time) {
-		this.start_time_time = start_time_time;
-	}
+	// public String getStart_time_time() {
+	// return start_time_time;
+	// }
+	//
+	// public void setStart_time_time(String start_time_time) {
+	// this.start_time_time = start_time_time;
+	// }
 }

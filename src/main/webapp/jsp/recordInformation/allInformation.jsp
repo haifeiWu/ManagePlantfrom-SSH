@@ -156,10 +156,8 @@
 				</ul>
 			</form>
 			<hr style="width: 100%;border: 0.5px solid #389AC7;" />
-			<!-- 文件下载链接 -->
-			<a class="col-lg-12 col-md-12 col-sm-12" id="download_All"
-				href="${pageContext.request.contextPath }/GR_downFile.action?date=${personal_Check.check_Date }&fileName=${suspect.identifyCard_Number }${personal_Check.check_Date }">嫌疑人入所视频文件下载</a>
-			<!-- 嫌疑人入区登记 -->
+			<!-- 文件下载链接   "-->
+			
 			<form class="row">
 				<h4 id="Person_info"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">

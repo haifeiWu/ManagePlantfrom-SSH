@@ -99,6 +99,13 @@
 
 	}
 
+
+
+/* 	function Logger() {
+		alert("信息提交成功！");
+	}
+ */
+
 	$(document).ready(function() {
 		$("#identityImg").attr('src', 'images/fgreen_03.png');
 		$("#identityImg1").attr('src', 'images/fgreen_03.png');
@@ -365,6 +372,7 @@
 						</tr>
 					</table>
 					<input class="btn" type="submit" value="确认提交" class="submit"/>
+
 				</div>
 			</div>
 			<div class="row_4" style="height: 480px;"></div>
