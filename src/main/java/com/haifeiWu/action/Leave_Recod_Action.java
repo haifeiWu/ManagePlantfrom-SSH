@@ -32,6 +32,7 @@ import com.haifeiWu.utils.Video;
  * @author wuhaifei
  * @d2016年8月17日
  */
+
 @Controller
 @Scope("prototype")
 public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
