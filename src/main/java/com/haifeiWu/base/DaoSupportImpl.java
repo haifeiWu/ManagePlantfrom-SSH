@@ -128,12 +128,15 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 
 	@Override
 	public List<T> findListByPropertyName(String propertyName, Object value) {
-		String hql = "from " + clazz.getName() + " t where t." + propertyName
-				+ "=" + value;
-		System.out.println(hql);
 		tx = getSession().beginTransaction();// 开启事务
+		String hql = "from " + clazz.getName() + " t where t." + propertyName
+				+ " =  ?";
+		System.out.println(hql);
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, value);
+
 		@SuppressWarnings("unchecked")
-		List<T> list = getSession().createQuery(hql).list();
+		List<T> list = query.list();
 		tx.commit();// 提交事务
 		return list;
 	}

@@ -1,5 +1,6 @@
 package com.haifeiWu.action;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -20,12 +21,14 @@ import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.utils.PropertiesReadUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -66,16 +69,19 @@ public class GenerateReportAction extends ActionSupport implements
 	// 嫌疑人出区信息登记
 	@Autowired
 	private LeaveRecodService leaveRecodService;
+	@Autowired
+	private TemporaryLeaveService temporaryLeaveService;
 
 	/**
 	 * 生成嫌疑人入区信息报告
 	 * 
 	 * @return
+	 * @throws IOException
 	 */
-	public String loadInfor() {
-		System.out.println("嫌疑人入区信息报告");
-
-		System.out.println("嫌疑人姓名：" + request.getParameter("personName"));
+	public String loadInfor() throws IOException {
+		// System.out.println("嫌疑人入区信息报告");
+		//
+		// System.out.println("嫌疑人姓名：" + request.getParameter("personName"));
 		System.out.println("档案编号：" + request.getParameter("suspectID"));
 		/*
 		 * 加载当前嫌疑人的所有的信息
@@ -83,7 +89,8 @@ public class GenerateReportAction extends ActionSupport implements
 		// 获取档案编号
 		String suspectId = (String) request.getParameter("suspectID");
 		if (suspectId == null) {
-			return "NULL";
+			response.getWriter().write("<script>alert('嫌疑人ID为空');</script>");
+			response.getWriter().flush();
 		}
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
@@ -93,14 +100,17 @@ public class GenerateReportAction extends ActionSupport implements
 		// 嫌疑人人身检查信息
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectId);
+		// 嫌疑人信息采集记录
+		PHCSMP_Information_Collection information_Collection = informationCollectionService
+				.findInforBySuspetcId(suspectId);
 		// 嫌疑人所有的办案区记录信息
 		List<PHCSMP_Activity_Record> activity_Record = activityRecordService
 				.selectActivityRecordInfor(suspectId);
 
-		// 嫌疑人信息采集记录
-		PHCSMP_Information_Collection information_Collection = informationCollectionService
-				.findInforBySuspetcId(suspectId);
-		// 嫌疑人出区信息记录
+		// 嫌疑人出区记录
+		List<Temporary_Leave> temporary_Leave = temporaryLeaveService
+				.findTempLeaveListBySuspectID(suspectId);
+		// 嫌疑人离区信息记录
 		PHCSMP_Leave_Record leave_Record = leaveRecodService
 				.findInforBySuspetcId(suspectId);
 
@@ -114,11 +124,11 @@ public class GenerateReportAction extends ActionSupport implements
 
 		String reportCreateTime = new DateTime().toString("yyyy-MM-dd HH:mm");
 
-		if ((suspect == null) || (belongingS == null)
-				|| (personal_Check == null) || (activity_Record == null)
-				|| (information_Collection == null) || (leave_Record == null)) {
-			return "NULL";
-		}
+		// if ((suspect == null) || (personal_Check == null)
+		// || (activity_Record == null)
+		// || (information_Collection == null) || (leave_Record == null)) {
+		// return "NULL";
+		// }
 
 		// 将查找到的信息放入request中，然后从页面加载
 		request.setAttribute("suspect", suspect);
@@ -127,6 +137,7 @@ public class GenerateReportAction extends ActionSupport implements
 		request.setAttribute("activity_Record", activity_Record);
 		request.setAttribute("information_Collection", information_Collection);
 		request.setAttribute("leave_Record", leave_Record);
+		request.setAttribute("temporary_Leave", temporary_Leave);
 		// request.setAttribute("prisonHour", prisonHour);
 		request.setAttribute("reportCreateTime", reportCreateTime);
 

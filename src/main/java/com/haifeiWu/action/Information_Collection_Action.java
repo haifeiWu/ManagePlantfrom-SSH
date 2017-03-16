@@ -52,11 +52,9 @@ public class Information_Collection_Action extends
 						.findInforBySuspetcId(suspectId);
 				if (old != null) {// 删除
 					informationCollectionService.deleteInforCollect(old);
-					informationCollectionService.saveCollectionInfor(model);
 				}
 				// 插入
 				informationCollectionService.saveCollectionInfor(model);
-
 			}
 			// 提示成功
 			response.getWriter().write("<script>alert('后台提交成功');</script>");

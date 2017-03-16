@@ -252,7 +252,7 @@
 						<tr>
 							<td style="text-align:center;">现住址：</td>
 							<td>
-								<input type="text" name="" />
+								<input type="text" name="now_address" />
 							</td>
 						</tr>
 						<tr>

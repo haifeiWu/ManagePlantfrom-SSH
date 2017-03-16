@@ -1,5 +1,7 @@
 package com.haifeiWu.serviceImple;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +43,12 @@ public class TemporaryLeaveServiceImple extends DaoSupportImpl<Temporary_Leave>
 	public void updateReturnTime(String return_Time, String suspect_ID) {
 		String hql = "update Temporary_Leave s set s.return_Time=? where s.suspect_ID=?";
 		temporaryLeaveDao.update(hql, return_Time, suspect_ID);
+	}
+
+	@Override
+	public List<Temporary_Leave> findTempLeaveListBySuspectID(String suspectId) {
+		return temporaryLeaveDao
+				.findListByPropertyName("suspect_ID", suspectId);
 	}
 
 }

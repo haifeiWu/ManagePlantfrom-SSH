@@ -81,7 +81,7 @@ public class RFID_ReadAction extends ActionSupport implements
 		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
 		// 调用录像,并更新录像状态(判断)// 更新嫌疑人信息，房间号、流程号
 		VedioCommandAndUpdateMessage(suspect, room);
-		// 调用websocket，干嘛用，并没啥用，作用就是像当前房间对应页面自动刷新页面，刷新页面的时机，不是侯问室，不是出门刷卡
+		// 当前房间对应页面自动刷新页面， 刷新页面的时机，不是侯问室，不是出门刷卡
 		if (suspect.getCardReader_Switch() == 0 && room.getProcess_ID() != 4) {
 			triggerWebsocket(room);
 		}
@@ -117,6 +117,8 @@ public class RFID_ReadAction extends ActionSupport implements
 	/**
 	 * 根据新需求更改，根据房间号和Record_Status switch和
 	 * RoomID改，录像状态的切换，（0/1入区时，1->2RFID中，3结束LeaveAction）
+	 * 
+	 * 刷卡如果不准，会对录像字段更新，或产生误判，
 	 * 
 	 * @param suspect
 	 * @param room
