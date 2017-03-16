@@ -17,14 +17,14 @@ import com.haifeiWu.entity.Temporary_Leave;
 @Repository("temporaryLeaveDao")
 public class TemporaryLeaveDaoImple extends DaoSupportImpl<Temporary_Leave>
 		implements TemporaryLeaveDao {
+			
 	private Transaction tx = null;
 	private Session session = null;
 	private String hql = null;
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Temporary_Leave> selectTemporaryLeavesInfor(
-			String suspectId) {
+	public List<Temporary_Leave> selectTemporaryLeavesInfor(String suspectId) {
 		session = getSession();
 		tx = session.beginTransaction();// 开启事务
 
