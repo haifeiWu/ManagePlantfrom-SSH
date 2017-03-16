@@ -147,6 +147,7 @@ public class GenerateReportAction extends ActionSupport implements
 		request.setAttribute("activity_Record", activity_Record);
 		request.setAttribute("information_Collection", information_Collection);
 		request.setAttribute("leave_Record", leave_Record);
+		request.setAttribute("temporaryLeaves", temporaryLeaves);
 		// request.setAttribute("prisonHour", prisonHour);
 		request.setAttribute("reportCreateTime", reportCreateTime);
 

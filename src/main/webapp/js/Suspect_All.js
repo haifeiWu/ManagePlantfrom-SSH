@@ -8,7 +8,7 @@ $(function(){
 	//设置最后一个input标签的属性样式
 	$(".Message tr td :input").last().css({"width":"80%","text-align":"left"});
     //	设置信息表中家庭住址样式
-	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "7%"});
+	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "23%"});
 //	设置人员联系表的样式
 	$("#people_Mes tr").find("td:eq(0)").css({"color":"#389AC7"});
 	
