@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.haifeiWu.base.DaoSupport;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
+import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 
 public interface LeaveRecodDao extends DaoSupport<PHCSMP_Leave_Record> {
@@ -13,5 +14,5 @@ public interface LeaveRecodDao extends DaoSupport<PHCSMP_Leave_Record> {
 	 * @param temporaryLeaves
 	 */
 	void saveLeaveRecordInfor(List<Temporary_Leave> temporaryLeaves);
-
+	void updateLeaveRecordInfor(PHCSMP_Leave_Record LeaveRecordInfor);
 }

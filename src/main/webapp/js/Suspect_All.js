@@ -3,14 +3,14 @@ $(function(){
 	//设置嫌疑人表格中的信息
 	$(".Message td:first").css({"width":"30%","height":"5%"});
 	//设置所有input标签的属性样式
-	$(".Message tr td :input").css({"width":"18%","color":"#080808","text-align":" center",
+	$(".Message tr td :input").css({"width":"35%","color":"#080808","text-align":" center",
 	"font-family":"微软雅黑","font-size":"large","border":"hidden","background":"#fff"});
 	//设置最后一个input标签的属性样式
 	$(".Message tr td :input").last().css({"width":"80%","text-align":"left"});
     //	设置信息表中家庭住址样式
-	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "7%"});
+	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "23%"});
 //	设置人员联系表的样式
-	$("#people_Mes tr").find("td:eq(0)").css({"color":"#389AC7","text-align":"right"});
+	$("#people_Mes tr").find("td:eq(0)").css({"color":"#389AC7"});
 	
 	
 	//检查情况样式表
@@ -46,7 +46,7 @@ $(function(){
 	$(".transient_Leave input:eq(1)").css({"width":"76%","height":"34px"});
 	
 	$(".final_Leave tr:first").css({"background":"#0070c0","color":"#ffffff"});
-	$(".final_Leave tr").find("td:eq(0)").css({"width":"30%","text-align":"right"});
+	$(".final_Leave tr").find("td:eq(0)").css({"width":"30%"});
 	$(".final_Leave input").css("height","34px");
 	$(".final_Leave input[type='radio']").css("height","10px");
 

@@ -71,6 +71,6 @@ public interface SuspectService {
 
 	// public PHCSMP_Suspect findByRemark(String remark);
 
-	// public void updateSuspect(PHCSMP_Suspect suspectInfor);
+	public void updateSuspect(PHCSMP_Suspect suspectInfor);
 
 }

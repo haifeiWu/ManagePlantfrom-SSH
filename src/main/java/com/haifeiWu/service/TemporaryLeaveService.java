@@ -14,4 +14,5 @@ public interface TemporaryLeaveService {
 	void updateReturnTime(String return_Time, String suspect_ID);
 
 	public List<Temporary_Leave> findTempLeaveListBySuspectID(String suspectId);
+
 }

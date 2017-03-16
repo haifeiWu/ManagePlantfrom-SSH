@@ -79,41 +79,38 @@ public class GenerateReportAction extends ActionSupport implements
 	 * @throws IOException
 	 */
 	public String loadInfor() throws IOException {
-		// System.out.println("嫌疑人入区信息报告");
-		//
-		// System.out.println("嫌疑人姓名：" + request.getParameter("personName"));
-		System.out.println("档案编号：" + request.getParameter("suspectID"));
-		/*
-		 * 加载当前嫌疑人的所有的信息
-		 */
-		// 获取档案编号
+
 		String suspectId = (String) request.getParameter("suspectID");
+		// String suspectId="LB-HB-2017308186";
+		System.out.println("档案编号：" + suspectId);
 		if (suspectId == null) {
 			response.getWriter().write("<script>alert('嫌疑人ID为空');</script>");
 			response.getWriter().flush();
 		}
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
-		// 嫌疑人随身所有物品检查信息
+		// 嫌疑人随身所有物品检查信息s
 		List<PHCSMP_BelongingS> belongingS = belongingInforService
 				.selectBelongInfor(suspectId);
+
 		// 嫌疑人人身检查信息
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectId);
-		// 嫌疑人信息采集记录
-		PHCSMP_Information_Collection information_Collection = informationCollectionService
-				.findInforBySuspetcId(suspectId);
+
 		// 嫌疑人所有的办案区记录信息
 		List<PHCSMP_Activity_Record> activity_Record = activityRecordService
 				.selectActivityRecordInfor(suspectId);
 
 		// 嫌疑人出区记录
-		List<Temporary_Leave> temporary_Leave = temporaryLeaveService
+		List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
 				.findTempLeaveListBySuspectID(suspectId);
-		// 嫌疑人离区信息记录
+
+		// 嫌疑人信息采集记录
+		PHCSMP_Information_Collection information_Collection = informationCollectionService
+				.findInforBySuspetcId(suspectId);
 		PHCSMP_Leave_Record leave_Record = leaveRecodService
 				.findInforBySuspetcId(suspectId);
-
+		System.out.println("leave_Record=" + leave_Record);
 		// 犯人羁押时间
 		// DateTimeFormatter format = DateTimeFormat
 		// .forPattern("yyyy-MM-dd HH:mm");
@@ -137,7 +134,7 @@ public class GenerateReportAction extends ActionSupport implements
 		request.setAttribute("activity_Record", activity_Record);
 		request.setAttribute("information_Collection", information_Collection);
 		request.setAttribute("leave_Record", leave_Record);
-		request.setAttribute("temporary_Leave", temporary_Leave);
+		request.setAttribute("temporaryLeaves", temporaryLeaves);
 		// request.setAttribute("prisonHour", prisonHour);
 		request.setAttribute("reportCreateTime", reportCreateTime);
 

@@ -100,10 +100,20 @@ public class Temporary_Leave implements Serializable {
 		this.room_ID = room_ID;
 	}
 
+//	@Override
+//	public String toString() {
+//		return "Temporary_Leave [temporary_Leave_Id=" + temporary_Leave_Id
+//				+ ", suspect_ID=" + suspect_ID + ", tempLeave_Time="
+//				+ tempLeave_Time + ", tempLeave_Reason=" + tempLeave_Reason
+//				+ ", return_Time=" + return_Time + ", staff_ID=" + staff_ID
+//				+ ", room_ID=" + room_ID + "]";
+//	}
 
 	@Override
 	public String toString() {// 重写toString方法
 		return "临时离开原因：" + this.tempLeave_Reason + "档案号：" + this.suspect_ID+"员工编号："+this.staff_ID+"返回时间："+this.return_Time;
 	}
+//	
+	
 	
 }

@@ -27,6 +27,13 @@ public interface DaoSupport<T> {
 	public void delete(T entity);
 
 	/**
+	 * 删除实体
+	 * 
+	 * @param entity
+	 */
+	public void deleteBySuspectID(String suspect_ID);
+
+	/**
 	 * 批量保存
 	 * 
 	 * @param list
@@ -81,7 +88,5 @@ public interface DaoSupport<T> {
 	 * 需要的话再加一个通过两个属性名和属性值查询的 可增加一个更新方法，传入更新的属性和根据哪个属性更新，再传入对应的值
 	 * 
 	 */
-
-	public void deleteBySuspectID(String suspect_ID);
-
+	/* public void updateSuspect(PHCSMP_Suspect suspect); */
 }

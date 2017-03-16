@@ -9,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.haifeiWu.entity.PHCSMP_Suspect;
+
 /**
  * 有了DaoSupport之后，使用通用的更新（update，insert，save），通过嫌疑人ID的查询也可使用这里的查询方法
  */
@@ -154,6 +156,7 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 
 	@Override
 	public void deleteBySuspectID(String suspect_ID) {
+
 		String hql = "delete from " + clazz.getName() + " where suspect_ID=?";
 		tx = getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);

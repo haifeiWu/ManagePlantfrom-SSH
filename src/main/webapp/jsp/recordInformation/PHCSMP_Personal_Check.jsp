@@ -31,7 +31,7 @@
 							var lineNum=index-1;
 							//添加下一行
 							var addrow = "<tr>" + "<td>"
-									+ index
+									+ lineNum
 									+ "</td>"
 									+ "<td><input type=text name=belong["
 									+ lineNum
@@ -49,7 +49,8 @@
 									+ lineNum
 									+ "].Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
 									+ "<td> <select name=belong["
-									+lineNum
+									+ lineNum
+
 									+"].Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
 									+ "<td> <select name=belong["
 									+ lineNum
