@@ -11,8 +11,17 @@
 	<constant name="struts.action.excludePattern" value="/websocket"></constant>
 	<!-- 乱码过滤 -->
 	<constant name="struts.i18n.encoding" value="UTF-8" />
-
+	
 	<package name="default" namespace="/" extends="struts-default">
+	     //拦截 入区、离区必须先登录才可以
+		  <interceptors>
+				<interceptor name="auth" class="com.haifeiWu.interceptor.AuthInterceptor"></interceptor>
+				<interceptor-stack name="phcsmpAuthStack">
+					<interceptor-ref name="auth"></interceptor-ref>
+					<interceptor-ref name="defaultStack"></interceptor-ref>
+				</interceptor-stack>
+		  </interceptors>
+		  
 		<!-- <interceptors>
 			日志拦截器 
 			<interceptor name="Interceptor_LogInfo"
@@ -32,8 +41,9 @@
 		</interceptors> -->
 		<!-- 定义默认拦截器 
 		<default-interceptor-ref name="mydefault" />-->
-		<!-- 全局变量设置 -->
+		<!-- 全局变量设置 -->	
 		<global-results>
+			<result name="toLogin">/jsp/login.jsp</result>
 			<result name="frequentVisit">/jsp/RfidRead/frequentVisit.jsp</result>
 			<result name="loginError">/jsp/login.jsp</result>
 			<result name="NULL">/jsp/error/null.jsp</result>
@@ -56,6 +66,7 @@
 		<!-- 嫌疑人信息 -->
 		<action name="suspect_*" class="com.haifeiWu.action.PHCSMP_Suspect_Action"
 			method="{1}">
+			<interceptor-ref name="phcsmpAuthStack"/>
 			<!-- 当处于未登录状态时 -->
 			<result name="unLoginState">/jsp/unlogin/unlogin_Personnel_information.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/Personnel_information.jsp</result>
@@ -121,6 +132,7 @@
 		<action name="LR_*" class="com.haifeiWu.action.Leave_Recod_Action"
 			method="{1}">
 			<!-- 当处于未登录状态时 -->
+			<interceptor-ref name="phcsmpAuthStack"/>
 			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Leave_Record.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
