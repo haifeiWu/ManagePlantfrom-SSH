@@ -3,7 +3,7 @@ $(function(){
 	//设置嫌疑人表格中的信息
 	$(".Message td:first").css({"width":"30%","height":"5%"});
 	//设置所有input标签的属性样式
-	$(".Message tr td :input").css({"width":"35%","color":"#080808","text-align":" center",
+	$(".Message tr td :input").css({"color":"#080808","text-align":" left",
 	"font-family":"微软雅黑","font-size":"large","border":"hidden","background":"#fff"});
 	//设置最后一个input标签的属性样式
 	$(".Message tr td :input").last().css({"width":"80%","text-align":"left"});
@@ -14,11 +14,11 @@ $(function(){
 	
 	
 	//检查情况样式表
-	$(".checked_state textarea").css({"width":"100%","margin":"0px","height":"180px"});
+	$(".checked_state textarea").css({"width":"50%","margin":"0px","height":"120px"});
 	$(".checked_state input[type=checkbox]").css({"width":"20px","margin-top":"0%"});
 
-	$(".checkbox li:eq(0)").css("width","136px");
-	$(".checkbox li:eq(2)").css("width","224px");
+	$(".checkbox li:eq(0)").css("width","100px");
+	$(".checkbox li:eq(2)").css("width","200px");
 
 
 

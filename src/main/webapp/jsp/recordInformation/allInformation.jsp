@@ -218,7 +218,7 @@
 							</tr>
 						</table>
 						<hr
-							style="width:100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 36%; margin-left: -6%;" />
+							style="width:100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 28%; margin-left: -6%;" />
 					</div>
 					<div class="row">
 						<p
@@ -279,13 +279,12 @@
 						<p class="self_state col-lg-12 col-md-10 col-sm-10">2.1&nbsp;自述情况</p>
 						<ul class="checkbox col-lg-12 col-md-10 col-sm-10">
 							<li>是否饮酒：</li>
-							<li><input type="text" value="${personal_Check.is_Drink }" /></li>
+							<li style="margin-left: 3px;"> ${personal_Check.is_Drink }</li>
 							<li>是否患有传染性疾病：</li>
-							<li><input type="text"
-								value="${personal_Check.is_Diseases }" /></li>
+							<li style="margin-left: 3px;">${personal_Check.is_Diseases }</li>
 						</ul>
 						<fieldset class="col-lg-12 col-md-12 col-sm-12">
-							<p><font size="4">自述症状：</font><input style="height: 30px;width: 80%;"value="${personal_Check.self_ReportS }"></p>
+							<font size="4">自述症状：${personal_Check.self_ReportS }</font>
 							
 						</fieldset>
 					</div>
@@ -293,34 +292,31 @@
 					<div class="row_2">
 						<p class="check col-lg-12 col-md-10 col-sm-10">2.2&nbsp;检查情况</p>
 						<!--体检信息表-->
-						<table class="checked_state col-lg-12 col-md-10 col-sm-10">
-							<tr>
-								<td style="padding-left: 100px;">人身检查状态</td><td style="width: 20%;">${personal_Check.check_Situation }</td>
-								<!-- <td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input type="checkbox" /></td>
-								<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input type="checkbox" /></td> -->
-								<td rowspan="2"><img src="images/check_08.png"
-									style="width: 60%; margin-left: 1%; margin-top: 3%;" /></td>
-								<!--引入体表检查图-->
+						<div><table class="checked_state col-lg-12 col-md-10 col-sm-10">
+							<tr >
+							<c:if test="${!empty personal_Check.check_Situation }">
+								<td style="padding-left: 70px; width: 200px;">人身检查状态：</td>
+								<td >${personal_Check.check_Situation }</td>
+							</c:if>
+								
 							</tr>
-							<tr>
-								<td style="padding-left: 100px; vertical-align: top;">检查情况：</td>
+							<tr >
+								<td style="padding-left: 80px;width:200px; vertical-align: top;">检查情况：</td>
 								<td  style="text-align: left; vertical-align: top;"><textarea>${personal_Check.check_ReportS }</textarea></td>
-								<!--<td></td>-->
 							</tr>
 							<tr>
-								<td style="padding-left: 100px;">
-									<div  >检查民警<br> <input type="text"
-									value="${personal_Check.staff_ID }" />
-									</div>
-								</td>
-								<td colspan="3" style="padding-left: 50px;">被检查人/监护人 <br>
+								<td colspan="3" style="padding-left:80px;">被检查人/监护人 <br>
 									<input type="text" value="${suspect.suspect_Name }" /></td>
 								<!--<td></td>-->
 							</tr>
-						</table>
+						</table></div>
 					</div>
+					<img src="images/check_08.png"
+									style="width: 24%;position:relative;left: 551px;top:-195px;" />
+								
+					
 					<!--随身财物检查登记-->
-					<div class="row_1">
+					<div class="row_1" style="margin-top: -245px;">
 						<p class="check_woods col-lg-12 col-md-10 col-sm-10">2.3&nbsp;随身财物检查登记</p>
 						<table class="woods_check col-lg-12 col-md-10 col-sm-10">
 							<tr>
@@ -469,7 +465,7 @@
 				
 						</table>
 					</div>
-					<hr style="margin-top: 180px;border: 1px solid darkgray;" />
+					<hr style="margin-top: 140px;border: 1px solid darkgray;" />
 					<!--最终离开办案区的信息表-->
 					<div class="row_1" style="margin-top: 20px;">
 						<p
@@ -490,7 +486,7 @@
 							</tr>
 							<tr>
 								<td style="text-align: center;">未反还物品情况记载：</td>
-								<td><textarea>${leave_Record.belongingS_Treatment_Record}</textarea></td>
+								<td>${leave_Record.belongingS_Treatment_Record}</td>
 							</tr>
 							<tr>
 								<td style="text-align: center;">领取人：</td>
@@ -508,7 +504,7 @@
 						</table>
 						</div>
 					</div>
-					<hr style="margin-top: 380px;border: 1px solid darkgray;" />
+					<hr style="margin-top: 310px;border: 1px solid darkgray;" />
 					
 					<p id="signature">
 						管理员签名：&nbsp;&nbsp;&nbsp;<input type="text" value="admin" />

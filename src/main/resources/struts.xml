@@ -13,7 +13,6 @@
 	<constant name="struts.i18n.encoding" value="UTF-8" />
 	
 	<package name="default" namespace="/" extends="struts-default">
-	     //拦截 入区、离区必须先登录才可以
 		  <interceptors>
 				<interceptor name="auth" class="com.haifeiWu.interceptor.AuthInterceptor"></interceptor>
 				<interceptor-stack name="phcsmpAuthStack">
@@ -55,7 +54,10 @@
 			method="{1}">
 			<result name="{1}">/jsp/home/{1}.jsp</result>
 		</action>
-
+		<action name="ftp_*" class="com.haifeiWu.action.FTPAction"
+			method="{1}">
+			<result name="{1}">/jsp/home/{1}.jsp</result>
+		</action>
 		<action name="user_*" class="com.haifeiWu.action.UserAction"
 			method="{1}">
 			<result name="logout">/jsp/login.jsp</result>

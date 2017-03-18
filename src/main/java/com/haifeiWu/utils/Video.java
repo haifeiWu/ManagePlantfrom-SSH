@@ -12,11 +12,82 @@ import org.joda.time.format.DateTimeFormatter;
 import com.alibaba.fastjson.JSON;
 
 public class Video {
+	/**
+	 * 配置ftp服务器的参数
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static void setFtpServerCfg(int cardReader_ID,
+			String identificationCard) throws Exception {
+		String configJson = packjson();
+		String configResult = HttpRequest.sendOkMCVPost(
+				PropertiesReadUtils.getString("SxSetFtpServerCfg"), configJson);
+		System.out.println("----------------" + configResult);
+		String json = packjson(cardReader_ID, identificationCard);
+		String result = HttpRequest.sendOkMCVPost(
+				PropertiesReadUtils.getString("SxUploadRecFile"), json);
+		System.out.println("----------------" + result);
+		// FTPClientUtils ftp = new FTPClientUtils();
+		// ftp.setHost("192.168.1.108");
+		// ftp.setPort(21);
+		// ftp.setBinaryTransfer(true);
+		// ftp.setPassiveMode(true);
+		// ftp.setEncoding("utf-8");
+		// ftp.setUsername("anonymous");
+		// ftp.setPassword("192.168.1.161");
 
-	// @Autowired
-	// private SuspectService suspectService;
-	// @Autowired
-	// private RoomService roomService;
+		// 注意并未设置文件的绝对路径
+		// FTPClient ftpClient = ftp.getFTPClient();
+		// ftp
+		// if (ftp.connect(ftpClient)) {
+
+		// File localFile = new File("C:\\Users\\Dell\\Desktop");
+		// FileOutputStream fos = new FileOutputStream(localFile);
+		//
+		// ftpClient.retrieveFile(, fos);
+		// System.out.println("download the remote files.");
+		// fos.close();
+
+		// }
+	}
+
+	private static String packjson() {
+		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
+		map.put("serverIp", "192.168.1.108");
+		map.put("port", 21);
+		map.put("uploadDir", "C:\\Users\\Dell\\Desktop");
+		map.put("userName", "anonymous");
+		map.put("passWord", "192.168.1.161");
+		String json = JSON.toJSONString(map);
+		return json;
+	}
+
+	public static void queryDownloadFileStatu(int cardReader_ID,
+			String identificationCard) throws IOException {
+		String json = packjson(cardReader_ID, identificationCard);
+		String result = HttpRequest.sendOkMCVPost(
+				PropertiesReadUtils.getString("SxQueryUploadFileStatus"), json);
+		System.out.println("----------------" + result);
+
+	}
+
+	// public static String downloadRecFile(int cardReader_ID,
+	// String identificationCard) {
+	//
+	// return "";
+	// }
+
+	// private static String packFtpServerJson() {
+	// Map<String, Object> map = new HashMap<String, Object>();
+	// map.put("serverIp", "192.168.1.161");
+	// map.put("port", "8888");
+	// map.put("uploadDir", "C:\\Users\\Dell\\Desktop");
+	// map.put("userName", "anonymous");
+	// map.put("passWord", "");
+	// String json = JSON.toJSONString(map);
+	// return json;
+	// }
 
 	public static String startRecording(int cardReader_ID, int room_ID,
 			String identificationCard) throws IOException {
@@ -145,4 +216,5 @@ public class Video {
 		// 有效则可以调用摄像头，无效则不能调用摄像头
 		return hours > 2;
 	}
+
 }

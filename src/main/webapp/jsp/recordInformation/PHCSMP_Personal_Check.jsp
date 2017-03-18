@@ -31,7 +31,7 @@
 							var lineNum=index-1;
 							//添加下一行
 							var addrow = "<tr>" + "<td>"
-									+ lineNum
+									+ index
 									+ "</td>"
 									+ "<td><input type=text name=belong["
 									+ lineNum
