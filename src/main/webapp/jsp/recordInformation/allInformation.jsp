@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8" 
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-	
+
 <!DOCTYPE html>
 <html>
 
@@ -102,6 +102,8 @@
 
 			}
 		});
+		
+		
 	});
 </script>
 </head>
@@ -115,49 +117,20 @@
 			</h4>
 			<p id="left_title">嫌疑人入区报告</p>
 
-			<!--进度条信息设置-->
-			<div class="container" style="height: 180px;">
-				<div class="row">
-					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
-						<li>1</li>
-						<li>2</li>
-						<li>3</li>
-						<li>4</li>
-						<li>5</li>
-					</ul>
-					<!--进度的状态-->
-					<!--引入状态截图-->
-					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="#Person_info"><img src="images/fgreen_03.png" /></a> <a
-							href="#Person_safety"><img src="images/fgreen_03.png" /></a> <a
-							href="#Info_Collect"><img src="images/fgreen_03.png" /></a> <a
-							href="#record_registr"><img src="images/fgreen_03.png" /></a> <a
-							href="#Leave_depart"><img src="images/fgreen_07.png"
-							style="margin-left: -9%;" /></a>
-					</div>
-				</div>
-				<!--进度的信息显示-->
-				<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
-					<li>入区登记报告</li>
-					<li>人身检查报告</li>
-					<li>信息采集报告</li>
-					<li>办案区活动记录</li>
-					<li>出区登记报告</li>
-				</ul>
-				<hr style="width: 100%;border: 0.5px solid #389AC7;margin-top: 3%;" />
-			</div>
-			<!--进度条信息结束-->
+			
+			
+		
+			
 			<form class="row">
 				<h1 class="col-lg-12 col-md-10 col-sm-12">
 					<img src="images/jinghui.png">&nbsp;&nbsp;&nbsp;&nbsp;离石区公安局嫌疑人入区报告
 				</h1>
 				<ul class="report col-lg-12 col-md-12 col-sm-10">
-					<li>档案编号：<input type="text" value="${suspect.suspect_ID }" /></li>
-					<li>报告时间：<input type="date" value="${reportCreateTime }" /></li>
+					<li class="l1">档案编号：<input type="text" value="${suspect.suspect_ID }"  readonly="readonly"/></li>
+					<li class="l2">报告时间：<input type="date" value="${reportCreateTime }" readonly="readonly"/></li>
 				</ul>
 			</form>
-			<hr style="width: 100%;border: 0.5px solid #389AC7;" />
+			
 			<!-- 文件下载链接   "-->
 			
 			<form class="row">
@@ -167,6 +140,8 @@
 				</h4>
 				<!--嫌疑人身份证信息-->
 				<div id="All_first">
+				    <p style="border-bottom: 1px solid #389AC7; padding-bottom: 3px;color: #f69d1f;width: 15%;font-size: 17px;margin-top: 6%;margin-left: 23px;">1.1&nbsp;身份证信息</p>
+						
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
 							id="img_2" src="images/1-cemian_06.png" />
@@ -175,14 +150,12 @@
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<!--身份证信息-->
-						<p id="ID_Mes">1.1&nbsp;身份证信息</p>
-						<hr
-							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 0%;margin-left: -6%;" />
+						
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 							<tr style="padding: 0px;">
 								<!--图片引入-->
 								<td rowspan="5"><img
-									style="width:95px;height: 108px;margin-left: -2%;"
+									style="width:95px;height: 108px;margin-left: 14%;margin-top: 30%;"
 									src="${suspect.identityCard_Photo } " />
 									<p class="info_id">身份证照</p></td>
 								<!--<td></td>-->
@@ -212,56 +185,55 @@
 										cols="30">${suspect.address }</textarea></td>
 							</tr>
 							<tr>
-								<td><div style="margin-left: 38px;">身份证号码</div></td>
-								<td colspan="2"><input type="text"
+								<td><div style="margin-left: 50px;">身份证号码</div></td>
+								<td colspan="2"><input type="text" style="margin-left: 15px;"
 									value="${suspect.identifyCard_Number }" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr
-							style="width:100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 28%; margin-left: -6%;" />
+							style="width:152%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 34%; margin-left: -51%;margin-bottom: 10px;" />
 					</div>
 					<div class="row">
 						<p
-							style="border-bottom: 1px solid #389AC7; padding-bottom: 3px;color: #f69d1f;width: 15%;">1.2&nbsp;人员联系信息</p>
+							style="border-bottom: 1px solid #389AC7; padding-bottom: 3px;color: #f69d1f;width: 15%;font-size: 17px;margin-left: 37px;">1.2&nbsp;人员联系信息</p>
 						<table id="people_Mes" class="col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td style="text-align: center;">身份证种类：</td>
 								<td colspan="4"><input type="text"
-									value="${suspect.type_ID }" /></td>
+									value="${suspect.type_ID }" readonly="readonly"/></td>
+									<td style="text-align: center;">证件号码：</td>
+								<td colspan="4"><input type="text" value="${suspect.identifyCard_Number }" readonly="readonly"/></td>
 							</tr>
-							<tr>
-								<td style="text-align: center;">证件号码：</td>
-								<td colspan="4"><input type="text" value="${suspect.identifyCard_Number }" /></td>
-							</tr>
+							
 							<tr>
 								<td style="text-align: center;">现住址：</td>
 								<td colspan="4"><input type="text"
-									value="${suspect.now_address }" /></td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">联系方式：</td>
+									value="${suspect.now_address }" readonly="readonly"/></td>
+									<td style="text-align: center;">联系方式：</td>
 								<td colspan="4"><input type="text"
-									value="${suspect.phone }" /></td>
+									value="${suspect.phone }" readonly="readonly"/></td>
 							</tr>
+							
 							<tr>
 								<td style="text-align: center;">入区时间：</td>
-								<td><input type="text" value="${suspect.enter_Time }" /></td>
+								<td colspan="4"><input type="text" value="${suspect.enter_Time }" readonly="readonly"/></td>
 								<td style="text-align: center;">RFID:</td>
 								<td colspan="4"><input type="text"
-									value="${suspect.band_ID }" /></td>
+									value="${suspect.band_ID }" readonly="readonly"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;">进入办案区原因：</td>
 								
-								<td colspan="4"><input type="text"
-									value="${suspect.suspected_Cause }" /></td>
+								<td colspan="9"><input type="text"
+									value="${suspect.suspected_Cause }" readonly="readonly"/></td>
+									
 							</tr>
 							<tr>
 								<td style="text-align: center;">办案民警签名：</td>
-								<td><input type="text" value="${suspect.staff_ID }"
+								<td colspan="4"><input type="text" value="${suspect.staff_ID }"
 									readonly="readonly" /></td>
 								<td style="text-align: center;">管理员签名：</td>
-								<td><input type="text" value="${suspect.staff_ID }"
+								<td colspan="4"><input type="text" value="${suspect.staff_ID }"
 									readonly="readonly" /></td>
 							</tr>
 						</table>
@@ -276,37 +248,37 @@
 				</h4>
 				<div id="All_second">
 					<div class="row_1">
-						<p class="self_state col-lg-12 col-md-10 col-sm-10">2.1&nbsp;自述情况</p>
+						<p class="self_state col-lg-12 col-md-10 col-sm-10" style="font-size: 17px;">2.1&nbsp;自述情况</p>
 						<ul class="checkbox col-lg-12 col-md-10 col-sm-10">
 							<li>是否饮酒：</li>
 							<li style="margin-left: 3px;"> ${personal_Check.is_Drink }</li>
 							<li>是否患有传染性疾病：</li>
 							<li style="margin-left: 3px;">${personal_Check.is_Diseases }</li>
 						</ul>
-						<fieldset class="col-lg-12 col-md-12 col-sm-12">
-							<font size="4">自述症状：${personal_Check.self_ReportS }</font>
+						<fieldset class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 79px;">
+							<font size="3">自述症状：${personal_Check.self_ReportS }</font>
 							
 						</fieldset>
 					</div>
 					<!--体检信息表-->
 					<div class="row_2">
-						<p class="check col-lg-12 col-md-10 col-sm-10">2.2&nbsp;检查情况</p>
+						<p class="check col-lg-12 col-md-10 col-sm-10" style="font-size: 17px;">2.2&nbsp;检查情况</p>
 						<!--体检信息表-->
 						<div><table class="checked_state col-lg-12 col-md-10 col-sm-10">
 							<tr >
 							<c:if test="${!empty personal_Check.check_Situation }">
-								<td style="padding-left: 70px; width: 200px;">人身检查状态：</td>
-								<td >${personal_Check.check_Situation }</td>
+								<td style="padding-left: 88px; width: 120px;font-size: 16px;">人身检查状态：</td>
+								<td style="font-size: 16px;" >${personal_Check.check_Situation }</td>
 							</c:if>
 								
 							</tr>
 							<tr >
-								<td style="padding-left: 80px;width:200px; vertical-align: top;">检查情况：</td>
-								<td  style="text-align: left; vertical-align: top;"><textarea>${personal_Check.check_ReportS }</textarea></td>
+								<td style="padding-left: 88px;width:200px; vertical-align: top;font-size: 16px;">检查情况：</td>
+								<td  style="text-align: left; vertical-align: top; font-size: 16px;"  rea><textarea readonly="readonly">${personal_Check.check_ReportS }</textarea></td>
 							</tr>
 							<tr>
-								<td colspan="3" style="padding-left:80px;">被检查人/监护人 <br>
-									<input type="text" value="${suspect.suspect_Name }" /></td>
+								<td colspan="3" style="padding-left:88px;font-size: 16px;padding-top: 5px;">被检查人/监护人： 
+									<input type="text" style="font-size: 16px;" value="${suspect.suspect_Name }" readonly="readonly"/></td>
 								<!--<td></td>-->
 							</tr>
 						</table></div>
@@ -317,7 +289,7 @@
 					
 					<!--随身财物检查登记-->
 					<div class="row_1" style="margin-top: -245px;">
-						<p class="check_woods col-lg-12 col-md-10 col-sm-10">2.3&nbsp;随身财物检查登记</p>
+						<p class="check_woods col-lg-12 col-md-10 col-sm-10" style="font-size: 17px;">2.3&nbsp;随身财物检查登记</p>
 						<table class="woods_check col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td>序号</td>
@@ -360,44 +332,46 @@
 					3、信息采集报告<span class="show2">显示信息</span>
 				</h4>
 				<div id="All_third">
-					<table class="info_collect col-lg-12 col-md-10 col-sm-10">
+					<table class="info_collect col-lg-12 col-md-10 col-sm-10" style="margin-left: 80px;">
 						<tr>
-							<td>信息采集：</td>
-							<td>${information_Collection.is_Collected }</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td style="width: 35px;">信息采集：</td>
+							<td style="width: 55px;">${information_Collection.is_Collected }</td>
+							<td style="width: 35px;">采集项目：</td>
+							<td style="width: 55px;">${information_Collection.collected_Item }</td>
+							<td style="width: 35px;">信息入库：</td>
+							<td style="width: 55px;">${information_Collection.is_Storaged }</td>
+							<td  style="width: 35px;">检查对比：</td>
+							<td style="width: 55px;">${information_Collection.is_Checked }</td>
 						</tr>
-						<tr>
+						<%-- <tr>
 							<td>采集项目：</td>
 							<td>${information_Collection.collected_Item }</td>
 							<td></td>
 							<td></td>
 							<td></td>
-							<td></td>
+							<td></td> --%>
 							<!-- <td> &nbsp;&nbsp;<input type="checkbox" />身份信息</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />指纹</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />血液</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />尿液</td>
 							<td> &nbsp;&nbsp;<input type="checkbox" />其他<input type="text" /></td> -->
-						</tr>
-						<tr>
+						<!-- </tr> -->
+						<%-- <tr>
 							<td>信息入库：</td>
-							<td>${information_Collection.is_Storaged }</td>
+							<td style="width: 56px;">${information_Collection.is_Storaged }</td>
 							<td></td>
 							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>
+						    <td>检查对比：</td>
+							<td>${information_Collection.is_Checked }</td>
+						</tr> --%>
+						<%-- <tr>
 							<td>检查对比：</td>
 							<td>${information_Collection.is_Checked }</td>
 							<td></td>
 							<td></td>
 							<td></td>
 							<td></td>
-						</tr>
+						</tr> --%>
 					</table>
 				</div>
 			</form>
@@ -442,7 +416,7 @@
 				<div id="fifth">
 					<div class="row_1">
 						<p
-							style="color: #389AC7;margin-top: 1%;margin-left:4%;font-size: inherit;">临时离开办案区</p>
+							style="color: #389AC7;margin-top: 6%;margin-left:6%;font-size: 17px;">临时离开办案区</p>
 						<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td>序号</td>
@@ -469,9 +443,30 @@
 					<!--最终离开办案区的信息表-->
 					<div class="row_1" style="margin-top: 20px;">
 						<p
-							style="color: #389AC7;margin-top: 2%;margin-left:4%;font-size: inherit;">最终离开办案区:</p>
+							style="color: #389AC7;margin-top: -1%;margin-left:6%;font-size: 17px;">最终离开办案区:</p>
 						<div><table class="final_Leave col-lg-12 col-md-10 col-sm-10">
-							<tr>
+						<tr>
+						
+						 		<td style="text-align: center;">最终离开时间</td>
+								<td style="text-align: center;">离开原因</td>
+								<td style="text-align: center;">随身物品处理情况：</td>
+								<td style="text-align: center;">未反还物品情况记载：</td>
+								<td style="text-align: center;">领取人：</td>
+								<td style="text-align: center;">身份证号码：</td>
+								<td style="text-align: center;">领取时间：</td>
+						</tr>
+						<tr>
+								<td>${leave_Record.leave_Time }</td>
+								<td>${leave_Record.leave_Reason}</td>
+								<td>${leave_Record.belongingS_Treatment_Method} 
+								</td>
+								<td>${leave_Record.belongingS_Treatment_Record}</td>
+								<td>${leave_Record.recipient_Person}"</td>
+								<td>
+									${leave_Record.recipient_Person_Number }</td>
+									<td>${leave_Record.treatment_Time }</td>
+						</tr>
+							<%-- <tr>
 								<td style="text-align: center;">最终离开时间</td>
 								<td>${leave_Record.leave_Time }</td>
 							</tr>
@@ -500,11 +495,11 @@
 							<tr>
 								<td style="text-align: center;">领取时间：</td>
 								<td>${leave_Record.treatment_Time }</td>
-							</tr>
+							</tr> --%>
 						</table>
 						</div>
 					</div>
-					<hr style="margin-top: 310px;border: 1px solid darkgray;" />
+					<hr style="margin-top: 114px;border: 1px solid darkgray;" />
 					
 					<p id="signature">
 						管理员签名：&nbsp;&nbsp;&nbsp;<input type="text" value="admin" />
