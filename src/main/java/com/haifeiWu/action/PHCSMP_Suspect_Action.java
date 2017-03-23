@@ -43,10 +43,8 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		try{
 		PHCSMP_Staff user = (PHCSMP_Staff) request.getSession().getAttribute(
 				"user");
-
-		String entryTime = new DateTime().toString("yyy-mm-dd HH:mm");// 入区时间
-
-		String nEntryTime = new DateTime().toString("yyyy年MM月dd日");// 入区时间
+		String entry_Time = new DateTime().toString("yyyy-MM-dd HH:mm");// 入区时间
+		//String nEntryTime = new DateTime().toString("yyyy年MM月dd日");// 入区时间
 		// 饱和性验证
 
 		if (user == null) {// 在未登录状态下
@@ -58,10 +56,13 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 					.findAllIdentifyCardType();
 			List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
 					.findAllSuspectCause();
-			request.setAttribute("nEntryTime", nEntryTime);
+			//request.setAttribute("nEntryTime", nEntryTime);
 			request.setAttribute("bundList", list);
 			request.setAttribute("identifyCardType", identifyCardType);
-			request.setAttribute("entryTime", entryTime);
+			request.setAttribute("entry_Time", entry_Time);
+//			request.getParameter(entry_Time);
+//			model.setEnter_Time(entry_Time);
+			System.out.println("=======入区时间========"+entry_Time);
 			request.setAttribute("actionCause", actionCause);
 			}
 		}catch (Exception e){
@@ -93,11 +94,16 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		 * model.setTdentityID_Imag(picPath); // 将改图片拷贝到服务器目录下
 		 * CopyFile.copyFile(path, temp + "/" + picPath);
 		 */
+		
+		String suspect_ID=request.getParameter("Suspect_ID");
+		System.out.println("+++++++++++++++"+suspect_ID);
+		
+		
 		try{
-				
 			fullCheck();
 			//手环必须填写
 			if(model.getBand_ID()==0){
+				System.out.println("没进行选手环提交失败，保持档案号不变！");
 				response.getWriter().write("<script> alert('提交失败，请填写手环'); </script>");
 				response.getWriter().flush();
 				return "loadInfor";
@@ -107,17 +113,20 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			
 			// if (bandService.find)
 			// suspectService.updateSuspect(suspectInfor);
-			System.out.println("----------------------" + model.toString());
+//			System.out.println("----------------------" + model.toString());
 			/*suspectService.saveSuspect(model);// 保存嫌疑人信息，
 			
 	*/		// 回路饱和性验证
-			if (lineService.isFull()) {// 可以录像
-				model.setRecordVideo_State(1);
-			}
+//			if (lineService.isFull()) {// 可以录像
+//				model.setRecordVideo_State(1);
+//			}
 			//System.out.println(3/0);
 			PHCSMP_Suspect suspect=suspectService.findBySuspetcId(model.getSuspect_ID());
 			if(suspect==null){
 				suspectService.saveSuspect(model);// 保存嫌疑人信息，
+				System.out.println("-----------保存执行了-----------");
+				application.setAttribute("lastSuspect_ID", suspect_ID);//保存成功的档案号
+				System.out.println(",,,,,,,,,,,,,,,,,,"+suspect_ID);
 			}else{
 				suspectService.updateSuspect(model);//更新嫌疑人信息
 			}
@@ -127,7 +136,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	//				+ suspectService.findBySuspetcId(model.getSuspect_ID())
 	//						.toString());
 	
-			System.out.println(model.getIdentityCard_Photo());
+//			System.out.println(model.getIdentityCard_Photo());
 			// 测试
 			// List<PHCSMP_Band> test = bandService.findAllBundInfor();
 			// for (PHCSMP_Band t : test) {
@@ -136,8 +145,8 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			// }
 			
 			return "success";
-		
 		}catch(Exception e){
+
 			response.getWriter().write("<script> alert('提交失败，请重新提交'); </script>");
 			response.getWriter().flush();
 			return "loadInfor";

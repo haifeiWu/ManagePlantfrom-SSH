@@ -74,7 +74,11 @@
 			document.all['nation'].value = CVR_IDCard.Nation;
 			document.all['birthday'].value = CVR_IDCard.Born;
 			document.all['address'].value = CVR_IDCard.Address;
+			
 			document.all['identifyCard_Number'].value = CVR_IDCard.CardNo;
+			document.all['now_address'].value= CVR_IDCard.Address;			
+			document.all['identifyCard_Number1'].value = CVR_IDCard.CardNo;
+			
 			/* 之前的代码，逻辑是直接存放照片，bug
 			var str = CVR_IDCard.Pic;
 			var myStr = new Array();
@@ -110,8 +114,120 @@
 		$("#identityImg").attr('src', 'images/fgreen_03.png');
 		$("#identityImg1").attr('src', 'images/fgreen_03.png');
 	});
-
-	window.onload = function(e) {
+	
+	function complement(num,length){//实现档案编号后三位的补全
+		var Num=Number(num)+Number(1);
+		if((num.toString()).length<length){
+			for(var i=0;i<length-(num.toString()).length;i++){
+				Num="0"+Num;
+			}
+			return Num;
+		}else{
+			return Num;
+		}
+	}
+	
+	/*window.onload = function() {
+		var date = new Date();
+		var Mon = date.getMonth() + 1;//getMonth返回值
+		var datetime = parseInt(date.getDate());
+		var thisDate="";
+		if(Mon<10&&datetime<10){
+			thisDate=date.getFullYear()+ "0" + Mon + "0" + datetime;
+		}
+		if(Mon<10&&datetime>=10){
+			thisDate=date.getFullYear() + "0" + Mon + datetime;
+		}
+		if(Mon>=10&&datetime>=10){
+			thisDate=date.getFullYear() + Mon + datetime;
+		}
+		if(Mon>=10&&datetime<10){
+			thisDate=date.getFullYear() + Mon + "0" + datetime;
+		}
+		
+		//var lastSuspectID=document.getElementById("lastSuspectID").getAttribute('value');//上一次成功保的档案号
+		//alert('第一次');
+		//alert(lastSuspectID);
+		//alert('第二次');
+		/*if(lastSuspectID.length==0){
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+				+ thisDate + "001";
+			alert(document.getElementById("suspectID").value);	
+		}
+		//var lastDate=lastSuspectID.substring(6, 14);//上一次提交的时间(Stirng)
+		//alert(lastDate);
+		//var lastNum=Number(lastSuspectID.substring(14, 17));//获取后三位
+		var suspectnum;
+		alert(localStorage.old);
+		alert(thisDate);
+		if(localStorage.old==thisDate){
+			suspectnum=complement(lastNum,3);
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+				+ thisDate +suspectnum;
+			localStorage.old=thisdate;
+			alert('相等'+localStorage.old);
+		}
+		else{
+			suspectnum=0;
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+			+ thisDate +complement(suspectnum,3);
+			localStorage.old=thisdate;
+			alert('不相等'+localStorage.old);
+		}				 
+	}*/
+	
+	/*window.onload = function() {
+		var date = new Date();
+		var Mon = date.getMonth() + 1;//getMonth返回值
+		var datetime = parseInt(date.getDate());
+		var thisDate="";
+		if (typeof (Storage) !== "undefined") {
+			if (localStorage.clickcount) {
+				localStorage.clickcount = Number(localStorage.clickcount) + 1;
+				if (localStorage.clickcount > 999) {
+					localStorage.clickcount = 0;
+				}
+			} else {
+				localStorage.clickcount = 0;
+			}
+			if(localStorage.old!=thisDate){
+				localStorage.clickcount = 0;
+				alert('111'+localStorage.old);
+				alert('222'+thisDate);
+			}
+		} else {
+			alert("抱歉。浏览器不支持");
+		}
+		
+		if(Mon<10&&datetime<10){
+			thisDate=date.getFullYear()+ "0" + Mon + "0" + datetime;
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+					+ thisDate
+					+ localStorage.clickcount;
+		}
+		if(Mon<10&&datetime>=10){
+			thisDate=date.getFullYear() + "0" + Mon + datetime;
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+					+ thisDate
+					+ localStorage.clickcount;
+			localStorage.old=thisDate;
+			alert(localStorage.old);
+		}
+		if(Mon>=10&&datetime>=10){
+			thisDate=date.getFullYear() + Mon + datetime;
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+					+ thisDate
+					+ localStorage.clickcount;
+		}
+		if(Mon>=10&&datetime<10){
+			thisDate=date.getFullYear() + Mon + "0" + datetime;
+			document.getElementById("suspectID").value = "LB-HB" + "-"
+					+ thisDate
+					+ localStorage.clickcount;
+		}
+	}*/
+		
+		window.onload = function(e) {
 		//var e = window.event || e;
 		// }
 		// local Storage或许会有浏览器兼容的问题
@@ -144,6 +260,7 @@
 					+ localStorage.clickcount;
 		}
 	}
+	
 </script>
 </head>
 <body>
@@ -224,14 +341,14 @@
 									style="width: 95px;height: 108px;position: relative;top: -10px;" />
 									<input type="hidden" name="identityCard_Photo" value="value">
 									<p class="info_id">身份证照</p></td>
-								<td colspan="2">姓名:<input type="text" 
-									name="suspect_Name" value="德古拉" /></td>
+								<td colspan="2">姓名:<input type="text" name="suspect_Name"
+									value="德古拉" /></td>
 
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
-									name="sex" value="男"/></td>
+									name="sex" value="男" /></td>
 
 								<td>民族：<input type="text" name="nation" value="汉" /></td>
 							</tr>
@@ -244,25 +361,25 @@
 							<tr>
 								<td colspan="2">家庭住址：</td>
 							</tr>
-							
+
 							<tr>
 								<td colspan="2"><textarea name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
-							
+
 							<tr>
 								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
-									name="identifyCard_Number" value="140104196108123556"/>
-								</td>
+									name="identifyCard_Number1" value="140104196108123556" /></td>
 
 							</tr>
 						</table>
 						<hr
 							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
 					</div>
-					<div style="z-index:1;position:absolute;left:910px;top:450px;width:850px;">
+					<div
+						style="z-index:1;position:absolute;left:910px;top:450px;width:850px;">
 						<input class="btn" type="button" value="读卡"
-							onclick="return Button1_onclick()"  />
+							onclick="return Button1_onclick()" />
 					</div>
 
 				</div>
@@ -271,26 +388,27 @@
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
 					<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
-							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2" style="text-align:center;">证件类型：</td>
+							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+								style="text-align:center;">证件类型：</td>
 							<td>
 								<ol>
 									<!--  -->
 									<c:forEach items="${identifyCardType}" var="item"
 										varStatus="status">
-										<li><input type="checkbox" name="type_ID" value="${item.type_Name }" style="width:30px;"/>${item.type_Name }</li>
+										<li><input type="checkbox" name="type_ID"
+											value="${item.type_Name }" style="width:30px;" />${item.type_Name }</li>
 									</c:forEach>
 								</ol>
 							</td>
 						</tr>
 						<tr>
 							<td style="text-align:center;">证件号码:</td>
-							<td><input type="text" name="" /></td>
+							<td><input type="text" name="identifyCard_Number" value="" />
+							</td>
 						</tr>
 						<tr>
 							<td style="text-align:center;">现住址：</td>
-							<td>
-								<input type="text" name="now_address" />
-							</td>
+							<td><input type="text" name="now_address" value="" /></td>
 						</tr>
 						<tr>
 							<td style="text-align:center;">联系方式：</td>
@@ -298,11 +416,15 @@
 						</tr>
 					</table>
 				</div>
+				<input type="hidden" name="enter_Time" value="${entry_Time}">
+				<input type="hidden" id="lastSuspectID" name="lastSuspect_ID"
+					value="">
 				<div class="row_2">
 					<h4 id="enterInfor"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
 					<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
+							<!--  
 							<td style="text-align:center;">入区时间:</td>
 							<td style="width: 50%;">
 								<div class="form-group" style="height: 25px;width: 76%;">
@@ -332,6 +454,7 @@
 									});
 								</script>
 							</td>
+						-->
 							<td style="width: 22%;text-align:center;">RFID手环 :</td>
 							<!--手环选择列-->
 							<td colspan="2" style="text-align-last:center ;"><select
@@ -345,16 +468,17 @@
 						<!--  -->
 						<tr>
 							<td rowspan="4" style="text-align:center;">进入办案区原因：</td>
-							
+
 						</tr>
-						
+
 						<tr>
 							<td colspan="3">
 								<ol>
 									<!-- 遍历案由数据的字段 -->
 									<c:forEach items="${actionCause}" var="item" varStatus="status">
-										<li>${item.cause_Name }<input type="checkbox" name="suspected_Cause"
-											value="${item.cause_Name }" style="width:30px;" /></li>
+										<li>${item.cause_Name }<input type="checkbox"
+											name="suspected_Cause" value="${item.cause_Name }"
+											style="width:30px;" /></li>
 									</c:forEach>
 								</ol>
 							</td>
@@ -364,14 +488,17 @@
 				<div class="row_3">
 					<h4 id="confirm"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">干警签名确认</h4>
-					<table class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12" style="width: 450px;">
+					<table
+						class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
+						style="width: 450px;">
 						<tr>
 							<td style="width: 12%;">办案民警：</td>
-							<td style="width: 24%;text-align: center;"><input type="text" name="staff_ID" style="width:250px;" /></td>
-							
+							<td style="width: 24%;text-align: center;"><input
+								type="text" name="staff_ID" style="width:250px;" /></td>
+
 						</tr>
 					</table>
-					<input class="btn" type="submit" value="确认提交" class="submit"/>
+					<input class="btn" type="submit" value="确认提交" class="submit" />
 
 				</div>
 			</div>
