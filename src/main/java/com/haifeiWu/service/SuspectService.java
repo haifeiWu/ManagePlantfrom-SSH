@@ -72,5 +72,9 @@ public interface SuspectService {
 	// public PHCSMP_Suspect findByRemark(String remark);
 
 	public void updateSuspect(PHCSMP_Suspect suspectInfor);
-
+	/**
+	 * 查询最大的嫌疑人编号
+	 * @return
+	 */
+	public String getMaxID();
 }

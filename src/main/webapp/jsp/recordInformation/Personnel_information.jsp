@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" %>
+	pageEncoding="UTF-8"%>
 <!-- 加载jstl的c标签库 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -22,37 +22,48 @@
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
 <script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript">
-/* 
-	$(function(){
-		   $("#addInfoForm").on("submit",function(){
-		        if($("#band_ID").val().trim()=="0"){
-		           alert("提交失败，请先填写手环id");
-		        }
-				else{
-					$.post("${pageContext.request.contextPath }/suspect_addSuspectInfor.action",function(page){
-						$(".contain").html(page);
-					});
-				}
-				 return false; 
-			});   
-		});	 */
-		
-		 /* if($(".message").val()=="success"){
-			alert("信息提交成功！");
-			window.location="${pageContext.request.contextPath }/home_index.action";
-		 }else if($(".message").val()=="error"){
-		 	alert("信息提交失败");
-		 } */
-	
-	 	/* $(".submit").off();
-		$(".submit").on("click",function(){
-			 if($("#band_ID").val().trim()=="0"){
-			 	 	$(".submit").addClass("disaled");
-			 	 	alert("提交失败，请先填写手环id");
-			 	 }
-		 }); */
-	 
-		
+	/* 
+	 $(function(){
+	 $("#addInfoForm").on("submit",function(){
+	 if($("#band_ID").val().trim()=="0"){
+	 alert("提交失败，请先填写手环id");
+	 }
+	 else{
+	 $.post("${pageContext.request.contextPath }/suspect_addSuspectInfor.action",function(page){
+	 $(".contain").html(page);
+	 });
+	 }
+	 return false; 
+	 });   
+	 });	 */
+
+	/* if($(".message").val()=="success"){
+	alert("信息提交成功！");
+	window.location="${pageContext.request.contextPath }/home_index.action";
+	}else if($(".message").val()=="error"){
+		alert("信息提交失败");
+	} */
+
+	/* $(".submit").off();
+	$(".submit").on("click",function(){
+	 if($("#band_ID").val().trim()=="0"){
+	 	 	$(".submit").addClass("disaled");
+	 	 	alert("提交失败，请先填写手环id");
+	 	 }
+	}); */
+	$(function() {
+		$("#btnSave").click(function() {
+			var x = document.getElementById("band_ID").value;
+			alert(x);
+			if (x == 0) {
+				// if ($(".clsShow").html().toString() != "")//存在提示信息，则不允许提交表单
+				alert('提交失败，请填写手环');
+				return false;
+			} else
+				return true;
+		});
+	});
+
 	function ClearForm() {
 		document.all['suspect_Name'].value = "";
 		document.all['sex'].value = "";
@@ -74,11 +85,11 @@
 			document.all['nation'].value = CVR_IDCard.Nation;
 			document.all['birthday'].value = CVR_IDCard.Born;
 			document.all['address'].value = CVR_IDCard.Address;
-			
+
 			document.all['identifyCard_Number'].value = CVR_IDCard.CardNo;
-			document.all['now_address'].value= CVR_IDCard.Address;			
+			document.all['now_address'].value = CVR_IDCard.Address;
 			document.all['identifyCard_Number1'].value = CVR_IDCard.CardNo;
-			
+
 			/* 之前的代码，逻辑是直接存放照片，bug
 			var str = CVR_IDCard.Pic;
 			var myStr = new Array();
@@ -92,10 +103,10 @@
 			 * author:whf
 			 * change:直接存放base64码
 			 */
-			 var str = CVR_IDCard.Picture;//读取身份证照片的base64码
-			 var base64 = "data:image/jpg;base64,"+str;//更改成代码中可以直接显示的base64编码的格式
-			 document.all['pic'].src = base64;//用于显示身份证照片
-			 document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
+			var str = CVR_IDCard.Picture;//读取身份证照片的base64码
+			var base64 = "data:image/jpg;base64," + str;//更改成代码中可以直接显示的base64编码的格式
+			document.all['pic'].src = base64;//用于显示身份证照片
+			document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {
 			ClearForm();
 			alert(strReadResult);
@@ -103,164 +114,49 @@
 
 	}
 
-
-
-/* 	function Logger() {
-		alert("信息提交成功！");
-	}
- */
+	/* 	function Logger() {
+	 alert("信息提交成功！");
+	 }
+	 */
 
 	$(document).ready(function() {
 		$("#identityImg").attr('src', 'images/fgreen_03.png');
 		$("#identityImg1").attr('src', 'images/fgreen_03.png');
 	});
-	
-	function complement(num,length){//实现档案编号后三位的补全
-		var Num=Number(num)+Number(1);
-		if((num.toString()).length<length){
-			for(var i=0;i<length-(num.toString()).length;i++){
-				Num="0"+Num;
-			}
-			return Num;
-		}else{
-			return Num;
-		}
-	}
-	
-	/*window.onload = function() {
-		var date = new Date();
-		var Mon = date.getMonth() + 1;//getMonth返回值
-		var datetime = parseInt(date.getDate());
-		var thisDate="";
-		if(Mon<10&&datetime<10){
-			thisDate=date.getFullYear()+ "0" + Mon + "0" + datetime;
-		}
-		if(Mon<10&&datetime>=10){
-			thisDate=date.getFullYear() + "0" + Mon + datetime;
-		}
-		if(Mon>=10&&datetime>=10){
-			thisDate=date.getFullYear() + Mon + datetime;
-		}
-		if(Mon>=10&&datetime<10){
-			thisDate=date.getFullYear() + Mon + "0" + datetime;
-		}
-		
-		//var lastSuspectID=document.getElementById("lastSuspectID").getAttribute('value');//上一次成功保的档案号
-		//alert('第一次');
-		//alert(lastSuspectID);
-		//alert('第二次');
-		/*if(lastSuspectID.length==0){
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-				+ thisDate + "001";
-			alert(document.getElementById("suspectID").value);	
-		}
-		//var lastDate=lastSuspectID.substring(6, 14);//上一次提交的时间(Stirng)
-		//alert(lastDate);
-		//var lastNum=Number(lastSuspectID.substring(14, 17));//获取后三位
-		var suspectnum;
-		alert(localStorage.old);
-		alert(thisDate);
-		if(localStorage.old==thisDate){
-			suspectnum=complement(lastNum,3);
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-				+ thisDate +suspectnum;
-			localStorage.old=thisdate;
-			alert('相等'+localStorage.old);
-		}
-		else{
-			suspectnum=0;
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-			+ thisDate +complement(suspectnum,3);
-			localStorage.old=thisdate;
-			alert('不相等'+localStorage.old);
-		}				 
-	}*/
-	
-	/*window.onload = function() {
-		var date = new Date();
-		var Mon = date.getMonth() + 1;//getMonth返回值
-		var datetime = parseInt(date.getDate());
-		var thisDate="";
-		if (typeof (Storage) !== "undefined") {
-			if (localStorage.clickcount) {
-				localStorage.clickcount = Number(localStorage.clickcount) + 1;
-				if (localStorage.clickcount > 999) {
-					localStorage.clickcount = 0;
-				}
-			} else {
-				localStorage.clickcount = 0;
-			}
-			if(localStorage.old!=thisDate){
-				localStorage.clickcount = 0;
-				alert('111'+localStorage.old);
-				alert('222'+thisDate);
-			}
-		} else {
-			alert("抱歉。浏览器不支持");
-		}
-		
-		if(Mon<10&&datetime<10){
-			thisDate=date.getFullYear()+ "0" + Mon + "0" + datetime;
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ thisDate
-					+ localStorage.clickcount;
-		}
-		if(Mon<10&&datetime>=10){
-			thisDate=date.getFullYear() + "0" + Mon + datetime;
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ thisDate
-					+ localStorage.clickcount;
-			localStorage.old=thisDate;
-			alert(localStorage.old);
-		}
-		if(Mon>=10&&datetime>=10){
-			thisDate=date.getFullYear() + Mon + datetime;
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ thisDate
-					+ localStorage.clickcount;
-		}
-		if(Mon>=10&&datetime<10){
-			thisDate=date.getFullYear() + Mon + "0" + datetime;
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ thisDate
-					+ localStorage.clickcount;
-		}
-	}*/
-		
-		window.onload = function(e) {
-		//var e = window.event || e;
-		// }
-		// local Storage或许会有浏览器兼容的问题
-		if (typeof (Storage) !== "undefined") {
-			if (localStorage.clickcount) {
-				localStorage.clickcount = Number(localStorage.clickcount) + 1;
-				if (localStorage.clickcount > 999) {
-					localStorage.clickcount = 0;
-				}
-			} else {
+
+	/*window.onload = function(e) {
+	//var e = window.event || e;
+	// }
+	// local Storage或许会有浏览器兼容的问题
+	if (typeof (Storage) !== "undefined") {
+		if (localStorage.clickcount) {
+			localStorage.clickcount = Number(localStorage.clickcount) + 1;
+			if (localStorage.clickcount > 999) {
 				localStorage.clickcount = 0;
 			}
 		} else {
-			alert("抱歉。浏览器不支持");
+			localStorage.clickcount = 0;
 		}
-		var date = new Date();
-		var Mon = date.getMonth() + 1;
-		var datetime = parseInt(date.getDate());
-		if (datetime < 10) {
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ date.getFullYear() + Mon + "0" + datetime
-					+ localStorage.clickcount;
-		} else if (Mon < 10) {
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ date.getFullYear() + "0" + Mon + datetime
-					+ localStorage.clickcount;
-		} else if (localStorage.clickcount < 10) {
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ date.getFullYear() + Mon + datetime + "0"
-					+ localStorage.clickcount;
-		}
+	} else {
+		alert("抱歉。浏览器不支持");
 	}
-	
+	var date = new Date();
+	var Mon = date.getMonth() + 1;
+	var datetime = parseInt(date.getDate());
+	if (datetime < 10) {
+		document.getElementById("suspectID").value = "LB-HB" + "-"
+				+ date.getFullYear() + Mon + "0" + datetime
+				+ localStorage.clickcount;
+	} else if (Mon < 10) {
+		document.getElementById("suspectID").value = "LB-HB" + "-"
+				+ date.getFullYear() + "0" + Mon + datetime
+				+ localStorage.clickcount;
+	} else if (localStorage.clickcount < 10) {
+		document.getElementById("suspectID").value = "LB-HB" + "-"
+				+ date.getFullYear() + Mon + datetime + "0"
+				+ localStorage.clickcount;
+	}
+	}*/
 </script>
 </head>
 <body>
@@ -281,7 +177,7 @@
 			<h5 class="col-lg-12 col-md-10 text-center">
 				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
 				<input style="width:200px;" type="text" id="suspectID"
-					name="Suspect_ID" value="${SuspectInfor.suspect_ID }" />
+					name="Suspect_ID" value="${Suspect_ID }" />
 			</h5>
 
 			<!--进度条信息设置-->
@@ -330,9 +226,7 @@
 							&nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-						<hr
-							style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
-
+						<hr style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
 							<tr style="padding: 0px;">
@@ -417,8 +311,6 @@
 					</table>
 				</div>
 				<input type="hidden" name="enter_Time" value="${entry_Time}">
-				<input type="hidden" id="lastSuspectID" name="lastSuspect_ID"
-					value="">
 				<div class="row_2">
 					<h4 id="enterInfor"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
@@ -495,15 +387,15 @@
 							<td style="width: 12%;">办案民警：</td>
 							<td style="width: 24%;text-align: center;"><input
 								type="text" name="staff_ID" style="width:250px;" /></td>
-
 						</tr>
 					</table>
-					<input class="btn" type="submit" value="确认提交" class="submit" />
-
+					<input id="btnSave" class="btn" type="submit" value="确认提交"
+						class="submit" />
 				</div>
 			</div>
 			<div class="row_4" style="height: 480px;"></div>
 		</div>
+		
 	</form>
 </body>
 

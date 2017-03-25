@@ -99,6 +99,12 @@ public class SuspectServiceImple implements SuspectService {
 		suspectDao.updateSuspect(suspectInfor);
 	}
 
+	@Override
+	public String getMaxID() {
+		
+		return suspectDao.findByMaxID();
+	}
+
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
 	// // TODO Auto-generated method stub

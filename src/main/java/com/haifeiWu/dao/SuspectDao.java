@@ -66,4 +66,11 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 
 	public void updateSwitch(int i, String suspect_ID);
 	public void updateSuspect(PHCSMP_Suspect suspectInfor);
+	
+	
+	/**
+	 * 查询最大id
+	 * @return
+	 */
+	public String findByMaxID();
 }

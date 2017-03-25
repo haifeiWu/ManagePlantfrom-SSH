@@ -152,6 +152,19 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		save(suspectInfor);
 	}
 
+	@Override
+	public String findByMaxID() {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "select suspect_ID from PHCSMP_Suspect where id = (select max(id) from PHCSMP_Suspect)";
+		Query query = session.createQuery(hql);
+		
+		String suspect_ID=(String) query.uniqueResult();
+		tx.commit();// 提交事务
+		return suspect_ID;
+	}
+
 	// /**
 	// * 根据手环ID查询嫌疑人，新的需求中是否还需要对其他字段进行判断？（因为使用过同一ID的有多个嫌疑人）
 	// * 该方法需要更改
