@@ -93,7 +93,7 @@
 			 document.all['pic'].src = base64;//用于显示身份证照片
 			 document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {
-			ClearForm();
+			//ClearForm();
 			alert(strReadResult);
 		}
 
