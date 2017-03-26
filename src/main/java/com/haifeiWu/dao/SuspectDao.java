@@ -66,4 +66,5 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 
 	public void updateSwitch(int i, String suspect_ID);
 	public void updateSuspect(PHCSMP_Suspect suspectInfor);
+	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad, String identifyCard_Number);
 }

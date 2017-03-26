@@ -99,6 +99,13 @@ public class SuspectServiceImple implements SuspectService {
 		suspectDao.updateSuspect(suspectInfor);
 	}
 
+	@Override
+	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+			String identifyCard_Number) {
+		suspectDao.updateis_RecordVideo_DownLoad(is_RecordVideo_DownLoad, identifyCard_Number);
+		
+	}
+
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
 	// // TODO Auto-generated method stub

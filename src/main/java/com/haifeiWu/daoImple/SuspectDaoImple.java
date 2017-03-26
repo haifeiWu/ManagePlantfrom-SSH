@@ -152,6 +152,13 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		save(suspectInfor);
 	}
 
+	@Override
+	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad, String identifyCard_Number) {
+		hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? where s.identifyCard_Number=?";
+		update(hql, is_RecordVideo_DownLoad, identifyCard_Number);
+		
+	}
+
 	// /**
 	// * 根据手环ID查询嫌疑人，新的需求中是否还需要对其他字段进行判断？（因为使用过同一ID的有多个嫌疑人）
 	// * 该方法需要更改
