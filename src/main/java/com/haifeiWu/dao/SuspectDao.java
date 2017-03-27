@@ -32,6 +32,11 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	 */
 	public PHCSMP_Suspect findByBandId(int bandId);
 
+	/**
+	 * 根据档案编号查找嫌疑人
+	 * 
+	 * @return
+	 */
 	public PHCSMP_Suspect findBySuspectID(String suspectID);
 
 	/**
@@ -65,6 +70,21 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	public List<PHCSMP_Suspect> getOnPoliceSuspect();
 
 	public void updateSwitch(int i, String suspect_ID);
+
 	public void updateSuspect(PHCSMP_Suspect suspectInfor);
+
+	public List<PHCSMP_Suspect> findByCardId(String searchInfor);
+
+	public List<PHCSMP_Suspect> findBySuspectID1(String searchInfor);
+
+	public List<PHCSMP_Suspect> findByCardIdNow(String searchInfor);
+
+	public List<PHCSMP_Suspect> findBySuspectIdNow(String searchInfor);
+
+	public List<PHCSMP_Suspect> findBySuspectName(String searchInfor);
+
+	public List<PHCSMP_Suspect> findBySuspectNameNow(String searchInfor);
+
 	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad, String identifyCard_Number);
+
 }
