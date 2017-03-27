@@ -39,4 +39,11 @@ public class ActivityRecordServiceImple extends
 		return activityRecordDao.selectActivityRecordInfor(suspectId);
 	}
 
+	@Override
+	public void updatevedio_Number(String vedio_Number,
+			String identifyCard_Number) {
+		activityRecordDao.updatevedio_Number(vedio_Number, identifyCard_Number);
+		
+	}
+
 }

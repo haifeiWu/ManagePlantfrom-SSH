@@ -1,4 +1,6 @@
 $(function(){
+	//设置btn_search搜索框样式
+	$("#btn_search img").css("margin-left","16%");
 	
 	//设置嫌疑人表格中的信息
 	$(".Message td:first").css({"width":"30%","height":"5%"});
@@ -17,8 +19,8 @@ $(function(){
 	$(".checked_state textarea").css({"width":"50%","margin":"0px","height":"120px"});
 	$(".checked_state input[type=checkbox]").css({"width":"20px","margin-top":"0%"});
 
-	$(".checkbox li:eq(0)").css("width","100px");
-	$(".checkbox li:eq(2)").css("width","200px");
+	$(".checkbox li:eq(0)").css("width","81px");
+	$(".checkbox li:eq(2)").css("width","163px");
 
 
 
@@ -46,7 +48,7 @@ $(function(){
 	$(".transient_Leave input:eq(1)").css({"width":"76%","height":"34px"});
 	
 	$(".final_Leave tr:first").css({"background":"#0070c0","color":"#ffffff"});
-	$(".final_Leave tr").find("td:eq(0)").css({"width":"30%"});
+	$(".final_Leave tr").find("td").css({"width":"10%"});
 	$(".final_Leave input").css("height","34px");
 	$(".final_Leave input[type='radio']").css("height","10px");
 

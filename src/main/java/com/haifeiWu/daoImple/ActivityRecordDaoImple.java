@@ -61,5 +61,12 @@ public class ActivityRecordDaoImple extends
 		tx.commit();// 提交事务
 		return activities;
 	}
+	@Override
+	public void updatevedio_Number(String vedio_Number,
+			String identifyCard_Number) {
+		hql = "update PHCSMP_Activity_Record s set s.vedio_Number=? where s.identifyCard_Number=?";
+		update(hql, vedio_Number, identifyCard_Number);
+		
+	}
 
 }

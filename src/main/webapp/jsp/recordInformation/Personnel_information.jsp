@@ -108,7 +108,7 @@
 			document.all['pic'].src = base64;//用于显示身份证照片
 			document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {
-			ClearForm();
+			//ClearForm();
 			alert(strReadResult);
 		}
 
@@ -332,19 +332,7 @@
 											class="glyphicon glyphicon-time"></span></span>
 									</div>
 									<input type="hidden" id="dtp_input1" value="" /><br />
-								</div> <script type="text/javascript">
-									$(".form_time").datetimepicker({
-										language : 'zh-CN',
-										format : 'yyyy-mm-dd hh:ii',
-										weekStart : 1,
-										todayBtn : 1,
-										autoclose : 1,
-										todayHighlight : 1,
-										startView : 2,
-										minView : 2,
-										forceParse : 0
-									});
-								</script>
+								</div>
 							</td>
 						-->
 							<td style="width: 22%;text-align:center;">RFID手环 :</td>

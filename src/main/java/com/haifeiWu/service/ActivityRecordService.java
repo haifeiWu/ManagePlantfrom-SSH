@@ -39,4 +39,6 @@ public interface ActivityRecordService {
 	 * @return
 	 */
 	List<PHCSMP_Activity_Record> selectActivityRecordInfor(String suspectId);
+	
+	public void updatevedio_Number(String vedio_Number,String identifyCard_Number);
 }

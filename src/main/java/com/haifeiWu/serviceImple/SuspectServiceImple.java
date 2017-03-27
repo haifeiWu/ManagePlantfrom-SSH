@@ -101,8 +101,48 @@ public class SuspectServiceImple implements SuspectService {
 
 	@Override
 	public String getMaxID() {
-		
 		return suspectDao.findByMaxID();
+  }
+	public List<PHCSMP_Suspect> serachInforBySuspectId(String searchInfor) {
+		List<PHCSMP_Suspect> suspect = suspectDao.findBySuspectID1(searchInfor);
+		return suspect;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findBySuspectName(String searchInfor) {
+		return suspectDao.findBySuspectName(searchInfor);
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findByCardId(String searchInfor) {
+		List<PHCSMP_Suspect> suspect = suspectDao.findByCardId(searchInfor);
+		return suspect;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findByCardIdNow(String searchInfor) {
+		List<PHCSMP_Suspect> suspects = suspectDao.findByCardIdNow(searchInfor);
+		return suspects;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> serachInforBySuspectIdNow(String searchInfor) {
+		List<PHCSMP_Suspect> suspectNow = suspectDao
+				.findBySuspectIdNow(searchInfor);
+		return suspectNow;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> finBySuspectNameNow(String searchInfor) {
+		List<PHCSMP_Suspect> suspectNowList = suspectDao
+				.findBySuspectNameNow(searchInfor);
+		return suspectNowList;
+
+	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+			String identifyCard_Number) {
+		suspectDao.updateis_RecordVideo_DownLoad(is_RecordVideo_DownLoad, identifyCard_Number);
+		
+
 	}
 
 	// @Override
