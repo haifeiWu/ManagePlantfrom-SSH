@@ -42,7 +42,7 @@
 		<default-interceptor-ref name="mydefault" />-->
 		<!-- 全局变量设置 -->	
 		<global-results>
-			<result name="toLogin">/jsp/login.jsp</result>
+			<result name="toLogin" type="redirectAction">user_login.action</result>
 			<result name="frequentVisit">/jsp/RfidRead/frequentVisit.jsp</result>
 			<result name="loginError">/jsp/login.jsp</result>
 			<result name="NULL">/jsp/error/null.jsp</result>
@@ -92,7 +92,7 @@
 			<!-- <result name="addCheckPersonInfor" type="redirectAction">personalCheck_loadInfor</result> -->
 			<!-- <result name="addCheckPersonInfor">/jsp/home/index.jsp</result> -->
 			<result name="loadInfor" >/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
-			<!-- <result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result> -->
+			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 		</action>
 
 		<!-- 随身财物检查记录 -->
@@ -138,6 +138,7 @@
 			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Leave_Record.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
+			<result name="leaveRecordLoadInfor" type="chain">LR_loadInfor</result>
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
 			<result name="addTemporaryLeaveInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
