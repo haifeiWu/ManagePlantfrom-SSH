@@ -219,20 +219,23 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	}
 
 	@Override
-	public List<PHCSMP_Suspect> findBySuspectNameNow(String searchInfor) {
+	public List<PHCSMP_Suspect> findBySuspectNameNow(String suspect_Name) {
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 		hql = "from PHCSMP_Suspect where suspect_Name=? and process_Now!=-1";
 		Query query = session.createQuery(hql);
-		query.setParameter(0, searchInfor);
+		query.setParameter(0, suspect_Name);
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
 		tx.commit();// 提交事务
 		return phcsmp_Suspect;
-	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad, String identifyCard_Number) {
+	}
+
+	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+			String identifyCard_Number) {
 		hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? where s.identifyCard_Number=?";
 		update(hql, is_RecordVideo_DownLoad, identifyCard_Number);
-		
+
 	}
 
 	// /**

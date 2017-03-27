@@ -2,9 +2,7 @@ package com.haifeiWu.action;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -61,11 +59,7 @@ public class Activity_Record_Action extends ActionSupport implements
 	@Autowired
 	private InformationCollectionService informationCollectionService;
 	// 活动记录表list，用于前台提交的多个数据
-	private PHCSMP_Activity_Record activity=new PHCSMP_Activity_Record();
-
-	// private String suspect_ID;
-	
-
+	private PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
 
 	/**
 	 * 添加活动记录信息
@@ -77,54 +71,42 @@ public class Activity_Record_Action extends ActionSupport implements
 
 	public String addActivityRecordInfor() throws IOException {
 		try {
-			// 维护进出门的标志位
+			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
 			String suspectId = suspectService.findByRoomID(roomId)
 					.getSuspect_ID();
-			//List<PHCSMP_Activity_Record> validActivitys = new ArrayList<PHCSMP_Activity_Record>();
-			
-			//获取前台数据
-			String start_Time=request.getParameter("start_Time");
-			String activity_Record=request.getParameter("activity_Record");
-			String activity_remark=request.getParameter("remark");
+
+			// 获取前台数据
+			String start_Time = request.getParameter("start_Time");
+			String activity_Record = request.getParameter("activity_Record");
+			String activity_remark = request.getParameter("remark");
 			activity.setStart_Time(start_Time);
 			activity.setRemark(activity_remark);
 			activity.setActivity_Record(activity_Record);
-			
-			//设置询问讯问结束的时间
-			Date date=new Date();
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			String End_Time=sdf.format(date);
-			
-			
-			//for (PHCSMP_Activity_Record activity : activitys) {// 遍历list
-				//if (!(activity.getStart_Time().equals("") || activity
-				//		.getStart_Time() == null)) {
-					activity.setSuspect_ID(suspectId);
-					activity.setRoom_ID(1);
-					activity.setEnd_Time(End_Time);
-					fullCheck(activity);
-					
-					
 
-//					validActivitys.add(activity);
-				//}
-		//	}
+			// 设置询问讯问结束的时间
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String End_Time = sdf.format(date);
+			activity.setSuspect_ID(suspectId);
+			activity.setRoom_ID(1);
+			activity.setEnd_Time(End_Time);
+			fullCheck(activity);
+			// 保存
 			activityRecordService.saveActivityRecordInfor(activity);
-			System.out.println("--------------------------"
-					+ activity.toString() + "---------------");
-			
 			// 提示成功
 			response.getWriter().write("<script>alert('后台提交成功');</script>");
 			response.getWriter().flush();
 			return "success";
 		} catch (Exception e) {
-			response.getWriter().write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+			// 提示失败
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
-			
-			String activity_Record=request.getParameter("activity_Record");
-			String activity_remark=request.getParameter("remark");
+			// 将信息传递到loadInfor action,显示在页面上
+			String activity_Record = request.getParameter("activity_Record");
+			String activity_remark = request.getParameter("remark");
 			request.setAttribute("activity_Record", activity_Record);
 			request.setAttribute("activity_remark", activity_remark);
 			return "addActivityRecordInfor";
@@ -159,63 +141,49 @@ public class Activity_Record_Action extends ActionSupport implements
 					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
 			PHCSMP_Information_Collection information_Collection = informationCollectionService
 					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
-			
-	
-			String activity_remark=(String) request.getAttribute("activity_remark");
-			String activity_Record=(String) request.getAttribute("activity_Record");
-			//将提交失败的已输入信息显示在文本框处
-			request.setAttribute("activity_remark",activity_remark );
-			request.setAttribute("activity_Record", activity_Record);
-			
-			//入区登记
-//			int countFill_record=suspectInfor.getFill_record();
-//			int countTotal_record=suspectInfor.getTotal_record();
-//			int  complete_degree=countFill_record/countTotal_record*100;
-			int complete_degree=CompleteCheck.completeCheck(suspectInfor, suspectInfor.getClass(),3);
-			request.setAttribute("complete_degree",complete_degree );
-			//人身检查
-			
-			/*int countFill_record1=personal_Check.getTotal_record();
-			int countTotal_record1=personal_Check.getFill_record();
-			int  complete_degree1=countFill_record1/countTotal_record1*100;
-			request.setAttribute("complete_degree1", complete_degree1);*/
-			int complete_degree1=CompleteCheck.completeCheck(personal_Check, personal_Check.getClass(),3);
+
+			// 入区登记
+			int complete_degree = CompleteCheck.completeCheck(suspectInfor,
+					suspectInfor.getClass(), 3);
+			// 人身检查
+			int complete_degree1 = CompleteCheck.completeCheck(personal_Check,
+					personal_Check.getClass(), 3);
+			// 信息采集
+			int complete_degree2 = CompleteCheck.completeCheck(
+					information_Collection, information_Collection.getClass(),
+					3);
+			// 设置询问询问开始的时间
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String start_Time = sdf.format(date);
+
+			request.setAttribute("complete_degree", complete_degree);
 			request.setAttribute("complete_degree1", complete_degree1);
-			
-			
-			//信息采集
-			/*int countFill_record2=information_Collection.getTotal_record();
-			int countTotal_record2=information_Collection.getFill_record();
-			double  complete_degree2=countFill_record2/countTotal_record2*100;
-			request.setAttribute("complete_degree2",complete_degree2 );*/
-			int complete_degree2=CompleteCheck.completeCheck(information_Collection, information_Collection.getClass(),3);
-			request.setAttribute("complete_degree2",complete_degree2 );
-			
-			
-			
-			
+			request.setAttribute("complete_degree2", complete_degree2);
+
 			request.setAttribute("personal_Check", personal_Check);
 			request.setAttribute("SuspectInfor", suspectInfor);
 			request.setAttribute("information_Collection",
 					information_Collection);
-
-			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
-			
-			
-			//设置询问询问开始的时间
-			Date date=new Date();
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			String start_Time=sdf.format(date);
 			request.setAttribute("start_Time", start_Time);
-			//activity.setStart_Time(start_Time);
-			//activityRecordService.saveActivityRecordInfor(activity);
-			
+
+			// 如果提交失败，需将用户提交的信息显示在页面上
+			// String activity_remark = (String) request
+			// .getAttribute("activity_remark");
+			// String activity_Record = (String) request
+			// .getAttribute("activity_Record");
+			// // 将提交失败的已输入信息显示在文本框处
+			// request.setAttribute("activity_remark", activity_remark);
+			// request.setAttribute("activity_Record", activity_Record);
+
+			// 更新录像标志位
+			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
+
 		} catch (java.lang.Exception e) {
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
 			response.getWriter().flush();
-			// System.out
-			// .println("当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确");
+
 		}
 		return "loadInfor";
 	}
@@ -226,12 +194,11 @@ public class Activity_Record_Action extends ActionSupport implements
 	// }
 
 	// 返回修改活动记录信息
-	public String updateInfor() {
-		System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
-		System.out.println("updateInfor：修改活动记录信息！");
-		return "updateInfor";
-	}
-
+	// public String updateInfor() {
+	// System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
+	// System.out.println("updateInfor：修改活动记录信息！");
+	// return "updateInfor";
+	// }
 
 	@Override
 	public void setServletContext(ServletContext application) {
@@ -247,13 +214,5 @@ public class Activity_Record_Action extends ActionSupport implements
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
 	}
-
-	// public String getSuspect_ID() {
-	// return suspect_ID;
-	// }
-	//
-	// public void setSuspect_ID(String suspect_ID) {
-	// this.suspect_ID = suspect_ID;
-	// }
 
 }

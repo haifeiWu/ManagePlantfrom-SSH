@@ -53,13 +53,12 @@ public class fileStatusAction extends ActionSupport implements
 		String videonumber = Video.queryDownloadFileStatu(cardReader_ID,
 				identificationCard);
 		System.out.println("上传接口查询文件状态");
-		suspectService.updateis_RecordVideo_DownLoad(1, identificationCard);
+		suspectService.updateIs_RecordVideo_DownLoad(1, identificationCard);
 		System.out.println("修改嫌疑人下载位");
 		activityRecordService.updatevedio_Number(videonumber,
 				identificationCard);
 		System.out.println("修改嫌疑人询问音频录像位");
 		return "success";
-
 	}
 
 	@Override
