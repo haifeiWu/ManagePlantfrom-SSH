@@ -107,24 +107,23 @@ h3 {
 	font-family: '微软雅黑';
 	color: #FFFFFF;
 	margin-left: 18%;
-	margin-top: -8%;
 	text-shadow: 0 2px #000000;
 	position: absolute;
 	z-index: 60;
 	/*font-size: 24px;*/
-	margin-top: -3%;
+	margin-top: -13%;
 }
 
 h4 {
 	padding: 0px;
 	margin: 0px;
-	/*margin-top: -1%;*/
+	margin-top: -13%;
 }
 
 h5 {
 	border-bottom: 1.5px solid #71b8fa;
 	padding-bottom: 1%;
-	margin-top: 0%;
+	margin-top: -13%;
 	display: inline-block;
 }
 /*嫌疑人正面,侧面照片*/
@@ -184,13 +183,13 @@ h5 {
 }
 
 /*设置嫌疑人信息表样式*/
-textarea {
+/* textarea {
 	overflow: hidden;resize: none;
 	width: 88%;
 	height: 60px;
 	border:1.5px solid #c1c1c1;padding: 0px;margin: 0 auto; 
 	position: relative;left: 6%;text-align: center;
-}
+} */
 
 .Message input {
 	width: 50%;
@@ -240,7 +239,7 @@ textarea {
 /*所有子标题样式h4*/
 .human_Mes {
 	width: 100%;
-	margin-top: 4%;
+	margin-top: 0;
 	height: 30px;
 	color: #f69d1f;
 	line-height: 30px;
