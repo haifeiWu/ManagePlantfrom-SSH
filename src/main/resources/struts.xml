@@ -89,8 +89,7 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result> -->
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<!-- <result name="addCheckPersonInfor" type="redirectAction">personalCheck_loadInfor</result> -->
-			<!-- <result name="addCheckPersonInfor">/jsp/home/index.jsp</result> -->
+			<result name="chainLoadInfor" type="chain">personalCheck_loadInfor</result> 
 			<result name="loadInfor" >/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 			<!-- <result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result> -->
 		</action>
@@ -111,7 +110,11 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addInformationCollection" type="redirectAction">IC_loadInfor</result>
+
+			<result name="addInformationCollection" type="chain">IC_loadInfor</result>
+
+			<result name="chainLoadInfor" type="chain">IC_loadInfor</result>
+
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 		</action>
@@ -124,8 +127,9 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addActivityRecordInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result><!-- 
-				跳转到其他的action -->
+			<!-- <result name="addActivityRecordInfor" type="chain">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>-->
+			<result name="addActivityRecordInfor" type="chain">AR_loadInfor</result>
+			<!-- 跳转到其他的action -->
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 		</action>

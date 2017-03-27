@@ -57,13 +57,16 @@ public class Information_Collection_Action extends
 				informationCollectionService.saveCollectionInfor(model);
 			}
 			// 提示成功
-			response.getWriter().write("<script>alert('后台提交成功');</script>");
-			response.getWriter().flush();
-			return "success";
+			// response.getWriter().write("<script>alert('后台提交成功');</script>");
+			// response.getWriter().flush();
+			// return "success";
+			// 主动失败
+			throw new Exception();
 		} catch (Exception e) {
 			response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
-			return "loadInfor";
+			request.setAttribute("informatCollect", model);
+			return "chainLoadInfor";
 		}
 	}
 
@@ -76,15 +79,23 @@ public class Information_Collection_Action extends
 			PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
 			List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
 					.findAllCollectionItem();
+			PHCSMP_Information_Collection informatCollect = (PHCSMP_Information_Collection) request
+					.getAttribute("informatCollect");
+			if (informatCollect != null)
+				request.setAttribute("informatCollect", informatCollect);
 			request.setAttribute("start_Time",
 					new DateTime().toString("yyyy-MM-dd HH:mm"));
 			request.setAttribute("SuspectInfor", SuspectInfor);
 			request.setAttribute("collectionItem", collectionItem);
 			suspectService.updateSwitch(1, SuspectInfor.getSuspect_ID());
+
 		} catch (Exception e) {
-			// response.getWriter().write(
-			// "<script>alert('信息检查加载异常，房间信息有误或未能正常加载嫌疑人信息');</script>");
-			// response.getWriter().flush();
+			// 提示可能是房间、读卡器等设备配置错误
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
+			response.getWriter().flush();
+			// 转到
+			return "success";
 		}
 		return "loadInfor";
 	}
