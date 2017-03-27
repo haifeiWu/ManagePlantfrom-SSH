@@ -100,6 +100,9 @@ public class SuspectServiceImple implements SuspectService {
 	}
 
 	@Override
+	public String getMaxID() {
+		return suspectDao.findByMaxID();
+  }
 	public List<PHCSMP_Suspect> serachInforBySuspectId(String searchInfor) {
 		List<PHCSMP_Suspect> suspect = suspectDao.findBySuspectID1(searchInfor);
 		return suspect;

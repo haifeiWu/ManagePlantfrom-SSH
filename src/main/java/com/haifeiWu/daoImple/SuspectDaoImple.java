@@ -151,6 +151,17 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	}
 
 	@Override
+	public String findByMaxID() {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "select suspect_ID from PHCSMP_Suspect where id = (select max(id) from PHCSMP_Suspect)";
+		Query query = session.createQuery(hql);
+		
+		String suspect_ID=(String) query.uniqueResult();
+		tx.commit();// 提交事务
+		return suspect_ID;
+
 	public List<PHCSMP_Suspect> findBySuspectID1(String searchInfor) {
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
@@ -232,7 +243,6 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad, String identifyCard_Number) {
 		hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? where s.identifyCard_Number=?";
 		update(hql, is_RecordVideo_DownLoad, identifyCard_Number);
-		
 	}
 
 	// /**
