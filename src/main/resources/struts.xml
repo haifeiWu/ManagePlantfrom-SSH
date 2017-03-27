@@ -154,14 +154,22 @@
 			<result name="loadInfor">/jsp/recordInformation/allInformation.jsp</result>
 			<result name="downFile">/jsp/recordInformation/allInformation.jsp</result>
 		</action>
-
+		
+		<!-- 录波器请求接口 -->
+		<action name="fileStatus" class="com.haifeiWu.action.fileStatusAction"
+			method="fileStatus">
+			<result name="success">/jsp/home/index.jsp</result>
+		</action>
+		
 		<!-- 读卡器信息采集 -->
 		<action name="readRfid" class="com.haifeiWu.action.RFID_ReadAction"
 			method="readRFID">
 			<result name="stopRecord">/jsp/RfidRead/StopRecord.jsp</result>
 			<result name="operateSucess">/jsp/RfidRead/OperateSuccess.jsp</result>
 		</action>
-
+		
+		
+		
 		<!-- 嫌疑人综合信息管理 -->
 		<action name="suspectManage_*" class="com.haifeiWu.action.SuspectManageAction"
 			method="{1}">
