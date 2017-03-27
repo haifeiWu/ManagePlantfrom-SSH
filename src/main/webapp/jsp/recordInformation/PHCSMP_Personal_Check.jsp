@@ -18,6 +18,7 @@
 <script type="text/javascript"
 	src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="js/jqCSS_safety.js"></script>
+
 <script type="text/javascript">
 	var index = 0;
 	$(function() {
@@ -80,25 +81,15 @@
 				});
 
 	});
-/* 	$(function(){
-		if($("#message").val()=="success"){
-			alert("信息添加成功");
- 			window.location="${pageContext.request.contextPath }/home_index.action";
-		}else{
-			if($("#message").val()=="error"){
-				alert("信息提交失败");
-			}
-		}
-	}); */
 </script>
 </head>
 <body>
 	<form class="container"
 		action="${pageContext.request.contextPath }/personalCheck_addCheckPersonInfor.action"
 		method="post">
-		<c:if test="${! empty message}">
+		<%-- <c:if test="${! empty message}">
 			<input id="message" type="hidden" value=${message } />
-		</c:if>
+		</c:if> --%>
 		<div class="row">
 			<h4 style="margin-top: 13px;">
 				<b style="color: #389ac7;">Personnal</b> safety check
@@ -148,7 +139,7 @@
 			<div class="container">
 				<div class="row">
 					<!--身份信息标题，入区事由应填写上一房间民警填写的事由-->
-					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<h4 style="" class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						入区事由：<input style="width:400px ! important;" type="text" value="${SuspectInfor.suspected_Cause }"
 							readonly="readonly" />
 					</h4>
@@ -207,119 +198,101 @@
 							style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
 					</div>
 				</div>
-				
-				<input type="hidden"  name="Check_StartTime" value="${start_time_time}"> 
-					
-				<!--第一个数据项结束-->
-				<!-- <div class="check_time row_1">人身检查起止时间: -->
-				<!-- <div class="form-group">
-					<label for="dtp_input1" class="check_time">人身检查起始时间：</label>
-					<div class="input-group date form_datetime col-md-5"
-						data-date="1979-09-16T05:25:07Z"
-						data-date-format="dd MM yyyy - HH:ii p"
-						data-link-field="dtp_input1">
-						<input class="form-control" name="Check_StartTime" type="text"
-							value="" readonly> <span class="input-group-addon"><span
-							class="glyphicon glyphicon-remove"></span></span> <span
-							class="input-group-addon"><span
-							class="glyphicon glyphicon-th"></span></span>
-					</div>
-					<input type="hidden" id="dtp_input1" value="" /><br />
-				</div> -->
-				<script type="text/javascript">
-					$('.form_datetime').datetimepicker({
-						language : 'zh-CN',
-						format : 'yyyy-mm-dd hh:ii',
-						weekStart : 1,
-						todayBtn : 1,
-						autoclose : 1,
-						todayHighlight : 1,
-						startView : 2,
-						forceParse : 0,
-						showMeridian : 1
-					});
-				</script>
-				<!-- <input type="date" name="Check_Date" />&nbsp;<input type="time" name="start_time" />至&nbsp;<input type="time" name="end_time"/></div> -->
-				<hr
-					style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%; margin-left: 0%;" />
 				<div class="row">
-					<h4 id="readMe"
+					<h4 id="readMe" style="margin-top: -25px;"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						自述情况<span class="col-lg-12 col-md-12 col-sm-12"></span>
 					</h4>
+					<input type="hidden"  name="Check_StartTime" value="${start_time_time}">
 					<table style="margin-left: 25px !important;" class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否饮酒:</td>
-							<td>是<input type="radio" name="is_Drink" value="是" /></td>
-							<td>否<input type="radio" name="is_Drink" value="否" /></td>
+							<td>是<input id="is_Drink_Yes" type="radio" name="is_Drink" value="是" /></td>
+							<td>否<input id="is_Drink_No" type="radio" name="is_Drink" value="否" /></td>
 						</tr>
+							
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否患有传染性疾病:</td>
-							<td>是<input  type="radio" name="is_Diseases" value="是"  ${checkRecord.is_Diseases == '是' ? checked :''}  /></td>
-							<td>否<input  type="radio" name="is_Diseases" value="否"  ${checkRecord.is_Diseases == '否' ? checked :''} /></td>
+							<td>是<input id="is_Diseases_Yes"  type="radio" name="is_Diseases" value="是" /></td>
+							<td>否<input id="is_Diseases_No"  type="radio" name="is_Diseases" value="否"  /></td>
+						</tr>
+							<script type="text/javascript">
+								//设定is_Drink
+								if("${checkRecord.is_Drink}"=="是"){
+									$("input[name=is_Drink][value=是]").attr("checked",true);
+								}
+								if("${checkRecord.is_Drink}"=="否"){
+									$("input[name=is_Drink][value=否]").attr("checked",true);
+								}
+								//设定is_Diseases
+								if("${checkRecord.is_Diseases}"=="是"){
+									$("input[name=is_Diseases][value=是]").attr("checked",true);
+								}
+								if("${checkRecord.is_Diseases}"=="否"){
+									$("input[name=is_Diseases][value=否]").attr("checked",true);
+								}
+							</script>
+						<tr rowspan="3">
+							<td>自述症状:</td>
+							<td colspan="2"><textarea id="Self_ReportS" name="Self_ReportS" rows="5" cols="80" style="width:450px !important;height:90px !important;margin-left: 0px !important;" value="${checkRecord.self_ReportS }" ></textarea> </td>
+								<script>
+											//设定Check_ReportS
+											document.getElementById("Self_ReportS").value="${checkRecord.self_ReportS }";
+								</script> 
 						</tr>
 						<tr>
-							<td>
-							自述症状:
-							</td>
-							<td> <input type="text" name="Self_ReportS" style="height: 23px; width:350px;" value="${checkRecord.self_ReportS }">
-							</td>
-							
-						</tr>
-						<!-- <tr>
-							<td colspan="2">
-								<fieldset>
-									<legend>自述症状:</legend>
-									<textarea name="Self_ReportS">健康状况良好</textarea>
-								</fieldset>
-							</td>
 							<td></td>
-						</tr> -->
+							<td style="color: red;font-size: 13px;">可输入255个字</td>
+							<td></td>
+						</tr>
+							
 					</table>
 					<h4 id="inspect"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						检查情况<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
+						检查情况
 					</h4>
-					<table style="margin:0px 25px !important; margin-top:15px !important; block;"  class="checked_state col-lg-12 col-md-10 col-sm-10">
-						<tr style="margin:10px 0 !important;display: block; ">
-						<c:forEach items="${InspectionSituationType }" var="item" varStatus="status">
+						<table style="width:600px !important; margin:0px 25px !important; margin-top:15px !important;font-size: 15px !important;"  class="checked_state col-lg-12 col-md-10 col-sm-10">
+							<tr style="margin:5px 5px !important;">
+								<c:forEach items="${InspectionSituationType }" var="item" varStatus="status">
+									
+									<td style="width: 10%;">${item.situation_Name } &nbsp;&nbsp;<input
+										id="Check_Situation" type="checkbox" name="Check_Situation" value="${item.situation_Name }"/></td>
+								</c:forEach>
+									<script>
+										var check_Situation="${checkRecord.check_Situation}";
+										var result =check_Situation.split(",");
+									    for (var i = 0; i < result.length; i++) { // 改为result.length
+									    	$("input[name=Check_Situation][value="+result[i]+"]").attr("checked",true);
+									    };
+									</script>
+							</tr>
 							
-							<td style="width: 10%;">${item.situation_Name } &nbsp;&nbsp;<input
-								type="checkbox" name="Check_Situation" value="${item.situation_Name }"/></td>
-						</c:forEach>
-							<!-- <td style="width: 20%;">有饮酒 &nbsp;&nbsp;<input
-								type="checkbox" name="Check_Situation" /></td>
-							<td style="width: 20%;">有拍照 &nbsp;&nbsp;<input
-								type="checkbox" name="Check_Situation" /></td>-->
-							<!-- <td rowspan="3"><img src="images/check_08.png"
-								style="width: 50%;position: relative; margin-left: 10%; margin-top: 3%;" /></td> --> 
-							<!--引入体表检查图-->
-						</tr>
-						<tr style="padding: 0px; margin:10px 0px !important;display: block;">
-							<td>
-								<table>
-									<tr>
-									<td colspan="3"style="text-align: left; vertical-align: top;">检查情况：<textarea  name="Check_ReportS"/></textarea></td>
-									</tr>
-									<tr>
-									<td colspan="3"style="text-align: left;padding-top: 10px; vertical-align: ">检查民警：<input type="text" name="Staff_ID" value=""/></td>
-									</tr>
-								</table>
-							</td>
-							<!-- <td colspan="3"style="text-align: left; vertical-align: top;">检查情况：<input type="text" name="Check_ReportS"/></td> -->
-							<td rowspan="3"><img src="images/check_08.png"
-								style="width:70% ;  margin-left: 15%; margin-top: 0%;" /></td>
-							<!-- <td colspan="2" style="text-align: left; vertical-align: top;">
-							<input type="text" name="Check_ReportS"/></td> -->
-						</tr>
-						<!-- <tr style="margin:10px 0 !important;display: block;">
-							<td colspan="3"style="text-align: left; vertical-align: top;">检查民警：<input type="text" name="Staff_ID" value="" /></td>
-							
-							<%-- <td colspan="3" style="text-align: center;">被检查人/监护人：
-							<input type="text" value="${SuspectInfor.suspect_Name }" /></td> --%>
-						</tr> -->
-					</table>
-					<h4 id="belongInspect"
+							<tr style="height: 5px !important"></tr>
+							<tr   style="margin:5px 5px !important;">
+										<td rowspan="4" colspan="1">检查情况：</td>
+										<td rowspan="4" colspan="2"><textarea style="width:350px !important; height:120px !important;" cols="1" rows="1"  name="Check_ReportS" id="Check_ReportS" value="${checkRecord.check_ReportS }"/></textarea></td>
+									<script>
+										//设定Check_ReportS
+										document.getElementById("Check_ReportS").value="${checkRecord.check_ReportS }";
+									</script> 
+							</tr>
+							<tr style="margin:5px 5px !important;"></tr>
+							<tr style="margin:5px 5px !important;"></tr>
+							<tr style="margin:5px 5px !important;"></tr>
+							<tr style="margin:5px 5px !important;">
+								<td></td>
+								<td style="color: red;font-size: 13px;">可输入255个字</td>
+							</tr>
+							<tr style="height: 5px !important"></tr>
+							<tr  style="margin:5px 5px !important;margin-top:25px !important;">
+								<td style="">检查民警：</td>
+								<td style=""  colspan="2"><input type="text" name="Staff_ID" value="${checkRecord.staff_ID }"/></td>
+							</tr>
+						</table>
+						
+						<img src="images/check_08.png"
+									style="width:230px !important; margin-top: 0%;"/>
+					<h4 id="belongInspect" 
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						随身财物检查登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 					</h4>
@@ -382,20 +355,12 @@
 						<li style="margin-left: 65px;">办案人员：<input type="text" name="Staff_ID">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随身财物管理员：<input type="text" name="Staff_ID_Belonging">
 						</li>
-						<%-- <li>涉案人员：<br />
-						<input type="text" value="${SuspectInfor.suspect_Name }" /></li> --%>
 					</ul>
 				</div>
-				<input style="margin-top: 10px;" class="sub" type="submit" value="确认提交" onclick="Logger()" />
+				<input style="margin-top: 10px;" class="sub" type="submit" value="确认提交" />
 				<div class="row_2 col-lg-12" style="height: 180px;"></div>
 			</div>
 		</div>
 	</form>
 </body>
-
-<!-- <script type="text/javascript">
-	function Logger() {
-		alert("信息提交成功！");
-	}
-</script> -->
 </html>
