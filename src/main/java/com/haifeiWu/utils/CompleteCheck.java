@@ -77,6 +77,23 @@ public class CompleteCheck {
 	 * @param obj
 	 * @param c
 	 */
+
+	/*public static int completeCheck(Object obj,Class<?> c,int n){
+		int IsEqualsNull=IsEqualsNull( obj, c)-n;
+		int getFieldsNumber=getFieldsNumber( obj, c)-n;
+		int completePercent=(int)((float)(getFieldsNumber-IsEqualsNull)/getFieldsNumber*100);
+		return completePercent;
+	}*/
+	
+	public static int completeCheck(Object obj,Class<?> c,int n){
+		int totalField=getFieldsNumber(obj, c)-n;
+		int fillField=getFieldsNumber( obj, c)-IsEqualsNull(obj, c)-n;
+		System.out.println(fillField+"字段++++++++++++++"+totalField+"字段++++++++++++++");
+		int completePercent=(int)((float)fillField/totalField*100);
+		return completePercent;
+	}
+
+
 	// public static <T> int completeCheck(T obj, Class<?> c) {
 	// //空的字段的个数
 	// int count = CompleteCheck.IsEqualsNull(obj, c);// 获取model对象为空的字段的个数
@@ -86,4 +103,5 @@ public class CompleteCheck {
 	// // 设置已填写的字段数，，，3是除去主键、FillRecord、TotalRecord
 	// obj.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 	// }
+
 }

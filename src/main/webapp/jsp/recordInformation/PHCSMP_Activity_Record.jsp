@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -20,7 +20,31 @@
 <script type="text/javascript" src="js/record_regist.js"></script>
 <script type="text/javascript">
 	var index = 0;
+	 /* $(window).load(function(){
+		   //1000毫秒=1秒后执行test方法
+		});
+	  */
+	  
+	 /* function is_Checked_Complete(){
+		  var SuspectInfor_total_record = ${SuspectInfor.total_record};
+		  var SuspectInfor_fill_record=${SuspectInfor.fill_record};
+		  var personal_Check_total_record = ${personal_Check.total_record};
+		  var personal_Check_fill_record = ${personal_Check.fill_record};
+		  var information_Collection_total_record = ${information_Collection.total_record};
+		  var information_Collection_fill_record = ${information_Collection.fill_record};
+		 
+		  if(SuspectInfor_fill_record<SuspectInfor_total_record){
+			  alert("入区人员登记信息不完整，是否要继续本页面操作");
+		  }else if(personal_Check_fill_record<personal_Check_total_record){
+			  alert("人身安全检查信息不完整，是否要继续本页面操作");
+		  }else if(information_Collection_fill_record<information_Collection_total_record){
+			  alert("信息采集不完整，是否要继续本页面操作");
+		  }
+		 } */
+	  
+	  
 	$(function() {
+		 setTimeout(is_Checked_Complete,3000);
 		 $(".form_time").datetimepicker({
 			language : 'zh-CN',
 			format : 'yyyy-mm-dd hh:ii',
@@ -34,8 +58,7 @@
 			forceParse : 0
 		}); 
 		
-	
-
+		 
 		$("#add")
 				.click(
 						function() {
@@ -43,7 +66,6 @@
 							index = num - 2;
 							var tdnum = $(".active_check tr:last()").find(
 									"td:eq(0)");
-
 							var addrow = "<tr>" + "<td>"
 									+ index
 									+ "</td>"
@@ -78,7 +100,6 @@
 									$(".active_check tr").length - 2).after(
 									addrow);
 							//addrow.find("td:eq(0)").html(num - 1);
-
 							tdnum.html(num-1);
 							
 							 $(".form_time").datetimepicker({
@@ -103,13 +124,10 @@
 							$(".active_check tr").length - 2);
 					if (len > 2) {
 						$(delrow).remove();
-
 						$(this).parent().prev().html(
 								$(this).parent().prev().html() - 1);
-
 					}
 				});
-
 	});
 	
 </script>
@@ -230,48 +248,10 @@
 					</div>
 				</div>
 			</div>
-			<!--人身检查-->
-			<c:if test="${!empty personal_Check }"> 
-				<div class="container" style="margin-top: 0%;">
-					<div class="row">
-						<!--身份信息标题-->
-						<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
-							style="margin-top: 0%;">
-							人身检查信息:
-						</h4>
-						
-						<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-	
-							<hr
-								style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%;margin-left: -2%;" />
-	
-							<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8" style="height:150px;">
-								<tr style="padding: 0px;">
-									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">自述症状</p></td>
-									<td ><input type="text" style="width: 280px !important;" readonly="readonly" value="${personal_Check.self_ReportS}" /></td>
-									<td><p style="margin-left: 10px; margin-top:10px !important;  width: 100px !important;">信息登记房间</p></td>
-									<td><input type="text" style="width: 160px !important;" readonly="readonly" value="${personal_Check.room_ID}" /></td>
-								</tr>
-								<tr>
-									<td><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">人身检查状态</p></td>
-									<td><input type="text"  style="width: 280px !important;" readonly="readonly" value="${personal_Check.check_Situation}" /></td>
-									<td><p style="margin-left: 10px; margin-top:10px;  width: 100px !important;">办案民警</p></td>
-									<td><input type="text" style="width: 160px !important;"  readonly="readonly" value="${personal_Check.staff_ID}" /></td>
-								</tr>
-								<tr>
-									<td ><p style="margin-left: 10px; margin-top:10px; width: 100px !important;">检查情况</p></td>
-									<td><input type="text" style="width: 280px !important;" readonly="readonly" value="${personal_Check.check_ReportS}" /></td>
-								</tr>
-							</table>
-							<hr
-								style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 10%; margin-left: -2%;" />
-						</div>
-					</div>
-				</div>
-			</c:if>
+			
 			<!-- 信息采集 --> 
 			<c:if test="${!empty information_Collection}">
-				<div class="container" style="margin-top: 0%;">
+				<div class="container" style="margin-top: 0%;display: none;" >
 					<div class="row">
 						<!--身份信息标题-->
 						<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
@@ -310,36 +290,135 @@
 					</div>
 				</div>
 			</c:if>
+			
+			
+			
+			<!-- 完整性信息显示 -->
+			<div>
+				<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
+							style="margin-top: 0%;">
+							完整性提示
+				</h4>
+				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 30px !important;width:960px !important; ">
+					<tr>
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp业&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp务&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+						<td>开始时间</td>
+						<td>结束时间</td>
+						<td>完整性</td>					
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+					</tr>
+				<tr>
+					<td >入区人员登记信息</td>
+						<td >
+							 <c:if test="${!empty SuspectInfor}">
+							 	<input type="text" style="width: 120px !important;"  readonly="readonly" value="${SuspectInfor.enter_Time}" />
+							  </c:if>
+							   <c:if test="${empty SuspectInfor}">
+							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="-" />%
+							  </c:if>
+						</td>
+						<td >
+							<input type="text" style="width: 120px !important;"  readonly="readonly" value="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" />
+						</td>
+						<td >
+							 <c:if test="${!empty SuspectInfor}">
+							 	<input type="text" style="width: 200px !important;text-align: center;color: red;"  readonly="readonly" value="${complete_degree}%" />
+							  </c:if>
+						</td>
+						<td >
+							  <c:if test="${!empty SuspectInfor}">
+							 	进入办案区原因:&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" style="width: 200px !important;"  readonly="readonly" value="${SuspectInfor.suspected_Cause}" />
+							  </c:if>
+						</td>
+				</tr>
+				<tr>
+					<td>人身安全检查</td>
+						<td >
+							<c:if test="${!empty personal_Check}">
+							 	<input type="text" style="width: 120px !important;"  readonly="readonly" value="${personal_Check.check_StartTime}" />
+							  </c:if>
+							  <c:if test="${empty personal_Check}">
+							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="-" />
+							  </c:if>
+						</td>
+						<td >
+							<c:if test="${!empty personal_Check}">
+							 	<input type="text" style="width: 120px !important;"  readonly="readonly" value="${personal_Check.check_EndTime}" />
+							  </c:if>
+							  <c:if test="${empty personal_Check}">
+							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="-" />
+							  </c:if>
+						</td>
+						<td >
+							 <c:if test="${!empty personal_Check}">
+							 	<input type="text" style="width: 200px !important;text-align: center;color: red;"  readonly="readonly" value="${complete_degree1}%" />
+							  </c:if>
+						</td>
+						<td >
+							<c:if test="${!empty personal_Check}">
+							 	人身检查状态:&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" style="width: 120px !important;"  readonly="readonly" value="${personal_Check.check_ReportS}" />
+							  </c:if>
+						</td>
+				</tr>
+				<tr>
+					<td>信息采集</td>
+						<td >
+							<c:if test="${!empty information_Collection}">
+							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="${information_Collection.ic_StartTime}" />
+							  </c:if>
+						</td>
+						<td >
+							<c:if test="${!empty information_Collection}">
+							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="${information_Collection.ic_EndTime}" />
+							  </c:if>
+						</td>
+						<td >
+							 <c:if test="${!empty information_Collection}">
+							 	<input type="text"style="width: 200px !important;color:red;text-align: center;" value="${complete_degree2}%" />
+							  </c:if>
+						</td>
+						<td >
+							  <c:if test="${!empty information_Collection}">
+							 	  采集项目:&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" style="width: 120px !important;"  readonly="readonly" value="${information_Collection.collected_Item}" />
+							  </c:if>
+						</td>
+				</tr>
+				</table>
+			</div>
+			
+			
 			<!--活动记录登记表-->
 			<div class="row">
 				<h4 id="activityReco"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					活动记录登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
+					活动记录登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
 				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 30px !important;width:960px !important; ">
-					<tr>
-						<td>序号</td>
-						<td>开始时间</td>
-						<td>结束时间</td>
+					<tr style="background-color: rgb(0,112,192);color:white;">
+						<!-- <td style="display: none;">序号</td>
+						<td style="display: none;">开始时间</td>
+						<td style="display: none;">结束时间</td> -->
 						<td>活动内容</td><!-- 						<td>音视频编码</td> -->
 						<td>备注</td>
 					</tr>
 					<tr>
-						<td>0</td>
-						<td style="width: 38%;">
+						<td style="display: none;">0</td>
+						<td style="width: 38%;display: none;">
 							<div class="form-group" style="height: 30px;width: 190%;">
 								<div class="input-group date form_time col-md-5"
 									style="margin-left: 8%;margin-top: 2%;" 
 									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-									<input class="form-control" name="activity[0].start_Time"
-										type="text" value="" readonly> 
+									
+									<input class="form-control" name="start_Time"
+										type="text" value="${start_Time }" readonly> 
+										
 										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> 
 										<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
 						</td>
-						<td style="width: 38%;">
+						<%-- <td style="width: 38%;display: none;">
 							<div class="form-group" style="height: 30px;width: 190%;">
 								<div class="input-group date form_time col-md-5"
 									style="margin-left: 8%;margin-top: 2%;" data-date=""
@@ -351,28 +430,33 @@
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
-						</td>
-						<td id="select"><select name="activity[0].activity_Record">
-						<!-- c:foreach -->
-								<option value=>---请选择---</option><%-- 
+						</td> --%>
+						 <td id="select"><select name="activity_Record" >
+						<!--<td id="select"><select name="select_record"> -->
+						<!-- c:foreach    -->
+						 <c:if test="${!empty activity_Record}">
+								<option value=>${activity_Record }</option>
+							 </c:if>	
+							  <c:if test="${empty activity_Record}">
+								<option value=>---请选择---</option>
+							 </c:if>
+								<%-- 
 								<c:forEach items="${ }" var="v"></c:forEach> --%>
 								<option value="询问">询问</option>
 								<option value="讯问">讯问</option>
 								<option value="审讯">审讯</option>
 								<option value="传唤">传唤</option>
 						</select></td>
-						<td><input type="text" name="activity[0].remark"
-							style="width:250px; height: 30px;text-align: center;" /></td>
+						<td><input type="text" name="remark"
+							style="width:250px; height: 30px;text-align: center;" value="${activity_remark }"/></td>
 					</tr>
 					<tr>
-						<td>1</td>
-						<td>
+						<td style="display: none;">1</td>
+						<td style="display: none;">
 							<div class="btn" id="add">+添加</div>
 							<div class="btn" id="delete">-删除</div>
 						</td>
-						<td></td>
-						<td></td>
-						<td></td>
+			
 					</tr>
 				</table>
 			</div>

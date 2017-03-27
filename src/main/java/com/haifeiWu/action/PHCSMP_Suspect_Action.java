@@ -174,6 +174,18 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		model.setFill_record(fieldsNumber - count - 3);//
 		// 设置已填写的字段数，，，3应该是除去主键、FillRecord、TotalRecord
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 	}
