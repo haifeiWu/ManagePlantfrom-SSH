@@ -35,5 +35,10 @@ public class LeaveRecodDaoImple extends DaoSupportImpl<PHCSMP_Leave_Record>
 		}
 		tx.commit();// 提交事务
 	}
+	@Override
+	public void updateLeaveRecordInfor(PHCSMP_Leave_Record LeaveRecordInfor) {
+		deleteBySuspectID(LeaveRecordInfor.getSuspect_ID());
+		save(LeaveRecordInfor);
+	}
 
 }

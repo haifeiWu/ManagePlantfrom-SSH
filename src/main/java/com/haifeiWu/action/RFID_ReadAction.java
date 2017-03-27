@@ -1,8 +1,6 @@
 package com.haifeiWu.action;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -11,25 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.util.ServletContextAware;
-import org.joda.time.DateTime;
-import org.joda.time.Hours;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import com.alibaba.fastjson.JSON;
-import com.haifeiWu.dao.BandInforDao;
-import com.haifeiWu.dao.RoomInforDao;
+import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.BandService;
+import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
-import com.haifeiWu.utils.HttpRequest;
-import com.haifeiWu.utils.PropertiesReadUtils;
+import com.haifeiWu.utils.Video;
+import com.haifeiWu.utils.WebSocketUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 树莓派与web服务器的接口
+ * 
  * @author wuhaifei
  * @d2016年9月7日
  */
@@ -37,186 +32,155 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("prototype")
 public class RFID_ReadAction extends ActionSupport implements
 		ServletRequestAware, ServletResponseAware, ServletContextAware {
-
 	/**
 	 * UUID
 	 */
 	private static final long serialVersionUID = 1L;
+	private static WebSocketUtils ws = new WebSocketUtils();
 
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ServletContext application;
-	private static String oldDeviceId = null;//设备号
-	public static boolean isEmpty = true;// 初始时房间为空
-	public static boolean isRecording = false;// 是否处于录像状态，初始状态为否
-	private int roomId = 0;
-	private int bandId = 0;// 手环id
-	private String identificationCard = "wuhaifei1230343";
+
+	// private static String oldDeviceId = null;//设备号
+	// public static boolean isEmpty = true;// 初始时房间为空
+	// public static boolean isRecording = false;// 是否处于录像状态，初始状态为否
+	// private int roomId = 0;
+	// private int bandId = 0;// 手环id
+	// private int suspect_ID=0;//嫌疑人id
+	// private String identificationCard = "wuhaifei1230343";
 
 	@Autowired
 	private SuspectService suspectService;
+
 	@Autowired
-	private RoomInforDao roomInforDao;// 查询房间号的dao
+	private RoomService roomService;// 查询房间号的dao
 	@Autowired
-	private BandInforDao bandInforDao;
+	private BandService bandService;
 
-	public String readRFID() throws IOException {
+	// @Autowired
+	// private BandInforDao bandInforDao;
+	// public String testSwitch() throws IOException {
+	// Video.switchRecording(1, "1", 1);
+	// return "ok";
+	// }
 
-		String deviceId = request.getParameter("deviceId");// 设备号
-		String wristId = request.getParameter("wristId");// 手环id
-		/**
-		 * 读卡，发送录像指令，webSocket刷新页面（注意只有开始指令刷新），几乎是同时进行的，
-		 */
-		DateTimeFormatter format = DateTimeFormat
-				.forPattern("yyyy-MM-dd HH:mm:ss");
-		DateTime endTime = DateTime.parse(
-				PropertiesReadUtils.getString("time"), format);//endtime
-		DateTime startTime = new DateTime();
-		int hours = Hours.hoursBetween(startTime, endTime).getHours();
-		
-		if (hours > 2) {// 正常状态
+	public String readRFID() throws IOException, InterruptedException {
+		// 获取BandID和CardReader_ID
+		String cardReader_Name = request.getParameter("deviceId");// 设备号
+		String remark = request.getParameter("wristId");
+		System.out.println(request.getParameter("deviceId")
+				+ "-------------------cardReader_Name-----------");
+		System.out.println(request.getParameter("wristId")
+				+ "-------------------remark-----------");
+		// 通过获取的属性获取嫌疑人当前信息和所在房间的信息
+		int bandId = bandService.findByRemark(remark).getBand_ID();
+		int cardReader_ID = roomService.findByCardReaderName(cardReader_Name)
+				.getCardReader_ID();
+		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
+		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
+		// 调用录像,并更新录像状态(判断)// 更新嫌疑人信息，房间号、流程号
+		VedioCommandAndUpdateMessage(suspect, room);
+		// 当前房间对应页面自动刷新页面， 刷新页面的时机，不是侯问室，不是出门刷卡
+		if (suspect.getCardReader_Switch() == 0 && room.getProcess_ID() != 4) {
+			triggerWebsocket(room);
+		}
+		return "operateSucess";// 操作成功
+	}
 
-			Map<String, String> map = new HashMap<String, String>();//存放的是设备ID和身份证号
-			map.put("policeId", deviceId);//设备ID
-			map.put("identificationCard", identificationCard);//身份证号
-
-			Map<String, Object> map1 = new HashMap<String, Object>();//enableMp 0    showMpMode 0    subPicInfo  map2
-			Map<String, String> map2 = new HashMap<String, String>();//expandMode 0   input 4.1/4.2/4.3
-			map1.put("enableMp", "0");
-			map1.put("showMpMode", "0");
-
-			map2.put("expandMode", "0");
-
-			if (RFID_ReadAction.isEmpty == true) {// 如果房间为空，按照之前的版本，就是第一个流程，
-				RFID_ReadAction.isEmpty = false;
-				// 查找房间号
-				roomId = roomInforDao.findRoomIDByCardReaderID(deviceId);
-				//roomId = roomInforDao.findRoomIDByDeviceId(deviceId);
-				// 查找手环id
-				bandId = bandInforDao.findBandIdByWristId(wristId);
-				// 将房间的编号放入的session域中
-				oldDeviceId = deviceId;
-				if (roomId == 1) {// 如果房间号为1，则……
-					// 更新嫌疑人所在的房间
-					suspectService.updateSuspectInforByBandId(bandId, roomId);
-					PHCSMP_Suspect person = suspectService
-							.selectPersonInforByBandID(bandId);
-					map2.put("input", "4.1");
-					map1.put("subPicInfo", map2);
-					String json2 = JSON.toJSONString(map1);// 封装json字符串，使用fastjson    将map1封装成json字符
-					json2 = json2.substring(0, 31) + "["
-							+ json2.substring(31, 63) + "]"
-							+ json2.substring(63, 79);// 封装json字符串，使用fastjson   json2是激活摄像头的
-					// 激活第一个摄像头
-					String str1 = HttpRequest.sendOkMCVPost(
-							PropertiesReadUtils.getString("SetSplitType"),
-							json2);//str1是请求激活摄像头的响应
-					System.out.println("激活第一个摄像头" + str1);
-					response.getWriter().write("first room:" + str1);
-					// 打印身份证号
-					System.out.println("身份证号："
-							+ person.getIdentifyCard_Number());
-					if (person.getIdentifyCard_Number() != null) {// 开始录制视频
-						System.out.println(person.getIdentifyCard_Number());
-						// 将身份号放入map中
-						map.put("identificationCard",
-								person.getIdentifyCard_Number());
-						String json = JSON.toJSONString(map);
-						str1 = HttpRequest
-								.sendOkMCVPost(PropertiesReadUtils
-										.getString("StartRecording"), json);//发送开始录像请求,并获取响应
-						response.getWriter().write("start record:" + str1);
-						System.out.println("开始录像：" + str1);
-						isRecording = true;
-					}
-				}//房间号不为1
-			} else {//房间不为空
-				if (wristId.equals("FFFFFFFF") && roomId == 4) {// 当嫌疑出区后，自动停止录播系统录像
-					// 发停止录像指令
-					String str = HttpRequest.sendOkMCVPost(
-							PropertiesReadUtils.getString("StopRecording"),
-							null);
-					System.out.println("发停止录像指令：" + str);
-					RFID_ReadAction.isEmpty = true;// 释放房间
-					return "stopRecord";// 停止录像
-				}
-				if (!oldDeviceId.equals(deviceId)) {// 如果设备号发生改变
-					RFID_ReadAction.oldDeviceId = deviceId;// 更新设备号
-					// 根据设备id查找房间id，然后根据房间id，向录播设备发送信息开启
-					roomId = roomInforDao.findRoomIDByCardReaderID(deviceId);
-					bandId = bandInforDao.findBandIdByWristId(wristId);
-					// 相应房间的设备开始录像
-					isRecording = true;
-					if (roomId == 2) {
-						// 更新嫌疑人所在的房间
-						suspectService.updateSuspectInforByBandId(bandId,
-								roomId);
-						map2.put("input", "4.2");
-						map1.put("subPicInfo", map2);
-						String json2 = JSON.toJSONString(map1);
-						json2 = json2.substring(0, 31) + "["
-								+ json2.substring(31, 63) + "]"
-								+ json2.substring(63, 79);
-						String str1 = HttpRequest.sendOkMCVPost(
-								PropertiesReadUtils.getString("SetSplitType"),
-								json2);
-						System.out.println("第二个房间开始录像：" + str1);
-					} else if (roomId == 3) {
-						// 更新嫌疑人所在的房间
-						suspectService.updateSuspectInforByBandId(bandId,
-								roomId);
-
-						map2.put("input", "4.3");
-						map1.put("subPicInfo", map2);
-						String json2 = JSON.toJSONString(map1);
-						json2 = json2.substring(0, 31) + "["
-								+ json2.substring(31, 63) + "]"
-								+ json2.substring(63, 79);
-						String str1 = HttpRequest.sendOkMCVPost(
-								PropertiesReadUtils.getString("SetSplitType"),
-								json2);
-						System.out.println("第三个房间开始录像：" + str1);
-					} else if (roomId == 4) {
-						// 更新嫌疑人所在的房间
-						suspectService.updateSuspectInforByBandId(bandId,
-								roomId);
-						map2.put("input", "4.2");
-						map1.put("subPicInfo", map2);
-						String json2 = JSON.toJSONString(map1);
-						json2 = json2.substring(0, 31) + "["
-								+ json2.substring(31, 63) + "]"
-								+ json2.substring(63, 79);
-						String str1 = HttpRequest.sendOkMCVPost(
-								PropertiesReadUtils.getString("SetSplitType"),
-								json2);
-						System.out.println("第四个房间开始录像：" + str1);
-					}
-				} else {// 设备号未发生变化，说明还在同一房间进行了刷卡。
-					// 则有两种情况：1：处于正在录像状态，需发送暂停录像指令；2：处于暂停录像状态，需发重新开始录像指令
-					if (isRecording == true) {
-						isRecording = false;
-						// 发送暂停录像指令
-						String str1 = HttpRequest
-								.sendOkMCVPost(PropertiesReadUtils
-										.getString("PauseRecording"), null);
-						// 打印返回的状态码
-						System.out.println("暂停录像:" + str1);
-					} else {
-						// 发送重新开始录像指令
-						isRecording = true;
-						String str1 = HttpRequest.sendOkMCVPost(
-								PropertiesReadUtils
-										.getString("RestartRecording"), null);
-						// 打印返回的状态码
-						System.out.println("重新开始录像:" + str1);
-					}
-				}
-			}
-			return "operateSucess";// 操作成功
-		} else {// 设备出现故障
-			return "operateSucess";// 操作成功
+	private void triggerWebsocket(PHCSMP_Room room) {
+		switch (room.getProcess_ID()) {
+		// case 0:// 0是入区登记，不刷卡以及录像
+		// ws.flushPage(room.getRoom_IPAddress());
+		// break;
+		case 1:// 人身检查
+			ws.flushPage("personalCheck" + "&" + room.getRoom_IPAddress());
+			break;
+		case 2:// 信息采集
+			ws.flushPage("IC" + "&" + room.getRoom_IPAddress());
+			break;
+		case 3:// 询问讯问，
+			ws.flushPage("AR" + "&" + room.getRoom_IPAddress());
+			break;
+		// case 4:// 侯问，不刷新页面
+		// ws.flushPage("personalCheck" + "&" + room.getRoom_IPAddress());
+		// break;
+		case 5:// 出区离区
+			ws.flushPage("LR" + "&" + room.getRoom_IPAddress());
+			break;
+		default:
+			break;
 		}
 	}
+
+	// 0 / 1 的 切 换 在业务逻辑中完成，只需判断
+	/**
+	 * 根据新需求更改，根据房间号和Record_Status switch和
+	 * RoomID改，录像状态的切换，（0/1入区时，1->2RFID中，3结束LeaveAction）
+	 * 
+	 * 刷卡如果不准，会对录像字段更新，或产生误判，
+	 * 
+	 * @param suspect
+	 * @param room
+	 * @throws IOException
+	 */
+	private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect,
+			PHCSMP_Room room) throws IOException {
+		// try {
+		if (suspect.getRecordVideo_State() != 0) {// 如果是0，也要进行相应的更新等操作
+			if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
+				String result = Video
+						.startRecording(room.getCardReader_ID(),
+								room.getLine_Number(),
+								suspect.getIdentifyCard_Number());
+				suspectService.updateSuspect(room.getRoom_ID(),
+						room.getProcess_ID(), 2, suspect.getSuspect_ID());
+				System.out.println("----------------->调用开始录像的结果：---" + result);
+				// update(suspect);
+			} else {// 录像状态2
+				// 房间号有变化或者标志位为0，开始指令
+				if (suspect.getRoom_Now() != room.getRoom_ID()
+						|| suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
+					String result = Video.restartRecording(
+							room.getCardReader_ID(), room.getLine_Number(),
+							suspect.getIdentifyCard_Number());
+					suspectService.updateSuspect(room.getRoom_ID(),
+							room.getProcess_ID(), suspect.getSuspect_ID());
+					System.out.println("----------------->调用重新开始录像的结果：---"
+							+ result);
+					// suspect.setRecordVideo_State(2);
+					// update(suspect);
+				} else {// 发暂停指令,更新录像状态位为0
+					String result = Video.pauseRecording(
+							room.getCardReader_ID(), room.getLine_Number(),
+							suspect.getIdentifyCard_Number());
+					System.out.println("----------------->调用暂停录像的结果：---"
+							+ result);
+					suspectService.updateSwitch(0, suspect.getSuspect_ID());
+				}
+			}
+		} else {// 状态为0，进的时候更新，出的时候不更新
+			if (suspect.getRoom_Now() != room.getRoom_ID()
+					|| suspect.getCardReader_Switch() == 0) {
+				suspectService.updateSuspect(room.getRoom_ID(),
+						room.getProcess_ID(), suspect.getSuspect_ID());
+			}
+		}
+		// } catch (Exception e) {
+		// System.out.println(e.getMessage());
+		// }
+
+	}
+
+	// private void updateSuspect(PHCSMP_Suspect suspect, int roomID, int
+	// processID) {
+	// suspect.setRoom_Now(roomID);
+	// suspect.setProcess_Now(processID);
+	// }
+
+	// private void update(PHCSMP_Suspect suspect) {
+	// suspectService.updateSuspect(suspect);
+	// }
 
 	@Override
 	public void setServletContext(ServletContext application) {
@@ -232,4 +196,36 @@ public class RFID_ReadAction extends ActionSupport implements
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
 	}
+
+	// private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect,
+	// PHCSMP_Room room) throws IOException {
+	// if (suspect.getRecordVideo_State() != 0) {
+	// if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
+	// Video.startRecording(room.getCardReader_ID(),
+	// room.getRoom_ID(), suspect.getIdentifyCard_Number());
+	// updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID(),
+	// 2);
+	// } else if (suspect.getRecordVideo_State() == 2) {
+	// // 房间号与之前一致,录像状态2，发暂停指令，置3
+	// if (suspect.getRoom_Now() == room.getRoom_ID()) {
+	// Video.pauseRecording(room.getCardReader_ID(),
+	// room.getRoom_ID(), suspect.getIdentifyCard_Number());
+	// updateSuspect(suspect, room.getRoom_ID(),
+	// room.getProcess_ID(), 3);
+	// } else {// 房间号与之前不一致，发重新开始指令，置2
+	// Video.restartRecording(room.getCardReader_ID(),
+	// room.getRoom_ID(), suspect.getIdentifyCard_Number());
+	// updateSuspect(suspect, room.getRoom_ID(),
+	// room.getProcess_ID(), 2);
+	// }
+	// } else {// 这时录像状态为3
+	// // 房间号与之前一致,发重新开始指令，置2
+	// // 房间号与之前不一致，发重新开始指令，置2
+	// Video.restartRecording(room.getCardReader_ID(),
+	// room.getRoom_ID(), suspect.getIdentifyCard_Number());
+	// updateSuspect(suspect, room.getRoom_ID(), room.getProcess_ID(),
+	// 2);
+	// }
+	// }
+	// }
 }

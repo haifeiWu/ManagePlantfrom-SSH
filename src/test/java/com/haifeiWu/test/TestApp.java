@@ -19,10 +19,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.haifeiWu.base.DaoSupport;
 import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.ActivityRecordDao;
+import com.haifeiWu.dao.LineDao;
 import com.haifeiWu.dao.SuspectDao;
 import com.haifeiWu.daoImple.ActivityRecordDaoImple;
+import com.haifeiWu.daoImple.LineDaoImple;
 import com.haifeiWu.daoImple.SuspectDaoImple;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
+import com.haifeiWu.entity.PHCSMP_Line;
+import com.haifeiWu.entity.PHCSMP_Room;
+import com.haifeiWu.service.RoomService;
+import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.serviceImple.RoomServiceImple;
+import com.haifeiWu.serviceImple.SuspectServiceImple;
 import com.haifeiWu.utils.CopyFile;
 import com.haifeiWu.utils.PropertiesReadUtils;
 import com.haifeiWu.utils.Video;
@@ -30,12 +38,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 
 public class TestApp {
-	@Test
-	public void testVideo() {
-		//Video video=new Video();
-		//video.startRecording(1, cardReader_ID)
-	}
-	
+
 	
 //	@Test
 //	public void test01() {
@@ -116,4 +119,23 @@ public class TestApp {
 //		// }
 //		// }
 //	}
+	
+	/*@Autowired 
+	private LineDao lineDao;
+	@Test
+	public void test07(){
+		lineDao.findAllInfor();
+	}*/
+	
+	@Test
+	public void test(){
+//		RoomService rooms = new RoomServiceImple();
+//		PHCSMP_Room room=rooms.findByRoomID(1);
+//		System.out.println("roomId: "+room.getRoom_ID());
+		
+//		SuspectDao sus = new SuspectDaoImple();
+//		System.out.println(sus.findByBandId(1).getAddress());
+		
+	}
+
 }

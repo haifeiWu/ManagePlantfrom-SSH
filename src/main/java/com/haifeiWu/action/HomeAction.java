@@ -1,5 +1,13 @@
 package com.haifeiWu.action;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+import org.apache.struts2.util.ServletContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -14,12 +22,16 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @Controller
 @Scope("prototype")
-public class HomeAction extends ActionSupport {
+public class HomeAction extends ActionSupport implements ServletRequestAware,
+		ServletResponseAware, ServletContextAware {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 2941802033175754434L;
+	protected HttpServletRequest request;
+	protected HttpServletResponse response;
+	protected ServletContext application;
 
 	public String top() {
 		return "top";
@@ -30,10 +42,29 @@ public class HomeAction extends ActionSupport {
 	}
 
 	public String index() {
+		// 向客户端输出cookie
+		Cookie cookie = new Cookie("ip", request.getRemoteAddr());
+		cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
+		response.addCookie(cookie);
 		return "index";
 	}
 
 	public String main() {
 		return "main";
+	}
+
+	@Override
+	public void setServletContext(ServletContext application) {
+		this.application = application;
+	}
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
 	}
 }

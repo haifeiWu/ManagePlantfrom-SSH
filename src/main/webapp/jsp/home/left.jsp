@@ -64,14 +64,12 @@ $(document).ready(function (){
         var fs = parent.document.getElementsByTagName("frameset")[1];  
         fs.cols = "180,*";
     }
+	
+
 </script>
-<!-- websocket主动推送可写在这里 -->
-<!-- 推送的原理是js实现a标签的点击事件-->
-<!-- 如果实现不了的话，，可以使用js中Windows的location强制跳转，target为rightFrame，左侧也要实现点击该a标签的样式 -->
 </head> 
 
 <body style="background:#f0f9fd;">
-	 
 	<div class="lefttop" id="lefttop1"><span style="cursor:pointer;"></span>导航栏</div>
     <dl class="leftmenu">
         
@@ -81,11 +79,11 @@ $(document).ready(function (){
     </div>
     	<ul class="menuson">
     	<!-- a标签请求action，返回的页面的结果显示在rightFrame -->
-        <li><cite></cite><a href="${pageContext.request.contextPath }/suspect_loadInfor.action" target="rightFrame">入区人员信息登记</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/personalCheck_loadInfor.action" target="rightFrame">人身安全检查</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/IC_loadInfor.action" target="rightFrame">信息采集</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/AR_loadInfor.action" target="rightFrame">询问讯问记录</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/LR_loadInfor.action" target="rightFrame">出区信息登记</a><i></i></li>
+        <li><cite></cite><a id="suspect" class="suspect" href="${pageContext.request.contextPath }/suspect_loadInfor.action" target="rightFrame">入区人员信息登记</a><i></i></li>
+        <li><cite></cite><a class="personalCheck" href="${pageContext.request.contextPath }/personalCheck_loadInfor.action" target="rightFrame">人身安全检查</a><i></i></li>
+        <li><cite></cite><a class="inforCollect" href="${pageContext.request.contextPath }/IC_loadInfor.action" target="rightFrame">信息采集</a><i></i></li>
+        <li><cite></cite><a class="activityRecord" href="${pageContext.request.contextPath }/AR_loadInfor.action" target="rightFrame">询问讯问记录</a><i></i></li>
+        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/LR_loadInfor.action" target="rightFrame">出区信息登记</a><i></i></li>
         </ul>    
     </dd>
         
@@ -94,7 +92,7 @@ $(document).ready(function (){
     <span><img src="images/leftico02.png" /></span>嫌疑人信息管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_loadInfor.action" target="rightFrame">入区人员信息汇总</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/GR_loadInfor.action?suspectID=LB-HB-201703175"  target="rightFrame">临时报告区</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         </ul>     
     </dd> 
@@ -109,9 +107,9 @@ $(document).ready(function (){
     </ul>    
     </dd> 
     
-    <dd><div class="title"><span><img src="images/leftico03.png" /></span>采集设备管理</div>
+    <dd><div class="title"><span><img src="images/leftico03.png" /></span>房间管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/roomManage_loadInfor.action" target="rightFrame">查看所有房间</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
@@ -155,5 +153,6 @@ $(document).ready(function (){
     </ul>
     </dd>   
     </dl>
+    
 </body>
 </html>

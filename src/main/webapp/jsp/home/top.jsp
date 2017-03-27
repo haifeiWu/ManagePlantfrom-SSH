@@ -19,7 +19,7 @@
 		<div class="row">
 			<div style="padding: 0px;" class="head_title col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<img class="img_first" src="images/2-logo_03.png" />
-				<%-- <a href="${pageContext.request.contextPath }/user_logout"  target="_parent">注销</a> --%>
+				<<a href="${pageContext.request.contextPath }/user_logout"  target="_parent">注销</a>
 				<img class="img_second" src="images/policer_02.png" />
 				<img class="img_third" src="images/red_02.png"/>
 				

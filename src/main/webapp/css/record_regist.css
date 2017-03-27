@@ -135,6 +135,7 @@ input{
 }
 
 textarea{
+	margin-left:100px;
 	overflow: hidden;resize: none;width: 40%;height: 50px;
 	/* border:1.5px solid #c1c1c1;
 	-webkit-box-shadow:1px 1px 2px rgba(54,156,199,0.8)inset;
@@ -188,19 +189,20 @@ textarea{
 /*身份证照下方文字信息*/
 .info_id{
 	background: #389ac7;
-	width: 87%;
+	width: 95px;
 	margin-left: 0%;
 	/*margin-top: -1%;*/
-	height: 40px;
+	height: 30px;
 	line-height: 40px;
 	color: #fff;
 	text-align: center;
 }
 /*照片正面,侧面下方文字信息*/
 .date_pic{
+	left:51px;
 	background: #389ac7;
-	width: 98.5%;
-	height: 30%;
+	width: 246px;
+	height: 40px;
 	color: #FFFFFF;
 	text-align: center;
 	line-height: 40px;

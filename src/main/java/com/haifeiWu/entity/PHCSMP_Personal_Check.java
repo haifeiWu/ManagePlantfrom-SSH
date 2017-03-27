@@ -137,7 +137,19 @@ public class PHCSMP_Personal_Check implements Serializable {
 
 	@Override
 	public String toString() {
-		return this.suspect_ID + " " + this.check_Situation + " "
-				+ this.check_StartTime;
+		return "PHCSMP_Personal_Check [check_ID=" + check_ID + ", suspect_ID="
+				+ suspect_ID + ", self_ReportS=" + self_ReportS
+				+ ", check_ReportS=" + check_ReportS + ", check_Situation="
+				+ check_Situation + ", is_Drink=" + is_Drink + ", is_Diseases="
+				+ is_Diseases + ", check_StartTime=" + check_StartTime
+				+ ", check_EndTime=" + check_EndTime + ", staff_ID=" + staff_ID
+				+ ", room_ID=" + room_ID + ", total_record=" + total_record
+				+ ", fill_record=" + fill_record + "]";
 	}
+
+	// @Override
+	// public String toString() {
+	// return this.suspect_ID + " " + this.check_Situation + " "
+	// + this.check_StartTime;
+	// }
 }

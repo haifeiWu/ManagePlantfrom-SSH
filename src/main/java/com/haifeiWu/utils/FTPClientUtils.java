@@ -103,7 +103,7 @@ public class FTPClientUtils {
 	 * 
 	 * @throws FTPClientException
 	 */
-	private FTPClient getFTPClient() throws Exception {
+	public FTPClient getFTPClient() throws Exception {
 		FTPClient ftpClient = new FTPClient(); // 构造一个FtpClient实例
 		ftpClient.setControlEncoding(encoding); // 设置字符集
 
@@ -155,7 +155,7 @@ public class FTPClientUtils {
 
 			// 连接后检测返回码来校验连接是否成功
 			int reply = ftpClient.getReplyCode();
-
+			System.out.println("---------------" + reply);
 			if (FTPReply.isPositiveCompletion(reply)) {
 				// 登陆到ftp服务器
 				if (ftpClient.login(username, password)) {

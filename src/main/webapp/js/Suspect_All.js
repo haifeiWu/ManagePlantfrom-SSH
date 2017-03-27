@@ -1,24 +1,26 @@
 $(function(){
+	//设置btn_search搜索框样式
+	$("#btn_search img").css("margin-left","16%");
 	
 	//设置嫌疑人表格中的信息
 	$(".Message td:first").css({"width":"30%","height":"5%"});
 	//设置所有input标签的属性样式
-	$(".Message tr td :input").css({"width":"18%","color":"#080808","text-align":" center",
+	$(".Message tr td :input").css({"color":"#080808","text-align":" left",
 	"font-family":"微软雅黑","font-size":"large","border":"hidden","background":"#fff"});
 	//设置最后一个input标签的属性样式
 	$(".Message tr td :input").last().css({"width":"80%","text-align":"left"});
     //	设置信息表中家庭住址样式
-	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "7%"});
+	$(".Message textarea").css({"width":"100%","margin-top":"-5%","margin-left": "23%"});
 //	设置人员联系表的样式
-	$("#people_Mes tr").find("td:eq(0)").css({"color":"#389AC7","text-align":"right"});
+	$("#people_Mes tr").find("td:eq(0)").css({"color":"#389AC7"});
 	
 	
 	//检查情况样式表
-	$(".checked_state textarea").css({"width":"100%","margin":"0px","height":"180px"});
+	$(".checked_state textarea").css({"width":"50%","margin":"0px","height":"120px"});
 	$(".checked_state input[type=checkbox]").css({"width":"20px","margin-top":"0%"});
 
-	$(".checkbox li:eq(0)").css("width","136px");
-	$(".checkbox li:eq(2)").css("width","224px");
+	$(".checkbox li:eq(0)").css("width","81px");
+	$(".checkbox li:eq(2)").css("width","163px");
 
 
 
@@ -46,7 +48,7 @@ $(function(){
 	$(".transient_Leave input:eq(1)").css({"width":"76%","height":"34px"});
 	
 	$(".final_Leave tr:first").css({"background":"#0070c0","color":"#ffffff"});
-	$(".final_Leave tr").find("td:eq(0)").css({"width":"30%","text-align":"right"});
+	$(".final_Leave tr").find("td").css({"width":"10%"});
 	$(".final_Leave input").css("height","34px");
 	$(".final_Leave input[type='radio']").css("height","10px");
 

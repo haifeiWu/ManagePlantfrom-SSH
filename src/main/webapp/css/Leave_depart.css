@@ -1,3 +1,4 @@
+
 *,div{
 	margin: 0px;
 }
@@ -86,12 +87,16 @@ margin: 0px;
 }
 
 /*引入图片嫌疑人*/
-#img_1{width: 45%; height: 42%; 
+#img_1{
+	margin-left:17%;
+	width: 120px; height: 156px; 
 	-webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7); /*兼容谷歌*/
 	-moz-box-shadow: 0px 2px 0px rgba(0,1,1,0.7); /*兼容火狐*/
 	box-shadow: 0px 2px 0px rgba(0,1,1,0.7); /*兼容opera或者ie9以上*/
 }
-#img_2{width: 53%; height: 90%; 
+#img_2{
+	
+	width: 120px; height: 156px; 
 	-webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);
 	-moz-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);
 	box-shadow: 2px 4px 4px rgba(0,1,1,0.7);
@@ -139,6 +144,7 @@ h5{
 input{
 	border: none;
 	background: #f1f1f1;
+	line-height:1.5;
 }
 
 textarea{
@@ -177,6 +183,7 @@ textarea{
 	margin-top: 1%;
 }
 .indenty_ID{
+	
 	width: 75%;
 	height: 30px;
 	margin-left: -5%;
@@ -190,7 +197,7 @@ textarea{
 /*身份证照下方文字信息*/
 .info_id{
 	background: #389ac7;
-	width: 87%;
+	width: 66%;
 	margin-left: 0%;
 	/*margin-top: -1%;*/
 	height: 40px;
@@ -200,9 +207,10 @@ textarea{
 }
 /*照片正面,侧面下方文字信息*/
 .date_pic{
+	left:51px;
 	background: #389ac7;
-	width: 98.5%;
-	height: 30%;
+	width: 246px;
+	height: 40px;
 	color: #FFFFFF;
 	text-align: center;
 	line-height: 40px;
@@ -217,8 +225,8 @@ textarea{
 
 .transient_Leave{
 	margin-top: 0%;
-	margin-left: 9%;
-	width: 80%;
+	margin-left: 2%;
+	width: 90%;
 	font-size: inherit;
 }
 .transient_Leave tr td{
@@ -235,7 +243,7 @@ textarea{
 /*最终离开办案区的时间表样式设置*/
 .final_Leave{
 	margin-top: 0%;
-	margin-left: 7%;
+	margin-left: 2%;
 	padding: 0px;
 	width: 85%;
 	font-size: inherit;
@@ -277,10 +285,12 @@ textarea{
 /*管理员签名*/
 #signature{
 	color: #389AC7;font-size:large ;margin-left: 30%;
+	margin-top:10px;
+	margin-bottom:10px;
 }
 
 #signature input{
-	border: none;margin-left: 4%;border-bottom: 1.5px solid #389AC7;background: #fff;
+	border: none;margin-left: 3%;border-bottom: 1.5px solid #389AC7;background: #fff;
 }
 .sub{
 width: 15%;
@@ -288,16 +298,84 @@ background: #389AC7;
 color: #ffffff;
 border: none;
 height: 40px;
-margin-left: 41%;
-line-height: 40px;
-margin-top: 5%;
+margin-left: 40%;
+line-height: 40px; 
+margin-top: 2%;
 border-radius: 4px;
 }
 
+.subs{
+width: 10%;
+background: #389AC7;
+color: #ffffff;
+border: none;
+height: 40px;
+line-height: 40px; 
+margin-top: 2%;
+border-radius: 4px;
+}
+
+
+.td{
+	color:#000 !important;
+}
+.bg1{
+	background-color:#389AC7 !important;
+	border:1px solid #000;
+}
 /*最新设置human_Mes下的span-------------------------------最新修改*/
 .human_Mes span{
 color: rgb(211, 26, 23);
 font-size: small;
 margin-left: 90%;
 margin-top: -28px;
+}
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+#tab {
+	margin: 10px;
+}
+
+#tab ul {
+	list-style: none;
+	height: 36px;
+	display: block;
+	margin-top:100px;
+	margin-left:8px;
+}
+
+#tab ul li {
+	float: left;
+	display: inline-block;
+	padding: 0px 15px;
+	height: 34px;
+	line-height: 34px;
+	margin-right: 0px;
+	border: 1px solid #ccc;
+	border-bottom: none;
+	cursor: pointer;
+}
+
+#tab div {
+	padding: 5px;
+	border: 0px;
+	border-top: none;
+}
+
+/* #tab ul li.on {
+	border-top: 2px solid black;
+	border-bottom: 2px solid white;
+} */
+
+.hide {
+	display: none;
+}
+.bg{
+	background-color:#389AC7;
+}
+.originbg{
+	background-color:#FFF;
 }

@@ -80,6 +80,12 @@
 					入区事由:<input type="text" value="${SuspectInfor.suspected_Cause }" />
 				</h4>
 				<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
+							id="img_2" src="images/1-cemian_06.png" />
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }&nbsp;
+							&nbsp; &nbsp;嫌疑人入区登记照片</p>
+				</div>
+				<!-- <div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<img
 						style="width: 45%; height: 42%; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);"
 						src="images/1-zhengmian_04.png" /> <img
@@ -87,7 +93,7 @@
 						src="images/1-cemian_06.png" />
 					<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
 						&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
-				</div>
+				</div>  -->
 				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 
 					<hr
@@ -98,8 +104,8 @@
 						<tr style="padding: 0px;">
 							<!--图片引入-->
 							<td rowspan="5"><img
-								style="width:89%;height: 75%;margin-left: -2%;"
-								src="${SuspectInfor.identityID_Imag }" />
+								style="width:95px;height:108px;"
+								src="${SuspectInfor.identityCard_Photo }" />
 								<p class="info_id">身份证照</p></td>
 							<!--<td></td>-->
 							<td colspan="2">姓名:<input type="text" readonly="readonly"
@@ -109,11 +115,12 @@
 						<tr>
 							<td>性别：<input style="text-align: center;" type="text"
 								value="${SuspectInfor.sex }" readonly="readonly" /></td>
-							<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
+							<td>民族：<input type="text" value="${SuspectInfor.nation }"
+								readonly="readonly" /></td>
 						</tr>
 						<!--第三行 出生-->
 						<tr>
-							<td colspan="2">出生日期：<input type="text" style="width:36%;"
+							<td colspan="2">出生日期：<input type="text" style="width:230px !important;"
 								value="${SuspectInfor.birthday }" readonly="readonly" />
 							</td>
 						</tr>
@@ -123,103 +130,106 @@
 						</tr>
 						<tr>
 							<!--<td></td>-->
-							<td colspan="2"><textarea readonly="readonly" rows="1"
-									cols="30">${SuspectInfor.address }</textarea></td>
+							<td colspan="2"><textarea readonly="readonly" style="width:350px !important;height:50px !important; " >${SuspectInfor.address }</textarea></td>
 						</tr>
-						<tr>
-							<td><div style="margin-left: 38px;">身份证号码</div></td>
+						<tr >
+							<td>&nbsp;身份证号码</td>
 							<td colspan="2"><input type="text"
 								value="${SuspectInfor.identifyCard_Number }" readonly="readonly" /></td>
 						</tr>
 					</table>
-					<hr
-						style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 40%; margin-left: -2%;" />
 				</div>
 			</div>
 			<!--身份证信息结束-->
-			<div class="form-group">
-				<label for="dtp_input1" class="check_time">信息采集起始时间：</label>
-				<div class="input-group date form_datetime col-md-5"
-					data-date="1979-09-16T05:25:07Z"
-					data-date-format="dd MM yyyy - HH:ii p"
-					data-link-field="dtp_input1">
-					<input class="form-control" name="start_time" type="text" value=""
-						readonly> <span class="input-group-addon"><span
-						class="glyphicon glyphicon-remove"></span></span> <span
-						class="input-group-addon"><span
-						class="glyphicon glyphicon-th"></span></span>
-				</div>
-				<input type="hidden" id="dtp_input1" value="" /><br />
-			</div>
-			<script type="text/javascript">
-				$('.form_datetime').datetimepicker({
-					language : 'zh-CN',
-					format : 'yyyy-mm-dd hh:ii',
-					weekStart : 1,
-					todayBtn : 1,
-					autoclose : 1,
-					todayHighlight : 1,
-					startView : 2,
-					forceParse : 0,
-					showMeridian : 1
-				});
-			</script>
-			<hr
-				style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 2%; margin-left: 0%;" />
+			<input type="hidden" name="ic_StartTime" value="${start_Time }">
 			<div class="container">
 				<div class="row">
-					<h4 id="InforCollect"
+					<h4 id="InforCollect" style="margin-top: 0px !important;"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-						信息采集<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
+						信息采集<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 					</h4>
 					<table class="info_collect col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>信息采集:</td>
-							<td>是 &nbsp;&nbsp;<input type="radio" name="Is_Collected" /></td>
-							<td>否 &nbsp;&nbsp;<input type="radio" name="Is_Collected" /></td>
+							<td><input type="radio" name="Is_Collected" value="是"
+								 />是</td>
+							<td><input type="radio" name="Is_Collected" value="否" />否</td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>采集项目:</td>
-							<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item" />身份信息
-							</td>
-							<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item" />指纹
-							</td>
-							<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item" />血液
-							</td>
-							<td>&nbsp;&nbsp;<input type="checkbox" name="Collected_Item" />尿液
-							</td>
-							<td>&nbsp;&nbsp;其他<input type="text" name="Collected_Item" /></td>
+							<c:forEach items="${collectionItem}" var="items"
+								varStatus="status">
+								<td><input type="checkbox" name="Collected_Item" value="${items.item_Name }" />${items.item_Name }
+								</td>
+							</c:forEach>
+							<td>&nbsp;&nbsp;其他<input id="otherCollected_Item" type="text" name="Collected_Item" value=""/></td>
+								<script>
+									var collected_Item="${informatCollect.collected_Item}";
+									var result =collected_Item.split(",");
+								    for (var i = 0; i < result.length; i++) {
+								    	if($("input[name=Collected_Item][value="+result[i]+"]").length>0){//foreach
+								    		$("input[name=Collected_Item][value="+result[i]+"]").attr("checked",true);
+								    	}else{
+								    		//其他
+								    		document.getElementById("otherCollected_Item").value=result[i];
+								    	}
+								    };
+								</script>
 						</tr>
 						<tr>
 							<td>信息入库:</td>
-							<td>是 &nbsp;&nbsp;<input type="radio" name="Is_Storaged" /></td>
-							<td>否 &nbsp;&nbsp;<input type="radio" name="Is_Storaged" /></td>
+							<td><input type="radio" name="Is_Storaged" value="是" />是
+							</td>
+							<td><input type="radio" name="Is_Storaged" value="否" />否</td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>检查对比:</td>
-							<td>是 &nbsp;&nbsp;<input type="radio" name="Is_Checked" /></td>
-							<td>否 &nbsp;&nbsp;<input type="radio" name="Is_Checked" /></td>
+							<td><input type="radio" name="Is_Checked" value="是" />是
+							</td>
+							<td><input type="radio" name="Is_Checked" value="否" />否</td>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
+							<script type="text/javascript">
+								//设定Is_Collected
+								if("${informatCollect.is_Collected}"=="是"){
+									$("input[name=Is_Collected][value=是]").attr("checked",true);
+								}
+								if("${informatCollect.is_Collected}"=="否"){
+									$("input[name=Is_Collected][value=否]").attr("checked",true);
+								}
+								//设定Is_Storaged
+								if("${informatCollect.is_Storaged}"=="是"){
+									$("input[name=Is_Storaged][value=是]").attr("checked",true);
+								}
+								if("${informatCollect.is_Storaged}"=="否"){
+									$("input[name=Is_Storaged][value=否]").attr("checked",true);
+								}
+							
+								//设定Is_Checked
+								if("${informatCollect.is_Checked}"=="是"){
+									$("input[name=Is_Checked][value=是]").attr("checked",true);
+								}
+								if("${informatCollect.is_Checked}"=="否"){
+									$("input[name=Is_Checked][value=否]").attr("checked",true);
+								}
+								
+							</script>
 					</table>
-					<input class="sub" type="submit" value="确认提交" onclick="Logger()" />
+					<input class="sub" type="submit" value="确认提交"/>
 					<div class="bottom" style="height: 480px;"></div>
 				</div>
+
 			</div>
 		</div>
 	</form>
 </body>
-<script type="text/javascript">
-	function Logger() {
-		alert("信息提交成功");
-	}
-</script>
+
 </html>

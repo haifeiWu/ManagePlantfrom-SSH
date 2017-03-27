@@ -9,10 +9,15 @@ import java.lang.reflect.Field;
  * @d2016年9月26日
  */
 public class CompleteCheck {
+
 	/**
+	 * 返回等于空的字段的个数
+	 * 
 	 * @Description : 判断类中所有属性值是否为空
-	 * @param obj    操作对象
-	 * @param c      操作类，用于获取类中的方法
+	 * @param obj
+	 *            操作对象
+	 * @param c
+	 *            操作类，用于获取类中的方法
 	 * @return 返回实体类中值不为空的字段的个数
 	 */
 	public static int IsEqualsNull(Object obj, Class<?> c) {
@@ -35,11 +40,12 @@ public class CompleteCheck {
 				e.printStackTrace();
 			}
 		}
-		// count = count+1;//减去实体类中主键id为零的情况，即不统计每个实体类的主键
 		return count;
 	}
 
 	/**
+	 * 统计该类中所有的字段
+	 * 
 	 * @Description : 判断类中所有属性值是否为空
 	 * @param obj
 	 *            操作对象
@@ -63,12 +69,40 @@ public class CompleteCheck {
 		}
 		return count;
 	}
+
 	/**
-	 * 完整性检查，传入一个对象，传入该对象对应的类
+	 * 完整性检查，传入一个对象，传入该对象对应的类 Class<?> c =
+	 * Class.forName(PHCSMP_Suspect.class.getName());
+	 * 
 	 * @param obj
 	 * @param c
 	 */
-	public static void completeCheck(Object obj,Class<?> c){
-		
+
+	/*
+	 * public static int completeCheck(Object obj,Class<?> c,int n){ int
+	 * IsEqualsNull=IsEqualsNull( obj, c)-n; int
+	 * getFieldsNumber=getFieldsNumber( obj, c)-n; int
+	 * completePercent=(int)((float
+	 * )(getFieldsNumber-IsEqualsNull)/getFieldsNumber*100); return
+	 * completePercent; }
+	 */
+
+	public static int completeCheck(Object obj, Class<?> c, int n) {
+		int totalField = getFieldsNumber(obj, c) - n;
+		int fillField = getFieldsNumber(obj, c) - IsEqualsNull(obj, c) - n;
+		// System.out.println(fillField+"字段++++++++++++++"+totalField+"字段++++++++++++++");
+		int completePercent = (int) ((float) fillField / totalField * 100);
+		return completePercent;
 	}
+
+	// public static <T> int completeCheck(T obj, Class<?> c) {
+	// //空的字段的个数
+	// int count = CompleteCheck.IsEqualsNull(obj, c);// 获取model对象为空的字段的个数
+	// //字段
+	// int fieldsNumber = CompleteCheck.getFieldsNumber(obj, c);// 返回实体类中总字段数
+	// obj.setFill_record(fieldsNumber - count - 3);//
+	// // 设置已填写的字段数，，，3是除去主键、FillRecord、TotalRecord
+	// obj.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
+	// }
+
 }

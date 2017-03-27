@@ -33,7 +33,7 @@ public class BelongingInforServiceImple implements BelongingInforService {
 
 	@Override
 	public PHCSMP_BelongingS findInforBySuspetcId(String suspectId) {
-		return belongingInforDao.findInforBySuspetcId(suspectId);
+		return belongingInforDao.findSuspectPublicById(suspectId);
 	}
 
 	@Override

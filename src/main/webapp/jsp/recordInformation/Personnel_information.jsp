@@ -3,7 +3,7 @@
 <!-- 加载jstl的c标签库 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html>
+<html class="contain">
 
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
@@ -20,7 +20,50 @@
 <script type="text/javascript" src="js/jqCss_pinfo.js"></script>
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
+<script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript">
+	/* 
+	 $(function(){
+	 $("#addInfoForm").on("submit",function(){
+	 if($("#band_ID").val().trim()=="0"){
+	 alert("提交失败，请先填写手环id");
+	 }
+	 else{
+	 $.post("${pageContext.request.contextPath }/suspect_addSuspectInfor.action",function(page){
+	 $(".contain").html(page);
+	 });
+	 }
+	 return false; 
+	 });   
+	 });	 */
+
+	/* if($(".message").val()=="success"){
+	alert("信息提交成功！");
+	window.location="${pageContext.request.contextPath }/home_index.action";
+	}else if($(".message").val()=="error"){
+		alert("信息提交失败");
+	} */
+
+	/* $(".submit").off();
+	$(".submit").on("click",function(){
+	 if($("#band_ID").val().trim()=="0"){
+	 	 	$(".submit").addClass("disaled");
+	 	 	alert("提交失败，请先填写手环id");
+	 	 }
+	}); */
+	$(function() {
+		$("#btnSave").click(function() {
+			var x = document.getElementById("band_ID").value;
+			alert(x);
+			if (x == 0) {
+				// if ($(".clsShow").html().toString() != "")//存在提示信息，则不允许提交表单
+				alert('提交失败，请填写手环');
+				return false;
+			} else
+				return true;
+		});
+	});
+
 	function ClearForm() {
 		document.all['suspect_Name'].value = "";
 		document.all['sex'].value = "";
@@ -29,20 +72,24 @@
 		document.all['address'].value = "";
 		document.all['identifyCard_Number'].value = "";
 		document.all['pic'].src = "";
-		document.all['tdentityID_Imag'].value = "";
+		document.all['identityCard_Photo'].value = "";
 		return true;
 	}
 	function Button1_onclick() {
 		var CVR_IDCard = document.getElementById("CVR_IDCard");
 		var strReadResult = CVR_IDCard.ReadCard();
 		if (strReadResult == "0") {
-			ClearForm();
+			//ClearForm();//清空的意思
 			document.all['suspect_Name'].value = CVR_IDCard.Name;
 			document.all['sex'].value = CVR_IDCard.Sex;
 			document.all['nation'].value = CVR_IDCard.Nation;
 			document.all['birthday'].value = CVR_IDCard.Born;
 			document.all['address'].value = CVR_IDCard.Address;
+
 			document.all['identifyCard_Number'].value = CVR_IDCard.CardNo;
+			document.all['now_address'].value = CVR_IDCard.Address;
+			document.all['identifyCard_Number1'].value = CVR_IDCard.CardNo;
+
 			/* 之前的代码，逻辑是直接存放照片，bug
 			var str = CVR_IDCard.Pic;
 			var myStr = new Array();
@@ -50,71 +97,76 @@
 			var path = "/upload/" + myStr[myStr.length - 1];
 			document.all['pic'].src = path;
 			document.all['tdentityID_Imag'].value = str;
-			*/
+			 */
 			/**
 			 * Date:2017.02.26
 			 * author:whf
 			 * change:直接存放base64码
 			 */
-			 var str = CVR_IDCard.Picture;//读取身份证照片的base64码
-			 var base64 = "data:image/jpg;base64"+str;//更改成代码中可以直接显示的base64编码的格式
-			 document.all['pic'].src = base64;//用于显示身份证照片
-			 document.all['tdentityID_Imag'].value = base64;//用于将base64码存放到数据库中
+			var str = CVR_IDCard.Picture;//读取身份证照片的base64码
+			var base64 = "data:image/jpg;base64," + str;//更改成代码中可以直接显示的base64编码的格式
+			document.all['pic'].src = base64;//用于显示身份证照片
+			document.all['identityCard_Photo'].value = base64;//用于将base64码存放到数据库中
 		} else {
-			ClearForm();
+			//ClearForm();
 			alert(strReadResult);
 		}
 
 	}
 
-	function Logger() {
-		alert("信息提交成功！");
-	}
+	/* 	function Logger() {
+	 alert("信息提交成功！");
+	 }
+	 */
 
 	$(document).ready(function() {
 		$("#identityImg").attr('src', 'images/fgreen_03.png');
 		$("#identityImg1").attr('src', 'images/fgreen_03.png');
 	});
 
-	window.onload = function(e) {
-		//var e = window.event || e;
-		// }
-		// local Storage或许会有浏览器兼容的问题
-		if (typeof (Storage) !== "undefined") {
-			if (localStorage.clickcount) {
-				localStorage.clickcount = Number(localStorage.clickcount) + 1;
-				if (localStorage.clickcount > 999) {
-					localStorage.clickcount = 0;
-				}
-			} else {
+	/*window.onload = function(e) {
+	//var e = window.event || e;
+	// }
+	// local Storage或许会有浏览器兼容的问题
+	if (typeof (Storage) !== "undefined") {
+		if (localStorage.clickcount) {
+			localStorage.clickcount = Number(localStorage.clickcount) + 1;
+			if (localStorage.clickcount > 999) {
 				localStorage.clickcount = 0;
 			}
 		} else {
-			alert("抱歉。浏览器不支持");
+			localStorage.clickcount = 0;
 		}
-		var date = new Date();
-		var Mon = date.getMonth() + 1;
-		var datetime = parseInt(date.getDate());
-		if (datetime < 10) {
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ date.getFullYear() + Mon + "0" + datetime
-					+ localStorage.clickcount;
-		} else if (Mon < 10) {
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ date.getFullYear() + "0" + Mon + datetime
-					+ localStorage.clickcount;
-		} else if (localStorage.clickcount < 10) {
-			document.getElementById("suspectID").value = "LB-HB" + "-"
-					+ date.getFullYear() + Mon + datetime + "0"
-					+ localStorage.clickcount;
-		}
+	} else {
+		alert("抱歉。浏览器不支持");
 	}
+	var date = new Date();
+	var Mon = date.getMonth() + 1;
+	var datetime = parseInt(date.getDate());
+	if (datetime < 10) {
+		document.getElementById("suspectID").value = "LB-HB" + "-"
+				+ date.getFullYear() + Mon + "0" + datetime
+				+ localStorage.clickcount;
+	} else if (Mon < 10) {
+		document.getElementById("suspectID").value = "LB-HB" + "-"
+				+ date.getFullYear() + "0" + Mon + datetime
+				+ localStorage.clickcount;
+	} else if (localStorage.clickcount < 10) {
+		document.getElementById("suspectID").value = "LB-HB" + "-"
+				+ date.getFullYear() + Mon + datetime + "0"
+				+ localStorage.clickcount;
+	}
+	}*/
 </script>
 </head>
 <body>
-	<form class="container"
+
+	<form class="container" id="addInfoForm"
 		action="${pageContext.request.contextPath }/suspect_addSuspectInfor.action"
 		enctype="multipart/form-data" method="POST">
+		<c:if test="${!empty message }">
+			<input class="message" type="hidden" value=${message }>
+		</c:if>
 		<div class="row">
 			<!--嫌疑人入区信息-->
 			<h4 style="margin-top: 13px;">
@@ -123,8 +175,9 @@
 			<p id="left_title">嫌疑人入区信息登记</p>
 			<!--设置标题：档案编号：-->
 			<h5 class="col-lg-12 col-md-10 text-center">
-				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="text" id="suspectID" name="Suspect_ID" value="ABS20161010-27" />
+				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+				<input style="width:200px;" type="text" id="suspectID"
+					name="Suspect_ID" value="${Suspect_ID }" />
 			</h5>
 
 			<!--进度条信息设置-->
@@ -173,93 +226,98 @@
 							&nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-						<hr
-							style="width: 75%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 2%;margin-left: -28%;" />
-
+						<hr style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
 							<tr style="padding: 0px;">
 								<!--图片引入-->
 								<td rowspan="5"><img id="pic" src="images/1-IDlogo_09.png"
 									style="width: 95px;height: 108px;position: relative;top: -10px;" />
-									<input type="hidden" name="identityID_Imag" value="value">
+									<input type="hidden" name="identityCard_Photo" value="value">
 									<p class="info_id">身份证照</p></td>
-								<td colspan="2">姓名:<input type="text" readonly="readonly"
-									name="suspect_Name" value="德古拉" /></td>
+								<td colspan="2">姓名:<input type="text" name="suspect_Name"
+									value="德古拉" /></td>
+
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
-									name="sex" value="男" readonly="readonly" /></td>
-								<td>民族：<input type="text" name="nation" value="汉"
-									readonly="readonly" /></td>
+									name="sex" value="男" /></td>
+
+								<td>民族：<input type="text" name="nation" value="汉" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:60%;"
-									name="birthday" value="1961" readonly="readonly" /></td>
+								<td colspan="2">出生日期：<input type="text" style="width:70%;"
+									name="birthday" value="1961" /></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
 								<td colspan="2">家庭住址：</td>
 							</tr>
+
 							<tr>
-								<td colspan="2"><textarea readonly="readonly"
-										name="address" rows="1" cols="30">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
 							</tr>
+
 							<tr>
 								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
-									name="identifyCard_Number" value="140104196108123556"
-									readonly="readonly" /></td>
+									name="identifyCard_Number1" value="140104196108123556" /></td>
+
 							</tr>
 						</table>
 						<hr
-							style="width: 75%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 29%; margin-left: -28%;" />
+							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
 					</div>
-					<div>
+					<div
+						style="z-index:1;position:absolute;left:910px;top:450px;width:850px;">
 						<input class="btn" type="button" value="读卡"
-							onclick="return Button1_onclick()" style="margin-left: 86%;" />
+							onclick="return Button1_onclick()" />
 					</div>
 
 				</div>
-				<div class="row_1">
+				<div class="row_1" style="height: 270px; ">
 					<h4 id="personInfor"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
 					<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
-							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2">证件类型：</td>
+							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+								style="text-align:center;">证件类型：</td>
 							<td>
 								<ol>
 									<!--  -->
 									<c:forEach items="${identifyCardType}" var="item"
 										varStatus="status">
 										<li><input type="checkbox" name="type_ID"
-											value="${item.type_Name }" />${item.type_Name }</li>
+											value="${item.type_Name }" style="width:30px;" />${item.type_Name }</li>
 									</c:forEach>
 								</ol>
 							</td>
 						</tr>
 						<tr>
-							<td>证件号码:</td>
-							<td><input type="text" name="" /></td>
+							<td style="text-align:center;">证件号码:</td>
+							<td><input type="text" name="identifyCard_Number" value="" />
+							</td>
 						</tr>
 						<tr>
-							<td>现住址：</td>
-							<td><textarea id="nAddress" name="now_address">居无定所</textarea></td>
+							<td style="text-align:center;">现住址：</td>
+							<td><input type="text" name="now_address" value="" /></td>
 						</tr>
 						<tr>
-							<td>联系方式（手机或固定电话）：</td>
+							<td style="text-align:center;">联系方式：</td>
 							<td><input type="text" name="phone" /></td>
 						</tr>
 					</table>
 				</div>
+				<input type="hidden" name="enter_Time" value="${entry_Time}">
 				<div class="row_2">
 					<h4 id="enterInfor"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
 					<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						<tr>
-							<td>入区时间</td>
+							<!--  
+							<td style="text-align:center;">入区时间:</td>
 							<td style="width: 50%;">
 								<div class="form-group" style="height: 25px;width: 76%;">
 									<div class="input-group date form_time col-md-5"
@@ -274,21 +332,10 @@
 											class="glyphicon glyphicon-time"></span></span>
 									</div>
 									<input type="hidden" id="dtp_input1" value="" /><br />
-								</div> <script type="text/javascript">
-									$(".form_time").datetimepicker({
-										language : 'zh-CN',
-										format : 'yyyy-mm-dd hh:ii',
-										weekStart : 1,
-										todayBtn : 1,
-										autoclose : 1,
-										todayHighlight : 1,
-										startView : 2,
-										minView : 2,
-										forceParse : 0
-									});
-								</script>
+								</div>
 							</td>
-							<td style="width: 22%;">RFID手环 :</td>
+						-->
+							<td style="width: 22%;text-align:center;">RFID手环 :</td>
 							<!--手环选择列-->
 							<td colspan="2" style="text-align-last:center ;"><select
 								name="band_ID" id="band_ID">
@@ -298,18 +345,20 @@
 									</c:forEach>
 							</select>
 						</tr>
+						<!--  -->
 						<tr>
-							<td rowspan="4">进入办案区原因：</td>
-							<td>案由：</td>
-							<td colspan="3"><input type="text" name="suspected_Cause" /></td>
+							<td rowspan="4" style="text-align:center;">进入办案区原因：</td>
+
 						</tr>
+
 						<tr>
 							<td colspan="3">
 								<ol>
 									<!-- 遍历案由数据的字段 -->
 									<c:forEach items="${actionCause}" var="item" varStatus="status">
-										<li><input type="checkbox" name="suspected_Cause"
-											value="${item.cause_Name }" />${item.cause_Name }</li>
+										<li>${item.cause_Name }<input type="checkbox"
+											name="suspected_Cause" value="${item.cause_Name }"
+											style="width:30px;" /></li>
 									</c:forEach>
 								</ol>
 							</td>
@@ -320,19 +369,21 @@
 					<h4 id="confirm"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">干警签名确认</h4>
 					<table
-						class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
+						style="width: 450px;">
 						<tr>
-							<td>办案民警：</td>
-							<td><input type="text" name="staff_ID" /></td>
-							<td>管理员：</td>
-							<td><input type="text" name="" value="${users.real_Name }" /></td>
+							<td style="width: 12%;">办案民警：</td>
+							<td style="width: 24%;text-align: center;"><input
+								type="text" name="staff_ID" style="width:250px;" /></td>
 						</tr>
 					</table>
-					<input class="btn" type="submit" value="确认提交" onclick="Logger()" />
+					<input id="btnSave" class="btn" type="submit" value="确认提交"
+						class="submit" />
 				</div>
 			</div>
 			<div class="row_4" style="height: 480px;"></div>
 		</div>
+		
 	</form>
 </body>
 

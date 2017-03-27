@@ -38,4 +38,15 @@ public class ActivityRecordServiceImple extends
 			String suspectId) {
 		return activityRecordDao.selectActivityRecordInfor(suspectId);
 	}
+
+	@Override
+
+	public PHCSMP_Activity_Record findInforBySuspetcId(String suspectId) {
+		return activityRecordDao.findSuspectPublicById(suspectId);}	
+public void updatevedio_Number(String vedio_Number,
+			String identifyCard_Number) {
+		activityRecordDao.updatevedio_Number(vedio_Number, identifyCard_Number);
+
+	}
+
 }

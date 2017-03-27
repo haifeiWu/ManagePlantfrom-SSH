@@ -2,7 +2,6 @@ package com.haifeiWu.service;
 
 import java.util.List;
 
-import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
 import com.haifeiWu.entity.PHCSMP_Suspect;
@@ -19,42 +18,25 @@ public interface SuspectService {
 	 * 
 	 * @param model
 	 */
-	void saveSuspectInfor(PHCSMP_Suspect model);
+	public void saveSuspect(PHCSMP_Suspect model);
+
+	public PHCSMP_Suspect findByBandID(int bandId);
+
+	public PHCSMP_Suspect findByRoomID(int roomId);
 
 	/**
-	 * 根据房间号与手环编号查找嫌疑人信息
-	 * 
-	 * @param roomId
-	 * @param bandId
-	 * @return
-	 */
-	PHCSMP_Suspect findInfroByActiveCodeAndBandID(int roomId, int bandId);
-
-	/**
-	 * 查出所有的手环信息，用于用户注册
+	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
 	 * 
 	 * @return
 	 */
-	List<PHCSMP_Band> findAllBundInfor();
-	/**
-	 * 根据激活码查找嫌疑人信息,实现时注意对ProcessID的判断
-	 * 
-	 * @param roomId
-	 *            房间号
-	 * @return 嫌疑人的实体类信息
-	 */
-	PHCSMP_Suspect findInfroByActiveCode(int roomId);
+	public List<PHCSMP_Suspect> getLeavePoliceSuspect();
 
 	/**
-	 * 根据手环id更新activeCode
+	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
 	 * 
-	 * @param bandId
-	 *            手环id
-	 * @param roomId
-	 *            房间号
 	 * @return
 	 */
-	int updateSuspectInforByBandId(int bandId, int roomId);
+	public List<PHCSMP_Suspect> getOnPoliceSuspect();
 
 	/**
 	 * 查找数据库中的所有身份证类型的数据
@@ -71,25 +53,49 @@ public interface SuspectService {
 	List<PHCSMP_Dic_Action_Cause> findAllSuspectCause();
 
 	/**
-	 * 根据手环ID查找用户信息
-	 * 
-	 * @param bandId
-	 * @return
-	 */
-	PHCSMP_Suspect selectPersonInforByBandID(int bandId);
-
-	/**
 	 * 获取数据库中的部分待查嫌疑人数据或者出区嫌疑人数据
 	 * 
 	 * @return
 	 */
-	List<PHCSMP_Suspect> getCheckingSuspect(int is_OutOf);
+	public PHCSMP_Suspect findBySuspetcId(String suspectId);
+
+	public void updateSwitch(int cardReader_Switch, String suspect_ID);
+
+	public void updateLeaveState(int recordVideo_State, int process_Now,
+			int cardReader_Switch, String suspetcId);
+
+	public void updateSuspect(int room_Now, int process_Now,
+			int recordVideo_State, String suspect_ID);
+
+	public void updateSuspect(int room_Now, int process_Now, String suspect_ID);
+
+	// public PHCSMP_Suspect findByRemark(String remark);
+
+	public void updateSuspect(PHCSMP_Suspect suspectInfor);
+
+	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+			String identifyCard_Number);
 
 	/**
-	 * 根据档案号查询用户信息
+	 * 查询最大的嫌疑人编号
 	 * 
-	 * @param suspectId
 	 * @return
 	 */
-	PHCSMP_Suspect findInforBySuspetcId(String suspectId);
+	public String getMaxID();
+
+	// public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+	// String identifyCard_Number);
+
+	public List<PHCSMP_Suspect> serachInforBySuspectId(String searchInfor);
+
+	public List<PHCSMP_Suspect> findBySuspectName(String searchInfor);
+
+	public List<PHCSMP_Suspect> findByCardId(String searchInfor);
+
+	public List<PHCSMP_Suspect> findByCardIdNow(String searchInfor);
+
+	public List<PHCSMP_Suspect> serachInforBySuspectIdNow(String searchInfor);
+
+	public List<PHCSMP_Suspect> finBySuspectNameNow(String searchInfor);
+
 }

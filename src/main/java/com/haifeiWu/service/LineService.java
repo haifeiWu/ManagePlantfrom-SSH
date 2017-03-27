@@ -1,23 +1,25 @@
 package com.haifeiWu.service;
 
-import com.haifeiWu.entity.PHCSMP_Suspect;
-
 /**
  * 回路服务
  * 
  * @author WXY
- *
+ * 
  */
 public interface LineService {
-	
 	/**
-	 * 开启一路录像，判断是否饱和，并维护RecordVideo_State字段,置0或1
+	 * 判断是否饱和， 不饱和可以录像，返回true
 	 */
-	public void startLine(String bandID,String cardReader_ID);
+	public boolean isFull();
+
+	/**
+	 * 开启一路录像，判断是否饱和，
+	 */
+	public void startLine();
+
 	/**
 	 * 释放一路录像
 	 */
-	public void closeLine(String bandID,String cardReader_ID);
-	
-	
+	public void closeLine();
+
 }
