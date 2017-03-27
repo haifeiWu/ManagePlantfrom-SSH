@@ -12,6 +12,9 @@
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/Suspect_mes.js"></script>
+<script type="text/javascript">
+		
+</script>
 </head>
 
 <body>
@@ -39,31 +42,38 @@
 			<a href="#checkedPerson" style="font-size: larger;">历史嫌疑人</a>
 		</div>
 		<hr style="width: 100%; border: 0.5px solid #389AC7; margin-top: 5%;" />
-		<div class="row">
+		<div class="row" id="row2" style="height: 318px;overflow: hidden; ">
 			<h4 id="checkingPerson"
 				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">待查嫌疑人</h4>
 			<table class="wait_check col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<tr>
-					<c:forEach items="${suspectCheckInfor}" var="item"
-						varStatus="status">
-						<td><img src="images/1-zhengmian_04.png" />
-							<p>
-								<a
+				<c:forEach items="${suspectCheckInfor}" var="item"
+					varStatus="status">
+					<c:if test="${status.count eq 1 || (status.count-1) % 5 eq 0}">
+						<tr>
+					</c:if>
+					<td style="width: 160px;">
+						<div style="width:150px; float:left; margin-left: -1px;">
+						<a
 									href="./GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"
-									style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a><br />
+									style="color:#f69d1f;font-size: large;">
+							<img src="images/1-zhengmian_04.png" style="width: 150px; height: 200px;"/>
+							<p style="color: #F79D1F;">
+								${item.suspect_Name }<br />
 								<span>2</span>小时
-							</p></td>
-					</c:forEach>
-				</tr>
-				<tr>
-
-				</tr>
+							</p>
+							</a>
+						</div>
+					</td>
+					<c:if test="${status.count % 5 eq 0 || status.count eq 5}">
+						</tr>
+					</c:if>
+				</c:forEach>
 			</table>
 		</div>
 		<p id="more">
-			<a href="#">更多</a>
+			<input type="button" id="btn1" value="更多>>" style="background: none;border: 0px;"/>
 		</p>
-		<div class="row">
+		<div class="row" id="row1" style="height: 313px; overflow: hidden; ">
 			<h4 id="checkedPerson"
 				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">历史嫌疑人查询</h4>
 			<table class="total col-lg-12 col-md-10 col-sm-12">
@@ -89,7 +99,8 @@
 					varStatus="status">
 					<tr>
 						<td>${status.index+1 }</td>
-						<td>${item.suspect_Name }</td>
+						<td><a href="./GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"
+									style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a></td>
 						<td>${item.suspect_ID }</td>
 						<td>${item.enter_Time }</td>
 						<td><input type="time" /></td>
@@ -100,10 +111,42 @@
 				</c:forEach>
 			</table>
 		</div>
-		<p id="smore">
-			<a href="#">更多</a>
+		<p id="more">
+				<input type="button" id="btn" value="更多>>" style="background: none;border: 0px;"/>
 		</p>
 		<div class="row_2 col-lg-12" style="height: 450px;"></div>
 	</div>
+	
+	<script type="text/javascript">
+		// 数据信息的显示与隐藏
+		$("#btn").click(function() {
+			var btn = document.getElementById('btn');
+			var obj = document.getElementById('row1');
+		    var total_height =  obj.scrollHeight;//文章总高度
+		    var show_height = 313;//定义原始显示高度
+			if (btn.value=="更多>>") {
+				btn.style.display = 'block';
+				obj.style.height = total_height + 'px';
+				btn.value="收起";
+			} else if(btn.value="收起") {
+		    	obj.style.height =show_height + 'px';
+		    	btn.value="更多>>";
+			}
+			});
+			$("#btn1").click(function() {
+			var btn1 = document.getElementById('btn1');
+			var obj = document.getElementById('row2');
+		    var total_height =  obj.scrollHeight;//文章总高度
+		    var show_height = 318;//定义原始显示高度
+			if (btn1.value=="更多>>") {
+				btn1.style.display = 'block';
+				obj.style.height = total_height + 'px';
+				btn1.value="收起";
+			} else if(btn.value="收起") {
+		    	obj.style.height =show_height + 'px';
+		    	btn1.value="更多>>";
+			}
+			});
+</script
 </body>
 </html>
