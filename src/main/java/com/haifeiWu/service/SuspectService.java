@@ -72,6 +72,8 @@ public interface SuspectService {
 	// public PHCSMP_Suspect findByRemark(String remark);
 
 	public void updateSuspect(PHCSMP_Suspect suspectInfor);
+	
+	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad, String identifyCard_Number);
 
 	public List<PHCSMP_Suspect> serachInforBySuspectId(String searchInfor);
 

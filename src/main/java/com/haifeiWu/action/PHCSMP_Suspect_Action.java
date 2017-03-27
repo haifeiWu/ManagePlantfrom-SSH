@@ -47,7 +47,6 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			String entryTime = new DateTime().toString("yyy-mm-dd HH:mm");// 入区时间
 
 			String nEntryTime = new DateTime().toString("yyyy年MM月dd日");// 入区时间
-			// 饱和性验证
 
 			if (user == null) {// 在未登录状态下
 				return "unLoginState";
@@ -175,6 +174,18 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		model.setFill_record(fieldsNumber - count - 3);//
 		// 设置已填写的字段数，，，3应该是除去主键、FillRecord、TotalRecord
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 	}

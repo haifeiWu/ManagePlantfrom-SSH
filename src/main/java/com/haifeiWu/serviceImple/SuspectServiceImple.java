@@ -134,6 +134,12 @@ public class SuspectServiceImple implements SuspectService {
 		List<PHCSMP_Suspect> suspectNowList = suspectDao
 				.findBySuspectNameNow(searchInfor);
 		return suspectNowList;
+
+	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+			String identifyCard_Number) {
+		suspectDao.updateis_RecordVideo_DownLoad(is_RecordVideo_DownLoad, identifyCard_Number);
+		
+
 	}
 
 	// @Override

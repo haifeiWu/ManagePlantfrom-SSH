@@ -318,19 +318,7 @@
 											class="glyphicon glyphicon-time"></span></span>
 									</div>
 									<input type="hidden" id="dtp_input1" value="" /><br />
-								</div> <script type="text/javascript">
-									$(".form_time").datetimepicker({
-										language : 'zh-CN',
-										format : 'yyyy-mm-dd hh:ii',
-										weekStart : 1,
-										todayBtn : 1,
-										autoclose : 1,
-										todayHighlight : 1,
-										startView : 2,
-										minView : 2,
-										forceParse : 0
-									});
-								</script>
+								</div>
 							</td>
 							<td style="width: 22%;text-align:center;">RFID手环 :</td>
 							<!--手环选择列-->

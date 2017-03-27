@@ -34,7 +34,10 @@ import com.haifeiWu.utils.CompleteCheck;
 public class PHCSMP_Personal_Check_Action extends
 		BaseAction<PHCSMP_Personal_Check> {
 
-	private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2170461315353274840L;
 	// 记录开始时间的私有变量
 	// private String start_time_time;
 	// 用于多条记录的提取，一条人身检查记录对应多个随身物品登记记录
@@ -55,8 +58,10 @@ public class PHCSMP_Personal_Check_Action extends
 
 	/**
 	 * 加载当前房间的嫌疑人的信息
+	 * 
+	 * @throws IOException
 	 */
-	public String loadInfor() {
+	public String loadInfor() throws IOException {
 		try {
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
@@ -71,22 +76,25 @@ public class PHCSMP_Personal_Check_Action extends
 					.findAllKeepingWay();// 随身物品保管措施
 			List<PHCSMP_Cabinet> PHCSMPCabinetType = personalCheckService
 					.findAllPHCSMPCabinet();// 保管柜信息
+			PHCSMP_Personal_Check checkRecord = (PHCSMP_Personal_Check) request
+					.getAttribute("checkRecord");
+			if (checkRecord != null)
+				request.setAttribute("checkRecord", checkRecord);
 			request.setAttribute("start_time_time", start_time_time);
 			request.setAttribute("SuspectInfor", SuspectInfor);
 			request.setAttribute("InspectionSituationType",
 					InspectionSituationType);
 			request.setAttribute("Keeping_WayType", Keeping_WayType);
 			request.setAttribute("PHCSMPCabinetType", PHCSMPCabinetType);
-			// 保证单条记录
-			PHCSMP_Personal_Check checkRecord = personalCheckService
-					.findInforBySuspetcId(suspectId);
-			if (checkRecord != null) {
-				request.setAttribute("checkRecord", checkRecord);
-			}
 			// 更新录像状态的标志位
 			suspectService.updateSwitch(1, suspectId);
 		} catch (Exception e) {
-			e.printStackTrace();
+			// 提示可能是房间、读卡器等设备配置错误
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
+			response.getWriter().flush();
+			// 转到
+			return "success";
 		}
 		return "loadInfor";
 	}
@@ -98,6 +106,7 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	public String addCheckPersonInfor() throws IOException {
 		try {
+
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
 			String suspectId = suspectService.findByRoomID(roomId)
@@ -129,14 +138,18 @@ public class PHCSMP_Personal_Check_Action extends
 			if (vaildBelong.size() != 0) {
 				belongingInforService.saveBelongInforList(vaildBelong);// 批量保存随身物品信息
 			}
+			// 主动失败
+			// throw new Exception();
 			// 提示成功
 			response.getWriter().write("<script>alert('后台提交成功');</script>");
 			response.getWriter().flush();
 			return "success";
 		} catch (Exception e) {
-			response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
-			return "loadInfor";
+			request.setAttribute("checkRecord", model);
+			return "chainLoadInfor";
 		}
 	}
 

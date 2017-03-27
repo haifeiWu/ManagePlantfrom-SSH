@@ -229,6 +229,10 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
 		tx.commit();// 提交事务
 		return phcsmp_Suspect;
+	public void updateis_RecordVideo_DownLoad(int is_RecordVideo_DownLoad, String identifyCard_Number) {
+		hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? where s.identifyCard_Number=?";
+		update(hql, is_RecordVideo_DownLoad, identifyCard_Number);
+		
 	}
 
 	// /**
