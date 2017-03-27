@@ -1,3 +1,4 @@
+
 *,div{
 	margin: 0px;
 }
@@ -302,6 +303,19 @@ line-height: 40px;
 margin-top: 2%;
 border-radius: 4px;
 }
+
+.subs{
+width: 10%;
+background: #389AC7;
+color: #ffffff;
+border: none;
+height: 40px;
+line-height: 40px; 
+margin-top: 2%;
+border-radius: 4px;
+}
+
+
 .td{
 	color:#000 !important;
 }

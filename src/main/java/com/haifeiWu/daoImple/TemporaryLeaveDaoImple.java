@@ -38,7 +38,7 @@ public class TemporaryLeaveDaoImple extends DaoSupportImpl<Temporary_Leave>
 	// 查找当前嫌疑人出区返回时间为空的信息
 	@Override
 	public Temporary_Leave findTemporaryLeaveInfoById(String suspectId) {
-		String hql = "from Temporary_Leave t where t.suspect_ID=? and t.return_Time=''";
+		String hql = "from Temporary_Leave t where t.suspect_ID=? and t.return_Time=null";
 		System.out.println(hql + "=---------------");
 		tx = getSession().beginTransaction();// 开启事务
 

@@ -124,8 +124,8 @@
 		$(".on").click(function() {
 		//如果表中有一条属于当前嫌疑人的出区返回时间为空则进行提示
 			
-			 if($(".tempLeave_Time").attr("value")!=null){
-				alert("经系统查询 该嫌疑人为出区返回！请填写返回时间！");
+			 if($(".staff_ID").attr("value")!=null){
+				alert("经系统查询 该嫌疑人为出区返回!");
 			} 
 			
 			$(".transient").show();
@@ -141,9 +141,38 @@
 			});
 			
 		});
-
+		
+		$(".subs").on("click",function(){
+			if($(".identity").val()==""){
+				$(".identity").attr("value",'${suspectInfor.identifyCard_Number }');
+			}
+		});
+		$(".identity").on("click",function(){
+			$(".identity").attr("value","");
+		});
+		
+		if($(".msg").text()!=""){//说明不完整
+			setTimeout(alertInfo,5000);
+		}
+		function alertInfo(){
+			if(!confirm("${sb}你是否要继续办理出区/离区业务！")){
+				window.location.href="${pageContext.request.contextPath }/jsp/home/index.jsp";
+			}
+		}
+		
+		
+		$(".complete").each(function(){
+			if($(this).text().trim()!=100+"%"){
+				$(this).addClass("colorRed");
+			}
+		});
 	});
 </script>
+<style type="text/css">
+.colorRed{
+	color:red !important;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -157,7 +186,7 @@
 			<h5 class="col-lg-12 col-md-10 text-center">
 				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
 					type="text" name="suspect_ID" value="${suspectInfor.suspect_ID }"
-					readonly="readonly" />
+					readonly="readonly" style="background:#FFF"/>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
@@ -174,14 +203,14 @@
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img
+						<a href="suspect_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
 							src="images/fgreen_03.png" /></a> <a
-							href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"><img
+							href="personalCheck_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
 							src="images/fgreen_03.png" /></a> <a
-							href="IC_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/3-inforCollection_03.png" /></a> <a
-							href="AR_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/3-inforCollection_03.png" /></a> <a href="#leaveReco"><img
+							href="IC_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
+							src="images/fgreen_03.png" /></a> <a
+							href="AR_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
+							src="images/fgreen_03.png" /></a> <a href="#leaveReco"><img
 							src="images/3-inforCollection_07.png" /></a>
 					</div>
 					<!--进度的信息显示-->
@@ -195,67 +224,111 @@
 				</div>
 			</div>
 			<!--疑犯个人身份证信息-->
-			<div class="container" style="margin-top: 0%;">
-				<div class="row">
+			<div class="container">
+				<div class="row" style="margin-bottom:10px;">
 					<!--身份信息标题-->
 					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						入区事由:<input type="text" value="治安传唤" />
 					</h4>
 					<!--疑犯个人身份证信息-->
-			<div class="container">
-				<div class="row">
-					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
-							id="img_2" src="images/1-cemian_06.png" />
-						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }&nbsp;
-							&nbsp; &nbsp;嫌疑人入区登记照片</p>
+					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4" style="margin-top:30px;">
+						<img id="img_1" src="images/1-zhengmian_04.png" />
+						<img id="img_2" src="images/1-cemian_06.png" />
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:10px;">${nEntryTime }嫌疑人入区登记照片</p>
 					</div>
-					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-						<hr
-							style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
-
-							<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
-							<tr style="padding: 0px;">
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-top:30px;">
+						<hr style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -10%;" />
+							<table class="Message col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:15px;">
+								<tr style="padding: 0px;">
 								<!--图片引入-->
-								<td rowspan="5"><img id="pic" src="${suspectInfor.identityCard_Photo }"
-									style="width: 95px;height: 108px;position: relative;top: 0px;" />
-									<input type="hidden" name="identityCard_Photo" value="value">
-									<p class="info_id">身份证照</p></td>
-								<td colspan="2">姓名:<input type="text" 
-									name="suspect_Name" value="${suspectInfor.suspect_Name }" /></td>
-							</tr>
-							<!--第二行 性别 民族-->
-							<tr>
-								<td>性别：<input style="text-align: center;" type="text"
-									name="sex" value="${suspectInfor.sex }"/></td>
-								<td>民族：<input type="text" name="nation" value="汉" /></td>
-							</tr>
-							<!--第三行 出生-->
-							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:60%;"
-									name="birthday" value="${suspectInfor.birthday }" /></td>
-							</tr>
-							<!--第四行身份证住址-->
-							<tr>
-								<td colspan="2">家庭住址：</td>
-							</tr>
-							<tr>
-								<td colspan="2"><textarea
-										name="address" rows="1" cols="45">${suspectInfor.address }</textarea></td>
-							</tr>
-							
-							<tr>
-								<td><div style="margin-left: 4%;">身份证号码</div></td>
-								<td colspan="2"><input type="text"
-									name="identifyCard_Number" value="${suspectInfor.identifyCard_Number }"/>
-								</td>
-
-							</tr>
-						</table>
-						<hr
-							style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
+									<td rowspan="5">
+										<img id="pic" src="${suspectInfor.identityCard_Photo }" style="width: 100px;height: 108px;position: relative;top: 0px;" />
+										<input type="hidden" name="identityCard_Photo" value="value">
+										<p class="info_id" style="width: 100px;">身份证照</p></td>
+									<td colspan="2">姓名:
+										<input type="text" name="suspect_Name" value="${suspectInfor.suspect_Name }" style="font-size:12px;margin-left:10px;"/>
+									</td>
+								</tr>
+								<!--第二行 性别 民族-->
+								<tr>
+									<td>性别：
+										<input style="font-size:12px;margin-left:10px;" type="text" name="sex" value="${suspectInfor.sex }"/>
+									</td>
+									<td style="margin-left:10px;">民族：<input type="text" name="nation" value="汉" style="font-size:12px;margin-left:10px;"/></td>
+								</tr>
+								<!--第三行 出生-->
+								<tr>
+									<td colspan="8">出生日期：
+										<input type="text" name="birthday" value="${suspectInfor.birthday }" />
+									</td>
+								</tr>
+								<!--第四行身份证住址-->
+								<tr>
+									<td colspan="8">
+									家庭住址：<textarea name="address" rows="4" cols="45"  col-md-offset-2>${suspectInfor.address }</textarea>
+									</td>
+								</tr>			
+								<tr>
+									<td colspan="10">身份证号码:
+										<input type="text" name="identifyCard_Number" value="${suspectInfor.identifyCard_Number }"/>
+									</td>
+	
+								</tr>
+							</table>
+						<hr style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top:18%; margin-left:-10%;" />
 					</div>
 				</div>
+			</div>
+		<!-- 完整性检查表 -->
+		<div class="container">
+			<div class="row">
+				<h4 id="leaveReco"
+					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					完整性检查<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
+				</h4>
+			</div>
+		</div>
+		<div class="msg" style="color:red;margin-top:20px;margin-left:25px;">${sb }</div>
+		<div class="container" style="margin-top:20px;">
+			<div class="row">
+				<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
+					<tr class="bg1">
+						<td style="width:20%">业务</td>
+						<td style="width:20%">开始时间</td>
+						<td style="width:20%">结束时间</td>
+						<td style="width:10%">完整度</td>
+						<td style="width:30%">备注</td>
+					</tr>
+
+					<tr>
+						<td>入区登记</td>
+						<td>${suspect.enter_Time }</td>
+						<td>----</td>
+						<td class="complete">${suspectComplete}%</td>
+						<td style="text-align:left;padding-left:30px;">进入办案区原因：${suspect.suspected_Cause }</td>
+					</tr>
+					<tr>
+						<td>人身检查</td>
+						<td>${personalCheck.check_StartTime }</td>
+						<td>${personalCheck.check_EndTime }</td>
+						<td class="complete">${personalCheckComplete }%</td>
+						<td style="text-align:left;padding-left:30px;">人身检查状态:${personalCheck.check_Situation }</td>
+					</tr>
+					<tr>
+						<td>信息采集</td>
+						<td>${informationCollection.ic_StartTime }</td>
+						<td>${informationCollection.ic_EndTime }</td>
+						<td class="complete">${informationCollectionComplete }%</td>
+						<td style="text-align:left;padding-left:30px;">采集项目:${informationCollection.collected_Item }</td>
+					</tr>
+					<tr>
+						<td>询问讯问</td>
+						<td>${activityRecord.start_Time }</td>
+						<td>${activityRecord.end_Time }</td>
+						<td class="complete">${activityRecordComplete }%</td>
+						<td style="text-align:left;padding-left:30px;">活动内容：${activityRecord.activity_Record }</td>
+					</tr>
+				</table>
 			</div>
 		</div>
 		<!--离开办案区登记表-->
@@ -263,9 +336,9 @@
 			<div class="row">
 				<h4 id="leaveReco"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					离开办案区登记<span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span>
+					离开办案区登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
-				<div id="tab">
+				<div id="tab" style="margin-left:16px;">
 					<ul>
 						<li class="on">临时离开办案区</li>
 						<li class="two">最终离开办案区</li>
@@ -281,16 +354,16 @@
 			<div class="row">
 				<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
 					<tr class="bg1">
-						<td>序号</td>
-						<td>临时离开时间</td>
-						<td>离开原因</td>
-						<td>办案部门负责人签名</td>
-						<td>返回时间</td>
+						<td style="width:30%">序号</td>
+						<!-- <td>临时离开时间</td> -->
+						<td style="width:30%">离开原因</td>
+						<td style="width:40%">办案部门负责人签名</td>
+						<!-- <td>返回时间</td> -->
 					</tr>
 					<c:if test="${!empty temporaryLeave }">
 						<tr>
 							<td>0</td>
-							<td style="width: 35%;">
+							<%-- <td style="width: 35%;">
 								<div class="form-group" style="height: 30px; margin-left: 80px;">
 									<div style="width:100px!important;" class="input-group date form_time"
 										style="margin-left: 19%;margin-top: 8%;width:60px;" data-date=""
@@ -305,17 +378,17 @@
 									</div>
 									<input type="hidden" id="dtp_input1" value="" /><br />
 								</div>
-							</td>
+							</td> --%>
 							<td id="select"><select name="tempLeave_Reason">
 									<option value="${temporaryLeave.tempLeave_Reason }">${temporaryLeave.tempLeave_Reason }</option>
 									<option value="扣押">扣押</option>
 									<option value="暂存">暂存</option>
 									<option value="代保管">代保管</option>
 							</select></td>
-							<td style="padding:6px 0 6px 0"><input name="staff_ID"
+							<td style="padding:6px 0 6px 0"><input name="staff_ID" class="staff_ID"
 								type="text" style="border-radius:6px;border:1px solid #ccc;"
 								value="${temporaryLeave.staff_ID }" /></td>
-							<td style="width: 35%;">
+							<%-- <td style="width: 35%;">
 								<div class="form-group" style="height: 30px;">
 									<div class="input-group date form_time col-md-5"
 										style="margin-left: 25%;margin-top: 2%;" data-date=""
@@ -330,14 +403,14 @@
 									</div>
 									<input type="hidden" id="dtp_input1" value="" /><br />
 								</div>
-							</td>
+							</td> --%>
 						</tr>
 					</c:if>
 
 					<c:if test="${empty temporaryLeave }">
 						<tr>
 							<td>0</td>
-							<td style="width: 35%;">
+							<!-- <td style="width: 35%;">
 								<div class="form-group" style="height: 30px;">
 									<div class="input-group date form_time col-md-7"
 										style="margin-left: 19%;margin-top: 2%;" data-date=""
@@ -350,7 +423,7 @@
 									</div>
 									<input type="hidden" id="dtp_input1" value="" /><br />
 								</div>
-							</td>
+							</td> -->
 							<td id="select"><select name="tempLeave_Reason">
 								<option value="">---请选择---</option>
 								<c:forEach items="${leaveReason }" var="v" varStatus="status">
@@ -360,7 +433,7 @@
 							<td style="padding:6px 0 6px 0"><input type="text"
 								name="staff_ID" value=""
 								style="border-radius:6px;border:1px solid #ccc;" /></td>
-							<td style="width: 35%;">
+							<!-- <td style="width: 35%;">
 								<div class="form-group" style="height: 30px;">
 									<div class="input-group date form_time col-md-7"
 										style="margin-left: 19%;margin-top: 2%;" data-date=""
@@ -373,7 +446,7 @@
 									</div>
 									<input type="hidden" id="dtp_input1" value="" /><br />
 								</div>
-							</td>
+							</td> -->
 						</tr>
 					</c:if>
 					<!-- <tr>
@@ -409,7 +482,7 @@
 		<div class="container ">
 			<div class="row ">
 				<table class="final_Leave col-lg-12 col-md-12 col-sm-12">
-					<tr>
+					<!-- <tr>
 						<td>最终离开时间</td>
 						<td>
 							<div class="form-group" style="height: 30px;">
@@ -428,7 +501,7 @@
 							</div>
 						</td>
 
-					</tr>
+					</tr> -->
 					<tr>
 						<td>离开原因</td>
 						<td><select name="leave_Reason">
@@ -451,7 +524,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td>未反还物品情况记载:</td>
+						<td style="color:#000 !important;">未反还物品情况记载:</td>
 						<td style="padding: 8px 0;"><input name="belongingS_Treatment_Record"
 								style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;"/></td>
 					</tr>
@@ -464,10 +537,12 @@
 					<tr>
 						<td>身份证号码:</td>
 						<td style="padding:8px 0 8px 0"><input
-							style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
-							name="recipient_Person_Number" value="" /></td>
+							style="margin-left:60px;border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
+							name="recipient_Person_Number" value="" class="identity"/>
+							<input type="button" value="读卡" class="subs" />
+						</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td>领取时间:</td>
 						<td>
 							<div class="form-group" style="height: 30px;">
@@ -484,7 +559,7 @@
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
 						</td>
-					</tr>
+					</tr> -->
 				</table>
 			</div>
 			<div class="row" style="margin-top:30px;width:1000px;">
