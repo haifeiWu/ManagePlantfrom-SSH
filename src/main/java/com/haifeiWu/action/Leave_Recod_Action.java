@@ -139,6 +139,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			} else {
 				leaveRecodService.updateLeaveRecordInfor(model);// 更新嫌疑人离开信息
 			}
+
 			// 停止录像
 			String stopRecording = Video.stopRecording(room.getCardReader_ID(),
 					room.getLine_Number(),
@@ -151,6 +152,8 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			lineService.closeLine();
 			// 释放手环
 			bandService.update(0, suspectInfor.getBand_ID());
+			System.out.println("state=" + suspectInfor.getRecordVideo_State()
+					+ " " + "Process_Now=" + suspectInfor.getProcess_Now());
 
 			return "success";
 
@@ -158,6 +161,9 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			response.getWriter()
 					.write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
 			response.getWriter().flush();
+			
+			request.setAttribute("leaveRecordLoadInfor", model);
+			
 			return "leaveRecordLoadInfor";
 		}
 
@@ -166,6 +172,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	// 保存临时出区的信息
 	public String addTemporaryLeaveInfor() throws IOException {
 		try {
+
 			String roomIP = request.getRemoteAddr();
 			PHCSMP_Room room = roomService.findbyIp(roomIP);
 			suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
@@ -192,7 +199,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 				temporaryLeaveService.updateReturnTime(temporaryReturnTime,
 						temporary_Leave.getSuspect_ID());
 
-				// 增加一个出区返回时的管理员
+				//增加一个出区返回时的管理员
 
 				System.out
 						.println("嫌疑人出区返回" + temporary_Leave.getReturn_Time());
@@ -212,13 +219,32 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
-			return "loadInfor";
+			
+			String tempLeave_Reason=request.getParameter("tempLeave_Reason");
+			request.setAttribute("tempLeave_Reason", tempLeave_Reason);
+			String staff_ID=request.getParameter("staff_ID");
+			request.setAttribute("staff_ID", staff_ID);
+			String manager_name=request.getParameter("manager_name");
+			request.setAttribute("manager_name", manager_name);
+	
+			return "temporaryLeaveload";
 		}
 	}
 
 	/* 加载界面信息 */
 	public String loadInfor() {
 		try {
+			PHCSMP_Leave_Record lr=(PHCSMP_Leave_Record) request.getAttribute("leaveRecordLoadInfor");
+			request.setAttribute("PHCSMP_Leave_Record", lr);
+			
+			String tempLeave_Reason=(String) request.getAttribute("tempLeave_Reason");
+			String staff_ID=(String) request.getAttribute("staff_ID");
+			String manager_name=(String) request.getAttribute("manager_name");
+			
+			request.setAttribute("tempLeave_Reason", tempLeave_Reason);
+			request.setAttribute("staff_ID", staff_ID);
+			request.setAttribute("manager_name", manager_name);
+			
 			// 加载嫌疑人信息
 			String roomIP = request.getRemoteAddr();
 			PHCSMP_Room room = roomService.findbyIp(roomIP);
