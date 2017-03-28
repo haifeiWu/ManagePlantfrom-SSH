@@ -54,10 +54,7 @@
 			method="{1}">
 			<result name="{1}">/jsp/home/{1}.jsp</result>
 		</action>
-		<action name="ftp_*" class="com.haifeiWu.action.FTPAction"
-			method="{1}">
-			<result name="{1}">/jsp/home/{1}.jsp</result>
-		</action>
+		
 		<action name="user_*" class="com.haifeiWu.action.UserAction"
 			method="{1}">
 			<result name="logout">/jsp/login.jsp</result>
@@ -161,7 +158,10 @@
 			method="fileStatus">
 			<result name="success">/jsp/home/index.jsp</result>
 		</action>
-		
+		<action name="ftp_*" class="com.haifeiWu.action.FTPAction"
+			method="{1}">
+			<result name="success">/jsp/home/index.jsp</result>
+		</action>
 		<!-- 读卡器信息采集 -->
 		<action name="readRfid" class="com.haifeiWu.action.RFID_ReadAction"
 			method="readRFID">

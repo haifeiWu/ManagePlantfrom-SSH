@@ -29,10 +29,7 @@ public class fileStatusAction extends ActionSupport implements
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
+	private static final long serialVersionUID = -6226713528433803678L;
 
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
@@ -50,14 +47,17 @@ public class fileStatusAction extends ActionSupport implements
 		int cardReader_ID = Integer.parseInt(request
 				.getParameter("cardReader_ID"));
 		String identificationCard = request.getParameter("identificationCard");
+
 		String videonumber = Video.queryDownloadFileStatu(cardReader_ID,
 				identificationCard);
 		System.out.println("上传接口查询文件状态");
-		suspectService.updateIs_RecordVideo_DownLoad(1, identificationCard);
-		System.out.println("修改嫌疑人下载位");
-		activityRecordService.updatevedio_Number(videonumber,
-				identificationCard);
-		System.out.println("修改嫌疑人询问音频录像位");
+
+		//
+		// suspectService.updateIs_RecordVideo_DownLoad(1, identificationCard);
+		// System.out.println("修改嫌疑人下载位");
+		// activityRecordService.updatevedio_Number(videonumber,
+		// identificationCard);
+		// System.out.println("修改嫌疑人询问音频录像位");
 		return "success";
 	}
 
@@ -78,5 +78,4 @@ public class fileStatusAction extends ActionSupport implements
 		this.request = request;
 
 	}
-
 }
