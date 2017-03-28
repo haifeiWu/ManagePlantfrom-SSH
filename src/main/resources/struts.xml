@@ -54,10 +54,7 @@
 			method="{1}">
 			<result name="{1}">/jsp/home/{1}.jsp</result>
 		</action>
-		<action name="ftp_*" class="com.haifeiWu.action.FTPAction"
-			method="{1}">
-			<result name="{1}">/jsp/home/{1}.jsp</result>
-		</action>
+		
 		<action name="user_*" class="com.haifeiWu.action.UserAction"
 			method="{1}">
 			<result name="logout">/jsp/login.jsp</result>
@@ -73,7 +70,7 @@
 			<result name="unLoginState">/jsp/unlogin/unlogin_Personnel_information.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/Personnel_information.jsp</result>
 			<!-- 当处于登录状态时 -->
-			<result name="addSuspectInfor" type="redirectAction">"suspect_loadInfor.action"</result>
+			<!-- <result name="addSuspectInfor" type="redirectAction">"suspect_loadInfor.action"</result> -->
 			<result name="input">/index.jsp</result>
 			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result>
@@ -89,8 +86,7 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result> -->
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<!-- <result name="addCheckPersonInfor" type="redirectAction">personalCheck_loadInfor</result> -->
-			<!-- <result name="addCheckPersonInfor">/jsp/home/index.jsp</result> -->
+			<result name="chainLoadInfor" type="chain">personalCheck_loadInfor</result> 
 			<result name="loadInfor" >/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result>
 		</action>
@@ -111,7 +107,11 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addInformationCollection" type="redirectAction">IC_loadInfor</result>
+
+			<result name="addInformationCollection" type="chain">IC_loadInfor</result>
+
+			<result name="chainLoadInfor" type="chain">IC_loadInfor</result>
+
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 		</action>
@@ -124,8 +124,9 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addActivityRecordInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result><!-- 
-				跳转到其他的action -->
+			<!-- <result name="addActivityRecordInfor" type="chain">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>-->
+			<result name="addActivityRecordInfor" type="chain">AR_loadInfor</result>
+			<!-- 跳转到其他的action -->
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 		</action>
@@ -152,14 +153,25 @@
 			<result name="loadInfor">/jsp/recordInformation/allInformation.jsp</result>
 			<result name="downFile">/jsp/recordInformation/allInformation.jsp</result>
 		</action>
-
+		
+		<!-- 录波器请求接口 -->
+		<action name="fileStatus" class="com.haifeiWu.action.fileStatusAction"
+			method="fileStatus">
+			<result name="success">/jsp/home/index.jsp</result>
+		</action>
+		<action name="ftp_*" class="com.haifeiWu.action.FTPAction"
+			method="{1}">
+			<result name="success">/jsp/home/index.jsp</result>
+		</action>
 		<!-- 读卡器信息采集 -->
 		<action name="readRfid" class="com.haifeiWu.action.RFID_ReadAction"
 			method="readRFID">
 			<result name="stopRecord">/jsp/RfidRead/StopRecord.jsp</result>
 			<result name="operateSucess">/jsp/RfidRead/OperateSuccess.jsp</result>
 		</action>
-
+		
+		
+		
 		<!-- 嫌疑人综合信息管理 -->
 		<action name="suspectManage_*" class="com.haifeiWu.action.SuspectManageAction"
 			method="{1}">
