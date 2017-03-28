@@ -115,6 +115,8 @@ public class Activity_Record_Action extends ActionSupport implements
 			System.out.println("--------------------------"
 					+ activity.toString() + "---------------");
 			
+	
+			
 			// 提示成功
 			response.getWriter().write("<script>alert('后台提交成功');</script>");
 			response.getWriter().flush();
