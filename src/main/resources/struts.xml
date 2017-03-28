@@ -139,6 +139,7 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="leaveRecordLoadInfor" type="chain">LR_loadInfor</result>
+			<result name="temporaryLeaveload" type="chain">LR_loadInfor</result>
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
 			<result name="addTemporaryLeaveInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>

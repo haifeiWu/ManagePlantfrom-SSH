@@ -166,6 +166,14 @@
 				$(this).addClass("colorRed");
 			}
 		});
+		
+		
+		$(".checkRadio").each(function(){
+			if($(this).val()=="${PHCSMP_Leave_Record.belongingS_Treatment_Method}"){
+				$(this).prop("checked",true);;
+			}
+		});
+		
 	});
 </script>
 <style type="text/css">
@@ -379,8 +387,9 @@
 									<input type="hidden" id="dtp_input1" value="" /><br />
 								</div>
 							</td> --%>
-							<td id="select"><select name="tempLeave_Reason">
+							<td id="select"><select name="tempLeave_Reason" >
 									<option value="${temporaryLeave.tempLeave_Reason }">${temporaryLeave.tempLeave_Reason }</option>
+									<option value="">---请选择---</option>
 									<option value="扣押">扣押</option>
 									<option value="暂存">暂存</option>
 									<option value="代保管">代保管</option>
@@ -425,13 +434,16 @@
 								</div>
 							</td> -->
 							<td id="select"><select name="tempLeave_Reason">
+								<c:if test="${!empty tempLeave_Reason }">
+									<option>${tempLeave_Reason }</option>
+								</c:if>
 								<option value="">---请选择---</option>
 								<c:forEach items="${leaveReason }" var="v" varStatus="status">
 									<option value="${v.leaving_Name }">${v.leaving_Name }</option>
 								</c:forEach>
 							</select></td>
 							<td style="padding:6px 0 6px 0"><input type="text"
-								name="staff_ID" value=""
+								name="staff_ID" value="${staff_ID }"
 								style="border-radius:6px;border:1px solid #ccc;" /></td>
 							<!-- <td style="width: 35%;">
 								<div class="form-group" style="height: 30px;">
@@ -463,7 +475,7 @@
 			</div>
 			<div class="row" style="margin-top:30px;width:1000px;">
 				<div style="float:left;width:400px;margin-left: 150px"><p id="signature">
-					管理员:<input type="text" name="" />
+					管理员:<input type="text" name="manager_name" value="${manager_name }"/>
 					
 					</p>
 				</div>
@@ -502,43 +514,47 @@
 						</td>
 
 					</tr> -->
+					<c:if test=""></c:if>
 					<tr>
 						<td>离开原因</td>
 						<td><select name="leave_Reason">
-								<option value="">---请选择---</option>
-								<c:forEach items="${leaveReason }" var="v" varStatus="status">
-									<option value="${v.leaving_Name }">${v.leaving_Name }</option>
-								</c:forEach>
-								<!-- <option value="查证结束">查证结束</option>
-								<option value="刑拘">刑拘</option>
-								<option value="行政拘留">行政拘留</option>
-								<option value="警告">警告</option> -->
+							<c:if test="${! empty PHCSMP_Leave_Record.leave_Reason}">
+								<option value="">${PHCSMP_Leave_Record.leave_Reason }</option>
+							</c:if>
+							<option value="">---请选择---</option>
+							<c:forEach items="${leaveReason }" var="v" varStatus="status">
+								<option value="${v.leaving_Name }">${v.leaving_Name }</option>
+							</c:forEach>
+							<!-- <option value="查证结束">查证结束</option>
+							<option value="刑拘">刑拘</option>
+							<option value="行政拘留">行政拘留</option>
+							<option value="警告">警告</option> -->
 						</select></td>
 					</tr>
 					<tr>
 						<td class="td">随身物品处理情况:</td>
-						<td>
+						<td>	
 							<c:forEach items="${keepingWay }" var="v" varStatus="status">
-								<input type="radio" name="belongingS_Treatment_Method" value="${v.keeping_Name }">${v.keeping_Name }
+								<input type="radio" name="belongingS_Treatment_Method" value="${v.keeping_Name }" class="checkRadio">${v.keeping_Name }
 							</c:forEach>
 						</td>
 					</tr>
 					<tr>
 						<td style="color:#000 !important;">未反还物品情况记载:</td>
 						<td style="padding: 8px 0;"><input name="belongingS_Treatment_Record"
-								style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;"/></td>
+								style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" value="${PHCSMP_Leave_Record.belongingS_Treatment_Record }"/></td>
 					</tr>
 					<tr>
 						<td>领取人签名:</td>
 						<td style="padding:8px 0 8px 0"><input
 							style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
-							name="recipient_Person" value="" /></td>
+							name="recipient_Person" value="${PHCSMP_Leave_Record.recipient_Person }" /></td>
 					</tr>
 					<tr>
 						<td>身份证号码:</td>
 						<td style="padding:8px 0 8px 0"><input
 							style="margin-left:60px;border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
-							name="recipient_Person_Number" value="" class="identity"/>
+							name="recipient_Person_Number" value="${recipient_Person_Number }" class="identity"/>
 							<input type="button" value="读卡" class="subs" />
 						</td>
 					</tr>
@@ -565,8 +581,8 @@
 			<div class="row" style="margin-top:30px;width:1000px;">
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
-					管理员:<input type="text" name="staff_ID" />
-					</p>
+					管理员:<input type="text" name="staff_ID" value="${PHCSMP_Leave_Record.staff_ID }"/>
+				</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
 					<input type="submit" value="确认提交" class="sub" />
