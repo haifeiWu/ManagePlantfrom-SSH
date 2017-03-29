@@ -67,7 +67,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			e.printStackTrace();
 			response.getWriter().write("<script> alert('信息加载失败！'); </script>");
 			response.getWriter().flush();
-
+			
 		}
 		return "loadInfor";
 	}

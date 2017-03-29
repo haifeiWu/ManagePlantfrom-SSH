@@ -311,51 +311,63 @@
 					<td style="text-align: left;">&nbsp&nbsp入区人员登记信息</td>
 						<td >
 							 <c:if test="${!empty SuspectInfor}">${SuspectInfor.enter_Time}</c:if>
-							   <c:if test="${empty SuspectInfor}">-</c:if>
+							   <c:if test="${empty SuspectInfor}">&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
-							&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 						</td>
 						<td >
 							 <c:if test="${!empty SuspectInfor}">${complete_degree}%</c:if>
+							 <c:if test="${empty SuspectInfor}">${complete_degree}</c:if>
 						</td>
 						<td style="text-align: left;">
 							  <c:if test="${!empty SuspectInfor}">
 							 	&nbsp&nbsp进入办案区原因:&nbsp&nbsp&nbsp&nbsp&nbsp${SuspectInfor.suspected_Cause}</c:if>
+							 <c:if test="${empty SuspectInfor}">
+							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp
+							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 				</tr>
 				<tr>
 					<td style="text-align: left;">&nbsp&nbsp人身安全检查</td>
 						<td >
 							<c:if test="${!empty personal_Check}">${personal_Check.check_StartTime}</c:if>
-							  <c:if test="${empty personal_Check}">-</c:if>
+							  <c:if test="${empty personal_Check}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
 							<c:if test="${!empty personal_Check}">${personal_Check.check_EndTime}</c:if>
-							  <c:if test="${empty personal_Check}">-</c:if>
+							  <c:if test="${empty personal_Check}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
 							 <c:if test="${!empty personal_Check}">${complete_degree1 }%</c:if>
+							 <c:if test="${empty personal_Check}">${complete_degree1 }%</c:if>
 						</td>
 						<td style="text-align: left;">
 							<c:if test="${!empty personal_Check}">
-							 	&nbsp&nbsp人身检查状态:&nbsp&nbsp&nbsp&nbsp&nbsp${complete_degree1}</c:if>
+							 	&nbsp&nbsp人身检查状态:&nbsp&nbsp&nbsp&nbsp&nbsp${personal_Check.check_Situation}</c:if>
+						  <c:if test="${empty personal_Check}">&nbsp&nbsp未填写人身安全检查</c:if>
 						</td>
 				</tr>
 				<tr>
 					<td style="text-align: left;">&nbsp&nbsp信息采集</td>
 						<td >
 							<c:if test="${!empty information_Collection}">${information_Collection.ic_StartTime}</c:if>
+							<c:if test="${empty information_Collection}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
 							<c:if test="${!empty information_Collection}">${information_Collection.ic_EndTime}</c:if>
+							<c:if test="${empty information_Collection}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
 							 <c:if test="${!empty information_Collection}">${complete_degree2}%</c:if>
+							 <c:if test="${empty information_Collection}">${complete_degree2}%</c:if>
 						</td>
 						<td style="text-align: left;">
 							  <c:if test="${!empty information_Collection}">
 							 	  &nbsp&nbsp采集项目:&nbsp&nbsp&nbsp&nbsp&nbsp${information_Collection.collected_Item}</c:if>
+							  <c:if test="${empty information_Collection}">&nbsp&nbsp未填写信息采集</c:if>
 						</td>
 				</tr>
 				</table>
