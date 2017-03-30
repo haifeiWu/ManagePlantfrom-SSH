@@ -54,39 +54,11 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 						.findAllIdentifyCardType();
 				List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
 						.findAllSuspectCause();
-
-				// 封装成一个方法，并考虑数据库中没有嫌疑人的情况，第一个suspectID如何生成
-
-				String maxSuspectID = suspectService.getMaxID();
-				// System.out.println("=====最大的id======"+maxSuspectID);
-				String oldDate = maxSuspectID.substring(6, 14);
-				String newSuspectID = maxSuspectID.substring(14, 17);
-				// System.out.println("=====上一次保存成功的时间======="+oldDate);
-
-				// System.out.println("=====NEWid======"+newSuspectID);
-				String newDate = entry_Time.substring(0, 10)
-						.replaceAll("-", "");
-				// System.out.println("=====新的日期======"+newDate);
-				String suspectID;
-				if (newDate.equals(oldDate)) {
-					String num = String
-							.valueOf(Integer.parseInt(newSuspectID) + 1);
-					if (num.length() < 3) {
-						for (int i = 0; i < 4 - num.length(); i++) {
-							num = "0" + num;
-						}
-					}
-					suspectID = maxSuspectID.substring(0, 6) + newDate + num;
-				} else {
-					suspectID = maxSuspectID.substring(0, 6) + newDate + "001";
-				}
-				request.setAttribute("Suspect_ID", suspectID);
+				request.setAttribute("Suspect_ID", setSuspectId(entry_Time));
 				// request.setAttribute("nEntryTime", nEntryTime);
 				request.setAttribute("bundList", list);
 				request.setAttribute("identifyCardType", identifyCardType);
 				request.setAttribute("entry_Time", entry_Time);
-				// request.getParameter(entry_Time);
-				// model.setEnter_Time(entry_Time);
 				System.out.println("=======入区时间========" + entry_Time);
 				request.setAttribute("actionCause", actionCause);
 			}
@@ -107,10 +79,6 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	 * @throws IOException
 	 */
 	public String addSuspectInfor() throws IOException {
-
-		// String suspect_ID = request.getParameter("Suspect_ID");
-		// System.out.println("+++++++++++++++" + suspect_ID);
-
 		try {
 			fullCheck();
 			// 手环必须填写
@@ -120,15 +88,17 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			// response.getWriter().flush();
 			// return "loadInfor";
 			// }
-
+			
 			// 更新手环的is_Used状态
-			bandService.update(1, model.getBand_ID());
+			bandService.update(1, model.getBand_ID());//使用时是1，未使用时为0
 			// 回路饱和性验证
 			if (lineService.isFull()) {// 可以录像
-
 				model.setRecordVideo_State(1);
 				lineService.startLine();
+				System.out.println("判断是否为满");
 			}
+			//String maxSuspectID = suspectService.getMaxID().substring(1,23);//此目的为了让程序报错
+			
 			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(model
 					.getSuspect_ID());
 			if (suspect == null) {
@@ -140,16 +110,23 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			}
 			return "success";
 		} catch (Exception e) {
-			response.getWriter().write(
-					"<script> alert('提交失败，请重新提交'); </script>");
 			bandService.update(0, model.getBand_ID());// 提交失败置0
-			response.getWriter().flush();
-			// addSuspectInfor();
+			lineService.closeLine();//释放一个回路
+			//response.getWriter().write(
+			//			"<script> alert('提交失败，请重新提交'); </script>");
+			//response.getWriter().flush();
 			// 应该请求loadInfor的action，使用action链
 			// 做异常处理，信息填写失败，加载页面时信息要在页面上显示
 			// 考虑回路饱和性验证的成功或失败
-			return "null";
+			request.setAttribute("msg", "提交失败，请重新提交");//异常处理，在页面上提示错误信息
+			//提交失败获取页面填入的信息
+			//request.getAttribute("identifyCard_Number");
+			//request.getAttribute("now_address");
+			//request.getAttribute("phone");
+			//request.getAttribute("staff_ID");
+			return "addSuspectInfor";
 		}
+		
 	}
 
 	/**
@@ -199,5 +176,34 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-
+	/**
+	 * @author zhangxf
+	 * 档案编号的生成
+	 * @param entryTime 入区时间
+	 * @return 档案编号
+	 */
+	public String setSuspectId(String entryTime){
+		String maxSuspectID = suspectService.getMaxID();
+		if(maxSuspectID==null||maxSuspectID.equals("")){
+			maxSuspectID="LB-HB-20170321001";
+		}
+		String oldDate = maxSuspectID.substring(6, 14);
+		String newSuspectID = maxSuspectID.substring(14, 17);
+		String newDate = entryTime.substring(0, 10)
+				.replaceAll("-", "");
+		String suspectID;
+		if (newDate.equals(oldDate)) {
+			String num = String
+					.valueOf(Integer.parseInt(newSuspectID) + 1);
+			if (num.length() < 3) {
+				for (int i = 0; i < 4 - num.length(); i++) {
+					num = "0" + num;
+				}
+			}
+			suspectID = maxSuspectID.substring(0, 6) + newDate + num;
+		} else {
+			suspectID = maxSuspectID.substring(0, 6) + newDate + "001";
+		}
+		return suspectID;
+	}
 }

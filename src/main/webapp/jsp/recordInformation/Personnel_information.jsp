@@ -54,6 +54,7 @@
 	$(function() {
 		$("#btnSave").click(function() {
 			var x = document.getElementById("band_ID").value;
+			//var y =	document.getElementById("failSubmit").value;
 			alert(x);
 			if (x == 0) {
 				// if ($(".clsShow").html().toString() != "")//存在提示信息，则不允许提交表单
@@ -61,8 +62,10 @@
 				return false;
 			} else
 				return true;
+			
 		});
 	});
+	
 
 	function ClearForm() {
 		document.all['suspect_Name'].value = "";
@@ -167,6 +170,15 @@
 		<c:if test="${!empty message }">
 			<input class="message" type="hidden" value=${message }>
 		</c:if>
+		
+		<c:if test="${!empty msg }">
+				<div class="alert alert-danger" role="alert">
+				  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+				  <span class="sr-only">Error:</span>
+				 ${msg }
+				</div>
+		</c:if>
+			
 		<div class="row">
 			<!--嫌疑人入区信息-->
 			<h4 style="margin-top: 13px;">
@@ -297,16 +309,16 @@
 						</tr>
 						<tr>
 							<td style="text-align:center;">证件号码:</td>
-							<td><input type="text" name="identifyCard_Number" value="" />
+							<td><input type="text" name="identifyCard_Number" value="${param.identifyCard_Number}" />
 							</td>
 						</tr>
 						<tr>
 							<td style="text-align:center;">现住址：</td>
-							<td><input type="text" name="now_address" value="" /></td>
+							<td><input type="text" name="now_address" value="${param.now_address}" /></td>
 						</tr>
 						<tr>
 							<td style="text-align:center;">联系方式：</td>
-							<td><input type="text" name="phone" /></td>
+							<td><input type="text" name="phone" value="${param.phone}"/></td>
 						</tr>
 					</table>
 				</div>
@@ -373,8 +385,9 @@
 						style="width: 450px;">
 						<tr>
 							<td style="width: 12%;">办案民警：</td>
-							<td style="width: 24%;text-align: center;"><input
-								type="text" name="staff_ID" style="width:250px;" /></td>
+							<td style="width: 24%;text-align: center;">
+							<input
+								type="text" name="staff_ID" style="width:250px;" value="${param.staff_ID }"/></td>
 						</tr>
 					</table>
 					<input id="btnSave" class="btn" type="submit" value="确认提交"
