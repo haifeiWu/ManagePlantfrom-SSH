@@ -126,8 +126,9 @@
 					<img src="images/jinghui.png">&nbsp;&nbsp;&nbsp;&nbsp;离石区公安局嫌疑人入区报告
 				</h1>
 				<ul class="report col-lg-12 col-md-12 col-sm-10">
-					<li class="l1">档案编号：<input type="text" value="${suspect.suspect_ID }"  readonly="readonly"/></li>
+					<li class="l1">档案编号：<input type="text" value="${suspect.suspect_ID }"  readonly="readonly" name="suspectId"/></li>
 					<li class="l2">报告时间：<input type="date" value="${reportCreateTime }" readonly="readonly"/></li>
+					<li class="l3">羁押时间：<input type="text" value="${detainTime }" readonly="readonly"></li>
 				</ul>
 			</form>
 			
@@ -249,23 +250,29 @@
 				<div id="All_second">
 					<div class="row_1">
 						<p class="self_state col-lg-12 col-md-10 col-sm-10" style="font-size: 17px;">2.1&nbsp;自述情况</p>
-						<ul class="checkbox col-lg-12 col-md-10 col-sm-10">
-							<li>是否饮酒：</li>
-							<li style="margin-left: 3px;"> ${personal_Check.is_Drink }</li>
-							<li>是否患有传染性疾病：</li>
-							<li style="margin-left: 3px;">${personal_Check.is_Diseases }</li>
-						</ul>
+						<table class="checked_state col-lg-12 col-md-10 col-sm-10" style="margin-top: 6px;margin-left: 56px;">
+							<tr>
+							<td style="padding-left: 40px; width: 88px;font-size: 16px;">是否饮酒：</td>
+							<td style="font-size: 16px;"> ${personal_Check.is_Drink }</td>
+							
+						</tr>
+						<tr>
+						<td style="padding-left: 40px; width: 203px;font-size: 16px;">是否患有传染性疾病：</li>
+							<td style="font-size: 16px;">${personal_Check.is_Diseases }</td>
+						</tr>
+						</table>
 						<fieldset class="col-lg-12 col-md-12 col-sm-12" style="margin-left: 79px;">
 							<font size="3">自述症状：${personal_Check.self_ReportS }</font>
 							
 						</fieldset>
 					</div>
 					<!--体检信息表-->
-					<div class="row_2">
+				    
+					<div class="row_2" style="width: 100%;">
 						<p class="check col-lg-12 col-md-10 col-sm-10" style="font-size: 17px;">2.2&nbsp;检查情况</p>
 						<!--体检信息表-->
-						<div><table class="checked_state col-lg-12 col-md-10 col-sm-10">
-							<tr >
+						<table class="checked_state col-lg-12 col-md-10 col-sm-10">
+							<tr>
 							<c:if test="${!empty personal_Check.check_Situation }">
 								<td style="padding-left: 88px; width: 120px;font-size: 16px;">人身检查状态：</td>
 								<td style="font-size: 16px;" >${personal_Check.check_Situation }</td>
@@ -281,15 +288,24 @@
 									<input type="text" style="font-size: 16px;" value="${suspect.suspect_Name }" readonly="readonly"/></td>
 								<!--<td></td>-->
 							</tr>
-						</table></div>
-					</div>
-					<img src="images/check_08.png"
-									style="width: 24%;position:relative;left: 551px;top:-195px;" />
+						</table>
+						<img src="images/check_08.png"
+									style="width:24%;position:relative;left: 551px;top:-195px;" />
+					</div><br>
+					
+				
 								
 					
 					<!--随身财物检查登记-->
+					
 					<div class="row_1" style="margin-top: -245px;">
-						<p class="check_woods col-lg-12 col-md-10 col-sm-10" style="font-size: 17px;">2.3&nbsp;随身财物检查登记</p>
+					     <p class="check_woods col-lg-12 col-md-10 col-sm-10" style="font-size: 17px;">2.3&nbsp;随身财物检查登记</p>
+							<div >
+						 <c:if test="${empty belongingS }">
+						
+						  <p style="position: relative;margin-top:59px;left: 89px;top:-4px;width: 58%;color: #f00; text-align: left;padding-right: 367px;">该嫌疑人无随身财物检查登记记录</p>  
+						      <!-- <div style="margin-left: 12px;margin-top: 45px;">该嫌疑人无随身财物检查登记记录</div> -->
+						</c:if>
 						<table class="woods_check col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td>序号</td>
@@ -314,6 +330,9 @@
 							</tr>
 				</c:forEach>
 						</table>
+						
+						</div>
+						<div>
 				 <ul class="signature col-lg-12 col-md-10 col-sm-10">
 							<li>办案人员：<br /> <input type="text"
 								value="${belongingS[0].staff_ID }" /></li>
@@ -322,7 +341,9 @@
 							<li>涉案人员:<br /> <input type="text"
 								value="${suspect.suspect_Name }" /></li>
 						</ul>
+						</div>
 					</div>
+					
 				</div>
 			</form>
 			<!--信息采集报告-->
@@ -332,6 +353,7 @@
 					3、信息采集报告<span class="show2">显示信息</span>
 				</h4>
 				<div id="All_third">
+				
 					<table class="info_collect col-lg-12 col-md-10 col-sm-10" style="margin-left: 80px;">
 						<tr>
 							<td style="width: 35px;">信息采集：</td>
@@ -343,35 +365,7 @@
 							<td  style="width: 35px;">检查对比：</td>
 							<td style="width: 55px;">${information_Collection.is_Checked }</td>
 						</tr>
-						<%-- <tr>
-							<td>采集项目：</td>
-							<td>${information_Collection.collected_Item }</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td> --%>
-							<!-- <td> &nbsp;&nbsp;<input type="checkbox" />身份信息</td>
-							<td> &nbsp;&nbsp;<input type="checkbox" />指纹</td>
-							<td> &nbsp;&nbsp;<input type="checkbox" />血液</td>
-							<td> &nbsp;&nbsp;<input type="checkbox" />尿液</td>
-							<td> &nbsp;&nbsp;<input type="checkbox" />其他<input type="text" /></td> -->
-						<!-- </tr> -->
-						<%-- <tr>
-							<td>信息入库：</td>
-							<td style="width: 56px;">${information_Collection.is_Storaged }</td>
-							<td></td>
-							<td></td>
-						    <td>检查对比：</td>
-							<td>${information_Collection.is_Checked }</td>
-						</tr> --%>
-						<%-- <tr>
-							<td>检查对比：</td>
-							<td>${information_Collection.is_Checked }</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr> --%>
+					
 					</table>
 				</div>
 			</form>
@@ -382,6 +376,10 @@
 					4、办案区活动记录<span class="show3">显示信息</span>
 				</h4>
 				<div id="All_forth">
+				<c:if test="${empty activity_Record }">
+						
+						   <div style="position: relative;left: 89px;top:23px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
+						</c:if>
 					<table class="active_check col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>序号</td>
@@ -417,6 +415,10 @@
 					<div class="row_1">
 						<p
 							style="color: #389AC7;margin-top: 6%;margin-left:6%;font-size: 17px;">临时离开办案区</p>
+							<c:if test="${empty temporaryLeaves }">
+						
+						   <div style="position: relative;left: 90px;top:0px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
+						</c:if>
 						<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td>序号</td>
@@ -444,7 +446,12 @@
 					<div class="row_1" style="margin-top: 20px;">
 						<p
 							style="color: #389AC7;margin-top: -1%;margin-left:6%;font-size: 17px;">最终离开办案区:</p>
-						<div><table class="final_Leave col-lg-12 col-md-10 col-sm-10">
+							<c:if test="${empty leave_Record }">
+						
+						   <div style="position: relative;left: 90px;top:0px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
+						</c:if>
+						<div>
+						<table class="final_Leave col-lg-12 col-md-10 col-sm-10">
 						<tr>
 						
 						 		<td style="text-align: center;">最终离开时间</td>
@@ -466,36 +473,7 @@
 									${leave_Record.recipient_Person_Number }</td>
 									<td>${leave_Record.treatment_Time }</td>
 						</tr>
-							<%-- <tr>
-								<td style="text-align: center;">最终离开时间</td>
-								<td>${leave_Record.leave_Time }</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">离开原因</td>
-								<td>${leave_Record.leave_Reason}</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">随身物品处理情况：</td>
-								<td>${leave_Record.belongingS_Treatment_Method} 
-								</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">未反还物品情况记载：</td>
-								<td>${leave_Record.belongingS_Treatment_Record}</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">领取人：</td>
-								<td>${leave_Record.recipient_Person}"</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">身份证号码：</td>
-								<td>
-									${leave_Record.recipient_Person_Number }</td>
-							</tr>
-							<tr>
-								<td style="text-align: center;">领取时间：</td>
-								<td>${leave_Record.treatment_Time }</td>
-							</tr> --%>
+							
 						</table>
 						</div>
 					</div>
@@ -504,7 +482,7 @@
 					<p id="signature">
 						管理员签名：&nbsp;&nbsp;&nbsp;<input type="text" value="admin" />
 					</p>
-					<input id="download" type="button" value="下载" /> <input id="print"
+					<input id="download" type="button" value="下载" onclick="javascript:window.location.href='${pageContext.request.contextPath }/GR_downPdf.action?suspectId=${suspect.suspect_ID }'"/> <input id="print"
 						type="button" value="打印" />
 					<div style="height: 100px;"></div>
 				</div>

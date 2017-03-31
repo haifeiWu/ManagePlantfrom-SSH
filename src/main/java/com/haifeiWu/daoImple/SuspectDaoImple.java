@@ -56,7 +56,7 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
 
-		hql = "from PHCSMP_Suspect where suspect_ID=? and process_Now!=-1";
+		hql = "from PHCSMP_Suspect where suspect_ID=? ";
 		Query query = session.createQuery(hql);
 		query.setParameter(0, suspectID);
 		PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();

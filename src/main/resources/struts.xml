@@ -156,6 +156,7 @@
 			method="{1}">
 			<result name="loadInfor">/jsp/recordInformation/allInformation.jsp</result>
 			<result name="downFile">/jsp/recordInformation/allInformation.jsp</result>
+			<result name="downPDF" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
 		</action>
 		
 		<!-- 录波器请求接口 -->
