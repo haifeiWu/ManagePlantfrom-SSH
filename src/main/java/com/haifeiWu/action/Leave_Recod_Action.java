@@ -244,7 +244,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	/* 加载界面信息 */
 	public String loadInfor() {
 		try {
-			PHCSMP_Leave_Record lr=(PHCSMP_Leave_Record) request.getAttribute("leaveRecordLoadInfor");
+			/*PHCSMP_Leave_Record lr=(PHCSMP_Leave_Record) request.getAttribute("leaveRecordLoadInfor");
 			request.setAttribute("PHCSMP_Leave_Record", lr);
 			
 			String tempLeave_Reason=(String) request.getAttribute("tempLeave_Reason");
@@ -253,7 +253,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			
 			request.setAttribute("tempLeave_Reason", tempLeave_Reason);
 			request.setAttribute("staff_ID", staff_ID);
-			request.setAttribute("manager_name", manager_name);
+			request.setAttribute("manager_name", manager_name);*/
 			
 			// 加载嫌疑人信息
 			String roomIP = request.getRemoteAddr();
@@ -275,31 +275,42 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			
 			//查人身检查信息
 			personalCheck=personalCheckService.findInforBySuspetcId(suspect_id);
-			personalCheckComplete=CompleteCheck.completeCheck(personalCheck, personalCheck.getClass(),3);
-			System.out.println(personalCheckComplete+"=============================");
-			if(personalCheckComplete!=100){//信息不完整
+			if(personalCheck!=null){
+				personalCheckComplete=CompleteCheck.completeCheck(personalCheck, personalCheck.getClass(),3);
+				System.out.println(personalCheckComplete+"");
+				if(personalCheckComplete!=100){//信息不完整
+					sb.append("人身检查信息填写不完整!  ");
+					System.out.println(sb+"2");
+				}
+			}else{
 				sb.append("人身检查信息填写不完整!  ");
-				System.out.println(sb+"2");
 			}
 			
 			//查信息采集信息
 			informationCollection=informationCollectionService.findInforBySuspetcId(suspect_id);
-			informationCollectionComplete=CompleteCheck.completeCheck(informationCollection, informationCollection.getClass(),3);
-			System.out.println(informationCollectionComplete+"=============================");
-			if(informationCollectionComplete!=100){//信息不完整
+			if(informationCollection!=null){
+				informationCollectionComplete=CompleteCheck.completeCheck(informationCollection, informationCollection.getClass(),3);
+				System.out.println(informationCollectionComplete+"=============================");
+				if(informationCollectionComplete!=100){//信息不完整
+					sb.append("信息采集信息填写不完整!  ");
+					System.out.println(sb+"3");
+				}
+			}else{
 				sb.append("信息采集信息填写不完整!  ");
-				System.out.println(sb+"3");
 			}
 			
 			//查询问讯问信息
 			activityRecord=activityRecordService.findInforBySuspetcId(suspect_id);
-			activityRecordComplete=CompleteCheck.completeCheck(activityRecord, activityRecord.getClass(),3);
-			System.out.println(activityRecordComplete+"=============================");
-			if(activityRecordComplete!=100){//信息不完整
+			if(activityRecord!=null){
+				activityRecordComplete=CompleteCheck.completeCheck(activityRecord, activityRecord.getClass(),3);
+				System.out.println(activityRecordComplete+"=============================");
+				if(activityRecordComplete!=100){//信息不完整
+					sb.append("询问讯问信息填写不完整!  ");
+					System.out.println(sb+"4");
+				}
+			}else{
 				sb.append("询问讯问信息填写不完整!  ");
-				System.out.println(sb+"4");
-			}
-					
+			}		
 			// 维护进出门的标志位
 			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
 			
