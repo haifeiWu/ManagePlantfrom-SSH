@@ -78,21 +78,22 @@ public class CompleteCheck {
 	 * @param c
 	 */
 
-	/*public static int completeCheck(Object obj,Class<?> c,int n){
-		int IsEqualsNull=IsEqualsNull( obj, c)-n;
-		int getFieldsNumber=getFieldsNumber( obj, c)-n;
-		int completePercent=(int)((float)(getFieldsNumber-IsEqualsNull)/getFieldsNumber*100);
-		return completePercent;
-	}*/
-	
-	public static int completeCheck(Object obj,Class<?> c,int n){
-		int totalField=getFieldsNumber(obj, c)-n;
-		int fillField=getFieldsNumber( obj, c)-IsEqualsNull(obj, c)-n;
-		System.out.println(fillField+"字段++++++++++++++"+totalField+"字段++++++++++++++");
-		int completePercent=(int)((float)fillField/totalField*100);
+	/*
+	 * public static int completeCheck(Object obj,Class<?> c,int n){ int
+	 * IsEqualsNull=IsEqualsNull( obj, c)-n; int
+	 * getFieldsNumber=getFieldsNumber( obj, c)-n; int
+	 * completePercent=(int)((float
+	 * )(getFieldsNumber-IsEqualsNull)/getFieldsNumber*100); return
+	 * completePercent; }
+	 */
+
+	public static int completeCheck(Object obj, Class<?> c, int n) {
+		int totalField = getFieldsNumber(obj, c) - n;// 应该填写的总数
+		int fillField = getFieldsNumber(obj, c) - IsEqualsNull(obj, c) - n;// 填写的总数
+		// System.out.println(fillField+"字段++++++++++++++"+totalField+"字段++++++++++++++");
+		int completePercent = (int) ((float) fillField / totalField * 100);
 		return completePercent;
 	}
-
 
 	// public static <T> int completeCheck(T obj, Class<?> c) {
 	// //空的字段的个数

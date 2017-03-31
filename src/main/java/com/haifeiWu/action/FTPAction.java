@@ -43,7 +43,11 @@ public class FTPAction extends ActionSupport implements ServletRequestAware,
 		int cardReader_ID = Integer.parseInt(request
 				.getParameter("cardReader_ID"));
 		String identificationCard = request.getParameter("identificationCard");
+		Video.setRBServerCfg();
+		System.out.println("远程服务器已配置");
 		Video.setFtpServerCfg(cardReader_ID, identificationCard);
+		System.out.println("ftp服务器已配置,已发上传指令");
+
 		return "success";
 	}
 

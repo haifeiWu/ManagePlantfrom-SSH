@@ -2,9 +2,7 @@ package com.haifeiWu.action;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -61,11 +59,7 @@ public class Activity_Record_Action extends ActionSupport implements
 	@Autowired
 	private InformationCollectionService informationCollectionService;
 	// 活动记录表list，用于前台提交的多个数据
-	private PHCSMP_Activity_Record activity=new PHCSMP_Activity_Record();
-
-	// private String suspect_ID;
-	
-
+	private PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
 
 	/**
 	 * 添加活动记录信息
@@ -77,57 +71,43 @@ public class Activity_Record_Action extends ActionSupport implements
 
 	public String addActivityRecordInfor() throws IOException {
 		try {
-			// 维护进出门的标志位
+			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
 			String suspectId = suspectService.findByRoomID(roomId)
 					.getSuspect_ID();
-			//List<PHCSMP_Activity_Record> validActivitys = new ArrayList<PHCSMP_Activity_Record>();
-			
-			//获取前台数据
-			String start_Time=request.getParameter("start_Time");
-			String activity_Record=request.getParameter("activity_Record");
-			String activity_remark=request.getParameter("remark");
+
+			// 获取前台数据
+			String start_Time = request.getParameter("start_Time");
+			String activity_Record = request.getParameter("activity_Record");
+			String activity_remark = request.getParameter("remark");
 			activity.setStart_Time(start_Time);
 			activity.setRemark(activity_remark);
 			activity.setActivity_Record(activity_Record);
-			
-			//设置询问讯问结束的时间
-			Date date=new Date();
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			String End_Time=sdf.format(date);
-			
-			
-			//for (PHCSMP_Activity_Record activity : activitys) {// 遍历list
-				//if (!(activity.getStart_Time().equals("") || activity
-				//		.getStart_Time() == null)) {
-					activity.setSuspect_ID(suspectId);
-					activity.setRoom_ID(1);
-					activity.setEnd_Time(End_Time);
-					fullCheck(activity);
-					
-					
 
-//					validActivitys.add(activity);
-				//}
-		//	}
-					
+
+			// 设置询问讯问结束的时间
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String End_Time = sdf.format(date);
+			activity.setSuspect_ID(suspectId);
+			activity.setRoom_ID(1);
+			activity.setEnd_Time(End_Time);
+			fullCheck(activity);
+			// 保存
 			activityRecordService.saveActivityRecordInfor(activity);
-			System.out.println("--------------------------"
-					+ activity.toString() + "---------------");
-			
-	
-			
 			// 提示成功
 			response.getWriter().write("<script>alert('后台提交成功');</script>");
 			response.getWriter().flush();
 			return "success";
 		} catch (Exception e) {
-			response.getWriter().write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+			// 提示失败
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
-			
-			String activity_Record=request.getParameter("activity_Record");
-			String activity_remark=request.getParameter("remark");
+			// 将信息传递到loadInfor action,显示在页面上
+			String activity_Record = request.getParameter("activity_Record");
+			String activity_remark = request.getParameter("remark");
 			request.setAttribute("activity_Record", activity_Record);
 			request.setAttribute("activity_remark", activity_remark);
 			return "addActivityRecordInfor";
@@ -224,12 +204,11 @@ public class Activity_Record_Action extends ActionSupport implements
 	// }
 
 	// 返回修改活动记录信息
-	public String updateInfor() {
-		System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
-		System.out.println("updateInfor：修改活动记录信息！");
-		return "updateInfor";
-	}
-
+	// public String updateInfor() {
+	// System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
+	// System.out.println("updateInfor：修改活动记录信息！");
+	// return "updateInfor";
+	// }
 
 	@Override
 	public void setServletContext(ServletContext application) {
@@ -245,13 +224,5 @@ public class Activity_Record_Action extends ActionSupport implements
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
 	}
-
-	// public String getSuspect_ID() {
-	// return suspect_ID;
-	// }
-	//
-	// public void setSuspect_ID(String suspect_ID) {
-	// this.suspect_ID = suspect_ID;
-	// }
 
 }

@@ -30,7 +30,7 @@ public interface ActivityRecordService {
 //	 * @param suspectId
 //	 * @return
 //	 */
-//	PHCSMP_Activity_Record findInforBySuspetcId(String suspectId);
+	PHCSMP_Activity_Record findInforBySuspetcId(String suspectId);
 
 	/**
 	 * 根据档案号登记办案区活动记录
@@ -39,4 +39,6 @@ public interface ActivityRecordService {
 	 * @return
 	 */
 	List<PHCSMP_Activity_Record> selectActivityRecordInfor(String suspectId);
+	
+	public void updatevedio_Number(String vedio_Number,String identifyCard_Number);
 }

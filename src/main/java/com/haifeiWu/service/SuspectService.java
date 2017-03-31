@@ -73,4 +73,29 @@ public interface SuspectService {
 
 	public void updateSuspect(PHCSMP_Suspect suspectInfor);
 
+	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+			String identifyCard_Number);
+
+	/**
+	 * 查询最大的嫌疑人编号
+	 * 
+	 * @return
+	 */
+	public String getMaxID();
+
+	// public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+	// String identifyCard_Number);
+
+	public List<PHCSMP_Suspect> serachInforBySuspectId(String searchInfor);
+
+	public List<PHCSMP_Suspect> findBySuspectName(String searchInfor);
+
+	public List<PHCSMP_Suspect> findByCardId(String searchInfor);
+
+	public List<PHCSMP_Suspect> findByCardIdNow(String searchInfor);
+
+	public List<PHCSMP_Suspect> serachInforBySuspectIdNow(String searchInfor);
+
+	public List<PHCSMP_Suspect> finBySuspectNameNow(String searchInfor);
+
 }

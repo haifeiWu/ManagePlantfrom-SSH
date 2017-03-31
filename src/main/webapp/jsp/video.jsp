@@ -23,6 +23,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
+    <form action="http://192.168.1.161:8888/ManagePlantfrom-SSH/ftp_configFTP.action" method="post">
+    	cardReader_ID<input type="text" name="cardReader_ID" value="1"/>
+    	identificationCard<input type="text" name="identificationCard" value="12436565768"/>
+    	<input type="submit">
+    </form>
   </body>
 </html>
