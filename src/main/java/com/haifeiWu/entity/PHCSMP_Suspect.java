@@ -27,6 +27,7 @@ public class PHCSMP_Suspect implements Serializable {
 	private String identifyCard_Number;// 证件号码
 	private String suspected_Cause;// 进入办案区原因（案由字典表中ID用逗号分隔）
 	private String enter_Time;// 进入办案区时间
+	private String detain_Time;// 羁押时间
 
 	// private String quit_time;// 离开信息登记室时间
 	private String staff_ID;// 办案民警,此处的办案民警是哪个流程的民警，还是多个隔开
@@ -57,7 +58,6 @@ public class PHCSMP_Suspect implements Serializable {
 	// wxy增加刷卡时的指令为开始还是暂停
 	// private int startOrPauseVideo;// 0，发开始指令 1发暂停指令
 
-
 	public int getCardReader_Switch() {
 		return cardReader_Switch;
 	}
@@ -81,7 +81,6 @@ public class PHCSMP_Suspect implements Serializable {
 	public void setRoom_Now(int room_Now) {
 		this.room_Now = room_Now;
 	}
-
 
 	public String getFrontal_Photo() {
 		return frontal_Photo;
@@ -276,6 +275,14 @@ public class PHCSMP_Suspect implements Serializable {
 
 	public void setIdentityCard_Photo(String identityCard_Photo) {
 		this.identityCard_Photo = identityCard_Photo;
+	}
+
+	public String getDetain_Time() {
+		return detain_Time;
+	}
+
+	public void setDetain_Time(String detain_Time) {
+		this.detain_Time = detain_Time;
 	}
 
 }

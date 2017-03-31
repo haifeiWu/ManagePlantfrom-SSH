@@ -1,7 +1,8 @@
 package com.haifeiWu.action;
 
 import java.io.IOException;
-import java.lang.reflect.Method;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -51,7 +52,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 	@Autowired
 	private LeaveRecodService leaveRecodService;
-	//入区登记
+	// 入区登记
 	@Autowired
 	private SuspectService suspectService;
 	@Autowired
@@ -64,18 +65,17 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private BandService bandService;
 	@Autowired
 	private DicService dicService;
-	//注入前四个业务的service,查询嫌疑人前四个业务的信息以进行完整性检查
-	//人身检查
+	// 注入前四个业务的service,查询嫌疑人前四个业务的信息以进行完整性检查
+	// 人身检查
 	@Autowired
 	private PersonalCheckService personalCheckService;
-	//信息采集
+	// 信息采集
 	@Autowired
 	private InformationCollectionService informationCollectionService;
-	//询问讯问
+	// 询问讯问
 	@Autowired
 	private ActivityRecordService activityRecordService;
-	
-	
+
 	private Temporary_Leave temporaryLeave;
 	private PHCSMP_Suspect suspectInfor;
 	private String tempLeave_Time;
@@ -87,14 +87,15 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 	private PHCSMP_Suspect suspect;
 	private PHCSMP_Personal_Check personalCheck;
-	private PHCSMP_Information_Collection  informationCollection;
+	private PHCSMP_Information_Collection informationCollection;
 	private PHCSMP_Activity_Record activityRecord;
-	
+
 	private int suspectComplete;
 	private int personalCheckComplete;
 	private int informationCollectionComplete;
 	private int activityRecordComplete;
 	private StringBuilder sb;
+
 	/**
 	 * 点击画面中的“下一步”，提交信息并转发到suspectManage_suspectInforSummary.action
 	 * 
@@ -118,19 +119,24 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 			int count = CompleteCheck.IsEqualsNull(model, c);
 			int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-			
-			//设置最终离开时间和 领取时间
-			Date date=new Date();
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String leavetime=sdf.format(date);
+
+			// 设置最终离开时间和 领取时间
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String leavetime = sdf.format(date);
 			model.setLeave_Time(leavetime);
 			model.setTreatment_Time(leavetime);
-			
+
 			model.setSuspect_ID(suspectInfor.getSuspect_ID());
 			model.setFill_record(fieldsNumber - count - 4);// 设置已填写的字段数
 			model.setTotal_record(fieldsNumber - 4);// 设置应填写的字段
 			System.out.println("未填写的字段：" + count);
 			System.out.println("总字段：" + fieldsNumber);
+
+			// 设置羁押时间
+			String detain_Time = getDistanceTime(suspectInfor.getEnter_Time(),
+					leavetime);
+			suspectInfor.setDetain_Time(detain_Time);
 
 			// 保证不插入重复数据
 			System.out.println(suspectInfor.getSuspect_ID() + "------------->");
@@ -165,21 +171,51 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			return "success";
 
 		} catch (Exception e) {
-			response.getWriter().write(
-					"<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
+			response.getWriter()
+					.write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
 			response.getWriter().flush();
 			return "leaveRecordLoadInfor";
 		}
 
 	}
 
+	// 求两个时间的间隔
+	public static String getDistanceTime(String str1, String str2) {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date one;
+		Date two;
+		long day = 0;
+		long hour = 0;
+		long min = 0;
+		long sec = 0;
+		try {
+			one = df.parse(str1);
+			two = df.parse(str2);
+			long time1 = one.getTime();
+			long time2 = two.getTime();
+			long diff;
+			if (time1 < time2) {
+				diff = time2 - time1;
+			} else {
+				diff = time1 - time2;
+			}
+			day = diff / (24 * 60 * 60 * 1000);
+			hour = (diff / (60 * 60 * 1000) - day * 24);
+			min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
+			sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return day + "天" + hour + "小时" + min + "分" + sec + "秒";
+	}
+
 	// 保存临时出区的信息
 	public String addTemporaryLeaveInfor() throws IOException {
-		try {			
+		try {
 			String roomIP = request.getRemoteAddr();
 			PHCSMP_Room room = roomService.findbyIp(roomIP);
 			suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
-			
+
 			// 维护进出门的标志位
 			// suspectService.updateSwitch(0, suspectInfor.getSuspect_ID());
 
@@ -197,40 +233,40 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// 如果是出区保存信息,是出区返回则更新信息
 			if (temporaryLeave != null) {
 				// temporaryLeaveService.updateTemporaryLeaveInfo(temporary_Leave);
-				//获取临时离开返回时间
-				Date date=new Date();
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String temporaryReturnTime=sdf.format(date);
-				
-				temporaryLeaveService.updateReturnTime(
-						temporaryReturnTime,
+				// 获取临时离开返回时间
+				Date date = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				String temporaryReturnTime = sdf.format(date);
+
+				temporaryLeaveService.updateReturnTime(temporaryReturnTime,
 						temporary_Leave.getSuspect_ID());
-				
-				//增加一个出区返回时的管理员
-				
-				
+
+				// 增加一个出区返回时的管理员
+
 				System.out
 						.println("嫌疑人出区返回" + temporary_Leave.getReturn_Time());
 			} else {
-				//设置临时离开时间
-				Date date=new Date();
-				SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				String temporaryLeaveTime=sdf.format(date);
+				// 设置临时离开时间
+				Date date = new Date();
+				SimpleDateFormat sdf = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				String temporaryLeaveTime = sdf.format(date);
 				temporary_Leave.setTempLeave_Time(temporaryLeaveTime);
-				
+
 				temporaryLeaveService.saveTemporaryLeaveInfo(temporary_Leave);
 				System.out.println("嫌疑人出区");
 			}
 			return "success";
 		} catch (Exception e) {
-			response.getWriter().write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
 			return "loadInfor";
 		}
 
 	}
 
-	
 	/* 加载界面信息 */
 	public String loadInfor() {
 		try {
@@ -238,61 +274,72 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			String roomIP = request.getRemoteAddr();
 			PHCSMP_Room room = roomService.findbyIp(roomIP);
 			suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
-			
-			//离区前提示前四个业务的完整性
-			//根据嫌疑人id查找嫌疑人前四个业务的信息
-			String suspect_id=suspectInfor.getSuspect_ID();
-			sb=new StringBuilder("");
-			//查入区登记信息
-			suspect=suspectService.findBySuspetcId(suspect_id);
-			suspectComplete=CompleteCheck.completeCheck(suspect, suspect.getClass(),3);
-			System.out.println(suspectComplete+"=============================");
-			if(suspectComplete!=100){//信息不完整
+
+			// 离区前提示前四个业务的完整性
+			// 根据嫌疑人id查找嫌疑人前四个业务的信息
+			String suspect_id = suspectInfor.getSuspect_ID();
+			sb = new StringBuilder("");
+			// 查入区登记信息
+			suspect = suspectService.findBySuspetcId(suspect_id);
+			suspectComplete = CompleteCheck.completeCheck(suspect,
+					suspect.getClass(), 3);
+			System.out.println(suspectComplete
+					+ "=============================");
+			if (suspectComplete != 100) {// 信息不完整
 				sb.append("入区登记信息填写不完整!  ");
-				System.out.println(sb+"1");
+				System.out.println(sb + "1");
 			}
-			
-			//查人身检查信息
-			personalCheck=personalCheckService.findInforBySuspetcId(suspect_id);
-			personalCheckComplete=CompleteCheck.completeCheck(personalCheck, personalCheck.getClass(),3);
-			System.out.println(personalCheckComplete+"=============================");
-			if(personalCheckComplete!=100){//信息不完整
+
+			// 查人身检查信息
+			personalCheck = personalCheckService
+					.findInforBySuspetcId(suspect_id);
+			personalCheckComplete = CompleteCheck.completeCheck(personalCheck,
+					personalCheck.getClass(), 3);
+			System.out.println(personalCheckComplete
+					+ "=============================");
+			if (personalCheckComplete != 100) {// 信息不完整
 				sb.append("人身检查信息填写不完整!  ");
-				System.out.println(sb+"2");
+				System.out.println(sb + "2");
 			}
-			
-			//查信息采集信息
-			informationCollection=informationCollectionService.findInforBySuspetcId(suspect_id);
-			informationCollectionComplete=CompleteCheck.completeCheck(informationCollection, informationCollection.getClass(),3);
-			System.out.println(informationCollectionComplete+"=============================");
-			if(informationCollectionComplete!=100){//信息不完整
+
+			// 查信息采集信息
+			informationCollection = informationCollectionService
+					.findInforBySuspetcId(suspect_id);
+			informationCollectionComplete = CompleteCheck.completeCheck(
+					informationCollection, informationCollection.getClass(), 3);
+			System.out.println(informationCollectionComplete
+					+ "=============================");
+			if (informationCollectionComplete != 100) {// 信息不完整
 				sb.append("信息采集信息填写不完整!  ");
-				System.out.println(sb+"3");
+				System.out.println(sb + "3");
 			}
-			
-			//查询问讯问信息
-			activityRecord=activityRecordService.findInforBySuspetcId(suspect_id);
-			activityRecordComplete=CompleteCheck.completeCheck(activityRecord, activityRecord.getClass(),3);
-			System.out.println(activityRecordComplete+"=============================");
-			if(activityRecordComplete!=100){//信息不完整
+
+			// 查询问讯问信息
+			activityRecord = activityRecordService
+					.findInforBySuspetcId(suspect_id);
+			activityRecordComplete = CompleteCheck.completeCheck(
+					activityRecord, activityRecord.getClass(), 3);
+			System.out.println(activityRecordComplete
+					+ "=============================");
+			if (activityRecordComplete != 100) {// 信息不完整
 				sb.append("询问讯问信息填写不完整!  ");
-				System.out.println(sb+"4");
+				System.out.println(sb + "4");
 			}
-					
+
 			// 维护进出门的标志位
 			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
-			
+
 			// 判断是否出区返回
 			temporaryLeave = temporaryLeaveService
 					.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
-			
+
 			List<PHCSMP_Dic_Leaving_Reason> leaveReason = dicService
 					.findLeaveReason();
 			List<PHCSMP_Dic_Keeping_Way> keepingWay = dicService
 					.findKeepingWay();
 			request.setAttribute("leaveReason", leaveReason);
 			request.setAttribute("keepingWay", keepingWay);
-			
+
 			// 判断是否登录
 			PHCSMP_Staff user = (PHCSMP_Staff) request.getSession()
 					.getAttribute("user");
@@ -430,7 +477,8 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		return informationCollectionComplete;
 	}
 
-	public void setInformationCollectionComplete(int informationCollectionComplete) {
+	public void setInformationCollectionComplete(
+			int informationCollectionComplete) {
 		this.informationCollectionComplete = informationCollectionComplete;
 	}
 
