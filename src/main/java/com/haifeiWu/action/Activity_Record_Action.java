@@ -85,6 +85,7 @@ public class Activity_Record_Action extends ActionSupport implements
 			activity.setRemark(activity_remark);
 			activity.setActivity_Record(activity_Record);
 
+
 			// 设置询问讯问结束的时间
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -130,60 +131,68 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * 
 	 * @return
 	 * @throws IOException
+	 * @throws ClassNotFoundException 
 	 */
-	public String loadInfor() throws IOException {
+	public String loadInfor() throws IOException{
 		try {
 			// 维护进出门的标志位
-			int roomId = roomService.findbyIp(request.getRemoteAddr())
-					.getRoom_ID();
+			int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
 			PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(roomId);
+			if(suspectInfor!=null){
+				int complete_degree=CompleteCheck.completeCheck(suspectInfor, Class.forName(PHCSMP_Suspect.class.getName()),3);
+				request.setAttribute("complete_degree",complete_degree );
+				request.setAttribute("SuspectInfor", suspectInfor);
+			}else{
+				request.setAttribute("complete_degree","未填写入区人员登记信息");
+			}
+			
 			PHCSMP_Personal_Check personal_Check = personalCheckService
 					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
+			if(personal_Check!=null){
+				int complete_degree1=CompleteCheck.completeCheck(personal_Check, Class.forName(PHCSMP_Personal_Check.class.getName()),3);
+				request.setAttribute("complete_degree1",complete_degree1 );
+				request.setAttribute("personal_Check", personal_Check);
+			}else{
+				request.setAttribute("complete_degree1","0");
+			}
 			PHCSMP_Information_Collection information_Collection = informationCollectionService
 					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
-
-			// 入区登记
-			int complete_degree = CompleteCheck.completeCheck(suspectInfor,
-					suspectInfor.getClass(), 3);
-			// // 人身检查
-			// int complete_degree1 =
-			// CompleteCheck.completeCheck(personal_Check,
-			// personal_Check.getClass(), 3);
-			// // 信息采集
-			// int complete_degree2 = CompleteCheck.completeCheck(
-			// information_Collection, information_Collection.getClass(),
-			// 3);
-			// 设置询问询问开始的时间
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			String start_Time = sdf.format(date);
-
-			request.setAttribute("complete_degree", complete_degree);
-			// request.setAttribute("complete_degree1", complete_degree1);
-			// request.setAttribute("complete_degree2", complete_degree2);
-
-			request.setAttribute("personal_Check", personal_Check);
-			request.setAttribute("SuspectInfor", suspectInfor);
-			request.setAttribute("information_Collection",
-					information_Collection);
-			request.setAttribute("start_Time", start_Time);
-
-			// 如果提交失败，需将用户提交的信息显示在页面上
-			// String activity_remark = (String) request
-			// .getAttribute("activity_remark");
-			// String activity_Record = (String) request
-			// .getAttribute("activity_Record");
-			// // 将提交失败的已输入信息显示在文本框处
-			// request.setAttribute("activity_remark", activity_remark);
-			// request.setAttribute("activity_Record", activity_Record);
-
-			// 更新录像标志位
+			
+			if(information_Collection!=null){
+				int complete_degree2=CompleteCheck.completeCheck(information_Collection, Class.forName(PHCSMP_Information_Collection.class.getName()),3);
+				request.setAttribute("complete_degree2",complete_degree2 );
+				request.setAttribute("information_Collection",information_Collection);
+			}else{
+				request.setAttribute("complete_degree2","0");
+			}
+			String activity_remark=(String) request.getAttribute("activity_remark");
+			String activity_Record=(String) request.getAttribute("activity_Record");
+			//将提交失败的已输入信息显示在文本框处
+			request.setAttribute("activity_remark",activity_remark );
+			request.setAttribute("activity_Record", activity_Record);
+			
+			
+//			int complete_degree2=CompleteCheck.completeCheck(information_Collection, information_Collection.getClass(),3);
+			
+			
 			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
-
-		} catch (java.lang.Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
-			// response.getWriter().flush();
+			
+			
+			//设置询问询问开始的时间
+			Date date=new Date();
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String start_Time=sdf.format(date);
+			request.setAttribute("start_Time", start_Time);
+			//activity.setStart_Time(start_Time);
+			//activityRecordService.saveActivityRecordInfor(activity);
+			
+		} catch (Exception e) {
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
+			response.getWriter().flush();
+			
+			// System.out
+			// .println("当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确");
 			return "success";
 		}
 		return "loadInfor";
