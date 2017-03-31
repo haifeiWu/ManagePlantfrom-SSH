@@ -144,14 +144,14 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			String stopRecording = Video.stopRecording(room.getCardReader_ID(),
 					room.getLine_Number(),
 					suspectInfor.getIdentifyCard_Number());
-			// 将录像的标志位置为0
-			suspectService.updateLeaveState(3, -1, 0,
-					suspectInfor.getSuspect_ID());
-
+			
 			// 释放回路
 			lineService.closeLine();
 			// 释放手环
 			bandService.update(0, suspectInfor.getBand_ID());
+			// 将录像的标志位置为0
+			suspectService.updateLeaveState(3, -1, 0,
+					suspectInfor.getSuspect_ID());
 			System.out.println("state=" + suspectInfor.getRecordVideo_State()
 					+ " " + "Process_Now=" + suspectInfor.getProcess_Now());
 
@@ -171,8 +171,8 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 	// 保存临时出区的信息
 	public String addTemporaryLeaveInfor() throws IOException {
-		try {
-
+		try {	
+			System.out.println(1/0);
 			String roomIP = request.getRemoteAddr();
 			PHCSMP_Room room = roomService.findbyIp(roomIP);
 			suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
@@ -198,8 +198,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 				temporaryLeaveService.updateReturnTime(temporaryReturnTime,
 						temporary_Leave.getSuspect_ID());
-
-				// 增加一个出区返回时的管理员
+				//增加一个出区返回时的管理员
 
 				System.out
 						.println("嫌疑人出区返回" + temporary_Leave.getReturn_Time());
@@ -251,10 +250,63 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			String roomIP = request.getRemoteAddr();
 			PHCSMP_Room room = roomService.findbyIp(roomIP);
 			suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
+			
+			//离区前提示前四个业务的完整性
+			//根据嫌疑人id查找嫌疑人前四个业务的信息
+			String suspect_id=suspectInfor.getSuspect_ID();
+			sb=new StringBuilder("");
+			//查入区登记信息
+			suspect=suspectService.findBySuspetcId(suspect_id);
+			suspectComplete=CompleteCheck.completeCheck(suspect, suspect.getClass(),3);
+			System.out.println(suspectComplete+"=============================");
+			if(suspectComplete!=100){//信息不完整
+				sb.append("入区登记信息填写不完整!  ");
+				System.out.println(sb+"1");
+			}
+			
+			//查人身检查信息
+			personalCheck=personalCheckService.findInforBySuspetcId(suspect_id);
+			if(personalCheck!=null){
+				personalCheckComplete=CompleteCheck.completeCheck(personalCheck, personalCheck.getClass(),3);
+				System.out.println(personalCheckComplete+"");
+				if(personalCheckComplete!=100){//信息不完整
+					sb.append("人身检查信息填写不完整!  ");
+					System.out.println(sb+"2");
+				}
+			}else{
+				sb.append("人身检查信息填写不完整!  ");
+			}
+			
+			//查信息采集信息
+			informationCollection=informationCollectionService.findInforBySuspetcId(suspect_id);
+			if(informationCollection!=null){
+				informationCollectionComplete=CompleteCheck.completeCheck(informationCollection, informationCollection.getClass(),3);
+				System.out.println(informationCollectionComplete+"=============================");
+				if(informationCollectionComplete!=100){//信息不完整
+					sb.append("信息采集信息填写不完整!  ");
+					System.out.println(sb+"3");
+				}
+			}else{
+				sb.append("信息采集信息填写不完整!  ");
+			}
+			
+			//查询问讯问信息
+			activityRecord=activityRecordService.findInforBySuspetcId(suspect_id);
+			if(activityRecord!=null){
+				activityRecordComplete=CompleteCheck.completeCheck(activityRecord, activityRecord.getClass(),3);
+				System.out.println(activityRecordComplete+"=============================");
+				if(activityRecordComplete!=100){//信息不完整
+					sb.append("询问讯问信息填写不完整!  ");
+					System.out.println(sb+"4");
+				}
+			}else{
+				sb.append("询问讯问信息填写不完整!  ");
+			}		
+
 
 			// 离区前提示前四个业务的完整性
 			// 根据嫌疑人id查找嫌疑人前四个业务的信息
-			String suspect_id = suspectInfor.getSuspect_ID();
+// 			String suspect_id = suspectInfor.getSuspect_ID();
 			// sb = new StringBuilder("");
 			// 查入区登记信息
 			// suspect = suspectService.findBySuspetcId(suspect_id);
