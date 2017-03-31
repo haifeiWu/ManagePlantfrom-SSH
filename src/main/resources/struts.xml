@@ -55,10 +55,7 @@
 			method="{1}">
 			<result name="{1}">/jsp/home/{1}.jsp</result>
 		</action>
-		<action name="ftp_*" class="com.haifeiWu.action.FTPAction"
-			method="{1}">
-			<result name="{1}">/jsp/home/{1}.jsp</result>
-		</action>
+		
 		<action name="user_*" class="com.haifeiWu.action.UserAction"
 			method="{1}">
 			<result name="logout">/jsp/login.jsp</result>
@@ -74,7 +71,11 @@
 			<result name="unLoginState">/jsp/unlogin/unlogin_Personnel_information.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/Personnel_information.jsp</result>
 			<!-- 当处于登录状态时 -->
-			<!-- <result name="addSuspectInfor" type="redirectAction">"suspect_loadInfor.action"</result> -->
+			
+			<result name="addSuspectInfor" type="chain">
+				suspect_loadInfor
+			</result>
+			
 			<result name="input">/index.jsp</result>
 			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result>
@@ -144,11 +145,11 @@
 			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="leaveRecordLoadInfor" type="chain">LR_loadInfor</result>
-			<result name="input">/index.jsp</result><!-- 类型错误 -->
-			<result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
-			<result name="addTemporaryLeaveInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
+			<result name="temporaryLeaveload" type="chain">LR_loadInfor</result>
+			<!-- <result name="input">/index.jsp</result> --><!-- 类型错误 -->
+			<!-- <result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
+			<result name="addTemporaryLeaveInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>-->
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
-
 		</action>
 		<!-- 生成嫌疑人信息报告 -->
 		<action name="GR_*" class="com.haifeiWu.action.GenerateReportAction"
@@ -162,7 +163,10 @@
 			method="fileStatus">
 			<result name="success">/jsp/home/index.jsp</result>
 		</action>
-		
+		<action name="ftp_*" class="com.haifeiWu.action.FTPAction"
+			method="{1}">
+			<result name="success">/jsp/home/index.jsp</result>
+		</action>
 		<!-- 读卡器信息采集 -->
 		<action name="readRfid" class="com.haifeiWu.action.RFID_ReadAction"
 			method="readRFID">
