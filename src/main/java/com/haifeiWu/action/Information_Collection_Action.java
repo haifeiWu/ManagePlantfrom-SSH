@@ -61,13 +61,14 @@ public class Information_Collection_Action extends
 			// response.getWriter().flush();
 			// return "success";
 			// 主动失败
-			throw new Exception();
+			// throw new Exception();
 		} catch (Exception e) {
 			response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
 			request.setAttribute("informatCollect", model);
 			return "chainLoadInfor";
 		}
+		return "success";
 	}
 
 	// 加载信息，

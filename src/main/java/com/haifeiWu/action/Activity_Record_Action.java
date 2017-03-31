@@ -145,21 +145,22 @@ public class Activity_Record_Action extends ActionSupport implements
 			// 入区登记
 			int complete_degree = CompleteCheck.completeCheck(suspectInfor,
 					suspectInfor.getClass(), 3);
-			// 人身检查
-			int complete_degree1 = CompleteCheck.completeCheck(personal_Check,
-					personal_Check.getClass(), 3);
-			// 信息采集
-			int complete_degree2 = CompleteCheck.completeCheck(
-					information_Collection, information_Collection.getClass(),
-					3);
+			// // 人身检查
+			// int complete_degree1 =
+			// CompleteCheck.completeCheck(personal_Check,
+			// personal_Check.getClass(), 3);
+			// // 信息采集
+			// int complete_degree2 = CompleteCheck.completeCheck(
+			// information_Collection, information_Collection.getClass(),
+			// 3);
 			// 设置询问询问开始的时间
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String start_Time = sdf.format(date);
 
 			request.setAttribute("complete_degree", complete_degree);
-			request.setAttribute("complete_degree1", complete_degree1);
-			request.setAttribute("complete_degree2", complete_degree2);
+			// request.setAttribute("complete_degree1", complete_degree1);
+			// request.setAttribute("complete_degree2", complete_degree2);
 
 			request.setAttribute("personal_Check", personal_Check);
 			request.setAttribute("SuspectInfor", suspectInfor);
@@ -180,10 +181,10 @@ public class Activity_Record_Action extends ActionSupport implements
 			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
 
 		} catch (java.lang.Exception e) {
-			response.getWriter()
-					.write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
-			response.getWriter().flush();
-
+			// response.getWriter()
+			// .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
+			// response.getWriter().flush();
+			return "success";
 		}
 		return "loadInfor";
 	}

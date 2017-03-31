@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.SuspectService;
-import com.haifeiWu.utils.Video;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -42,15 +41,30 @@ public class fileStatusAction extends ActionSupport implements
 	private ActivityRecordService activityRecordService;
 
 	public String fileStatus() throws Exception {
-		String uploadType = request.getParameter("UploadType");
-		System.out.println(uploadType);
-		int cardReader_ID = Integer.parseInt(request
-				.getParameter("cardReader_ID"));
-		String identificationCard = request.getParameter("identificationCard");
+		String uploadType = (String) request.getAttribute("UploadType");
+		String cardReader_ID = (String) request.getAttribute("cardReader_ID");
+		String identificationCard = (String) request
+				.getAttribute("identificationCard");
+		System.out
+				.println("" + uploadType + cardReader_ID + identificationCard);
+		if (request.getParameter("UploadType") == null
+				&& request.getParameter("cardReader_ID") == null
+				&& request.getParameter("identificationCard") == null) {
+			System.out.println("fileStatus--------->传过来的数据null<-----------");
+		} else {
 
-		String videonumber = Video.queryDownloadFileStatu(cardReader_ID,
-				identificationCard);
-		System.out.println("上传接口查询文件状态");
+			// String uploadType = request.getParameter("UploadType");
+			// System.out.println(uploadType);
+			// int cardReader_ID = Integer.parseInt(request
+			// .getParameter("cardReader_ID"));
+			// String identificationCard = request
+			// .getParameter("identificationCard");
+			// String videonumber = Video.queryDownloadFileStatu(cardReader_ID,
+			// identificationCard);
+			// System.out.println("-------------------查询文件状态");
+
+		}
+		//
 
 		//
 		// suspectService.updateIs_RecordVideo_DownLoad(1, identificationCard);

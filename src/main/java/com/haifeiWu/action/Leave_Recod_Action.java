@@ -161,9 +161,9 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			response.getWriter()
 					.write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
 			response.getWriter().flush();
-			
+
 			request.setAttribute("leaveRecordLoadInfor", model);
-			
+
 			return "leaveRecordLoadInfor";
 		}
 
@@ -199,7 +199,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 				temporaryLeaveService.updateReturnTime(temporaryReturnTime,
 						temporary_Leave.getSuspect_ID());
 
-				//增加一个出区返回时的管理员
+				// 增加一个出区返回时的管理员
 
 				System.out
 						.println("嫌疑人出区返回" + temporary_Leave.getReturn_Time());
@@ -219,32 +219,34 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
-			
-			String tempLeave_Reason=request.getParameter("tempLeave_Reason");
+
+			String tempLeave_Reason = request.getParameter("tempLeave_Reason");
 			request.setAttribute("tempLeave_Reason", tempLeave_Reason);
-			String staff_ID=request.getParameter("staff_ID");
+			String staff_ID = request.getParameter("staff_ID");
 			request.setAttribute("staff_ID", staff_ID);
-			String manager_name=request.getParameter("manager_name");
+			String manager_name = request.getParameter("manager_name");
 			request.setAttribute("manager_name", manager_name);
-	
+
 			return "temporaryLeaveload";
 		}
 	}
 
 	/* 加载界面信息 */
-	public String loadInfor() {
+	public String loadInfor() throws IOException {
 		try {
-			PHCSMP_Leave_Record lr=(PHCSMP_Leave_Record) request.getAttribute("leaveRecordLoadInfor");
+			PHCSMP_Leave_Record lr = (PHCSMP_Leave_Record) request
+					.getAttribute("leaveRecordLoadInfor");
 			request.setAttribute("PHCSMP_Leave_Record", lr);
-			
-			String tempLeave_Reason=(String) request.getAttribute("tempLeave_Reason");
-			String staff_ID=(String) request.getAttribute("staff_ID");
-			String manager_name=(String) request.getAttribute("manager_name");
-			
+
+			String tempLeave_Reason = (String) request
+					.getAttribute("tempLeave_Reason");
+			String staff_ID = (String) request.getAttribute("staff_ID");
+			String manager_name = (String) request.getAttribute("manager_name");
+
 			request.setAttribute("tempLeave_Reason", tempLeave_Reason);
 			request.setAttribute("staff_ID", staff_ID);
 			request.setAttribute("manager_name", manager_name);
-			
+
 			// 加载嫌疑人信息
 			String roomIP = request.getRemoteAddr();
 			PHCSMP_Room room = roomService.findbyIp(roomIP);
@@ -255,9 +257,9 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			String suspect_id = suspectInfor.getSuspect_ID();
 			// sb = new StringBuilder("");
 			// 查入区登记信息
-			suspect = suspectService.findBySuspetcId(suspect_id);
-			suspectComplete = CompleteCheck.completeCheck(suspect,
-					suspect.getClass(), 3);
+			// suspect = suspectService.findBySuspetcId(suspect_id);
+			// suspectComplete = CompleteCheck.completeCheck(suspect,
+			// suspect.getClass(), 3);
 			// System.out.println(suspectComplete
 			// + "=============================");
 			// if (suspectComplete != 100) {// 信息不完整
@@ -266,10 +268,11 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// }
 
 			// 查人身检查信息
-			personalCheck = personalCheckService
-					.findInforBySuspetcId(suspect_id);
-			personalCheckComplete = CompleteCheck.completeCheck(personalCheck,
-					personalCheck.getClass(), 3);
+			// personalCheck = personalCheckService
+			// .findInforBySuspetcId(suspect_id);
+			// personalCheckComplete =
+			// CompleteCheck.completeCheck(personalCheck,
+			// personalCheck.getClass(), 3);
 			// System.out.println(personalCheckComplete
 			// + "=============================");
 			// if (personalCheckComplete != 100) {// 信息不完整
@@ -278,10 +281,10 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// }
 
 			// 查信息采集信息
-			informationCollection = informationCollectionService
-					.findInforBySuspetcId(suspect_id);
-			informationCollectionComplete = CompleteCheck.completeCheck(
-					informationCollection, informationCollection.getClass(), 3);
+			// informationCollection = informationCollectionService
+			// .findInforBySuspetcId(suspect_id);
+			// informationCollectionComplete = CompleteCheck.completeCheck(
+			// informationCollection, informationCollection.getClass(), 3);
 			// System.out.println(informationCollectionComplete
 			// + "=============================");
 			// if (informationCollectionComplete != 100) {// 信息不完整
@@ -290,10 +293,10 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// }
 
 			// 查询问讯问信息
-			activityRecord = activityRecordService
-					.findInforBySuspetcId(suspect_id);
-			activityRecordComplete = CompleteCheck.completeCheck(
-					activityRecord, activityRecord.getClass(), 3);
+			// activityRecord = activityRecordService
+			// .findInforBySuspetcId(suspect_id);
+			// activityRecordComplete = CompleteCheck.completeCheck(
+			// activityRecord, activityRecord.getClass(), 3);
 			// System.out.println(activityRecordComplete
 			// + "=============================");
 			// if (activityRecordComplete != 100) {// 信息不完整
@@ -324,8 +327,13 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 				return "loadInfor";
 			}
 		} catch (Exception e) {
-
-			return "loadInfor";
+			// 异常处理
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
+			response.getWriter().flush();
+			suspectService.updateSwitch(0, suspectInfor.getSuspect_ID());
+			// 转到
+			return "success";
 		}
 	}
 

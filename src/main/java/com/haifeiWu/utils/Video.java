@@ -2,9 +2,7 @@ package com.haifeiWu.utils;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
@@ -31,19 +29,8 @@ public class Video {
 		String json = packjson(band_ID, identificationCard);
 		String result = HttpRequest.sendOkMCVPost(
 				PropertiesReadUtils.getString("SxUploadRecFile"), json);
-		System.out.println("请求ftp服务器，上传指定id和身份信息的人员的录制文件----------------"
+		System.out.println("请求ftp服务器，请求上传指定id和身份信息的人员的录制文件----------------"
 				+ result);
-	}
-
-	private static String packjson() {
-		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
-		map.put("serverIp", "192.168.1.108");
-		map.put("port", 21);
-		map.put("uploadDir", "C:\\Users\\Administrator\\Desktop\\video");
-		map.put("userName", "anonymous");
-		map.put("passWord", "192.168.1.161");
-		String json = JSON.toJSONString(map);
-		return json;
 	}
 
 	/**
@@ -54,8 +41,19 @@ public class Video {
 		String configJson = RBSpackjson();
 		String configResult = HttpRequest.sendOkMCVPost(
 				PropertiesReadUtils.getString("SxSetWebServerCfg"), configJson);
-		System.out.println("video层远程服务器配置----------------" + configResult);
+		System.out.println("远程服务器配置----------------" + configResult);
 
+	}
+
+	private static String packjson() {
+		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
+		map.put("serverIp", "192.168.1.161");
+		map.put("port", 21);
+		map.put("uploadDir", "\\tty");
+		map.put("userName", "dell");
+		map.put("passWord", "ghjk");
+		String json = JSON.toJSONString(map);
+		return json;
 	}
 
 	/**
@@ -75,7 +73,7 @@ public class Video {
 		String json = packjson(cardReader_ID, identificationCard);
 		String result = HttpRequest.sendOkMCVPost(
 				PropertiesReadUtils.getString("SxQueryUploadFileStatus"), json);
-		System.out.println("video层查询上传文件状态----------------" + result);
+		System.out.println("查询上传文件状态-----------结果----------------" + result);
 		Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
 
 		// Iterator it1 = str.entrySet().iterator();
@@ -95,21 +93,28 @@ public class Video {
 		// .println("++++++++++++++++++++++++++++++++++++++++++++++++++");
 
 		Map<String, Object> M3 = (Map<String, Object>) str.get("data");
-		Iterator it = M3.entrySet().iterator();
-
-		/* 遍历 */
-		while (it.hasNext()) {
-			/* 从迭代器中获取一个entry对象 */
-			Entry entry = (Entry) it.next();
-			/* 通过entry.getKey()的方法获取key值 */
-			System.out
-					.println("-------------------data--key:" + entry.getKey());
-			/* 通过entry.getValue()的方法获取value值 */
-
-			System.out.println("-------------------data--value:"
-					+ entry.getValue());
-
-		}
+		System.out.println("---------查询文件data----------------" + M3);
+		// ArrayList sucFileList = (ArrayList) M3.get("sucFileList");
+		// System.out.println("-------------sucFileList----------------"
+		// + sucFileList);
+		// ArrayList failFileList = (ArrayList) M3.get("failFileList");
+		// System.out.println("-------------failFileList----------------"
+		// + failFileList);
+		// Iterator it = M3.entrySet().iterator();
+		//
+		// /* 遍历 */
+		// while (it.hasNext()) {
+		// /* 从迭代器中获取一个entry对象 */
+		// Entry entry = (Entry) it.next();
+		// /* 通过entry.getKey()的方法获取key值 */
+		// System.out
+		// .println("-------------------data--key:" + entry.getKey());
+		// /* 通过entry.getValue()的方法获取value值 */
+		//
+		// System.out.println("-------------------data--value:"
+		// + entry.getValue());
+		//
+		// }
 		// List<String> videolist = (List<String>) M3.get("value");
 		// String videonumber = null;
 		// for (String string : videolist) {
