@@ -28,7 +28,7 @@ h1 img{
 .report li {
 	list-style: none;
 	float: left;
-	width: 33%;
+	width: 12%;
 	/*border: 1px dashed #0000FF;*/
 	font-size: larger;
 	color: #389ac7;
@@ -265,7 +265,7 @@ textarea{
 /*自述情况*/
 .self_state{
 	border-bottom: 1px solid #389AC7; padding-bottom: 3px;
-	color: #f69d1f;width: 13%;margin-top: 1%;
+	color: #f69d1f;width: 13%;margin-top: 2%;
 }
 
 .checkbox{
@@ -326,8 +326,8 @@ fieldset textarea{
 border-bottom: 1px solid #389AC7;
 padding-bottom: 3px;
 color: #f69d1f;
-width: 19%;
-margin-top: 1%;
+width: 24%;
+margin-top: 3%;
 /*float: inherit;*/
 }
 /*随身物品检查登记表*/
