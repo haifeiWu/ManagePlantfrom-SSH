@@ -25,6 +25,7 @@
         <property name="suspected_Cause"/>
         <property name="enter_Time"/>
         <property name="staff_ID"/>
+        <property name="detain_Time"/>
         <!--  删除表意重复的字段 -->
         <!--   <property name="quit_time"/>
         <property name="identityID_Imag"/>
