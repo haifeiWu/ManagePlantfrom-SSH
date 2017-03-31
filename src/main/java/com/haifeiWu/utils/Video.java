@@ -2,7 +2,9 @@ package com.haifeiWu.utils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
@@ -18,76 +20,104 @@ public class Video {
 	 * @return
 	 * @throws Exception
 	 */
-	public static void setFtpServerCfg(int cardReader_ID,
-			String identificationCard) throws Exception {
+	public static void setFtpServerCfg(int band_ID, String identificationCard)
+			throws Exception {
+		// 配置FTP服务器的参数
 		String configJson = packjson();
 		String configResult = HttpRequest.sendOkMCVPost(
 				PropertiesReadUtils.getString("SxSetFtpServerCfg"), configJson);
-		System.out.println("----------------" + configResult);
-		String json = packjson(cardReader_ID, identificationCard);
+		System.out.println("配置FTP服务器的参数----------------" + configResult);
+		// 请求ftp服务器，上传指定id和身份信息的人员的录制文件
+		String json = packjson(band_ID, identificationCard);
 		String result = HttpRequest.sendOkMCVPost(
 				PropertiesReadUtils.getString("SxUploadRecFile"), json);
-		System.out.println("----------------" + result);
-		// FTPClientUtils ftp = new FTPClientUtils();
-		// ftp.setHost("192.168.1.108");
-		// ftp.setPort(21);
-		// ftp.setBinaryTransfer(true);
-		// ftp.setPassiveMode(true);
-		// ftp.setEncoding("utf-8");
-		// ftp.setUsername("anonymous");
-		// ftp.setPassword("192.168.1.161");
-
-		// 注意并未设置文件的绝对路径
-		// FTPClient ftpClient = ftp.getFTPClient();
-		// ftp
-		// if (ftp.connect(ftpClient)) {
-
-		// File localFile = new File("C:\\Users\\Dell\\Desktop");
-		// FileOutputStream fos = new FileOutputStream(localFile);
-		//
-		// ftpClient.retrieveFile(, fos);
-		// System.out.println("download the remote files.");
-		// fos.close();
-
-		// }
+		System.out.println("请求ftp服务器，上传指定id和身份信息的人员的录制文件----------------"
+				+ result);
 	}
 
 	private static String packjson() {
 		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
 		map.put("serverIp", "192.168.1.108");
 		map.put("port", 21);
-		map.put("uploadDir", "C:\\Users\\Dell\\Desktop");
+		map.put("uploadDir", "C:\\Users\\Administrator\\Desktop\\video");
 		map.put("userName", "anonymous");
 		map.put("passWord", "192.168.1.161");
 		String json = JSON.toJSONString(map);
 		return json;
 	}
 
-	public static void queryDownloadFileStatu(int cardReader_ID,
+	/**
+	 * 配置远程服务器
+	 * 
+	 * */
+	public static void setRBServerCfg() throws Exception {
+		String configJson = RBSpackjson();
+		String configResult = HttpRequest.sendOkMCVPost(
+				PropertiesReadUtils.getString("SxSetWebServerCfg"), configJson);
+		System.out.println("video层远程服务器配置----------------" + configResult);
+
+	}
+
+	/**
+	 * 远程服务器参数
+	 * */
+	private static String RBSpackjson() {
+		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
+		map.put("serverIp", "192.168.1.161");
+		map.put("port", 8888);
+		map.put("url", "ManagePlantfrom-SSH/fileStatus.action");
+		String json = JSON.toJSONString(map);
+		return json;
+	}
+
+	public static String queryDownloadFileStatu(int cardReader_ID,
 			String identificationCard) throws IOException {
 		String json = packjson(cardReader_ID, identificationCard);
 		String result = HttpRequest.sendOkMCVPost(
 				PropertiesReadUtils.getString("SxQueryUploadFileStatus"), json);
-		System.out.println("----------------" + result);
+		System.out.println("video层查询上传文件状态----------------" + result);
+		Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
 
+		// Iterator it1 = str.entrySet().iterator();
+		//
+		// /* 遍历 */
+		// while (it1.hasNext()) {
+		// /* 从迭代器中获取一个entry对象 */
+		// Entry entry = (Entry) it1.next();
+		// /* 通过entry.getKey()的方法获取key值 */
+		// System.out.println("key:" + entry.getKey());
+		// /* 通过entry.getValue()的方法获取value值 */
+		//
+		// System.out.println("value:" + entry.getValue());
+		//
+		// }
+		// System.out
+		// .println("++++++++++++++++++++++++++++++++++++++++++++++++++");
+
+		Map<String, Object> M3 = (Map<String, Object>) str.get("data");
+		Iterator it = M3.entrySet().iterator();
+
+		/* 遍历 */
+		while (it.hasNext()) {
+			/* 从迭代器中获取一个entry对象 */
+			Entry entry = (Entry) it.next();
+			/* 通过entry.getKey()的方法获取key值 */
+			System.out
+					.println("-------------------data--key:" + entry.getKey());
+			/* 通过entry.getValue()的方法获取value值 */
+
+			System.out.println("-------------------data--value:"
+					+ entry.getValue());
+
+		}
+		// List<String> videolist = (List<String>) M3.get("value");
+		// String videonumber = null;
+		// for (String string : videolist) {
+		// // videonumber=videonumber+string;
+		// System.out.println(string);
+		// }
+		return "";
 	}
-
-	// public static String downloadRecFile(int cardReader_ID,
-	// String identificationCard) {
-	//
-	// return "";
-	// }
-
-	// private static String packFtpServerJson() {
-	// Map<String, Object> map = new HashMap<String, Object>();
-	// map.put("serverIp", "192.168.1.161");
-	// map.put("port", "8888");
-	// map.put("uploadDir", "C:\\Users\\Dell\\Desktop");
-	// map.put("userName", "anonymous");
-	// map.put("passWord", "");
-	// String json = JSON.toJSONString(map);
-	// return json;
-	// }
 
 	public static String startRecording(int cardReader_ID, int room_ID,
 			String identificationCard) throws IOException {
@@ -174,10 +204,10 @@ public class Video {
 	 * @param identificationCard
 	 * @return
 	 */
-	private static String packjson(int cardReader_ID, String identificationCard) {
+	private static String packjson(int band_ID, String identificationCard) {
 
 		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
-		map.put("policeId", cardReader_ID);// 设备ID
+		map.put("policeId", band_ID);// 设备ID
 		map.put("identificationCard", identificationCard);// 身份证号
 		String json = JSON.toJSONString(map);
 		return json;

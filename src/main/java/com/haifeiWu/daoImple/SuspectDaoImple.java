@@ -71,13 +71,11 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	public List<PHCSMP_Dic_IdentifyCard_Type> findAllIdentifyCardType() {
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
-
 		hql = "from PHCSMP_Dic_IdentifyCard_Type";
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Dic_IdentifyCard_Type> list = session.createQuery(hql)
 				.list();
 		tx.commit();// 提交事务
-
 		return list;
 	}
 
@@ -152,6 +150,105 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		save(suspectInfor);
 	}
 
+	@Override
+	public String findByMaxID() {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "select suspect_ID from PHCSMP_Suspect where id = (select max(id) from PHCSMP_Suspect)";
+		Query query = session.createQuery(hql);
+
+		String suspect_ID = (String) query.uniqueResult();
+		tx.commit();// 提交事务
+		return suspect_ID;
+	}
+
+	public List<PHCSMP_Suspect> findBySuspectID1(String searchInfor) {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "from PHCSMP_Suspect where suspect_ID=? and process_Now=-1";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, searchInfor);
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findByCardId(String searchInfor) {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "from PHCSMP_Suspect where identifyCard_Number=? and process_Now=-1";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, searchInfor);
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findByCardIdNow(String searchInfor) {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+		hql = "from PHCSMP_Suspect where identifyCard_Number=? and process_Now!=-1";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, searchInfor);
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findBySuspectIdNow(String searchInfor) {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "from PHCSMP_Suspect where suspect_ID=? and process_Now!=-1";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, searchInfor);
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findBySuspectName(String searchInfor) {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+		hql = "from PHCSMP_Suspect where suspect_Name=? and process_Now=-1";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, searchInfor);
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findBySuspectNameNow(String suspect_Name) {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+		hql = "from PHCSMP_Suspect where suspect_Name=? and process_Now!=-1";
+		Query query = session.createQuery(hql);
+		query.setParameter(0, suspect_Name);
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+	}
+
+	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
+			String identifyCard_Number) {
+		hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? where s.identifyCard_Number=?";
+		update(hql, is_RecordVideo_DownLoad, identifyCard_Number);
+
+	}
 	// /**
 	// * 根据手环ID查询嫌疑人，新的需求中是否还需要对其他字段进行判断？（因为使用过同一ID的有多个嫌疑人）
 	// * 该方法需要更改

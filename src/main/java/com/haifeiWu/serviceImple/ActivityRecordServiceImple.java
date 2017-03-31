@@ -40,8 +40,13 @@ public class ActivityRecordServiceImple extends
 	}
 
 	@Override
+
 	public PHCSMP_Activity_Record findInforBySuspetcId(String suspectId) {
-		return activityRecordDao.findSuspectPublicById(suspectId);
+		return activityRecordDao.findSuspectPublicById(suspectId);}	
+public void updatevedio_Number(String vedio_Number,
+			String identifyCard_Number) {
+		activityRecordDao.updatevedio_Number(vedio_Number, identifyCard_Number);
+
 	}
 
 }
