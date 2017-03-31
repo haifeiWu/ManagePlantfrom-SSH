@@ -70,7 +70,11 @@
 			<result name="unLoginState">/jsp/unlogin/unlogin_Personnel_information.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/Personnel_information.jsp</result>
 			<!-- 当处于登录状态时 -->
-			<!-- <result name="addSuspectInfor" type="redirectAction">"suspect_loadInfor.action"</result> -->
+			
+			<result name="addSuspectInfor" type="chain">
+				suspect_loadInfor
+			</result>
+			
 			<result name="input">/index.jsp</result>
 			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result>
