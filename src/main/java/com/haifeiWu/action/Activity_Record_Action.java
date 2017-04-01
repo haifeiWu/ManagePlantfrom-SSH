@@ -3,6 +3,7 @@ package com.haifeiWu.action;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -137,6 +138,12 @@ public class Activity_Record_Action extends ActionSupport implements
 		try {
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
+			//if(roomId!=0){
+			request.setAttribute("roomId", roomId);
+//		}else{
+//			request.setAttribute("roomId","未进入房间");
+//		}
+			//入区人员信息登记
 			PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(roomId);
 			if(suspectInfor!=null){
 				int complete_degree=CompleteCheck.completeCheck(suspectInfor, Class.forName(PHCSMP_Suspect.class.getName()),3);
@@ -145,7 +152,7 @@ public class Activity_Record_Action extends ActionSupport implements
 			}else{
 				request.setAttribute("complete_degree","未填写入区人员登记信息");
 			}
-			
+			//人身安全检查
 			PHCSMP_Personal_Check personal_Check = personalCheckService
 					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
 			if(personal_Check!=null){
@@ -155,6 +162,7 @@ public class Activity_Record_Action extends ActionSupport implements
 			}else{
 				request.setAttribute("complete_degree1","0");
 			}
+			//信息采集
 			PHCSMP_Information_Collection information_Collection = informationCollectionService
 					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
 			
@@ -165,6 +173,15 @@ public class Activity_Record_Action extends ActionSupport implements
 			}else{
 				request.setAttribute("complete_degree2","0");
 			}
+			//询问讯问活动记录
+			 List<PHCSMP_Activity_Record> activity_record_infor=activityRecordService
+					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
+			if(activity_record_infor!=null){
+				request.setAttribute("activity_record_infor",activity_record_infor);
+				
+			}
+			
+			//从页面获取信息（当添加信息失败时用来作页面显示）
 			String activity_remark=(String) request.getAttribute("activity_remark");
 			String activity_Record=(String) request.getAttribute("activity_Record");
 			//将提交失败的已输入信息显示在文本框处
