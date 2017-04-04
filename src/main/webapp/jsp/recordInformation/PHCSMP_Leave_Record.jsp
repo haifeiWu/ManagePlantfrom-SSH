@@ -14,92 +14,14 @@
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"
 	charset="UTF-8"></script>
+	
+<OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
+	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
+	
 <script type="text/javascript"
 	src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="js/Leave_depart.js"></script>
-
-<script type="text/javascript">
-	var index = 0;
-	$(function() {
-
-		$(".form_time").datetimepicker({
-			language : 'zh-CN',
-			format : 'yyyy-mm-dd hh:ii',
-			weekStart : 1,
-			todayBtn : 1,
-			autoclose : 1,
-			todayHighlight : 1,
-			startView : 1,
-			minView : 0,
-			maxView : 1,
-			forceParse : 0
-		});
-
-		$(".form_datetime").datetimepicker({
-			language : 'zh-CN',
-			format : 'yyyy-mm-dd hh:ii',
-			weekStart : 1,
-			todayBtn : 1,
-			autoclose : 1,
-			todayHighlight : 1,
-			startView : 2,
-			forceParse : 0,
-			showMeridian : 1
-		});
-		$("#add")
-				.click(
-						function() {
-							var num = $(".transient_Leave tr").length;
-							index = num - 2;
-							var tdnum = $(".transient_Leave tr:last()").find(
-									"td:eq(0)");
-							//添加下一行
-							var addrow = "<tr>" + "<td>"
-									+ index
-									+ "</td>"
-									+ "<td style=width:35%;>"
-									+ "<div class='form-group' style='height: 30px;' >"
-									+ "<div class='input-group date form_time col-md-5' style='margin-left: 30%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
-									+ "<input class=form-control name=temporaryLeave["+index+"].TempLeave_Time type=text readonly>"
-									+ "<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
-									+ "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
-									+ "</div>"
-									+ "<input type='hidden' id='dtp_input1'/><br/>"
-									+ "</div> </td>"
-									+ "<td> <select name=temporaryLeave["+index+"].TempLeave_Reason> <option value=>---请选择---</option> <option value=1>扣押</option> <option value=2>暂存</option> <option value=3>代保管</option> </select> </td>"
-									+ "<td><input name=temporaryLeave["+index+"].Staff_ID /></td>"
-									+ "<td style=width:35%;>"
-									+ "<div class='form-group' style='height: 30px;' >"
-									+ "<div class='input-group date form_time col-md-5' style='margin-left: 30%;margin-top: 2%;' data-date='' data-date-format='hh:ii' data-link-field='dtp_input1'>"
-									+ "<input class=form-control name=temporaryLeave["+index+"].Return_Time type=text readonly>"
-									+ "<span class='input-group-addon'><span class='glyphicon glyphicon-remove'></span></span>"
-									+ "<span class='input-group-addon'><span class='glyphicon glyphicon-time'></span></span>"
-									+ "</div>"
-									+ "<input type='hidden' id='dtp_input1'/><br/>"
-									+ "</div> </td>" + "</tr>";
-							$(".transient_Leave tr").eq(
-									$(".transient_Leave tr").length - 2).after(
-									addrow);
-							/* 	addrow.find("td:eq(0)").html(num-1); */
-							tdnum.html(num);
-						});
-		//删除行
-		$("#delete").click(
-				function() {
-					var len = $(".transient_Leave tr").length; //获取当前表格行数
-					var td = $(this).parent().prev().html(); //获取当前行序号
-					var delrow = $(".transient_Leave tr").get(
-							$(".transient_Leave tr").length - 2);
-					if (len > 2) {
-						$(delrow).remove();
-						$(this).parent().prev().html(
-								$(this).parent().prev().html() - 1);
-					}
-				});
-
-	});
-</script>
-
+<script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$(".transient").hide();
@@ -122,8 +44,7 @@
 			});
 		});
 		$(".on").click(function() {
-		//如果表中有一条属于当前嫌疑人的出区返回时间为空则进行提示
-			
+			//如果表中有一条属于当前嫌疑人的出区返回时间为空则进行提示		
 			 if($(".staff_ID").attr("value")!=null){
 				alert("经系统查询 该嫌疑人为出区返回!");
 			} 
@@ -143,10 +64,15 @@
 		});
 		
 		$(".subs").on("click",function(){
-			if($(".identity").val()==""){
-				$(".identity").attr("value",'${suspectInfor.identifyCard_Number }');
+			var CVR_IDCard = document.getElementById("CVR_IDCard");
+			var strReadResult = CVR_IDCard.ReadCard();
+			if (strReadResult == "0") {
+				if($(".identity").val()==""){
+					$(".identity").attr("value",CVR_IDCard.CardNo);
+				}
 			}
 		});
+		
 		$(".identity").on("click",function(){
 			$(".identity").attr("value","");
 		});
@@ -155,7 +81,7 @@
 			setTimeout(alertInfo,5000);
 		}
 		function alertInfo(){
-			if(!confirm("${sb}你是否要继续办理出区/离区业务！")){
+			if(!confirm("信息不完整，你是否要继续办理出区/离区业务！")){
 				window.location.href="${pageContext.request.contextPath }/jsp/home/index.jsp";
 			}
 		}
@@ -170,16 +96,66 @@
 		
 		$(".checkRadio").each(function(){
 			if($(this).val()=="${PHCSMP_Leave_Record.belongingS_Treatment_Method}"){
-				$(this).prop("checked",true);;
+				$(this).prop("checked",true);
 			}
 		});
 		
-	});
+		$(".checkRadio1").each(function(){
+			if($(this).val()=="${PHCSMP_Leave_Record.belongingS_Treatment_Record}"){
+				$(this).prop("checked",true);
+			}
+		});
+		
+		if("${activityRecord.activity_Record }"=="---请选择---"){
+			$(".activity").text("活动记录：空");
+		}
+		
+		
+		$("#alterPhotoForm").on("submit", function() {
+			$(this).ajaxSubmit({
+				success : function() {
+					alert("上传成功！");
+					window.location.href="${pageContext.request.contextPath }/LR_loadInfor.action";
+			},
+			resetForm : true
+	    });
+		return false;
+	});	
+});
 </script>
 <style type="text/css">
-.colorRed{
-	color:red !important;
-}
+	.colorRed{
+		color:red !important;
+	}
+	.file {
+		margin-left:30px;
+	    position: relative;
+	    display: inline-block;
+	    background: #D0EEFF;
+	    border: 1px solid #99D3F5;
+	    border-radius: 4px;
+	    padding: 4px 12px;
+	    overflow: hidden;
+	    color: #1E88C7;
+	    text-decoration: none;
+	    text-indent: 0;
+	    line-height: 20px;
+	    left:45px;
+	}
+	.file input {
+	    position: absolute;
+	    font-size: 100px;
+	    right: 0px;
+	    top: 0;
+	    opacity: 0;
+	    margin-right:-10px;
+	}
+	.file:hover {
+	    background: #AADFFD;
+	    border-color: #78C3F3;
+	    color: #004974;
+	    text-decoration: none;
+	}
 </style>
 </head>
 <body>
@@ -239,10 +215,19 @@
 						入区事由:<input type="text" value="治安传唤" />
 					</h4>
 					<!--疑犯个人身份证信息-->
-					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4" style="margin-top:30px;">
-						<img id="img_1" src="images/1-zhengmian_04.png" />
-						<img id="img_2" src="images/1-cemian_06.png" />
-						<p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:10px;">${nEntryTime }嫌疑人入区登记照片</p>
+					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4" style="margin-top:40px;">					
+						<img id="img_1" src="${suspectInfor.frontal_Photo}" style="border:1px solid #ccc"/>						
+						<img id="img_2" src="${suspectInfor.sideWays_Photo}" style="border:1px solid #ccc"/>
+						<form action="${pageContext.request.contextPath }/uploadPhoto.action" id="alterPhotoForm" method="post" enctype="multipart/form-data">
+							<a href="javascript:;" class="file">选择正面照
+							    <input type="file" name="file">
+							</a>
+							<a href="javascript:;" class="file">选择侧面照
+							    <input type="file" name="sfile">
+							</a>
+							<input type="submit" value="上传图片" class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">
+						</form>			
+						<%-- <p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">${nEntryTime }嫌疑人入区登记照片</p> --%>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-top:30px;">
 						<hr style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -10%;" />
@@ -250,7 +235,7 @@
 								<tr style="padding: 0px;">
 								<!--图片引入-->
 									<td rowspan="5">
-										<img id="pic" src="${suspectInfor.identityCard_Photo }" style="width: 100px;height: 108px;position: relative;top: 0px;" />
+										<img id="pic" src="${suspectInfor.identityCard_Photo }" style="border:1px solid #ccc;width: 100px;height: 108px;position: relative;top: 0px;" />
 										<input type="hidden" name="identityCard_Photo" value="value">
 										<p class="info_id" style="width: 100px;">身份证照</p></td>
 									<td colspan="2">姓名:
@@ -283,7 +268,7 @@
 	
 								</tr>
 							</table>
-						<hr style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top:18%; margin-left:-10%;" />
+						<hr style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top:13%; margin-left:-10%;" />
 					</div>
 				</div>
 			</div>
@@ -310,31 +295,70 @@
 
 					<tr>
 						<td>入区登记</td>
-						<td>${suspect.enter_Time }</td>
-						<td>----</td>
-						<td class="complete">${suspectComplete}%</td>
-						<td style="text-align:left;padding-left:30px;">进入办案区原因：${suspect.suspected_Cause }</td>
+						<c:if test="${!empty suspect }">
+							<td>${suspect.enter_Time }</td>
+							<td>----</td>
+							<td class="complete">${suspectComplete}%</td>
+							<td style="text-align:left;padding-left:30px;">进入办案区原因：${suspect.suspected_Cause }</td>
+						</c:if>
+						<c:if test="${empty suspect }">
+							<td>空</td>
+							<td>----</td>
+							<td class="complete">${suspectComplete}%</td>
+							<td style="text-align:left;padding-left:30px;">进入办案区原因：空</td>
+						</c:if>
+						
 					</tr>
 					<tr>
 						<td>人身检查</td>
-						<td>${personalCheck.check_StartTime }</td>
-						<td>${personalCheck.check_EndTime }</td>
-						<td class="complete">${personalCheckComplete }%</td>
-						<td style="text-align:left;padding-left:30px;">人身检查状态:${personalCheck.check_Situation }</td>
+						<c:if test="${!empty personalCheck }">
+							<td>${personalCheck.check_StartTime }</td>
+							<td>${personalCheck.check_EndTime }</td>
+							<td class="complete">${personalCheckComplete }%</td>
+							<td style="text-align:left;padding-left:30px;">人身检查状态:${personalCheck.check_Situation }</td>
+						</c:if>
+						<c:if test="${empty personalCheck }">
+							<td>空</td>
+							<td>空</td>
+							<td class="complete">${personalCheckComplete }%</td>
+							<td style="text-align:left;padding-left:30px;">人身检查状态:空</td>
+						</c:if>
 					</tr>
 					<tr>
 						<td>信息采集</td>
-						<td>${informationCollection.ic_StartTime }</td>
-						<td>${informationCollection.ic_EndTime }</td>
-						<td class="complete">${informationCollectionComplete }%</td>
-						<td style="text-align:left;padding-left:30px;">采集项目:${informationCollection.collected_Item }</td>
+						<c:if test="${!empty informationCollection }">
+							<td>${informationCollection.ic_StartTime }</td>
+							<td>${informationCollection.ic_EndTime }</td>
+							<td class="complete">${informationCollectionComplete }%</td>
+							<c:if test="${!empty informationCollection.collected_Item }">
+								<td style="text-align:left;padding-left:30px;">采集项目:${informationCollection.collected_Item }</td>
+							</c:if>
+							<c:if test="${empty informationCollection.collected_Item }">
+								<td style="text-align:left;padding-left:30px;">采集项目:空</td>
+							</c:if>
+						</c:if>
+						<c:if test="${empty informationCollection }">
+							<td>空</td>
+							<td>空</td>
+							<td class="complete">${informationCollectionComplete }%</td>
+							<td style="text-align:left;padding-left:30px;">采集项目:空</td>
+						</c:if>					
 					</tr>
 					<tr>
 						<td>询问讯问</td>
-						<td>${activityRecord.start_Time }</td>
-						<td>${activityRecord.end_Time }</td>
-						<td class="complete">${activityRecordComplete }%</td>
-						<td style="text-align:left;padding-left:30px;">活动内容：${activityRecord.activity_Record }</td>
+						<c:if test="${!empty activityRecord }">
+							<td>${activityRecord.start_Time }</td>
+							<td>${activityRecord.end_Time }</td>
+							<td class="complete">${activityRecordComplete }%</td>						
+								<td style="text-align:left;padding-left:30px;" class="activity">活动内容：${activityRecord.activity_Record }
+							</td>						
+						</c:if>
+						<c:if test="${empty activityRecord }">
+							<td>空</td>
+							<td>空</td>
+							<td class="complete">${activityRecordComplete }%</td>
+							<td style="text-align:left;padding-left:30px;">活动内容：空</td>
+						</c:if>
 					</tr>
 				</table>
 			</div>
@@ -361,32 +385,12 @@
 		<div class="container">
 			<div class="row">
 				<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
-					<tr class="bg1">
-						<td style="width:30%">序号</td>
-						<!-- <td>临时离开时间</td> -->
+					<tr class="bg1">						
 						<td style="width:30%">离开原因</td>
 						<td style="width:40%">办案部门负责人签名</td>
-						<!-- <td>返回时间</td> -->
 					</tr>
 					<c:if test="${!empty temporaryLeave }">
-						<tr>
-							<td>0</td>
-							<%-- <td style="width: 35%;">
-								<div class="form-group" style="height: 30px; margin-left: 80px;">
-									<div style="width:100px!important;" class="input-group date form_time"
-										style="margin-left: 19%;margin-top: 8%;width:60px;" data-date=""
-										data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-										<input class="form-control tempLeave_Time" name="tempLeave_Time" type="text"
-											value="${temporaryLeave.tempLeave_Time }"
-											style="width:150px!important;margin-left:-25px;"> <span
-											class="input-group-addon"><span
-											class="glyphicon glyphicon-remove"></span></span> <span
-											class="input-group-addon"><span
-											class="glyphicon glyphicon-time"></span></span>
-									</div>
-									<input type="hidden" id="dtp_input1" value="" /><br />
-								</div>
-							</td> --%>
+						<tr>							
 							<td id="select"><select name="tempLeave_Reason" >
 									<option value="${temporaryLeave.tempLeave_Reason }">${temporaryLeave.tempLeave_Reason }</option>
 									<option value="">---请选择---</option>
@@ -395,44 +399,14 @@
 									<option value="代保管">代保管</option>
 							</select></td>
 							<td style="padding:6px 0 6px 0"><input name="staff_ID" class="staff_ID"
-								type="text" style="border-radius:6px;border:1px solid #ccc;"
-								value="${temporaryLeave.staff_ID }" /></td>
-							<%-- <td style="width: 35%;">
-								<div class="form-group" style="height: 30px;">
-									<div class="input-group date form_time col-md-5"
-										style="margin-left: 25%;margin-top: 2%;" data-date=""
-										data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-										<input class="form-control" name="return_Time" type="text"
-											value="${temporaryLeave.return_Time }"
-											style="width:150px!important;margin-left:-25px;"> <span
-											class="input-group-addon"><span
-											class="glyphicon glyphicon-remove"></span></span> <span
-											class="input-group-addon"><span
-											class="glyphicon glyphicon-time"></span></span>
-									</div>
-									<input type="hidden" id="dtp_input1" value="" /><br />
-								</div>
-							</td> --%>
+								type="text" style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;"
+								value="${temporaryLeave.staff_ID }" />
+							</td>		
 						</tr>
 					</c:if>
 
 					<c:if test="${empty temporaryLeave }">
-						<tr>
-							<td>0</td>
-							<!-- <td style="width: 35%;">
-								<div class="form-group" style="height: 30px;">
-									<div class="input-group date form_time col-md-7"
-										style="margin-left: 19%;margin-top: 2%;" data-date=""
-										data-date-format="hh:ii" data-link-field="dtp_input1">
-										<input class="form-control" name="tempLeave_Time" type="text"
-											value="" readonly> <span class="input-group-addon"><span
-											class="glyphicon glyphicon-remove"></span></span> <span
-											class="input-group-addon"><span
-											class="glyphicon glyphicon-time"></span></span>
-									</div>
-									<input type="hidden" id="dtp_input1" value="" /><br />
-								</div>
-							</td> -->
+						<tr>													
 							<td id="select"><select name="tempLeave_Reason">
 								<c:if test="${!empty tempLeave_Reason }">
 									<option>${tempLeave_Reason }</option>
@@ -444,45 +418,20 @@
 							</select></td>
 							<td style="padding:6px 0 6px 0"><input type="text"
 								name="staff_ID" value="${staff_ID }"
-								style="border-radius:6px;border:1px solid #ccc;" /></td>
-							<!-- <td style="width: 35%;">
-								<div class="form-group" style="height: 30px;">
-									<div class="input-group date form_time col-md-7"
-										style="margin-left: 19%;margin-top: 2%;" data-date=""
-										data-date-format="hh:ii" data-link-field="dtp_input1">
-										<input class="form-control" name="return_Time" type="text"
-											value="" readonly> <span class="input-group-addon"><span
-											class="glyphicon glyphicon-remove"></span></span> <span
-											class="input-group-addon"><span
-											class="glyphicon glyphicon-time"></span></span>
-									</div>
-									<input type="hidden" id="dtp_input1" value="" /><br />
-								</div>
-							</td> -->
+								style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" /></td>							
 						</tr>
-					</c:if>
-					<!-- <tr>
-						<td>2</td>
-						<td>
-							<div class="btn" id="add">+添加</div>
-							<div class="btn" id="delete">-删除</div>
-						</td>
-						<td></td>
-						<td></td>
-						<td></td>
-					</tr> -->
+					</c:if>					
 				</table>
 			</div>
 			<div class="row" style="margin-top:30px;width:1000px;">
-				<div style="float:left;width:400px;margin-left: 150px"><p id="signature">
-					管理员:<input type="text" name="manager_name" value="${manager_name }"/>
-					
-					</p>
+				<div style="float:left;width:400px;margin-left: 150px">
+				<p id="signature">
+					管理员:<input type="text" name="manager" value=""/>			
+				</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
 					<input type="submit" value="确认提交" class="sub" />
-				</div>
-				
+				</div>			
 			</div>
 		</div>
 
@@ -493,28 +442,7 @@
 		method="post">
 		<div class="container ">
 			<div class="row ">
-				<table class="final_Leave col-lg-12 col-md-12 col-sm-12">
-					<!-- <tr>
-						<td>最终离开时间</td>
-						<td>
-							<div class="form-group" style="height: 30px;">
-								<div class="input-group date form_datetime col-md-5"
-									style="margin-left: 20%;margin-top: 2%;width: 55%;"
-									data-date="" data-date-format="dd MM yyyy - HH:ii"
-									data-link-field="dtp_input1">
-									<input class="form-control" name="leave_Time" size="8"
-										type="text" value="" readonly> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-time"></span></span>
-								</div>
-								<input type="hidden" id="dtp_input1" value="" /><br />
-							</div>
-						</td>
-
-					</tr> -->
-					<c:if test=""></c:if>
+				<table class="final_Leave col-lg-12 col-md-12 col-sm-12">					
 					<tr>
 						<td>离开原因</td>
 						<td><select name="leave_Reason">
@@ -524,11 +452,7 @@
 							<option value="">---请选择---</option>
 							<c:forEach items="${leaveReason }" var="v" varStatus="status">
 								<option value="${v.leaving_Name }">${v.leaving_Name }</option>
-							</c:forEach>
-							<!-- <option value="查证结束">查证结束</option>
-							<option value="刑拘">刑拘</option>
-							<option value="行政拘留">行政拘留</option>
-							<option value="警告">警告</option> -->
+							</c:forEach>							
 						</select></td>
 					</tr>
 					<tr>
@@ -540,9 +464,12 @@
 						</td>
 					</tr>
 					<tr>
-						<td style="color:#000 !important;">未反还物品情况记载:</td>
-						<td style="padding: 8px 0;"><input name="belongingS_Treatment_Record"
-								style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" value="${PHCSMP_Leave_Record.belongingS_Treatment_Record }"/></td>
+						<td style="color:#000 !important;">未反还物品情况记载:</td>						
+						<td style="padding: 8px 0;">
+							<c:forEach items="${treatmentMethod }" var="t" varStatus="status">
+								<input type="radio" name="belongingS_Treatment_Record" value="${t.treatment_Name }" class="checkRadio1">${t.treatment_Name }
+							</c:forEach>
+						</td>
 					</tr>
 					<tr>
 						<td>领取人签名:</td>
@@ -551,31 +478,13 @@
 							name="recipient_Person" value="${PHCSMP_Leave_Record.recipient_Person }" /></td>
 					</tr>
 					<tr>
-						<td>身份证号码:</td>
+						<td>领取人身份证号码:</td>
 						<td style="padding:8px 0 8px 0"><input
 							style="margin-left:60px;border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" type="text"
 							name="recipient_Person_Number" value="${recipient_Person_Number }" class="identity"/>
 							<input type="button" value="读卡" class="subs" />
 						</td>
-					</tr>
-					<!-- <tr>
-						<td>领取时间:</td>
-						<td>
-							<div class="form-group" style="height: 30px;">
-								<div class="input-group date form_time col-md-5"
-									style="margin-left: 30%;margin-top: 2%;" data-date=""
-									data-date-format="hh:ii" data-link-field="dtp_input1">
-									<input class="form-control" name="treatment_Time" size="8"
-										type="text" value="" readonly> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-time"></span></span>
-								</div>
-								<input type="hidden" id="dtp_input1" value="" /><br />
-							</div>
-						</td>
-					</tr> -->
+					</tr>					
 				</table>
 			</div>
 			<div class="row" style="margin-top:30px;width:1000px;">
