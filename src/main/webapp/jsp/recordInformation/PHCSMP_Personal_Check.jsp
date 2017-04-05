@@ -113,23 +113,60 @@
 						<li>100%</li>
 					</ul>
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/3-inforCollection_03.png" /></a> <a href="#readMe"><img
-							src="images/3-inforCollection_03.png" /></a> <a href="#inspect"><img
-							src="images/3-inforCollection_03.png" /></a> <a
-							href="#belongInspect"><img
-							src="images/3-inforCollection_03.png" /></a> <a
-							href="#belongInspect"><img
-							src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
-						<span>信息采集登记表</span>
+						<c:if test="${!empty suspect }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="identityImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty personalCheck }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg1").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if> 
+						<img id="identityImg1" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty informationCollection }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#personInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="personInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty activityRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#enterInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="enterInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty leaveRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#confirmImg").attr("src","images/fgreen_07.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="confirmImg" src="images/3-inforCollection_07.png"
+							style="margin-left: -10%;" />
 					</div>
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
 						<li>入区登记</li>
-						<li>自述情况</li>
-						<li>检查情况</li>
-						<li>随身财物检查</li>
-						<li>签字确认</li>
+						<li>人身检查</li>
+						<li>信息采集</li>
+						<li>活动登记</li>
+						<li>出区登记</li>
 					</ul>
 				</div>
 				<!--在该容器下第一个row结束-->

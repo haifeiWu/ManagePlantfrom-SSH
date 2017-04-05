@@ -63,8 +63,8 @@ h1 {
 /*进度条数据显示*/
 #number {
 	/*border: 1px solid red;*/
-	width: 105%;
-	margin-left: 78px;
+	width: 79%;
+	margin-left: 87px;
 }
 
 #number li {
@@ -102,8 +102,8 @@ h1 {
 	list-style: none;
 	color: #f69d1f;
 	float: left;
-	width: 98px;
-	margin-left: 50px;
+	width: 224px;
+	margin-left: -78px;
 	margin-top: -1%;
 }
 #img_1 {

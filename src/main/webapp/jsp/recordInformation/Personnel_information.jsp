@@ -122,10 +122,10 @@
 	 }
 	 */
 
-	$(document).ready(function() {
+	/* $(document).ready(function() {
 		$("#identityImg").attr('src', 'images/fgreen_03.png');
 		$("#identityImg1").attr('src', 'images/fgreen_03.png');
-	});
+	}); */
 
 	/*window.onload = function(e) {
 	//var e = window.event || e;
@@ -170,15 +170,15 @@
 		<c:if test="${!empty message }">
 			<input class="message" type="hidden" value=${message }>
 		</c:if>
-		
+
 		<c:if test="${!empty msg }">
-				<div class="alert alert-danger" role="alert">
-				  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				  <span class="sr-only">Error:</span>
-				 ${msg }
-				</div>
+			<div class="alert alert-danger" role="alert">
+				<span class="glyphicon glyphicon-exclamation-sign"
+					aria-hidden="true"></span> <span class="sr-only">Error:</span>
+				${msg }
+			</div>
 		</c:if>
-			
+
 		<div class="row">
 			<!--嫌疑人入区信息-->
 			<h4 style="margin-top: 13px;">
@@ -206,22 +206,62 @@
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="#identityInfor"><img id="identityImg"
-							src="images/3-inforCollection_03.png" /></a> <a
-							href="#identityInfor"><img id="identityImg1"
-							src="images/3-inforCollection_03.png" /></a> <a href="#personInfor"><img
-							id="personInforImg" src="images/3-inforCollection_03.png" /></a> <a
-							href="#enterInfor"><img id="enterInforImg"
-							src="images/3-inforCollection_03.png" /></a> <a href="#confirm"><img
-							id="confirmImg" src="images/3-inforCollection_07.png"
-							style="margin-left: -14%;" /></a> <span>入区登记完成</span>
+						<c:if test="${!empty suspect }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="identityImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty personalCheck }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg1").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if> 
+						<img id="identityImg1" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty informationCollection }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#personInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="personInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty activityRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#enterInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="enterInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty leaveRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#confirmImg").attr("src","images/fgreen_07.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="confirmImg" src="images/3-inforCollection_07.png"
+							style="margin-left: -10%;" />
+						<!-- <span>入区登记完成</span> -->
 					</div>
 					<!--进度的信息显示-->
+					<
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
-						<li>身份证信息</li>
-						<li>人员联系信息</li>
-						<li>进入办案区信息</li>
-						<li>干警签名确认</li>
+						<li>入区登记</li>
+						<li>人身检查</li>
+						<li>信息采集</li>
+						<li>活动登记</li>
+						<li>出区登记</li>
 					</ul>
 				</div>
 			</div>
@@ -238,7 +278,8 @@
 							&nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-						<hr style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
+						<hr
+							style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
 						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
 
 							<tr style="padding: 0px;">
@@ -309,16 +350,17 @@
 						</tr>
 						<tr>
 							<td style="text-align:center;">证件号码:</td>
-							<td><input type="text" name="identifyCard_Number" value="${param.identifyCard_Number}" />
-							</td>
+							<td><input type="text" name="identifyCard_Number"
+								value="${param.identifyCard_Number}" /></td>
 						</tr>
 						<tr>
 							<td style="text-align:center;">现住址：</td>
-							<td><input type="text" name="now_address" value="${param.now_address}" /></td>
+							<td><input type="text" name="now_address"
+								value="${param.now_address}" /></td>
 						</tr>
 						<tr>
 							<td style="text-align:center;">联系方式：</td>
-							<td><input type="text" name="phone" value="${param.phone}"/></td>
+							<td><input type="text" name="phone" value="${param.phone}" /></td>
 						</tr>
 					</table>
 				</div>
@@ -385,9 +427,9 @@
 						style="width: 450px;">
 						<tr>
 							<td style="width: 12%;">办案民警：</td>
-							<td style="width: 24%;text-align: center;">
-							<input
-								type="text" name="staff_ID" style="width:250px;" value="${param.staff_ID }"/></td>
+							<td style="width: 24%;text-align: center;"><input
+								type="text" name="staff_ID" style="width:250px;"
+								value="${param.staff_ID }" /></td>
 						</tr>
 					</table>
 					<input id="btnSave" class="btn" type="submit" value="确认提交"
@@ -396,7 +438,7 @@
 			</div>
 			<div class="row_4" style="height: 480px;"></div>
 		</div>
-		
+
 	</form>
 </body>
 
