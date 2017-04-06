@@ -32,9 +32,10 @@
 			<p id="left_title">嫌疑人信息采集</p>
 			<!--设置标题：档案编号：-->
 			<h5 class="col-lg-12 col-md-10 text-center">
-				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="text" name="suspect_ID" value="${SuspectInfor.suspect_ID }"
-					readonly="readonly" />
+				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+			<span style="width:200px;" type="text" id="suspectID"
+				name="Suspect_ID" >${Suspect_ID }</span>
+				<span name="suspect_ID" >${SuspectInfor.suspect_ID }</span>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
