@@ -18,7 +18,7 @@
         
         <property name="staff_ID"/>
         <property name="room_ID"/>
-        
+        <property name="manager"></property>
     </class>
 
 </hibernate-mapping>
