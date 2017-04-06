@@ -63,6 +63,7 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	public String loadInfor() throws IOException {
 		try {
+			
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();

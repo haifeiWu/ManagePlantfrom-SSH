@@ -200,7 +200,7 @@
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+					<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
@@ -210,7 +210,7 @@
 					<!--进度的状态-->
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
-					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
+					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 						<a href="suspect_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
 							src="images/fgreen_03.png" /></a> <a
 							href="personalCheck_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img

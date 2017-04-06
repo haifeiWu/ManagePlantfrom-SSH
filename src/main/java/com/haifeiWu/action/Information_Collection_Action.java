@@ -11,8 +11,10 @@ import org.springframework.stereotype.Controller;
 import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_Dic_Collection_Item;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
+import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.InformationCollectionService;
+import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
@@ -35,6 +37,9 @@ public class Information_Collection_Action extends
 	private SuspectService suspectService;
 	@Autowired
 	private RoomService roomService;
+		// 嫌疑人的人身检查信息
+		@Autowired
+		private PersonalCheckService personalCheckService;
 
 	// 保存信息
 	public String addInformationCollection() throws IOException {
@@ -75,11 +80,18 @@ public class Information_Collection_Action extends
 	public String loadInfor() throws IOException {// 注意处理房间号找不到异常，或者嫌疑人房间号为空的异常
 		// 维护进出门的标志位
 		try {
+						
+			
+			
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
+			request.setAttribute("roomId", roomId);
+			
+			//嫌疑人信息
 			PHCSMP_Suspect SuspectInfor = suspectService.findByRoomID(roomId);
 			List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
 					.findAllCollectionItem();
+			//信息采集
 			PHCSMP_Information_Collection informatCollect = (PHCSMP_Information_Collection) request
 					.getAttribute("informatCollect");
 			if (informatCollect != null)
@@ -87,6 +99,12 @@ public class Information_Collection_Action extends
 			request.setAttribute("start_Time",
 					new DateTime().toString("yyyy-MM-dd HH:mm"));
 			request.setAttribute("SuspectInfor", SuspectInfor);
+			//人身安全检查
+			PHCSMP_Personal_Check personal_Check = personalCheckService
+					.findInforBySuspetcId(SuspectInfor.getSuspect_ID());
+			if(personal_Check!=null){
+				request.setAttribute("personal_Check", personal_Check);
+			}
 			request.setAttribute("collectionItem", collectionItem);
 			suspectService.updateSwitch(1, SuspectInfor.getSuspect_ID());
 

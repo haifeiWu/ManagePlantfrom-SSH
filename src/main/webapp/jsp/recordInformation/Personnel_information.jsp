@@ -188,7 +188,7 @@ if (datetime < 10) {
 		<!--设置标题：档案编号：-->
 		<h5 class="col-lg-12 col-md-10 text-center">
 			<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
-			<span style="width:200px;" type="text" id="suspectID"
+			<span style="width:200px;color:black;" type="text" id="suspectID"
 				name="Suspect_ID" >${Suspect_ID }</span>
 		</h5>
 
@@ -196,7 +196,7 @@ if (datetime < 10) {
 		<div class="container" style="height: 180px;">
 			<div class="row">
 				<!--进度的数据信息-->
-				<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+				<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
 					<li>0%</li>
 					<li>25%</li>
 					<li>50%</li>
@@ -205,7 +205,7 @@ if (datetime < 10) {
 				</ul>
 				<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 				<!--引入状态截图-->
-				<div id="state" class="col-lg-12 col-md-10 col-sm-10">
+				<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 					<a href="#identityInfor"><img id="identityImg"
 						src="images/3-inforCollection_03.png" /></a> <a
 						href="#identityInfor"><img id="identityImg1"
@@ -247,34 +247,34 @@ if (datetime < 10) {
 								style="width: 95px;height: 108px;position: relative;top: -10px;" />
 								<input type="hidden" name="identityCard_Photo" value="value">
 								<p class="info_id">身份证照</p></td>
-							<td colspan="2">姓名:<span type="text" name="suspect_Name" >德古拉</span></td>
+							<td colspan="2">姓名:<span type="text" name="suspect_Name" style="color:black;">德古拉</span></td>
 
 						</tr>
 						<!--第二行 性别 民族-->
 						<tr>
-							<td>性别：<span style="text-align: center;" type="text"
+							<td>性别：<span style="text-align: center;color:black;" type="text"
 								name="sex" />男</td>
 
-							<td>民族：<span type="text" name="nation" >汉</span></td>
+							<td>民族：<span type="text" name="nation" style="color:black;">汉</span></td>
 						</tr>
 						<!--第三行 出生-->
 						<tr>
-							<td colspan="2">出生日期：<span type="text" style="width:70%;"
-								name="birthday" >1961</span></td>
+							<td colspan="2">出生日期：<span type="text" style="width:70%;color:black;"
+								name="birthday;" >1961</span></td>
 						</tr>
 						<!--第四行身份证住址-->
 						<tr>
-							<td colspan="2">家庭住址：</td>
+							<td colspan="2" style="color:black;">家庭住址：</td>
 						</tr>
 
 						<tr>
-							<td colspan="2"><span name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</span></td>
+							<td colspan="2"><span name="address" rows="1" cols="45" style="color:black;">山西省离石市灵石区灵城镇三海村委会名塘村37号</span></td>
 						</tr>
 
 						<tr>
-							<td><div style="margin-left: 4%;">身份证号码</div></td>
-							<td colspan="2"><span type="text"
-								name="identifyCard_Number1" value="140104196108123556" /></td>
+							<td><div style="margin-left: 4%;color:black;">身份证号码</div></td>
+							<td colspan="2"><span type="text" style="color:black;"
+								name="identifyCard_Number1">140104196108123556</span></td>
 
 						</tr>
 					</table>
