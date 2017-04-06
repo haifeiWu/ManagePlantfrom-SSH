@@ -28,7 +28,7 @@ h1 img{
 .report li {
 	list-style: none;
 	float: left;
-	width: 33%;
+	width: 12%;
 	/*border: 1px dashed #0000FF;*/
 	font-size: larger;
 	color: #389ac7;
@@ -265,7 +265,7 @@ textarea{
 /*自述情况*/
 .self_state{
 	border-bottom: 1px solid #389AC7; padding-bottom: 3px;
-	color: #f69d1f;width: 13%;margin-top: 1%;
+	color: #f69d1f;width: 13%;margin-top: 2%;
 }
 
 .checkbox{
@@ -326,8 +326,8 @@ fieldset textarea{
 border-bottom: 1px solid #389AC7;
 padding-bottom: 3px;
 color: #f69d1f;
-width: 19%;
-margin-top: 1%;
+width: 24%;
+margin-top: 3%;
 /*float: inherit;*/
 }
 /*随身物品检查登记表*/
@@ -344,6 +344,7 @@ margin-top: 1%;
 }
 .signature{
 	margin-top: 1%;
+	margin-left: 10%;
 }
 .signature li{
 	list-style: none;
@@ -456,7 +457,7 @@ color: 0;
 /*下载*/
 #download{
 	background: #389AC7; color: #FFFFFF;width: 10%;height: 30px;
-	border-radius: 2px;margin-left: 35%;margin-top: 5%;
+	border-radius: 2px;margin-left: 43%;margin-top: 5%;
 }
 #print{
 	background: #389AC7; color: #FFFFFF;width: 10%;

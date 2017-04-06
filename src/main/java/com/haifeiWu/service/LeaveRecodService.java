@@ -3,7 +3,6 @@ package com.haifeiWu.service;
 import java.util.List;
 
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
-import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 
 public interface LeaveRecodService {
@@ -28,8 +27,10 @@ public interface LeaveRecodService {
 	 * @return
 	 */
 	PHCSMP_Leave_Record findInforBySuspetcId(String suspectId);
-	//更新离区信息
+
+	// 更新离区信息
 	void updateLeaveRecordInfor(PHCSMP_Leave_Record LeaveRecordInfo);
-	//根据嫌疑人id找该嫌疑人离区信息
+
+	// 根据嫌疑人id找该嫌疑人离区信息
 	PHCSMP_Leave_Record findLeaveRecordInfor(String suspect_ID);
 }

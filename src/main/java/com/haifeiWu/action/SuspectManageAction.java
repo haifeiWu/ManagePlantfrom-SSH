@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.SuspectService;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -41,6 +42,8 @@ public class SuspectManageAction extends ActionSupport implements
 
 	@Autowired
 	private SuspectService suspectService;// 嫌疑人信息管理
+	@Autowired
+	private LeaveRecodService leaveRecodService;
 
 	/**
 	 * 加载嫌疑人信息
@@ -55,15 +58,21 @@ public class SuspectManageAction extends ActionSupport implements
 		// 获取出区嫌疑人数据
 		List<PHCSMP_Suspect> suspectCheckedInfor = suspectService
 				.getLeavePoliceSuspect();
+		// List<PHCSMP_Leave_Record>
 		if ((suspectCheckInfor == null) || (suspectCheckedInfor == null)) {
 			return "NULL";
 		}
 		// 将信息放入到request中
 		request.setAttribute("suspectCheckInfor", suspectCheckInfor);
 		request.setAttribute("suspectCheckedInfor", suspectCheckedInfor);
+		System.out.println("----------待查的" + suspectCheckInfor);
+		System.out.println("----------历史的----" + suspectCheckedInfor);
+
 		for (PHCSMP_Suspect phcsmp_Suspect : suspectCheckedInfor) {
 			System.err.println(phcsmp_Suspect.toString());
 		}
+
+		// getDistanceTime(suspectCheckedInfor., suspectCheckedInfor.get(14));
 		return "loadInfor";
 	}
 
@@ -75,19 +84,14 @@ public class SuspectManageAction extends ActionSupport implements
 	public String searchsuspectInfor() {
 		String searchInfor = request.getParameter("searchInfor");
 		/*
-		 * 通过正则表达式来区分档案号与嫌疑人姓名
+		 * 通过正则表达式来区分嫌疑人姓名
 		 */
-		Pattern p = Pattern.compile("^[A-Za-z0-9]{4,40}$");
+		Pattern p = Pattern.compile("^[\u4E00-\u9FA5]+$");
 		Matcher m = p.matcher(searchInfor);
 		boolean result = m.find();
-		Pattern p1 = Pattern
-				.compile("^[1-9]\\d{5}[1-9]\\d{3}((0[1-9])||(1[0-2]))((0[1-9])||(1\\d)||(2\\d)||(3[0-1]))\\d{3}([0-9]||X)$");
-		Matcher m1 = p1.matcher(searchInfor);
-		boolean result1 = m1.find();
-		if (result) {
-			System.out.println("1");
-			if (result1) {
-				System.out.println(2);
+		char fir = searchInfor.charAt(0);
+		if (fir < 130) {
+			if (fir < 60) {
 				// 非数组类型的身份证号查找
 				List<PHCSMP_Suspect> suspect = suspectService
 						.findByCardId(searchInfor);
@@ -109,10 +113,10 @@ public class SuspectManageAction extends ActionSupport implements
 				System.out.println(suspect);
 				System.out.println(suspectNow);
 			}
-		} else {
+		}
+		if (result) {
 			List<PHCSMP_Suspect> suspect = suspectService
 					.findBySuspectName(searchInfor);
-			@SuppressWarnings("unused")
 			List<PHCSMP_Suspect> suspectNow = suspectService
 					.finBySuspectNameNow(searchInfor);
 			request.setAttribute("suspect", suspect);

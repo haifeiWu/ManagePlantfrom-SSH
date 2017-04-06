@@ -147,6 +147,12 @@ public class SuspectServiceImple implements SuspectService {
 
 	}
 
+	@Override
+	public void updateSuspectPhotoPath(String fpath, String spath,String suspect_ID) {
+		String hql = "update PHCSMP_Suspect s set s.frontal_Photo=? , s.sideWays_Photo=? where s.suspect_ID=?";
+		suspectDao.update(hql, fpath, spath, suspect_ID);
+	}
+
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
 	// // TODO Auto-generated method stub

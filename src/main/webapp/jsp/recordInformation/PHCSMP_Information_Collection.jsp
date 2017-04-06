@@ -32,15 +32,16 @@
 			<p id="left_title">嫌疑人信息采集</p>
 			<!--设置标题：档案编号：-->
 			<h5 class="col-lg-12 col-md-10 text-center">
-				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="text" name="suspect_ID" value="${SuspectInfor.suspect_ID }"
-					readonly="readonly" />
+				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+			<span style="width:200px;" type="text" id="suspectID"
+				name="Suspect_ID" >${Suspect_ID }</span>
+				<span name="suspect_ID" style="color: black;">${SuspectInfor.suspect_ID }</span>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+					<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
@@ -51,14 +52,21 @@
 				</div>
 				<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 				<!--引入状态截图-->
-				<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-					<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img
-						src="images/3-inforCollection_03.png" /></a> <a
-						href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"><img
-						src="images/3-inforCollection_03.png" /></a> <a href="#InforCollect"><img
-						src="images/3-inforCollection_03.png" /></a> <a href="#InforCollect"><img
-						src="images/3-inforCollection_03.png" /></a> <a href="#InforCollect"><img
-						src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
+				<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
+					<!-- <a href="suspect_updateInfor.action?Suspect_ID=haifieisi"> -->
+					<c:if test="${!empty SuspectInfor}"><img src="images/fgreen_03.png" /></c:if>
+					<c:if test="${empty SuspectInfor}"><img src="images/3-inforCollection_03.png" /></c:if>
+				<!-- 	</a> <a href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"> -->
+					<c:if test="${!empty personal_Check}"><img src="images/fgreen_03.png" /></c:if>
+					<c:if test="${empty personal_Check}"><img src="images/3-inforCollection_03.png" /></c:if>
+					<!-- </a> <a href="#InforCollect"> -->
+					<c:if test="${!empty informatCollect}"><img src="images/fgreen_03.png" /></c:if>
+					<c:if test="${empty informatCollect}"><img src="images/3-inforCollection_03.png" /></c:if>
+						<!-- </a> <a href="#InforCollect"> -->
+					<c:if test="${!empty informatCollect}"><img src="images/fgreen_03.png" /></c:if>
+					<c:if test="${empty informatCollect}"><img src="images/3-inforCollection_03.png" /></c:if>						<!-- </a> <a href="#InforCollect"> -->
+						<img src="images/3-inforCollection_07.png" style="margin-left: -14%;" />
+						</a>
 					<span>活动记录登记表</span>
 				</div>
 
@@ -108,34 +116,27 @@
 								src="${SuspectInfor.identityCard_Photo }" />
 								<p class="info_id">身份证照</p></td>
 							<!--<td></td>-->
-							<td colspan="2">姓名:<input type="text" readonly="readonly"
-								value="${SuspectInfor.suspect_Name }" /></td>
+							<td colspan="2">姓名:<span style="color: black;">${SuspectInfor.suspect_Name } </span></td>
 						</tr>
 						<!--第二行 性别 民族-->
 						<tr>
-							<td>性别：<input style="text-align: center;" type="text"
-								value="${SuspectInfor.sex }" readonly="readonly" /></td>
-							<td>民族：<input type="text" value="${SuspectInfor.nation }"
-								readonly="readonly" /></td>
+							<td>性别：<span style="color: black;">${SuspectInfor.sex } </span></td>
+							<td>民族：<span style="color: black;">${SuspectInfor.nation }</span></td>
 						</tr>
 						<!--第三行 出生-->
 						<tr>
-							<td colspan="2">出生日期：<input type="text" style="width:230px !important;"
-								value="${SuspectInfor.birthday }" readonly="readonly" />
-							</td>
+							<td colspan="2">出生日期：<span style="color: black;">${SuspectInfor.birthday } </span></td>
 						</tr>
 						<!--第四行身份证住址-->
 						<tr>
 							<td colspan="2">住址：</td>
 						</tr>
 						<tr>
-							<!--<td></td>-->
-							<td colspan="2"><textarea readonly="readonly" style="width:350px !important;height:50px !important; " >${SuspectInfor.address }</textarea></td>
+							<td colspan="2"><span style="color: black;">${SuspectInfor.address }</span></td>
 						</tr>
 						<tr >
 							<td>&nbsp;身份证号码</td>
-							<td colspan="2"><input type="text"
-								value="${SuspectInfor.identifyCard_Number }" readonly="readonly" /></td>
+							<td colspan="2"><span style="color: black;">${SuspectInfor.identifyCard_Number }</span></td>
 						</tr>
 					</table>
 				</div>

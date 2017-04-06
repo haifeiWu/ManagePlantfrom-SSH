@@ -10,6 +10,16 @@ h1{
 	font-family: "微软雅黑";
 	font-size: xx-large;
 }
+.play{
+	background: rgba(0,0,0,0.6);
+	padding-top: 20px;
+	display: none;
+}
+.show1:hover .play{
+	display: block;
+}
+
+
 #left_title{
 	border-bottom:2px solid #389AC7 ;
 	padding-bottom: 2px;width: 140px;
@@ -107,6 +117,7 @@ text-align: center;
 	height: 50px;
 	width: 150px;
 	align:center; 
+	line-height:50px;
 	color: #FFFFFF;
 	-webkit-box-shadow: 2px 2px 4px rgba(0,0,0,0.8); /*兼容谷歌*/
 	-moz-box-shadow: 2px 2px 4px rgba(0,0,0,0.8);	/*兼容火狐*/
@@ -156,7 +167,7 @@ color: #f69d1f;
 }
 .total input{
 	text-align:center;
-	width:150px;
+	width:25px;
 	height:30px;
 	background:#0070c0;
 	color:#e0b511;

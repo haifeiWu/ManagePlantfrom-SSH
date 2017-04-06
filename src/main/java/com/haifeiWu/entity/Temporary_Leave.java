@@ -22,7 +22,7 @@ public class Temporary_Leave implements Serializable {
 	private String return_Time;// 返回时间 3
 	private String staff_ID;// 办案民警 4
 	private int room_ID;// 信息登记房间 5
-
+	private String manager;//管理员
 	
 	public Temporary_Leave() {
 		super();
@@ -30,7 +30,7 @@ public class Temporary_Leave implements Serializable {
 
 	public Temporary_Leave(int temporary_Leave_Id, String suspect_ID,
 			String tempLeave_Time, String tempLeave_Reason, String return_Time,
-			String staff_ID, int room_ID) {
+			String staff_ID, int room_ID,String manager) {
 		super();
 		this.temporary_Leave_Id = temporary_Leave_Id;
 		this.suspect_ID = suspect_ID;
@@ -39,6 +39,7 @@ public class Temporary_Leave implements Serializable {
 		this.return_Time = return_Time;
 		this.staff_ID = staff_ID;
 		this.room_ID = room_ID;
+		this.manager=manager;
 	}
 
 
@@ -99,7 +100,13 @@ public class Temporary_Leave implements Serializable {
 	public void setRoom_ID(int room_ID) {
 		this.room_ID = room_ID;
 	}
+	public String getManager() {
+		return manager;
+	}
 
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
 //	@Override
 //	public String toString() {
 //		return "Temporary_Leave [temporary_Leave_Id=" + temporary_Leave_Id
@@ -108,6 +115,8 @@ public class Temporary_Leave implements Serializable {
 //				+ ", return_Time=" + return_Time + ", staff_ID=" + staff_ID
 //				+ ", room_ID=" + room_ID + "]";
 //	}
+
+	
 
 	@Override
 	public String toString() {// 重写toString方法

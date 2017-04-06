@@ -51,4 +51,10 @@ public class TemporaryLeaveServiceImple extends DaoSupportImpl<Temporary_Leave>
 				.findListByPropertyName("suspect_ID", suspectId);
 	}
 
+	@Override
+	public void updateManager(String manager, String suspect_ID) {
+		String hql = "update Temporary_Leave s set s.manager=? where s.suspect_ID=?";
+		temporaryLeaveDao.update(hql, manager, suspect_ID);
+	}
+
 }

@@ -144,34 +144,41 @@
 			</h4>
 			<p id="left_title">活动记录登记</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center">
-				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="text" name="suspect_ID" value="${SuspectInfor.suspect_ID }"
-					readonly="readonly" />
+			<h5 class="col-lg-12 col-md-10 text-center" >
+				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+				<span name="suspect_ID" style="color: black;">${SuspectInfor.suspect_ID }</span>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
-						<li>25%</li>
+					<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
+						 <li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
-						<li>100%</li>
+						<li>100%</li> 
 					</ul>
 					<!--进度的状态-->
 
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
-					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/fgreen_03.png" /></a> <a
-							href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/fgreen_03.png" /></a> <a
-							href="IC_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/fgreen_03.png" /></a> <a href="#activityReco"><img
-							src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
-						<span>出区登记</span>
+					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
+						<!-- <a href="suspect_updateInfor.action?Suspect_ID=haifieisi"> -->
+						<c:if test="${!empty SuspectInfor}"><img src="images/fgreen_03.png" /></c:if>
+						<c:if test="${empty SuspectInfor}"><img src="images/3-inforCollection_03.png" /></c:if>
+						 	<!-- </a>  -->
+						<!-- <a href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"> -->
+						<c:if test="${!empty personal_Check}"><img src="images/fgreen_03.png" /></c:if>
+						<c:if test="${empty personal_Check}"><img src="images/3-inforCollection_03.png" /></c:if>
+							
+							<!-- </a>  -->
+						<!-- <a href="IC_updateInfor.action?Suspect_ID=haifieisi"> -->
+						 <c:if test="${!empty information_Collection}"><img src="images/fgreen_03.png" /></c:if>
+						 <c:if test="${empty information_Collection}"><img src="images/3-inforCollection_03.png" /></c:if>
+							<!-- </a> <a href="#activityReco"> -->
+							<img src="images/3-inforCollection_07.png" style="margin-left: 200px;" />
+							<!-- </a> -->
+						<span style="margin-top: 30px;">出区登记</span>
 					</div>
 
 					<!--进度的信息显示-->
@@ -213,20 +220,16 @@
 									style="width:95px;height: 108px;"
 									src="${SuspectInfor.identityCard_Photo }" />
 									<p class="info_id">身份证照</p></td>
-								<td colspan="2">姓名:<input type="text" readonly="readonly" style="width:36%;"
-									value="${SuspectInfor.suspect_Name }" /></td>
+								<td colspan="2">姓名:<span style="color: black;">${SuspectInfor.suspect_Name } </span></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
-								<td>性别：<input style="text-align: center; width:36%;" type="text"
-									value="${SuspectInfor.sex }" readonly="readonly" /></td>
-								<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
+								<td>性别：<span style="color: black;">${SuspectInfor.sex } </span></td>
+								<td>民族：<span style="color: black;">${SuspectInfor.nation }</span></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:42%;"
-									value="${SuspectInfor.birthday }" readonly="readonly" />
-								</td>
+								<td colspan="2">出生日期：<span style="color: black;">${SuspectInfor.birthday } </span></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
@@ -234,14 +237,11 @@
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" rows="1" style="width: 350px;margin-left: 10%;" 
-										cols="30">${SuspectInfor.address }</textarea></td>
+								<td colspan="2"><span style="color: black;">${SuspectInfor.address }</span></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 38px;">身份证号码</div></td>
-								<td colspan="2"><input type="text" style="width:80%;"
-									value="${SuspectInfor.identifyCard_Number  }" readonly="readonly" /></td>
-							</tr>
+								<td colspan="2"><span style="color: black;">${SuspectInfor.identifyCard_Number  } </span></tr>
 						</table>
 						<hr
 							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 30%; margin-left: -3%;" />
@@ -308,79 +308,66 @@
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 					</tr>
 				<tr>
-					<td >入区人员登记信息</td>
+					<td style="text-align: left;">&nbsp&nbsp入区人员登记信息</td>
 						<td >
-							 <c:if test="${!empty SuspectInfor}">
-							 	<input type="text" style="width: 120px !important;"  readonly="readonly" value="${SuspectInfor.enter_Time}" />
-							  </c:if>
-							   <c:if test="${empty SuspectInfor}">
-							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="-" />%
-							  </c:if>
+							 <c:if test="${!empty SuspectInfor}">${SuspectInfor.enter_Time}</c:if>
+							   <c:if test="${empty SuspectInfor}">&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
-							<input type="text" style="width: 120px !important;"  readonly="readonly" value="&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" />
+							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 						</td>
 						<td >
-							 <c:if test="${!empty SuspectInfor}">
-							 	<input type="text" style="width: 200px !important;text-align: center;color: red;"  readonly="readonly" value="${complete_degree}%" />
-							  </c:if>
+							 <c:if test="${!empty SuspectInfor}">${complete_degree}%</c:if>
+							 <c:if test="${empty SuspectInfor}">${complete_degree}</c:if>
 						</td>
-						<td >
+						<td style="text-align: left;">
 							  <c:if test="${!empty SuspectInfor}">
-							 	进入办案区原因:&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" style="width: 200px !important;"  readonly="readonly" value="${SuspectInfor.suspected_Cause}" />
-							  </c:if>
+							 	&nbsp&nbsp进入办案区原因:&nbsp&nbsp&nbsp&nbsp&nbsp${SuspectInfor.suspected_Cause}</c:if>
+							 <c:if test="${empty SuspectInfor}">
+							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp
+							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 				</tr>
 				<tr>
-					<td>人身安全检查</td>
+					<td style="text-align: left;">&nbsp&nbsp人身安全检查</td>
 						<td >
-							<c:if test="${!empty personal_Check}">
-							 	<input type="text" style="width: 120px !important;"  readonly="readonly" value="${personal_Check.check_StartTime}" />
-							  </c:if>
-							  <c:if test="${empty personal_Check}">
-							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="-" />
-							  </c:if>
+							<c:if test="${!empty personal_Check}">${personal_Check.check_StartTime}</c:if>
+							  <c:if test="${empty personal_Check}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
-							<c:if test="${!empty personal_Check}">
-							 	<input type="text" style="width: 120px !important;"  readonly="readonly" value="${personal_Check.check_EndTime}" />
-							  </c:if>
-							  <c:if test="${empty personal_Check}">
-							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="-" />
-							  </c:if>
+							<c:if test="${!empty personal_Check}">${personal_Check.check_EndTime}</c:if>
+							  <c:if test="${empty personal_Check}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
-							 <c:if test="${!empty personal_Check}">
-							 	<input type="text" style="width: 200px !important;text-align: center;color: red;"  readonly="readonly" value="${complete_degree1}%" />
-							  </c:if>
+							 <c:if test="${!empty personal_Check}">${complete_degree1 }%</c:if>
+							 <c:if test="${empty personal_Check}">${complete_degree1 }%</c:if>
 						</td>
-						<td >
+						<td style="text-align: left;">
 							<c:if test="${!empty personal_Check}">
-							 	人身检查状态:&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" style="width: 120px !important;"  readonly="readonly" value="${personal_Check.check_ReportS}" />
-							  </c:if>
+							 	&nbsp&nbsp人身检查状态:&nbsp&nbsp&nbsp&nbsp&nbsp${personal_Check.check_Situation}</c:if>
+						  <c:if test="${empty personal_Check}">&nbsp&nbsp未填写人身安全检查</c:if>
 						</td>
 				</tr>
 				<tr>
-					<td>信息采集</td>
+					<td style="text-align: left;">&nbsp&nbsp信息采集</td>
 						<td >
-							<c:if test="${!empty information_Collection}">
-							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="${information_Collection.ic_StartTime}" />
-							  </c:if>
+							<c:if test="${!empty information_Collection}">${information_Collection.ic_StartTime}</c:if>
+							<c:if test="${empty information_Collection}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
-							<c:if test="${!empty information_Collection}">
-							 	 <input type="text" style="width: 120px !important;"  readonly="readonly" value="${information_Collection.ic_EndTime}" />
-							  </c:if>
+							<c:if test="${!empty information_Collection}">${information_Collection.ic_EndTime}</c:if>
+							<c:if test="${empty information_Collection}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
-							 <c:if test="${!empty information_Collection}">
-							 	<input type="text"style="width: 200px !important;color:red;text-align: center;" value="${complete_degree2}%" />
-							  </c:if>
+							 <c:if test="${!empty information_Collection}">${complete_degree2}%</c:if>
+							 <c:if test="${empty information_Collection}">${complete_degree2}%</c:if>
 						</td>
-						<td >
+						<td style="text-align: left;">
 							  <c:if test="${!empty information_Collection}">
-							 	  采集项目:&nbsp&nbsp&nbsp&nbsp&nbsp<input type="text" style="width: 120px !important;"  readonly="readonly" value="${information_Collection.collected_Item}" />
-							  </c:if>
+							 	  &nbsp&nbsp采集项目:&nbsp&nbsp&nbsp&nbsp&nbsp${information_Collection.collected_Item}</c:if>
+							  <c:if test="${empty information_Collection}">&nbsp&nbsp未填写信息采集</c:if>
 						</td>
 				</tr>
 				</table>
@@ -393,13 +380,39 @@
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					活动记录登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
-				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 30px !important;width:960px !important; ">
+				
+				
+				<c:if test="${!empty activity_record_infor}">
+					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
+					<tr style="background-color: rgb(0,112,192);color:white;">
+						<td style="width: 100px">&nbsp活&nbsp动&nbsp内&nbsp容&nbsp</td><!-- 						<td>音视频编码</td> -->
+						<td>&nbsp房&nbsp间&nbsp号&nbsp</td>
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp开&nbsp&nbsp始&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp结&nbsp&nbsp束&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+					</tr>
+					   <c:forEach items="${activity_record_infor }" var="ari">
+					   <tr>
+					   		<td>${ari.activity_Record }</td>
+					   		<td>${ari.room_ID }</td>
+					   		<td>${ari.start_Time }</td>
+					   		<td>${ari.end_Time }</td>
+					   		<td style="width: 600px;">${ari.remark }</td>
+					   	</tr>
+					   </c:forEach>
+						
+					</table>
+				
+			    </c:if>
+				
+				
+				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
 					<tr style="background-color: rgb(0,112,192);color:white;">
 						<!-- <td style="display: none;">序号</td>
 						<td style="display: none;">开始时间</td>
 						<td style="display: none;">结束时间</td> -->
-						<td>活动内容</td><!-- 						<td>音视频编码</td> -->
-						<td>备注</td>
+						<td style="width: 100px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp活&nbsp&nbsp&nbsp动&nbsp&nbsp&nbsp内&nbsp&nbsp&nbsp容&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td><!-- 						<td>音视频编码</td> -->
+						<td>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp( 可输入255个字 )</td>
 					</tr>
 					<tr>
 						<td style="display: none;">0</td>
@@ -447,8 +460,10 @@
 								<option value="审讯">审讯</option>
 								<option value="传唤">传唤</option>
 						</select></td>
-						<td><input type="text" name="remark"
-							style="width:250px; height: 30px;text-align: center;" value="${activity_remark }"/></td>
+						<td><!-- <input type="text" name="remark"
+							style="width:790px; height: 80px;text-align: center;" value="${activity_remark }"/> -->
+							<textarea name="remark" style="width: 780px;" clos="300" rows="3" warp="virtual">${activity_remark }</textarea>
+							</td>
 					</tr>
 					<tr>
 						<td style="display: none;">1</td>
@@ -463,7 +478,7 @@
 			<p class="row_1">
 				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记<br />遗漏.
 			</p>
-			<input type="submit" value="确认提交" class="sub" />
+				<input type="submit" value="确认提交" class="sub" />
 		</div>
 	</form>
 	<div style="height: 400px;"></div>

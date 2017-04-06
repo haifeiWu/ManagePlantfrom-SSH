@@ -148,8 +148,25 @@ public class PHCSMP_Leave_Record implements Serializable {
 
 	@Override
 	public String toString() {
+		return "PHCSMP_Leave_Record [leave_Record_ID=" + leave_Record_ID
+				+ ", suspect_ID=" + suspect_ID + ", leave_Time=" + leave_Time
+				+ ", leave_Reason=" + leave_Reason
+				+ ", belongingS_Treatment_Method="
+				+ belongingS_Treatment_Method
+				+ ", belongingS_Treatment_Record="
+				+ belongingS_Treatment_Record + ", recipient_Person="
+				+ recipient_Person + ", recipient_Person_Number="
+				+ recipient_Person_Number + ", treatment_Time="
+				+ treatment_Time + ", staff_ID=" + staff_ID + ", room_ID="
+				+ room_ID + ", total_record=" + total_record + ", fill_record="
+				+ fill_record + "]";
+	}
+
+	/*@Override
+	public String toString() {
 		return this.suspect_ID + " " + this.leave_Reason + " "
 				+ this.recipient_Person;
 	}
-
+*/
+	
 }

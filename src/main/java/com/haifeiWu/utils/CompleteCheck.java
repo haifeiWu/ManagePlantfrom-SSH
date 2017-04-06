@@ -88,8 +88,8 @@ public class CompleteCheck {
 	 */
 
 	public static int completeCheck(Object obj, Class<?> c, int n) {
-		int totalField = getFieldsNumber(obj, c) - n;
-		int fillField = getFieldsNumber(obj, c) - IsEqualsNull(obj, c) - n;
+		int totalField = getFieldsNumber(obj, c) - n;// 应该填写的总数
+		int fillField = getFieldsNumber(obj, c) - IsEqualsNull(obj, c) - n;// 填写的总数
 		// System.out.println(fillField+"字段++++++++++++++"+totalField+"字段++++++++++++++");
 		int completePercent = (int) ((float) fillField / totalField * 100);
 		return completePercent;

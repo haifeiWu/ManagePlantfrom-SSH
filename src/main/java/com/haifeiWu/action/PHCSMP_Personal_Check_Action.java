@@ -11,13 +11,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.base.BaseAction;
+import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Cabinet;
 import com.haifeiWu.entity.PHCSMP_Dic_Inspection_Situation;
 import com.haifeiWu.entity.PHCSMP_Dic_Keeping_Way;
+import com.haifeiWu.entity.PHCSMP_Information_Collection;
+import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
+import com.haifeiWu.service.InformationCollectionService;
+import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
@@ -50,6 +56,13 @@ public class PHCSMP_Personal_Check_Action extends
 	// 随身物品登记
 	@Autowired
 	private BelongingInforService belongingInforService;
+	
+	@Autowired
+	private InformationCollectionService informationCollectionService;
+	@Autowired
+	private ActivityRecordService activityRecordService;
+	@Autowired
+	private LeaveRecodService leaveRecodService;
 	// 嫌疑人基本信息
 	@Autowired
 	SuspectService suspectService;
@@ -63,6 +76,7 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	public String loadInfor() throws IOException {
 		try {
+			
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
@@ -88,6 +102,22 @@ public class PHCSMP_Personal_Check_Action extends
 			request.setAttribute("PHCSMPCabinetType", PHCSMPCabinetType);
 			// 更新录像状态的标志位
 			suspectService.updateSwitch(1, suspectId);
+			
+			System.out.println("suspectId"+suspectId);
+			//判断进度条
+			//String suspectId=setSuspectId(entry_Time);
+			//String suspectId="LB-HB-20170317005";
+			PHCSMP_Suspect suspect=suspectService.findBySuspetcId(suspectId);
+			PHCSMP_Personal_Check personalCheck=personalCheckService.findInforBySuspetcId(suspectId);
+			PHCSMP_Information_Collection informationCollection=informationCollectionService.findInforBySuspetcId(suspectId);
+			List<PHCSMP_Activity_Record> activityRecordlist=activityRecordService.selectActivityRecordInfor(suspectId);
+			PHCSMP_Leave_Record leaveRecord=leaveRecodService.findInforBySuspetcId(suspectId);
+			request.setAttribute("suspect", suspect);
+			request.setAttribute("personalCheck", personalCheck);
+			request.setAttribute("informationCollection", informationCollection);
+			request.setAttribute("activityRecord", activityRecordlist);
+			request.setAttribute("leaveRecord", leaveRecord);
+			System.out.println("suspect="+suspect+" "+"personalCheck="+personalCheck+" "+"informationCollection="+informationCollection+" "+"activityRecord="+activityRecordlist+" "+"leaveRecord="+leaveRecord);
 		} catch (Exception e) {
 			// 提示可能是房间、读卡器等设备配置错误
 			response.getWriter()
@@ -106,7 +136,7 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	public String addCheckPersonInfor() throws IOException {
 		try {
-
+			System.out.println("ip地址"+request.getRemoteAddr());
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
 			String suspectId = suspectService.findByRoomID(roomId)
