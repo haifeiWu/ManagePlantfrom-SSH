@@ -135,7 +135,10 @@
 			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 		</action>
-
+		
+		<!-- 上传头像 -->
+		<action name="uploadPhoto" class="com.haifeiWu.action.Leave_Recod_Action" method="uploadPhoto"></action>
+		
 		<!--离开办案区 -->
 		<action name="LR_*" class="com.haifeiWu.action.Leave_Recod_Action"
 			method="{1}">
