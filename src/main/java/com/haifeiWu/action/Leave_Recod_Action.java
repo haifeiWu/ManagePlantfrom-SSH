@@ -1,5 +1,6 @@
 package com.haifeiWu.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -7,7 +8,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
+import org.apache.commons.io.FileUtils;
+import org.apache.struts2.ServletActionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -36,9 +38,7 @@ import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.utils.CompleteCheck;
 import com.haifeiWu.utils.Video;
-import org.apache.commons.io.FileUtils;
-import java.io.File;
-import org.apache.struts2.ServletActionContext;
+
 /**
  * 离开办案区的action
  * 
@@ -105,43 +105,47 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private File file;
 	private String fileContentType;
 	private String fileFileName;
-	
+
 	private File sfile;
 	private String sfileContentType;
 	private String sfileFileName;
-	
+
 	/*
 	 * 上传图片
-	 * */
-	public void uploadPhoto(){
-		//找到当前嫌疑人
+	 */
+	public void uploadPhoto() {
+		// 找到当前嫌疑人
 		String ip = request.getRemoteAddr();
 		PHCSMP_Room room = roomService.findbyIp(ip);
 		int room_id = room.getRoom_ID();
 		System.out.println("获取到roomid为" + room_id);
 		PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(room_id);
 
-		String path=ServletActionContext.getServletContext().getRealPath("/images");
-		System.out.println(path+"///////////////////////////");
+		String path = ServletActionContext.getServletContext().getRealPath(
+				"/images");
+		System.out.println(path + "///////////////////////////");
 		try {
-			//删除原图片
-			String curPath=ServletActionContext.getServletContext().getRealPath("/")+suspectInfor.getFrontal_Photo();
+			// 删除原图片
+			String curPath = ServletActionContext.getServletContext()
+					.getRealPath("/") + suspectInfor.getFrontal_Photo();
 			new File(curPath).delete();
-			String curPath2=ServletActionContext.getServletContext().getRealPath("/")+suspectInfor.getSideWays_Photo();
+			String curPath2 = ServletActionContext.getServletContext()
+					.getRealPath("/") + suspectInfor.getSideWays_Photo();
 			new File(curPath2).delete();
-			//将新头像上传到服务器
-			FileUtils.copyFile(file, new File(new File(path),fileFileName));
-			FileUtils.copyFile(sfile, new File(new File(path),sfileFileName));
-			//修改数据库中用户的头像路径信息
-			String fpath="images/"+fileFileName;
-			String spath="images/"+sfileFileName;
-			suspectService.updateSuspectPhotoPath(fpath,spath,suspectInfor.getSuspect_ID());
+			// 将新头像上传到服务器
+			FileUtils.copyFile(file, new File(new File(path), fileFileName));
+			FileUtils.copyFile(sfile, new File(new File(path), sfileFileName));
+			// 修改数据库中用户的头像路径信息
+			String fpath = "images/" + fileFileName;
+			String spath = "images/" + sfileFileName;
+			suspectService.updateSuspectPhotoPath(fpath, spath,
+					suspectInfor.getSuspect_ID());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	/** 
+
+	/**
 	 * @return
 	 * @throws Exception
 	 */
@@ -163,11 +167,11 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			String leavetime = sdf.format(date);
 			model.setLeave_Time(leavetime);
 			model.setTreatment_Time(leavetime);
-			
-			//设置离区   嫌疑人的ID
-			model.setSuspect_ID(suspectInfor.getSuspect_ID());	
-			
-			//动态设置离区嫌疑人的字段信息
+
+			// 设置离区 嫌疑人的ID
+			model.setSuspect_ID(suspectInfor.getSuspect_ID());
+
+			// 动态设置离区嫌疑人的字段信息
 			Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
 			int count1 = CompleteCheck.IsEqualsNull(model, c);
 			int fieldsNumber1 = CompleteCheck.getFieldsNumber(model, c);
@@ -194,13 +198,13 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			String stopRecording = Video.stopRecording(room.getCardReader_ID(),
 					room.getLine_Number(),
 					suspectInfor.getIdentifyCard_Number());
-			
+
 			// 释放回路
 			lineService.closeLine();
-			
+
 			// 释放手环
 			bandService.update(0, suspectInfor.getBand_ID());
-			
+
 			// 将录像的标志位置为0
 			suspectService.updateLeaveState(3, -1, 0,
 					suspectInfor.getSuspect_ID());
@@ -254,7 +258,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	// 保存临时出区的信息
 	public String addTemporaryLeaveInfor() throws IOException {
 		try {
-			//根据ip找到当前临时出区嫌疑人
+			// 根据ip找到当前临时出区嫌疑人
 			String roomIP = request.getRemoteAddr();
 			PHCSMP_Room room = roomService.findbyIp(roomIP);
 			suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
@@ -263,45 +267,45 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			Temporary_Leave temporary_Leave = new Temporary_Leave(0,
 					suspectInfor.getSuspect_ID(), tempLeave_Time,
 					tempLeave_Reason, return_Time, model.getStaff_ID(),
-					room.getRoom_ID(),manager);
+					room.getRoom_ID(), manager);
 
 			// 打印提交的单条信息
 			System.out.println(temporary_Leave.toString());
-			
+
 			// 如果是出区保存信息,是出区返回则更新信息
 			temporaryLeave = temporaryLeaveService
-					.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());			
+					.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
 			if (temporaryLeave != null) {
 				// 更新临时离开返回时间
 				Date date = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 				String temporaryReturnTime = sdf.format(date);
-				
+
 				temporaryLeaveService.updateReturnTime(temporaryReturnTime,
 						temporary_Leave.getSuspect_ID());
-				
+
 				System.out
 						.println("嫌疑人出区返回" + temporary_Leave.getReturn_Time());
-				
-				//如果出区返回时值班室管理员变了，则将新的管理员也保存进数据库
-				if(temporaryLeave.getManager()!=manager){
-					temporaryLeaveService.updateManager(temporaryLeave.getManager()+","+manager,temporary_Leave.getSuspect_ID());
+
+				// 如果出区返回时值班室管理员变了，则将新的管理员也保存进数据库
+				if (temporaryLeave.getManager() != manager) {
+					temporaryLeaveService.updateManager(
+							temporaryLeave.getManager() + "," + manager,
+							temporary_Leave.getSuspect_ID());
 				}
-				
+
 			} else {
 				// 设置临时离开时间
 				Date date = new Date();
-				SimpleDateFormat sdf = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 				String temporaryLeaveTime = sdf.format(date);
 				temporary_Leave.setTempLeave_Time(temporaryLeaveTime);
 				temporaryLeaveService.saveTemporaryLeaveInfo(temporary_Leave);
 				System.out.println("嫌疑人出区");
 			}
-			
+
 			return "success";
-			
+
 		} catch (Exception e) {
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
@@ -343,10 +347,10 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// 根据嫌疑人id查找嫌疑人前四个业务的信息
 			String suspect_id = suspectInfor.getSuspect_ID();
 			sb = new StringBuilder("");
-			
+
 			// 查入区登记信息
 			suspect = suspectService.findBySuspetcId(suspect_id);
-			if(suspect!=null){
+			if (suspect != null) {
 				suspectComplete = CompleteCheck.completeCheck(suspect,
 						suspect.getClass(), 3);
 				System.out.println(suspectComplete
@@ -355,48 +359,58 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 					sb.append("入区登记信息填写不完整!  ");
 					System.out.println(sb + "1");
 				}
-			}else{
- 				sb.append("该嫌疑人并未进行入区登记操作!  ");
- 			}
-			
-			//查人身检查信息
- 			personalCheck=personalCheckService.findInforBySuspetcId(suspect_id);
-			if(personalCheck!=null){
- 				personalCheckComplete=CompleteCheck.completeCheck(personalCheck, personalCheck.getClass(),3);
- 				System.out.println(personalCheckComplete+"");
- 				if(personalCheckComplete!=100){//信息不完整
- 					sb.append("人身检查信息填写不完整!  ");
-					System.out.println(sb+"2");
+			} else {
+				sb.append("该嫌疑人并未进行入区登记操作!  ");
+			}
+
+			// 查人身检查信息
+			personalCheck = personalCheckService
+					.findInforBySuspetcId(suspect_id);
+			if (personalCheck != null) {
+				personalCheckComplete = CompleteCheck.completeCheck(
+						personalCheck, personalCheck.getClass(), 3);
+				System.out.println(personalCheckComplete + "");
+				if (personalCheckComplete != 100) {// 信息不完整
+					sb.append("人身检查信息填写不完整!  ");
+					System.out.println(sb + "2");
 				}
- 			}else{
- 				sb.append("该嫌疑人并未进行人身检查操作! ");
- 			}
-			
- 			//查信息采集信息
-			informationCollection=informationCollectionService.findInforBySuspetcId(suspect_id);
- 			if(informationCollection!=null){
- 				informationCollectionComplete=CompleteCheck.completeCheck(informationCollection, informationCollection.getClass(),3);
- 				System.out.println(informationCollectionComplete+"=============================");
- 				if(informationCollectionComplete!=100){//信息不完整
- 					sb.append("信息采集信息填写不完整!  ");
- 					System.out.println(sb+"3");
- 				}
- 			}else{
+			} else {
+				sb.append("该嫌疑人并未进行人身检查操作! ");
+			}
+
+			// 查信息采集信息
+			informationCollection = informationCollectionService
+					.findInforBySuspetcId(suspect_id);
+			if (informationCollection != null) {
+				informationCollectionComplete = CompleteCheck.completeCheck(
+						informationCollection,
+						informationCollection.getClass(), 3);
+				System.out.println(informationCollectionComplete
+						+ "=============================");
+				if (informationCollectionComplete != 100) {// 信息不完整
+					sb.append("信息采集信息填写不完整!  ");
+					System.out.println(sb + "3");
+				}
+			} else {
 				sb.append("该嫌疑人并未进行信息采集操作!  ");
- 			}
-			
- 			//查询问讯问信息
- 			activityRecord=activityRecordService.findInforBySuspetcId(suspect_id);
- 			if(activityRecord!=null){
- 				activityRecordComplete=CompleteCheck.completeCheck(activityRecord, activityRecord.getClass(),3);
- 				System.out.println(activityRecordComplete+"=============================");
-				if(activityRecordComplete!=100){//信息不完整
+			}
+
+			// 查询问讯问信息
+			// 多条询问讯问信息
+			List<PHCSMP_Activity_Record> activityRecord = activityRecordService
+					.findInforBySuspetcId(suspect_id);
+			if (activityRecord != null) {
+				activityRecordComplete = CompleteCheck.completeCheck(
+						activityRecord, activityRecord.getClass(), 3);
+				System.out.println(activityRecordComplete
+						+ "=============================");
+				if (activityRecordComplete != 100) {// 信息不完整
 					sb.append("询问讯问信息填写不完整!  ");
-					System.out.println(sb+"4");
- 				}
- 			}else{
- 				sb.append("该嫌疑人并未进行询问讯问操作!  ");
- 			}		
+					System.out.println(sb + "4");
+				}
+			} else {
+				sb.append("该嫌疑人并未进行询问讯问操作!  ");
+			}
 
 			// 维护进出门的标志位
 			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
@@ -408,14 +422,14 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			List<PHCSMP_Dic_Leaving_Reason> leaveReason = dicService
 					.findLeaveReason();
 			List<PHCSMP_Dic_Keeping_Way> keepingWay = dicService
-					.findKeepingWay();			
-			List<PHCSMP_Dic_Treatment_Method> treatmentMethod=dicService
+					.findKeepingWay();
+			List<PHCSMP_Dic_Treatment_Method> treatmentMethod = dicService
 					.findTreatmentMethod();
-			
+
 			request.setAttribute("leaveReason", leaveReason);
 			request.setAttribute("keepingWay", keepingWay);
 			request.setAttribute("treatmentMethod", treatmentMethod);
-			
+
 			// 判断是否登录
 			PHCSMP_Staff user = (PHCSMP_Staff) request.getSession()
 					.getAttribute("user");
@@ -633,5 +647,4 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	public void setSfileFileName(String sfileFileName) {
 		this.sfileFileName = sfileFileName;
 	}
-
 }

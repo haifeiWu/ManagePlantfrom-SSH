@@ -201,7 +201,7 @@ if (datetime < 10) {
 			</h5>
 
 			<!--进度条信息设置-->
-			<div class="container" style="height: 180px;">
+			<%-- <div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
 					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
@@ -270,13 +270,14 @@ if (datetime < 10) {
 						<li>活动登记</li>
 						<li>出区登记</li>
 					</ul>
-			</div>
+				</div>
+			</div> --%>
 
 			<!--疑犯个人身份证信息-->
 			<div class="container">
 				<div class="row">
 					<!--身份信息标题-->
-					<h4 id="identityInfor"
+					<h4 id="identityInfor" style="margin-top: -25px;"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">身份证信息</h4>
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
@@ -324,51 +325,21 @@ if (datetime < 10) {
 								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
 									name="identifyCard_Number1" value="140104196108123556" /></td>
-							<td style="text-align:center;">联系方式：</td>
-							<td><input type="text" name="phone" value="${param.phone}" /></td>
 
-							<td colspan="2">出生日期：<span type="text" style="width:70%;"
-								name="birthday" >1961</span></td>
-
-						</tr>
-						<!--第四行身份证住址-->
-						<tr>
-							<td colspan="2">家庭住址：</td>
-						</tr>
-
-						<tr>
-							<td colspan="2"><span name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</span></td>
-						</tr>
-
-						<tr>
-							<td><div style="margin-left: 4%;">身份证号码</div></td>
-							<td colspan="2"><span type="text"
-								name="identifyCard_Number1" value="140104196108123556" /></td>
-
-						</tr>
-					</table>
-					<hr
-						style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
-				</div>
-				<div class="row_3">
-					<h4 id="confirm"
-						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">干警签名确认</h4>
-					<table
-						class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
-						style="width: 450px;">
-						<tr>
-							<td style="width: 12%;">办案民警：</td>
-							<td style="width: 24%;text-align: center;"><input
-								type="text" name="staff_ID" style="width:250px;"
-								value="${param.staff_ID }" /></td>
-						</tr>
-					</table>
-					<input id="btnSave" class="btn" type="submit" value="确认提交"
-						class="submit" />
+							</tr>
+						</table>
+						<hr
+							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
+					</div>
+					<div
+						style="z-index:1;position:absolute;left:890px;top:330px;width:850px;">
+						<input class="btn" type="button" value="读卡"
+							onclick="return Button1_onclick()" />
+					</div>
 
 			</div>
-			<div class="row_1">
-				<h4 id="personInfor"
+			<div class="row_1" style="margin-top: -60px !important;">
+				<h4 id="personInfor" style="margin-top: -5px;"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
 				<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<tr>
@@ -407,7 +378,7 @@ if (datetime < 10) {
 			</div>
 			<input type="hidden" name="enter_Time" value="${entry_Time}">
 			<div class="row_2">
-				<h4 id="enterInfor"
+				<h4 id="enterInfor" 
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
 				<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<tr>

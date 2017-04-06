@@ -31,18 +31,16 @@
 									"td:eq(0)");
 							var lineNum=index-1;
 							//添加下一行
-							var addrow = "<tr>" + "<td>"
-									+ index
-									+ "</td>"
+							var addrow = "<tr>" + "<td><input name=belong["+lineNum+"].Belonging_Number value="+index+" /></td>"
 									+ "<td><input type=text name=belong["
 									+ lineNum
 									+ "].Belonging_Name style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);'/></td>"
 									+ "<td><input type=text name=belong["
 									+ lineNum
 									+ "].Belonging_Character style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
-									+ "<td><input type=text name=belong["
+									/* + "<td><input type=text name=belong["
 									+ lineNum
-									+ "].Belonging_Number style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
+									+ "].Belonging_Number style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>" */
 									+ "<td><input type=number name=belong["
 									+ lineNum
 									+ "].Belonging_Count style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
@@ -357,19 +355,17 @@
 							<td>序号</td>
 							<td>物品名称</td>
 							<td>物品特征</td>
-							<td>物品编号</td>
 							<td>物品数量</td>
 							<td>物品单位</td>
 							<td>保管措施</td>
 							<td>保管柜号</td>
 						</tr>
 						<tr>
-							<td>1</td>
+							<td><input name="belong[0].Belonging_Number" value="1" readonly="readonly" /></td>
 							<td><input type="text" name="belong[0].Belonging_Name"
 								value="" /></td>
 							<td><input type="text" name="belong[0].Belonging_Character"
 								value="" /></td>
-							<td><input type="text" name="belong[0].Belonging_Number" /></td>
 							<td><input type="number" value="1"
 								name="belong[0].Belonging_Count" /></td>
 							<td><input type="text" value="个"
