@@ -144,25 +144,25 @@
 			</h4>
 			<p id="left_title">活动记录登记</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center">
+			<h5 class="col-lg-12 col-md-10 text-center" >
 				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
-				<span name="suspect_ID" >${SuspectInfor.suspect_ID }</span>
+				<span name="suspect_ID" style="color: black;">${SuspectInfor.suspect_ID }</span>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
-						<!-- <li>25%</li>
+					<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
+						 <li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
-						<li>100%</li> -->
+						<li>100%</li> 
 					</ul>
 					<!--进度的状态-->
 
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
-					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
+					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 						<!-- <a href="suspect_updateInfor.action?Suspect_ID=haifieisi"> -->
 						<c:if test="${!empty SuspectInfor}"><img src="images/fgreen_03.png" /></c:if>
 						<c:if test="${empty SuspectInfor}"><img src="images/3-inforCollection_03.png" /></c:if>
@@ -220,20 +220,16 @@
 									style="width:95px;height: 108px;"
 									src="${SuspectInfor.identityCard_Photo }" />
 									<p class="info_id">身份证照</p></td>
-								<td colspan="2">姓名:<input type="text" readonly="readonly" style="width:36%;"
-									value="${SuspectInfor.suspect_Name }" /></td>
+								<td colspan="2">姓名:<span style="color: black;">${SuspectInfor.suspect_Name } </span></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
-								<td>性别：<input style="text-align: center; width:36%;" type="text"
-									value="${SuspectInfor.sex }" readonly="readonly" /></td>
-								<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
+								<td>性别：<span style="color: black;">${SuspectInfor.sex } </span></td>
+								<td>民族：<span style="color: black;">${SuspectInfor.nation }</span></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:42%;"
-									value="${SuspectInfor.birthday }" readonly="readonly" />
-								</td>
+								<td colspan="2">出生日期：<span style="color: black;">${SuspectInfor.birthday } </span></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
@@ -241,14 +237,11 @@
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" rows="1" style="width: 350px;margin-left: 10%;" 
-										cols="30">${SuspectInfor.address }</textarea></td>
+								<td colspan="2"><span style="color: black;">${SuspectInfor.address }</span></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 38px;">身份证号码</div></td>
-								<td colspan="2"><input type="text" style="width:80%;"
-									value="${SuspectInfor.identifyCard_Number  }" readonly="readonly" /></td>
-							</tr>
+								<td colspan="2"><span style="color: black;">${SuspectInfor.identifyCard_Number  } </span></tr>
 						</table>
 						<hr
 							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 30%; margin-left: -3%;" />
@@ -393,9 +386,9 @@
 					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
 					<tr style="background-color: rgb(0,112,192);color:white;">
 						<td style="width: 100px">&nbsp活&nbsp动&nbsp内&nbsp容&nbsp</td><!-- 						<td>音视频编码</td> -->
-						<td>房间号</td>
-						<td>&nbsp&nbsp&nbsp&nbsp开&nbsp&nbsp始&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp</td>
-						<td>&nbsp&nbsp&nbsp&nbsp结&nbsp&nbsp束&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp</td>
+						<td>&nbsp房&nbsp间&nbsp号&nbsp</td>
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp开&nbsp&nbsp始&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp结&nbsp&nbsp束&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 					</tr>
 					   <c:forEach items="${activity_record_infor }" var="ari">
