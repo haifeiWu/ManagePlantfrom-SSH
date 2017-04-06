@@ -40,7 +40,7 @@ $(document).ready(function(){
 	$(".signatuer_Mes tr td").css("height","30px");
 });
 
-window.onload = function(){
+/*window.onload = function(){
 	// 设置进度条变化
 	if ($(".Message input[type='text']").val()!="") {
 		$("#state img:lt(2)").attr("src","./images/fgreen_03.png");
@@ -81,8 +81,8 @@ window.onload = function(){
 
 	 
 
-	});
-	// 设置进入办案区信息进度
+	});*/
+	/*// 设置进入办案区信息进度
 	$(document).ready(function(){
 		if ($(".Mes_case input[type='date']").val()!="") {
 		$("#state img:eq(3)").attr("src","./images/fgreen_03.png");
@@ -104,9 +104,9 @@ window.onload = function(){
 		}
 			
 		});
-	});
+	});*/
 	// 干警签名确认
-	$(document).ready(function(){
+	/*$(document).ready(function(){
 
 		if ($(".signatuer_Mes input:lt(2)").val()!="") {
 		$("#state img:eq(4)").attr("src","./images/fgreen_07.png");
@@ -130,5 +130,5 @@ window.onload = function(){
 		});
 
 
-	});
+	});*/
 }
