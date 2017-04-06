@@ -345,7 +345,7 @@ if (datetime < 10) {
 				<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<tr>
 						<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
-							style="text-align:center;">证件类型：</td>
+							style="text-align:center;color: #389ac7;">证件类型：</td>
 						<td style="text-align:center; width: 168px">
 							<%-- <ol>
 								<!--  -->
@@ -362,18 +362,21 @@ if (datetime < 10) {
 								</c:forEach>
 						</select>
 						</td>
-					
-						<td style="text-align:center;">证件号码:</td>
-						<td style="text-align:center;"><input type="text" name="identifyCard_Number" value="${param.identifyCard_Number}" />
-						</td>
+					<td style="text-align:center;color: #389ac7;">联系方式：</td>
+						<td><input type="text" name="phone" value="${param.phone}"/></td>
+						
+						
 						 </tr>
 					<tr> 
-						<td style="text-align:center;">联系方式：</td>
-						<td><input type="text" name="phone" value="${param.phone}"/></td>
+						<td style="text-align:center;color: #389ac7;">证件号码：</td>
+						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number" value="${param.identifyCard_Number}" />
 					 <!--</tr>
 					<tr>-->
-						<td style="text-align:center;">现住址：</td>
-						<td style="width:300px!important" ><input type="text" name="now_address" value="${param.now_address}" /></td>
+						
+					 </tr>
+					 <tr>
+					 <td style="text-align:center;color: #389ac7;" >现住址：</td>
+						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address" value="${param.now_address}" /></td>
 					 </tr>
 				</table>
 			</div>
@@ -402,10 +405,10 @@ if (datetime < 10) {
 							</div>
 						</td>
 					-->
-						<td style="width: 22%;text-align:center;">RFID手环 :</td>
+						<td style="width: 22%;text-align:center;color: #389ac7;">RFID手环 :</td>
 						<!--手环选择列-->
 						<td colspan="2" style="text-align-last:center ;text-align:center;"><select
-							name="band_ID" id="band_ID">
+							name="band_ID" id="band_ID" style="margin-left: -87%;">
 								<option value="0">-----请选择-----</option>
 								<c:forEach items="${bundList}" var="item" varStatus="status">
 									<option value="${item.band_ID }">${item.band_ID }</option>
@@ -414,7 +417,7 @@ if (datetime < 10) {
 					<!-- </tr>
 					
 					<tr> -->
-						<td rowspan="4" style="text-align:center;">进入办案区原因：</td>
+						<td rowspan="4" style="text-align:center;color: #389ac7;">进入办案区原因：</td>
 
 					<!-- </tr>
 
@@ -428,7 +431,7 @@ if (datetime < 10) {
 										style="width:30px;" /></li>
 								</c:forEach> 
 							</ol>--%>
-							<select name="suspected_Cause" id="suspected_Cause">
+							<select name="suspected_Cause" id="suspected_Cause" style="margin-left: -87%;">
 								<option value="0">-----请选择-----</option>
 								<c:forEach items="${actionCause}" var="item" varStatus="status">
 									<option value="${item.cause_Name }">${item.cause_Name }</option>
@@ -445,10 +448,10 @@ if (datetime < 10) {
 					class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
 					style="width: 450px;">
 					<tr>
-						<td style="width: 12%;">办案民警：</td>
+						<td style="width: 22%;color: #389ac7;text-align: center;">办案民警：</td>
 						<td style="width: 24%;text-align: center;">
 						<input
-							type="text" name="staff_ID" style="width:250px;" value="${param.staff_ID }"/></td>
+							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" value="${param.staff_ID }"/></td>
 					</tr>
 				</table>
 				<input id="btnSave" class="btn" type="submit" value="确认提交"
