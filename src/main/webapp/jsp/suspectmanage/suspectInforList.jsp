@@ -32,16 +32,26 @@
 					<c:if test="${status.count eq 1 || (status.count-1) % 5 eq 0}">
 						<tr>
 					</c:if>
-					<td style="width: 160px;">
+					<div>
+					<td style="width: 160px;" class="show1">
 						<div style="width:150px; float:left; margin-left: -1px;">
-							<img src="images/1-zhengmian_04.png" style="width: 150px; height: 200px;"/>
+							<img src="${item.identityCard_Photo }" style="width: 150px; height: 200px;"/>
 							<p>
 								<a
 									href="./GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"
 									style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a><br />
 							</p>
 						</div>
+						<!--  -->
+						<div class="play" style="text-align: left; width: 150px; height: 200px;float: left; margin-left: -15.4%;margin-top: 0%;color:#FFFFFF;">
+							<span style="margin-top: 10px;">&nbsp所在房间：${item.room_Now }</span><br>
+							<span>&nbsp</span><br>
+							<span style="margin-top: 25px;">&nbsp嫌疑人编号：<br>&nbsp&nbsp${item.suspect_ID }</span><br>
+							<span>&nbsp</span><br>
+							<span>&nbsp身份证号：<br>${item.identifyCard_Number }</span>
+						</div>
 					</td>
+					</div>
 					<c:if test="${status.count % 5 eq 0 || status.count eq 5}">
 						</tr>
 					</c:if>
