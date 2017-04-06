@@ -157,6 +157,6 @@
 		    	btn1.value="更多>>";
 			}
 			});
-</script
+</script>
 </body>
 </html>

@@ -117,6 +117,12 @@ function Button1_onclick() {
 
 }
 
+
+	/* $(document).ready(function() {
+		$("#identityImg").attr('src', 'images/fgreen_03.png');
+		$("#identityImg1").attr('src', 'images/fgreen_03.png');
+	}); */
+
 /* 	function Logger() {
  alert("信息提交成功！");
  }
@@ -126,6 +132,7 @@ $(document).ready(function() {
 	$("#identityImg").attr('src', 'images/fgreen_03.png');
 	$("#identityImg1").attr('src', 'images/fgreen_03.png');
 });
+
 
 /*window.onload = function(e) {
 //var e = window.event || e;
@@ -166,130 +173,174 @@ if (datetime < 10) {
 
 	<form class="container" id="addInfoForm"
 		action="${pageContext.request.contextPath }/suspect_addSuspectInfor.action"
-	enctype="multipart/form-data" method="POST">
-	<c:if test="${!empty message }">
-		<input class="message" type="hidden" value=${message }>
-	</c:if>
-	
-	<c:if test="${!empty msg }">
+
+		enctype="multipart/form-data" method="POST">
+		<c:if test="${!empty message }">
+			<input class="message" type="hidden" value=${message }>
+		</c:if>
+
+		<c:if test="${!empty msg }">
 			<div class="alert alert-danger" role="alert">
-			  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-			  <span class="sr-only">Error:</span>
-			 ${msg }
+				<span class="glyphicon glyphicon-exclamation-sign"
+					aria-hidden="true"></span> <span class="sr-only">Error:</span>
+				${msg }
 			</div>
-	</c:if>
-		
-	<div class="row">
-		<!--嫌疑人入区信息-->
-		<h4 style="margin-top: 13px;">
-			<b style="color: #389ac7;">Personnal</b> information registeration
-		</h4>
-		<p id="left_title">嫌疑人入区信息登记</p>
-		<!--设置标题：档案编号：-->
-		<h5 class="col-lg-12 col-md-10 text-center">
-			<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
-			<span style="width:200px;color:black;" type="text" id="suspectID"
-				name="Suspect_ID" >${Suspect_ID }</span>
-		</h5>
+		</c:if>
 
-		<!--进度条信息设置-->
-		<div class="container" style="height: 180px;">
-			<div class="row">
-				<!--进度的数据信息-->
-				<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
-					<li>0%</li>
-					<li>25%</li>
-					<li>50%</li>
-					<li>75%</li>
-					<li>100%</li>
-				</ul>
-				<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
-				<!--引入状态截图-->
-				<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
-					<a href="#identityInfor"><img id="identityImg"
-						src="images/3-inforCollection_03.png" /></a> <a
-						href="#identityInfor"><img id="identityImg1"
-						src="images/3-inforCollection_03.png" /></a> <a href="#personInfor"><img
-						id="personInforImg" src="images/3-inforCollection_03.png" /></a> <a
-						href="#enterInfor"><img id="enterInforImg"
-						src="images/3-inforCollection_03.png" /></a> <a href="#confirm"><img
-						id="confirmImg" src="images/3-inforCollection_07.png"
-						style="margin-left: -14%;" /></a> <span>入区登记完成</span>
+		<div class="row">
+			<!--嫌疑人入区信息-->
+			<h4 style="margin-top: 13px;">
+				<b style="color: #389ac7;">Personnal</b> information registeration
+			</h4>
+			<p id="left_title">嫌疑人入区信息登记</p>
+			<!--设置标题：档案编号：-->
+			<h5 class="col-lg-12 col-md-10 text-center">
+				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+				<input style="width:200px;" type="text" id="suspectID"
+					name="Suspect_ID" value="${Suspect_ID }" />
+			</h5>
+
+			<!--进度条信息设置-->
+			<%-- <div class="container" style="height: 180px;">
+				<div class="row">
+					<!--进度的数据信息-->
+					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+						<li>0%</li>
+						<li>25%</li>
+						<li>50%</li>
+						<li>75%</li>
+						<li>100%</li>
+					</ul>
+					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
+					<!--引入状态截图-->
+					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
+						<c:if test="${!empty suspect }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="identityImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty personalCheck }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg1").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if> 
+						<img id="identityImg1" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty informationCollection }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#personInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="personInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty activityRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#enterInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="enterInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty leaveRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#confirmImg").attr("src","images/fgreen_07.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="confirmImg" src="images/3-inforCollection_07.png"
+							style="margin-left: -10%;" />
+						<!-- <span>入区登记完成</span> -->
+					</div>
+					<!--进度的信息显示-->
+					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
+						<li>入区登记</li>
+						<li>人身检查</li>
+						<li>信息采集</li>
+						<li>活动登记</li>
+						<li>出区登记</li>
+					</ul>
 				</div>
-				<!--进度的信息显示-->
-				<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
-					<li>身份证信息</li>
-					<li>人员联系信息</li>
-					<li>进入办案区信息</li>
-					<li>干警签名确认</li>
-				</ul>
+			</div> --%>
+
+
+			<!--疑犯个人身份证信息-->
+			<div class="container">
+				<div class="row">
+					<!--身份信息标题-->
+					<h4 id="identityInfor" style="margin-top: -25px;"
+						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">身份证信息</h4>
+					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
+						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
+							id="img_2" src="images/1-cemian_06.png" />
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }&nbsp;
+							&nbsp; &nbsp;嫌疑人入区登记照片</p>
+					</div>
+					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+						<hr
+							style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
+						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
+
+							<tr style="padding: 0px;">
+								<!--图片引入-->
+								<td rowspan="5"><img id="pic" src="images/1-IDlogo_09.png"
+									style="width: 95px;height: 108px;position: relative;top: -10px;" />
+									<input type="hidden" name="identityCard_Photo" value="value">
+									<p class="info_id">身份证照</p></td>
+								<td colspan="2">姓名:<input type="text" name="suspect_Name"
+									value="德古拉" /></td>
+
+							</tr>
+							<!--第二行 性别 民族-->
+							<tr>
+								<td>性别：<input style="text-align: center;" type="text"
+									name="sex" value="男" /></td>
+
+								<td>民族：<input type="text" name="nation" value="汉" /></td>
+							</tr>
+							<!--第三行 出生-->
+							<tr>
+								<td colspan="2">出生日期：<input type="text" style="width:70%;"
+									name="birthday" value="1961" /></td>
+							</tr>
+							<!--第四行身份证住址-->
+							<tr>
+								<td colspan="2">家庭住址：</td>
+							</tr>
+
+							<tr>
+								<td colspan="2"><textarea name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+							</tr>
+
+							<tr>
+								<td><div style="margin-left: 4%;">身份证号码</div></td>
+								<td colspan="2"><input type="text"
+									name="identifyCard_Number1" value="140104196108123556" /></td>
+
+							</tr>
+						</table>
+						<hr
+							style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
+					</div>
+					<div
+						style="z-index:1;position:absolute;left:890px;top:330px;width:850px;">
+						<input class="btn" type="button" value="读卡"
+							onclick="return Button1_onclick()" />
+					</div>
+
 			</div>
-		</div>
-		<!--疑犯个人身份证信息-->
-		<div class="container">
-			<div class="row">
-				<!--身份信息标题-->
-				<h4 id="identityInfor"
-					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">身份证信息</h4>
-				<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
-					<img id="img_1" src="images/1-zhengmian_04.png" /> <img
-						id="img_2" src="images/1-cemian_06.png" />
-					<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }&nbsp;
-						&nbsp; &nbsp;嫌疑人入区登记照片</p>
-				</div>
-				<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-					<hr style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
-					<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
-
-						<tr style="padding: 0px;">
-							<!--图片引入-->
-							<td rowspan="5"><img id="pic" src="images/1-IDlogo_09.png"
-								style="width: 95px;height: 108px;position: relative;top: -10px;" />
-								<input type="hidden" name="identityCard_Photo" value="value">
-								<p class="info_id">身份证照</p></td>
-							<td colspan="2">姓名:<span type="text" name="suspect_Name" style="color:black;">德古拉</span></td>
-
-						</tr>
-						<!--第二行 性别 民族-->
-						<tr>
-							<td>性别：<span style="text-align: center;color:black;" type="text"
-								name="sex" />男</td>
-
-							<td>民族：<span type="text" name="nation" style="color:black;">汉</span></td>
-						</tr>
-						<!--第三行 出生-->
-						<tr>
-							<td colspan="2">出生日期：<span type="text" style="width:70%;color:black;"
-								name="birthday;" >1961</span></td>
-						</tr>
-						<!--第四行身份证住址-->
-						<tr>
-							<td colspan="2" style="color:black;">家庭住址：</td>
-						</tr>
-
-						<tr>
-							<td colspan="2"><span name="address" rows="1" cols="45" style="color:black;">山西省离石市灵石区灵城镇三海村委会名塘村37号</span></td>
-						</tr>
-
-						<tr>
-							<td><div style="margin-left: 4%;color:black;">身份证号码</div></td>
-							<td colspan="2"><span type="text" style="color:black;"
-								name="identifyCard_Number1">140104196108123556</span></td>
-
-						</tr>
-					</table>
-					<hr
-						style="width: 100%; border: 0.2px solid #389ac7; padding: 0px;margin-top: 33%; margin-left: -4%;" />
-				</div>
-				<div
-					style="z-index:1;position:absolute;left:910px;top:450px;width:850px;">
-					<input class="btn" type="button" value="读卡"
-						onclick="return Button1_onclick()" />
-				</div>
-
-			</div>
-			<div class="row_1">
-				<h4 id="personInfor"
+			<div class="row_1" style="margin-top: -60px !important;">
+				<h4 id="personInfor" style="margin-top: -5px;"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
 				<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<tr>
@@ -328,7 +379,7 @@ if (datetime < 10) {
 			</div>
 			<input type="hidden" name="enter_Time" value="${entry_Time}">
 			<div class="row_2">
-				<h4 id="enterInfor"
+				<h4 id="enterInfor" 
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
 				<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<tr>
@@ -406,7 +457,6 @@ if (datetime < 10) {
 		</div>
 		<div class="row_4" style="height: 480px;"></div>
 		</div>
-		
 	</form>
 </body>
 

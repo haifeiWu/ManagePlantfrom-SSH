@@ -7,13 +7,21 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.haifeiWu.base.BaseAction;
+import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
+import com.haifeiWu.entity.PHCSMP_Information_Collection;
+import com.haifeiWu.entity.PHCSMP_Leave_Record;
+import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BandService;
+import com.haifeiWu.service.InformationCollectionService;
+import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LineService;
+import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
 
@@ -36,6 +44,17 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	private LineService lineService;
 	@Autowired
 	private BandService bandService;
+	@Autowired
+	private PersonalCheckService personalCheckService;
+	@Autowired
+	private InformationCollectionService informationCollectionService;
+	@Autowired
+	private ActivityRecordService activityRecordService;
+	@Autowired
+	private LeaveRecodService leaveRecodService;
+	
+
+	
 	private String message;
 
 	// 加载数据库的信息
@@ -61,6 +80,24 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 				request.setAttribute("entry_Time", entry_Time);
 				System.out.println("=======入区时间========" + entry_Time);
 				request.setAttribute("actionCause", actionCause);
+				
+				
+				//判断进度条
+				//String suspectId=setSuspectId(entry_Time);
+				String suspectId="LB-HB-20170317005";
+				PHCSMP_Suspect suspect=suspectService.findBySuspetcId(suspectId);
+				PHCSMP_Personal_Check personalCheck=personalCheckService.findInforBySuspetcId(suspectId);
+				PHCSMP_Information_Collection informationCollection=informationCollectionService.findInforBySuspetcId(suspectId);
+				List<PHCSMP_Activity_Record> activityRecordlist=activityRecordService.selectActivityRecordInfor(suspectId);
+				PHCSMP_Leave_Record leaveRecord=leaveRecodService.findInforBySuspetcId(suspectId);
+				request.setAttribute("suspect", suspect);
+				request.setAttribute("personalCheck", personalCheck);
+				request.setAttribute("informationCollection", informationCollection);
+				request.setAttribute("activityRecord", activityRecordlist);
+				request.setAttribute("leaveRecord", leaveRecord);
+				System.out.println("suspect="+suspect+" "+"personalCheck="+personalCheck+" "+"informationCollection="+informationCollection+" "+"activityRecord="+activityRecordlist+" "+"leaveRecord="+leaveRecord);
+				
+				
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -72,6 +109,8 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		}
 		return "loadInfor";
 	}
+	
+	
 
 	/**
 	 * 将图片拷贝到服务器下

@@ -96,6 +96,7 @@ public class GenerateReportAction extends ActionSupport implements
 	 * 
 	 * @return
 	 * @throws ParseException 
+	 * @throws IOException 
 	 */
 	public String loadInfor() throws ParseException {
 		System.out.println("嫌疑人入区信息报告");
@@ -110,7 +111,7 @@ public class GenerateReportAction extends ActionSupport implements
 		 */
 		// 获取档案编号
 		//String suspectId = (String) request.getParameter("suspectID");
-		String suspectId="LB-HB-2017308186";
+		String suspectId="LB-HB-20170317005";
 		
 		if (suspectId == null) {
 			return "NULL";
@@ -160,10 +161,7 @@ public class GenerateReportAction extends ActionSupport implements
 			return "NULL";
 		}
 	    
-		//计算羁押时间
 		
-			String detainTime=getDistanceTime(suspect.getEnter_Time(), leave_Record.getLeave_Time());
-			System.out.println("detainTime="+detainTime);
 		
 		
 		// 将查找到的信息放入request中，然后从页面加载
@@ -178,46 +176,20 @@ public class GenerateReportAction extends ActionSupport implements
 		request.setAttribute("reportCreateTime", reportCreateTime);
 		
 		
-		request.setAttribute("detainTime", detainTime);
+		request.setAttribute("detainTime", suspect.getDetain_Time());
 		System.out.println("detainTime="+detainTime);
+		
+		//生成PDF
+		/*try {
+			createPdf(suspect.getSuspect_ID());
+		} catch (IOException e) {
+			System.out.println("pdf生成失败！");
+			
+		}*/
 
 		return "loadInfor";
 	}
-	 /** 
-     * 两个时间相差距离多少天多少小时多少分多少秒 
-     * @param str1 时间参数 1 格式：1990-01-01 12:00:00 
-     * @param str2 时间参数 2 格式：2009-01-01 12:00:00 
-     * @return String 返回值为：xx天xx小时xx分xx秒 
-	 * @throws java.text.ParseException 
-     */  
-    public static String getDistanceTime(String str1, String str2) throws java.text.ParseException {  
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");  
-        Date one;  
-        Date two;  
-        long day = 0;  
-        long hour = 0;  
-        long min = 0;  
-       
-        try {  
-            one = df.parse(str1);  
-            two = df.parse(str2);  
-            long time1 = one.getTime();  
-            long time2 = two.getTime();  
-            long diff ;  
-            if(time1<time2) {  
-                diff = time2 - time1;  
-            } else {  
-                diff = time1 - time2;  
-            }  
-            day = diff / (24 * 60 * 60 * 1000);  
-            hour = (diff / (60 * 60 * 1000) - day * 24);  
-            min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);  
-           
-        } catch (ParseException e) {  
-            e.printStackTrace();  
-        }  
-        return day + "天" + hour + "小时" + min + "分" ;  
-    }
+	
 
 	public String suspectInforSummary() {
 		/*
@@ -291,16 +263,13 @@ public class GenerateReportAction extends ActionSupport implements
       * @return
       * @throws IOException
       */
-	public String downPdf() throws IOException
+	public String createPdf(  ) throws IOException
 	{
-		
+		String suspectId=request.getParameter("suspectId");
 		System.out.println("开始下载PDF");
-		 String path = "http://localhost:8080/ManagePlantfrom-SSH/GR_loadInfor.action";        
-		 
-	     /*  if(path == null || path.equals("")){  
-	            return "hj";  
-	        }*/
-	        System.out.println("path="+path);  
+		// String path = "http://localhost:8080/ManagePlantfrom-SSH/GR_loadInfor.action?suspectID="+suspectId;        
+		String path = "http://localhost:8080/ManagePlantfrom-SSH/GR_loadInfor.action?suspectID="+request.getParameter("suspectId");
+		System.out.println("path="+path);  
 	        
 	        //获取pdf的临时保存路径  
 	        //tmp为网站下的目录  
@@ -308,21 +277,22 @@ public class GenerateReportAction extends ActionSupport implements
 	        String pdfPath = request.getSession().getServletContext().getRealPath("/tmp");  
 	        System.out.println("pdfPath="+pdfPath);
 	        
-	        String suspectId = (String) request.getParameter("suspectId");
 	         String pdfName=suspectId+".pdf";
 	         
 	         System.out.println("pdfName="+pdfName);
 	        if(HtmlToPdf.convert(path, pdfPath + "/" + pdfName)){  
 	           //response.sendRedirect(request.getContextPath() + "/tmp/" + pdfName);
 	        	request.setAttribute("a", pdfPath + "/" + pdfName);
+	        	System.out.println(pdfPath + "/" + pdfName);
 	           System.out.println("pdf成功生成！");
 	           
 	          
 	        }
 	      request.setAttribute("suspectID", suspectId);
-	       return "downPDF";
+		return "createPdf";
+	       
 	 }
-	        
+	 
 	        
 	       
 	/**

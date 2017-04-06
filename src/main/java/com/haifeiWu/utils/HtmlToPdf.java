@@ -23,6 +23,7 @@ public class HtmlToPdf {
      * @param destPath pdf保存路径 
      * @return 转换成功返回true 
      * @throws IOException 
+     * @throws InterruptedException 
      */  
     public static boolean convert(String srcPath, String destPath) throws IOException{  
    	     Properties pro;
@@ -42,6 +43,7 @@ public class HtmlToPdf {
            
         File file = new File(destPath);  
         File parent = file.getParentFile();  
+        System.out.println("File");
        //如果pdf保存路径不存在，则创建路径  
        if(!parent.exists()){  
             parent.mkdirs();  
@@ -53,20 +55,28 @@ public class HtmlToPdf {
         cmd.append(srcPath);  
         cmd.append(" ");  
         cmd.append(destPath);  
+        
+        System.out.println("cmd");
           
         boolean result = true;  
         try{  
             Process proc = Runtime.getRuntime().exec(cmd.toString());  
             HtmlToPdfInterceptor error = new HtmlToPdfInterceptor(proc.getErrorStream());  
             HtmlToPdfInterceptor output = new HtmlToPdfInterceptor(proc.getInputStream());  
+            System.out.println("output");
             error.start();  
-            output.start();  
-            proc.waitFor();  
+            System.out.println("error");
+            output.start();
+            System.out.println("output");
+            proc.waitFor(); 
+           // proc.destroy();
+            System.out.println("proc");
         }catch(Exception e){  
             result = false;  
             e.printStackTrace();  
         }  
-          
+        
+          System.out.println("转换完成");
         return result;  
     }  
 }
