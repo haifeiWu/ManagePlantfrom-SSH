@@ -96,10 +96,15 @@
 			</h4>
 			<p id="left_title">人身安全检查登记</p>
 			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center">
+			<%-- <h5 class="col-lg-12 col-md-10 text-center">
 				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
 					type="text" name="Suspect_ID" value="${SuspectInfor.suspect_ID }"
 					readonly="readonly" />
+			</h5> --%>
+			<h5 class="col-lg-12 col-md-10 text-center">
+			<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+			<span style="width:200px;" type="text" id="suspectID"
+				name="Suspect_ID" >${Suspect_ID }</span>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
@@ -180,18 +185,31 @@
 								</td>
 							</tr>
 							<!--第四行身份证住址-->
-							<tr>
+							<%-- <tr>
 								<td colspan="2">家庭住址：</td>
 							</tr>
 							<tr>
-								<td colspan="2"><textarea readonly="readonly" rows="1"
-										cols="45">${SuspectInfor.address }</textarea></td>
+								<td colspan="2"><textarea readonly="readonly" rows="1" style="width: 350px;margin-left: 10%;" 
+										cols="30">${SuspectInfor.address }</textarea></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
 									value="${SuspectInfor.identifyCard_Number }"
 									readonly="readonly" /></td>
+							</tr> --%>
+							<tr>
+								<td colspan="2">家庭住址：</td>
+							</tr>
+							<tr>
+								<!--<td></td>-->
+								<td colspan="2"><textarea readonly="readonly" rows="2" style="width: 400px;margin-left: 10%;" 
+										cols="30">${SuspectInfor.address }</textarea></td>
+							</tr>
+							<tr>
+								<td><div style="margin-left: 38px;">身份证号码</div></td>
+								<td colspan="2"><input type="text" style="width:80%;"
+									value="${SuspectInfor.identifyCard_Number  }" readonly="readonly" /></td>
 							</tr>
 						</table>
 						<hr
