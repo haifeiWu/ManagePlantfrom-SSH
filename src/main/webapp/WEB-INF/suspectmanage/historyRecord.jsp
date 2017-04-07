@@ -54,6 +54,7 @@
 					</c:if>
 					<div style="float: left;">
 					<td style="width: 160px;" class="show1">
+					<div style="width: 150px; height: 250px; float: left;">
 						<div style="width:150px; float:left; margin-left: -1px;margin-top: 3%;">
 						<a
 									href="./GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"
@@ -65,13 +66,13 @@
 							</a>
 						</div>
 						<!--  -->
-						<div class="play" style="text-align: left; width: 150px; height: 200px;float: left; margin-left: -0.5%;margin-top: -134%;color:#FFFFFF;">
+						<div class="play" style="text-align: left; width: 150px; height: 200px;float: left;/*  margin-left: 0;margin-top: -108%; */color:#FFFFFF;position: relative;left: -1px;top: -104%;">
 							<span style="margin-top: 10px;">&nbsp所在房间：${item.room_Now }</span><br>
 							<span>&nbsp</span><br>
 							<span style="margin-top: 25px;">&nbsp嫌疑人编号：<br>&nbsp&nbsp${item.suspect_ID }</span><br>
 							<span>&nbsp</span><br>
 							<span>&nbsp身份证号：<br>${item.identifyCard_Number }</span>
-						</div>
+						</div></div>
 					</td>
 					</div>
 					<c:if test="${status.count % 5 eq 0 || status.count eq 5}">
@@ -152,7 +153,7 @@
 				btn1.style.display = 'block';
 				obj.style.height = total_height + 'px';
 				btn1.value="收起";
-			} else if(btn.value="收起") {
+			} else if(btn1.value="收起") {
 		    	obj.style.height =show_height + 'px';
 		    	btn1.value="更多>>";
 			}

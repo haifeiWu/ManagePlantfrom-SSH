@@ -245,14 +245,15 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			} else {
 				diff = time1 - time2;
 			}
-			day = diff / (24 * 60 * 60 * 1000);
-			hour = (diff / (60 * 60 * 1000) - day * 24);
-			min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-			sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+			// day = diff / (24 * 60 * 60 * 1000);
+			hour = (diff / (60 * 60 * 1000));
+			// min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
+			// sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min *
+			// 60);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return day + "天" + hour + "小时" + min + "分";
+		return hour + "小时";
 	}
 
 	// 保存临时出区的信息

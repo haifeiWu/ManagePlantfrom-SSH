@@ -34,6 +34,7 @@
 					</c:if>
 					<div>
 					<td style="width: 160px;" class="show1">
+					<div style="width: 150px; height: 250px; float: left;">
 						<div style="width:150px; float:left; margin-left: -1px;">
 							<img src="${item.identityCard_Photo }" style="width: 150px; height: 200px;"/>
 							<p>
@@ -43,13 +44,13 @@
 							</p>
 						</div>
 						<!--  -->
-						<div class="play" style="text-align: left; width: 150px; height: 200px;float: left; margin-left: -15.4%;margin-top: 0%;color:#FFFFFF;">
+						<div class="play" style="text-align: left; width: 150px; height: 200px;float: left;color:#FFFFFF; position: relative;left: -1px; top: -104%;">
 							<span style="margin-top: 10px;">&nbsp所在房间：${item.room_Now }</span><br>
 							<span>&nbsp</span><br>
 							<span style="margin-top: 25px;">&nbsp嫌疑人编号：<br>&nbsp&nbsp${item.suspect_ID }</span><br>
 							<span>&nbsp</span><br>
 							<span>&nbsp身份证号：<br>${item.identifyCard_Number }</span>
-						</div>
+						</div></div>
 					</td>
 					</div>
 					<c:if test="${status.count % 5 eq 0 || status.count eq 5}">
