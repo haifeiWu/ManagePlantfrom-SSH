@@ -338,7 +338,7 @@
 				</table>
 			</div>
 		</div>
-		<!--离开办案区登记表-->
+	<!--离开办案区登记表-->
 		<div class="container">
 			<div class="row">
 				<h4 id="leaveReco"
@@ -402,7 +402,7 @@
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
 					管理员:<input type="text" name="manager" value=""/>			
-				</p
+				</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
 					<input type="submit" value="确认提交" class="sub" />
@@ -470,7 +470,8 @@
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
 					<input type="submit" value="确认提交" class="sub" />
-				</div>				
+				</div>
+				
 			</div>
 		</div>
 	</form>
