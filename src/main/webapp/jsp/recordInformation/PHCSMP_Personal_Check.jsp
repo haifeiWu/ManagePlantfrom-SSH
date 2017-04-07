@@ -61,7 +61,7 @@
 							//addrow.find("td:eq(0)").html(num - 1);
 
 							tdnum.html(num);
-
+							$(".woods_check input").css({"width":"60%","height":"26px","background":"#fff","border":"none","text-align":"center"});
 						});
 		//				删除行
 		$("#delete").click(
@@ -360,7 +360,7 @@
 							<td>保管柜号</td>
 						</tr>
 						<tr>
-							<td><input name="belong[0].Belonging_Number" value="1" readonly="readonly" /></td>
+							<td><input name="belong[0].Belonging_Number" value="1" readonly="readonly" style="text-align: center;"/></td>
 
 							<td><input type="text" name="belong[0].Belonging_Name"
 								value="" /></td>
