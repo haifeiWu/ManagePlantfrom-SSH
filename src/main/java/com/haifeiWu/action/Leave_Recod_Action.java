@@ -6,10 +6,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 import org.apache.commons.io.FileUtils;
 import org.apache.struts2.ServletActionContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -38,6 +42,13 @@ import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.utils.CompleteCheck;
 import com.haifeiWu.utils.Video;
+
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+
+import org.apache.struts2.ServletActionContext;
 
 /**
  * 离开办案区的action
@@ -94,12 +105,12 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private PHCSMP_Suspect suspect;
 	private PHCSMP_Personal_Check personalCheck;
 	private PHCSMP_Information_Collection informationCollection;
-	private PHCSMP_Activity_Record activityRecord;
+	private List<PHCSMP_Activity_Record> activityRecordList;
 
 	private int suspectComplete;
 	private int personalCheckComplete;
 	private int informationCollectionComplete;
-	private int activityRecordComplete;
+	private Map<Integer,Integer> completeMap;
 	private StringBuilder sb;
 
 	private File file;
@@ -109,6 +120,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private File sfile;
 	private String sfileContentType;
 	private String sfileFileName;
+
 
 	/*
 	 * 上传图片
@@ -393,22 +405,29 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 				}
 			} else {
 				sb.append("该嫌疑人并未进行信息采集操作!  ");
-			}
-
-			// 查询问讯问信息
-			// activityRecord=activityRecordService.findInforBySuspetcId(suspect_id);
-			if (activityRecord != null) {
-				activityRecordComplete = CompleteCheck.completeCheck(
-						activityRecord, activityRecord.getClass(), 3);
-				System.out.println(activityRecordComplete
-						+ "=============================");
-				if (activityRecordComplete != 100) {// 信息不完整
-					sb.append("询问讯问信息填写不完整!  ");
-					System.out.println(sb + "4");
-				}
-			} else {
-				sb.append("该嫌疑人并未进行询问讯问操作!  ");
-			}
+ 			}
+			
+ 			//查询问讯问信息
+ 			activityRecordList=activityRecordService.findInforBySuspetcId(suspect_id);
+ 			completeMap=new HashMap<Integer,Integer>();
+ 			if(activityRecordList!=null){
+ 				int j=0;
+ 				int i=1;
+	 			for(PHCSMP_Activity_Record Activity_Record:activityRecordList){
+	 				int activityRecordComplete=CompleteCheck.completeCheck(Activity_Record, Activity_Record.getClass(),3);
+	 				completeMap.put(j, activityRecordComplete);			
+	 				j++;
+	 				if(activityRecordComplete!=100){//信息不完整
+						sb.append("询问讯问"+i+"信息填写不完整!  ");
+						i++;
+	 				}
+	 			}
+	 			for (Map.Entry<Integer, Integer> entry : completeMap.entrySet()) {  
+	 			    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  
+	 			}  
+ 			}else{
+ 				sb.append("该嫌疑人并未进行询问讯问操作!  ");
+ 			}		
 
 			// 维护进出门的标志位
 			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
@@ -541,13 +560,6 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		this.informationCollection = informationCollection;
 	}
 
-	public PHCSMP_Activity_Record getActivityRecord() {
-		return activityRecord;
-	}
-
-	public void setActivityRecord(PHCSMP_Activity_Record activityRecord) {
-		this.activityRecord = activityRecord;
-	}
 
 	public int getSuspectComplete() {
 		return suspectComplete;
@@ -574,12 +586,13 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		this.informationCollectionComplete = informationCollectionComplete;
 	}
 
-	public int getActivityRecordComplete() {
-		return activityRecordComplete;
+
+	public Map<Integer, Integer> getCompleteMap() {
+		return completeMap;
 	}
 
-	public void setActivityRecordComplete(int activityRecordComplete) {
-		this.activityRecordComplete = activityRecordComplete;
+	public void setCompleteMap(Map<Integer, Integer> completeMap) {
+		this.completeMap = completeMap;
 	}
 
 	public StringBuilder getSb() {
@@ -644,6 +657,15 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 	public void setSfileFileName(String sfileFileName) {
 		this.sfileFileName = sfileFileName;
+	}
+
+	public List<PHCSMP_Activity_Record> getActivityRecordList() {
+		return activityRecordList;
+	}
+
+	public void setActivityRecordList(
+			List<PHCSMP_Activity_Record> activityRecordList) {
+		this.activityRecordList = activityRecordList;
 	}
 
 }
