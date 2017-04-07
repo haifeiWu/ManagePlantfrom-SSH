@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
 <!DOCTYPE html>
 <html>
 
@@ -109,53 +110,12 @@
 		if("${activityRecord.activity_Record }"=="---请选择---"){
 			$(".activity").text("活动记录：空");
 		}
-		
-		
-		$("#alterPhotoForm").on("submit", function() {
-			$(this).ajaxSubmit({
-				success : function() {
-					alert("上传成功！");
-					window.location.href="${pageContext.request.contextPath }/LR_loadInfor.action";
-			},
-			resetForm : true
-	    });
-		return false;
-	});	
 });
 </script>
 <style type="text/css">
 	.colorRed{
 		color:red !important;
-	}
-	.file {
-		margin-left:30px;
-	    position: relative;
-	    display: inline-block;
-	    background: #D0EEFF;
-	    border: 1px solid #99D3F5;
-	    border-radius: 4px;
-	    padding: 4px 12px;
-	    overflow: hidden;
-	    color: #1E88C7;
-	    text-decoration: none;
-	    text-indent: 0;
-	    line-height: 20px;
-	    left:45px;
-	}
-	.file input {
-	    position: absolute;
-	    font-size: 100px;
-	    right: 0px;
-	    top: 0;
-	    opacity: 0;
-	    margin-right:-10px;
-	}
-	.file:hover {
-	    background: #AADFFD;
-	    border-color: #78C3F3;
-	    color: #004974;
-	    text-decoration: none;
-	}
+	}	
 </style>
 </head>
 <body>
@@ -218,16 +178,7 @@
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4" style="margin-top:40px;">					
 						<img id="img_1" src="${suspectInfor.frontal_Photo}" style="border:1px solid #ccc"/>						
 						<img id="img_2" src="${suspectInfor.sideWays_Photo}" style="border:1px solid #ccc"/>
-						<form action="${pageContext.request.contextPath }/uploadPhoto.action" id="alterPhotoForm" method="post" enctype="multipart/form-data">
-							<a href="javascript:;" class="file">选择正面照
-							    <input type="file" name="file">
-							</a>
-							<a href="javascript:;" class="file">选择侧面照
-							    <input type="file" name="sfile">
-							</a>
-							<input type="submit" value="上传图片" class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">
-						</form>			
-						<%-- <p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">${nEntryTime }嫌疑人入区登记照片</p> --%>
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">${nEntryTime }嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-top:30px;">
 						<hr style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -10%;" />
@@ -299,15 +250,19 @@
 							<td>${suspect.enter_Time }</td>
 							<td>----</td>
 							<td class="complete">${suspectComplete}%</td>
-							<td style="text-align:left;padding-left:30px;">进入办案区原因：${suspect.suspected_Cause }</td>
+							<c:if test="${empty suspect.suspected_Cause }">
+								<td style="text-align:left;padding-left:30px;">进入办案区原因：空</td>
+							</c:if>
+							<c:if test="${!empty suspect.suspected_Cause }">
+								<td style="text-align:left;padding-left:30px;">进入办案区原因：${suspect.suspected_Cause }</td>
+							</c:if>
 						</c:if>
 						<c:if test="${empty suspect }">
 							<td>空</td>
 							<td>----</td>
 							<td class="complete">${suspectComplete}%</td>
 							<td style="text-align:left;padding-left:30px;">进入办案区原因：空</td>
-						</c:if>
-						
+						</c:if>				
 					</tr>
 					<tr>
 						<td>人身检查</td>
@@ -315,7 +270,12 @@
 							<td>${personalCheck.check_StartTime }</td>
 							<td>${personalCheck.check_EndTime }</td>
 							<td class="complete">${personalCheckComplete }%</td>
-							<td style="text-align:left;padding-left:30px;">人身检查状态:${personalCheck.check_Situation }</td>
+							<c:if  test="${empty personalCheck.check_Situation }">
+								<td style="text-align:left;padding-left:30px;">人身检查状态:空</td>
+							</c:if>
+							<c:if  test="${! empty personalCheck.check_Situation }">
+								<td style="text-align:left;padding-left:30px;">人身检查状态:${personalCheck.check_Situation }</td>
+							</c:if>
 						</c:if>
 						<c:if test="${empty personalCheck }">
 							<td>空</td>
@@ -344,22 +304,37 @@
 							<td style="text-align:left;padding-left:30px;">采集项目:空</td>
 						</c:if>					
 					</tr>
-					<tr>
+					<c:if test="${! empty activityRecordList }">
+						<c:forEach items="${activityRecordList }" var="a" varStatus="s">
+							<tr>
+								<c:if test="${fn:length(activityRecordList) gt 1}">
+									<td>询问讯问${s.index+1}</td>
+								</c:if>
+								<c:if test="${fn:length(activityRecordList) eq 1}">
+									<td>询问讯问</td>
+								</c:if>
+								<td>${a.start_Time }</td>
+								<td>${a.end_Time }</td>
+								
+								
+								<td class="complete activityComplete">${completeMap[s.index]}%</td>
+								
+								<c:if test="${! empty a.activity_Record }">	
+									<td style="text-align:left;padding-left:30px;" class="activity">活动内容：${a.activity_Record }</td>						
+								</c:if>
+								<c:if test="${empty a.activity_Record }">	
+									<td style="text-align:left;padding-left:30px;" class="activity">活动内容：空</td>						
+								</c:if>
+							</tr>
+						</c:forEach>
+					</c:if>
+					<c:if test="${empty activityRecordList }">
 						<td>询问讯问</td>
-						<c:if test="${!empty activityRecord }">
-							<td>${activityRecord.start_Time }</td>
-							<td>${activityRecord.end_Time }</td>
-							<td class="complete">${activityRecordComplete }%</td>						
-								<td style="text-align:left;padding-left:30px;" class="activity">活动内容：${activityRecord.activity_Record }
-							</td>						
-						</c:if>
-						<c:if test="${empty activityRecord }">
-							<td>空</td>
-							<td>空</td>
-							<td class="complete">${activityRecordComplete }%</td>
-							<td style="text-align:left;padding-left:30px;">活动内容：空</td>
-						</c:if>
-					</tr>
+						<td>空</td>
+						<td>空</td>
+						<td class="complete">0%</td>
+						<td style="text-align:left;padding-left:30px;">活动内容：空</td>
+					</c:if>
 				</table>
 			</div>
 		</div>
@@ -427,7 +402,7 @@
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
 					管理员:<input type="text" name="manager" value=""/>			
-				</p>
+				</p
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
 					<input type="submit" value="确认提交" class="sub" />
@@ -495,8 +470,7 @@
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
 					<input type="submit" value="确认提交" class="sub" />
-				</div>
-				
+				</div>				
 			</div>
 		</div>
 	</form>
