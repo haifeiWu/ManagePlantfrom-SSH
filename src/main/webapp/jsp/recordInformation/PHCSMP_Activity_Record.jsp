@@ -145,33 +145,40 @@
 			<p id="left_title">活动记录登记</p>
 			<!--设置标题：档案编号：-->
 			<h5 class="col-lg-12 col-md-10 text-center">
-				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="text" name="suspect_ID" value="${SuspectInfor.suspect_ID }"
-					readonly="readonly" />
+				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+				<span name="suspect_ID" >${SuspectInfor.suspect_ID }</span>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
 					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
-						<li>25%</li>
+						<!-- <li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
-						<li>100%</li>
+						<li>100%</li> -->
 					</ul>
 					<!--进度的状态-->
 
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/fgreen_03.png" /></a> <a
-							href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/fgreen_03.png" /></a> <a
-							href="IC_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/fgreen_03.png" /></a> <a href="#activityReco"><img
-							src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
-						<span>出区登记</span>
+						<!-- <a href="suspect_updateInfor.action?Suspect_ID=haifieisi"> -->
+						<c:if test="${!empty SuspectInfor}"><img src="images/fgreen_03.png" /></c:if>
+						<c:if test="${empty SuspectInfor}"><img src="images/3-inforCollection_03.png" /></c:if>
+						 	<!-- </a>  -->
+						<!-- <a href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"> -->
+						<c:if test="${!empty personal_Check}"><img src="images/fgreen_03.png" /></c:if>
+						<c:if test="${empty personal_Check}"><img src="images/3-inforCollection_03.png" /></c:if>
+							
+							<!-- </a>  -->
+						<!-- <a href="IC_updateInfor.action?Suspect_ID=haifieisi"> -->
+						 <c:if test="${!empty information_Collection}"><img src="images/fgreen_03.png" /></c:if>
+						 <c:if test="${empty information_Collection}"><img src="images/3-inforCollection_03.png" /></c:if>
+							<!-- </a> <a href="#activityReco"> -->
+							<img src="images/3-inforCollection_07.png" style="margin-left: 200px;" />
+							<!-- </a> -->
+						<span style="margin-top: 30px;">出区登记</span>
 					</div>
 
 					<!--进度的信息显示-->
@@ -380,6 +387,32 @@
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					活动记录登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
+				
+				
+				<c:if test="${!empty activity_record_infor}">
+					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
+					<tr style="background-color: rgb(0,112,192);color:white;">
+						<td style="width: 100px">&nbsp活&nbsp动&nbsp内&nbsp容&nbsp</td><!-- 						<td>音视频编码</td> -->
+						<td>房间号</td>
+						<td>&nbsp&nbsp&nbsp&nbsp开&nbsp&nbsp始&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp</td>
+						<td>&nbsp&nbsp&nbsp&nbsp结&nbsp&nbsp束&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp</td>
+						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+					</tr>
+					   <c:forEach items="${activity_record_infor }" var="ari">
+					   <tr>
+					   		<td>${ari.activity_Record }</td>
+					   		<td>${ari.room_ID }</td>
+					   		<td>${ari.start_Time }</td>
+					   		<td>${ari.end_Time }</td>
+					   		<td style="width: 600px;">${ari.remark }</td>
+					   	</tr>
+					   </c:forEach>
+						
+					</table>
+				
+			    </c:if>
+				
+				
 				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
 					<tr style="background-color: rgb(0,112,192);color:white;">
 						<!-- <td style="display: none;">序号</td>
@@ -436,7 +469,7 @@
 						</select></td>
 						<td><!-- <input type="text" name="remark"
 							style="width:790px; height: 80px;text-align: center;" value="${activity_remark }"/> -->
-							<textarea name="remark" style="widows: 780px;" clos="300" rows="2" warp="virtual">${activity_remark }</textarea>
+							<textarea name="remark" style="width: 780px;" clos="300" rows="3" warp="virtual">${activity_remark }</textarea>
 							</td>
 					</tr>
 					<tr>
