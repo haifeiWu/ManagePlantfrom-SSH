@@ -1,7 +1,5 @@
 package com.haifeiWu.action;
 
-import javax.servlet.http.Cookie;
-
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +49,11 @@ public class UserAction extends BaseAction<PHCSMP_Staff> {
 
 		if (user != null) {
 			request.getSession().setAttribute("user", user);
+			System.out.println("-----------------user----------"
+					+ user.toString());
 			// 日志功能
-			logger.info("用户 " + user.getStaff_Name() + " 登录系统，时间："
-					+ new DateTime().toString("yyyy-MM-dd hh:mm a E"));
+			// logger.info("用户 " + user.getStaff_Name() + " 登录系统，时间："
+			// + new DateTime().toString("yyyy-MM-dd hh:mm a E"));
 			// 向客户端输出cookie
 			// Cookie cookie=new Cookie("ip",request.getRemoteAddr());
 			// cookie.setMaxAge(24*60*60*7);//七天

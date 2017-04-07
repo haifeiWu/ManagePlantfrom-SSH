@@ -35,43 +35,82 @@
 				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
 			<span style="width:200px;" type="text" id="suspectID"
 				name="Suspect_ID" >${Suspect_ID }</span>
-				<span name="suspect_ID" >${SuspectInfor.suspect_ID }</span>
+				<span name="suspect_ID" style="color: black;">${SuspectInfor.suspect_ID }</span>
+				<input type="hidden" name="suspect_ID" value="${SuspectInfor.suspect_ID }"/>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+					<!-- <ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
 						<li>100%</li>
-					</ul>
-					<!--进度的状态-->
-				</div>
-				<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
-				<!--引入状态截图-->
-				<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-					<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img
-						src="images/3-inforCollection_03.png" /></a> <a
-						href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"><img
-						src="images/3-inforCollection_03.png" /></a> <a href="#InforCollect"><img
-						src="images/3-inforCollection_03.png" /></a> <a href="#InforCollect"><img
-						src="images/3-inforCollection_03.png" /></a> <a href="#InforCollect"><img
-						src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
-					<span>活动记录登记表</span>
-				</div>
+					</ul> -->
 
-				<!--进度的信息显示-->
-				<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
-					<li>入区登记</li>
-					<li>人身安全检查</li>
-					<li>信息采集及项目登记</li>
-					<li>信息入库</li>
-					<li>检查对比</li>
-				</ul>
+					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
+
+						<c:if test="${!empty suspect }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="identityImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty personalCheck }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg1").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if> 
+						<img id="identityImg1" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty informationCollection }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#personInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="personInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty activityRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#enterInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="enterInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty leaveRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#confirmImg").attr("src","images/fgreen_07.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="confirmImg" src="images/3-inforCollection_07.png"
+							style="margin-left: -10%;" />
+					</div>
+					<!--进度的信息显示-->
+					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
+						<li>入区登记</li>
+						<li>人身检查</li>
+						<li>信息采集</li>
+						<li>活动登记</li>
+						<li>出区登记</li>
+					</ul>
+				</div>
+				<!--在该容器下第一个row结束-->
 			</div>
+			<!--进度条信息结束-->
 		</div>
 		<!--疑犯个人身份证信息-->
 		<div class="container" style="margin-top: -2%;">
@@ -109,34 +148,27 @@
 								src="${SuspectInfor.identityCard_Photo }" />
 								<p class="info_id">身份证照</p></td>
 							<!--<td></td>-->
-							<td colspan="2">姓名:<input type="text" readonly="readonly"
-								value="${SuspectInfor.suspect_Name }" /></td>
+							<td colspan="2">姓名:<span style="color: black;">${SuspectInfor.suspect_Name } </span></td>
 						</tr>
 						<!--第二行 性别 民族-->
 						<tr>
-							<td>性别：<input style="text-align: center;" type="text"
-								value="${SuspectInfor.sex }" readonly="readonly" /></td>
-							<td>民族：<input type="text" value="${SuspectInfor.nation }"
-								readonly="readonly" /></td>
+							<td>性别：<span style="color: black;">${SuspectInfor.sex } </span></td>
+							<td>民族：<span style="color: black;">${SuspectInfor.nation }</span></td>
 						</tr>
 						<!--第三行 出生-->
 						<tr>
-							<td colspan="2">出生日期：<input type="text" style="width:230px !important;"
-								value="${SuspectInfor.birthday }" readonly="readonly" />
-							</td>
+							<td colspan="2">出生日期：<span style="color: black;">${SuspectInfor.birthday } </span></td>
 						</tr>
 						<!--第四行身份证住址-->
 						<tr>
 							<td colspan="2">住址：</td>
 						</tr>
 						<tr>
-							<!--<td></td>-->
-							<td colspan="2"><textarea readonly="readonly" style="width:350px !important;height:50px !important; " >${SuspectInfor.address }</textarea></td>
+							<td colspan="2"><span style="color: black;">${SuspectInfor.address }</span></td>
 						</tr>
 						<tr >
 							<td>&nbsp;身份证号码</td>
-							<td colspan="2"><input type="text"
-								value="${SuspectInfor.identifyCard_Number }" readonly="readonly" /></td>
+							<td colspan="2"><span style="color: black;">${SuspectInfor.identifyCard_Number }</span></td>
 						</tr>
 					</table>
 				</div>

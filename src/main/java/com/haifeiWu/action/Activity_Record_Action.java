@@ -18,10 +18,12 @@ import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
+import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.InformationCollectionService;
+import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
@@ -56,6 +58,8 @@ public class Activity_Record_Action extends ActionSupport implements
 	// 嫌疑人的人身检查信息
 	@Autowired
 	private PersonalCheckService personalCheckService;
+	@Autowired
+	private LeaveRecodService leaveRecodService;
 	// 信息采集信息登记
 	@Autowired
 	private InformationCollectionService informationCollectionService;
@@ -85,7 +89,6 @@ public class Activity_Record_Action extends ActionSupport implements
 			activity.setStart_Time(start_Time);
 			activity.setRemark(activity_remark);
 			activity.setActivity_Record(activity_Record);
-
 
 			// 设置询问讯问结束的时间
 			Date date = new Date();
@@ -132,82 +135,111 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * 
 	 * @return
 	 * @throws IOException
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
-	public String loadInfor() throws IOException{
+	public String loadInfor() throws IOException {
 		try {
 			// 维护进出门的标志位
-			int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-			//if(roomId!=0){
-			request.setAttribute("roomId", roomId);
-//		}else{
-//			request.setAttribute("roomId","未进入房间");
-//		}
-			//入区人员信息登记
-			PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(roomId);
-			if(suspectInfor!=null){
-				int complete_degree=CompleteCheck.completeCheck(suspectInfor, Class.forName(PHCSMP_Suspect.class.getName()),3);
-				request.setAttribute("complete_degree",complete_degree );
+			int roomId = roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID();
+			String suspectId = (String) request.getAttribute("suspectID");
+			PHCSMP_Suspect suspectInfor = suspectService
+					.findBySuspetcId(suspectId);
+			// .getRoom_ID();
+			// request.setAttribute("roomId", roomId);
+			//
+			// // 入区人员信息登记
+			// PHCSMP_Suspect suspectInfor =
+			// suspectService.findByRoomID(roomId);
+			// String suspectId = suspectInfor.getSuspect_ID();
+			if (suspectInfor != null) {
+				int complete_degree = CompleteCheck.completeCheck(suspectInfor,
+						Class.forName(PHCSMP_Suspect.class.getName()), 3);
+				request.setAttribute("complete_degree", complete_degree);
 				request.setAttribute("SuspectInfor", suspectInfor);
-			}else{
-				request.setAttribute("complete_degree","未填写入区人员登记信息");
+			} else {
+				request.setAttribute("complete_degree", "未填写入区人员登记信息");
 			}
-			//人身安全检查
+			// 人身安全检查
 			PHCSMP_Personal_Check personal_Check = personalCheckService
-					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
-			if(personal_Check!=null){
-				int complete_degree1=CompleteCheck.completeCheck(personal_Check, Class.forName(PHCSMP_Personal_Check.class.getName()),3);
-				request.setAttribute("complete_degree1",complete_degree1 );
+					.findInforBySuspetcId(suspectId);
+			if (personal_Check != null) {
+				int complete_degree1 = CompleteCheck
+						.completeCheck(personal_Check,
+								Class.forName(PHCSMP_Personal_Check.class
+										.getName()), 3);
+				request.setAttribute("complete_degree1", complete_degree1);
 				request.setAttribute("personal_Check", personal_Check);
-			}else{
-				request.setAttribute("complete_degree1","0");
+			} else {
+				request.setAttribute("complete_degree1", "0");
 			}
-			//信息采集
+			// 信息采集
 			PHCSMP_Information_Collection information_Collection = informationCollectionService
 					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
-			
-			if(information_Collection!=null){
-				int complete_degree2=CompleteCheck.completeCheck(information_Collection, Class.forName(PHCSMP_Information_Collection.class.getName()),3);
-				request.setAttribute("complete_degree2",complete_degree2 );
-				request.setAttribute("information_Collection",information_Collection);
-			}else{
-				request.setAttribute("complete_degree2","0");
+
+			if (information_Collection != null) {
+				int complete_degree2 = CompleteCheck.completeCheck(
+						information_Collection, Class
+								.forName(PHCSMP_Information_Collection.class
+										.getName()), 3);
+				request.setAttribute("complete_degree2", complete_degree2);
+				request.setAttribute("information_Collection",
+						information_Collection);
+			} else {
+				request.setAttribute("complete_degree2", "0");
 			}
-			//询问讯问活动记录
-			 List<PHCSMP_Activity_Record> activity_record_infor=activityRecordService
-					.findInforBySuspetcId(suspectInfor.getSuspect_ID());
-			if(activity_record_infor!=null){
-				request.setAttribute("activity_record_infor",activity_record_infor);
-				
-			}
-			
-			//从页面获取信息（当添加信息失败时用来作页面显示）
-			String activity_remark=(String) request.getAttribute("activity_remark");
-			String activity_Record=(String) request.getAttribute("activity_Record");
-			//将提交失败的已输入信息显示在文本框处
-			request.setAttribute("activity_remark",activity_remark );
+			// 询问讯问活动记录
+			// List<PHCSMP_Activity_Record> activity_record_infor =
+			// activityRecordService
+			// .findInforBySuspetcId(suspectId);
+			// if (activity_record_infor != null) {
+			// request.setAttribute("activity_record_infor",
+			// activity_record_infor);
+			//
+			// }
+
+			// 从页面获取信息（当添加信息失败时用来作页面显示）
+			String activity_remark = (String) request
+					.getAttribute("activity_remark");
+			String activity_Record = (String) request
+					.getAttribute("activity_Record");
+			// 将提交失败的已输入信息显示在文本框处
+			request.setAttribute("activity_remark", activity_remark);
 			request.setAttribute("activity_Record", activity_Record);
-			
-			
-//			int complete_degree2=CompleteCheck.completeCheck(information_Collection, information_Collection.getClass(),3);
-			
-			
-			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
-			
-			
-			//设置询问询问开始的时间
-			Date date=new Date();
-			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			String start_Time=sdf.format(date);
+
+			// int
+			// complete_degree2=CompleteCheck.completeCheck(information_Collection,
+			// information_Collection.getClass(),3);
+
+			suspectService.updateSwitch(1, suspectId);
+
+			// 设置询问询问开始的时间
+			Date date = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			String start_Time = sdf.format(date);
 			request.setAttribute("start_Time", start_Time);
-			//activity.setStart_Time(start_Time);
-			//activityRecordService.saveActivityRecordInfor(activity);
-			
+
+			// 判断进度条
+			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
+			PHCSMP_Personal_Check personalCheck = personalCheckService
+					.findInforBySuspetcId(suspectId);
+			PHCSMP_Information_Collection informationCollection = informationCollectionService
+					.findInforBySuspetcId(suspectId);
+			List<PHCSMP_Activity_Record> activityRecordlist = activityRecordService
+					.selectActivityRecordInfor(suspectId);
+			PHCSMP_Leave_Record leaveRecord = leaveRecodService
+					.findInforBySuspetcId(suspectId);
+			request.setAttribute("suspect", suspect);
+			request.setAttribute("personalCheck", personalCheck);
+			request.setAttribute("informationCollection", informationCollection);
+			request.setAttribute("activityRecord", activityRecordlist);
+			request.setAttribute("leaveRecord", leaveRecord);
+
 		} catch (Exception e) {
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
 			response.getWriter().flush();
-			
+
 			// System.out
 			// .println("当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确");
 			return "success";

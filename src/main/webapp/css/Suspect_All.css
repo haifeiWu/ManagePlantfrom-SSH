@@ -344,6 +344,7 @@ margin-top: 3%;
 }
 .signature{
 	margin-top: 1%;
+	margin-left: 10%;
 }
 .signature li{
 	list-style: none;
@@ -456,7 +457,7 @@ color: 0;
 /*下载*/
 #download{
 	background: #389AC7; color: #FFFFFF;width: 10%;height: 30px;
-	border-radius: 2px;margin-left: 35%;margin-top: 5%;
+	border-radius: 2px;margin-left: 43%;margin-top: 5%;
 }
 #print{
 	background: #389AC7; color: #FFFFFF;width: 10%;

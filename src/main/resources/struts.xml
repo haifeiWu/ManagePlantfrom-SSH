@@ -79,7 +79,7 @@
 			<result name="input">/index.jsp</result>
 			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
 			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result>
-			<result name="NONE"></result>
+<!-- 			<result name="NONE"></result> -->
 			<!-- 返回修改嫌疑人信息 -->
 		</action>
 
@@ -159,7 +159,8 @@
 			method="{1}">
 			<result name="loadInfor">/jsp/recordInformation/allInformation.jsp</result>
 			<result name="downFile">/jsp/recordInformation/allInformation.jsp</result>
-			<result name="downPDF" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
+			 <result name="downPdf" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
+				<result name="createPdf">/jsp/home/index.jsp</result> 
 		</action>
 		
 		<!-- 录波器请求接口 -->
@@ -183,9 +184,9 @@
 		<!-- 嫌疑人综合信息管理 -->
 		<action name="suspectManage_*" class="com.haifeiWu.action.SuspectManageAction"
 			method="{1}">
-			<result name="loadInfor">/jsp/suspectmanage/historyRecord.jsp</result>
+			<result name="loadInfor">/WEB-INF/suspectmanage/historyRecord.jsp</result>
 			<!-- 查询嫌疑人信息 -->
-			<result name="searchsuspectInfor">/jsp/suspectmanage/suspectInforList.jsp</result>
+			<result name="searchsuspectInfor">/WEB-INF/suspectmanage/suspectInforList.jsp</result>
 		</action>
 		<!-- 查看日志 -->
 		<action name="Log_execute" class="com.haifeiWu.action.Log_Action">
@@ -194,8 +195,8 @@
 		
 		<action name="roomManage_*" class="com.haifeiWu.action.RoomManageAction"
 			method="{1}">
-			<result name="loadInfor">/jsp/roommanage/room.jsp</result>
-			<result name="null">/jsp/error/400.jsp</result>
+			<result name="loadInfor">/WEB-INF/roommanage/room.jsp</result>
+			<result name="null">/WEB-INF/error/400.jsp</result>
 		</action>
 	
 	</package>

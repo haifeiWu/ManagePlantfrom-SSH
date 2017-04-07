@@ -31,18 +31,16 @@
 									"td:eq(0)");
 							var lineNum=index-1;
 							//添加下一行
-							var addrow = "<tr>" + "<td>"
-									+ index
-									+ "</td>"
+							var addrow = "<tr>" + "<td><input name=belong["+lineNum+"].Belonging_Number value="+index+" /></td>"
 									+ "<td><input type=text name=belong["
 									+ lineNum
 									+ "].Belonging_Name style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);'/></td>"
 									+ "<td><input type=text name=belong["
 									+ lineNum
 									+ "].Belonging_Character style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
-									+ "<td><input type=text name=belong["
+									/* + "<td><input type=text name=belong["
 									+ lineNum
-									+ "].Belonging_Number style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
+									+ "].Belonging_Number style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>" */
 									+ "<td><input type=number name=belong["
 									+ lineNum
 									+ "].Belonging_Count style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
@@ -63,7 +61,7 @@
 							//addrow.find("td:eq(0)").html(num - 1);
 
 							tdnum.html(num);
-
+							$(".woods_check input").css({"width":"60%","height":"26px","background":"#fff","border":"none","text-align":"center"});
 						});
 		//				删除行
 		$("#delete").click(
@@ -101,40 +99,80 @@
 					type="text" name="Suspect_ID" value="${SuspectInfor.suspect_ID }"
 					readonly="readonly" />
 			</h5> --%>
-			<h5 class="col-lg-12 col-md-10 text-center">
+			<h5 class="col-lg-12 col-md-10 text-center" style="margin-top: auto;">
 			<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
-			<span style="width:200px;" type="text" id="suspectID"
-				name="Suspect_ID" >${Suspect_ID }</span>
+			<span style="width:200px;color:black;" type="text" id="suspectID"
+				name="Suspect_ID" >${SuspectInfor.suspect_ID }</span>
+				<input name="Suspect_ID" type="hidden" style="color:black;" value="${SuspectInfor.suspect_ID }" />
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+					<!-- <ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
 						<li>100%</li>
-					</ul>
-					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="suspect_updateInfor.action?Suspect_ID=haifieisi"><img
-							src="images/3-inforCollection_03.png" /></a> <a href="#readMe"><img
-							src="images/3-inforCollection_03.png" /></a> <a href="#inspect"><img
-							src="images/3-inforCollection_03.png" /></a> <a
-							href="#belongInspect"><img
-							src="images/3-inforCollection_03.png" /></a> <a
-							href="#belongInspect"><img
-							src="images/3-inforCollection_07.png" style="margin-left: -14%;" /></a>
-						<span>信息采集登记表</span>
+					</ul> -->
+
+					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
+
+						<c:if test="${!empty suspect }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="identityImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty personalCheck }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg1").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if> 
+						<img id="identityImg1" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty informationCollection }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#personInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="personInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty activityRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#enterInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="enterInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty leaveRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#confirmImg").attr("src","images/fgreen_07.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="confirmImg" src="images/3-inforCollection_07.png"
+							style="margin-left: -10%;" />
 					</div>
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
 						<li>入区登记</li>
-						<li>自述情况</li>
-						<li>检查情况</li>
-						<li>随身财物检查</li>
-						<li>签字确认</li>
+						<li>人身检查</li>
+						<li>信息采集</li>
+						<li>活动登记</li>
+						<li>出区登记</li>
 					</ul>
 				</div>
 				<!--在该容器下第一个row结束-->
@@ -149,8 +187,8 @@
 							readonly="readonly" />
 					</h4>
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<img id="img_1"src="images/1-zhengmian_04.png" /> 
-						<img id = "img_2"src="images/1-cemian_06.png" />
+						<img id="img_1"src="${SuspectInfor.frontal_Photo}" /> 
+						<img id = "img_2"src="${SuspectInfor.sideWays_Photo}" />
 						<p  class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
 							&nbsp; &nbsp; 嫌疑人入区登记照片</p>
 					</div>
@@ -168,21 +206,19 @@
 									src="${SuspectInfor.identityCard_Photo }" />
 									<p class="info_id">身份证照</p></td>
 								<!--<td></td>-->
-								<td colspan="2">姓名:<input type="text" readonly="readonly"
-									value="${SuspectInfor.suspect_Name }" /></td>
+								<td colspan="2" style="color:black;">姓名:<span type="text" name="suspect_Name" style="color:black;">${SuspectInfor.suspect_Name }</span></td>
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
-								<td>性别：<input style="text-align: center;" type="text"
-									value="${SuspectInfor.sex }" readonly="readonly" /></td>
+								<td style="color:black;">性别：<span style="text-align: center;color:black;" type="text"
+								name="sex" >${SuspectInfor.sex }</span></td>
 									
-								<td>民族：<input type="text" value="${SuspectInfor.nation }" readonly="readonly" /></td>
+								<td style="color:black;">民族：<span type="text" name="nation" style="color:black;">${SuspectInfor.nation }</span></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
-								<td colspan="2">出生日期：<input type="text" style="width:60%;"
-									value="${SuspectInfor.birthday }" readonly="readonly" />
-								</td>
+								<td colspan="2" style="color:black;">出生日期：<span type="text" style="width:70%;color:black;"
+								name="birthday;" >${SuspectInfor.birthday }</span></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<%-- <tr>
@@ -203,13 +239,11 @@
 							</tr>
 							<tr>
 								<!--<td></td>-->
-								<td colspan="2"><textarea readonly="readonly" rows="2" style="width: 400px;margin-left: 10%;" 
-										cols="30">${SuspectInfor.address }</textarea></td>
+								<td colspan="2"><span  style="color:black;">${SuspectInfor.address }</span></td>
 							</tr>
 							<tr>
 								<td><div style="margin-left: 38px;">身份证号码</div></td>
-								<td colspan="2"><input type="text" style="width:80%;"
-									value="${SuspectInfor.identifyCard_Number  }" readonly="readonly" /></td>
+								<td colspan="2" ><span  style="color:black;">${SuspectInfor.identifyCard_Number  }</span></td>
 							</tr>
 						</table>
 						<hr
@@ -320,19 +354,18 @@
 							<td>序号</td>
 							<td>物品名称</td>
 							<td>物品特征</td>
-							<td>物品编号</td>
 							<td>物品数量</td>
 							<td>物品单位</td>
 							<td>保管措施</td>
 							<td>保管柜号</td>
 						</tr>
 						<tr>
-							<td>1</td>
+							<td><input name="belong[0].Belonging_Number" value="1" readonly="readonly" style="text-align: center;"/></td>
+
 							<td><input type="text" name="belong[0].Belonging_Name"
 								value="" /></td>
 							<td><input type="text" name="belong[0].Belonging_Character"
 								value="" /></td>
-							<td><input type="text" name="belong[0].Belonging_Number" /></td>
 							<td><input type="number" value="1"
 								name="belong[0].Belonging_Count" /></td>
 							<td><input type="text" value="个"

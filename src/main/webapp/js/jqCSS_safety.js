@@ -35,7 +35,7 @@ $(".woods_check td:eq(0)").css("width","5%");
 
 $(".woods_check td:eq(1)").css("width","25%");
 
-$(".woods_check input").css({"width":"60%","height":"26px","background":"#f1f1f1","border":"none"});
+$(".woods_check input").css({"width":"60%","height":"26px","background":"#fff","border":"none","text-align":"center"});
 
 // 设置管理员签字的样式
 $(".signature li").css({"color":"#389ac7","font-size":"large"});

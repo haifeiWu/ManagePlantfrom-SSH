@@ -1,19 +1,10 @@
 package com.haifeiWu.action;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +35,6 @@ import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.utils.HtmlToPdf;
 import com.haifeiWu.utils.PropertiesReadUtils;
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.net.ssl.internal.www.protocol.https.Handler;
 
 /**
  * 生成嫌疑人信息报告的action
@@ -65,9 +55,8 @@ public class GenerateReportAction extends ActionSupport implements
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected ServletContext application;
-	
+
 	protected String detainTime;
-	
 
 	// 嫌疑人的入区登记信息
 	@Autowired
@@ -90,60 +79,59 @@ public class GenerateReportAction extends ActionSupport implements
 	@Autowired
 	private TemporaryLeaveService temporaryLeaveService;
 
-	
 	/**
 	 * 生成嫌疑人入区信息报告
 	 * 
 	 * @return
-	 * @throws ParseException 
+	 * @throws ParseException
+	 * @throws IOException
 	 */
 	public String loadInfor() throws ParseException {
 		System.out.println("嫌疑人入区信息报告");
 
 		System.out.println("嫌疑人姓名：" + request.getParameter("personName"));
 		System.out.println("档案编号：" + request.getParameter("suspectID"));
-		
-		
-		
+
 		/*
 		 * 加载当前嫌疑人的所有的信息
 		 */
 		// 获取档案编号
-		//String suspectId = (String) request.getParameter("suspectID");
-		String suspectId="LB-HB-2017308186";
-		
+		// String suspectId = (String) request.getParameter("suspectID");
+		String suspectId = "LB-HB-20170317005";
+
 		if (suspectId == null) {
 			return "NULL";
 		}
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
-		System.out.println("suspect="+suspect);
+		System.out.println("suspect=" + suspect);
 		// 嫌疑人随身所有物品检查信息s
 		List<PHCSMP_BelongingS> belongingS = belongingInforService
 				.selectBelongInfor(suspectId);
-		System.out.println("belongingS="+belongingS);
-		
+		System.out.println("belongingS=" + belongingS);
+
 		// 嫌疑人人身检查信息
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectId);
-		System.out.println("personal_Check="+personal_Check);
+		System.out.println("personal_Check=" + personal_Check);
 		// 嫌疑人所有的办案区记录信息
 		List<PHCSMP_Activity_Record> activity_Record = activityRecordService
 				.selectActivityRecordInfor(suspectId);
-		System.out.println("activity_Record="+activity_Record);
+		System.out.println("activity_Record=" + activity_Record);
 
 		// 嫌疑人信息采集记录
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
 				.findInforBySuspetcId(suspectId);
-		System.out.println("information_Collection="+information_Collection);
-		
+		System.out.println("information_Collection=" + information_Collection);
+
 		// 嫌疑人出区信息记录
 		PHCSMP_Leave_Record leave_Record = leaveRecodService
 				.findInforBySuspetcId(suspectId);
-		System.out.println("leave_Record="+leave_Record);
-		//暂时离区
-		List<Temporary_Leave> temporaryLeaves=temporaryLeaveService.findTempLeaveListBySuspectID(suspectId);		
-		System.out.println("leave_Record="+temporaryLeaves);
+		System.out.println("leave_Record=" + leave_Record);
+		// 暂时离区
+		List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
+				.findTempLeaveListBySuspectID(suspectId);
+		System.out.println("leave_Record=" + temporaryLeaves);
 		// 犯人羁押时间
 		// DateTimeFormatter format = DateTimeFormat
 		// .forPattern("yyyy-MM-dd HH:mm");
@@ -156,16 +144,11 @@ public class GenerateReportAction extends ActionSupport implements
 
 		if ((suspect == null) && (belongingS == null)
 				&& (personal_Check == null) && (activity_Record == null)
-				&& (information_Collection == null) && (leave_Record == null)&&(temporaryLeaves==null)) {
+				&& (information_Collection == null) && (leave_Record == null)
+				&& (temporaryLeaves == null)) {
 			return "NULL";
 		}
-	    
-		//计算羁押时间
-		
-			String detainTime=getDistanceTime(suspect.getEnter_Time(), leave_Record.getLeave_Time());
-			System.out.println("detainTime="+detainTime);
-		
-		
+
 		// 将查找到的信息放入request中，然后从页面加载
 		request.setAttribute("suspect", suspect);
 		request.setAttribute("belongingS", belongingS);
@@ -176,48 +159,20 @@ public class GenerateReportAction extends ActionSupport implements
 		request.setAttribute("temporaryLeaves", temporaryLeaves);
 		// request.setAttribute("prisonHour", prisonHour);
 		request.setAttribute("reportCreateTime", reportCreateTime);
-		
-		
-		request.setAttribute("detainTime", detainTime);
-		System.out.println("detainTime="+detainTime);
+
+		request.setAttribute("detainTime", suspect.getDetain_Time());
+		System.out.println("detainTime=" + detainTime);
+
+		// 生成PDF
+		/*
+		 * try { createPdf(suspect.getSuspect_ID()); } catch (IOException e) {
+		 * System.out.println("pdf生成失败！");
+		 * 
+		 * }
+		 */
 
 		return "loadInfor";
 	}
-	 /** 
-     * 两个时间相差距离多少天多少小时多少分多少秒 
-     * @param str1 时间参数 1 格式：1990-01-01 12:00:00 
-     * @param str2 时间参数 2 格式：2009-01-01 12:00:00 
-     * @return String 返回值为：xx天xx小时xx分xx秒 
-	 * @throws java.text.ParseException 
-     */  
-    public static String getDistanceTime(String str1, String str2) throws java.text.ParseException {  
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");  
-        Date one;  
-        Date two;  
-        long day = 0;  
-        long hour = 0;  
-        long min = 0;  
-       
-        try {  
-            one = df.parse(str1);  
-            two = df.parse(str2);  
-            long time1 = one.getTime();  
-            long time2 = two.getTime();  
-            long diff ;  
-            if(time1<time2) {  
-                diff = time2 - time1;  
-            } else {  
-                diff = time1 - time2;  
-            }  
-            day = diff / (24 * 60 * 60 * 1000);  
-            hour = (diff / (60 * 60 * 1000) - day * 24);  
-            min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);  
-           
-        } catch (ParseException e) {  
-            e.printStackTrace();  
-        }  
-        return day + "天" + hour + "小时" + min + "分" ;  
-    }
 
 	public String suspectInforSummary() {
 		/*
@@ -266,92 +221,92 @@ public class GenerateReportAction extends ActionSupport implements
 		System.out.println("SuspectManageAction:searchsuspectInfor");
 		return "searchsuspectInfor";
 	}
-	
+
 	/**
-     * 从输入流中获取字节数组
-     * 
-     * @param in
-     * @return
-     * @throws IOException
-     */
-    private byte[] getByteData(InputStream in) throws IOException {
-        byte[] b = new byte[1024];
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        int len = 0;
-        while ((len = in.read(b)) != -1) {
-            bos.write(b, 0, len);
-        }
-        if(null!=bos){
-            bos.close();
-        }
-        return bos.toByteArray();
-    }
-     /**
-      * 下载PDF文件
-      * @return
-      * @throws IOException
-      */
-	public String downPdf() throws IOException
-	{
-		
+	 * 从输入流中获取字节数组
+	 * 
+	 * @param in
+	 * @return
+	 * @throws IOException
+	 */
+	private byte[] getByteData(InputStream in) throws IOException {
+		byte[] b = new byte[1024];
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		int len = 0;
+		while ((len = in.read(b)) != -1) {
+			bos.write(b, 0, len);
+		}
+		if (null != bos) {
+			bos.close();
+		}
+		return bos.toByteArray();
+	}
+
+	/**
+	 * 下载PDF文件
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	public String createPdf() throws IOException {
+		String suspectId = request.getParameter("suspectId");
 		System.out.println("开始下载PDF");
-		 String path = "http://localhost:8080/ManagePlantfrom-SSH/GR_loadInfor.action";        
-		 
-	     /*  if(path == null || path.equals("")){  
-	            return "hj";  
-	        }*/
-	        System.out.println("path="+path);  
-	        
-	        //获取pdf的临时保存路径  
-	        //tmp为网站下的目录  
-	        //把生成的pdf放到网站下以便下载  
-	        String pdfPath = request.getSession().getServletContext().getRealPath("/tmp");  
-	        System.out.println("pdfPath="+pdfPath);
-	        
-	        String suspectId = (String) request.getParameter("suspectId");
-	         String pdfName=suspectId+".pdf";
-	         
-	         System.out.println("pdfName="+pdfName);
-	        if(HtmlToPdf.convert(path, pdfPath + "/" + pdfName)){  
-	           //response.sendRedirect(request.getContextPath() + "/tmp/" + pdfName);
-	        	request.setAttribute("a", pdfPath + "/" + pdfName);
-	           System.out.println("pdf成功生成！");
-	           
-	          
-	        }
-	      request.setAttribute("suspectID", suspectId);
-	       return "downPDF";
-	 }
-	        
-	        
-	       
+		// String path =
+		// "http://localhost:8080/ManagePlantfrom-SSH/GR_loadInfor.action?suspectID="+suspectId;
+		String path = PropertiesReadUtils.getPDFString("sourcePath")
+				+ request.getParameter("suspectId");
+		System.out.println("path=" + path);
+
+		// 获取pdf的临时保存路径
+		// tmp为网站下的目录
+		// 把生成的pdf放到网站下以便下载
+		String pdfPath = request.getSession().getServletContext()
+				.getRealPath("/tmp");
+		System.out.println("pdfPath=" + pdfPath);
+
+		String pdfName = suspectId + ".pdf";
+
+		System.out.println("pdfName=" + pdfName);
+		if (HtmlToPdf.convert(path, pdfPath + "/" + pdfName)) {
+			// response.sendRedirect(request.getContextPath() + "/tmp/" +
+			// pdfName);
+			request.setAttribute("a", pdfPath + "/" + pdfName);
+			System.out.println(pdfPath + "/" + pdfName);
+			System.out.println("pdf成功生成！");
+
+		}
+		request.setAttribute("suspectID", suspectId);
+		return "createPdf";
+
+	}
+
 	/**
 	 * 嫌疑人入区视频文件文件下载
 	 * 
 	 * @return
 	 * @throws Exception
 	 */
-	public String downFile() throws Exception {
-		String date = request.getParameter("date");
-		String fileName = request.getParameter("fileName");
-		System.out.println("入区时间：" + date + "\n文件名：" + fileName);
-
-		String[] str = date.split("-");
-		StringBuilder str1 = new StringBuilder();
-		for (int i = 0; i < str.length; i++) {
-			str1.append(str[i] + "/");
-			System.out.println(str1);
-		}
-		String downLoadFile = str1.toString() + fileName;
-
-		response.sendRedirect("ftp://"
-				+ PropertiesReadUtils.getString("remoteServerIP")
-				+ "/recordfiles/" + downLoadFile);
-
-		System.out.println("下载目录：/recordfiles/" + downLoadFile);
-		System.out.println("下载成功：" + true);
-		return "downFile";
-	}
+	// public String downFile() throws Exception {
+	// String date = request.getParameter("date");
+	// String fileName = request.getParameter("fileName");
+	// System.out.println("入区时间：" + date + "\n文件名：" + fileName);
+	//
+	// String[] str = date.split("-");
+	// StringBuilder str1 = new StringBuilder();
+	// for (int i = 0; i < str.length; i++) {
+	// str1.append(str[i] + "/");
+	// System.out.println(str1);
+	// }
+	// String downLoadFile = str1.toString() + fileName;
+	//
+	// response.sendRedirect("ftp://"
+	// + PropertiesReadUtils.getString("remoteServerIP")
+	// + "/recordfiles/" + downLoadFile);
+	//
+	// System.out.println("下载目录：/recordfiles/" + downLoadFile);
+	// System.out.println("下载成功：" + true);
+	// return "downFile";
+	// }
 
 	@Override
 	public void setServletContext(ServletContext application) {
@@ -367,9 +322,11 @@ public class GenerateReportAction extends ActionSupport implements
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
 	}
+
 	public String getDetainTime() {
 		return detainTime;
 	}
+
 	public void setDetainTime(String detainTime) {
 		this.detainTime = detainTime;
 	}

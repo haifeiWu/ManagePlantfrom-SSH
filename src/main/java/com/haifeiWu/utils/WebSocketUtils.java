@@ -32,7 +32,8 @@ public class WebSocketUtils {
 	private Session session;
 
 	/**
-	 * 树莓派传递过来的手环ID和读卡器 该方法会调用WebSocket的onmessage方法，将对应页面传递到客户端，客户端发出相应的请求
+	 * 树莓派传递两个信息，一个是IP，另一个是嫌疑人编号，用*作为分割符
+	 * 该方法会调用WebSocket的onmessage方法，将对应页面传递到客户端，客户端发出相应的请求
 	 */
 	public void flushPage(String message) {
 		onMessage(message);
@@ -62,28 +63,24 @@ public class WebSocketUtils {
 	 * 收到客户端消息后调用的方法
 	 * 
 	 * @param message
-	 *            客户端发送过来的消息,ip地址或者RoomID
+	 *            客户端发送过来的消息,ip地址或者 刷卡时传递过来的两个信息，一个是IP，另一个是嫌疑人编号，用*作为分割符
 	 * @param session
 	 *            可选的参数
 	 */
 	@OnMessage
 	public void onMessage(String message) {
-		System.out.println("---------------------websocket收到消息的长度"
-				+ message.split("&").length);
-		if (message.split("&").length == 2) {// 刷新页面
-			String[] str = message.split("&");
-			String result = str[0];// result对应的是需要刷新的页面
-			String ip = str[1];
-			System.out.println("-------------ip & result" + ip + "  " + result);
+		if (message.split("*").length == 2) {// 主动刷新页面
+			String[] str = message.split("*");
+			String ip = str[0];// ip对应的是房间的电子设备
+			String result = str[1];// result对应的是需要刷新的页面
 			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理,对象为空
-			System.out.println("-------------要将消息发给websocket的对象" + item);
 			try {// 异常处理，循环三次
 				System.out.println("-------------->准备发送");
 				item.session.getBasicRemote().sendText(result);
 				System.out.println("-----------------发送成功----" + result
 						+ "-------------------------");
 			} catch (IOException e) {
-				System.out.println("没有找到相应的客户端");
+				System.out.println("没有找到相应的websocket客户端");
 			}
 		} else {// 发送的只是ip，用来识别客户端地址
 			System.out.println("来自客户端的消息:" + message);
