@@ -133,7 +133,14 @@ $(document).ready(function() {
 	$("#identityImg1").attr('src', 'images/fgreen_03.png');
 });
 
-
+function fileshow1()
+{
+    document.getElementById("img_1").src=document.getElementById("file_1").value;
+} 
+function fileshow2()
+{
+    document.getElementById("img_2").src=document.getElementById("file_2").value;
+} 
 /*window.onload = function(e) {
 //var e = window.event || e;
 // }
@@ -167,7 +174,53 @@ if (datetime < 10) {
 			+ localStorage.clickcount;
 }
 }*/
+/* $("#alterPhotoForm").on("submit", function() {
+			$(this).ajaxSubmit({
+				success : function() {
+					alert("上传成功！");
+					window.location.href="${pageContext.request.contextPath }/LR_loadInfor.action";
+			},
+			resetForm : true
+		    });
+			return false;
+		});	 */
+
 </script>
+<style type="text/css">
+	.colorRed{
+		color:red !important;
+	}
+	.file {
+		margin-left:20px;
+		margin-top:10px;
+	    position: relative;
+	    display: inline-block;
+	    background: #D0EEFF;
+	    border: 1px solid #99D3F5;
+	    border-radius: 4px;
+	    padding: 4px 12px;
+	    overflow: hidden;
+	    color: #1E88C7;
+	    text-decoration: none;
+	    text-indent: 0;
+	    line-height: 20px;
+	    left:45px;
+	}
+	.file input {
+	    position: absolute;
+	    font-size: 100px;
+	    right: 0px;
+	    top: 0;
+	    opacity: 0;
+	    margin-right:-10px;
+	}
+	.file:hover {
+	    background: #AADFFD;
+	    border-color: #78C3F3;
+	    color: #004974;
+	    text-decoration: none;
+	}
+</style>
 </head>
 <body>
 
@@ -200,79 +253,7 @@ if (datetime < 10) {
 					name="Suspect_ID" value="${Suspect_ID }" />
 			</h5>
 
-			<!--进度条信息设置-->
-			<%-- <div class="container" style="height: 180px;">
-				<div class="row">
-					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
-						<li>0%</li>
-						<li>25%</li>
-						<li>50%</li>
-						<li>75%</li>
-						<li>100%</li>
-					</ul>
-					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
-					<!--引入状态截图-->
-					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<c:if test="${!empty suspect }">
-							<script type="text/javascript">
-					       $(document).ready(function(){
-					            $("#identityImg").attr("src","images/fgreen_03.png");
-					       
-					       });
-					    </script>
-						</c:if>
-						<img id="identityImg" src="images/3-inforCollection_03.png" />
-						<c:if test="${!empty personalCheck }">
-							<script type="text/javascript">
-					       $(document).ready(function(){
-					            $("#identityImg1").attr("src","images/fgreen_03.png");
-					       
-					       });
-					    </script>
-						</c:if> 
-						<img id="identityImg1" src="images/3-inforCollection_03.png" />
-						<c:if test="${!empty informationCollection }">
-							<script type="text/javascript">
-					       $(document).ready(function(){
-					            $("#personInforImg").attr("src","images/fgreen_03.png");
-					       
-					       });
-					    </script>
-						</c:if>
-						<img id="personInforImg" src="images/3-inforCollection_03.png" />
-						<c:if test="${!empty activityRecord }">
-							<script type="text/javascript">
-					       $(document).ready(function(){
-					            $("#enterInforImg").attr("src","images/fgreen_03.png");
-					       
-					       });
-					    </script>
-						</c:if>
-						<img id="enterInforImg" src="images/3-inforCollection_03.png" />
-						<c:if test="${!empty leaveRecord }">
-							<script type="text/javascript">
-					       $(document).ready(function(){
-					            $("#confirmImg").attr("src","images/fgreen_07.png");
-					       
-					       });
-					    </script>
-						</c:if>
-						<img id="confirmImg" src="images/3-inforCollection_07.png"
-							style="margin-left: -10%;" />
-						<!-- <span>入区登记完成</span> -->
-					</div>
-					<!--进度的信息显示-->
-					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
-						<li>入区登记</li>
-						<li>人身检查</li>
-						<li>信息采集</li>
-						<li>活动登记</li>
-						<li>出区登记</li>
-					</ul>
-				</div>
-			</div> --%>
-
+		
 
 			<!--疑犯个人身份证信息-->
 			<div class="container">
@@ -280,38 +261,45 @@ if (datetime < 10) {
 					<!--身份信息标题-->
 					<h4 id="identityInfor" style="margin-top: -25px;"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">身份证信息</h4>
-					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
-							id="img_2" src="images/1-cemian_06.png" />
-						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }&nbsp;
-							&nbsp; &nbsp;嫌疑人入区登记照片</p>
+					<!-- 正面照、侧面照 -->
+					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4" style="margin-top:20px;">					
+						<img id="img_1" src="" style="border:1px solid #ccc"/>						
+						<img id="img_2" src="" style="border:1px solid #ccc"/>
+		
+							<a href="javascript:;" class="file">选择正面照
+							    <input id="file_1" type="file" name="file" onchange="return fileshow1()">
+							</a>
+							<a href="javascript:;" class="file">选择侧面照
+							    <input id="file_2" type="file" name="sfile" onchange="return fileshow2()">
+							</a>	
+						<%-- <p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">${nEntryTime }嫌疑人入区登记照片</p> --%>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
-						<hr
-							style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" />
-						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
+						<!-- <hr
+							style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" /> -->
+						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8" style="margin-top: 20px !important;">
 
 							<tr style="padding: 0px;">
 								<!--图片引入-->
-								<td rowspan="5"><img id="pic" src="images/1-IDlogo_09.png"
+								<td rowspan="5"><img id="pic" src=""
 									style="width: 95px;height: 108px;position: relative;top: -10px;" />
 									<input type="hidden" name="identityCard_Photo" value="value">
 									<p class="info_id">身份证照</p></td>
 								<td colspan="2">姓名:<input type="text" name="suspect_Name"
-									value="德古拉" /></td>
+									value="" /></td>
 
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
-									name="sex" value="男" /></td>
+									name="sex" value="" /></td>
 
-								<td>民族：<input type="text" name="nation" value="汉" /></td>
+								<td>民族：<input type="text" name="nation" value="" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
 								<td colspan="2">出生日期：<input type="text" style="width:70%;"
-									name="birthday" value="1961" /></td>
+									name="birthday" value="" /></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
@@ -319,13 +307,13 @@ if (datetime < 10) {
 							</tr>
 
 							<tr>
-								<td colspan="2"><textarea name="address" rows="1" cols="45">山西省离石市灵石区灵城镇三海村委会名塘村37号</textarea></td>
+								<td colspan="2"><textarea name="address" rows="1" cols="45"></textarea></td>
 							</tr>
 
 							<tr>
 								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
-									name="identifyCard_Number1" value="140104196108123556" /></td>
+									name="identifyCard_Number1" value="" /></td>
 
 							</tr>
 						</table>

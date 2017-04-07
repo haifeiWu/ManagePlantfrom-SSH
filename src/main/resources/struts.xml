@@ -184,9 +184,9 @@
 		<!-- 嫌疑人综合信息管理 -->
 		<action name="suspectManage_*" class="com.haifeiWu.action.SuspectManageAction"
 			method="{1}">
-			<result name="loadInfor">/jsp/suspectmanage/historyRecord.jsp</result>
+			<result name="loadInfor">/WEB-INF/suspectmanage/historyRecord.jsp</result>
 			<!-- 查询嫌疑人信息 -->
-			<result name="searchsuspectInfor">/jsp/suspectmanage/suspectInforList.jsp</result>
+			<result name="searchsuspectInfor">/WEB-INF/suspectmanage/suspectInforList.jsp</result>
 		</action>
 		<!-- 查看日志 -->
 		<action name="Log_execute" class="com.haifeiWu.action.Log_Action">
@@ -195,8 +195,8 @@
 		
 		<action name="roomManage_*" class="com.haifeiWu.action.RoomManageAction"
 			method="{1}">
-			<result name="loadInfor">/jsp/roommanage/room.jsp</result>
-			<result name="null">/jsp/error/400.jsp</result>
+			<result name="loadInfor">/WEB-INF/roommanage/room.jsp</result>
+			<result name="null">/WEB-INF/error/400.jsp</result>
 		</action>
 	
 	</package>

@@ -137,58 +137,90 @@
 	<form class="container"
 		action="${pageContext.request.contextPath }/AR_addActivityRecordInfor.action"
 		method="post">
-		<div class="row">
-			<!--嫌疑人入区信息-->
-			<h4 style="margin-top: 13px;">
-				<b style="color: #389ac7;">Activity</b> record registration
-			</h4>
-			<p id="left_title">活动记录登记</p>
-			<!--设置标题：档案编号：-->
-			<h5 class="col-lg-12 col-md-10 text-center" >
-				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
-				<span name="suspect_ID" style="color: black;">${SuspectInfor.suspect_ID }</span>
-			</h5>
-			<!--进度条信息设置-->
-			<div class="container" style="height: 180px;">
-				<div class="row">
-					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
-						 <li>25%</li>
-						<li>50%</li>
-						<li>75%</li>
-						<li>100%</li> 
-					</ul>
-					<!--进度的状态-->
-
-					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
-					<!--引入状态截图-->
-					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
-						<!-- <a href="suspect_updateInfor.action?Suspect_ID=haifieisi"> -->
-						<c:if test="${!empty SuspectInfor}"><img src="images/fgreen_03.png" /></c:if>
-						<c:if test="${empty SuspectInfor}"><img src="images/3-inforCollection_03.png" /></c:if>
-						 	<!-- </a>  -->
-						<!-- <a href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"> -->
-						<c:if test="${!empty personal_Check}"><img src="images/fgreen_03.png" /></c:if>
-						<c:if test="${empty personal_Check}"><img src="images/3-inforCollection_03.png" /></c:if>
-							
-							<!-- </a>  -->
-						<!-- <a href="IC_updateInfor.action?Suspect_ID=haifieisi"> -->
-						 <c:if test="${!empty information_Collection}"><img src="images/fgreen_03.png" /></c:if>
-						 <c:if test="${empty information_Collection}"><img src="images/3-inforCollection_03.png" /></c:if>
-							<!-- </a> <a href="#activityReco"> -->
-							<img src="images/3-inforCollection_07.png" style="margin-left: 200px;" />
-							<!-- </a> -->
-						<span style="margin-top: 30px;">出区登记</span>
+			<div class="row">
+				<!--嫌疑人入区信息-->
+				<h4 style="margin-top: 13px;">
+					<b style="color: #389ac7;">Activity</b> record registration
+				</h4>
+				<p id="left_title">活动记录登记</p>
+				<!--设置标题：档案编号：-->
+				<h5 class="col-lg-12 col-md-10 text-center" >
+					<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
+					<span name="suspect_ID" style="color: black;">${SuspectInfor.suspect_ID }</span>
+				</h5>
+				<!--进度条信息设置-->
+				<div class="container" style="height: 180px;">
+					<div class="row">
+						<!--进度的数据信息-->
+						<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
+							<li>0%</li>
+							<li>25%</li>
+							<li>50%</li>
+							<li>75%</li>
+							<li>100%</li>
+						</ul>
+	
+						<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
+	
+							<c:if test="${!empty suspect }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#identityImg").attr("src","images/fgreen_03.png");
+						       
+						       });
+						    </script>
+							</c:if>
+							<img id="identityImg" src="images/3-inforCollection_03.png" />
+							<c:if test="${!empty personalCheck }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#identityImg1").attr("src","images/fgreen_03.png");
+						       
+						       });
+						    </script>
+							</c:if> 
+							<img id="identityImg1" src="images/3-inforCollection_03.png" />
+							<c:if test="${!empty informationCollection }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#personInforImg").attr("src","images/fgreen_03.png");
+						       
+						       });
+						    </script>
+							</c:if>
+							<img id="personInforImg" src="images/3-inforCollection_03.png" />
+							<c:if test="${!empty activityRecord }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#enterInforImg").attr("src","images/fgreen_03.png");
+						       
+						       });
+						    </script>
+							</c:if>
+							<img id="enterInforImg" src="images/3-inforCollection_03.png" />
+							<c:if test="${!empty leaveRecord }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#confirmImg").attr("src","images/fgreen_07.png");
+						       
+						       });
+						    </script>
+							</c:if>
+							<img id="confirmImg" src="images/3-inforCollection_07.png"
+								style="margin-left: -10%;" />
+						</div>
+						<!--进度的信息显示-->
+						<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
+							<li>入区登记</li>
+							<li>人身检查</li>
+							<li>信息采集</li>
+							<li>活动登记</li>
+							<li>出区登记</li>
+						</ul>
 					</div>
-
-					<!--进度的信息显示-->
-					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
-						<li>入区登记</li>
-						<li>人身检查</li>
-						<li>信息采集</li>
-						<li>活动登记确认提交</li>
-					</ul>
-				</div>
+					<!--在该容器下第一个row结束-->
+			</div>
+			<!--进度条信息结束-->
 			</div>
 			<!--疑犯个人身份证信息-->
 			<div class="container" style="margin-top: 0%;">

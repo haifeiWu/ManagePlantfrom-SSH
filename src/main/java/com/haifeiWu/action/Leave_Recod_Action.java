@@ -396,9 +396,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			}
 
 			// 查询问讯问信息
-			// 多条询问讯问信息
-			List<PHCSMP_Activity_Record> activityRecord = activityRecordService
-					.findInforBySuspetcId(suspect_id);
+			// activityRecord=activityRecordService.findInforBySuspetcId(suspect_id);
 			if (activityRecord != null) {
 				activityRecordComplete = CompleteCheck.completeCheck(
 						activityRecord, activityRecord.getClass(), 3);
@@ -647,4 +645,5 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	public void setSfileFileName(String sfileFileName) {
 		this.sfileFileName = sfileFileName;
 	}
+
 }

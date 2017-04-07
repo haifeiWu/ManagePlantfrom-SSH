@@ -101,21 +101,21 @@
 			</h5> --%>
 			<h5 class="col-lg-12 col-md-10 text-center" style="margin-top: auto;">
 			<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
-			<span style="width:200px;" type="text" id="suspectID"
-				name="Suspect_ID" >${Suspect_ID }</span>
-				<span name="suspect_ID" style="color:black;">${SuspectInfor.suspect_ID }</span>
+			<span style="width:200px;color:black;" type="text" id="suspectID"
+				name="Suspect_ID" >${SuspectInfor.suspect_ID }</span>
+				<input name="Suspect_ID" type="hidden" style="color:black;" value="${SuspectInfor.suspect_ID }" />
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
+					<!-- <ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
 						<li>100%</li>
-					</ul>
+					</ul> -->
 
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 
@@ -187,8 +187,8 @@
 							readonly="readonly" />
 					</h4>
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<img id="img_1"src="images/1-zhengmian_04.png" /> 
-						<img id = "img_2"src="images/1-cemian_06.png" />
+						<img id="img_1"src="${SuspectInfor.frontal_Photo}" /> 
+						<img id = "img_2"src="${SuspectInfor.sideWays_Photo}" />
 						<p  class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
 							&nbsp; &nbsp; 嫌疑人入区登记照片</p>
 					</div>
