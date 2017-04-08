@@ -9,11 +9,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.base.BaseAction;
-import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Dic_Collection_Item;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
-import com.haifeiWu.entity.PHCSMP_Leave_Record;
-import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.InformationCollectionService;
@@ -102,38 +99,50 @@ public class Information_Collection_Action extends
 					.findBySuspetcId(suspectId);
 			List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
 					.findAllCollectionItem();
-			// 信息采集
+			// 如果再次进入该房间，显示之前填写的信息
+			PHCSMP_Information_Collection collectInfor = informationCollectionService
+					.findInforBySuspetcId(suspectId);
+			if (collectInfor != null)
+				request.setAttribute("informatCollect", collectInfor);
+			// 如果之前填写过，将之前填写的显示在页面上
 			PHCSMP_Information_Collection informatCollect = (PHCSMP_Information_Collection) request
 					.getAttribute("informatCollect");
 			if (informatCollect != null)
 				request.setAttribute("informatCollect", informatCollect);
+
 			request.setAttribute("start_Time",
 					new DateTime().toString("yyyy-MM-dd HH:mm"));
 			request.setAttribute("SuspectInfor", SuspectInfor);
 			// 人身安全检查
-			PHCSMP_Personal_Check personal_Check = personalCheckService
-					.findInforBySuspetcId(SuspectInfor.getSuspect_ID());
-			if (personal_Check != null) {
-				request.setAttribute("personal_Check", personal_Check);
-			}
+			// PHCSMP_Personal_Check personal_Check = personalCheckService
+			// .findInforBySuspetcId(suspectId);
+			// if (personal_Check != null) {
+			// request.setAttribute("personal_Check", personal_Check);
+			// }
 			request.setAttribute("collectionItem", collectionItem);
-			suspectService.updateSwitch(1, SuspectInfor.getSuspect_ID());
+			suspectService.updateSwitch(1, suspectId);
 
 			// 判断进度条
-			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
-			PHCSMP_Personal_Check personalCheck = personalCheckService
-					.findInforBySuspetcId(suspectId);
-			PHCSMP_Information_Collection informationCollection = informationCollectionService
-					.findInforBySuspetcId(suspectId);
-			List<PHCSMP_Activity_Record> activityRecordlist = activityRecordService
-					.selectActivityRecordInfor(suspectId);
-			PHCSMP_Leave_Record leaveRecord = leaveRecodService
-					.findInforBySuspetcId(suspectId);
-			request.setAttribute("suspect", suspect);
-			request.setAttribute("personalCheck", personalCheck);
-			request.setAttribute("informationCollection", informationCollection);
-			request.setAttribute("activityRecord", activityRecordlist);
-			request.setAttribute("leaveRecord", leaveRecord);
+			// PHCSMP_Suspect suspect =
+			// suspectService.findBySuspetcId(suspectId);
+			if (personalCheckService.findInforBySuspetcId(suspectId) != null) {
+				request.setAttribute("personalCheck", 1);
+			}
+			// PHCSMP_Information_Collection informationCollection =
+			// informationCollectionService
+			// .findInforBySuspetcId(suspectId);
+			if (activityRecordService.selectActivityRecordInfor(suspectId) != null) {
+				request.setAttribute("activityRecord", 1);
+			}
+
+			// PHCSMP_Leave_Record leaveRecord = leaveRecodService
+			// .findInforBySuspetcId(suspectId);
+			// request.setAttribute("suspect", suspect);
+
+			// request.setAttribute("informationCollection",
+			// informationCollection);
+
+			// request.setAttribute("leaveRecord", leaveRecord);
 
 		} catch (Exception e) {
 			// 提示可能是房间、读卡器等设备配置错误

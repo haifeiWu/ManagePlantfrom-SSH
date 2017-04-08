@@ -152,13 +152,13 @@
 				<div class="container" style="height: 180px;">
 					<div class="row">
 						<!--进度的数据信息-->
-						<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
+						<!-- <ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
 							<li>0%</li>
 							<li>25%</li>
 							<li>50%</li>
 							<li>75%</li>
 							<li>100%</li>
-						</ul>
+						</ul> -->
 	
 						<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 	
@@ -171,7 +171,7 @@
 						    </script>
 							</c:if>
 							<img id="identityImg" src="images/3-inforCollection_03.png" />
-							<c:if test="${!empty personalCheck }">
+							<c:if test="${!empty personal_Check }">
 								<script type="text/javascript">
 						       $(document).ready(function(){
 						            $("#identityImg1").attr("src","images/fgreen_03.png");
@@ -180,7 +180,7 @@
 						    </script>
 							</c:if> 
 							<img id="identityImg1" src="images/3-inforCollection_03.png" />
-							<c:if test="${!empty informationCollection }">
+							<c:if test="${!empty information_Collection }">
 								<script type="text/javascript">
 						       $(document).ready(function(){
 						            $("#personInforImg").attr("src","images/fgreen_03.png");
@@ -189,7 +189,7 @@
 						    </script>
 							</c:if>
 							<img id="personInforImg" src="images/3-inforCollection_03.png" />
-							<c:if test="${!empty activityRecord }">
+							<c:if test="${!empty activity_record_infor }">
 								<script type="text/javascript">
 						       $(document).ready(function(){
 						            $("#enterInforImg").attr("src","images/fgreen_03.png");

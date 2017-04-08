@@ -133,7 +133,7 @@
 						name="suspectId" /></li>
 					<li class="l2">报告时间：<input type="date"
 						value="${reportCreateTime }" readonly="readonly" /></li>
-					<li class="l3">羁押时间：<input type="text" value="${detainTime }"
+					<li class="l3">羁押时间：<input type="text" value="${suspect.detain_Time }"
 						readonly="readonly"></li>
 				</ul>
 			</form>

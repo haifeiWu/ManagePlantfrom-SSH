@@ -1,8 +1,7 @@
 package com.haifeiWu.action;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.text.ParseException;
 import java.util.List;
 
@@ -86,206 +85,222 @@ public class GenerateReportAction extends ActionSupport implements
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	public String loadInfor() throws ParseException {
-		System.out.println("嫌疑人入区信息报告");
+	public String loadInfor() throws ParseException, IOException {
+		try {
+			// System.out.println("嫌疑人入区信息报告");
+			//
+			// System.out.println("嫌疑人姓名：" +
+			// request.getParameter("personName"));
+			// System.out.println("档案编号：" + request.getParameter("suspectID"));
 
-		System.out.println("嫌疑人姓名：" + request.getParameter("personName"));
-		System.out.println("档案编号：" + request.getParameter("suspectID"));
+			/*
+			 * 加载当前嫌疑人的所有的信息
+			 */
+			// 获取档案编号
+			// String suspectId = (String) request.getParameter("suspectID");
+			String suspectId = request.getParameter("suspectID");
+			// if (suspectId == null) {
+			// return "NULL";
+			// }
+			// 查找嫌疑人入区信息
+			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
+			// 嫌疑人随身所有物品检查信息s
+			List<PHCSMP_BelongingS> belongingS = belongingInforService
+					.selectBelongInfor(suspectId);
+			// 嫌疑人人身检查信息
+			PHCSMP_Personal_Check personal_Check = personalCheckService
+					.findInforBySuspetcId(suspectId);
+			// 嫌疑人所有的办案区记录信息
+			List<PHCSMP_Activity_Record> activity_Record = activityRecordService
+					.selectActivityRecordInfor(suspectId);
 
-		/*
-		 * 加载当前嫌疑人的所有的信息
-		 */
-		// 获取档案编号
-		// String suspectId = (String) request.getParameter("suspectID");
-		String suspectId = "LB-HB-20170317005";
+			// 嫌疑人信息采集记录
+			PHCSMP_Information_Collection information_Collection = informationCollectionService
+					.findInforBySuspetcId(suspectId);
+			System.out.println("information_Collection="
+					+ information_Collection);
 
-		if (suspectId == null) {
-			return "NULL";
+			// 嫌疑人离区信息记录
+			PHCSMP_Leave_Record leave_Record = leaveRecodService
+					.findInforBySuspetcId(suspectId);
+			// 暂时出区
+			List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
+					.findTempLeaveListBySuspectID(suspectId);
+			// 犯人羁押时间
+			// DateTimeFormatter format = DateTimeFormat
+			// .forPattern("yyyy-MM-dd HH:mm");
+			// DateTime startTime = DateTime.parse(suspect.getEnter_Time());
+			// DateTime endTime = DateTime.parse(leave_Record.getLeave_Time());
+
+			// int prisonHour = Hours.hoursBetween(startTime,
+			// endTime).getHours();
+
+			String reportCreateTime = new DateTime()
+					.toString("yyyy-MM-dd HH:mm");
+
+			// if ((suspect == null) && (belongingS == null)
+			// && (personal_Check == null) && (activity_Record == null)
+			// && (information_Collection == null) && (leave_Record == null)
+			// && (temporaryLeaves == null)) {
+			// return "NULL";
+			// }
+
+			// 将查找到的信息放入request中，然后从页面加载
+			request.setAttribute("suspect", suspect);
+			request.setAttribute("belongingS", belongingS);
+			request.setAttribute("personal_Check", personal_Check);
+			request.setAttribute("activity_Record", activity_Record);
+			request.setAttribute("information_Collection",
+					information_Collection);
+			request.setAttribute("leave_Record", leave_Record);
+			request.setAttribute("temporaryLeaves", temporaryLeaves);
+			// request.setAttribute("prisonHour", prisonHour);
+			request.setAttribute("reportCreateTime", reportCreateTime);
+			// request.setAttribute("detainTime", suspect.getDetain_Time());
+			System.out.println("detainTime=" + detainTime);
+
+			// 生成PDF
+
+			// 获取pdf的临时保存路径,getServletContext是Tomcat容器的路径,也就是服务器的路径
+			System.out.println(request.getSession().getServletContext()
+					.getRealPath("/pdf"));
+			String pdfPath = request.getSession().getServletContext()
+					.getRealPath("/pdf")
+					+ suspectId + ".pdf";
+			// 判断是否存在该文件，存在则不生成，不存在则生成
+			if (!new File(pdfPath).exists()) {
+				String path = PropertiesReadUtils.getPDFString("sourcePath")
+						+ request.getParameter("suspectId");
+				if (HtmlToPdf.convert(path, pdfPath)) {
+					// response.sendRedirect(request.getContextPath() + "/tmp/"
+					// +
+					// pdfName);
+					request.setAttribute("pdfPath", pdfPath);
+					System.out.println("pdf成功生成！");
+				}
+			}
+			return "loadInfor";
+		} catch (Exception e) {
+			response.getWriter()
+					.write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
+			response.getWriter().flush();
+			return "success";
 		}
-		// 查找嫌疑人入区信息
-		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
-		System.out.println("suspect=" + suspect);
-		// 嫌疑人随身所有物品检查信息s
-		List<PHCSMP_BelongingS> belongingS = belongingInforService
-				.selectBelongInfor(suspectId);
-		System.out.println("belongingS=" + belongingS);
-
-		// 嫌疑人人身检查信息
-		PHCSMP_Personal_Check personal_Check = personalCheckService
-				.findInforBySuspetcId(suspectId);
-		System.out.println("personal_Check=" + personal_Check);
-		// 嫌疑人所有的办案区记录信息
-		List<PHCSMP_Activity_Record> activity_Record = activityRecordService
-				.selectActivityRecordInfor(suspectId);
-		System.out.println("activity_Record=" + activity_Record);
-
-		// 嫌疑人信息采集记录
-		PHCSMP_Information_Collection information_Collection = informationCollectionService
-				.findInforBySuspetcId(suspectId);
-		System.out.println("information_Collection=" + information_Collection);
-
-		// 嫌疑人出区信息记录
-		PHCSMP_Leave_Record leave_Record = leaveRecodService
-				.findInforBySuspetcId(suspectId);
-		System.out.println("leave_Record=" + leave_Record);
-		// 暂时离区
-		List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
-				.findTempLeaveListBySuspectID(suspectId);
-		System.out.println("leave_Record=" + temporaryLeaves);
-		// 犯人羁押时间
-		// DateTimeFormatter format = DateTimeFormat
-		// .forPattern("yyyy-MM-dd HH:mm");
-		// DateTime startTime = DateTime.parse(suspect.getEnter_Time());
-		// DateTime endTime = DateTime.parse(leave_Record.getLeave_Time());
-
-		// int prisonHour = Hours.hoursBetween(startTime, endTime).getHours();
-
-		String reportCreateTime = new DateTime().toString("yyyy-MM-dd HH:mm");
-
-		if ((suspect == null) && (belongingS == null)
-				&& (personal_Check == null) && (activity_Record == null)
-				&& (information_Collection == null) && (leave_Record == null)
-				&& (temporaryLeaves == null)) {
-			return "NULL";
-		}
-
-		// 将查找到的信息放入request中，然后从页面加载
-		request.setAttribute("suspect", suspect);
-		request.setAttribute("belongingS", belongingS);
-		request.setAttribute("personal_Check", personal_Check);
-		request.setAttribute("activity_Record", activity_Record);
-		request.setAttribute("information_Collection", information_Collection);
-		request.setAttribute("leave_Record", leave_Record);
-		request.setAttribute("temporaryLeaves", temporaryLeaves);
-		// request.setAttribute("prisonHour", prisonHour);
-		request.setAttribute("reportCreateTime", reportCreateTime);
-
-		request.setAttribute("detainTime", suspect.getDetain_Time());
-		System.out.println("detainTime=" + detainTime);
-
-		// 生成PDF
-		/*
-		 * try { createPdf(suspect.getSuspect_ID()); } catch (IOException e) {
-		 * System.out.println("pdf生成失败！");
-		 * 
-		 * }
-		 */
-
-		return "loadInfor";
 	}
 
-	public String suspectInforSummary() {
-		/*
-		 * 加载当前嫌疑人的所有的信息
-		 */
-		// //获取档案编号
-		// String suspectId = (String) request.getAttribute("suspectId");
-		// //查找嫌疑人入区信息
-		// PHCSMP_Suspect suspect =
-		// suspectService.findInforBySuspetcId(suspectId);
-		// //嫌疑人随身物品检查信息
-		// PHCSMP_BelongingS belongingS =
-		// inforService.findInforBySuspetcId(suspectId);
-		// //嫌疑人人身检查信息
-		// PHCSMP_Personal_Check personal_Check =
-		// checkService.findInforBySuspetcId(suspectId);
-		// //嫌疑人询问讯问记录信息
-		// PHCSMP_Activity_Record activity_Record =
-		// activityRecordService.findInforBySuspetcId(suspectId);
-		// //嫌疑人信息采集记录
-		// PHCSMP_Information_Collection information_Collection =
-		// collectionService.findInforBySuspetcId(suspectId);
-		// //嫌疑人出区信息记录
-		// PHCSMP_Leave_Record leave_Record =
-		// leaveRecodService.findInforBySuspetcId(suspectId);
-		//
-		// //将查找到的信息放入request中，然后从页面加载
-		// request.setAttribute("suspect",suspect );
-		// request.setAttribute("belongingS",belongingS );
-		// request.setAttribute("personal_Check",personal_Check );
-		// request.setAttribute("activity_Record",activity_Record );
-		// request.setAttribute("information_Collection",information_Collection
-		// );
-		// request.setAttribute("leave_Record",leave_Record );
+	// public String suspectInforSummary() {
+	// /*
+	// * 加载当前嫌疑人的所有的信息
+	// */
+	// // //获取档案编号
+	// // String suspectId = (String) request.getAttribute("suspectId");
+	// // //查找嫌疑人入区信息
+	// // PHCSMP_Suspect suspect =
+	// // suspectService.findInforBySuspetcId(suspectId);
+	// // //嫌疑人随身物品检查信息
+	// // PHCSMP_BelongingS belongingS =
+	// // inforService.findInforBySuspetcId(suspectId);
+	// // //嫌疑人人身检查信息
+	// // PHCSMP_Personal_Check personal_Check =
+	// // checkService.findInforBySuspetcId(suspectId);
+	// // //嫌疑人询问讯问记录信息
+	// // PHCSMP_Activity_Record activity_Record =
+	// // activityRecordService.findInforBySuspetcId(suspectId);
+	// // //嫌疑人信息采集记录
+	// // PHCSMP_Information_Collection information_Collection =
+	// // collectionService.findInforBySuspetcId(suspectId);
+	// // //嫌疑人出区信息记录
+	// // PHCSMP_Leave_Record leave_Record =
+	// // leaveRecodService.findInforBySuspetcId(suspectId);
+	// //
+	// // //将查找到的信息放入request中，然后从页面加载
+	// // request.setAttribute("suspect",suspect );
+	// // request.setAttribute("belongingS",belongingS );
+	// // request.setAttribute("personal_Check",personal_Check );
+	// // request.setAttribute("activity_Record",activity_Record );
+	// // request.setAttribute("information_Collection",information_Collection
+	// // );
+	// // request.setAttribute("leave_Record",leave_Record );
+	//
+	// System.out.println("SuspectManageAction:suspectInforSummary");
+	// return "suspectInforSummary";
+	// }
 
-		System.out.println("SuspectManageAction:suspectInforSummary");
-		return "suspectInforSummary";
-	}
+	// /**
+	// * 嫌疑人信息搜索
+	// *
+	// * @return
+	// */
+	// public String searchsuspectInfor() {
+	// System.out.println("SuspectManageAction:searchsuspectInfor");
+	// return "searchsuspectInfor";
+	// }
 
-	/**
-	 * 嫌疑人信息搜索
-	 * 
-	 * @return
-	 */
-	public String searchsuspectInfor() {
-		System.out.println("SuspectManageAction:searchsuspectInfor");
-		return "searchsuspectInfor";
-	}
+	// /**
+	// * 从输入流中获取字节数组
+	// *
+	// * @param in
+	// * @return
+	// * @throws IOException
+	// */
+	// private byte[] getByteData(InputStream in) throws IOException {
+	// byte[] b = new byte[1024];
+	// ByteArrayOutputStream bos = new ByteArrayOutputStream();
+	// int len = 0;
+	// while ((len = in.read(b)) != -1) {
+	// bos.write(b, 0, len);
+	// }
+	// if (null != bos) {
+	// bos.close();
+	// }
+	// return bos.toByteArray();
+	// }
 
-	/**
-	 * 从输入流中获取字节数组
-	 * 
-	 * @param in
-	 * @return
-	 * @throws IOException
-	 */
-	private byte[] getByteData(InputStream in) throws IOException {
-		byte[] b = new byte[1024];
-		ByteArrayOutputStream bos = new ByteArrayOutputStream();
-		int len = 0;
-		while ((len = in.read(b)) != -1) {
-			bos.write(b, 0, len);
-		}
-		if (null != bos) {
-			bos.close();
-		}
-		return bos.toByteArray();
-	}
+	// /**
+	// * 下载PDF文件
+	// *
+	// * @return
+	// * @throws IOException
+	// */
+	// public String createPdf() throws IOException {
+	// String suspectId = request.getParameter("suspectId");
+	// System.out.println("开始下载PDF");
+	// // String path =
+	// //
+	// "http://localhost:8080/ManagePlantfrom-SSH/GR_loadInfor.action?suspectID="+suspectId;
+	// String path = PropertiesReadUtils.getPDFString("sourcePath")
+	// + request.getParameter("suspectId");
+	// System.out.println("path=" + path);
+	//
+	// // 获取pdf的临时保存路径
+	// // tmp为网站下的目录
+	// // 把生成的pdf放到网站下以便下载
+	// String pdfPath = request.getSession().getServletContext()
+	// .getRealPath("/tmp");
+	// System.out.println("pdfPath=" + pdfPath);
+	//
+	// String pdfName = suspectId + ".pdf";
+	//
+	// System.out.println("pdfName=" + pdfName);
+	// if (HtmlToPdf.convert(path, pdfPath + "/" + pdfName)) {
+	// // response.sendRedirect(request.getContextPath() + "/tmp/" +
+	// // pdfName);
+	// request.setAttribute("a", pdfPath + "/" + pdfName);
+	// System.out.println(pdfPath + "/" + pdfName);
+	// System.out.println("pdf成功生成！");
+	//
+	// }
+	// request.setAttribute("suspectID", suspectId);
+	// return "createPdf";
+	//
+	// }
 
-	/**
-	 * 下载PDF文件
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public String createPdf() throws IOException {
-		String suspectId = request.getParameter("suspectId");
-		System.out.println("开始下载PDF");
-		// String path =
-		// "http://localhost:8080/ManagePlantfrom-SSH/GR_loadInfor.action?suspectID="+suspectId;
-		String path = PropertiesReadUtils.getPDFString("sourcePath")
-				+ request.getParameter("suspectId");
-		System.out.println("path=" + path);
-
-		// 获取pdf的临时保存路径
-		// tmp为网站下的目录
-		// 把生成的pdf放到网站下以便下载
-		String pdfPath = request.getSession().getServletContext()
-				.getRealPath("/tmp");
-		System.out.println("pdfPath=" + pdfPath);
-
-		String pdfName = suspectId + ".pdf";
-
-		System.out.println("pdfName=" + pdfName);
-		if (HtmlToPdf.convert(path, pdfPath + "/" + pdfName)) {
-			// response.sendRedirect(request.getContextPath() + "/tmp/" +
-			// pdfName);
-			request.setAttribute("a", pdfPath + "/" + pdfName);
-			System.out.println(pdfPath + "/" + pdfName);
-			System.out.println("pdf成功生成！");
-
-		}
-		request.setAttribute("suspectID", suspectId);
-		return "createPdf";
-
-	}
-
-	/**
-	 * 嫌疑人入区视频文件文件下载
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
+	// /**
+	// * 嫌疑人入区视频文件文件下载
+	// *
+	// * @return
+	// * @throws Exception
+	// */
 	// public String downFile() throws Exception {
 	// String date = request.getParameter("date");
 	// String fileName = request.getParameter("fileName");

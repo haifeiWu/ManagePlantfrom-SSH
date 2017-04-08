@@ -17,7 +17,6 @@ import com.haifeiWu.entity.PHCSMP_Cabinet;
 import com.haifeiWu.entity.PHCSMP_Dic_Inspection_Situation;
 import com.haifeiWu.entity.PHCSMP_Dic_Keeping_Way;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
-import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
@@ -95,11 +94,16 @@ public class PHCSMP_Personal_Check_Action extends
 					.findAllPHCSMPCabinet();// 保管柜信息
 			PHCSMP_Personal_Check checkRecord = (PHCSMP_Personal_Check) request
 					.getAttribute("checkRecord");
+			// 嫌疑人离开房间，再次进入时填写的信息要显示在页面上
+			PHCSMP_Personal_Check updateCheckInfor = personalCheckService
+					.findInforBySuspetcId(suspectId);
+			if (updateCheckInfor != null) {
+				request.setAttribute("checkRecord", updateCheckInfor);
+			}
+			// 如果提交失败，保证填写的信息要显示在页面上
 			if (checkRecord != null)
 				request.setAttribute("checkRecord", checkRecord);
-
 			request.setAttribute("start_time_time", start_time_time);
-
 			request.setAttribute("suspectInfor", suspectInfor);
 			request.setAttribute("InspectionSituationType",
 					InspectionSituationType);
@@ -107,27 +111,25 @@ public class PHCSMP_Personal_Check_Action extends
 			request.setAttribute("PHCSMPCabinetType", PHCSMPCabinetType);
 			// 更新录像状态的标志位
 			suspectService.updateSwitch(1, suspectId);
-
-			System.out.println("suspectId" + suspectId);
 			// 判断进度条
-			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
 			PHCSMP_Personal_Check personalCheck = personalCheckService
 					.findInforBySuspetcId(suspectId);
 			PHCSMP_Information_Collection informationCollection = informationCollectionService
 					.findInforBySuspetcId(suspectId);
 			List<PHCSMP_Activity_Record> activityRecordlist = activityRecordService
 					.selectActivityRecordInfor(suspectId);
-			PHCSMP_Leave_Record leaveRecord = leaveRecodService
-					.findInforBySuspetcId(suspectId);
-			request.setAttribute("suspect", suspect);
-			request.setAttribute("personalCheck", personalCheck);
-			request.setAttribute("informationCollection", informationCollection);
-			request.setAttribute("activityRecord", activityRecordlist);
-			request.setAttribute("leaveRecord", leaveRecord);
-			System.out.println("suspect=" + suspect + " " + "personalCheck="
-					+ personalCheck + " " + "informationCollection="
-					+ informationCollection + " " + "activityRecord="
-					+ activityRecordlist + " " + "leaveRecord=" + leaveRecord);
+			// request.setAttribute("personalCheck", personalCheck);
+			if (informationCollection != null) {
+				request.setAttribute("informationCollection", 1);
+			}
+			if (activityRecordlist != null) {
+				request.setAttribute("activityRecord", 1);
+			}
+			// request.setAttribute("leaveRecord", leaveRecord);
+			// System.out.println("suspect=" + suspect + " " + "personalCheck="
+			// + personalCheck + " " + "informationCollection="
+			// + informationCollection + " " + "activityRecord="
+			// + activityRecordlist + " " + "leaveRecord=" + leaveRecord);
 		} catch (Exception e) {
 			// 提示可能是房间、读卡器等设备配置错误
 			response.getWriter()

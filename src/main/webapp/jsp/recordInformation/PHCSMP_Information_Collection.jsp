@@ -52,14 +52,14 @@
 
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 
-						<c:if test="${!empty suspect }">
+						<%-- <c:if test="${!empty suspect }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
 					            $("#identityImg").attr("src","images/fgreen_03.png");
 					       
 					       });
 					    </script>
-						</c:if>
+						</c:if> --%>
 						<img id="identityImg" src="images/3-inforCollection_03.png" />
 						<c:if test="${!empty personalCheck }">
 							<script type="text/javascript">
@@ -70,7 +70,7 @@
 					    </script>
 						</c:if> 
 						<img id="identityImg1" src="images/3-inforCollection_03.png" />
-						<c:if test="${!empty informationCollection }">
+						<c:if test="${!empty informatCollect }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
 					            $("#personInforImg").attr("src","images/fgreen_03.png");

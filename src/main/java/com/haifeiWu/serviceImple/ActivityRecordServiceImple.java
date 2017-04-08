@@ -41,11 +41,8 @@ public class ActivityRecordServiceImple extends
 
 	@Override
 	public List<PHCSMP_Activity_Record> findInforBySuspetcId(String suspectId) {
-		 List<PHCSMP_Activity_Record> ActivityRecordList=activityRecordDao.selectActivityRecordInfor(suspectId);
-		 return ActivityRecordList;
-	}	
-	
-
+		return activityRecordDao.selectActivityRecordInfor(suspectId);
+	}
 
 	// public PHCSMP_Activity_Record findInforBySuspetcId(String suspectId) {
 	// return activityRecordDao.findSuspectPublicById(suspectId);}

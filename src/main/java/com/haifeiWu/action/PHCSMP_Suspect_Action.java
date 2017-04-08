@@ -11,7 +11,6 @@ import com.haifeiWu.base.BaseAction;
 import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
-import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BandService;
@@ -148,10 +147,10 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	public String loadInfor() throws IOException {
 
 		try {
-			PHCSMP_Staff user = (PHCSMP_Staff) request.getSession()
-					.getAttribute("user");
-			if (user == null) // 在未登录状态下
-				return "unLoginState";
+			// PHCSMP_Staff user = (PHCSMP_Staff) request.getSession()
+			// .getAttribute("user");
+			// if (user == null) // 在未登录状态下
+			// return "unLoginState";
 
 			String entry_Time = new DateTime().toString("yyyy-MM-dd HH:mm");// 入区时间
 			// 登录状态下，查询字典表的信息，存放到request中
@@ -230,7 +229,9 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			}
 			fullCheck();
 			suspectService.saveSuspect(model);// 保存嫌疑人信息，
-			return "success";
+			response.getWriter().write("<script> alert('提交成功，请'); </script>");
+			response.getWriter().flush();
+			return "loadInfor";
 		} catch (Exception e) {
 			bandService.update(0, model.getBand_ID());// 提交失败置0
 			if (useLine)
@@ -240,7 +241,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			// response.getWriter().flush();
 			// 应该请求loadInfor的action，使用action链
 			// 做异常处理，信息填写失败，加载页面时信息要在页面上显示
-			request.setAttribute("msg", "提交失败，请重新提交,可能是图片文件过大导致");// 异常处理，在页面上提示错误信息
+			request.setAttribute("msg", "提交失败，请重新提交");// 异常处理，在页面上提示错误信息
 			// 提交失败获取页面填入的信息
 			// request.getAttribute("identifyCard_Number");
 			// request.getAttribute("now_address");

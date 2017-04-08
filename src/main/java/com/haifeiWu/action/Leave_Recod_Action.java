@@ -1,6 +1,5 @@
 package com.haifeiWu.action;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -9,10 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
-import org.apache.commons.io.FileUtils;
-import org.apache.struts2.ServletActionContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -27,7 +22,6 @@ import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Room;
-import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
@@ -42,13 +36,6 @@ import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.utils.CompleteCheck;
 import com.haifeiWu.utils.Video;
-
-
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-
-import org.apache.struts2.ServletActionContext;
 
 /**
  * 离开办案区的action
@@ -110,88 +97,31 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private int suspectComplete;
 	private int personalCheckComplete;
 	private int informationCollectionComplete;
-	private Map<Integer,Integer> completeMap;
+	private Map<Integer, Integer> completeMap;
 	private StringBuilder sb;
-
-	private File file;
-	private String fileContentType;
-	private String fileFileName;
-
-	private File sfile;
-	private String sfileContentType;
-	private String sfileFileName;
-
-
-	/*
-	 * 上传图片
-	 */
-	public void uploadPhoto() {
-		// 找到当前嫌疑人
-		String ip = request.getRemoteAddr();
-		PHCSMP_Room room = roomService.findbyIp(ip);
-		int room_id = room.getRoom_ID();
-		System.out.println("获取到roomid为" + room_id);
-		PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(room_id);
-
-		String path = ServletActionContext.getServletContext().getRealPath(
-				"/images");
-		System.out.println(path + "///////////////////////////");
-		try {
-			// 删除原图片
-			String curPath = ServletActionContext.getServletContext()
-					.getRealPath("/") + suspectInfor.getFrontal_Photo();
-			new File(curPath).delete();
-			String curPath2 = ServletActionContext.getServletContext()
-					.getRealPath("/") + suspectInfor.getSideWays_Photo();
-			new File(curPath2).delete();
-			// 将新头像上传到服务器
-			FileUtils.copyFile(file, new File(new File(path), fileFileName));
-			FileUtils.copyFile(sfile, new File(new File(path), sfileFileName));
-			// 修改数据库中用户的头像路径信息
-			String fpath = "images/" + fileFileName;
-			String spath = "images/" + sfileFileName;
-			suspectService.updateSuspectPhotoPath(fpath, spath,
-					suspectInfor.getSuspect_ID());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * @return
+	 * @throws IOException
 	 * @throws Exception
 	 */
-	public String addLeaveRecordInfor() throws Exception {
+	public String addLeaveRecordInfor() throws IOException {
 		try {
-			// 打印提交的单条信息
-			System.out.println("单条信息：" + model.toString());
-
-			// 获得RoomIP地址，根据ip地址找到房间号，根据房间号找到当前嫌疑人
-			String ip = request.getRemoteAddr();
-			PHCSMP_Room room = roomService.findbyIp(ip);
-			int room_id = room.getRoom_ID();
-			System.out.println("获取到roomid为" + room_id);
-			PHCSMP_Suspect suspectInfor = suspectService.findByRoomID(room_id);
-
+			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
 			// 设置最终离开时间和 领取时间
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String leavetime = sdf.format(date);
 			model.setLeave_Time(leavetime);
 			model.setTreatment_Time(leavetime);
-
 			// 设置离区 嫌疑人的ID
 			model.setSuspect_ID(suspectInfor.getSuspect_ID());
-
 			// 动态设置离区嫌疑人的字段信息
 			Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
 			int count1 = CompleteCheck.IsEqualsNull(model, c);
 			int fieldsNumber1 = CompleteCheck.getFieldsNumber(model, c);
 			model.setFill_record(fieldsNumber1 - count1 - 4);// 设置已填写的字段数
 			model.setTotal_record(fieldsNumber1 - 4);// 设置应填写的字段
-			System.out.println("未填写的字段：" + count1);
-			System.out.println("总字段：" + fieldsNumber1);
-
 			// 设置羁押时间
 			String detain_Time = getDistanceTime(suspectInfor.getEnter_Time(),
 					leavetime);
@@ -205,24 +135,19 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			} else {
 				leaveRecodService.updateLeaveRecordInfor(model);// 更新嫌疑人离开信息
 			}
-
-			// 停止录像
-			String stopRecording = Video.stopRecording(room.getCardReader_ID(),
-					room.getLine_Number(),
+			// 停止录像,手环
+			String stopRecording = Video.stopRecording(
+					suspectInfor.getBand_ID(), room.getLine_Number(),
 					suspectInfor.getIdentifyCard_Number());
 
 			// 释放回路
-			lineService.closeLine();
-
+			if (suspectInfor.getRecordVideo_State() != 0)
+				lineService.closeLine();
 			// 释放手环
 			bandService.update(0, suspectInfor.getBand_ID());
-
 			// 将录像的标志位置为0
 			suspectService.updateLeaveState(3, -1, 0,
 					suspectInfor.getSuspect_ID());
-			System.out.println("state=" + suspectInfor.getRecordVideo_State()
-					+ " " + "Process_Now=" + suspectInfor.getProcess_Now());
-
 			return "success";
 
 		} catch (Exception e) {
@@ -270,23 +195,19 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	// 保存临时出区的信息
 	public String addTemporaryLeaveInfor() throws IOException {
 		try {
-			// 根据ip找到当前临时出区嫌疑人
-			String roomIP = request.getRemoteAddr();
-			PHCSMP_Room room = roomService.findbyIp(roomIP);
-			suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
+			// 根据ip找到房间
+			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
+			// suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
 
 			// 获取前台表单数据，并封装成对象.
 			Temporary_Leave temporary_Leave = new Temporary_Leave(0,
 					suspectInfor.getSuspect_ID(), tempLeave_Time,
 					tempLeave_Reason, return_Time, model.getStaff_ID(),
 					room.getRoom_ID(), manager);
-
-			// 打印提交的单条信息
-			System.out.println(temporary_Leave.toString());
-
 			// 如果是出区保存信息,是出区返回则更新信息
 			temporaryLeave = temporaryLeaveService
 					.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
+			// 临时离开返回
 			if (temporaryLeave != null) {
 				// 更新临时离开返回时间
 				Date date = new Date();
@@ -295,27 +216,21 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 				temporaryLeaveService.updateReturnTime(temporaryReturnTime,
 						temporary_Leave.getSuspect_ID());
-
-				System.out
-						.println("嫌疑人出区返回" + temporary_Leave.getReturn_Time());
-
 				// 如果出区返回时值班室管理员变了，则将新的管理员也保存进数据库
 				if (temporaryLeave.getManager() != manager) {
 					temporaryLeaveService.updateManager(
 							temporaryLeave.getManager() + "," + manager,
 							temporary_Leave.getSuspect_ID());
 				}
-
-			} else {
+			} else {// 临时离开
 				// 设置临时离开时间
 				Date date = new Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 				String temporaryLeaveTime = sdf.format(date);
+
 				temporary_Leave.setTempLeave_Time(temporaryLeaveTime);
 				temporaryLeaveService.saveTemporaryLeaveInfo(temporary_Leave);
-				System.out.println("嫌疑人出区");
 			}
-
 			return "success";
 
 		} catch (Exception e) {
@@ -337,130 +252,132 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	/* 加载界面信息 */
 	public String loadInfor() throws IOException {
 		try {
-			PHCSMP_Leave_Record lr = (PHCSMP_Leave_Record) request
-					.getAttribute("leaveRecordLoadInfor");
-			request.setAttribute("PHCSMP_Leave_Record", lr);
+			// 异常处理的代码
+			if (request.getAttribute("leaveRecordLoadInfor") != null) {
+				PHCSMP_Leave_Record lr = (PHCSMP_Leave_Record) request
+						.getAttribute("leaveRecordLoadInfor");
+				request.setAttribute("PHCSMP_Leave_Record", lr);
+				// 这是异常处理
+				String tempLeave_Reason = (String) request
+						.getAttribute("tempLeave_Reason");
+				String staff_ID = (String) request.getAttribute("staff_ID");
+				String manager_name = (String) request
+						.getAttribute("manager_name");
 
-			String tempLeave_Reason = (String) request
-					.getAttribute("tempLeave_Reason");
-			String staff_ID = (String) request.getAttribute("staff_ID");
-			String manager_name = (String) request.getAttribute("manager_name");
-
-			request.setAttribute("tempLeave_Reason", tempLeave_Reason);
-			request.setAttribute("staff_ID", staff_ID);
-			request.setAttribute("manager_name", manager_name);
-
+				request.setAttribute("tempLeave_Reason", tempLeave_Reason);
+				request.setAttribute("staff_ID", staff_ID);
+				request.setAttribute("manager_name", manager_name);
+			}
 			// 加载嫌疑人信息
-			String roomIP = request.getRemoteAddr();
-			PHCSMP_Room room = roomService.findbyIp(roomIP);
-			suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
+			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
+			String suspectId = (String) request.getAttribute("suspectID");
 
 			// 离区前提示前四个业务的完整性
 			// 根据嫌疑人id查找嫌疑人前四个业务的信息
-			String suspect_id = suspectInfor.getSuspect_ID();
 			sb = new StringBuilder("");
-
 			// 查入区登记信息
-			suspect = suspectService.findBySuspetcId(suspect_id);
-			if (suspect != null) {
-				suspectComplete = CompleteCheck.completeCheck(suspect,
-						suspect.getClass(), 3);
-				System.out.println(suspectComplete
-						+ "=============================");
-				if (suspectComplete != 100) {// 信息不完整
-					sb.append("入区登记信息填写不完整!  ");
-					System.out.println(sb + "1");
-				}
-			} else {
-				sb.append("该嫌疑人并未进行入区登记操作!  ");
+			suspect = suspectService.findBySuspetcId(suspectId);
+			// 并不需要再次进行完整性检查，只需读取数据，除一下即可
+			suspectComplete = (int) (suspect.getFill_record()
+					/ (float) suspect.getTotal_record() * 100);
+			if (suspectComplete != 100) {// 信息不完整
+				sb.append("入区登记信息填写不完整!  ");
 			}
-
 			// 查人身检查信息
 			personalCheck = personalCheckService
-					.findInforBySuspetcId(suspect_id);
+					.findInforBySuspetcId(suspectId);
 			if (personalCheck != null) {
-				personalCheckComplete = CompleteCheck.completeCheck(
-						personalCheck, personalCheck.getClass(), 3);
-				System.out.println(personalCheckComplete + "");
+				personalCheckComplete = (int) (personalCheck.getFill_record()
+						/ (float) personalCheck.getTotal_record() * 100);
 				if (personalCheckComplete != 100) {// 信息不完整
 					sb.append("人身检查信息填写不完整!  ");
-					System.out.println(sb + "2");
 				}
 			} else {
 				sb.append("该嫌疑人并未进行人身检查操作! ");
 			}
-
 			// 查信息采集信息
 			informationCollection = informationCollectionService
-					.findInforBySuspetcId(suspect_id);
+					.findInforBySuspetcId(suspectId);
 			if (informationCollection != null) {
-				informationCollectionComplete = CompleteCheck.completeCheck(
-						informationCollection,
-						informationCollection.getClass(), 3);
-				System.out.println(informationCollectionComplete
-						+ "=============================");
+				informationCollectionComplete = (int) (informationCollection
+						.getFill_record()
+						/ (float) informationCollection.getTotal_record() * 100);
 				if (informationCollectionComplete != 100) {// 信息不完整
 					sb.append("信息采集信息填写不完整!  ");
 					System.out.println(sb + "3");
 				}
 			} else {
 				sb.append("该嫌疑人并未进行信息采集操作!  ");
- 			}
-			
- 			//查询问讯问信息
- 			activityRecordList=activityRecordService.findInforBySuspetcId(suspect_id);
- 			completeMap=new HashMap<Integer,Integer>();
- 			if(activityRecordList!=null){
- 				int j=0;
- 				int i=1;
-	 			for(PHCSMP_Activity_Record Activity_Record:activityRecordList){
-	 				int activityRecordComplete=CompleteCheck.completeCheck(Activity_Record, Activity_Record.getClass(),3);
-	 				completeMap.put(j, activityRecordComplete);			
-	 				j++;
-	 				if(activityRecordComplete!=100){//信息不完整
-						sb.append("询问讯问"+i+"信息填写不完整!  ");
+			}
+			// 查询问讯问信息
+			activityRecordList = activityRecordService
+					.findInforBySuspetcId(suspectId);
+			completeMap = new HashMap<Integer, Integer>();
+			if (activityRecordList != null) {
+				int j = 0;
+				int i = 1;
+				for (PHCSMP_Activity_Record Activity_Record : activityRecordList) {
+					int activityRecordComplete = (int) (Activity_Record
+							.getFill_record()
+							/ (float) Activity_Record.getTotal_record() * 100);
+					completeMap.put(j, activityRecordComplete);
+					j++;
+					if (activityRecordComplete != 100) {// 信息不完整
+						sb.append("询问讯问" + i + "信息填写不完整!  ");
 						i++;
-	 				}
-	 			}
-	 			for (Map.Entry<Integer, Integer> entry : completeMap.entrySet()) {  
-	 			    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  
-	 			}  
- 			}else{
- 				sb.append("该嫌疑人并未进行询问讯问操作!  ");
- 			}		
-
-			// 维护进出门的标志位
-			suspectService.updateSwitch(1, suspectInfor.getSuspect_ID());
-
+					}
+				}
+				for (Map.Entry<Integer, Integer> entry : completeMap.entrySet()) {
+					System.out.println("Key = " + entry.getKey() + ", Value = "
+							+ entry.getValue());
+				}
+			} else {
+				sb.append("该嫌疑人并未进行询问讯问操作!  ");
+			}
 			// 判断是否出区返回
 			temporaryLeave = temporaryLeaveService
-					.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
-
+					.IsTemporaryLeaveReturn(suspectId);
+			// 向前台放置一些dic表信息
 			List<PHCSMP_Dic_Leaving_Reason> leaveReason = dicService
 					.findLeaveReason();
 			List<PHCSMP_Dic_Keeping_Way> keepingWay = dicService
 					.findKeepingWay();
 			List<PHCSMP_Dic_Treatment_Method> treatmentMethod = dicService
 					.findTreatmentMethod();
-
 			request.setAttribute("leaveReason", leaveReason);
 			request.setAttribute("keepingWay", keepingWay);
 			request.setAttribute("treatmentMethod", treatmentMethod);
-
+			// 维护进出门的标志位
+			suspectService.updateSwitch(1, suspectId);
 			// 判断是否登录
-			PHCSMP_Staff user = (PHCSMP_Staff) request.getSession()
-					.getAttribute("user");
-			if (user == null) {
-				return "unLoginState";
-			} else {
-				return "loadInfor";
-			}
+			// PHCSMP_Staff user = (PHCSMP_Staff) request.getSession()
+			// .getAttribute("user");
+
+			// 判断进度条
+			// PHCSMP_Suspect suspect =
+			// suspectService.findBySuspetcId(suspectId);
+			// PHCSMP_Personal_Check personalCheck = personalCheckService
+			// .findInforBySuspetcId(suspectId);
+			// PHCSMP_Information_Collection informationCollection =
+			// informationCollectionService
+			// .findInforBySuspetcId(suspectId);
+			// List<PHCSMP_Activity_Record> activityRecordlist =
+			// activityRecordService
+			// .selectActivityRecordInfor(suspectId);
+			// PHCSMP_Leave_Record leaveRecord = leaveRecodService
+			// .findInforBySuspetcId(suspectId);
+			request.setAttribute("suspect", 1);
+			request.setAttribute("personalCheck", personalCheck);
+			request.setAttribute("informationCollection", informationCollection);
+			request.setAttribute("activityRecord", activityRecordList);
+			// request.setAttribute("leaveRecord", leaveRecord);
+			return "loadInfor";
 		} catch (Exception e) {
 			// 异常处理
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
 			response.getWriter().flush();
-			suspectService.updateSwitch(0, suspectInfor.getSuspect_ID());
+			// suspectService.updateSwitch(0, suspectInfor.getSuspect_ID());
 			// 转到
 			return "success";
 		}
@@ -560,7 +477,6 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		this.informationCollection = informationCollection;
 	}
 
-
 	public int getSuspectComplete() {
 		return suspectComplete;
 	}
@@ -586,7 +502,6 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		this.informationCollectionComplete = informationCollectionComplete;
 	}
 
-
 	public Map<Integer, Integer> getCompleteMap() {
 		return completeMap;
 	}
@@ -609,54 +524,6 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 
 	public void setSb(StringBuilder sb) {
 		this.sb = sb;
-	}
-
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
-	}
-
-	public String getFileContentType() {
-		return fileContentType;
-	}
-
-	public void setFileContentType(String fileContentType) {
-		this.fileContentType = fileContentType;
-	}
-
-	public String getFileFileName() {
-		return fileFileName;
-	}
-
-	public void setFileFileName(String fileFileName) {
-		this.fileFileName = fileFileName;
-	}
-
-	public File getSfile() {
-		return sfile;
-	}
-
-	public void setSfile(File sfile) {
-		this.sfile = sfile;
-	}
-
-	public String getSfileContentType() {
-		return sfileContentType;
-	}
-
-	public void setSfileContentType(String sfileContentType) {
-		this.sfileContentType = sfileContentType;
-	}
-
-	public String getSfileFileName() {
-		return sfileFileName;
-	}
-
-	public void setSfileFileName(String sfileFileName) {
-		this.sfileFileName = sfileFileName;
 	}
 
 	public List<PHCSMP_Activity_Record> getActivityRecordList() {

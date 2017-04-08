@@ -24,10 +24,7 @@ public interface ActivityRecordService {
 	 */
 	void saveActivitysInfor(List<PHCSMP_Activity_Record> activitys);
 
-
-
-	//PHCSMP_Activity_Record findInforBySuspetcId(String suspectId);
-	
+	// PHCSMP_Activity_Record findInforBySuspetcId(String suspectId);
 
 	// /**
 	// * 根据档案号查询嫌疑人档案信息
@@ -37,14 +34,13 @@ public interface ActivityRecordService {
 	// */
 	// PHCSMP_Activity_Record findInforBySuspetcId(String suspectId);
 
-
 	/**
 	 * 根据档案号查询嫌疑人档案信息
 	 * 
 	 * @param suspectId
 	 * @return
 	 */
-	// List<PHCSMP_Activity_Record> findInforBySuspetcId (String suspectId);
+	List<PHCSMP_Activity_Record> findInforBySuspetcId(String suspectId);
 
 	/**
 	 * 根据档案号登记办案区活动记录

@@ -43,10 +43,10 @@
 									+ "].Belonging_Number style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>" */
 									+ "<td><input type=number name=belong["
 									+ lineNum
-									+ "].Belonging_Count style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
+									+ "].Belonging_Count style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' value='1'/></td>"
 									+ "<td><input type=text name=belong["
 									+ lineNum
-									+ "].Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
+									+ "].Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' value='个' /></td>"
 									+ "<td> <select name=belong["
 									+ lineNum
 
@@ -119,7 +119,7 @@
 
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 
-						<c:if test="${!empty suspect }">
+						<c:if test="${!empty SuspectInfor}">
 							<script type="text/javascript">
 					       $(document).ready(function(){
 					            $("#identityImg").attr("src","images/fgreen_03.png");
@@ -128,7 +128,7 @@
 					    </script>
 						</c:if>
 						<img id="identityImg" src="images/3-inforCollection_03.png" />
-						<c:if test="${!empty personalCheck }">
+						<c:if test="${!empty checkRecord }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
 					            $("#identityImg1").attr("src","images/fgreen_03.png");
@@ -164,7 +164,7 @@
 					    </script>
 						</c:if>
 						<img id="confirmImg" src="images/3-inforCollection_07.png"
-							style="margin-left: -10%;" />
+							style="margin-left: -10%;" /> 
 					</div>
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
