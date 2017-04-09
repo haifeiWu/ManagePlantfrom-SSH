@@ -34,9 +34,16 @@ public class HomeAction extends ActionSupport implements ServletRequestAware,
 	protected HttpServletResponse response;
 	protected ServletContext application;
 
-	public String top() {
-		return "top";
-	}
+	// 读取配置文件中的公安局名称
+		private static final String title = PropertiesReadUtils
+				.getTitleString("text");
+
+		public String top() {
+			request.setAttribute("title", title);
+			System.out.println(title + "-------------------------");
+
+			return "top";
+		}
 
 	public String left() {
 		return "left";

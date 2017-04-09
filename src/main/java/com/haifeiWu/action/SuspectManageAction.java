@@ -1,6 +1,9 @@
 package com.haifeiWu.action;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -126,6 +129,52 @@ public class SuspectManageAction extends ActionSupport implements
 			System.out.println(suspectNow);
 		}
 		return "searchsuspectInfor";
+	}
+	
+	/***
+	 * 录像下载失败的嫌疑人信息
+	 * @return
+	 */
+	
+	public String videoDownFailList()
+	{
+		List<String> leaveTimeList = new ArrayList<String>();
+		try{
+		List<PHCSMP_Suspect> suspectList=suspectService.findAllVideoDownloadFailSuspectInfor();
+		for(int i=0;i<suspectList.size();i++)
+		{
+			
+			String suspectId=suspectList.get(i).getSuspect_ID();
+			System.out.println("suspectId"+suspectId);
+			String leavaTime=leaveRecodService.findLeaveRecordInfor(suspectId).getLeave_Time();
+			System.out.println("leavetime="+leavaTime);
+			leaveTimeList.add(leavaTime);
+			System.out.println("leavetime="+leaveTimeList.get(i));
+		}
+		List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
+		
+		for(int i=0;i<suspectList.size();i++)
+		{
+			Map<String, Object> map=new HashMap<String, Object>();
+			map.put("suspect_Name", suspectList.get(i).getSuspect_Name());
+			map.put("suspect_ID", suspectList.get(i).getSuspect_ID());
+			map.put("enter_Time", suspectList.get(i).getEnter_Time());
+			map.put("identifyCard_Number", suspectList.get(i).getIdentifyCard_Number());
+			map.put("leave_Time", leaveTimeList.get(i));
+			list.add(map);
+			
+			
+		}
+		request.setAttribute("suspect", list);
+		return "videoDownFail";
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return "videoDownFail";
+		}
+		
+		
+		
 	}
 
 	@Override

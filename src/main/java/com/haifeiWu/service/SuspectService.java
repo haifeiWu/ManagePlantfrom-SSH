@@ -99,5 +99,7 @@ public interface SuspectService {
 	public List<PHCSMP_Suspect> serachInforBySuspectIdNow(String searchInfor);
 
 	public List<PHCSMP_Suspect> finBySuspectNameNow(String searchInfor);
+	
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor();
 
 }

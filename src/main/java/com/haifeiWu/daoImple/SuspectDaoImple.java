@@ -267,6 +267,23 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	// tx.commit();// 提交事务
 	// return phcsmp_Suspect;
 	// }
+/**
+ * 查询录像失败的嫌疑人信息
+ */
+	@Override
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor() {
+		
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+		hql = "from PHCSMP_Suspect where  is_RecordVideo_DownLoad=0 and process_Now=-1 and recordVideo_State!=0";
+		Query query = session.createQuery(hql);
+		
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+		
+	}
 
 	// /**
 	// * 调用DaoSupport中的save即可

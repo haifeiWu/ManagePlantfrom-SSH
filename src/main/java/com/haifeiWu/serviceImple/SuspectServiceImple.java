@@ -153,6 +153,12 @@ public class SuspectServiceImple implements SuspectService {
 		suspectDao.update(hql, fpath, spath, suspect_ID);
 	}
 
+	@Override
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor() {
+		
+		return suspectDao.findAllVideoDownloadFailSuspectInfor();
+	}
+
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
 	// // TODO Auto-generated method stub

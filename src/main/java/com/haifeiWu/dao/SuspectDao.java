@@ -96,6 +96,12 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 
 	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
 			String identifyCard_Number);
+	/**
+	 * 查询所有录像下载失败的嫌疑人信息
+	 * 
+	 * @return
+	 */
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor();
 
 
 }
