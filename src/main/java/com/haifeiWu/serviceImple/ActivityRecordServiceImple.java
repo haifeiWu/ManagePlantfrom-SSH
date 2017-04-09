@@ -47,10 +47,10 @@ public class ActivityRecordServiceImple extends
 	// public PHCSMP_Activity_Record findInforBySuspetcId(String suspectId) {
 	// return activityRecordDao.findSuspectPublicById(suspectId);}
 
-	public void updatevedio_Number(String vedio_Number,
+	public void updatevedio_Number(String vedio_Number, int band_ID,
 			String identifyCard_Number) {
-		activityRecordDao.updatevedio_Number(vedio_Number, identifyCard_Number);
-
+		activityRecordDao.updatevedio_Number(vedio_Number, band_ID,
+				identifyCard_Number);
 	}
 
 	// @Override
