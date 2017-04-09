@@ -13,9 +13,6 @@
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./js/jquery.min.js"></script>
 <script type="text/javascript" src="./js/Suspect_mes.js"></script>
-<script type="text/javascript">
-		
-</script>
 </head>
 
 <body>
@@ -43,9 +40,20 @@
 			<a href="#checkedPerson" style="font-size: larger;">历史嫌疑人</a>
 		</div>
 		<hr style="width: 100%; border: 0.5px solid #389AC7; margin-top: 5%;" />
-		<div class="row" id="row2" style="height: 318px;overflow: hidden; ">
+		<div class="row" id="row2" style="height: 363px;overflow: hidden; ">
 			<h4 id="checkingPerson"
-				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">待查嫌疑人</h4>
+				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">待查嫌疑人
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				<font >待查嫌疑人合计：${fn:length(suspectCheckInfor)}人</font>
+			</h4>
+				
+				<table class="total col-lg-12 col-md-10 col-sm-12">
+				<%-- <tr>
+				    
+					<td style="text-align: right; padding-right: 50px;">待查嫌疑人合计：
+					${fn:length(suspectCheckInfor)}人</td>
+				</tr> --%>
+			</table>
 			<table class="wait_check col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<c:forEach items="${suspectCheckInfor}" var="item"
 					varStatus="status">
@@ -56,14 +64,10 @@
 					<td style="width: 160px;" class="show1">
 					<div style="width: 150px; height: 250px; float: left;">
 						<div style="width:150px; float:left; margin-left: -1px;margin-top: 3%;">
-						<a
-									href="./GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"
-									style="color:#f69d1f;font-size: large;">
 							<img src="${item.identityCard_Photo }" style="width: 150px; height: 200px;"/>
-							<p style="color: #F79D1F;">
+							<p >
 								${item.suspect_Name }<br />
 							</p>
-							</a>
 						</div>
 						<!--  -->
 						<div class="play" style="text-align: left; width: 150px; height: 200px;float: left;/*  margin-left: 0;margin-top: -108%; */color:#FFFFFF;position: relative;left: -1px;top: -104%;">
@@ -86,15 +90,20 @@
 		</p>
 		<div class="row" id="row1" style="height: 313px; overflow: hidden; ">
 			<h4 id="checkedPerson"
-				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">历史嫌疑人查询</h4>
-			<table class="total col-lg-12 col-md-10 col-sm-12">
+				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">历史嫌疑人查询&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				<font size="4" >入区人员统计时间：</font>
+				<font id="clock"></font>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+					<font style="text-align: center;">入区人员合计：
+					${fn:length(suspectCheckedInfor)}人</font>
+			</h4>
+			<%-- <table>
 				<tr>
-					<td>入区人员统计时间：</td>
-					<td><input type="date" value="" /></td>
+					<td style="width: 150px;">入区人员统计时间：</td>
+					<td id="clock"></td>
 					<td style="text-align: center;">入区人员合计：
 					${fn:length(suspectCheckedInfor)}人</td>
 				</tr>
-			</table>
+			</table> --%>
 			<table class="All_total col-lg-12 col-md-10 col-sm-12">
 				<tr style="background: #0070c0;">
 					<td>序号</td>
@@ -148,7 +157,7 @@
 			var btn1 = document.getElementById('btn1');
 			var obj = document.getElementById('row2');
 		    var total_height =  obj.scrollHeight;//文章总高度
-		    var show_height = 318;//定义原始显示高度
+		    var show_height = 363;//定义原始显示高度
 			if (btn1.value=="更多>>") {
 				btn1.style.display = 'block';
 				obj.style.height = total_height + 'px';
@@ -160,4 +169,17 @@
 			});
 </script>
 </body>
+<script type="text/javascript">
+
+	var now=new Date();
+	var year=now.getFullYear();
+	var month=now.getMonth();
+	var day=now.getDate();
+	var hours=now.getHours();
+	var minutes=now.getMinutes();
+	var seconds=now.getSeconds();
+	document.getElementById("clock").innerHTML=""+year+"年"+month+"月"+day+"日 "+hours+":"+minutes+":"+seconds+"" ;
+	alert(document.getElementById("clock").innerHTML);
+
+</script>
 </html>
