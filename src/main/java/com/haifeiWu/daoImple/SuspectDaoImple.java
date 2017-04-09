@@ -247,5 +247,119 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 		update(hql, is_RecordVideo_DownLoad, identifyCard_Number);
 
 	}
+	// /**
+	// * 根据手环ID查询嫌疑人，新的需求中是否还需要对其他字段进行判断？（因为使用过同一ID的有多个嫌疑人）
+	// * 该方法需要更改
+	// * 应该结合手环id，嫌疑人id进行查询
+	// */
+	// @Override
+	// public PHCSMP_Suspect selectPersonInforByBandID(int bandId,int suspectId)
+	// {
+	// session = this.getSession();
+	// tx = session.beginTransaction();// 开启事务
+	//
+	// hql = "from PHCSMP_Suspect where band_ID=? and suspect_ID=?";
+	// Query query = session.createQuery(hql);
+	// query.setParameter(0, bandId);
+	// query.setParameter(1, suspectId);
+	// PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();
+	//
+	// tx.commit();// 提交事务
+	// return phcsmp_Suspect;
+	// }
+/**
+ * 查询录像失败的嫌疑人信息
+ */
+	@Override
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor() {
+		
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+		hql = "from PHCSMP_Suspect where  is_RecordVideo_DownLoad=0 and process_Now=-1 and recordVideo_State!=0";
+		Query query = session.createQuery(hql);
+		
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+		
+	}
+
+	// /**
+	// * 调用DaoSupport中的save即可
+	// */
+	// @Override
+	// public void suspectDao(PHCSMP_Suspect model) {
+	// session = this.getSession();
+	// tx = session.beginTransaction();// 开启事务
+	// session.save(model);
+	// tx.commit();// 提交事务
+	// }
+	// @Override
+	// public PHCSMP_Suspect findInfroByRoomIDAndBandID(int roomId, int bandId)
+	// {
+	// session = this.getSession();
+	// tx = session.beginTransaction();// 开启事务
+	// //ActiveCode和is_Active和roomId是一个属性，就是房间号
+	// hql =
+	// "from PHCSMP_Suspect where is_Active=? and band_ID=? and process_Now!=-1";
+	// Query query = session.createQuery(hql);
+	// query.setParameter(0, roomId);
+	// query.setParameter(1, bandId);
+	// PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();
+	// tx.commit();// 提交事务
+	// return phcsmp_Suspect;
+	// }
+
+	// /**
+	// * 通过手环ID和房间号更新嫌疑人信息
+	// * 是不是也需要判断ProcessID!=-1，因为不能更新已经出去了的记录
+	// */
+	// @Override
+	// public int updateSuspectInforByBandId(int bandId, int roomId) {
+	//
+	// session = this.getSession();
+	// tx = session.beginTransaction();// 开启事务
+	// //此处is_Active和roomID一致
+	// hql =
+	// "update PHCSMP_Suspect p set p.room_Now= ? where p.band_ID= ? and process_Now!=-1";
+	// Query query = session.createQuery(hql);
+	// query.setInteger(0, roomId);
+	// query.setInteger(1, bandId);
+	// int count = query.executeUpdate();
+	// tx.commit();// 提交事务
+	// return count;
+	// }
+	// /**
+	// * 通过手环ID和房间号更新嫌疑人信息
+	// * 是不是也需要判断ProcessID!=-1，因为不能更新已经出去了的记录
+	// */
+	// public PHCSMP_Suspect findByBandID(int bandId) {
+	//
+	// session = this.getSession();
+	// tx = session.beginTransaction();// 开启事务
+	// //此处is_Active和roomID一致
+	// hql =
+	// "update PHCSMP_Suspect p set p.room_Now= ? where p.band_ID= ? and process_Now!=-1";
+	// Query query = session.createQuery(hql);
+	// query.setInteger(0, roomId);
+	// query.setInteger(1, bandId);
+	// int count = query.executeUpdate();
+	// tx.commit();// 提交事务
+	// return count;
+	// }
+
+	// public PHCSMP_Suspect findByRoomID(int roomId) {
+	// session = this.getSession();
+	// tx = session.beginTransaction();// 开启事务
+	// hql = "from PHCSMP_Suspect where room_Now=? and process_Now!=-1";
+	// Query query = session.createQuery(hql);
+	// query.setParameter(0, roomId);
+	// PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();
+	//
+	// tx.commit();// 提交事务
+	// return phcsmp_Suspect;
+	// }
+
 
 }

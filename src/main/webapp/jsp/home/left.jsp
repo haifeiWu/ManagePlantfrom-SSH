@@ -95,8 +95,7 @@ $(document).ready(function (){
 	    <span><img src="images/leftico02.png" /></span>嫌疑人信息管理</div>
 	    <ul class="menuson">
 	        <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_loadInfor.action" target="rightFrame">入区人员信息汇总</a><i></i></li>
-	        <li><cite></cite><a href="${pageContext.request.contextPath }/GR_loadInfor.action?suspectID=LB-HB-201703175"  target="rightFrame">临时报告区</a><i></i></li>
-	        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_videoDownFailList.action" target="rightFrame">录像文件下载失败</a><i></i></li>
 	        </ul>     
 	    </dd> 
 	    
