@@ -153,13 +153,6 @@ public class Activity_Record_Action extends ActionSupport implements
 			String suspectId = (String) request.getAttribute("suspectID");
 			PHCSMP_Suspect suspectInfor = suspectService
 					.findBySuspetcId(suspectId);
-			// .getRoom_ID();
-			// request.setAttribute("roomId", roomId);
-			//
-			// // 入区人员信息登记
-			// PHCSMP_Suspect suspectInfor =
-			// suspectService.findByRoomID(roomId);
-			// String suspectId = suspectInfor.getSuspect_ID();
 
 			int complete_degree = (int) (suspectInfor.getFill_record()
 					/ (float) suspectInfor.getTotal_record() * 100);
@@ -200,41 +193,17 @@ public class Activity_Record_Action extends ActionSupport implements
 			}
 
 			// 设置询问询问开始的时间
+
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String start_Time = sdf.format(date);
 			request.setAttribute("start_Time", start_Time);
-			// 判断进度条
-			// PHCSMP_Suspect suspect =
-			// suspectService.findBySuspetcId(suspectId);
-			// PHCSMP_Personal_Check personalCheck = personalCheckService
-			// .findInforBySuspetcId(suspectId);
-			// PHCSMP_Information_Collection informationCollection =
-			// informationCollectionService
-			// .findInforBySuspetcId(suspectId);
-			// List<PHCSMP_Activity_Record> activityRecordlist =
-			// activityRecordService
-			// .selectActivityRecordInfor(suspectId);
-			// PHCSMP_Leave_Record leaveRecord = leaveRecodService
-			// .findInforBySuspetcId(suspectId);
-
-			// request.setAttribute("suspect", 1);
-			// if (personal_Check != null) {
-			// request.setAttribute("personalCheck", 1);
-			// }
-			// if (information_Collection != null) {
-			// request.setAttribute("informationCollection", 1);
-			// }
-			// request.setAttribute("activityRecord", activity_record_infor);
 			// 维护进出门状态
 			suspectService.updateSwitch(1, suspectId);
 		} catch (Exception e) {
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
 			response.getWriter().flush();
-
-			// System.out
-			// .println("当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确");
 			return "success";
 		}
 		return "loadInfor";

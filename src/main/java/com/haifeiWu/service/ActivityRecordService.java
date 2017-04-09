@@ -50,6 +50,6 @@ public interface ActivityRecordService {
 	 */
 	List<PHCSMP_Activity_Record> selectActivityRecordInfor(String suspectId);
 
-	public void updatevedio_Number(String vedio_Number,
+	public void updatevedio_Number(String vedio_Number, int bandID,
 			String identifyCard_Number);
 }

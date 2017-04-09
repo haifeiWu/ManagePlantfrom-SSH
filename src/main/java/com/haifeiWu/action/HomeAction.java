@@ -35,6 +35,7 @@ public class HomeAction extends ActionSupport implements ServletRequestAware,
 	protected ServletContext application;
 
 	public String top() {
+
 		return "top";
 	}
 

@@ -57,28 +57,34 @@ public class fileStatusAction extends ActionSupport implements
 	// String identificationCard;
 
 	public String fileStatus() throws IOException {
-		JSONObject jsonRequest = JSONObject.parseObject(this.getStrResponse());
+		JSONObject jsonRequest = JSONObject.parseObject(this.getJsonData());
 		// 获取json中参数
 		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
 		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
-		System.out.println("getParameter收到的数据 -----------           "
+		System.out.println("fileStatus收到的数据 -----------           "
 				+ uploadType + "     " + policeId + "     "
 				+ identificationCard);
-		if (uploadType == 0) {
-			// 注意对下载失败的处理
-			Video.queryDownloadFileStatu(policeId, identificationCard);
+		if (uploadType == 0) {// 注意对下载失败的处理
+			// 查询文件上传状态
+			String filename = Video.queryDownloadFileStatu(policeId,
+					identificationCard);
+			if (!((filename == null) || filename.equals(""))) {// 成功
+				activityRecordService.updatevedio_Number(filename, policeId,
+						identificationCard);
+				suspectService.updateIs_RecordVideo_DownLoad(1, policeId,
+						identificationCard);
+			}
 		}
-
 		return "success";
 	}
 
 	/**
-	 * 解析JSON数据的
+	 * 解析收到的JSON数据
 	 * 
 	 * @return
 	 */
-	private String getStrResponse() {
+	private String getJsonData() {
 		ActionContext ctx = ActionContext.getContext();
 		HttpServletRequest request = (HttpServletRequest) ctx
 				.get(ServletActionContext.HTTP_REQUEST);
@@ -101,37 +107,6 @@ public class fileStatusAction extends ActionSupport implements
 		return strResponse;
 	}
 
-	// System.out.println("fileStatus收到的数据 -----------           "
-	// + uploadType + "     " + policeId + "     "
-	// + identificationCard);
-	// uploadType = (String) request.getParameter("uploadType");
-	// policeId = (String) request.getParameter("policeId");
-	// identificationCard = (String) request
-	// .getParameter("identificationCard");
-	// System.out.println("getParameter收到的数据 -----------           "
-	// + uploadType + "     " + policeId + "     "
-	// + identificationCard);
-	// uploadType = (String) request.getAttribute("uploadType");
-	// policeId = (String) request.getAttribute("policeId");
-	// identificationCard = (String) request
-	// .getAttribute("identificationCard");
-	//
-	// System.out.println("getAttribute收到的数据              ------" +
-	// uploadType
-	// + "     " + policeId + "     " + identificationCard);
-
-	// 查询下载文件的状态
-	// String videonumber = Video.queryDownloadFileStatu(bandService
-	// .findByRemark(policeId).getBand_ID(), identificationCard);
-	//
-
-	//
-	// suspectService.updateIs_RecordVideo_DownLoad(1, identificationCard);
-	// System.out.println("修改嫌疑人下载位");
-	// activityRecordService.updatevedio_Number(videonumber,
-	// identificationCard);
-	// System.out.println("修改嫌疑人询问音频录像位");
-
 	@Override
 	public void setServletContext(ServletContext application) {
 		this.application = application;
@@ -150,27 +125,4 @@ public class fileStatusAction extends ActionSupport implements
 
 	}
 
-	// public String getUploadType() {
-	// return uploadType;
-	// }
-	//
-	// public void setUploadType(String uploadType) {
-	// this.uploadType = uploadType;
-	// }
-	//
-	// public String getPoliceId() {
-	// return policeId;
-	// }
-	//
-	// public void setPoliceId(String policeId) {
-	// this.policeId = policeId;
-	// }
-	//
-	// public String getIdentificationCard() {
-	// return identificationCard;
-	// }
-	//
-	// public void setIdentificationCard(String identificationCard) {
-	// this.identificationCard = identificationCard;
-	// }
 }

@@ -8,26 +8,40 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
+//
+//import java.io.IOException;
+//
+//import javax.servlet.ServletContext;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//
+//import org.apache.struts2.interceptor.ServletRequestAware;
+//import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.util.ServletContextAware;
 import org.springframework.context.annotation.Scope;
+//import org.springframework.stereotype.Controller;
+//
+//import com.haifeiWu.utils.Video;
+//import com.opensymphony.xwork2.ActionSupport;
+//
+///**
+// * 活动记录
+// * 
+// * @author wuhaifei
+// * @d2016年9月28日
+// */
 import org.springframework.stereotype.Controller;
 
 import com.haifeiWu.utils.Video;
 import com.opensymphony.xwork2.ActionSupport;
 
-/**
- * 活动记录
- * 
- * @author wuhaifei
- * @d2016年9月28日
- */
 @Controller
 @Scope("prototype")
 public class FTPAction extends ActionSupport implements ServletRequestAware,
 		ServletResponseAware, ServletContextAware {
-	/**
-	 * 
-	 */
+	// /**
+	// *
+	// */
 	private static final long serialVersionUID = 1201107017949225716L;
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
@@ -40,13 +54,15 @@ public class FTPAction extends ActionSupport implements ServletRequestAware,
 	 * @throws Exception
 	 */
 	public String configFTP() throws Exception {
-		int cardReader_ID = Integer.parseInt(request
-				.getParameter("cardReader_ID"));
-		String identificationCard = request.getParameter("identificationCard");
+		// int cardReader_ID = Integer.parseInt(request
+		// .getParameter("cardReader_ID"));
+		// String identificationCard =
+		// request.getParameter("identificationCard");
 		Video.setRBServerCfg();
 		// System.out.println("---------------------------远程服务器已配置");
-		Video.setFtpServerCfg(cardReader_ID, identificationCard);
+		Video.setFtpServerCfg(1, "12436565768");
 		// System.out.println("---------------------------ftp服务器已配置");
+		Video.uploadRecFile(1, "12436565768");
 
 		return "success";
 	}
@@ -56,10 +72,11 @@ public class FTPAction extends ActionSupport implements ServletRequestAware,
 	 * 
 	 */
 	public String selectDownLoadStatu() throws IOException {
-		int cardReader_ID = Integer.parseInt(request
-				.getParameter("cardReader_ID"));
-		String identificationCard = request.getParameter("identificationCard");
-		Video.queryDownloadFileStatu(1, "140104196108123556");
+		// int cardReader_ID = Integer.parseInt(request
+		// .getParameter("cardReader_ID"));
+		// String identificationCard =
+		// request.getParameter("identificationCard");
+		Video.queryDownloadFileStatu(1, "12436565768");
 		return "success";
 	}
 

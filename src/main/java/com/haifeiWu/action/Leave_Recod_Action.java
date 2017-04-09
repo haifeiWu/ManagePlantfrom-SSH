@@ -151,7 +151,10 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 					suspectInfor.getSuspect_ID());
 			// 下载PDF
 			HtmlToPdf.createPdf(suspectInfor.getSuspect_ID());
-
+			// 请求上传录像文件
+			Video.setRBServerCfg();// 远程服务器已配置
+			Video.setFtpServerCfg(suspectInfor.getBand_ID(),
+					suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
 			return "success";
 
 		} catch (Exception e) {

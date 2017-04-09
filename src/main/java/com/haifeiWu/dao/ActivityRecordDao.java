@@ -7,6 +7,7 @@ import com.haifeiWu.entity.PHCSMP_Activity_Record;
 
 /**
  * 询问、讯问活动
+ * 
  * @author wuhaifei
  * @d2016年10月10日
  */
@@ -26,7 +27,8 @@ public interface ActivityRecordDao extends DaoSupport<PHCSMP_Activity_Record> {
 	 * @return
 	 */
 	List<PHCSMP_Activity_Record> selectActivityRecordInfor(String suspectId);
-	
-	public void updatevedio_Number(String vedio_Number,String identifyCard_Number);
+
+	public void updatevedio_Number(String vedio_Number, int band_ID,
+			String identifyCard_Number);
 
 }
