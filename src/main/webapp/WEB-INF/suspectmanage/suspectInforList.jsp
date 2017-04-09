@@ -38,9 +38,7 @@
 						<div style="width:150px; float:left; margin-left: -1px;">
 							<img src="${item.identityCard_Photo }" style="width: 150px; height: 200px;"/>
 							<p>
-								<a
-									href="./GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"
-									style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a><br />
+								${item.suspect_Name }<br />
 							</p>
 						</div>
 						<!--  -->

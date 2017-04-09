@@ -125,6 +125,7 @@ public class SuspectManageAction extends ActionSupport implements
 			System.out.println(suspect);
 			System.out.println(suspectNow);
 		}
+
 		return "searchsuspectInfor";
 	}
 
