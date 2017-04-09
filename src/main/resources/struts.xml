@@ -68,8 +68,8 @@
 			method="{1}">
 			<interceptor-ref name="phcsmpAuthStack"/>
 			<!-- 当处于未登录状态时 -->
-			<result name="unLoginState">/jsp/unlogin/unlogin_Personnel_information.jsp</result>
-			<result name="unlogin_load">/jsp/recordInformation/Personnel_information.jsp</result>
+<!-- 			<result name="unLoginState">/jsp/unlogin/unlogin_Personnel_information.jsp</result>
+			<result name="unlogin_load">/jsp/recordInformation/Personnel_information.jsp</result> -->
 			<!-- 当处于登录状态时 -->
 			
 			<result name="addSuspectInfor" type="chain">
@@ -77,8 +77,8 @@
 			</result>
 			
 			<result name="input">/index.jsp</result>
-			<result name="loadInfor">/jsp/recordInformation/Personnel_information.jsp</result>
-			<result name="updateInfor">/jsp/recordInformation/Personnel_information.jsp</result>
+			<result name="loadInfor">/WEB-INF/recordInformation/Personnel_information.jsp</result>
+<!-- 			<result name="updateInfor">/WEB-INF/recordInformation/Personnel_information.jsp</result> -->
 <!-- 			<result name="NONE"></result> -->
 			<!-- 返回修改嫌疑人信息 -->
 		</action>
@@ -137,33 +137,33 @@
 		</action>
 		
 		<!-- 上传头像 -->
-		<action name="uploadPhoto" class="com.haifeiWu.action.Leave_Recod_Action" method="uploadPhoto"></action>
+<!-- 		<action name="uploadPhoto" class="com.haifeiWu.action.Leave_Recod_Action" method="uploadPhoto"></action> -->
 		
 		<!--离开办案区 -->
 		<action name="LR_*" class="com.haifeiWu.action.Leave_Recod_Action"
 			method="{1}">
 			<!-- 当处于未登录状态时 -->
-			<interceptor-ref name="phcsmpAuthStack"/>
-			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Leave_Record.jsp</result>
-			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
+			<!-- <interceptor-ref name="phcsmpAuthStack"/> -->
+<!-- 			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Leave_Record.jsp</result>
+			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result> -->
 			<!-- 当处于登录状态时 -->
 			<result name="leaveRecordLoadInfor" type="chain">LR_loadInfor</result>
 			<result name="temporaryLeaveload" type="chain">LR_loadInfor</result>
 			<!-- <result name="input">/index.jsp</result> --><!-- 类型错误 -->
 			<!-- <result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
 			<result name="addTemporaryLeaveInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>-->
-			<result name="loadInfor">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result>
+			<result name="loadInfor">/WEB-INF/recordInformation/PHCSMP_Leave_Record.jsp</result>
 		</action>
 		<!-- 生成嫌疑人信息报告 -->
 		<action name="GR_*" class="com.haifeiWu.action.GenerateReportAction"
 			method="{1}">
 			<result name="loadInfor">/jsp/recordInformation/allInformation.jsp</result>
 			<result name="downFile">/jsp/recordInformation/allInformation.jsp</result>
-			 <result name="downPdf" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
-				<result name="createPdf">/jsp/home/index.jsp</result> 
+			 <!-- <result name="downPdf" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
+				<result name="createPdf">/jsp/home/index.jsp</result>  -->
 		</action>
 		
-		<!-- 录波器请求接口 -->
+		<!-- 录播器上传完成的接口 -->
 		<action name="fileStatus" class="com.haifeiWu.action.fileStatusAction"
 			method="fileStatus">
 			<result name="success">/jsp/home/index.jsp</result>
@@ -198,7 +198,5 @@
 			<result name="loadInfor">/WEB-INF/roommanage/room.jsp</result>
 			<result name="null">/WEB-INF/error/400.jsp</result>
 		</action>
-	
 	</package>
-
 </struts>

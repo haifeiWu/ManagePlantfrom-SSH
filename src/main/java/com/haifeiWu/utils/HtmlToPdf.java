@@ -1,15 +1,13 @@
 package com.haifeiWu.utils;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 import com.haifeiWu.interceptor.HtmlToPdfInterceptor;
 
 public class HtmlToPdf {
-	// private static final String toPdfTool =
-	// "F:\\QMDownload\\wkhtmltox\\wkhtmltopdf\\bin\\wkhtmltopdf.exe";
+	// wkhtmltopdf在系统中的路径
+	private static final String toPdfTool = PropertiesReadUtils
+			.getPDFString("toolPath");
 
 	/**
 	 * html转pdf
@@ -19,25 +17,8 @@ public class HtmlToPdf {
 	 * @param destPath
 	 *            pdf保存路径
 	 * @return 转换成功返回true
-	 * @throws IOException
-	 * @throws InterruptedException
 	 */
-	public static boolean convert(String srcPath, String destPath)
-			throws IOException {
-		Properties pro;
-		pro = new Properties();
-		InputStream in = HtmlToPdf.class.getResourceAsStream("/pdf.properties");
-		pro.load(in);
-		in.close();
-		// if(in==null)
-		// {
-		// System.out.println("没有获取到配置文件");
-		// }
-		System.out.println("获取到配置文件" + in);
-
-		String toPdfTool = pro.getProperty("path");
-		System.out.println(toPdfTool);
-
+	private static boolean convert(String srcPath, String destPath) {
 		File file = new File(destPath);
 		File parent = file.getParentFile();
 		// 如果pdf保存路径不存在，则创建路径
@@ -52,8 +33,6 @@ public class HtmlToPdf {
 		cmd.append(" ");
 		cmd.append(destPath);
 
-		System.out.println("cmd");
-
 		boolean result = true;
 		try {
 			Process proc = Runtime.getRuntime().exec(cmd.toString());
@@ -61,19 +40,30 @@ public class HtmlToPdf {
 					proc.getErrorStream());
 			HtmlToPdfInterceptor output = new HtmlToPdfInterceptor(
 					proc.getInputStream());
-			System.out.println("output");
 			error.start();
-			System.out.println("error");
 			output.start();
-			System.out.println("output");
 			proc.waitFor();
-			// proc.destroy();
-			System.out.println("proc");
 		} catch (Exception e) {
 			result = false;
 			e.printStackTrace();
 		}
-		System.out.println("转换完成");
+
 		return result;
+	}
+
+	/**
+	 * // 生成PDF
+	 * 
+	 * @param suspectId
+	 */
+	public static void createPdf(String suspectId) {
+
+		// 获取pdf的临时保存路径,也就是服务器的路径
+		String pdfPath = PropertiesReadUtils.getPDFString("serverPath")
+				+ suspectId + ".pdf";
+		String path = PropertiesReadUtils.getPDFString("sourcePath")
+				+ "LB-HB-20170317005";
+		convert(path, pdfPath);
+
 	}
 }

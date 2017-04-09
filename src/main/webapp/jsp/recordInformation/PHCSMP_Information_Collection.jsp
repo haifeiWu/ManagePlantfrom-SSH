@@ -60,7 +60,7 @@
 					       });
 					    </script>
 						</c:if> --%>
-						<img id="identityImg" src="images/3-inforCollection_03.png" />
+						<img id="identityImg" src="images/fgreen_03.png" />
 						<c:if test="${!empty personalCheck }">
 							<script type="text/javascript">
 					       $(document).ready(function(){

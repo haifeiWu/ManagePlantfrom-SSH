@@ -136,27 +136,65 @@
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+					<!-- <ul id="number" class="col-lg-12 col-md-10 col-sm-10">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
 						<li>100%</li>
-					</ul>
+					</ul> -->
 					<!--进度的状态-->
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
-					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="suspect_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="images/fgreen_03.png" /></a> <a
-							href="personalCheck_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="images/fgreen_03.png" /></a> <a
-							href="IC_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="images/fgreen_03.png" /></a> <a
-							href="AR_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="images/fgreen_03.png" /></a> <a href="#leaveReco"><img
-							src="images/3-inforCollection_07.png" /></a>
-					</div>
+					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
+	
+							<%-- <c:if test="${!empty suspect }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#identityImg").attr("src","images/fgreen_03.png");
+						       
+						       });
+						    </script> --%>
+							</c:if>
+							<img id="identityImg" src="images/fgreen_03.png" />
+							<c:if test="${!empty personal_Check }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#identityImg1").attr("src","images/fgreen_03.png");
+						       
+						       });
+						    </script>
+							</c:if> 
+							<img id="identityImg1" src="images/3-inforCollection_03.png" />
+							<c:if test="${!empty information_Collection }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#personInforImg").attr("src","images/fgreen_03.png");
+						       
+						       });
+						    </script>
+							</c:if>
+							<img id="personInforImg" src="images/3-inforCollection_03.png" />
+							<c:if test="${!empty activity_record_infor }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#enterInforImg").attr("src","images/fgreen_03.png");
+						       
+						       });
+						    </script>
+							</c:if>
+							<img id="enterInforImg" src="images/3-inforCollection_03.png" />
+							<c:if test="${!empty leaveRecord }">
+								<script type="text/javascript">
+						       $(document).ready(function(){
+						            $("#confirmImg").attr("src","images/fgreen_07.png");
+						       
+						       });
+						    </script>
+							</c:if>
+							<img id="confirmImg" src="images/3-inforCollection_07.png"
+								style="margin-left: -10%;" />
+						</div>
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
 						<li>入区登记</li>

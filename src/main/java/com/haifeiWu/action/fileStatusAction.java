@@ -21,6 +21,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BandService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.utils.Video;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -55,19 +56,29 @@ public class fileStatusAction extends ActionSupport implements
 	// String policeId;
 	// String identificationCard;
 
-	public String fileStatus() {
+	public String fileStatus() throws IOException {
 		JSONObject jsonRequest = JSONObject.parseObject(this.getStrResponse());
 		// 获取json中参数
-		String uploadType = jsonRequest.getString("uploadType");
-		String policeId = jsonRequest.getString("policeId");
+		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
+		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
 		System.out.println("getParameter收到的数据 -----------           "
 				+ uploadType + "     " + policeId + "     "
 				+ identificationCard);
+		if (uploadType == 0) {
+			// 注意对下载失败的处理
+			Video.queryDownloadFileStatu(policeId, identificationCard);
+		}
+
 		return "success";
 	}
 
-	public String getStrResponse() {
+	/**
+	 * 解析JSON数据的
+	 * 
+	 * @return
+	 */
+	private String getStrResponse() {
 		ActionContext ctx = ActionContext.getContext();
 		HttpServletRequest request = (HttpServletRequest) ctx
 				.get(ServletActionContext.HTTP_REQUEST);

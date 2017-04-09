@@ -35,6 +35,7 @@ import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.utils.CompleteCheck;
+import com.haifeiWu.utils.HtmlToPdf;
 import com.haifeiWu.utils.Video;
 
 /**
@@ -148,6 +149,9 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// 将录像的标志位置为0
 			suspectService.updateLeaveState(3, -1, 0,
 					suspectInfor.getSuspect_ID());
+			// 下载PDF
+			HtmlToPdf.createPdf(suspectInfor.getSuspect_ID());
+
 			return "success";
 
 		} catch (Exception e) {
@@ -350,27 +354,18 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			request.setAttribute("treatmentMethod", treatmentMethod);
 			// 维护进出门的标志位
 			suspectService.updateSwitch(1, suspectId);
-			// 判断是否登录
-			// PHCSMP_Staff user = (PHCSMP_Staff) request.getSession()
-			// .getAttribute("user");
 
 			// 判断进度条
-			// PHCSMP_Suspect suspect =
-			// suspectService.findBySuspetcId(suspectId);
-			// PHCSMP_Personal_Check personalCheck = personalCheckService
-			// .findInforBySuspetcId(suspectId);
-			// PHCSMP_Information_Collection informationCollection =
-			// informationCollectionService
-			// .findInforBySuspetcId(suspectId);
-			// List<PHCSMP_Activity_Record> activityRecordlist =
-			// activityRecordService
-			// .selectActivityRecordInfor(suspectId);
-			// PHCSMP_Leave_Record leaveRecord = leaveRecodService
-			// .findInforBySuspetcId(suspectId);
-			request.setAttribute("suspect", 1);
-			request.setAttribute("personalCheck", personalCheck);
-			request.setAttribute("informationCollection", informationCollection);
-			request.setAttribute("activityRecord", activityRecordList);
+			if (personalCheck != null) {
+				request.setAttribute("personalCheck", personalCheck);
+			}
+			if (informationCollection != null) {
+				request.setAttribute("informationCollection",
+						informationCollection);
+			}
+			if (activityRecordList != null) {
+				request.setAttribute("activityRecord", activityRecordList);
+			}
 			// request.setAttribute("leaveRecord", leaveRecord);
 			return "loadInfor";
 		} catch (Exception e) {

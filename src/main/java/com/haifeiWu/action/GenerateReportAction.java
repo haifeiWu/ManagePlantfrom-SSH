@@ -1,6 +1,5 @@
 package com.haifeiWu.action;
 
-import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
@@ -31,8 +30,6 @@ import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
-import com.haifeiWu.utils.HtmlToPdf;
-import com.haifeiWu.utils.PropertiesReadUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -162,23 +159,25 @@ public class GenerateReportAction extends ActionSupport implements
 			// 生成PDF
 
 			// 获取pdf的临时保存路径,getServletContext是Tomcat容器的路径,也就是服务器的路径
-			System.out.println(request.getSession().getServletContext()
-					.getRealPath("/pdf"));
-			String pdfPath = request.getSession().getServletContext()
-					.getRealPath("/pdf")
-					+ suspectId + ".pdf";
-			// 判断是否存在该文件，存在则不生成，不存在则生成
-			if (!new File(pdfPath).exists()) {
-				String path = PropertiesReadUtils.getPDFString("sourcePath")
-						+ request.getParameter("suspectId");
-				if (HtmlToPdf.convert(path, pdfPath)) {
-					// response.sendRedirect(request.getContextPath() + "/tmp/"
-					// +
-					// pdfName);
-					request.setAttribute("pdfPath", pdfPath);
-					System.out.println("pdf成功生成！");
-				}
-			}
+			// System.out.println(request.getSession().getServletContext()
+			// .getRealPath("/pdf"));
+			// String pdfPath = request.getSession().getServletContext()
+			// .getRealPath("/pdf")
+			// + suspectId + ".pdf";
+			// // 判断是否存在该文件，存在则不生成，不存在则生成
+			// if (!new File(pdfPath).exists()) {
+			// // String path = PropertiesReadUtils.getPDFString("sourcePath")
+			// // + request.getParameter("suspectId");
+			// String path = PropertiesReadUtils.getPDFString("sourcePath")
+			// + "LB-HB-20170317005";
+			// if (HtmlToPdf.convert(path, pdfPath)) {
+			// // response.sendRedirect(request.getContextPath() + "/tmp/"
+			// // +
+			// // pdfName);
+			// request.setAttribute("pdfPath", pdfPath);
+			// System.out.println("pdf成功生成！");
+			// }
+			// }
 			return "loadInfor";
 		} catch (Exception e) {
 			response.getWriter()

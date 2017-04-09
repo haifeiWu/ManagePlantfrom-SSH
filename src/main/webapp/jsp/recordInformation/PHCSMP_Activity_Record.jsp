@@ -162,15 +162,15 @@
 	
 						<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 	
-							<c:if test="${!empty suspect }">
+							<%-- <c:if test="${!empty suspect }">
 								<script type="text/javascript">
 						       $(document).ready(function(){
 						            $("#identityImg").attr("src","images/fgreen_03.png");
 						       
 						       });
-						    </script>
+						    </script> --%>
 							</c:if>
-							<img id="identityImg" src="images/3-inforCollection_03.png" />
+							<img id="identityImg" src="images/fgreen_03.png" />
 							<c:if test="${!empty personal_Check }">
 								<script type="text/javascript">
 						       $(document).ready(function(){

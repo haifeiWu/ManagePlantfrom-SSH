@@ -119,15 +119,15 @@
 
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
 
-						<c:if test="${!empty SuspectInfor}">
+						<%-- <c:if test="${!empty SuspectInfor}">
 							<script type="text/javascript">
 					       $(document).ready(function(){
 					            $("#identityImg").attr("src","images/fgreen_03.png");
 					       
 					       });
 					    </script>
-						</c:if>
-						<img id="identityImg" src="images/3-inforCollection_03.png" />
+						</c:if> --%>
+						<img id="identityImg" src="images/fgreen_03.png" />
 						<c:if test="${!empty checkRecord }">
 							<script type="text/javascript">
 					       $(document).ready(function(){

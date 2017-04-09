@@ -40,8 +40,7 @@ public class Video {
 			throws Exception {
 		String json = packjson(band_ID, identificationCard);
 		String result = HttpRequest.sendOkMCVPost(
-				PropertiesReadUtils.getRecordConfString("SxUploadRecFile"),
-				json);
+				PropertiesReadUtils.getRecordConfString("Sx"), json);
 		System.out.println("请求ftp服务器 开始上传----结果----------------" + result);
 		return result;
 	}
@@ -66,7 +65,7 @@ public class Video {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String queryDownloadFileStatu(int band_ID,
+	public static boolean queryDownloadFileStatu(int band_ID,
 			String identificationCard) throws IOException {
 		String json = packjson(band_ID, identificationCard);
 		String result = "";
@@ -88,7 +87,7 @@ public class Video {
 						+ "错误代码：" + result);
 			}
 		}
-		return result;
+		return false;
 	}
 
 	public static String startRecording(int band_ID, int room_ID,

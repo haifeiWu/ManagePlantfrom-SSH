@@ -47,7 +47,9 @@ public class WebSocketUtils {
 	 */
 	@OnOpen
 	public void onOpen(Session session) {
+		System.out.println("onopen1--------------");
 		this.session = session;
+		System.out.println("onopen2--------------");
 	}
 
 	/**
@@ -69,8 +71,10 @@ public class WebSocketUtils {
 	 */
 	@OnMessage
 	public void onMessage(String message) {
-		if (message.split("*").length == 2) {// 主动刷新页面
-			String[] str = message.split("*");
+		System.out.println("收到消息的长度----------------"
+				+ message.split("\\*").length);
+		if (message.split("\\*").length == 2) {// 主动刷新页面
+			String[] str = message.split("\\*");
 			String ip = str[0];// ip对应的是房间的电子设备
 			String result = str[1];// result对应的是需要刷新的页面
 			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理,对象为空
@@ -96,7 +100,7 @@ public class WebSocketUtils {
 	 */
 	@OnError
 	public void onError(Session session, Throwable error) {
-		System.out.println("发生错误");
+		System.out.println("websocket-----------发生错误");
 	}
 
 }

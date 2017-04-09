@@ -13,7 +13,7 @@
 	var websocket = null;
      //判断当前浏览器是否支持WebSocket
      if ('WebSocket' in window) {
-         websocket = new WebSocket("ws://127.0.0.1:8888/ManagePlantfrom-SSH/websocket");
+         websocket = new WebSocket("${webSocket}");
      }
      else {
          alert('当前浏览器不支持websocket，请使用 IE 11浏览器');
@@ -21,25 +21,29 @@
  
      //连接发生错误的回调方法
      websocket.onerror = function (evt) {
-         /* alert("连接发生错误");  */
+          alert("连接发生错误");  
      };
      //连接成功建立的回调方法
      websocket.onopen = function () {
-        /*  alert("WebSocket连接成功");  */
+          alert("WebSocket连接成功");  
          var ip=getcookie("ip");
+         alert("获取到ip"+ip); 
          if(ip!=null){
          	websocket.send(ip);
+         	alert("发送ip消息"); 
          }
     };
 
      //接收到消息的回调方法
      websocket.onmessage = function (event) {
+     	alert("websocket客户端收到消息--------");
      	location.href="${pageContext.request.contextPath }/"+event.data;
+     	alert("完成");
      };
 
      //连接关闭的回调方法
      websocket.onclose = function () {
-      /*  alert("WebSocket连接关闭");  */
+        alert("WebSocket连接关闭");  
      };
      //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
      window.onbeforeunload = function () {

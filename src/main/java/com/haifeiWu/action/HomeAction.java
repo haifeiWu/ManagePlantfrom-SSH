@@ -11,6 +11,7 @@ import org.apache.struts2.util.ServletContextAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.haifeiWu.utils.PropertiesReadUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -46,6 +47,9 @@ public class HomeAction extends ActionSupport implements ServletRequestAware,
 		Cookie cookie = new Cookie("ip", request.getRemoteAddr());
 		cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
 		response.addCookie(cookie);
+		// 读取websocket的路径
+		request.setAttribute("webSocket",
+				PropertiesReadUtils.getRecordConfString("webSocket"));
 		return "index";
 	}
 
