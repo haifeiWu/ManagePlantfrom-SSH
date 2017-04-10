@@ -160,6 +160,12 @@ public class SuspectServiceImple implements SuspectService {
 		return suspectDao.findAllVideoDownloadFailSuspectInfor();
 	}
 
+	@Override
+	public List<PHCSMP_Suspect> findAllByIsRecordVedio() {
+		
+		return suspectDao.findAllByIsRecordVedio();
+	}
+
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
 	// // TODO Auto-generated method stub

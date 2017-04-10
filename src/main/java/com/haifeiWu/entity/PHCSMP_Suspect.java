@@ -28,6 +28,8 @@ public class PHCSMP_Suspect implements Serializable {
 	private String suspected_Cause;// 进入办案区原因（案由字典表中ID用逗号分隔）
 	private String enter_Time;// 进入办案区时间
 	private String detain_Time;// 羁押时间
+	
+	private String vedio_Number;// 音频视频编码
 
 	// private String quit_time;// 离开信息登记室时间
 	private String staff_ID;// 办案民警,此处的办案民警是哪个流程的民警，还是多个隔开
@@ -250,7 +252,7 @@ public class PHCSMP_Suspect implements Serializable {
 		this.fill_record = fill_record;
 	}
 
-	@Override
+	/*@Override
 	public String toString() {
 		return "PHCSMP_Suspect [id=" + id + ", suspect_ID=" + suspect_ID
 				+ ", band_ID=" + band_ID + ", suspect_Name=" + suspect_Name
@@ -267,10 +269,30 @@ public class PHCSMP_Suspect implements Serializable {
 				+ sideWays_Photo + ", recordVideo_State=" + recordVideo_State
 				+ ", is_RecordVideo_DownLoad=" + is_RecordVideo_DownLoad
 				+ ", cardReader_Switch=" + cardReader_Switch + "]";
-	}
+	}*/
 
 	public String getIdentityCard_Photo() {
 		return identityCard_Photo;
+	}
+
+	@Override
+	public String toString() {
+		return "PHCSMP_Suspect [id=" + id + ", suspect_ID=" + suspect_ID
+				+ ", band_ID=" + band_ID + ", suspect_Name=" + suspect_Name
+				+ ", sex=" + sex + ", birthday=" + birthday + ", nation="
+				+ nation + ", phone=" + phone + ", type_ID=" + type_ID
+				+ ", identifyCard_Number=" + identifyCard_Number
+				+ ", suspected_Cause=" + suspected_Cause + ", enter_Time="
+				+ enter_Time + ", detain_Time=" + detain_Time
+				+ ", vedio_Number=" + vedio_Number + ", staff_ID=" + staff_ID
+				+ ", address=" + address + ", now_address=" + now_address
+				+ ", total_record=" + total_record + ", fill_record="
+				+ fill_record + ", process_Now=" + process_Now + ", room_Now="
+				+ room_Now + ", identityCard_Photo=" + identityCard_Photo
+				+ ", frontal_Photo=" + frontal_Photo + ", sideWays_Photo="
+				+ sideWays_Photo + ", recordVideo_State=" + recordVideo_State
+				+ ", is_RecordVideo_DownLoad=" + is_RecordVideo_DownLoad
+				+ ", cardReader_Switch=" + cardReader_Switch + "]";
 	}
 
 	public void setIdentityCard_Photo(String identityCard_Photo) {
@@ -283,6 +305,14 @@ public class PHCSMP_Suspect implements Serializable {
 
 	public void setDetain_Time(String detain_Time) {
 		this.detain_Time = detain_Time;
+	}
+
+	public String getVedio_Number() {
+		return vedio_Number;
+	}
+
+	public void setVedio_Number(String vedio_Number) {
+		this.vedio_Number = vedio_Number;
 	}
 
 }

@@ -101,7 +101,7 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	 */
 	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor();
 
-
+	public List<PHCSMP_Suspect> findAllByIsRecordVedio();
 
 
 
