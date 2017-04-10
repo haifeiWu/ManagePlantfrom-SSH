@@ -22,42 +22,14 @@
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
 <script type="text/javascript" src="js/jquery.form.js"></script>
 <script type="text/javascript">
-/* 
- $(function(){
- $("#addInfoForm").on("submit",function(){
- if($("#band_ID").val().trim()=="0"){
- alert("提交失败，请先填写手环id");
- }
- else{
- $.post("${pageContext.request.contextPath }/suspect_addSuspectInfor.action",function(page){
- $(".contain").html(page);
- });
- }
- return false; 
- });   
- });	 */
-
-/* if($(".message").val()=="success"){
-alert("信息提交成功！");
-window.location="${pageContext.request.contextPath }/home_index.action";
-}else if($(".message").val()=="error"){
-	alert("信息提交失败");
-} */
-
-/* $(".submit").off();
-$(".submit").on("click",function(){
- if($("#band_ID").val().trim()=="0"){
- 	 	$(".submit").addClass("disaled");
- 	 	alert("提交失败，请先填写手环id");
- 	 }
-}); */
 $(function() {
 	$("#btnSave").click(function() {
 		var x = document.getElementById("band_ID").value;
 		//var y =	document.getElementById("failSubmit").value;
-		alert(x);
+		alert('11111111');
+		/* alert(x); */
+		alert('22222222');
 		if (x == 0) {
-			// if ($(".clsShow").html().toString() != "")//存在提示信息，则不允许提交表单
 			alert('提交失败，请填写手环');
 			return false;
 		} else
@@ -93,14 +65,6 @@ function Button1_onclick() {
 		document.all['now_address'].value = CVR_IDCard.Address;
 		document.all['identifyCard_Number1'].value = CVR_IDCard.CardNo;
 
-		/* 之前的代码，逻辑是直接存放照片，bug
-		var str = CVR_IDCard.Pic;
-		var myStr = new Array();
-		myStr = str.split("\\");
-		var path = "/upload/" + myStr[myStr.length - 1];
-		document.all['pic'].src = path;
-		document.all['tdentityID_Imag'].value = str;
-		 */
 		/**
 		 * Date:2017.02.26
 		 * author:whf
@@ -117,17 +81,6 @@ function Button1_onclick() {
 
 }
 
-
-	/* $(document).ready(function() {
-		$("#identityImg").attr('src', 'images/fgreen_03.png');
-		$("#identityImg1").attr('src', 'images/fgreen_03.png');
-	}); */
-
-/* 	function Logger() {
- alert("信息提交成功！");
- }
- */
-
 $(document).ready(function() {
 	$("#identityImg").attr('src', 'images/fgreen_03.png');
 	$("#identityImg1").attr('src', 'images/fgreen_03.png');
@@ -141,49 +94,6 @@ function fileshow2()
 {
     document.getElementById("img_2").src=document.getElementById("file_2").value;
 } 
-/*window.onload = function(e) {
-//var e = window.event || e;
-// }
-// local Storage或许会有浏览器兼容的问题
-if (typeof (Storage) !== "undefined") {
-	if (localStorage.clickcount) {
-		localStorage.clickcount = Number(localStorage.clickcount) + 1;
-		if (localStorage.clickcount > 999) {
-			localStorage.clickcount = 0;
-		}
-	} else {
-		localStorage.clickcount = 0;
-	}
-} else {
-	alert("抱歉。浏览器不支持");
-}
-var date = new Date();
-var Mon = date.getMonth() + 1;
-var datetime = parseInt(date.getDate());
-if (datetime < 10) {
-	document.getElementById("suspectID").value = "LB-HB" + "-"
-			+ date.getFullYear() + Mon + "0" + datetime
-			+ localStorage.clickcount;
-} else if (Mon < 10) {
-	document.getElementById("suspectID").value = "LB-HB" + "-"
-			+ date.getFullYear() + "0" + Mon + datetime
-			+ localStorage.clickcount;
-} else if (localStorage.clickcount < 10) {
-	document.getElementById("suspectID").value = "LB-HB" + "-"
-			+ date.getFullYear() + Mon + datetime + "0"
-			+ localStorage.clickcount;
-}
-}*/
-/* $("#alterPhotoForm").on("submit", function() {
-			$(this).ajaxSubmit({
-				success : function() {
-					alert("上传成功！");
-					window.location.href="${pageContext.request.contextPath }/LR_loadInfor.action";
-			},
-			resetForm : true
-		    });
-			return false;
-		});	 */
 
 </script>
 <style type="text/css">
@@ -272,7 +182,7 @@ if (datetime < 10) {
 							<a href="javascript:;" class="file">选择侧面照
 							    <input id="file_2" type="file" name="sfile" onchange="return fileshow2()">
 							</a>	
-						<%-- <p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">${nEntryTime }嫌疑人入区登记照片</p> --%>
+						
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<!-- <hr
@@ -335,14 +245,7 @@ if (datetime < 10) {
 						<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
 							style="text-align:center;color: #389ac7;">证件类型：</td>
 						<td style="text-align:center; width: 168px">
-							<%-- <ol>
-								<!--  -->
-								<c:forEach items="${identifyCardType}" var="item"
-									varStatus="status">
-									<li><input type="checkbox" name="type_ID"
-										value="${item.type_Name }" style="width:30px;" />${item.type_Name }</li>
-								</c:forEach>
-							</ol> --%>
+							
 							<select name="type_ID" id="type_ID">
 								<option value="0">-------------请选择-------------</option>
 								<c:forEach items="${identifyCardType}" var="item" varStatus="status">
@@ -351,20 +254,20 @@ if (datetime < 10) {
 						</select>
 						</td>
 					<td style="text-align:center;color: #389ac7;">联系方式：</td>
-						<td><input type="text" name="phone" value="${param.phone}"/></td>
+						<td><input type="text" name="phone" /></td>
 						
 						
 						 </tr>
 					<tr> 
 						<td style="text-align:center;color: #389ac7;">证件号码：</td>
-						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number" value="${param.identifyCard_Number}" />
+						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number" />
 					 <!--</tr>
 					<tr>-->
 						
 					 </tr>
 					 <tr>
 					 <td style="text-align:center;color: #389ac7;" >现住址：</td>
-						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address" value="${param.now_address}" /></td>
+						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address" /></td>
 					 </tr>
 				</table>
 			</div>
@@ -411,14 +314,7 @@ if (datetime < 10) {
 
 					<tr> -->
 						<td colspan="3" style="text-align:center;">
-							<%--<ol>
-								<!-- 遍历案由数据的字段 -->
-								 <c:forEach items="${actionCause}" var="item" varStatus="status">
-									<li>${item.cause_Name }<input type="checkbox"
-										name="suspected_Cause" value="${item.cause_Name }"
-										style="width:30px;" /></li>
-								</c:forEach> 
-							</ol>--%>
+							
 							<select name="suspected_Cause" id="suspected_Cause" style="margin-left: -87%;">
 								<option value="0">-----请选择-----</option>
 								<c:forEach items="${actionCause}" var="item" varStatus="status">
@@ -439,7 +335,7 @@ if (datetime < 10) {
 						<td style="width: 22%;color: #389ac7;text-align: center;">办案民警：</td>
 						<td style="width: 24%;text-align: center;">
 						<input
-							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" value="${param.staff_ID }"/></td>
+							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" /></td>
 					</tr>
 				</table>
 				<input id="btnSave" class="btn" type="submit" value="确认提交"

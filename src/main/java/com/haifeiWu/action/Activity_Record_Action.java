@@ -125,7 +125,7 @@ public class Activity_Record_Action extends ActionSupport implements
 		// 统计所有的字段
 		int fieldsNumber = CompleteCheck.getFieldsNumber(activity, c);
 
-		activity.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
+		activity.setFill_record(fieldsNumber - count - 2);// 设置已填写的字段数
 		activity.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 	}
 

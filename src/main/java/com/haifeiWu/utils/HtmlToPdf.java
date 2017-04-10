@@ -62,8 +62,7 @@ public class HtmlToPdf {
 		String pdfPath = PropertiesReadUtils.getPDFString("serverPath")
 				+ suspectId + ".pdf";
 		String path = PropertiesReadUtils.getPDFString("sourcePath")
-				+ "LB-HB-20170317005";
+				+ suspectId;
 		convert(path, pdfPath);
-
 	}
 }
