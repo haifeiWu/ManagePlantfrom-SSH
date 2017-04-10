@@ -94,7 +94,8 @@ $(document).ready(function (){
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_loadInfor.action" target="rightFrame">入区人员信息汇总</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/GR_loadInfor.action?suspectID=LB-HB-201703175"  target="rightFrame">临时报告区</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_videoDownFailList.action" target="rightFrame">录像下载失败信息</a><i></i></li>
+         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_videoDownSuccessList.action" target="rightFrame">录像下载成功信息</a><i></i></li>
         </ul>     
     </dd> 
     

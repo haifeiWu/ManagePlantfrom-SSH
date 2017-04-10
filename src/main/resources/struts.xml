@@ -189,6 +189,7 @@
 			<!-- 查询嫌疑人信息 -->
 			<result name="searchsuspectInfor">/WEB-INF/suspectmanage/suspectInforList.jsp</result>
 			<result name="videoDownFail">/WEB-INF/suspectmanage/videoDownloadFailSuspectList.jsp</result>
+			<result name="videoDownSuccess">/WEB-INF/suspectmanage/videoDownloadSuccessSuspectList.jsp</result>
 		</action>
 		<!-- 查看日志 -->
 		<action name="Log_execute" class="com.haifeiWu.action.Log_Action">
