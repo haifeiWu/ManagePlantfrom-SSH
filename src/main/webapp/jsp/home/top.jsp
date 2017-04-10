@@ -21,7 +21,7 @@
 				<img class="img_first" src="images/2-logo_03.png" />
 <%-- 				<a href="${pageContext.request.contextPath }/user_logout"  target="_parent">注销</a> --%>
 				<h1  class="system col-lg-12 col-md-12 col-sm-12">${title }</h1>
-				<h3 class="local_police col-lg-12 col-md-12 col-sm-12">---滨河派出所</h3>
+				<h3 class="local_police col-lg-12 col-md-12 col-sm-12">---${name }</h3>
 				<img class="img_second" src="images/policer_02.png" />
 				<img class="img_third" src="images/red_02.png"/>
 				

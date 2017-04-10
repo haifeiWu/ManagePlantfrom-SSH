@@ -150,7 +150,7 @@ public class Activity_Record_Action extends ActionSupport implements
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			String suspectId = (String) request.getAttribute("suspectID");
+			String suspectId = (String) request.getParameter("suspectID");
 			PHCSMP_Suspect suspectInfor = suspectService
 					.findBySuspetcId(suspectId);
 
@@ -187,7 +187,7 @@ public class Activity_Record_Action extends ActionSupport implements
 			// 询问讯问活动记录
 			List<PHCSMP_Activity_Record> activity_record_infor = activityRecordService
 					.findInforBySuspetcId(suspectId);
-			if (activity_record_infor != null) {
+			if (activity_record_infor.size() != 0) {
 				request.setAttribute("activity_record_infor",
 						activity_record_infor);
 			}

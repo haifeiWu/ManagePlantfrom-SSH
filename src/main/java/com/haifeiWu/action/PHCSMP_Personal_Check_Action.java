@@ -81,7 +81,9 @@ public class PHCSMP_Personal_Check_Action extends
 					.getRoom_ID();
 
 			// String suspectId = SuspectInfor.getSuspect_ID();
-			String suspectId = (String) request.getAttribute("suspectID");
+			String suspectId = (String) request.getParameter("suspectID");
+			System.out.println("Personal_Check----------------------------"
+					+ suspectId);
 			PHCSMP_Suspect suspectInfor = suspectService
 					.findBySuspetcId(suspectId);
 			String start_time_time = new DateTime()
@@ -104,7 +106,7 @@ public class PHCSMP_Personal_Check_Action extends
 			if (checkRecord != null)
 				request.setAttribute("checkRecord", checkRecord);
 			request.setAttribute("start_time_time", start_time_time);
-			request.setAttribute("suspectInfor", suspectInfor);
+			request.setAttribute("SuspectInfor", suspectInfor);
 			request.setAttribute("InspectionSituationType",
 					InspectionSituationType);
 			request.setAttribute("Keeping_WayType", Keeping_WayType);
@@ -122,7 +124,7 @@ public class PHCSMP_Personal_Check_Action extends
 			if (informationCollection != null) {
 				request.setAttribute("informationCollection", 1);
 			}
-			if (activityRecordlist != null) {
+			if (activityRecordlist.size() != 0) {
 				request.setAttribute("activityRecord", 1);
 			}
 			// request.setAttribute("leaveRecord", leaveRecord);

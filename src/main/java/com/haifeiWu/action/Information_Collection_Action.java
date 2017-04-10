@@ -93,7 +93,11 @@ public class Information_Collection_Action extends
 			// PHCSMP_Suspect SuspectInfor =
 			// suspectService.findByRoomID(roomId);
 			// String suspectId = SuspectInfor.getSuspect_ID();
-			String suspectId = (String) request.getAttribute("suspectID");
+			// 有问题，如何解析参数
+			// String suspectId = (String) request.getAttribute("suspectID");
+			String suspectId = (String) request.getParameter("suspectID");
+			System.out
+					.println("loadInfor---------------suspectID=" + suspectId);
 			PHCSMP_Suspect SuspectInfor = suspectService
 					.findBySuspetcId(suspectId);
 			List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
@@ -130,7 +134,13 @@ public class Information_Collection_Action extends
 			// PHCSMP_Information_Collection informationCollection =
 			// informationCollectionService
 			// .findInforBySuspetcId(suspectId);
-			if (activityRecordService.selectActivityRecordInfor(suspectId) != null) {
+			// int length = activityRecordService.selectActivityRecordInfor(
+			// suspectId).size();
+			// System.out
+			// .println("---------------------------activity 进度条 -------"
+			// + length);
+			if (activityRecordService.selectActivityRecordInfor(suspectId)
+					.size() != 0) {
 				request.setAttribute("activityRecord", 1);
 			}
 

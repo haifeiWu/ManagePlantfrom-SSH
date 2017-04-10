@@ -92,7 +92,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	private String personName;
 	private String suspectID;
 
-	private PHCSMP_Suspect suspect;
+	// private PHCSMP_Suspect suspect;
 	private PHCSMP_Personal_Check personalCheck;
 	private PHCSMP_Information_Collection informationCollection;
 	private List<PHCSMP_Activity_Record> activityRecordList;
@@ -217,16 +217,16 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		try {
 			// 根据ip找到房间
 			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
-			// suspectInfor = suspectService.findByRoomID(room.getRoom_ID());
-
+			// System.out.println(suspectInfor.getSuspect_ID() +
+			// "ffffffffffffff");
 			// 获取前台表单数据，并封装成对象.
-			Temporary_Leave temporary_Leave = new Temporary_Leave(0,
-					suspectInfor.getSuspect_ID(), tempLeave_Time,
-					tempLeave_Reason, return_Time, model.getStaff_ID(),
-					room.getRoom_ID(), manager);
+			Temporary_Leave temporary_Leave = new Temporary_Leave(suspectID,
+					tempLeave_Time, tempLeave_Reason, return_Time,
+					model.getStaff_ID(), room.getRoom_ID(), manager);
+			System.out.println(temporary_Leave + "gggggggggggggggggggg");
 			// 如果是出区保存信息,是出区返回则更新信息
 			temporaryLeave = temporaryLeaveService
-					.IsTemporaryLeaveReturn(suspectInfor.getSuspect_ID());
+					.IsTemporaryLeaveReturn(suspectID);
 			// 临时离开返回
 			if (temporaryLeave != null) {
 				// 更新临时离开返回时间
@@ -235,12 +235,12 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 				String temporaryReturnTime = sdf.format(date);
 
 				temporaryLeaveService.updateReturnTime(temporaryReturnTime,
-						temporary_Leave.getSuspect_ID());
+						suspectID);
 				// 如果出区返回时值班室管理员变了，则将新的管理员也保存进数据库
 				if (temporaryLeave.getManager() != manager) {
 					temporaryLeaveService.updateManager(
 							temporaryLeave.getManager() + "," + manager,
-							temporary_Leave.getSuspect_ID());
+							suspectID);
 				}
 			} else {// 临时离开
 				// 设置临时离开时间
@@ -251,19 +251,20 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 				temporary_Leave.setTempLeave_Time(temporaryLeaveTime);
 				temporaryLeaveService.saveTemporaryLeaveInfo(temporary_Leave);
 			}
-			return "success";
 
+			return "success";
 		} catch (Exception e) {
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
-
-			String tempLeave_Reason = request.getParameter("tempLeave_Reason");
-			request.setAttribute("tempLeave_Reason", tempLeave_Reason);
-			String staff_ID = request.getParameter("staff_ID");
-			request.setAttribute("staff_ID", staff_ID);
-			String manager_name = request.getParameter("manager_name");
-			request.setAttribute("manager_name", manager_name);
+			//
+			// String tempLeave_Reason =
+			// request.getParameter("tempLeave_Reason");
+			// request.setAttribute("tempLeave_Reason", tempLeave_Reason);
+			// String staff_ID = request.getParameter("staff_ID");
+			// request.setAttribute("staff_ID", staff_ID);
+			// String manager_name = request.getParameter("manager_name");
+			// request.setAttribute("manager_name", manager_name);
 
 			return "temporaryLeaveload";
 		}
@@ -290,16 +291,16 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			}
 			// 加载嫌疑人信息
 			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
-			String suspectId = (String) request.getAttribute("suspectID");
+			String suspectId = (String) request.getParameter("suspectID");
 
 			// 离区前提示前四个业务的完整性
 			// 根据嫌疑人id查找嫌疑人前四个业务的信息
 			sb = new StringBuilder("");
 			// 查入区登记信息
-			suspect = suspectService.findBySuspetcId(suspectId);
+			suspectInfor = suspectService.findBySuspetcId(suspectId);
 			// 并不需要再次进行完整性检查，只需读取数据，除一下即可
-			suspectComplete = (int) (suspect.getFill_record()
-					/ (float) suspect.getTotal_record() * 100);
+			suspectComplete = (int) (suspectInfor.getFill_record()
+					/ (float) suspectInfor.getTotal_record() * 100);
 			if (suspectComplete != 100) {// 信息不完整
 				sb.append("入区登记信息填写不完整!  ");
 			}
@@ -378,7 +379,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 				request.setAttribute("informationCollection",
 						informationCollection);
 			}
-			if (activityRecordList != null) {
+			if (activityRecordList.size() != 0) {
 				request.setAttribute("activityRecord", activityRecordList);
 			}
 			// request.setAttribute("leaveRecord", leaveRecord);
@@ -463,13 +464,13 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		this.staff_ID = staff_ID;
 	}
 
-	public PHCSMP_Suspect getSuspect() {
-		return suspect;
-	}
-
-	public void setSuspect(PHCSMP_Suspect suspect) {
-		this.suspect = suspect;
-	}
+	// public PHCSMP_Suspect getSuspect() {
+	// return suspect;
+	// }
+	//
+	// public void setSuspect(PHCSMP_Suspect suspect) {
+	// this.suspect = suspect;
+	// }
 
 	public PHCSMP_Personal_Check getPersonalCheck() {
 		return personalCheck;

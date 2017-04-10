@@ -66,7 +66,7 @@
 		<!-- 嫌疑人信息 -->
 		<action name="suspect_*" class="com.haifeiWu.action.PHCSMP_Suspect_Action"
 			method="{1}">
-			<interceptor-ref name="phcsmpAuthStack"/>
+			<!-- <interceptor-ref name="phcsmpAuthStack"/> -->
 			<!-- 当处于未登录状态时 -->
 <!-- 			<result name="unLoginState">/jsp/unlogin/unlogin_Personnel_information.jsp</result>
 			<result name="unlogin_load">/jsp/recordInformation/Personnel_information.jsp</result> -->
@@ -198,26 +198,26 @@
 		<!-- 手环信息 -->
 		<action name="BandManage_*" class="com.haifeiWu.action.BandManageAction"
 			method="{1}">
-			<result name="bandInfor">/jsp/bandmanage/band.jsp</result>
+			<result name="bandInfor">/WEB-INF/bandmanage/band.jsp</result>
 			<result name="null">/jsp/error/400.jsp</result>
 			<result name="error">/jsp/error/error.jsp</result>
-		    <result name="bandList">/jsp/bandmanage/bandList.jsp</result>
+		    <result name="bandList">/WEB-INF/bandmanage/bandList.jsp</result>
 		</action>
 		<!-- 读卡设备信息 -->
 		<action name="cardReaderManage_*" class="com.haifeiWu.action.CardReaderManageAction"
 			method="{1}">
-			<result name="toUpdate">/jsp/devicesManage/cardReaderUpdate.jsp</result>
-			<result name="loadInfor"  >/jsp/devicesManage/cardReader.jsp</result>
+			<result name="toUpdate">/WEB-INF/devicesManage/cardReaderUpdate.jsp</result>
+			<result name="loadInfor"  >/WEB-INF/devicesManage/cardReader.jsp</result>
 			<result name="null">/jsp/error/400.jsp</result>
 		</action>
 		<!-- 房间信息 -->
 		<action name="roomManage_*" class="com.haifeiWu.action.RoomManageAction"
 			method="{1}">
-			<result name="loadInfor">/jsp/roommanage/room.jsp</result>
+			<result name="loadInfor">/WEB-INF/roommanage/room.jsp</result>
 			<result name="null">/jsp/error/null.jsp</result>
 			<result name="error">/jsp/error/error.jsp</result>
-			<result name="update">/jsp/roommanage/room_update.jsp</result>
-			<result name="batchupdate">/jsp/roommanage/room_batchupdate.jsp</result>
+			<result name="update">/WEB-INF/roommanage/room_update.jsp</result>
+			<result name="batchupdate">/WEB-INF/roommanage/room_batchupdate.jsp</result>
 		</action>
 	</package>
 </struts>

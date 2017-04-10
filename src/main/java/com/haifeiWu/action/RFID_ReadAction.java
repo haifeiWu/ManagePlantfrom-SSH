@@ -89,6 +89,8 @@ public class RFID_ReadAction extends ActionSupport implements
 	}
 
 	private void triggerWebsocket(PHCSMP_Room room, String suspectID) {
+		System.out.println("triggerWebsocket---------------suspectID="
+				+ suspectID);
 		// flushpage时传递两个信息，一个是IP，另一个是嫌疑人编号，用*作为分割符
 		switch (room.getProcess_ID()) {
 		// case 0:// 0是入区登记，不刷卡以及录像

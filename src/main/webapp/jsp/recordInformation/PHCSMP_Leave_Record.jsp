@@ -175,7 +175,7 @@
 						    </script>
 							</c:if>
 							<img id="personInforImg" src="images/3-inforCollection_03.png" />
-							<c:if test="${!empty activity_record_infor }">
+							<c:if test="${!empty activity_record_infor}">
 								<script type="text/javascript">
 						       $(document).ready(function(){
 						            $("#enterInforImg").attr("src","images/fgreen_03.png");

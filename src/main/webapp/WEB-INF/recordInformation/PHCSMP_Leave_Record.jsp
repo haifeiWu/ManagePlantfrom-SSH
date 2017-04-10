@@ -107,9 +107,6 @@
 			}
 		});
 		
-		if("${activityRecord.activity_Record }"=="---请选择---"){
-			$(".activity").text("活动记录：空");
-		}
 });
 </script>
 <style type="text/css">
@@ -129,7 +126,7 @@
 			<!--设置标题：档案编号：-->
 			<h5 class="col-lg-12 col-md-10 text-center">
 				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;<input
-					type="text" name="suspect_ID" value="${suspectInfor.suspect_ID }"
+					type="text" name=suspect_ID value="${suspectInfor.suspect_ID }"
 					readonly="readonly" style="background:#FFF"/>
 			</h5>
 			<!--进度条信息设置-->
@@ -246,18 +243,18 @@
 
 					<tr>
 						<td>入区登记</td>
-						<c:if test="${!empty suspect }">
-							<td>${suspect.enter_Time }</td>
+						<c:if test="${!empty suspectInfor }">
+							<td>${suspectInfor.enter_Time }</td>
 							<td>----</td>
 							<td class="complete">${suspectComplete}%</td>
-							<c:if test="${empty suspect.suspected_Cause }">
+							<c:if test="${empty suspectInfor.suspected_Cause }">
 								<td style="text-align:left;padding-left:30px;">进入办案区原因：空</td>
 							</c:if>
-							<c:if test="${!empty suspect.suspected_Cause }">
-								<td style="text-align:left;padding-left:30px;">进入办案区原因：${suspect.suspected_Cause }</td>
+							<c:if test="${!empty suspectInfor.suspected_Cause }">
+								<td style="text-align:left;padding-left:30px;">进入办案区原因：${suspectInfor.suspected_Cause }</td>
 							</c:if>
 						</c:if>
-						<c:if test="${empty suspect }">
+						<c:if test="${empty suspectInfor }">
 							<td>空</td>
 							<td>----</td>
 							<td class="complete">${suspectComplete}%</td>
@@ -409,7 +406,7 @@
 				</div>			
 			</div>
 		</div>
-
+		<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
 	</form>
 	<!--最终离开办案区的信息表-->
 	<form class="final"

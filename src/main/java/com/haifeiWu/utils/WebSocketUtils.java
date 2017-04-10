@@ -47,9 +47,7 @@ public class WebSocketUtils {
 	 */
 	@OnOpen
 	public void onOpen(Session session) {
-		System.out.println("onopen1--------------");
 		this.session = session;
-		System.out.println("onopen2--------------");
 	}
 
 	/**
@@ -78,7 +76,7 @@ public class WebSocketUtils {
 			String ip = str[0];// ip对应的是房间的电子设备
 			String result = str[1];// result对应的是需要刷新的页面
 			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理,对象为空
-			try {// 异常处理，循环三次
+			try {// 异常处理
 				System.out.println("-------------->准备发送");
 				item.session.getBasicRemote().sendText(result);
 				System.out.println("-----------------发送成功----" + result
