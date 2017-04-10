@@ -85,7 +85,6 @@ public class Information_Collection_Action extends
 	public String loadInfor() throws IOException {// 注意处理房间号找不到异常，或者嫌疑人房间号为空的异常
 		// 维护进出门的标志位
 		try {
-
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
 			request.setAttribute("roomId", roomId);

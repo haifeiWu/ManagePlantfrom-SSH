@@ -19,7 +19,6 @@ import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
-import com.haifeiWu.utils.Base64;
 import com.haifeiWu.utils.CompleteCheck;
 
 /**
@@ -210,13 +209,13 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	public String addSuspectInfor() throws IOException {
 		boolean useLine = false;// 定义一个标志位，判断是否开启一路回路，便于在异常的时候判断是否需要释放回路
 		try {
-
-			String frontal_Photo = "data:image/jpg;base64,"
-					+ Base64.file2base64(file);
-			String sideWays_Photo = "data:image/jpg;base64,"
-					+ Base64.file2base64(sfile);
-			model.setFrontal_Photo(frontal_Photo);
-			model.setSideWays_Photo(sideWays_Photo);
+			// 验证照片是否为空
+			// String frontal_Photo = "data:image/jpg;base64,"
+			// + Base64.file2base64(file);
+			// String sideWays_Photo = "data:image/jpg;base64,"
+			// + Base64.file2base64(sfile);
+			// model.setFrontal_Photo(frontal_Photo);
+			// model.setSideWays_Photo(sideWays_Photo);
 			// 更新手环的is_Used状态
 			bandService.update(1, model.getBand_ID());// 使用时是1，未使用时为0
 			// 回路饱和性验证
@@ -229,8 +228,8 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			}
 			fullCheck();
 			suspectService.saveSuspect(model);// 保存嫌疑人信息，
-			response.getWriter().write("<script> alert('提交成功，请'); </script>");
-			response.getWriter().flush();
+			// response.getWriter().write("<script> alert('提交成功，请'); </script>");
+			// response.getWriter().flush();
 			return "loadInfor";
 		} catch (Exception e) {
 			bandService.update(0, model.getBand_ID());// 提交失败置0

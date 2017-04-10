@@ -20,9 +20,16 @@ public interface RoomInforDao extends DaoSupport<PHCSMP_Room> {
 	int findRoomIDByCardReaderID(int cardReaderID);
 
 	public PHCSMP_Room findByRoomID(int roomID);
+	public List<PHCSMP_Room> findListByRoomID(int roomID);
 
 	/**
 	 * 查找所有的房间信息
 	 */
 	public List<PHCSMP_Room> findRoom();
+	
+	/**
+	 * 修改房间信息
+	 */
+	public void updateroom(PHCSMP_Room room);
+	public void batchupdate(String roomIdArray,int process_ID);
 }

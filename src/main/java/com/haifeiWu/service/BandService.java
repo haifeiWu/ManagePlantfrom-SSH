@@ -17,7 +17,7 @@ public interface BandService {
 	 * 
 	 * @return
 	 */
-	List<PHCSMP_Band> findAllBundInfor();
+	public List<PHCSMP_Band> findAllBundInfor();
 
 	public void update(int isUsed, int bandID);
 
@@ -26,4 +26,8 @@ public interface BandService {
 	public PHCSMP_Band findBandById(int bandId);
 
 	public PHCSMP_Band findByRemark(String remark);
+	
+	public List<PHCSMP_Band> findByBanbType(int bandType);
+	
+	public void updateRemarkAndTypeById(String remark,int band_Type,int band_ID);
 }

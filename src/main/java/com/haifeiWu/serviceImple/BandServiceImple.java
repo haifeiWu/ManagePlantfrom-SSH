@@ -38,7 +38,14 @@ public class BandServiceImple extends DaoSupportImpl<PHCSMP_Band> implements
 		bandInforDao.updateIsUsedByBandId(isUsed, bandID);
 
 	}
-
+	/**
+	 * 修改手环的类型和备注
+	 */
+	@Override
+	public void updateRemarkAndTypeById(String remark,int band_Type,int band_ID){
+		 bandInforDao.updateRemarkAndTypeById(remark, band_Type, band_ID);
+	}
+	
 	@Override
 	public PHCSMP_Band findBandById(int bandId) {
 		return bandInforDao.findByPropertyName("band_ID", bandId);
@@ -47,5 +54,11 @@ public class BandServiceImple extends DaoSupportImpl<PHCSMP_Band> implements
 	@Override
 	public PHCSMP_Band findByRemark(String remark) {
 		return bandInforDao.findByPropertyName("remark", remark);
+	}
+	
+	
+	@Override
+	public List<PHCSMP_Band> findByBanbType(int bandType) {
+		return bandInforDao.findListByPropertyName("band_Type",bandType);
 	}
 }

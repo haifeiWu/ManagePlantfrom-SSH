@@ -133,14 +133,19 @@ $(document).ready(function() {
 	$("#identityImg1").attr('src', 'images/fgreen_03.png');
 });
 
-function fileshow1()
+/* function fileshow1()
 {
-    document.getElementById("img_1").src=document.getElementById("file_1").value;
+	alert(document.getElementById("file_1").value); */
+/* 	var file = document.getElementById("fileId");
+file.select();
+var realPath = document.selection.createRange().text; */
+	
+/*     document.getElementById("img_1").src=document.getElementById("file_1").value;
 } 
 function fileshow2()
 {
     document.getElementById("img_2").src=document.getElementById("file_2").value;
-} 
+}  */
 /*window.onload = function(e) {
 //var e = window.event || e;
 // }
@@ -221,6 +226,42 @@ if (datetime < 10) {
 	    text-decoration: none;
 	}
 </style>
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>  
+<script type="text/javascript">  
+    $(function(){  
+        function getObjectURL(file){    
+            var url=null;     
+            if(window.createObjectURL!=undefined){ // basic    
+                url=window.createObjectURL(file);    
+            }else if(window.URL!=undefined){ // mozilla(firefox)    
+                url=window.URL.createObjectURL(file);    
+            } else if(window.webkitURL!=undefined){ // webkit or chrome    
+                url=window.webkitURL.createObjectURL(file);    
+            }    
+            return url;  
+        }    
+        $("#file_1").change(function(){    
+            var objUrl=getObjectURL(this.files[0]);    
+            var size=this.files[0].size;    
+            if(size>=1024000*10)bottomTip("图片超过10M了哦",0);    
+            else{    
+                 if(objUrl){    
+                        $("#img_1").attr("src",objUrl);  
+                    }    
+            }     
+        });  
+        $("#file_2").change(function(){    
+            var objUrl=getObjectURL(this.files[0]);    
+            var size=this.files[0].size;    
+            if(size>=1024000*10)bottomTip("图片超过10M了哦",0);    
+            else{    
+                 if(objUrl){    
+                        $("#img_2").attr("src",objUrl);  
+                    }    
+            }     
+        });  
+    })  
+</script>  
 </head>
 <body>
 
@@ -267,10 +308,10 @@ if (datetime < 10) {
 						<img id="img_2" src="" style="border:1px solid #ccc"/>
 		
 							<a href="javascript:;" class="file">选择正面照
-							    <input id="file_1" type="file" name="file" onchange="return fileshow1()">
+							    <input id="file_1" type="file" name="file" onchange="fileshow1()">
 							</a>
 							<a href="javascript:;" class="file">选择侧面照
-							    <input id="file_2" type="file" name="sfile" onchange="return fileshow2()">
+							    <input id="file_2" type="file" name="sfile" onchange="fileshow2()">
 							</a>	
 						<%-- <p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">${nEntryTime }嫌疑人入区登记照片</p> --%>
 					</div>

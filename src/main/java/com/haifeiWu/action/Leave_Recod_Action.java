@@ -1,14 +1,16 @@
 package com.haifeiWu.action;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -124,9 +126,18 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			model.setFill_record(fieldsNumber1 - count1 - 4);// 设置已填写的字段数
 			model.setTotal_record(fieldsNumber1 - 4);// 设置应填写的字段
 			// 设置羁押时间
-			String detain_Time = getDistanceTime(suspectInfor.getEnter_Time(),
-					leavetime);
-			suspectInfor.setDetain_Time(detain_Time);
+			// String detain_Time =
+			// getDistanceTime(suspectInfor.getEnter_Time(),
+			// leavetime);
+			// suspectInfor.setDetain_Time(detain_Time);
+			// 设置羁押时间
+			DateTimeFormatter format = DateTimeFormat
+					.forPattern("yyyy-MM-dd HH:mm:ss");
+			DateTime enter = DateTime.parse(suspectInfor.getEnter_Time(),
+					format);
+			DateTime leave = DateTime.parse(leavetime, format);
+			int hours = Hours.hoursBetween(enter, leave).getHours();
+			suspectInfor.setDetain_Time(hours + "小时");
 
 			// 保证不插入重复数据
 			PHCSMP_Leave_Record LeaveRecordInfor = leaveRecodService
@@ -155,6 +166,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			Video.setRBServerCfg();// 远程服务器已配置
 			Video.setFtpServerCfg(suspectInfor.getBand_ID(),
 					suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
+
 			return "success";
 
 		} catch (Exception e) {
@@ -170,35 +182,35 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 	}
 
 	// 求两个时间的间隔
-	public static String getDistanceTime(String str1, String str2) {
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Date one;
-		Date two;
-		long day = 0;
-		long hour = 0;
-		long min = 0;
-		long sec = 0;
-		try {
-			one = df.parse(str1);
-			two = df.parse(str2);
-			long time1 = one.getTime();
-			long time2 = two.getTime();
-			long diff;
-			if (time1 < time2) {
-				diff = time2 - time1;
-			} else {
-				diff = time1 - time2;
-			}
-			// day = diff / (24 * 60 * 60 * 1000);
-			hour = (diff / (60 * 60 * 1000));
-			// min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-			// sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min *
-			// 60);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return hour + "小时";
-	}
+	// public static String getDistanceTime(String str1, String str2) {
+	// DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+	// Date one;
+	// Date two;
+	// long day = 0;
+	// long hour = 0;
+	// long min = 0;
+	// long sec = 0;
+	// try {
+	// one = df.parse(str1);
+	// two = df.parse(str2);
+	// long time1 = one.getTime();
+	// long time2 = two.getTime();
+	// long diff;
+	// if (time1 < time2) {
+	// diff = time2 - time1;
+	// } else {
+	// diff = time1 - time2;
+	// }
+	// // day = diff / (24 * 60 * 60 * 1000);
+	// hour = (diff / (60 * 60 * 1000));
+	// // min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
+	// // sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min *
+	// // 60);
+	// } catch (ParseException e) {
+	// e.printStackTrace();
+	// }
+	// return hour + "小时";
+	// }
 
 	// 保存临时出区的信息
 	public String addTemporaryLeaveInfor() throws IOException {
