@@ -80,33 +80,40 @@ public class RFID_ReadAction extends ActionSupport implements
 		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
 		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
 		// 调用录像,并更新录像状态(判断)// 更新嫌疑人信息，房间号、流程号
-		VedioCommandAndUpdateMessage(suspect, room);
+		VedioCommandAndUpdateMessage(suspect, room, bandId);
 		// 当前房间对应页面自动刷新页面， 刷新页面的时机，不是侯问室，不是出门刷卡
 		if (suspect.getCardReader_Switch() == 0 && room.getProcess_ID() != 4) {
-			triggerWebsocket(room);
+			triggerWebsocket(room, suspect.getSuspect_ID());
 		}
 		return "operateSucess";// 操作成功
 	}
 
-	private void triggerWebsocket(PHCSMP_Room room) {
+	private void triggerWebsocket(PHCSMP_Room room, String suspectID) {
+		System.out.println("triggerWebsocket---------------suspectID="
+				+ suspectID);
+		// flushpage时传递两个信息，一个是IP，另一个是嫌疑人编号，用*作为分割符
 		switch (room.getProcess_ID()) {
 		// case 0:// 0是入区登记，不刷卡以及录像
 		// ws.flushPage(room.getRoom_IPAddress());
 		// break;
 		case 1:// 人身检查
-			ws.flushPage("personalCheck" + "&" + room.getRoom_IPAddress());
+			ws.flushPage(room.getRoom_IPAddress() + "*"
+					+ "personalCheck_loadInfor.action?suspectID=" + suspectID);
 			break;
 		case 2:// 信息采集
-			ws.flushPage("IC" + "&" + room.getRoom_IPAddress());
+			ws.flushPage(room.getRoom_IPAddress() + "*"
+					+ "IC_loadInfor.action?suspectID=" + suspectID);
 			break;
 		case 3:// 询问讯问，
-			ws.flushPage("AR" + "&" + room.getRoom_IPAddress());
+			ws.flushPage(room.getRoom_IPAddress() + "*"
+					+ "AR_loadInfor.action?suspectID=" + suspectID);
 			break;
 		// case 4:// 侯问，不刷新页面
 		// ws.flushPage("personalCheck" + "&" + room.getRoom_IPAddress());
 		// break;
 		case 5:// 出区离区
-			ws.flushPage("LR" + "&" + room.getRoom_IPAddress());
+			ws.flushPage(room.getRoom_IPAddress() + "*"
+					+ "LR_loadInfor.action?suspectID=" + suspectID);
 			break;
 		default:
 			break;
@@ -125,13 +132,12 @@ public class RFID_ReadAction extends ActionSupport implements
 	 * @throws IOException
 	 */
 	private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect,
-			PHCSMP_Room room) throws IOException {
+			PHCSMP_Room room, int bandId) throws IOException {
 		// try {
 		if (suspect.getRecordVideo_State() != 0) {// 如果是0，也要进行相应的更新等操作
 			if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
 				String result = Video
-						.startRecording(room.getCardReader_ID(),
-								room.getLine_Number(),
+						.startRecording(bandId, room.getLine_Number(),
 								suspect.getIdentifyCard_Number());
 				suspectService.updateSuspect(room.getRoom_ID(),
 						room.getProcess_ID(), 2, suspect.getSuspect_ID());
@@ -141,18 +147,18 @@ public class RFID_ReadAction extends ActionSupport implements
 				// 房间号有变化或者标志位为0，开始指令
 				if (suspect.getRoom_Now() != room.getRoom_ID()
 						|| suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
-					String result = Video.restartRecording(
-							room.getCardReader_ID(), room.getLine_Number(),
+					String result = Video.restartRecording(bandId,
+							room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
-					suspectService.updateSuspect(room.getRoom_ID(),
-							room.getProcess_ID(), suspect.getSuspect_ID());
+					suspectService.updateSuspect(bandId, room.getProcess_ID(),
+							suspect.getSuspect_ID());
 					System.out.println("----------------->调用重新开始录像的结果：---"
 							+ result);
 					// suspect.setRecordVideo_State(2);
 					// update(suspect);
 				} else {// 发暂停指令,更新录像状态位为0
-					String result = Video.pauseRecording(
-							room.getCardReader_ID(), room.getLine_Number(),
+					String result = Video.pauseRecording(bandId,
+							room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
 					System.out.println("----------------->调用暂停录像的结果：---"
 							+ result);
@@ -162,8 +168,8 @@ public class RFID_ReadAction extends ActionSupport implements
 		} else {// 状态为0，进的时候更新，出的时候不更新
 			if (suspect.getRoom_Now() != room.getRoom_ID()
 					|| suspect.getCardReader_Switch() == 0) {
-				suspectService.updateSuspect(room.getRoom_ID(),
-						room.getProcess_ID(), suspect.getSuspect_ID());
+				suspectService.updateSuspect(bandId, room.getProcess_ID(),
+						suspect.getSuspect_ID());
 			}
 		}
 		// } catch (Exception e) {

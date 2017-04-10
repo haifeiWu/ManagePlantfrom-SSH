@@ -36,49 +36,81 @@
 			<span style="width:200px;" type="text" id="suspectID"
 				name="Suspect_ID" >${Suspect_ID }</span>
 				<span name="suspect_ID" style="color: black;">${SuspectInfor.suspect_ID }</span>
+				<input type="hidden" name="suspect_ID" value="${SuspectInfor.suspect_ID }"/>
 			</h5>
 			<!--进度条信息设置-->
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
+					<!-- <ul id="number" class="col-lg-12 col-md-10 col-sm-10" style="display: none;">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
 						<li>100%</li>
-					</ul>
-					<!--进度的状态-->
-				</div>
-				<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
-				<!--引入状态截图-->
-				<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
-					<!-- <a href="suspect_updateInfor.action?Suspect_ID=haifieisi"> -->
-					<c:if test="${!empty SuspectInfor}"><img src="images/fgreen_03.png" /></c:if>
-					<c:if test="${empty SuspectInfor}"><img src="images/3-inforCollection_03.png" /></c:if>
-				<!-- 	</a> <a href="personalCheck_updateInfor.action?Suspect_ID=haifieisi"> -->
-					<c:if test="${!empty personal_Check}"><img src="images/fgreen_03.png" /></c:if>
-					<c:if test="${empty personal_Check}"><img src="images/3-inforCollection_03.png" /></c:if>
-					<!-- </a> <a href="#InforCollect"> -->
-					<c:if test="${!empty informatCollect}"><img src="images/fgreen_03.png" /></c:if>
-					<c:if test="${empty informatCollect}"><img src="images/3-inforCollection_03.png" /></c:if>
-						<!-- </a> <a href="#InforCollect"> -->
-					<c:if test="${!empty informatCollect}"><img src="images/fgreen_03.png" /></c:if>
-					<c:if test="${empty informatCollect}"><img src="images/3-inforCollection_03.png" /></c:if>						<!-- </a> <a href="#InforCollect"> -->
-						<img src="images/3-inforCollection_07.png" style="margin-left: -14%;" />
-						</a>
-					<span>活动记录登记表</span>
-				</div>
+					</ul> -->
 
-				<!--进度的信息显示-->
-				<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
-					<li>入区登记</li>
-					<li>人身安全检查</li>
-					<li>信息采集及项目登记</li>
-					<li>信息入库</li>
-					<li>检查对比</li>
-				</ul>
+					<div id="state" class="col-lg-12 col-md-10 col-sm-10" style="margin-top: 30px;">
+
+						<%-- <c:if test="${!empty suspect }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if> --%>
+						<img id="identityImg" src="images/fgreen_03.png" />
+						<c:if test="${!empty personalCheck }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg1").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if> 
+						<img id="identityImg1" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty informatCollect }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#personInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="personInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty activityRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#enterInforImg").attr("src","images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="enterInforImg" src="images/3-inforCollection_03.png" />
+						<c:if test="${!empty leaveRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#confirmImg").attr("src","images/fgreen_07.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="confirmImg" src="images/3-inforCollection_07.png"
+							style="margin-left: -10%;" />
+					</div>
+					<!--进度的信息显示-->
+					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
+						<li>入区登记</li>
+						<li>人身检查</li>
+						<li>信息采集</li>
+						<li>活动登记</li>
+						<li>出区登记</li>
+					</ul>
+				</div>
+				<!--在该容器下第一个row结束-->
 			</div>
+			<!--进度条信息结束-->
 		</div>
 		<!--疑犯个人身份证信息-->
 		<div class="container" style="margin-top: -2%;">

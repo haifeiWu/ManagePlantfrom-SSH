@@ -24,23 +24,23 @@ public interface ActivityRecordService {
 	 */
 	void saveActivitysInfor(List<PHCSMP_Activity_Record> activitys);
 
-//	/**
-//	 * 根据档案号查询嫌疑人档案信息
-//	 * 
-//	 * @param suspectId
-//	 * @return
-//	 */
-	//PHCSMP_Activity_Record findInforBySuspetcId(String suspectId);
-	
-	
+	// PHCSMP_Activity_Record findInforBySuspetcId(String suspectId);
+
+	// /**
+	// * 根据档案号查询嫌疑人档案信息
+	// *
+	// * @param suspectId
+	// * @return
+	// */
+	// PHCSMP_Activity_Record findInforBySuspetcId(String suspectId);
+
 	/**
 	 * 根据档案号查询嫌疑人档案信息
 	 * 
 	 * @param suspectId
 	 * @return
 	 */
-	List<PHCSMP_Activity_Record> findInforBySuspetcId (String suspectId);
-
+	List<PHCSMP_Activity_Record> findInforBySuspetcId(String suspectId);
 
 	/**
 	 * 根据档案号登记办案区活动记录
@@ -49,6 +49,7 @@ public interface ActivityRecordService {
 	 * @return
 	 */
 	List<PHCSMP_Activity_Record> selectActivityRecordInfor(String suspectId);
-	
-	public void updatevedio_Number(String vedio_Number,String identifyCard_Number);
+
+	public void updatevedio_Number(String vedio_Number, int bandID,
+			String identifyCard_Number);
 }

@@ -242,8 +242,8 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	}
 
 	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
-			String identifyCard_Number) {
-		hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? where s.identifyCard_Number=?";
+			int bandID, String identifyCard_Number) {
+		hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? ,s.band_ID=? where s.identifyCard_Number=?";
 		update(hql, is_RecordVideo_DownLoad, identifyCard_Number);
 
 	}
@@ -267,6 +267,36 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	// tx.commit();// 提交事务
 	// return phcsmp_Suspect;
 	// }
+/**
+ * 查询录像失败的嫌疑人信息
+ */
+	@Override
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor() {
+		
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+		hql = "from PHCSMP_Suspect where  is_RecordVideo_DownLoad=0 and process_Now=-1 and recordVideo_State!=0";
+		Query query = session.createQuery(hql);
+		
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+		tx.commit();// 提交事务
+		return phcsmp_Suspect;
+		
+	}
+
+@Override
+public List<PHCSMP_Suspect> findAllByIsRecordVedio() {
+	session = this.getSession();
+	tx = session.beginTransaction();// 开启事务
+	hql = "from PHCSMP_Suspect where is_RecordVideo_DownLoad=1";
+	Query query = session.createQuery(hql);
+	
+	@SuppressWarnings("unchecked")
+	List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
+	tx.commit();// 提交事务
+	return phcsmp_Suspect;
+}
 
 	// /**
 	// * 调用DaoSupport中的save即可
@@ -343,5 +373,6 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	// tx.commit();// 提交事务
 	// return phcsmp_Suspect;
 	// }
+
 
 }

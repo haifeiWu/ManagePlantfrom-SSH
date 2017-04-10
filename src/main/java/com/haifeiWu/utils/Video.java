@@ -2,7 +2,9 @@ package com.haifeiWu.utils;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
@@ -10,6 +12,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 
 public class Video {
 	/**
@@ -18,18 +21,32 @@ public class Video {
 	 * @return
 	 * @throws Exception
 	 */
-	public static void setFtpServerCfg(int band_ID, String identificationCard)
+	public static String setFtpServerCfg(int band_ID, String identificationCard)
 			throws Exception {
 		// 配置FTP服务器的参数
 		String configJson = packjson();
-		String configResult = HttpRequest.sendOkMCVPost(
-				PropertiesReadUtils.getString("SxSetFtpServerCfg"), configJson);
-		System.out.println("配置FTP服务器的----结果----------------" + configResult);
-		// 请求ftp服务器，上传指定id和身份信息的人员的录制文件
+		String result = HttpRequest.sendOkMCVPost(
+				PropertiesReadUtils.getRecordConfString("SxSetFtpServerCfg"),
+				configJson);
+		System.out.println("配置FTP服务器的----结果----------------" + result);
+		return result;
+	}
+
+	/**
+	 * 请求ftp服务器，上传指定id和身份信息的人员的录制文件
+	 * 
+	 * @param band_ID
+	 * @param identificationCard
+	 * @throws Exception
+	 */
+	public static String uploadRecFile(int band_ID, String identificationCard)
+			throws Exception {
 		String json = packjson(band_ID, identificationCard);
 		String result = HttpRequest.sendOkMCVPost(
-				PropertiesReadUtils.getString("SxUploadRecFile"), json);
+				PropertiesReadUtils.getRecordConfString("SxUploadRecFile"),
+				json);
 		System.out.println("请求ftp服务器 开始上传----结果----------------" + result);
+		return result;
 	}
 
 	/**
@@ -37,131 +54,279 @@ public class Video {
 	 * 
 	 * */
 	public static void setRBServerCfg() throws Exception {
-		String configJson = RBSpackjson();
 		String configResult = HttpRequest.sendOkMCVPost(
-				PropertiesReadUtils.getString("SxSetWebServerCfg"), configJson);
+				PropertiesReadUtils.getRecordConfString("SxSetWebServerCfg"),
+				rbsPackjson());
 		System.out.println("配置远程服务器----结果----------------" + configResult);
 
 	}
 
-	private static String packjson() {
-		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
-		map.put("serverIp", "192.168.1.161");
-		map.put("port", 21);
-		map.put("uploadDir", "\\tty");
-		map.put("userName", "dell");
-		map.put("passWord", "ghjk");
-		String json = JSON.toJSONString(map);
-		return json;
-	}
-
 	/**
-	 * 远程服务器参数
-	 * */
-	private static String RBSpackjson() {
-		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
-		map.put("serverIp", "192.168.1.161");
-		map.put("port", 8888);
-		map.put("url", "ManagePlantfrom-SSH/fileStatus.action");
-		String json = JSON.toJSONString(map);
-		return json;
-	}
-
+	 * 查询文件上传状态，上传成功，上传失败
+	 * 
+	 * @param band_ID
+	 * @param identificationCard
+	 * @return
+	 * @throws IOException
+	 */
 	public static String queryDownloadFileStatu(int band_ID,
 			String identificationCard) throws IOException {
 		String json = packjson(band_ID, identificationCard);
-		String result = HttpRequest.sendOkMCVPost(
-				PropertiesReadUtils.getString("SxQueryUploadFileStatus"), json);
-		System.out.println("查询上传文件状态----结果----------------" + result);
-		// Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
-		// Iterator it1 = str.entrySet().iterator();
-		//
-		// /* 遍历 */
-		// while (it1.hasNext()) {
-		// /* 从迭代器中获取一个entry对象 */
-		// Entry entry = (Entry) it1.next();
-		// /* 通过entry.getKey()的方法获取key值 */
-		// System.out.println("key:" + entry.getKey());
-		// /* 通过entry.getValue()的方法获取value值 */
-		//
-		// System.out.println("value:" + entry.getValue());
-		//
-		// }
-		// System.out
-		// .println("++++++++++++++++++++++++++++++++++++++++++++++++++");
+		// String result = "";
+		// Object code = "";
+		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils
+				.getRecordConfString("SxQueryUploadFileStatus"), json);
 
-		// Map<String, Object> M3 = (Map<String, Object>) str.get("data");
-		// System.out.println("---------查询文件data----------------" + M3);
-		// ArrayList sucFileList = (ArrayList) M3.get("sucFileList");
-		// System.out.println("-------------sucFileList----------------"
-		// + sucFileList);
-		// ArrayList failFileList = (ArrayList) M3.get("failFileList");
-		// System.out.println("-------------failFileList----------------"
-		// + failFileList);
-		// Iterator it = M3.entrySet().iterator();
-		//
-		// /* 遍历 */
-		// while (it.hasNext()) {
-		// /* 从迭代器中获取一个entry对象 */
-		// Entry entry = (Entry) it.next();
-		// /* 通过entry.getKey()的方法获取key值 */
-		// System.out
-		// .println("-------------------data--key:" + entry.getKey());
-		// /* 通过entry.getValue()的方法获取value值 */
-		//
-		// System.out.println("-------------------data--value:"
-		// + entry.getValue());
-		//
-		// }
-		// List<String> videolist = (List<String>) M3.get("value");
-		// String videonumber = null;
-		// for (String string : videolist) {
-		// // videonumber=videonumber+string;
-		// System.out.println(string);
-		// }
-		return "";
+		return getSuccessFile(result);
 	}
 
-	public static String startRecording(int cardReader_ID, int room_ID,
+	private static String getSuccessFile(String result) {
+		// List resultList = new ArrayList();
+		String videonumber = null;
+
+		// 此处一系列代码皆为脱壳，为的是获取录像编号
+
+		// 获取result的map
+		/*
+		 * key:code value:200 key:data value:{"failFileList":[{"fileName":
+		 * "1_140411199408210451_20170317090935_0100.MP4"
+		 * },{"fileName":"1_140411199408210451_20170317082317_0100.MP4"
+		 * }],"sucFileList":[]} key:errMsg value:Operate success.
+		 */
+		Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
+		Iterator it1 = str.entrySet().iterator();
+		/* 遍历 */
+		while (it1.hasNext()) {
+			/* 从迭代器中获取一个entry对象 */
+			Entry entry = (Entry) it1.next();
+			/* 通过entry.getKey()的方法获取key值 */
+			System.out.println("key:" + entry.getKey());
+			/* 通过entry.getValue()的方法获取value值 */
+			System.out.println("value:" + entry.getValue());
+		}
+
+		/*
+		 * 次处为data的map key:failFileList
+		 * value:[{"fileName":"1_140411199408210451_20170317090935_0100.MP4"
+		 * },{"fileName":"1_140411199408210451_20170317082317_0100.MP4"}]
+		 * key:sucFileList value:[]
+		 */
+		Map<String, Object> data = (Map<String, Object>) str.get("data");
+		Iterator it = data.entrySet().iterator();
+
+		Object value = null;
+		/* 遍历 */
+		while (it.hasNext()) {
+			/* 从迭代器中获取一个entry对象 */
+			Entry entry = (Entry) it.next();
+			/* 通过entry.getKey()的方法获取key值 */
+			if (entry.getKey().equals("sucFileList")) {
+				System.out.println("key:" + entry.getKey());
+				/* 通过entry.getValue()的方法获取value值 */
+				System.out.println("value:" + entry.getValue());
+				value = entry.getValue();
+			} else {
+				System.out.println("key:" + entry.getKey());
+				/* 通过entry.getValue()的方法获取value值 */
+				System.out.println("value:" + entry.getValue());
+			}
+		}
+		System.out.println(value);
+
+		/**
+		 * 从json数组中得到相应java数组
+		 * 
+		 * JSONArray下的toArray()方法的使用
+		 * */
+		/*
+		 * {"fileName":"1_140411199408210451_20170317090935_0100.MP4"}
+		 * {"fileName":"1_140411199408210451_20170317082317_0100.MP4"}
+		 */
+		Map<String, Object> ob1 = null;
+		Object[] obj = getJsonToArray(value.toString());
+		for (int i = 0; i < obj.length; i++) {
+			System.out.println(obj[i]);
+			// 头一个为最近录取录像编号
+			ob1 = (Map<String, Object>) obj[0];
+		}
+		Iterator it3 = ob1.entrySet().iterator();
+		/* 遍历 */
+		while (it3.hasNext()) {
+			/* 从迭代器中获取一个entry对象 */
+			Entry entry = (Entry) it3.next();
+			/* 通过entry.getKey()的方法获取key值 */
+			System.out.println("key:" + entry.getKey());
+			/* 通过entry.getValue()的方法获取value值 */
+			System.out.println("value:" + entry.getValue());
+			// 直接获得------------1_140411199408210451_20170317090935_0100.MP4
+			videonumber = (String) entry.getValue();
+			// resultList.add(videonumber);
+
+		}
+		return videonumber;
+	}
+
+	public static Object[] getJsonToArray(String str) {
+		JSONArray jsonArray = JSONArray.parseArray(str);
+		return jsonArray.toArray();
+	}
+
+	// String videonumber = null;
+	// 此处一系列代码皆为脱壳，为的是获取录像编号
+
+	// 获取result的map
+	/*
+	 * key:code value:200 key:data value:{"failFileList":[{"fileName":
+	 * "1_140411199408210451_20170317090935_0100.MP4"
+	 * },{"fileName":"1_140411199408210451_20170317082317_0100.MP4"
+	 * }],"sucFileList":[]} key:errMsg value:Operate success.
+	 */
+	// Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
+	// Iterator it1 = str.entrySet().iterator();
+	// /* 遍历 */
+	// while (it1.hasNext()) {
+	// /* 从迭代器中获取一个entry对象 */
+	// Entry entry = (Entry) it1.next();
+	// }
+
+	/*
+	 * 次处为data的map key:failFileList
+	 * value:[{"fileName":"1_140411199408210451_20170317090935_0100.MP4"
+	 * },{"fileName":"1_140411199408210451_20170317082317_0100.MP4"}]
+	 * key:sucFileList value:[]
+	 */
+	// Map<String, Object> data = (Map<String, Object>) str.get("data");
+	// Iterator it = data.entrySet().iterator();
+	//
+	// Object value = null;
+	// /* 遍历 */
+	// while (it.hasNext()) {
+	// /* 从迭代器中获取一个entry对象 */
+	// Entry entry = (Entry) it.next();
+	// /* 通过entry.getKey()的方法获取key值 */
+	// if (entry.getKey().equals("failFileList")) {
+	// System.out.println("key:" + entry.getKey());
+	// /* 通过entry.getValue()的方法获取value值 */
+	// System.out.println("value:" + entry.getValue());
+	// value = entry.getValue();
+	// } else {
+	// //
+	// System.out.println("key:" + entry.getKey());
+	// /* 通过entry.getValue()的方法获取value值 */
+	// System.out.println("value:" + entry.getValue());
+	// }
+	// }
+	// System.out.println(value);
+	//
+	// /**
+	// * 从json数组中得到相应java数组
+	// *
+	// * JSONArray下的toArray()方法的使用
+	// * */
+	// /*
+	// * {"fileName":"1_140411199408210451_20170317090935_0100.MP4"}
+	// * {"fileName":"1_140411199408210451_20170317082317_0100.MP4"}
+	// */
+	// Map<String, Object> ob1 = null;
+	// Object[] obj = getJsonToArray(value.toString());
+	// for (int i = 0; i < obj.length; i++) {
+	// System.out.println(obj[i]);
+	// // 头一个为最近录取录像编号
+	// ob1 = (Map<String, Object>) obj[0];
+	// }
+	// Iterator it3 = ob1.entrySet().iterator();
+	// /* 遍历 */
+	// while (it3.hasNext()) {
+	// /* 从迭代器中获取一个entry对象 */
+	// Entry entry = (Entry) it3.next();
+	// /* 通过entry.getKey()的方法获取key值 */
+	// System.out.println("key:" + entry.getKey());
+	// /* 通过entry.getValue()的方法获取value值 */
+	// System.out.println("value:" + entry.getValue());
+	// // 直接获得------------1_140411199408210451_20170317090935_0100.MP4
+	// videonumber = (String) entry.getValue();
+	// }
+	// return videonumber;
+	// for (int i = 1; i <= 3; i++) {
+	//
+	// Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
+	// code = str.get("code");
+	// if (code.equals(200)) {
+	// System.out.println("查询上传文件状态----结果----------------" + result);
+	// // 将结果解析出来，并将文件名和上传完成状态保存
+	// // 周鑫
+	//
+	// break;
+	// } else if (i == 3) {
+	// throw new IOException("调用SxQueryUploadFileStatus的指令失败，"
+	// + "错误代码：" + result);
+	// }
+	// }
+
+	// private static// public static boolean queryDownloadFileStatu(int
+	// band_ID,
+	// String identificationCard) throws IOException {
+	// String json = packjson(band_ID, identificationCard);
+	// String result = "";
+	// Object code = "";
+	//
+	// for (int i = 1; i <= 3; i++) {
+	// result = HttpRequest.sendOkMCVPost(PropertiesReadUtils
+	// .getRecordConfString("SxQueryUploadFileStatus"), json);
+	// Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
+	// code = str.get("code");
+	// if (code.equals(200)) {
+	// System.out.println("查询上传文件状态----结果----------------" + result);
+	// // 将结果解析出来，并将文件名和上传完成状态保存
+	// // 周鑫
+	//
+	//
+	// break;
+	// } else if (i == 3) {
+	// throw new IOException("调用SxQueryUploadFileStatus的指令失败，"
+	// + "错误代码：" + result);
+	// }
+	// }
+	// return false;
+	// }
+	public static String startRecording(int band_ID, int room_ID,
 			String identificationCard) throws IOException {
-		return videoSupport(cardReader_ID, identificationCard, room_ID,
+		return videoSupport(band_ID, identificationCard, room_ID,
 				"StartRecording");
 	}
 
-	public static String stopRecording(int cardReader_ID, int room_ID,
+	public static String stopRecording(int band_ID, int room_ID,
 			String identificationCard) throws IOException {
-		return videoSupport(cardReader_ID, identificationCard, room_ID,
+		return videoSupport(band_ID, identificationCard, room_ID,
 				"StopRecording");
 	}
 
-	public static String pauseRecording(int cardReader_ID, int room_ID,
+	public static String pauseRecording(int band_ID, int room_ID,
 			String identificationCard) throws IOException {
-		return videoSupport(cardReader_ID, identificationCard, room_ID,
+		return videoSupport(band_ID, identificationCard, room_ID,
 				"PauseRecording");
 	}
 
-	public static String restartRecording(int cardReader_ID, int room_ID,
+	public static String restartRecording(int band_ID, int room_ID,
 			String identificationCard) throws IOException {
-		return videoSupport(cardReader_ID, identificationCard, room_ID,
+		return videoSupport(band_ID, identificationCard, room_ID,
 				"RestartRecording");
 	}
 
-	private static String videoSupport(int cardReader_ID,
-			String identificationCard, int room_ID, String command)
-			throws IOException {
+	private static String videoSupport(int band_ID, String identificationCard,
+			int room_ID, String command) throws IOException {
 		String result = "";
 		if (isValid()) {
-			String json = packjson(cardReader_ID, identificationCard);// 封装json数据
+			String json = packjson(band_ID, identificationCard);// 封装json数据
 
 			if (command.equals("StartRecording")
 					|| command.equals("RestartRecording")) {// 切换录制源
-				result = switchRecording(cardReader_ID, identificationCard,
-						room_ID);
+				result = switchRecording(band_ID, identificationCard, room_ID);
 			}
 			// 调用相应的录像指令
 			for (int i = 1; i <= 3; i++) {
 				result = HttpRequest.sendOkMCVPost(
-						PropertiesReadUtils.getString(command), json);
+						PropertiesReadUtils.getRecordConfString(command), json);
 				Map<String, Object> str = (Map<String, Object>) JSON
 						.parse(result);
 				if (str.get("code").equals(200))
@@ -181,13 +346,14 @@ public class Video {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String switchRecording(int cardReader_ID,
+	public static String switchRecording(int band_ID,
 			String identificationCard, int roomId) throws IOException {
 		String result = "";
-		String json = packjson(cardReader_ID, identificationCard, roomId);
+		String json = packjson(band_ID, identificationCard, roomId);
 		for (int i = 1; i <= 3; i++) {
 			result = HttpRequest.sendOkMCVPost(
-					PropertiesReadUtils.getString("SwitchRecording"), json);
+					PropertiesReadUtils.getRecordConfString("SwitchRecording"),
+					json);
 			Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
 			System.out.println("-------------------------->" + str);
 
@@ -198,6 +364,35 @@ public class Video {
 			}
 		}
 		return result;
+	}
+
+	/**
+	 * 配置FTP服务器的参数
+	 * 
+	 * @return
+	 */
+	private static String packjson() {
+		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
+		map.put("serverIp", PropertiesReadUtils.getRecordConfString("serverIp"));
+		map.put("port", PropertiesReadUtils.getRecordConfString("ftpPort"));
+		map.put("uploadDir",
+				PropertiesReadUtils.getRecordConfString("uploadDir"));
+		map.put("userName", PropertiesReadUtils.getRecordConfString("userName"));
+		map.put("passWord", PropertiesReadUtils.getRecordConfString("passWord"));
+		String json = JSON.toJSONString(map);
+		return json;
+	}
+
+	/**
+	 * 配置远程服务器参数
+	 * */
+	private static String rbsPackjson() {
+		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
+		map.put("serverIp", PropertiesReadUtils.getRecordConfString("serverIp"));
+		map.put("port", PropertiesReadUtils.getRecordConfString("serverPort"));
+		map.put("url", PropertiesReadUtils.getRecordConfString("url"));
+		String json = JSON.toJSONString(map);
+		return json;
 	}
 
 	/**
@@ -224,11 +419,11 @@ public class Video {
 	 * @param roomID
 	 * @return
 	 */
-	private static String packjson(int cardReader_ID,
-			String identificationCard, int roomId) {
+	private static String packjson(int band_ID, String identificationCard,
+			int roomId) {
 
 		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
-		map.put("policeId", cardReader_ID);// 设备ID
+		map.put("policeId", band_ID);// 设备ID
 		map.put("identificationCard", identificationCard);// 身份证号
 		map.put("roomId", roomId);// 身份证号
 		String json = JSON.toJSONString(map);
@@ -243,11 +438,10 @@ public class Video {
 		DateTimeFormatter format = DateTimeFormat
 				.forPattern("yyyy-MM-dd HH:mm:ss");
 		DateTime endTime = DateTime.parse(
-				PropertiesReadUtils.getString("time"), format);// endtime
+				PropertiesReadUtils.getRecordConfString("time"), format);// endtime
 		DateTime startTime = new DateTime();
 		int hours = Hours.hoursBetween(startTime, endTime).getHours();
 		// 有效则可以调用摄像头，无效则不能调用摄像头
 		return hours > 2;
 	}
-
 }

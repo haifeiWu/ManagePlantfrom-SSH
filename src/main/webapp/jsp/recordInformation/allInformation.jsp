@@ -133,7 +133,7 @@
 						name="suspectId" /></li>
 					<li class="l2">报告时间：<input type="date"
 						value="${reportCreateTime }" readonly="readonly" /></li>
-					<li class="l3">羁押时间：<input type="text" value="${detainTime }"
+					<li class="l3">羁押时间：<input type="text" value="${suspect.detain_Time }"
 						readonly="readonly"></li>
 				</ul>
 			</form>
@@ -509,14 +509,15 @@
 					</p>
 					
 						<input  id="download" type="button" value="下载" />
-						<script type="text/javascript">
+						<a href=""></a>
+						<!-- <script type="text/javascript">
 						    $("#download").click(function(){
 						    
 						       window.location.href="${pageContext.request.contextPath }/GR_createPdf.action?suspectId=${suspect.suspect_ID }";
 						       setTimeout(function(){window.location.href="tmp/${suspect.suspect_ID }.pdf";}, 500);
 						    });
 						   
-						</script>
+						</script> -->
 					
 					<div style="height: 100px;"></div>
 				</div>

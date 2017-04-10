@@ -17,7 +17,7 @@ import com.haifeiWu.entity.PHCSMP_Activity_Record;
  * @author wuhaifei
  * @d2016年8月16日
  */
-//repository标注数据访问组件Dao，默认作用域是单例
+// repository标注数据访问组件Dao，默认作用域是单例
 @Repository("activityRecordDao")
 public class ActivityRecordDaoImple extends
 		DaoSupportImpl<PHCSMP_Activity_Record> implements ActivityRecordDao {
@@ -25,6 +25,7 @@ public class ActivityRecordDaoImple extends
 	private Transaction tx = null;
 	private Session session = null;
 	private String hql = null;
+
 	/**
 	 * 批量保存询问讯问等活动记录
 	 */
@@ -43,6 +44,7 @@ public class ActivityRecordDaoImple extends
 		}
 		tx.commit();// 提交事务
 	}
+
 	/**
 	 * 查询记录，此方法和DaoSupport有重复，没必要写
 	 */
@@ -61,12 +63,13 @@ public class ActivityRecordDaoImple extends
 		tx.commit();// 提交事务
 		return activities;
 	}
+
 	@Override
-	public void updatevedio_Number(String vedio_Number,
+	public void updatevedio_Number(String vedio_Number, int band_ID,
 			String identifyCard_Number) {
-		hql = "update PHCSMP_Activity_Record s set s.vedio_Number=? where s.identifyCard_Number=?";
-		update(hql, vedio_Number, identifyCard_Number);
-		
+		hql = "update PHCSMP_Activity_Record s set s.vedio_Number=? ,s.band_ID=? where s.identifyCard_Number=?";
+		update(hql, vedio_Number, band_ID, identifyCard_Number);
+
 	}
 
 }

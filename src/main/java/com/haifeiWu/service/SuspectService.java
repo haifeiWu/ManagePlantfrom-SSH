@@ -72,11 +72,12 @@ public interface SuspectService {
 	// public PHCSMP_Suspect findByRemark(String remark);
 
 	public void updateSuspect(PHCSMP_Suspect suspectInfor);
-	
-	public void updateSuspectPhotoPath(String fpath,String spath,String suspect_ID);
-	
+
+	public void updateSuspectPhotoPath(String fpath, String spath,
+			String suspect_ID);
+
 	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
-			String identifyCard_Number);
+			int bandID, String identifyCard_Number);
 
 	/**
 	 * 查询最大的嫌疑人编号
@@ -99,5 +100,9 @@ public interface SuspectService {
 	public List<PHCSMP_Suspect> serachInforBySuspectIdNow(String searchInfor);
 
 	public List<PHCSMP_Suspect> finBySuspectNameNow(String searchInfor);
+	
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor();
+	
+	public List<PHCSMP_Suspect> findAllByIsRecordVedio();
 
 }

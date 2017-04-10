@@ -16,7 +16,7 @@
         <property name="end_Time"/>
         <property name="room_ID"/>
         <property name="activity_Record"/>
-        <property name="vedio_Number"/>
+       <!--  <property name="vedio_Number"/> -->
         
         <property name="remark"/>
         <property name="staffS"/>
@@ -31,5 +31,4 @@
 		</property>
         
     </class>
-
 </hibernate-mapping>

@@ -141,16 +141,29 @@ public class SuspectServiceImple implements SuspectService {
 	}
 
 	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
-			String identifyCard_Number) {
+			int bandID, String identifyCard_Number) {
 		suspectDao.updateIs_RecordVideo_DownLoad(is_RecordVideo_DownLoad,
-				identifyCard_Number);
+				bandID, identifyCard_Number);
 
 	}
 
 	@Override
-	public void updateSuspectPhotoPath(String fpath, String spath,String suspect_ID) {
+	public void updateSuspectPhotoPath(String fpath, String spath,
+			String suspect_ID) {
 		String hql = "update PHCSMP_Suspect s set s.frontal_Photo=? , s.sideWays_Photo=? where s.suspect_ID=?";
 		suspectDao.update(hql, fpath, spath, suspect_ID);
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor() {
+		
+		return suspectDao.findAllVideoDownloadFailSuspectInfor();
+	}
+
+	@Override
+	public List<PHCSMP_Suspect> findAllByIsRecordVedio() {
+		
+		return suspectDao.findAllByIsRecordVedio();
 	}
 
 	// @Override
@@ -158,4 +171,5 @@ public class SuspectServiceImple implements SuspectService {
 	// // TODO Auto-generated method stub
 	// return suspectDao.findByPropertyName("remark", remark);
 	// }
+
 }

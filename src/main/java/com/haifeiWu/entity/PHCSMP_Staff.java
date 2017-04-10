@@ -123,4 +123,16 @@ public class PHCSMP_Staff implements Serializable {
 	public void setReal_Name(String real_Name) {
 		this.real_Name = real_Name;
 	}
+
+	@Override
+	public String toString() {
+		return "PHCSMP_Staff [Staff_ID=" + Staff_ID + ", Staff_Name="
+				+ Staff_Name + ", PassWord=" + PassWord + ", real_Name="
+				+ real_Name + ", Sex=" + Sex + ", Duties_ID=" + Duties_ID
+				+ ", Email=" + Email + ", RegistedDate=" + RegistedDate
+				+ ", Is_Dimission=" + Is_Dimission + ", Phone=" + Phone
+				+ ", Mobile=" + Mobile + ", Is_FirstLogin=" + Is_FirstLogin
+				+ "]";
+	}
+
 }

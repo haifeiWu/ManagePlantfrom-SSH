@@ -12,7 +12,7 @@
 $(function(){	
 	//导航切换
 	$(".menuson li").click(function(){
-		$(".menuson li.active").removeClass("active")
+		$(".menuson li.active").removeClass("active");
 		$(this).addClass("active");
 	});
 	
@@ -54,7 +54,7 @@ $(document).ready(function (){
         		openFrameset();
         		flag = true;
         	}  
-        })  
+        });  
     });  
     function closeFrameset(){
         var fs = parent.document.getElementsByTagName("frameset")[1];  
@@ -72,7 +72,7 @@ $(document).ready(function (){
 <body style="background:#f0f9fd;">
 	<div class="lefttop" id="lefttop1"><span style="cursor:pointer;"></span>导航栏</div>
     <dl class="leftmenu">
-        
+     
     <dd>
     <div class="title">
     <span><img src="images/leftico01.png" /></span>办案区信息管理
@@ -84,6 +84,7 @@ $(document).ready(function (){
         <li><cite></cite><a class="inforCollect" href="${pageContext.request.contextPath }/IC_loadInfor.action" target="rightFrame">信息采集</a><i></i></li>
         <li><cite></cite><a class="activityRecord" href="${pageContext.request.contextPath }/AR_loadInfor.action" target="rightFrame">询问讯问记录</a><i></i></li>
         <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/LR_loadInfor.action" target="rightFrame">出区信息登记</a><i></i></li>
+        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/home_index.action" target="rightFrame">出区信息登记</a><i></i></li>
         </ul>    
     </dd>
         
@@ -93,7 +94,8 @@ $(document).ready(function (){
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_loadInfor.action" target="rightFrame">入区人员信息汇总</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/GR_loadInfor.action?suspectID=LB-HB-201703175"  target="rightFrame">临时报告区</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_videoDownFailList.action" target="rightFrame">录像下载失败信息</a><i></i></li>
+         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage_videoDownSuccessList.action" target="rightFrame">录像下载成功信息</a><i></i></li>
         </ul>     
     </dd> 
     
@@ -119,8 +121,8 @@ $(document).ready(function (){
     
     <dd><div class="title"><span><img src="images/leftico04.png" /></span>采集设备管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+    	<li><cite></cite><a href="${pageContext.request.contextPath }/cardReaderManage_loadInfor.action" target="rightFrame">查看所有设备</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/BandManage_bandFindAll.action" target="rightFrame">手环查看</a><i></i></li>      
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>

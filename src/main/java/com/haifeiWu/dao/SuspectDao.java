@@ -73,14 +73,12 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 
 	public void updateSuspect(PHCSMP_Suspect suspectInfor);
 
-	
-	
 	/**
 	 * 查询最大id
+	 * 
 	 * @return
 	 */
 	public String findByMaxID();
-
 
 	public List<PHCSMP_Suspect> findByCardId(String searchInfor);
 
@@ -95,7 +93,16 @@ public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
 	public List<PHCSMP_Suspect> findBySuspectNameNow(String searchInfor);
 
 	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
-			String identifyCard_Number);
+			int bandID, String identifyCard_Number);
+	/**
+	 * 查询所有录像下载失败的嫌疑人信息
+	 * 
+	 * @return
+	 */
+	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor();
+
+	public List<PHCSMP_Suspect> findAllByIsRecordVedio();
+
 
 
 }

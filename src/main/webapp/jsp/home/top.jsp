@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+ <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <!DOCTYPE html>
 <html>
 
@@ -19,12 +19,13 @@
 		<div class="row">
 			<div style="padding: 0px;" class="head_title col-lg-12 col-md-12 col-sm-12 col-xs-12">
 				<img class="img_first" src="images/2-logo_03.png" />
-				<<a href="${pageContext.request.contextPath }/user_logout"  target="_parent">注销</a>
+<%-- 				<a href="${pageContext.request.contextPath }/user_logout"  target="_parent">注销</a> --%>
+				<h1  class="system col-lg-12 col-md-12 col-sm-12">${title }</h1>
+				<h3 class="local_police col-lg-12 col-md-12 col-sm-12">---${name }</h3>
 				<img class="img_second" src="images/policer_02.png" />
 				<img class="img_third" src="images/red_02.png"/>
 				
-				<h1 class="system col-lg-12 col-md-12 col-sm-12">离石区公安局智能化派出所系统</h1>
-				<h3 class="local_police col-lg-12 col-md-12 col-sm-12">---滨河派出所</h3>
+				
 			</div>
 		</div>
 	</div>

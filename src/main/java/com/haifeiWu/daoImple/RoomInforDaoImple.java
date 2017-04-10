@@ -51,7 +51,7 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 
 		Query query = session.createQuery(hql);
 		query.setParameter(0, roomID);// deviceId就是读卡器的ID
-		PHCSMP_Room room = (PHCSMP_Room) query.uniqueResult();
+		PHCSMP_Room room =  (PHCSMP_Room) query.uniqueResult();
 		tx.commit();// 提交事务
 		return room;
 	}
@@ -71,5 +71,52 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 
 		tx.commit();// 提交事务
 		return phcsmp_Rooms;
+	}
+
+	@Override
+	public List<PHCSMP_Room> findListByRoomID(int roomID) {
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+
+		hql = "from PHCSMP_Room where room_ID=?";
+
+		Query query = session.createQuery(hql);
+		query.setParameter(0, roomID);// deviceId就是读卡器的ID
+		List<PHCSMP_Room> room =   query.list();
+		tx.commit();// 提交事务
+		return room;
+	}
+
+	/**
+	 * 修改房间信息
+	 */
+	@Override
+	public void updateroom(PHCSMP_Room room) {
+		
+		try {
+			 hql = "update PHCSMP_Room as room set room_Name=?,cardReader_ID=?,process_ID=?,line_Number=?,room_IPAddress=? where room_ID=?";
+			 
+			update(hql, room.getRoom_Name(),room.getCardReader_ID(),room.getProcess_ID(),room.getLine_Number(),room.getRoom_IPAddress(),room.getRoom_ID());
+			
+		} catch (Exception e) {
+			 throw new RuntimeException(e);
+		}
+		
+	}
+
+	@Override
+	public void batchupdate(String roomIdArray,int process_ID) {
+		try {
+			String[] idList = roomIdArray.split(",");
+			for(int i = 0;i < idList.length;i++){
+			 hql = "update PHCSMP_Room as room set process_ID=? where room_ID=?";
+			 
+			update(hql, process_ID,Integer.parseInt(idList[i]));
+			}
+			
+		} catch (Exception e) {
+			 throw new RuntimeException(e);
+		}
+		
 	}
 }

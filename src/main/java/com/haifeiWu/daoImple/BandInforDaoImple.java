@@ -62,5 +62,10 @@ public class BandInforDaoImple extends DaoSupportImpl<PHCSMP_Band> implements
 		hql = "update PHCSMP_Band s set s.is_Used=? where s.band_ID=?";
 		update(hql, isUsed, bandID);
 	}
-
+	@Override
+	public void updateRemarkAndTypeById(String remark,int band_Type,int band_ID)
+	{
+		hql = "update PHCSMP_Band set remark=?,band_Type=? where band_ID=?";
+		update(hql,remark,band_Type,band_ID);
+	}
 }

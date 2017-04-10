@@ -12,7 +12,7 @@ public interface BandInforDao extends DaoSupport<PHCSMP_Band> {
 	 * 
 	 * @return
 	 */
-	List<PHCSMP_Band> findAllBundInfor();
+	public List<PHCSMP_Band> findAllBundInfor();
 
 	/**
 	 * 根据手环编号来查找手环id
@@ -21,7 +21,9 @@ public interface BandInforDao extends DaoSupport<PHCSMP_Band> {
 	 *            手环编号
 	 * @return 手环id
 	 */
-	int findBandIdByWristId(String wristId);
+	public int findBandIdByWristId(String wristId);
 
 	public void updateIsUsedByBandId(int isUsed, int bandID);
+	
+	public void updateRemarkAndTypeById(String remark,int band_Type,int band_ID);
 }
