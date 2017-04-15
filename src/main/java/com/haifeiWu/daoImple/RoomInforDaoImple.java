@@ -17,8 +17,7 @@ import com.haifeiWu.entity.PHCSMP_Room;
  * @d2016年11月28日
  */
 @Repository("roomInforDao")
-public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
-		RoomInforDao {
+public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements RoomInforDao {
 
 	private Transaction tx = null;
 	private Session session = null;
@@ -51,7 +50,7 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 
 		Query query = session.createQuery(hql);
 		query.setParameter(0, roomID);// deviceId就是读卡器的ID
-		PHCSMP_Room room =  (PHCSMP_Room) query.uniqueResult();
+		PHCSMP_Room room = (PHCSMP_Room) query.uniqueResult();
 		tx.commit();// 提交事务
 		return room;
 	}
@@ -62,8 +61,7 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 		tx = session.beginTransaction();// 开启事务
 
 		hql = "FROM PHCSMP_Room ";
-		Query query = session.createQuery(hql).setFirstResult(0)
-				.setMaxResults(5);
+		Query query = session.createQuery(hql).setFirstResult(0).setMaxResults(5);
 
 		// query.setParameter(0, Process_Now);
 		@SuppressWarnings("unchecked")
@@ -82,7 +80,8 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 
 		Query query = session.createQuery(hql);
 		query.setParameter(0, roomID);// deviceId就是读卡器的ID
-		List<PHCSMP_Room> room =   query.list();
+		@SuppressWarnings("unchecked")
+		List<PHCSMP_Room> room = query.list();
 		tx.commit();// 提交事务
 		return room;
 	}
@@ -92,31 +91,31 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements
 	 */
 	@Override
 	public void updateroom(PHCSMP_Room room) {
-		
+
 		try {
-			 hql = "update PHCSMP_Room as room set room_Name=?,cardReader_ID=?,process_ID=?,line_Number=?,room_IPAddress=? where room_ID=?";
-			 
-			update(hql, room.getRoom_Name(),room.getCardReader_ID(),room.getProcess_ID(),room.getLine_Number(),room.getRoom_IPAddress(),room.getRoom_ID());
-			
+			hql = "update PHCSMP_Room as room set room_Name=?,cardReader_ID=?,process_ID=?,line_Number=?,room_IPAddress=? where room_ID=?";
+
+			update(hql, room.getRoom_Name(), room.getCardReader_ID(), room.getProcess_ID(), room.getLine_Number(),
+					room.getRoom_IPAddress(), room.getRoom_ID());
+
 		} catch (Exception e) {
-			 throw new RuntimeException(e);
+			throw new RuntimeException(e);
 		}
-		
 	}
 
 	@Override
-	public void batchupdate(String roomIdArray,int process_ID) {
+	public void batchupdate(String roomIdArray, int process_ID) {
 		try {
 			String[] idList = roomIdArray.split(",");
-			for(int i = 0;i < idList.length;i++){
-			 hql = "update PHCSMP_Room as room set process_ID=? where room_ID=?";
-			 
-			update(hql, process_ID,Integer.parseInt(idList[i]));
+			for (int i = 0; i < idList.length; i++) {
+				hql = "update PHCSMP_Room as room set process_ID=? where room_ID=?";
+
+				update(hql, process_ID, Integer.parseInt(idList[i]));
 			}
-			
+
 		} catch (Exception e) {
-			 throw new RuntimeException(e);
+			throw new RuntimeException(e);
 		}
-		
+
 	}
 }

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.haifeiWu.base.DaoSupportImpl;
 import com.haifeiWu.dao.CardReaderDao;
 import com.haifeiWu.entity.PHCSMP_CardReader;
-import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.service.CardReaderService;
 
 @Service("CardReaderService")
@@ -16,11 +15,9 @@ public class CardReaderServiceImple extends DaoSupportImpl<PHCSMP_CardReader> im
 
 	@Autowired
 	private CardReaderDao cardReaderDao;
-	
 
 	@Override
 	public PHCSMP_CardReader findById(int id) {
-		// TODO Auto-generated method stub
 		return findByPropertyName("cardReader_ID", id);
 	}
 
@@ -29,12 +26,10 @@ public class CardReaderServiceImple extends DaoSupportImpl<PHCSMP_CardReader> im
 		return findAllInfor();
 	}
 
-	
-
 	@Override
-	public void update(String cardReader_Name, int cardReader_Type,int cardReader_ID) {
-		cardReaderDao.update(cardReader_Name, cardReader_Type,cardReader_ID);
-		
+	public void update(String cardReader_Name, int cardReader_Type, int cardReader_ID) {
+		cardReaderDao.update(cardReader_Name, cardReader_Type, cardReader_ID);
+
 	}
 
 }
