@@ -80,15 +80,15 @@ $(document).ready(function (){
     	<ul class="menuson">
     	<!-- a标签请求action，返回的页面的结果显示在rightFrame -->
         <li><cite></cite><a id="suspect" class="suspect" href="${pageContext.request.contextPath }/suspect_loadInfor.action" target="rightFrame">入区人员信息登记</a><i></i></li>
-        <li><cite></cite><a class="personalCheck" href="${pageContext.request.contextPath }/personalCheck_loadInfor.action" target="rightFrame">人身安全检查</a><i></i></li>
+<%--         <li><cite></cite><a class="personalCheck" href="${pageContext.request.contextPath }/personalCheck_loadInfor.action" target="rightFrame">人身安全检查</a><i></i></li>
         <li><cite></cite><a class="inforCollect" href="${pageContext.request.contextPath }/IC_loadInfor.action" target="rightFrame">信息采集</a><i></i></li>
         <li><cite></cite><a class="activityRecord" href="${pageContext.request.contextPath }/AR_loadInfor.action" target="rightFrame">询问讯问记录</a><i></i></li>
-        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/LR_loadInfor.action" target="rightFrame">出区信息登记</a><i></i></li>
-        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/home_index.action" target="rightFrame">出区信息登记</a><i></i></li>
+        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/LR_loadInfor.action" target="rightFrame">出区信息登记</a><i></i></li> --%>
+        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/home_index.action" target="rightFrame">办理其他业务</a><i></i></li>
         </ul>    
     </dd>
         
-    <dd>
+    <%-- <dd>
     <div class="title">
     <span><img src="images/leftico02.png" /></span>嫌疑人信息管理</div>
     <ul class="menuson">
@@ -153,7 +153,7 @@ $(document).ready(function (){
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>
-    </dd>   
+    </dd>    --%>
     </dl>
     
 </body>

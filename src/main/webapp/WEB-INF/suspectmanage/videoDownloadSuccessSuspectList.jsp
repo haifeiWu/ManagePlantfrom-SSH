@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>${item.enter_Time}</td>
 						
 						<td>${item.leave_Time}</td>
-						<td><a class="button" href="${pageContext.request.contextPath}/suspectManage_download.action?fileName=${item.vedio_Number}">下载</a></td>
+						<td><a class="button" href="${item.vedio_number }">下载</a></td>
 					</tr>
 				</c:forEach>
 			</table>

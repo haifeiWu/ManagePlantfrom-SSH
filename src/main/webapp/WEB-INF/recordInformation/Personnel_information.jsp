@@ -54,8 +54,7 @@ $(".submit").on("click",function(){
 $(function() {
 	$("#btnSave").click(function() {
 		var x = document.getElementById("band_ID").value;
-		//var y =	document.getElementById("failSubmit").value;
-		alert(x);
+	/* 	alert(x); */
 		if (x == 0) {
 			// if ($(".clsShow").html().toString() != "")//存在提示信息，则不允许提交表单
 			alert('提交失败，请填写手环');
@@ -392,20 +391,20 @@ if (datetime < 10) {
 						</select>
 						</td>
 					<td style="text-align:center;color: #389ac7;">联系方式：</td>
-						<td><input type="text" name="phone" value="${param.phone}"/></td>
+						<td><input type="text" name="phone" /></td>
 						
 						
 						 </tr>
 					<tr> 
 						<td style="text-align:center;color: #389ac7;">证件号码：</td>
-						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number" value="${param.identifyCard_Number}" />
+						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number"/>
 					 <!--</tr>
 					<tr>-->
 						
 					 </tr>
 					 <tr>
 					 <td style="text-align:center;color: #389ac7;" >现住址：</td>
-						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address" value="${param.now_address}" /></td>
+						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address"  /></td>
 					 </tr>
 				</table>
 			</div>
@@ -480,7 +479,7 @@ if (datetime < 10) {
 						<td style="width: 22%;color: #389ac7;text-align: center;">办案民警：</td>
 						<td style="width: 24%;text-align: center;">
 						<input
-							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" value="${param.staff_ID }"/></td>
+							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" value=""/></td>
 					</tr>
 				</table>
 				<input id="btnSave" class="btn" type="submit" value="确认提交"

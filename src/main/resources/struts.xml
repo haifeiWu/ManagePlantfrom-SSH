@@ -76,6 +76,7 @@
 				suspect_loadInfor
 			</result>
 			
+			
 			<result name="input">/index.jsp</result>
 			<result name="loadInfor">/WEB-INF/recordInformation/Personnel_information.jsp</result>
 <!-- 			<result name="updateInfor">/WEB-INF/recordInformation/Personnel_information.jsp</result> -->

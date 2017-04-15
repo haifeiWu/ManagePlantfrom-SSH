@@ -471,6 +471,7 @@
 				
 			</div>
 		</div>
+		<<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
 	</form>
 	<div style="height: 100px;"></div>
 </body>

@@ -233,9 +233,9 @@
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img
 							style="margin-left:17%; width: 120px; height: 156px; -webkit-box-shadow: 0px 2px 0px rgba(0,1,1,0.7);"
-							src="images/1-zhengmian_04.png" /> <img
+							src="${SuspectInfor.frontal_Photo }" /> <img
 							style="width: 120px; height: 156px; -webkit-box-shadow: 2px 4px 4px rgba(0,1,1,0.7);"
-							src="images/1-cemian_06.png" />
+							src="${SuspectInfor.sideWays_Photo }" />
 						<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
 							&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
@@ -429,7 +429,7 @@
 					   		<td>${ari.room_ID }</td>
 					   		<td>${ari.start_Time }</td>
 					   		<td>${ari.end_Time }</td>
-					   		<td style="width: 600px;">${ari.remark }</td>
+					   		<td><textarea  rows="2" warp="virtual" width="100%" >${activity_remark }</textarea></td>
 					   	</tr>
 					   </c:forEach>
 						
@@ -494,7 +494,7 @@
 						</select></td>
 						<td><!-- <input type="text" name="remark"
 							style="width:790px; height: 80px;text-align: center;" value="${activity_remark }"/> -->
-							<textarea name="remark" style="width: 780px;" clos="300" rows="3" warp="virtual">${activity_remark }</textarea>
+							<textarea class="textarea" name="remark" style="width: 780px;" clos="300" rows="3" warp="virtual">${activity_remark }</textarea>
 							</td>
 					</tr>
 					<tr>
