@@ -508,8 +508,8 @@
 						管理员签名：&nbsp;&nbsp;&nbsp;<input type="text" value="admin" />
 					</p>
 					
-						<input  id="download" type="button" value="下载" />
-						<a href=""></a>
+						<!-- <input  id="download" type="button" value="下载" /> -->
+						<a href="${pdfFilePath }">下载入区报告</a>
 						<!-- <script type="text/javascript">
 						    $("#download").click(function(){
 						    

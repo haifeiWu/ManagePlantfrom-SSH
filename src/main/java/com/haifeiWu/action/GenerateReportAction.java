@@ -30,6 +30,7 @@ import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
+import com.haifeiWu.utils.PropertiesReadUtils;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -153,6 +154,9 @@ public class GenerateReportAction extends ActionSupport implements
 			request.setAttribute("temporaryLeaves", temporaryLeaves);
 			// request.setAttribute("prisonHour", prisonHour);
 			request.setAttribute("reportCreateTime", reportCreateTime);
+			request.setAttribute("pdfFilePath",
+					PropertiesReadUtils.getRecordConfString("uploadDir") + "//"
+							+ suspectId + ".pdf");
 			// request.setAttribute("detainTime", suspect.getDetain_Time());
 			System.out.println("detainTime=" + detainTime);
 

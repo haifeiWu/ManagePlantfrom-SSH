@@ -198,6 +198,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			return "success";
 		}
 		return "loadInfor";
+		// return "reloadInfor";// 进行重定向
 	}
 
 	/**
@@ -212,13 +213,16 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 		try {
 			// 验证照片是否为空
 			System.out.println("file----------------------" + file);
-			String frontal_Photo = "data:image/jpg;base64,"
-					+ Base64.file2base64(file);
-			String sideWays_Photo = "data:image/jpg;base64,"
-					+ Base64.file2base64(sfile);
-
-			model.setFrontal_Photo(frontal_Photo);
-			model.setSideWays_Photo(sideWays_Photo);
+			if (file != null) {
+				String frontal_Photo = "data:image/jpg;base64,"
+						+ Base64.file2base64(file);
+				model.setFrontal_Photo(frontal_Photo);
+			}
+			if (sfile != null) {
+				String sideWays_Photo = "data:image/jpg;base64,"
+						+ Base64.file2base64(sfile);
+				model.setSideWays_Photo(sideWays_Photo);
+			}
 			// 更新手环的is_Used状态
 			bandService.update(1, model.getBand_ID());// 使用时是1，未使用时为0
 			// 回路饱和性验证
@@ -233,7 +237,7 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 			suspectService.saveSuspect(model);// 保存嫌疑人信息，
 			// response.getWriter().write("<script> alert('提交成功，请'); </script>");
 			// response.getWriter().flush();
-			return "loadInfor";
+			return "addSuspectInfor";
 		} catch (Exception e) {
 			bandService.update(0, model.getBand_ID());// 提交失败置0
 			if (useLine)
@@ -280,13 +284,14 @@ public class PHCSMP_Suspect_Action extends BaseAction<PHCSMP_Suspect> {
 	private void fullCheck() throws ClassNotFoundException {
 		Class<?> c = Class.forName(PHCSMP_Suspect.class.getName());
 		int count = CompleteCheck.IsEqualsNull(model, c);// 获取model对象不为空的字段的个数
-		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);// 返回实体类中总字段数
-		model.setFill_record(fieldsNumber - count - 4);//
+		// int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);//
+		// 返回实体类中总字段数
+		model.setFill_record(27 - count + 2);// 填的+
 		// 设置已填写的字段数，，，4应该是除去主键、FillRecord、TotalRecord/羁押时间
-		model.setTotal_record(fieldsNumber - 4);// 设置应填写的字段
-
-		System.out.println("未填写的字段：" + count);
-		System.out.println("总字段：" + fieldsNumber);
+		model.setTotal_record(27);// 设置应填写的字段
+		//
+		// System.out.println("未填写的字段：" + count);
+		// System.out.println("总字段：" + fieldsNumber);
 	}
 
 	public String updateInfor() {

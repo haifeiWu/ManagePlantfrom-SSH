@@ -118,7 +118,8 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			model.setLeave_Time(leavetime);
 			model.setTreatment_Time(leavetime);
 			// 设置离区 嫌疑人的ID
-			model.setSuspect_ID(suspectInfor.getSuspect_ID());
+			model.setSuspect_ID(suspectID);
+			suspectInfor = suspectService.findBySuspetcId(suspectID);
 			// 动态设置离区嫌疑人的字段信息
 			Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
 			int count1 = CompleteCheck.IsEqualsNull(model, c);
@@ -132,16 +133,17 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// suspectInfor.setDetain_Time(detain_Time);
 			// 设置羁押时间
 			DateTimeFormatter format = DateTimeFormat
-					.forPattern("yyyy-MM-dd HH:mm:ss");
+					.forPattern("yyyy-MM-dd HH:mm");
 			DateTime enter = DateTime.parse(suspectInfor.getEnter_Time(),
 					format);
 			DateTime leave = DateTime.parse(leavetime, format);
 			int hours = Hours.hoursBetween(enter, leave).getHours();
 			suspectInfor.setDetain_Time(hours + "小时");
+			// 设置却没有保存到数据库
 
 			// 保证不插入重复数据
 			PHCSMP_Leave_Record LeaveRecordInfor = leaveRecodService
-					.findLeaveRecordInfor(suspectInfor.getSuspect_ID());
+					.findLeaveRecordInfor(suspectID);
 			if (LeaveRecordInfor == null) {
 				leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息，
 			} else {

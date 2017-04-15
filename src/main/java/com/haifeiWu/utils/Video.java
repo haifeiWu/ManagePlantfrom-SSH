@@ -355,7 +355,7 @@ public class Video {
 					PropertiesReadUtils.getRecordConfString("SwitchRecording"),
 					json);
 			Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
-			System.out.println("-------------------------->" + str);
+			System.out.println("切换录制源-------------------------->" + str);
 
 			if (str.get("code").equals(200))
 				break;
