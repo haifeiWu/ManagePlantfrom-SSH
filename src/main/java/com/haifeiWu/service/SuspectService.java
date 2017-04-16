@@ -100,9 +100,11 @@ public interface SuspectService {
 	public List<PHCSMP_Suspect> serachInforBySuspectIdNow(String searchInfor);
 
 	public List<PHCSMP_Suspect> finBySuspectNameNow(String searchInfor);
-	
+
 	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor();
-	
+
 	public List<PHCSMP_Suspect> findAllByIsRecordVedio();
+
+	public void updateDetainTime(String detain_Time, String suspectID);
 
 }

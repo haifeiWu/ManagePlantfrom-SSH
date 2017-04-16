@@ -146,7 +146,7 @@
 				<!--设置标题：档案编号：-->
 				<h5 class="col-lg-12 col-md-10 text-center" >
 					<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
-					<span name="suspect_ID" style="color: black;">${SuspectInfor.suspect_ID }</span>
+					<input name="suspect_ID" style="color: black;" value="${SuspectInfor.suspect_ID }" />
 				</h5>
 				<!--进度条信息设置-->
 				<div class="container" style="height: 180px;">
@@ -424,12 +424,13 @@
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 					</tr>
 					   <c:forEach items="${activity_record_infor }" var="ari">
-					   <tr>
+					   <tr style="height: 70px;" >
 					   		<td>${ari.activity_Record }</td>
 					   		<td>${ari.room_ID }</td>
 					   		<td>${ari.start_Time }</td>
 					   		<td>${ari.end_Time }</td>
-					   		<td><textarea  rows="2" warp="virtual" width="100%" >${activity_remark }</textarea></td>
+					   		<td rows="2"><textarea rows="2" warp="virtual" style="width:100%;height:100" >${ari.remark }</textarea></td>
+					   		
 					   	</tr>
 					   </c:forEach>
 						

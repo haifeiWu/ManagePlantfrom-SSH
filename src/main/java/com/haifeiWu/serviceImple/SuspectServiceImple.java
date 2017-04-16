@@ -156,16 +156,21 @@ public class SuspectServiceImple implements SuspectService {
 
 	@Override
 	public List<PHCSMP_Suspect> findAllVideoDownloadFailSuspectInfor() {
-		
+
 		return suspectDao.findAllVideoDownloadFailSuspectInfor();
 	}
 
 	@Override
 	public List<PHCSMP_Suspect> findAllByIsRecordVedio() {
-		
+
 		return suspectDao.findAllByIsRecordVedio();
 	}
 
+	@Override
+	public void updateDetainTime(String hours, String suspectID) {
+		String hql = "update PHCSMP_Suspect s set s.detain_Time=? where s.suspect_ID=?";
+		suspectDao.update(hql, hours, suspectID);
+	}
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
 	// // TODO Auto-generated method stub

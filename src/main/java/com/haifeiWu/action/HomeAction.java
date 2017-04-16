@@ -1,5 +1,7 @@
 package com.haifeiWu.action;
 
+import java.io.IOException;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -51,7 +53,18 @@ public class HomeAction extends ActionSupport implements ServletRequestAware,
 		return "left";
 	}
 
-	public String index() {
+	public String index() throws IOException {
+		// 获取其他页面错误信息
+		// String errorMessage = (String) request.getAttribute("errorMessage");
+		// System.out.println("----------------------" + errorMessage);
+		// if (!(errorMessage == null || errorMessage.equals(""))) {
+		// System.out.println("----------------------ffffff" + errorMessage);
+		// response.getWriter().write(
+		// "<script type='text/javascript'>alert(" + errorMessage
+		// + ");</script>");
+		// response.getWriter().flush();
+		// return "index";
+		// }
 		// 向客户端输出cookie
 		Cookie cookie = new Cookie("ip", request.getRemoteAddr());
 		cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
@@ -63,6 +76,9 @@ public class HomeAction extends ActionSupport implements ServletRequestAware,
 	}
 
 	public String main() {
+		// 读取配置文件中的公安局名称
+		String main = PropertiesReadUtils.getTitleString("main");
+		request.setAttribute("main", main);
 		return "main";
 	}
 

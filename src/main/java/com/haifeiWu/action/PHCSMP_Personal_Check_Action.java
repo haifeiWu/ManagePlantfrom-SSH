@@ -75,7 +75,6 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	public String loadInfor() throws IOException {
 		try {
-
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
@@ -96,15 +95,15 @@ public class PHCSMP_Personal_Check_Action extends
 					.findAllPHCSMPCabinet();// 保管柜信息
 			PHCSMP_Personal_Check checkRecord = (PHCSMP_Personal_Check) request
 					.getAttribute("checkRecord");
+			// 如果提交失败，保证填写的信息要显示在页面上
+			if (checkRecord != null)
+				request.setAttribute("checkRecord", checkRecord);
 			// 嫌疑人离开房间，再次进入时填写的信息要显示在页面上
 			PHCSMP_Personal_Check updateCheckInfor = personalCheckService
 					.findInforBySuspetcId(suspectId);
 			if (updateCheckInfor != null) {
 				request.setAttribute("checkRecord", updateCheckInfor);
 			}
-			// 如果提交失败，保证填写的信息要显示在页面上
-			if (checkRecord != null)
-				request.setAttribute("checkRecord", checkRecord);
 			request.setAttribute("start_time_time", start_time_time);
 			request.setAttribute("SuspectInfor", suspectInfor);
 			request.setAttribute("InspectionSituationType",
@@ -134,11 +133,12 @@ public class PHCSMP_Personal_Check_Action extends
 			// + activityRecordlist + " " + "leaveRecord=" + leaveRecord);
 		} catch (Exception e) {
 			// 提示可能是房间、读卡器等设备配置错误
-			response.getWriter()
-					.write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
-			response.getWriter().flush();
+			// response.getWriter()
+			// .write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
+			// response.getWriter().flush();
 			// 转到
-			return "success";
+			// request.setAttribute("errorMessage", "人身检查页面加载错误");
+			return "toIndex";
 		}
 		return "loadInfor";
 	}
@@ -153,10 +153,9 @@ public class PHCSMP_Personal_Check_Action extends
 			System.out.println("ip地址" + request.getRemoteAddr());
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			String suspectId = suspectService.findByRoomID(roomId)
-					.getSuspect_ID();
-			// 设置人身检查的结束时间
-			model.setSuspect_ID(suspectId);
+			System.out.println("------------" + model.toString());
+
+			String suspectId = model.getSuspect_ID();
 
 			model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));
 			model.setRoom_ID(roomId);
@@ -189,7 +188,7 @@ public class PHCSMP_Personal_Check_Action extends
 			// 提示成功
 			response.getWriter().write("<script>alert('后台提交成功');</script>");
 			response.getWriter().flush();
-			return "success";
+			return "toIndex";
 		} catch (Exception e) {
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
