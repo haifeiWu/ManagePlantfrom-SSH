@@ -50,8 +50,10 @@ public class Information_Collection_Action extends BaseAction<PHCSMP_Information
 	public String addInformationCollection() throws IOException {
 		try {
 			// 维护进出门的标志位
-			int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
-			String suspectId = suspectService.findByRoomID(roomId).getSuspect_ID();
+
+			int roomId = roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID();
+			String suspectId = model.getSuspect_ID();
 			if (model != null) {
 				model.setIc_EndTime(new DateTime().toString("yyyy-mm-dd HH:mm"));
 				model.setRoom_ID(roomId);
@@ -75,7 +77,7 @@ public class Information_Collection_Action extends BaseAction<PHCSMP_Information
 			request.setAttribute("informatCollect", model);
 			return "chainLoadInfor";
 		}
-		return "success";
+		return "toIndex";
 	}
 
 	// 加载信息，
@@ -149,7 +151,7 @@ public class Information_Collection_Action extends BaseAction<PHCSMP_Information
 					.write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
 			response.getWriter().flush();
 			// 转到
-			return "success";
+			return "toIndex";
 		}
 		return "loadInfor";
 	}

@@ -127,6 +127,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			model.setFill_record(fieldsNumber1 - count1 - 4);// 设置已填写的字段数
 			model.setTotal_record(fieldsNumber1 - 4);// 设置应填写的字段
 			// 设置羁押时间
+
 			// String detain_Time =
 			// getDistanceTime(suspectInfor.getEnter_Time(),
 			// leavetime);
@@ -134,11 +135,11 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// 设置羁押时间
 			DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm");
 			DateTime enter = DateTime.parse(suspectInfor.getEnter_Time(), format);
+
 			DateTime leave = DateTime.parse(leavetime, format);
 			int hours = Hours.hoursBetween(enter, leave).getHours();
-			suspectInfor.setDetain_Time(hours + "小时");
 			// 设置却没有保存到数据库
-
+			suspectService.updateDetainTime(hours + "小时", suspectID);
 			// 保证不插入重复数据
 			PHCSMP_Leave_Record LeaveRecordInfor = leaveRecodService.findLeaveRecordInfor(suspectID);
 			if (LeaveRecordInfor == null) {
@@ -146,8 +147,10 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			} else {
 				leaveRecodService.updateLeaveRecordInfor(model);// 更新嫌疑人离开信息
 			}
-			// 停止录像,手环
-			String stopRecording = Video.stopRecording(suspectInfor.getBand_ID(), room.getLine_Number(),
+
+			// 停止录像
+			String stopRecording = Video.stopRecording(
+					suspectInfor.getBand_ID(), room.getLine_Number(),
 					suspectInfor.getIdentifyCard_Number());
 
 			// 释放回路
@@ -158,13 +161,14 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			// 将录像的标志位置为0
 			suspectService.updateLeaveState(3, -1, 0, suspectInfor.getSuspect_ID());
 			// 下载PDF
-			HtmlToPdf.createPdf(suspectInfor.getSuspect_ID());
+			HtmlToPdf.createPdf(suspectID);
 			// 请求上传录像文件
 			Video.setRBServerCfg();// 远程服务器已配置
-			Video.setFtpServerCfg(suspectInfor.getBand_ID(), suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
-
-			return "success";
-
+			Video.setFtpServerCfg(suspectInfor.getBand_ID(),
+					suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
+			Video.uploadRecFile(suspectInfor.getBand_ID(),
+					suspectInfor.getIdentifyCard_Number());
+			return "toIndex";
 		} catch (Exception e) {
 			response.getWriter().write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
 			response.getWriter().flush();
@@ -175,37 +179,6 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 		}
 
 	}
-
-	// 求两个时间的间隔
-	// public static String getDistanceTime(String str1, String str2) {
-	// DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-	// Date one;
-	// Date two;
-	// long day = 0;
-	// long hour = 0;
-	// long min = 0;
-	// long sec = 0;
-	// try {
-	// one = df.parse(str1);
-	// two = df.parse(str2);
-	// long time1 = one.getTime();
-	// long time2 = two.getTime();
-	// long diff;
-	// if (time1 < time2) {
-	// diff = time2 - time1;
-	// } else {
-	// diff = time1 - time2;
-	// }
-	// // day = diff / (24 * 60 * 60 * 1000);
-	// hour = (diff / (60 * 60 * 1000));
-	// // min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-	// // sec = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min *
-	// // 60);
-	// } catch (ParseException e) {
-	// e.printStackTrace();
-	// }
-	// return hour + "小时";
-	// }
 
 	// 保存临时出区的信息
 	public String addTemporaryLeaveInfor() throws IOException {
@@ -242,7 +215,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 				temporaryLeaveService.saveTemporaryLeaveInfo(temporary_Leave);
 			}
 
-			return "success";
+			return "toIndex";
 		} catch (Exception e) {
 			response.getWriter().write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
@@ -365,7 +338,7 @@ public class Leave_Recod_Action extends BaseAction<PHCSMP_Leave_Record> {
 			response.getWriter().flush();
 			// suspectService.updateSwitch(0, suspectInfor.getSuspect_ID());
 			// 转到
-			return "success";
+			return "toIndex";
 		}
 	}
 

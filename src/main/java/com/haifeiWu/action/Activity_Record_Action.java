@@ -78,8 +78,11 @@ public class Activity_Record_Action extends ActionSupport implements
 			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			String suspectId = suspectService.findByRoomID(roomId)
-					.getSuspect_ID();
+			// System.out.println("-----------"
+			// + request.getParameter("suspect_ID"));
+			// String suspectId=
+
+			String suspectId = request.getParameter("suspect_ID");
 
 			// 获取前台数据
 			String start_Time = request.getParameter("start_Time");
@@ -102,7 +105,7 @@ public class Activity_Record_Action extends ActionSupport implements
 			// 提示成功
 			response.getWriter().write("<script>alert('后台提交成功');</script>");
 			response.getWriter().flush();
-			return "success";
+			return "toIndex";
 		} catch (Exception e) {
 			// 提示失败
 			response.getWriter()
@@ -204,7 +207,7 @@ public class Activity_Record_Action extends ActionSupport implements
 			response.getWriter()
 					.write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
 			response.getWriter().flush();
-			return "success";
+			return "toIndex";
 		}
 		return "loadInfor";
 	}

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>离石区公安局智能化派出所系统</title>
+<title>${main }</title>
 
 </head>
 
