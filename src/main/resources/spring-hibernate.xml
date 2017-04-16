@@ -44,8 +44,10 @@
 		<property name="removeAbandonedTimeout" value="1800" />
 		<!-- 关闭abanded连接时输出错误日志 -->
 		<property name="logAbandoned" value="true" />
-		<!-- 监控数据库 -->
+		<!-- 监控数据库，SQL合并配置 -->
 		<property name="filters" value="mergeStat" />
+		<!-- 使用druid的特性，防止SQL注入攻击，统计监控信息 -->
+		<property name="filters" value="stat,wall" />
 	</bean>
 
 	<!-- 配置hibernate的SessionFactory -->
