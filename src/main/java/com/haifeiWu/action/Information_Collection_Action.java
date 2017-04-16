@@ -28,8 +28,7 @@ import com.haifeiWu.utils.CompleteCheck;
  */
 @Controller
 @Scope("prototype")
-public class Information_Collection_Action extends
-		BaseAction<PHCSMP_Information_Collection> {
+public class Information_Collection_Action extends BaseAction<PHCSMP_Information_Collection> {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -38,6 +37,7 @@ public class Information_Collection_Action extends
 	private SuspectService suspectService;
 	@Autowired
 	private ActivityRecordService activityRecordService;
+	@SuppressWarnings("unused")
 	@Autowired
 	private LeaveRecodService leaveRecodService;
 	@Autowired
@@ -50,16 +50,13 @@ public class Information_Collection_Action extends
 	public String addInformationCollection() throws IOException {
 		try {
 			// 维护进出门的标志位
-			int roomId = roomService.findbyIp(request.getRemoteAddr())
-					.getRoom_ID();
-			String suspectId = suspectService.findByRoomID(roomId)
-					.getSuspect_ID();
+			int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
+			String suspectId = suspectService.findByRoomID(roomId).getSuspect_ID();
 			if (model != null) {
 				model.setIc_EndTime(new DateTime().toString("yyyy-mm-dd HH:mm"));
 				model.setRoom_ID(roomId);
 				fullCheck();
-				PHCSMP_Information_Collection old = informationCollectionService
-						.findInforBySuspetcId(suspectId);
+				PHCSMP_Information_Collection old = informationCollectionService.findInforBySuspetcId(suspectId);
 				if (old != null) {// 删除
 					informationCollectionService.deleteInforCollect(old);
 				}
@@ -85,8 +82,7 @@ public class Information_Collection_Action extends
 	public String loadInfor() throws IOException {// 注意处理房间号找不到异常，或者嫌疑人房间号为空的异常
 		// 维护进出门的标志位
 		try {
-			int roomId = roomService.findbyIp(request.getRemoteAddr())
-					.getRoom_ID();
+			int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
 			request.setAttribute("roomId", roomId);
 
 			// 嫌疑人信息
@@ -96,15 +92,11 @@ public class Information_Collection_Action extends
 			// 有问题，如何解析参数
 			// String suspectId = (String) request.getAttribute("suspectID");
 			String suspectId = (String) request.getParameter("suspectID");
-			System.out
-					.println("loadInfor---------------suspectID=" + suspectId);
-			PHCSMP_Suspect SuspectInfor = suspectService
-					.findBySuspetcId(suspectId);
-			List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
-					.findAllCollectionItem();
+			System.out.println("loadInfor---------------suspectID=" + suspectId);
+			PHCSMP_Suspect SuspectInfor = suspectService.findBySuspetcId(suspectId);
+			List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService.findAllCollectionItem();
 			// 如果再次进入该房间，显示之前填写的信息
-			PHCSMP_Information_Collection collectInfor = informationCollectionService
-					.findInforBySuspetcId(suspectId);
+			PHCSMP_Information_Collection collectInfor = informationCollectionService.findInforBySuspetcId(suspectId);
 			if (collectInfor != null)
 				request.setAttribute("informatCollect", collectInfor);
 			// 如果之前填写过，将之前填写的显示在页面上
@@ -113,8 +105,7 @@ public class Information_Collection_Action extends
 			if (informatCollect != null)
 				request.setAttribute("informatCollect", informatCollect);
 
-			request.setAttribute("start_Time",
-					new DateTime().toString("yyyy-MM-dd HH:mm"));
+			request.setAttribute("start_Time", new DateTime().toString("yyyy-MM-dd HH:mm"));
 			request.setAttribute("SuspectInfor", SuspectInfor);
 			// 人身安全检查
 			// PHCSMP_Personal_Check personal_Check = personalCheckService
@@ -139,8 +130,7 @@ public class Information_Collection_Action extends
 			// System.out
 			// .println("---------------------------activity 进度条 -------"
 			// + length);
-			if (activityRecordService.selectActivityRecordInfor(suspectId)
-					.size() != 0) {
+			if (activityRecordService.selectActivityRecordInfor(suspectId).size() != 0) {
 				request.setAttribute("activityRecord", 1);
 			}
 
@@ -177,8 +167,7 @@ public class Information_Collection_Action extends
 	}
 
 	private void fullCheck() throws ClassNotFoundException {
-		Class<?> c = Class.forName(PHCSMP_Information_Collection.class
-				.getName());
+		Class<?> c = Class.forName(PHCSMP_Information_Collection.class.getName());
 
 		int count = CompleteCheck.IsEqualsNull(model, c);
 		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);

@@ -22,6 +22,7 @@ public class Base64 {// 用到了吗？？？
 	// GenerateImage(strImg);
 	// }
 
+	@SuppressWarnings("restriction")
 	public static String file2base64(File file) {
 		byte[] buffer = null;
 		try {

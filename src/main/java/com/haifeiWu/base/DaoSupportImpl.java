@@ -104,8 +104,7 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	@Override
 	public T findByPropertyName(String propertyName, Object value) {
 		// String hql = "from " + + " t where t."+propertyName+"=?";
-		String hql = "from " + clazz.getName() + " t where t." + propertyName
-				+ " = ? ";
+		String hql = "from " + clazz.getName() + " t where t." + propertyName + " = ? ";
 		System.out.println(hql);
 		tx = getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);
@@ -129,8 +128,7 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	@Override
 	public List<T> findListByPropertyName(String propertyName, Object value) {
 		tx = getSession().beginTransaction();// 开启事务
-		String hql = "from " + clazz.getName() + " t where t." + propertyName
-				+ " =  ?";
+		String hql = "from " + clazz.getName() + " t where t." + propertyName + " =  ?";
 		System.out.println(hql);
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, value);

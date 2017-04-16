@@ -215,7 +215,7 @@ public class RoomManageAction extends ActionSupport
 	 * @return
 	 */
 	public String batchUpdateInfor() {
-		PHCSMP_Room room = new PHCSMP_Room();
+		PHCSMP_Room room = new PHCSMP_Room();// 这个字段没用到，？？？
 		try {
 
 			System.out.println("b" + roomIdArray);
