@@ -36,8 +36,7 @@ import com.haifeiWu.utils.CompleteCheck;
  */
 @Controller
 @Scope("prototype")
-public class PHCSMP_Personal_Check_Action extends
-		BaseAction<PHCSMP_Personal_Check> {
+public class PHCSMP_Personal_Check_Action extends BaseAction<PHCSMP_Personal_Check> {
 
 	/**
 	 * 
@@ -47,8 +46,7 @@ public class PHCSMP_Personal_Check_Action extends
 	// private String start_time_time;
 	// 用于多条记录的提取，一条人身检查记录对应多个随身物品登记记录
 	private List<PHCSMP_BelongingS> belong = new ArrayList<PHCSMP_BelongingS>();
-	private Logger logger = Logger
-			.getLogger(PHCSMP_Personal_Check_Action.class);
+	private Logger logger = Logger.getLogger(PHCSMP_Personal_Check_Action.class);
 	// 人身检查的service
 	@Autowired
 	private PersonalCheckService personalCheckService;
@@ -76,17 +74,14 @@ public class PHCSMP_Personal_Check_Action extends
 	public String loadInfor() throws IOException {
 		try {
 			// 维护进出门的标志位
-			int roomId = roomService.findbyIp(request.getRemoteAddr())
-					.getRoom_ID();
+			int roomId = roomService.findbyIp(request.getRemoteAddr()).getRoom_ID();
 
 			// String suspectId = SuspectInfor.getSuspect_ID();
 			String suspectId = (String) request.getParameter("suspectID");
-			System.out.println("Personal_Check----------------------------"
-					+ suspectId);
-			PHCSMP_Suspect suspectInfor = suspectService
-					.findBySuspetcId(suspectId);
-			String start_time_time = new DateTime()
-					.toString("yyyy-MM-dd HH:mm");// 记录人身检查的开始时间
+			// 使用log4j打印日志信息
+			logger.debug("Personal_Check----------------------------" + suspectId);
+			PHCSMP_Suspect suspectInfor = suspectService.findBySuspetcId(suspectId);
+			String start_time_time = new DateTime().toString("yyyy-MM-dd HH:mm");// 记录人身检查的开始时间
 			List<PHCSMP_Dic_Inspection_Situation> InspectionSituationType = personalCheckService
 					.findAllInspectionSituation();// 人身检查记录字
 			List<PHCSMP_Dic_Keeping_Way> Keeping_WayType = personalCheckService
@@ -98,23 +93,21 @@ public class PHCSMP_Personal_Check_Action extends
 			// 如果提交失败，保证填写的信息要显示在页面上
 			if (checkRecord != null)
 				request.setAttribute("checkRecord", checkRecord);
+
 			// 嫌疑人离开房间，再次进入时填写的信息要显示在页面上
-			PHCSMP_Personal_Check updateCheckInfor = personalCheckService
-					.findInforBySuspetcId(suspectId);
+			PHCSMP_Personal_Check updateCheckInfor = personalCheckService.findInforBySuspetcId(suspectId);
 			if (updateCheckInfor != null) {
 				request.setAttribute("checkRecord", updateCheckInfor);
 			}
 			request.setAttribute("start_time_time", start_time_time);
 			request.setAttribute("SuspectInfor", suspectInfor);
-			request.setAttribute("InspectionSituationType",
-					InspectionSituationType);
+			request.setAttribute("InspectionSituationType", InspectionSituationType);
 			request.setAttribute("Keeping_WayType", Keeping_WayType);
 			request.setAttribute("PHCSMPCabinetType", PHCSMPCabinetType);
 			// 更新录像状态的标志位
 			suspectService.updateSwitch(1, suspectId);
 			// 判断进度条
-			PHCSMP_Personal_Check personalCheck = personalCheckService
-					.findInforBySuspetcId(suspectId);
+			PHCSMP_Personal_Check personalCheck = personalCheckService.findInforBySuspetcId(suspectId);
 			PHCSMP_Information_Collection informationCollection = informationCollectionService
 					.findInforBySuspetcId(suspectId);
 			List<PHCSMP_Activity_Record> activityRecordlist = activityRecordService
@@ -150,6 +143,7 @@ public class PHCSMP_Personal_Check_Action extends
 	 */
 	public String addCheckPersonInfor() throws IOException {
 		try {
+
 			System.out.println("ip地址" + request.getRemoteAddr());
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
@@ -173,8 +167,7 @@ public class PHCSMP_Personal_Check_Action extends
 			}
 			fullCheck();
 			// 判断要更新还是插入
-			PHCSMP_Personal_Check old = personalCheckService
-					.findInforBySuspetcId(suspectId);
+			PHCSMP_Personal_Check old = personalCheckService.findInforBySuspetcId(suspectId);
 			if (old != null) {// 删去
 				personalCheckService.deleteInfor(suspectId);
 			}
@@ -190,8 +183,7 @@ public class PHCSMP_Personal_Check_Action extends
 			response.getWriter().flush();
 			return "toIndex";
 		} catch (Exception e) {
-			response.getWriter()
-					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+			response.getWriter().write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			response.getWriter().flush();
 			request.setAttribute("checkRecord", model);
 			return "chainLoadInfor";
@@ -205,8 +197,10 @@ public class PHCSMP_Personal_Check_Action extends
 
 	// 返回修改人身检查信息
 	public String updateInfor() {
-		System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
-		System.out.println("updateInfor：修改人身检查信息！");
+		logger.debug("档案编号：" + request.getParameter("Suspect_ID"));
+		// System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
+		logger.debug("updateInfor：修改人身检查信息！");
+		// System.out.println("updateInfor：修改人身检查信息！");
 		return "updateInfor";
 	}
 

@@ -28,16 +28,13 @@ import com.opensymphony.xwork2.ActionSupport;
 /**
  * 录波器上传结束接口
  * 
- * */
+ */
 
 @Controller
 @Scope("prototype")
-public class fileStatusAction extends ActionSupport implements
-		ServletRequestAware, ServletResponseAware, ServletContextAware {
+public class fileStatusAction extends ActionSupport
+		implements ServletRequestAware, ServletResponseAware, ServletContextAware {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -6226713528433803678L;
 
 	protected HttpServletRequest request;
@@ -62,18 +59,14 @@ public class fileStatusAction extends ActionSupport implements
 		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
 		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
-		System.out.println("fileStatus收到的数据 -----------           "
-				+ uploadType + "     " + policeId + "     "
+		System.out.println("fileStatus收到的数据 -----------           " + uploadType + "     " + policeId + "     "
 				+ identificationCard);
 		if (uploadType == 0) {// 注意对下载失败的处理
 			// 查询文件上传状态
-			String filename = Video.queryDownloadFileStatu(policeId,
-					identificationCard);
+			String filename = Video.queryDownloadFileStatu(policeId, identificationCard);
 			if (!((filename == null) || filename.equals(""))) {// 成功
-				activityRecordService.updatevedio_Number(filename, policeId,
-						identificationCard);
-				suspectService.updateIs_RecordVideo_DownLoad(1, policeId,
-						identificationCard);
+				activityRecordService.updatevedio_Number(filename, policeId, identificationCard);
+				suspectService.updateIs_RecordVideo_DownLoad(1, policeId, identificationCard);
 			}
 		}
 		return "success";
@@ -86,16 +79,14 @@ public class fileStatusAction extends ActionSupport implements
 	 */
 	private String getJsonData() {
 		ActionContext ctx = ActionContext.getContext();
-		HttpServletRequest request = (HttpServletRequest) ctx
-				.get(ServletActionContext.HTTP_REQUEST);
+		HttpServletRequest request = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
 		InputStream inputStream;
 		String strResponse = "";
 		try {
 			inputStream = request.getInputStream();
 			String strMessage = "";
 			BufferedReader reader;
-			reader = new BufferedReader(new InputStreamReader(inputStream,
-					"utf-8"));
+			reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
 			while ((strMessage = reader.readLine()) != null) {
 				strResponse += strMessage;
 			}
@@ -110,19 +101,16 @@ public class fileStatusAction extends ActionSupport implements
 	@Override
 	public void setServletContext(ServletContext application) {
 		this.application = application;
-
 	}
 
 	@Override
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;
-
 	}
 
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
-
 	}
 
 }

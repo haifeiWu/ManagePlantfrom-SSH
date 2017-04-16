@@ -8,7 +8,13 @@ import java.io.IOException;
 
 import sun.misc.BASE64Encoder;
 
-public class Base64 {
+/**
+ * 这个工具类，用到了吗？？？
+ * 
+ * @author wuhaifei
+ * @2017年4月15日
+ */
+public class Base64 {// 用到了吗？？？
 	// @Test
 	// public void test() {
 	// String strImg = GetImageStr();
@@ -16,6 +22,7 @@ public class Base64 {
 	// GenerateImage(strImg);
 	// }
 
+	@SuppressWarnings("restriction")
 	public static String file2base64(File file) {
 		byte[] buffer = null;
 		try {
@@ -34,6 +41,7 @@ public class Base64 {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
 		BASE64Encoder encoder = new BASE64Encoder();
 		return encoder.encode(buffer);// 返回Base64编码过的字节数组字符串
 	}

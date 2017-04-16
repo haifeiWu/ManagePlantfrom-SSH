@@ -30,8 +30,8 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @Controller
 @Scope("prototype")
-public class RFID_ReadAction extends ActionSupport implements
-		ServletRequestAware, ServletResponseAware, ServletContextAware {
+public class RFID_ReadAction extends ActionSupport
+		implements ServletRequestAware, ServletResponseAware, ServletContextAware {
 	/**
 	 * UUID
 	 */
@@ -64,19 +64,35 @@ public class RFID_ReadAction extends ActionSupport implements
 	// Video.switchRecording(1, "1", 1);
 	// return "ok";
 	// }
-
+	/**
+	 * 这里的异常最好用try catch块处理一下，不然抛出异常的时候就会出现在树莓派上不好处理
+	 * 
+	 * @author wuhaifei
+	 * @d2017年4月16日
+	 */
 	public String readRFID() throws IOException, InterruptedException {
+		/**
+		 * 控制设备发出不同的声音的话，应该在这里做一下应该返回的参数，建议用json格式的数据
+		 * 
+		 * @author wuhaifei
+		 * @d2017年4月16日
+		 */
+
+		/**
+		 * 然后树莓派根据返回参数，通过判断来实现发出不同的声音
+		 * 
+		 * @author wuhaifei
+		 * @d2017年4月16日
+		 */
+
 		// 获取BandID和CardReader_ID
 		String cardReader_Name = request.getParameter("deviceId");// 设备号
 		String remark = request.getParameter("wristId");
-		System.out.println(request.getParameter("deviceId")
-				+ "-------------------cardReader_Name-----------");
-		System.out.println(request.getParameter("wristId")
-				+ "-------------------remark-----------");
+		System.out.println(request.getParameter("deviceId") + "-------------------cardReader_Name-----------");
+		System.out.println(request.getParameter("wristId") + "-------------------remark-----------");
 		// 通过获取的属性获取嫌疑人当前信息和所在房间的信息
 		int bandId = bandService.findByRemark(remark).getBand_ID();
-		int cardReader_ID = roomService.findByCardReaderName(cardReader_Name)
-				.getCardReader_ID();
+		int cardReader_ID = roomService.findByCardReaderName(cardReader_Name).getCardReader_ID();
 		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
 		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
 		/**
@@ -119,31 +135,26 @@ public class RFID_ReadAction extends ActionSupport implements
 	}
 
 	private void triggerWebsocket(PHCSMP_Room room, String suspectID) {
-		System.out.println("triggerWebsocket---------------suspectID="
-				+ suspectID);
+		System.out.println("triggerWebsocket---------------suspectID=" + suspectID);
 		// flushpage时传递两个信息，一个是IP，另一个是嫌疑人编号，用*作为分割符
 		switch (room.getProcess_ID()) {
 		// case 0:// 0是入区登记，不刷卡以及录像
 		// ws.flushPage(room.getRoom_IPAddress());
 		// break;
 		case 1:// 人身检查
-			ws.flushPage(room.getRoom_IPAddress() + "*"
-					+ "personalCheck_loadInfor.action?suspectID=" + suspectID);
+			ws.flushPage(room.getRoom_IPAddress() + "*" + "personalCheck_loadInfor.action?suspectID=" + suspectID);
 			break;
 		case 2:// 信息采集
-			ws.flushPage(room.getRoom_IPAddress() + "*"
-					+ "IC_loadInfor.action?suspectID=" + suspectID);
+			ws.flushPage(room.getRoom_IPAddress() + "*" + "IC_loadInfor.action?suspectID=" + suspectID);
 			break;
 		case 3:// 询问讯问，
-			ws.flushPage(room.getRoom_IPAddress() + "*"
-					+ "AR_loadInfor.action?suspectID=" + suspectID);
+			ws.flushPage(room.getRoom_IPAddress() + "*" + "AR_loadInfor.action?suspectID=" + suspectID);
 			break;
 		// case 4:// 侯问，不刷新页面
 		// ws.flushPage("personalCheck" + "&" + room.getRoom_IPAddress());
 		// break;
 		case 5:// 出区离区
-			ws.flushPage(room.getRoom_IPAddress() + "*"
-					+ "LR_loadInfor.action?suspectID=" + suspectID);
+			ws.flushPage(room.getRoom_IPAddress() + "*" + "LR_loadInfor.action?suspectID=" + suspectID);
 			break;
 		default:
 			break;
@@ -161,11 +172,11 @@ public class RFID_ReadAction extends ActionSupport implements
 	 * @param room
 	 * @throws IOException
 	 */
-	private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect,
-			PHCSMP_Room room, int bandId) throws IOException {
+	private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect, PHCSMP_Room room, int bandId) throws IOException {
 		// try {
 		if (suspect.getRecordVideo_State() != 0) {// 如果是0，也要进行相应的更新等操作
 			if (suspect.getRecordVideo_State() == 1) {// 开始录像指令，置2
+
 				String result = Video
 						.startRecording(bandId, room.getLine_Number(),
 								suspect.getIdentifyCard_Number());
@@ -179,11 +190,10 @@ public class RFID_ReadAction extends ActionSupport implements
 				// update(suspect);
 			} else {// 录像状态2
 				// 房间号有变化或者标志位为0，开始指令
-				if (suspect.getRoom_Now() != room.getRoom_ID()
-						|| suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
-					String result = Video.restartRecording(bandId,
-							room.getLine_Number(),
+				if (suspect.getRoom_Now() != room.getRoom_ID() || suspect.getCardReader_Switch() == 0) {// 首次进入一个房间，或者又进入同一房间
+					String result = Video.restartRecording(bandId, room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
+
 					suspectService.updateSuspect(room.getRoom_ID(),
 							room.getProcess_ID(), suspect.getSuspect_ID());
 					System.out.println("----------------->调用重新开始录像的结果：---"
@@ -192,31 +202,27 @@ public class RFID_ReadAction extends ActionSupport implements
 					if (suspect.getCardReader_Switch() == 1) {
 						repairSwitch(0, suspect.getSuspect_ID());
 					}
+
 					// suspect.setRecordVideo_State(2);
 					// update(suspect);
 				} else {// 发暂停指令,更新录像状态位为0
-					String result = Video.pauseRecording(bandId,
-							room.getLine_Number(),
+					String result = Video.pauseRecording(bandId, room.getLine_Number(),
 							suspect.getIdentifyCard_Number());
+
 					System.out.println("----------------->调用暂停录像的结果：---"
 							+ result);
 					// 校准录像状态
 					// if (suspect.getCardReader_Switch() == 0) {
 					// repairSwitch(1, suspect.getSuspect_ID());
 					// }
+
 				}
 			}
 		} else {// 状态为0，进的时候更新，出的时候不更新
-			if (suspect.getRoom_Now() != room.getRoom_ID()
-					|| suspect.getCardReader_Switch() == 0) {
-				suspectService.updateSuspect(bandId, room.getProcess_ID(),
-						suspect.getSuspect_ID());
+			if (suspect.getRoom_Now() != room.getRoom_ID() || suspect.getCardReader_Switch() == 0) {
+				suspectService.updateSuspect(bandId, room.getProcess_ID(), suspect.getSuspect_ID());
 			}
 		}
-		// } catch (Exception e) {
-		// System.out.println(e.getMessage());
-		// }
-
 	}
 
 	private void repairSwitch(int cardReader_Switch, String suspect_ID) {
@@ -248,6 +254,12 @@ public class RFID_ReadAction extends ActionSupport implements
 		this.request = request;
 	}
 
+	/**
+	 * 之前的业务代码，如果没有啥用的话，该删除的就删掉吧
+	 * 
+	 * @author wuhaifei
+	 * @d2017年4月16日
+	 */
 	// private void VedioCommandAndUpdateMessage(PHCSMP_Suspect suspect,
 	// PHCSMP_Room room) throws IOException {
 	// if (suspect.getRecordVideo_State() != 0) {

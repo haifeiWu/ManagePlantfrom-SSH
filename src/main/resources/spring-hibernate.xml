@@ -44,8 +44,10 @@
 		<property name="removeAbandonedTimeout" value="1800" />
 		<!-- 关闭abanded连接时输出错误日志 -->
 		<property name="logAbandoned" value="true" />
-		<!-- 监控数据库 -->
+		<!-- 监控数据库，SQL合并配置 -->
 		<property name="filters" value="mergeStat" />
+		<!-- 使用druid的特性，防止SQL注入攻击，统计监控信息 -->
+		<property name="filters" value="stat,wall" />
 	</bean>
 
 	<!-- 配置hibernate的SessionFactory -->
@@ -58,7 +60,7 @@
 		<!-- hibernate配置信息 -->
 		<property name="hibernateProperties">
 			<props>
-				
+
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
 				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
@@ -75,23 +77,18 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<!-- 配置事务增强处理Bean，指定事务管理器 
-		tx:advice事务通知定义，指定事务属性，transaction-manager指定事务管理器
-	-->
+	<!-- 配置事务增强处理Bean，指定事务管理器 tx:advice事务通知定义，指定事务属性，transaction-manager指定事务管理器 -->
 	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
-		<!-- 配置详细事务处理语义  tx:attributes指定要拦截的方法 -->
+		<!-- 配置详细事务处理语义 tx:attributes指定要拦截的方法 -->
 		<tx:attributes>
-			<!-- REQUIRED：支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。
-				 SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行。  -->
+			<!-- REQUIRED：支持当前事务，如果当前没有事务，就新建一个事务。这是最常见的选择。 SUPPORTS：支持当前事务，如果当前没有事务，就以非事务方式执行。 -->
 			<!-- required传播行为为required，isolation是隔离级别 -->
-			<!-- <tx:method name="insert*" propagation="REQUIRED" />
-			<tx:method name="update*" propagation="REQUIRED" />
-			<tx:method name="delete*" propagation="REQUIRED" />
-			read-only默认false，不是只读
-			<tx:method name="get*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="find*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="select*" propagation="SUPPORTS" read-only="true" />
-			<tx:method name="load*" propagation="SUPPORTS" read-only="true" /> -->
+			<!-- <tx:method name="insert*" propagation="REQUIRED" /> <tx:method name="update*" 
+				propagation="REQUIRED" /> <tx:method name="delete*" propagation="REQUIRED" 
+				/> read-only默认false，不是只读 <tx:method name="get*" propagation="SUPPORTS" read-only="true" 
+				/> <tx:method name="find*" propagation="SUPPORTS" read-only="true" /> <tx:method 
+				name="select*" propagation="SUPPORTS" read-only="true" /> <tx:method name="load*" 
+				propagation="SUPPORTS" read-only="true" /> -->
 
 			<!-- 其他采用默认事务方式 -->
 			<tx:method name="*" />
@@ -99,13 +96,9 @@
 	</tx:advice>
 
 	<!-- Spring aop事务管理 -->
-	<!-- <aop:config>
-		配置切入点
-		<aop:pointcut id="transactionPointcut"
-			expression="execution(* com.haifeiWu.serviceImpl.*Impl.*(..))" />
-		指定在txAdvice切入点应用txAdvice事务增强处理
-		<aop:advisor pointcut-ref="transactionPointcut"
-			advice-ref="transactionAdvice" />
-	</aop:config> -->
+	<!-- <aop:config> 配置切入点 <aop:pointcut id="transactionPointcut" expression="execution(* 
+		com.haifeiWu.serviceImpl.*Impl.*(..))" /> 指定在txAdvice切入点应用txAdvice事务增强处理 
+		<aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" 
+		/> </aop:config> -->
 
 </beans>

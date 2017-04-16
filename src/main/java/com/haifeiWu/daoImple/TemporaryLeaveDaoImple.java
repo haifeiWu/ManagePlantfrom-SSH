@@ -12,8 +12,7 @@ import com.haifeiWu.dao.TemporaryLeaveDao;
 import com.haifeiWu.entity.Temporary_Leave;
 
 @Repository("temporaryLeaveDao")
-public class TemporaryLeaveDaoImple extends DaoSupportImpl<Temporary_Leave>
-		implements TemporaryLeaveDao {
+public class TemporaryLeaveDaoImple extends DaoSupportImpl<Temporary_Leave> implements TemporaryLeaveDao {
 
 	private Transaction tx = null;
 	private Session session = null;
@@ -44,7 +43,6 @@ public class TemporaryLeaveDaoImple extends DaoSupportImpl<Temporary_Leave>
 
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, suspectId);
-		@SuppressWarnings("unchecked")
 		Temporary_Leave entity = (Temporary_Leave) query.uniqueResult();
 
 		tx.commit();// 提交事务

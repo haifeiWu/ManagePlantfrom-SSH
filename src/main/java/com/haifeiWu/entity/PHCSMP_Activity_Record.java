@@ -23,8 +23,8 @@ public class PHCSMP_Activity_Record implements Serializable {
 	private String end_Time;// 结束时间
 	private int room_ID;// 房间ID
 	private String activity_Record;// 活动内容
-	/*private String vedio_Number;// 音频视频编码
-*/	private String remark;// 备注
+	// private String vedio_Number;// 音频视频编码
+	private String remark;// 备注
 	private String staffS;// 办案民警ID（多个民警ID间逗号间隔）
 
 	private int total_record = 60;// 需要填写的总记录数
@@ -78,13 +78,12 @@ public class PHCSMP_Activity_Record implements Serializable {
 		this.activity_Record = activity_Record;
 	}
 
-	/*public String getVedio_Number() {
-		return vedio_Number;
-	}
-
-	public void setVedio_Number(String vedio_Number) {
-		this.vedio_Number = vedio_Number;
-	}*/
+	/*
+	 * public String getVedio_Number() { return vedio_Number; }
+	 * 
+	 * public void setVedio_Number(String vedio_Number) { this.vedio_Number =
+	 * vedio_Number; }
+	 */
 
 	public String getRemark() {
 		return remark;
@@ -120,26 +119,21 @@ public class PHCSMP_Activity_Record implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PHCSMP_Activity_Record [activity_Record_ID="
-				+ activity_Record_ID + ", suspect_ID=" + suspect_ID
-				+ ", start_Time=" + start_Time + ", end_Time=" + end_Time
-				+ ", room_ID=" + room_ID + ", activity_Record="
-				+ activity_Record + ", remark=" + remark + ", staffS=" + staffS
-				+ ", total_record=" + total_record + ", fill_record="
-				+ fill_record + "]";
+		return "PHCSMP_Activity_Record [activity_Record_ID=" + activity_Record_ID + ", suspect_ID=" + suspect_ID
+				+ ", start_Time=" + start_Time + ", end_Time=" + end_Time + ", room_ID=" + room_ID
+				+ ", activity_Record=" + activity_Record + ", remark=" + remark + ", staffS=" + staffS
+				+ ", total_record=" + total_record + ", fill_record=" + fill_record + "]";
 	}
 
-	/*@Override
-	public String toString() {
-		return "PHCSMP_Activity_Record [activity_Record_ID="
-				+ activity_Record_ID + ", suspect_ID=" + suspect_ID
-				+ ", start_Time=" + start_Time + ", end_Time=" + end_Time
-				+ ", room_ID=" + room_ID + ", activity_Record="
-				+ activity_Record + ", vedio_Number=" + vedio_Number
-				+ ", remark=" + remark + ", staffS=" + staffS
-				+ ", total_record=" + total_record + ", fill_record="
-				+ fill_record + "]";
-	}*/
+	/*
+	 * @Override public String toString() { return
+	 * "PHCSMP_Activity_Record [activity_Record_ID=" + activity_Record_ID +
+	 * ", suspect_ID=" + suspect_ID + ", start_Time=" + start_Time +
+	 * ", end_Time=" + end_Time + ", room_ID=" + room_ID + ", activity_Record="
+	 * + activity_Record + ", vedio_Number=" + vedio_Number + ", remark=" +
+	 * remark + ", staffS=" + staffS + ", total_record=" + total_record +
+	 * ", fill_record=" + fill_record + "]"; }
+	 */
 
 	// @Override
 	// public String toString() {
