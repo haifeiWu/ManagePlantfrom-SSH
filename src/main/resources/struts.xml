@@ -88,9 +88,6 @@
 
 		<!-- 人身检查记录 -->
 		<action name="personalCheck_*" class="com.haifeiWu.action.PHCSMP_Personal_Check_Action" method="{1}">
-			<!-- 当处于未登录状态时 -->
-			<!-- <result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Personal_Check.jsp</result>
-			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Personal_Check.jsp</result> -->
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<result name="chainLoadInfor" type="chain">personalCheck_loadInfor</result> 
@@ -111,9 +108,6 @@
 		<!-- 信息采集 -->
 		<action name="IC_*"
 			class="com.haifeiWu.action.Information_Collection_Action" method="{1}">
-			<!-- 当处于未登录状态时 -->
-			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Information_Collection.jsp</result>
-			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Information_Collection.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 
@@ -128,9 +122,6 @@
 		<!--询问、讯问、辨认、等候、休息、饮食等活动记录 -->
 		<action name="AR_*" class="com.haifeiWu.action.Activity_Record_Action"
 			method="{1}">
-			<!-- 当处于未登录状态时 -->
-			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Activity_Record.jsp</result>
-			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>
 			<!-- 当处于登录状态时 -->
 			<result name="input">/index.jsp</result><!-- 类型错误 -->
 			<!-- <result name="addActivityRecordInfor" type="chain">/jsp/recordInformation/PHCSMP_Activity_Record.jsp</result>-->
@@ -147,26 +138,18 @@
 		<!--离开办案区 -->
 		<action name="LR_*" class="com.haifeiWu.action.Leave_Recod_Action"
 			method="{1}">
-			<!-- 当处于未登录状态时 -->
-			<!-- <interceptor-ref name="phcsmpAuthStack"/> -->
-<!-- 			<result name="unLoginState">/jsp/unlogin/unlogin_PHCSMP_Leave_Record.jsp</result>
-			<result name="unlogin_load">/jsp/recordInformation/PHCSMP_Leave_Record.jsp</result> -->
 			<!-- 当处于登录状态时 -->
 			<result name="leaveRecordLoadInfor" type="chain">LR_loadInfor</result>
 			<result name="temporaryLeaveload" type="chain">LR_loadInfor</result>
-			<!-- <result name="input">/index.jsp</result> --><!-- 类型错误 -->
-			<!-- <result name="addLeaveRecordInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
-			<result name="addTemporaryLeaveInfor" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>-->
 			<result name="loadInfor">/WEB-INF/recordInformation/PHCSMP_Leave_Record.jsp</result>
 			<result name="toIndex" type="chain">home_index</result>
 		</action>
 		<!-- 生成嫌疑人信息报告 -->
 		<action name="GR_*" class="com.haifeiWu.action.GenerateReportAction"
 			method="{1}">
-			<result name="loadInfor">/jsp/recordInformation/allInformation.jsp</result>
-			<result name="downFile">/jsp/recordInformation/allInformation.jsp</result>
-			 <!-- <result name="downPdf" type="redirectAction">GR_loadInfor.action?personName=${personName}&amp;suspectID=${suspectID}</result>
-				<result name="createPdf">/jsp/home/index.jsp</result>  -->
+			<result name="loadInfor">/WEB-INF/recordInformation/allInformation.jsp</result>
+			<result name="downFile">/WEB-INF/recordInformation/allInformation.jsp</result>
+			
 		</action>
 		
 		<!-- 录播器上传完成的接口 -->
@@ -198,7 +181,7 @@
 		</action>
 		<!-- 查看日志 -->
 		<action name="Log_execute" class="com.haifeiWu.action.Log_Action">
-			<result>/jsp/log/log_Read.jsp</result>
+			<result>/WEB-INF/log/log_Read.jsp</result>
 		</action>
 		
 		<!-- 手环信息 -->
