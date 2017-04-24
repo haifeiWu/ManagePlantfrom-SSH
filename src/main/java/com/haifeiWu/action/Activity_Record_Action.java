@@ -68,28 +68,29 @@ public class Activity_Record_Action {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addActivityRecordInfor(HttpServletRequest request,
+	public String addActivityRecordInfor(
+			@RequestParam("suspect_ID") String suspectId,
+			PHCSMP_Activity_Record activity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		try {
 			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			String suspectId = request.getParameter("suspect_ID");
-			PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
+			// PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
 			// 获取前台数据
-			String start_Time = request.getParameter("start_Time");
-			String activity_Record = request.getParameter("activity_Record");
-			String activity_remark = request.getParameter("remark");
-			activity.setStart_Time(start_Time);
-			activity.setRemark(activity_remark);
-			activity.setActivity_Record(activity_Record);
+			// String start_Time = request.getParameter("start_Time");
+			// String activity_Record = request.getParameter("activity_Record");
+			// String activity_remark = request.getParameter("remark");
+			// activity.setStart_Time(start_Time);
+			// activity.setRemark(activity_remark);
+			// activity.setActivity_Record(activity_Record);
 
 			// 设置询问讯问结束的时间
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String End_Time = sdf.format(date);
-			activity.setSuspect_ID(suspectId);
-			activity.setRoom_ID(1);
+			// activity.setSuspect_ID(suspectId);
+			activity.setRoom_ID(roomId);
 			activity.setEnd_Time(End_Time);
 			fullCheck(activity);
 			// 保存
@@ -100,9 +101,9 @@ public class Activity_Record_Action {
 			return "redirect:/home/index";
 		} catch (Exception e) {
 			// 提示失败
-			response.getWriter()
-					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
-			response.getWriter().flush();
+			// response.getWriter()
+			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+			// response.getWriter().flush();
 			// 将信息传递到loadInfor action,显示在页面上
 			String activity_Record = request.getParameter("activity_Record");
 			String activity_remark = request.getParameter("remark");
@@ -201,7 +202,6 @@ public class Activity_Record_Action {
 			// response.getWriter().flush();
 			return "redirect:/load";
 		}
-
 	}
 
 }
