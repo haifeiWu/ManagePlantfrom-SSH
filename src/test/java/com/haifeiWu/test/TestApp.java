@@ -1,12 +1,37 @@
 package com.haifeiWu.test;
 
+import java.util.Map;
+
 import org.joda.time.DateTime;
 import org.joda.time.Hours;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+
 public class TestApp {
+
+	// {"code":200,"data":{"failFileList":[],"sucFileList":[]},"errMsg":"Operate success."}
+
+	public void getFile(String result) {
+		Map<String, Object> map = (Map<String, Object>) JSON.parse(result);
+		Map<String, Object> data = (Map<String, Object>) JSON
+				.parse((String) map.get("data"));
+		JSONArray sucArray = JSON.parseArray((String) data.get("sucFileList"));
+		for (int i = 0; i < sucArray.size(); i++) {
+			System.out.println(i + "---------------------" + sucArray.get(i));
+		}
+		JSONArray failArray = JSON
+				.parseArray((String) data.get("failFileList"));
+		for (int i = 0; i < failArray.size(); i++) {
+			System.out.println(i + "---------------------" + failArray.get(i));
+		}
+
+		// {"code":200,"data":{"failFileList":[],"sucFileList":[]},"errMsg":"Operate success."};
+
+	}
 
 	@Test
 	public void test12() {

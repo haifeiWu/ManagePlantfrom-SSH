@@ -9,21 +9,16 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.util.ServletContextAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSONObject;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BandService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.Video;
-import com.opensymphony.xwork2.ActionContext;
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 录波器上传结束接口
@@ -32,8 +27,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 @Controller
 @Scope("prototype")
-public class fileStatusAction extends ActionSupport
-		implements ServletRequestAware, ServletResponseAware, ServletContextAware {
+public class fileStatusAction {
 
 	private static final long serialVersionUID = -6226713528433803678L;
 
@@ -52,21 +46,25 @@ public class fileStatusAction extends ActionSupport
 	// String uploadType;
 	// String policeId;
 	// String identificationCard;
-
+	@RequestMapping(value = "/fileStatus.action")
 	public String fileStatus() throws IOException {
 		JSONObject jsonRequest = JSONObject.parseObject(this.getJsonData());
 		// 获取json中参数
 		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
 		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
-		System.out.println("fileStatus收到的数据 -----------           " + uploadType + "     " + policeId + "     "
+		System.out.println("fileStatus收到的数据 -----------           "
+				+ uploadType + "     " + policeId + "     "
 				+ identificationCard);
-		if (uploadType == 0) {// 注意对下载失败的处理
+		if (uploadType == 0) {
 			// 查询文件上传状态
-			String filename = Video.queryDownloadFileStatu(policeId, identificationCard);
+			String filename = Video.queryDownloadFileStatu(policeId,
+					identificationCard);
 			if (!((filename == null) || filename.equals(""))) {// 成功
-				activityRecordService.updatevedio_Number(filename, policeId, identificationCard);
-				suspectService.updateIs_RecordVideo_DownLoad(1, policeId, identificationCard);
+				activityRecordService.updatevedio_Number(filename, policeId,
+						identificationCard);
+				suspectService.updateIs_RecordVideo_DownLoad(1, policeId,
+						identificationCard);
 			}
 		}
 		return "success";
@@ -78,15 +76,17 @@ public class fileStatusAction extends ActionSupport
 	 * @return
 	 */
 	private String getJsonData() {
-		ActionContext ctx = ActionContext.getContext();
-		HttpServletRequest request = (HttpServletRequest) ctx.get(ServletActionContext.HTTP_REQUEST);
+		// ActionContext ctx = ActionContext.getContext();
+		// HttpServletRequest request = (HttpServletRequest) ctx
+		// .get(ServletActionContext.HTTP_REQUEST);
 		InputStream inputStream;
 		String strResponse = "";
 		try {
 			inputStream = request.getInputStream();
 			String strMessage = "";
 			BufferedReader reader;
-			reader = new BufferedReader(new InputStreamReader(inputStream, "utf-8"));
+			reader = new BufferedReader(new InputStreamReader(inputStream,
+					"utf-8"));
 			while ((strMessage = reader.readLine()) != null) {
 				strResponse += strMessage;
 			}
@@ -98,19 +98,19 @@ public class fileStatusAction extends ActionSupport
 		return strResponse;
 	}
 
-	@Override
-	public void setServletContext(ServletContext application) {
-		this.application = application;
-	}
-
-	@Override
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request = request;
-	}
+	// @Override
+	// public void setServletContext(ServletContext application) {
+	// this.application = application;
+	// }
+	//
+	// @Override
+	// public void setServletResponse(HttpServletResponse response) {
+	// this.response = response;
+	// }
+	//
+	// @Override
+	// public void setServletRequest(HttpServletRequest request) {
+	// this.request = request;
+	// }
 
 }

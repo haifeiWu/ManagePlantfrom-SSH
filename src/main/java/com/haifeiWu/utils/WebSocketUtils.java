@@ -78,6 +78,7 @@ public class WebSocketUtils {
 			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理,对象为空
 			try {// 异常处理
 				System.out.println("-------------->准备发送");
+				System.out.println("--------websocket发送的对象----------" + item);
 				item.session.getBasicRemote().sendText(result);
 				System.out.println("-----------------发送成功----" + result
 						+ "-------------------------");

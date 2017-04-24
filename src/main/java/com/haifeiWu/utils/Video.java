@@ -21,10 +21,12 @@ public class Video {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String setFtpServerCfg(int band_ID, String identificationCard) throws Exception {
+	public static String setFtpServerCfg(int band_ID, String identificationCard)
+			throws Exception {
 		// 配置FTP服务器的参数
 		String configJson = packjson();
-		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getRecordConfString("SxSetFtpServerCfg"),
+		String result = HttpRequest.sendOkMCVPost(
+				PropertiesReadUtils.getRecordConfString("SxSetFtpServerCfg"),
 				configJson);
 		System.out.println("配置FTP服务器的----结果----------------" + result);
 		return result;
@@ -37,9 +39,12 @@ public class Video {
 	 * @param identificationCard
 	 * @throws Exception
 	 */
-	public static String uploadRecFile(int band_ID, String identificationCard) throws Exception {
+	public static String uploadRecFile(int band_ID, String identificationCard)
+			throws Exception {
 		String json = packjson(band_ID, identificationCard);
-		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getRecordConfString("SxUploadRecFile"), json);
+		String result = HttpRequest.sendOkMCVPost(
+				PropertiesReadUtils.getRecordConfString("SxUploadRecFile"),
+				json);
 		System.out.println("请求ftp服务器 开始上传----结果----------------" + result);
 		return result;
 	}
@@ -49,7 +54,8 @@ public class Video {
 	 * 
 	 */
 	public static void setRBServerCfg() throws Exception {
-		String configResult = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getRecordConfString("SxSetWebServerCfg"),
+		String configResult = HttpRequest.sendOkMCVPost(
+				PropertiesReadUtils.getRecordConfString("SxSetWebServerCfg"),
 				rbsPackjson());
 		System.out.println("配置远程服务器----结果----------------" + configResult);
 
@@ -63,12 +69,14 @@ public class Video {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String queryDownloadFileStatu(int band_ID, String identificationCard) throws IOException {
+	public static String queryDownloadFileStatu(int band_ID,
+			String identificationCard) throws IOException {
 		String json = packjson(band_ID, identificationCard);
 		// String result = "";
 		// Object code = "";
-		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getRecordConfString("SxQueryUploadFileStatus"),
-				json);
+		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils
+				.getRecordConfString("SxQueryUploadFileStatus"), json);
+		System.out.println("-----json-----" + result);
 
 		return getSuccessFile(result);
 	}
@@ -82,10 +90,10 @@ public class Video {
 
 		// 获取result的map
 		/*
-		 * key:code value:200 key:data value:{"failFileList":[{"fileName":
+		 * {key:code value:200, key:data value:{"failFileList":[{"fileName":
 		 * "1_140411199408210451_20170317090935_0100.MP4"
 		 * },{"fileName":"1_140411199408210451_20170317082317_0100.MP4"
-		 * }],"sucFileList":[]} key:errMsg value:Operate success.
+		 * }],"sucFileList":[]} key:errMsg value:Operate success.}
 		 */
 		Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
 		Iterator<?> it1 = str.entrySet().iterator();
@@ -283,40 +291,52 @@ public class Video {
 	// }
 	// return false;
 	// }
-	public static String startRecording(int band_ID, int room_ID, String identificationCard) throws IOException {
-		return videoSupport(band_ID, identificationCard, room_ID, "StartRecording");
+	public static String startRecording(int band_ID, int room_ID,
+			String identificationCard) throws IOException {
+		return videoSupport(band_ID, identificationCard, room_ID,
+				"StartRecording");
 	}
 
-	public static String stopRecording(int band_ID, int room_ID, String identificationCard) throws IOException {
-		return videoSupport(band_ID, identificationCard, room_ID, "StopRecording");
+	public static String stopRecording(int band_ID, int room_ID,
+			String identificationCard) throws IOException {
+		return videoSupport(band_ID, identificationCard, room_ID,
+				"StopRecording");
 	}
 
-	public static String pauseRecording(int band_ID, int room_ID, String identificationCard) throws IOException {
-		return videoSupport(band_ID, identificationCard, room_ID, "PauseRecording");
+	public static String pauseRecording(int band_ID, int room_ID,
+			String identificationCard) throws IOException {
+		return videoSupport(band_ID, identificationCard, room_ID,
+				"PauseRecording");
 	}
 
-	public static String restartRecording(int band_ID, int room_ID, String identificationCard) throws IOException {
-		return videoSupport(band_ID, identificationCard, room_ID, "RestartRecording");
+	public static String restartRecording(int band_ID, int room_ID,
+			String identificationCard) throws IOException {
+		return videoSupport(band_ID, identificationCard, room_ID,
+				"RestartRecording");
 	}
 
-	private static String videoSupport(int band_ID, String identificationCard, int room_ID, String command)
-			throws IOException {
+	private static String videoSupport(int band_ID, String identificationCard,
+			int room_ID, String command) throws IOException {
 		String result = "";
 		if (isValid()) {
 			String json = packjson(band_ID, identificationCard);// 封装json数据
 
-			if (command.equals("StartRecording") || command.equals("RestartRecording")) {// 切换录制源
+			if (command.equals("StartRecording")
+					|| command.equals("RestartRecording")) {// 切换录制源
 				result = switchRecording(band_ID, identificationCard, room_ID);
 			}
 			// 调用相应的录像指令
 			for (int i = 1; i <= 3; i++) {
-				result = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getRecordConfString(command), json);
+				result = HttpRequest.sendOkMCVPost(
+						PropertiesReadUtils.getRecordConfString(command), json);
 				@SuppressWarnings("unchecked")
-				Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
+				Map<String, Object> str = (Map<String, Object>) JSON
+						.parse(result);
 				if (str.get("code").equals(200))
 					break;
 				else if (i == 3) {
-					throw new IOException("调用" + command + "的指令失败，" + "错误代码：" + result);
+					throw new IOException("调用" + command + "的指令失败，" + "错误代码："
+							+ result);
 				}
 			}
 		}
@@ -330,11 +350,14 @@ public class Video {
 	 * @throws IOException
 	 */
 	@SuppressWarnings("unchecked")
-	public static String switchRecording(int band_ID, String identificationCard, int roomId) throws IOException {
+	public static String switchRecording(int band_ID,
+			String identificationCard, int roomId) throws IOException {
 		String result = "";
 		String json = packjson(band_ID, identificationCard, roomId);
 		for (int i = 1; i <= 3; i++) {
-			result = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getRecordConfString("SwitchRecording"), json);
+			result = HttpRequest.sendOkMCVPost(
+					PropertiesReadUtils.getRecordConfString("SwitchRecording"),
+					json);
 			Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
 			System.out.println("切换录制源-------------------------->" + str);
 
@@ -356,7 +379,8 @@ public class Video {
 		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
 		map.put("serverIp", PropertiesReadUtils.getRecordConfString("serverIp"));
 		map.put("port", PropertiesReadUtils.getRecordConfString("ftpPort"));
-		map.put("uploadDir", PropertiesReadUtils.getRecordConfString("uploadDir"));
+		map.put("uploadDir",
+				PropertiesReadUtils.getRecordConfString("uploadDir"));
 		map.put("userName", PropertiesReadUtils.getRecordConfString("userName"));
 		map.put("passWord", PropertiesReadUtils.getRecordConfString("passWord"));
 		String json = JSON.toJSONString(map);
@@ -399,7 +423,8 @@ public class Video {
 	 * @param roomID
 	 * @return
 	 */
-	private static String packjson(int band_ID, String identificationCard, int roomId) {
+	private static String packjson(int band_ID, String identificationCard,
+			int roomId) {
 
 		Map<String, Object> map = new HashMap<String, Object>();// 存放的是设备ID和身份证号
 		map.put("policeId", band_ID);// 设备ID
@@ -414,8 +439,10 @@ public class Video {
 	 * 
 	 */
 	private static boolean isValid() {
-		DateTimeFormatter format = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-		DateTime endTime = DateTime.parse(PropertiesReadUtils.getRecordConfString("time"), format);// endtime
+		DateTimeFormatter format = DateTimeFormat
+				.forPattern("yyyy-MM-dd HH:mm:ss");
+		DateTime endTime = DateTime.parse(
+				PropertiesReadUtils.getRecordConfString("time"), format);// endtime
 		DateTime startTime = new DateTime();
 		int hours = Hours.hoursBetween(startTime, endTime).getHours();
 		// 有效则可以调用摄像头，无效则不能调用摄像头

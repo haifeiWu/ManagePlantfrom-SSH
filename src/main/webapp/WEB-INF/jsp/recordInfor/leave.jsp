@@ -8,21 +8,21 @@
 <head>
 <meta charset="UTF-8">
 <title>离开办案区登记</title>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/Leave_depart.css" />
-<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/Leave_depart.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"
 	charset="UTF-8"></script>
 	
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
 	
 <script type="text/javascript"
-	src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script type="text/javascript" src="js/Leave_depart.js"></script>
-<script type="text/javascript" src="js/jquery.form.js"></script>
+	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/Leave_depart.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$(".transient").hide();
@@ -133,26 +133,26 @@
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+					<!-- <!-- <ul id="number" class="col-lg-12 col-md-10 col-sm-10">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
 						<li>100%</li>
-					</ul>
+					</ul> --> -->
 					<!--进度的状态-->
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
 						<a href="suspect_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="images/fgreen_03.png" /></a> <a
+							src="${pageContext.request.contextPath }/images/fgreen_03.png" /></a> <a
 							href="personalCheck_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="images/fgreen_03.png" /></a> <a
+							src="${pageContext.request.contextPath }/images/fgreen_03.png" /></a> <a
 							href="IC_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="images/fgreen_03.png" /></a> <a
+							src="${pageContext.request.contextPath }/images/fgreen_03.png" /></a> <a
 							href="AR_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="images/fgreen_03.png" /></a> <a href="#leaveReco"><img
-							src="images/3-inforCollection_07.png" /></a>
+							src="${pageContext.request.contextPath }/images/fgreen_03.png" /></a> <a href="#leaveReco"><img
+							src="${pageContext.request.contextPath }/images/3-inforCollection_07.png" /></a>
 					</div>
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
@@ -352,7 +352,7 @@
 		</div>
 	</div>
 	<form class="transient"
-		action="${pageContext.request.contextPath }/LR_addTemporaryLeaveInfor.action"
+		action="${pageContext.request.contextPath }/leave/addtemp"
 		method="post">
 		<div class="container">
 			<div class="row">
@@ -410,7 +410,7 @@
 	</form>
 	<!--最终离开办案区的信息表-->
 	<form class="final"
-		action="${pageContext.request.contextPath }/LR_addLeaveRecordInfor.action"
+		action="${pageContext.request.contextPath }/leave/add"
 		method="post">
 		<div class="container ">
 			<div class="row ">
