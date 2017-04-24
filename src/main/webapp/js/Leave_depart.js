@@ -37,21 +37,21 @@ $(function(){
 window.onload = function(){
 // 设置进度条变化
 if ($(".Message input[type='text']").val()!="") {
-	$("#state img:eq(0)").attr("src","./images/fgreen_03.png");
+	$("#state img:eq(0)").attr("src","/ManagePlantfrom-SSH/images/3-inforCollection_03.png");
 
 	}
 	else{
-	$("#state img:eq(0)").attr("src","./images/3-信息采集_03.png");
+	$("#state img:eq(0)").attr("src","/ManagePlantfrom-SSH/images/fgreen_03.png");
 
 	}
 	$(".Message input[type='text']").change(function(){
 // console.log($(this).val())
 	if ($(this).val()!="") {
-	$("#state img:eq(0)").attr("src","./images/fgreen_03.png");
+	$("#state img:eq(0)").attr("src","/ManagePlantfrom-SSH/images/fgreen_03.png");
 
 	}
 	else{
-	$("#state img:eq(0)").attr("src","./images/3-信息采集_03.png");
+	$("#state img:eq(0)").attr("src","/ManagePlantfrom-SSH/images/3-inforCollection_03.png");
 
 	}
 		
@@ -62,21 +62,21 @@ if ($(".Message input[type='text']").val()!="") {
 $(document).ready(function(){
 
 	if ($(".transient_Leave input:lt(2)").val()!="") {
-	$("#state img:eq(5)").attr("src","./images/fgreen_07.png");
+	$("#state img:eq(5)").attr("src","/ManagePlantfrom-SSH/images/fgreen_07.png");
 
 	}
 	else{
-	$("#state img:eq(5)").attr("src","./images/3-信息采集_07.png");
+	$("#state img:eq(5)").attr("src","/ManagePlantfrom-SSH/images/3-inforCollection_07.png");
 
 	}
 	$(".transient_Leave input:lt(2)").change(function(){
 // console.log($(this).val())
 	if ($(this).val()!="") {
-	$("#state img:eq(5)").attr("src","./images/fgreen_07.png");
+	$("#state img:eq(5)").attr("src","/ManagePlantfrom-SSH/images/fgreen_07.png");
 
 	}
 	else{
-	$("#state img:eq(5)").attr("src","./images/3-信息采集_07.png");
+	$("#state img:eq(5)").attr("src","/ManagePlantfrom-SSH/images/3-inforCollection_07.png");
 
 	}
 		

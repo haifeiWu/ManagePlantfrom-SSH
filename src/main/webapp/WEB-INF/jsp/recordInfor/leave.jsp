@@ -133,26 +133,56 @@
 			<div class="container" style="height: 180px;">
 				<div class="row">
 					<!--进度的数据信息-->
-					<!-- <!-- <ul id="number" class="col-lg-12 col-md-10 col-sm-10">
+					<ul id="number" class="col-lg-12 col-md-10 col-sm-10">
 						<li>0%</li>
 						<li>25%</li>
 						<li>50%</li>
 						<li>75%</li>
 						<li>100%</li>
-					</ul> --> -->
+					</ul>
 					<!--进度的状态-->
 					<!--以上的内容都是标记进度条信息的状态，现已经完全注释，以后修改的时候再打开即可-->
 					<!--引入状态截图-->
+					
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<a href="suspect_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="${pageContext.request.contextPath }/images/fgreen_03.png" /></a> <a
-							href="personalCheck_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="${pageContext.request.contextPath }/images/fgreen_03.png" /></a> <a
-							href="IC_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="${pageContext.request.contextPath }/images/fgreen_03.png" /></a> <a
-							href="AR_updateInfor.action?Suspect_ID=${suspectInfor.identifyCard_Number }"><img
-							src="${pageContext.request.contextPath }/images/fgreen_03.png" /></a> <a href="#leaveReco"><img
-							src="${pageContext.request.contextPath }/images/3-inforCollection_07.png" /></a>
+						<img id="identityImg" src="${pageContext.request.contextPath }/images/fgreen_03.png" />
+						<c:if test="${!empty checkRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#identityImg1").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if> 
+						<img id="identityImg1" src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
+						<c:if test="${!empty informationCollection }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#personInforImg").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="personInforImg" src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
+						<c:if test="${!empty activityRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#enterInforImg").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="enterInforImg" src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
+						<c:if test="${!empty leaveRecord }">
+							<script type="text/javascript">
+					       $(document).ready(function(){
+					            $("#confirmImg").attr("src","${pageContext.request.contextPath }/images/fgreen_07.png");
+					       
+					       });
+					    </script>
+						</c:if>
+						<img id="confirmImg" src="${pageContext.request.contextPath }/images/3-inforCollection_07.png"
+							style="margin-left: -10%;" /> 
 					</div>
 					<!--进度的信息显示-->
 					<ul id="txt" class="col-lg-12 col-md-10 col-sm-10">
@@ -332,6 +362,16 @@
 						<td class="complete">0%</td>
 						<td style="text-align:left;padding-left:30px;">活动内容：空</td>
 					</c:if>
+					<c:if test="${!empty pastList }">
+						<c:forEach items="${pastList }" var="p" varStatus="status">
+							<td id="select">${p.tempLeave_Reason }</td>
+							<td style="padding:6px 0 6px 0"><input name="staff_ID" class="staff_ID"
+							type="text" style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;"
+							value="${p.staff_ID }" />
+							</td>		
+						</c:forEach>
+					</c:if>
+					
 				</table>
 			</div>
 		</div>

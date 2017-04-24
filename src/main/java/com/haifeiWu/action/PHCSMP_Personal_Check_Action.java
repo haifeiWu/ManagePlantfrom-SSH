@@ -156,7 +156,9 @@ public class PHCSMP_Personal_Check_Action {
 
 			model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));
 			model.setRoom_ID(roomId);
+			
 			String[] str = model.getStaff_ID().split(",");
+			
 			model.setStaff_ID(str[0]);
 			List<PHCSMP_BelongingS> belongs = this.getBelong();
 			List<PHCSMP_BelongingS> vaildBelong = new ArrayList<PHCSMP_BelongingS>();// 填写的有效信息
@@ -187,9 +189,9 @@ public class PHCSMP_Personal_Check_Action {
 			// response.getWriter().flush();
 			return "redirect:/home/index";
 		} catch (Exception e) {
-			response.getWriter()
-					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
-			response.getWriter().flush();
+//			response.getWriter()
+//					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+//			response.getWriter().flush();
 			request.setAttribute("checkRecord", model);
 			return "redirect:load";
 		}
