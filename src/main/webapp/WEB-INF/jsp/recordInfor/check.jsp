@@ -342,7 +342,7 @@
 							</tr>
 						</table>
 						
-						<img src="images/check_08.png"
+						<img src="${pageContext.request.contextPath }/images/check_08.png"
 									style="width:230px !important; margin-top: 0%;"/>
 					<h4 id="belongInspect" 
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
