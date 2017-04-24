@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,18 +44,14 @@
 			<li><a href="#">关于</a></li>
 		</ul>
 	</div>
-	<div style="position: absolute; top: 200px;left: 650px;">
-				<font color="red" size="20px"><s:fielderror fieldName="loginError"
-						theme="simple" /></font>
+	<div style="position: absolute; top: 200px;left: 650px;font-size: 15px;">
+		<font color="red" size="15px">${loginError }</font>
 	</div>
 	<div class="loginbody">
 
 		<span class="systemlogo"></span>
-			
 		<div class="loginbox">
-
-			
-			<form action="${pageContext.request.contextPath}/user_login.action"
+			<form action="${pageContext.request.contextPath}/user/login"
 				method="post">
 				<ul>
 					<li><input name="Staff_Name" type="text" class="loginuser"

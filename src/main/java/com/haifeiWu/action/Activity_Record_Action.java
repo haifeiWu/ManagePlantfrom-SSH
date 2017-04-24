@@ -5,16 +5,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.util.ServletContextAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
@@ -27,7 +26,6 @@ import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.CompleteCheck;
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 活动记录
@@ -36,16 +34,13 @@ import com.opensymphony.xwork2.ActionSupport;
  * @d2016年9月28日
  */
 @Controller
+@RequestMapping("/activity")
 @Scope("prototype")
-public class Activity_Record_Action extends ActionSupport implements
-		ServletRequestAware, ServletResponseAware, ServletContextAware {
+public class Activity_Record_Action {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1201107017949225716L;
-	protected HttpServletRequest request;
-	protected HttpServletResponse response;
-	protected ServletContext application;
 	@Autowired
 	private RoomService roomService;
 	// 活动记录实例类
@@ -62,8 +57,8 @@ public class Activity_Record_Action extends ActionSupport implements
 	// 信息采集信息登记
 	@Autowired
 	private InformationCollectionService informationCollectionService;
+
 	// 活动记录表list，用于前台提交的多个数据
-	private PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
 
 	/**
 	 * 添加活动记录信息
@@ -72,32 +67,30 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * @throws IOException
 	 * @throws Exception
 	 */
-
-	public String addActivityRecordInfor() throws IOException {
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String addActivityRecordInfor(
+			@RequestParam("suspect_ID") String suspectId,
+			PHCSMP_Activity_Record activity, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
 		try {
 			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			// System.out.println("-----------"
-			// + request.getParameter("suspect_ID"));
-			// String suspectId=
-
-			String suspectId = request.getParameter("suspect_ID");
-
+			// PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
 			// 获取前台数据
-			String start_Time = request.getParameter("start_Time");
-			String activity_Record = request.getParameter("activity_Record");
-			String activity_remark = request.getParameter("remark");
-			activity.setStart_Time(start_Time);
-			activity.setRemark(activity_remark);
-			activity.setActivity_Record(activity_Record);
+			// String start_Time = request.getParameter("start_Time");
+			// String activity_Record = request.getParameter("activity_Record");
+			// String activity_remark = request.getParameter("remark");
+			// activity.setStart_Time(start_Time);
+			// activity.setRemark(activity_remark);
+			// activity.setActivity_Record(activity_Record);
 
 			// 设置询问讯问结束的时间
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String End_Time = sdf.format(date);
-			activity.setSuspect_ID(suspectId);
-			activity.setRoom_ID(1);
+			// activity.setSuspect_ID(suspectId);
+			activity.setRoom_ID(roomId);
 			activity.setEnd_Time(End_Time);
 			fullCheck(activity);
 			// 保存
@@ -105,18 +98,18 @@ public class Activity_Record_Action extends ActionSupport implements
 			// 提示成功
 			response.getWriter().write("<script>alert('后台提交成功');</script>");
 			response.getWriter().flush();
-			return "toIndex";
+			return "redirect:/home/index";
 		} catch (Exception e) {
 			// 提示失败
-			response.getWriter()
-					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
-			response.getWriter().flush();
+			// response.getWriter()
+			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+			// response.getWriter().flush();
 			// 将信息传递到loadInfor action,显示在页面上
 			String activity_Record = request.getParameter("activity_Record");
 			String activity_remark = request.getParameter("remark");
 			request.setAttribute("activity_Record", activity_Record);
 			request.setAttribute("activity_remark", activity_remark);
-			return "addActivityRecordInfor";
+			return "redirect:/load";
 		}
 	}
 
@@ -139,7 +132,9 @@ public class Activity_Record_Action extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ClassNotFoundException
 	 */
-	public String loadInfor() throws IOException {
+	@RequestMapping(value = "/load", method = RequestMethod.GET)
+	public String loadInfor(HttpServletRequest request,
+			@RequestParam("suspectID") String suspectId) throws IOException {
 		try {
 			// 提交失败时将信息再次显示
 			if (request.getAttribute("activity_remark") != null) {
@@ -153,7 +148,6 @@ public class Activity_Record_Action extends ActionSupport implements
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			String suspectId = (String) request.getParameter("suspectID");
 			PHCSMP_Suspect suspectInfor = suspectService
 					.findBySuspetcId(suspectId);
 
@@ -194,49 +188,20 @@ public class Activity_Record_Action extends ActionSupport implements
 				request.setAttribute("activity_record_infor",
 						activity_record_infor);
 			}
-
 			// 设置询问询问开始的时间
-
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String start_Time = sdf.format(date);
 			request.setAttribute("start_Time", start_Time);
 			// 维护进出门状态
 			suspectService.updateSwitch(1, suspectId);
+			return "/WEB-INF/jsp/recordInfor/activity";
 		} catch (Exception e) {
-			response.getWriter()
-					.write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
-			response.getWriter().flush();
-			return "toIndex";
+			// response.getWriter()
+			// .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
+			// response.getWriter().flush();
+			return "redirect:/load";
 		}
-		return "loadInfor";
-	}
-
-	// // 未登录状态时
-	// public String unlogin_load() {
-	// return "unlogin_load";
-	// }
-
-	// 返回修改活动记录信息
-	// public String updateInfor() {
-	// System.out.println("档案编号：" + request.getParameter("Suspect_ID"));
-	// System.out.println("updateInfor：修改活动记录信息！");
-	// return "updateInfor";
-	// }
-
-	@Override
-	public void setServletContext(ServletContext application) {
-		this.application = application;
-	}
-
-	@Override
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request = request;
 	}
 
 }

@@ -1,23 +1,9 @@
 package com.haifeiWu.action;
 
-import java.io.IOException;
-
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-//
-//import java.io.IOException;
-//
-//import javax.servlet.ServletContext;
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//
-//import org.apache.struts2.interceptor.ServletRequestAware;
-//import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.util.ServletContextAware;
 import org.springframework.context.annotation.Scope;
 //import org.springframework.stereotype.Controller;
 //
@@ -31,14 +17,22 @@ import org.springframework.context.annotation.Scope;
 // * @d2016年9月28日
 // */
 import org.springframework.stereotype.Controller;
+//
+//import java.io.IOException;
+//
+//import javax.servlet.ServletContext;
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+//
+//import org.apache.struts2.interceptor.ServletRequestAware;
+//import org.apache.struts2.interceptor.ServletResponseAware;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.haifeiWu.utils.Video;
-import com.opensymphony.xwork2.ActionSupport;
 
 @Controller
 @Scope("prototype")
-public class FTPAction extends ActionSupport implements ServletRequestAware,
-		ServletResponseAware, ServletContextAware {
+public class FTPAction {
 	// /**
 	// *
 	// */
@@ -53,47 +47,37 @@ public class FTPAction extends ActionSupport implements ServletRequestAware,
 	 * @return
 	 * @throws Exception
 	 */
+	@RequestMapping(value = "ftp")
 	public String configFTP() throws Exception {
-		// int cardReader_ID = Integer.parseInt(request
-		// .getParameter("cardReader_ID"));
-		// String identificationCard =
-		// request.getParameter("identificationCard");
 		Video.setRBServerCfg();
-		// System.out.println("---------------------------远程服务器已配置");
-		Video.setFtpServerCfg(1, "12436565768");
-		// System.out.println("---------------------------ftp服务器已配置");
-		Video.uploadRecFile(1, "12436565768");
-
+		Video.setFtpServerCfg(1, "55");
+		Video.uploadRecFile(1, "55");
 		return "success";
 	}
-
-	/**
-	 * @throws IOException
-	 * 
-	 */
-	public String selectDownLoadStatu() throws IOException {
-		// int cardReader_ID = Integer.parseInt(request
-		// .getParameter("cardReader_ID"));
-		// String identificationCard =
-		// request.getParameter("identificationCard");
-		Video.queryDownloadFileStatu(1, "12436565768");
-		return "success";
-	}
-
-	@Override
-	public void setServletContext(ServletContext application) {
-		this.application = application;
-	}
-
-	@Override
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request = request;
-	}
+	//
+	// /**
+	// * @throws IOException
+	// *
+	// */
+	// public String selectDownLoadStatu() throws IOException {
+	// Video.queryDownloadFileStatu(1, "12436565768");
+	// return "success";
+	// }
+	//
+	// @Override
+	// public void setServletContext(ServletContext application) {
+	// this.application = application;
+	// }
+	//
+	// @Override
+	// public void setServletResponse(HttpServletResponse response) {
+	// this.response = response;
+	// }
+	//
+	// @Override
+	// public void setServletRequest(HttpServletRequest request) {
+	// this.request = request;
+	// }
 
 	// public String getSuspect_ID() {
 	// return suspect_ID;

@@ -19,5 +19,11 @@
 	
 	<!-- 扫描service自动注入为bean -->
 	<context:component-scan base-package="com.haifeiWu" />
-
+	
+	<!--DispatcherServlet上下文-->
+    <!-- DispatcherServlet上下文， 只管理@Controller类型的bean， 忽略其他型的bean, 如@Service -->
+    <!--控制器和请求之间发生一些联系-->
+    <context:component-scan base-package="com.haifeiWu">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan> 
 </beans>

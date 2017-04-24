@@ -8,55 +8,24 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>嫌疑人入区信息录入</title>
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/person_info.css" />
-<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/person_info.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"
 	charset="UTF-8"></script>
 <script type="text/javascript"
-	src="js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script type="text/javascript" src="js/jqCss_pinfo.js"></script>
+	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jqCss_pinfo.js"></script>
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
-<script type="text/javascript" src="js/jquery.form.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
 <script type="text/javascript">
-/* 
- $(function(){
- $("#addInfoForm").on("submit",function(){
- if($("#band_ID").val().trim()=="0"){
- alert("提交失败，请先填写手环id");
- }
- else{
- $.post("${pageContext.request.contextPath }/suspect_addSuspectInfor.action",function(page){
- $(".contain").html(page);
- });
- }
- return false; 
- });   
- });	 */
-
-/* if($(".message").val()=="success"){
-alert("信息提交成功！");
-window.location="${pageContext.request.contextPath }/home_index.action";
-}else if($(".message").val()=="error"){
-	alert("信息提交失败");
-} */
-
-/* $(".submit").off();
-$(".submit").on("click",function(){
- if($("#band_ID").val().trim()=="0"){
- 	 	$(".submit").addClass("disaled");
- 	 	alert("提交失败，请先填写手环id");
- 	 }
-}); */
 $(function() {
 	$("#btnSave").click(function() {
 		var x = document.getElementById("band_ID").value;
-	/* 	alert(x); */
 		if (x == 0) {
-			// if ($(".clsShow").html().toString() != "")//存在提示信息，则不允许提交表单
 			alert('提交失败，请填写手环');
 			return false;
 		} else
@@ -91,15 +60,6 @@ function Button1_onclick() {
 		document.all['identifyCard_Number'].value = CVR_IDCard.CardNo;
 		document.all['now_address'].value = CVR_IDCard.Address;
 		document.all['identifyCard_Number1'].value = CVR_IDCard.CardNo;
-
-		/* 之前的代码，逻辑是直接存放照片，bug
-		var str = CVR_IDCard.Pic;
-		var myStr = new Array();
-		myStr = str.split("\\");
-		var path = "/upload/" + myStr[myStr.length - 1];
-		document.all['pic'].src = path;
-		document.all['tdentityID_Imag'].value = str;
-		 */
 		/**
 		 * Date:2017.02.26
 		 * author:whf
@@ -116,79 +76,10 @@ function Button1_onclick() {
 
 }
 
-
-	/* $(document).ready(function() {
-		$("#identityImg").attr('src', 'images/fgreen_03.png');
-		$("#identityImg1").attr('src', 'images/fgreen_03.png');
-	}); */
-
-/* 	function Logger() {
- alert("信息提交成功！");
- }
- */
-
-$(document).ready(function() {
+/* $(document).ready(function() {
 	$("#identityImg").attr('src', 'images/fgreen_03.png');
 	$("#identityImg1").attr('src', 'images/fgreen_03.png');
-});
-
-/* function fileshow1()
-{
-	alert(document.getElementById("file_1").value); */
-/* 	var file = document.getElementById("fileId");
-file.select();
-var realPath = document.selection.createRange().text; */
-	
-/*     document.getElementById("img_1").src=document.getElementById("file_1").value;
-} 
-function fileshow2()
-{
-    document.getElementById("img_2").src=document.getElementById("file_2").value;
-}  */
-/*window.onload = function(e) {
-//var e = window.event || e;
-// }
-// local Storage或许会有浏览器兼容的问题
-if (typeof (Storage) !== "undefined") {
-	if (localStorage.clickcount) {
-		localStorage.clickcount = Number(localStorage.clickcount) + 1;
-		if (localStorage.clickcount > 999) {
-			localStorage.clickcount = 0;
-		}
-	} else {
-		localStorage.clickcount = 0;
-	}
-} else {
-	alert("抱歉。浏览器不支持");
-}
-var date = new Date();
-var Mon = date.getMonth() + 1;
-var datetime = parseInt(date.getDate());
-if (datetime < 10) {
-	document.getElementById("suspectID").value = "LB-HB" + "-"
-			+ date.getFullYear() + Mon + "0" + datetime
-			+ localStorage.clickcount;
-} else if (Mon < 10) {
-	document.getElementById("suspectID").value = "LB-HB" + "-"
-			+ date.getFullYear() + "0" + Mon + datetime
-			+ localStorage.clickcount;
-} else if (localStorage.clickcount < 10) {
-	document.getElementById("suspectID").value = "LB-HB" + "-"
-			+ date.getFullYear() + Mon + datetime + "0"
-			+ localStorage.clickcount;
-}
-}*/
-/* $("#alterPhotoForm").on("submit", function() {
-			$(this).ajaxSubmit({
-				success : function() {
-					alert("上传成功！");
-					window.location.href="${pageContext.request.contextPath }/LR_loadInfor.action";
-			},
-			resetForm : true
-		    });
-			return false;
-		});	 */
-
+}); */
 </script>
 <style type="text/css">
 	.colorRed{
@@ -242,7 +133,7 @@ if (datetime < 10) {
         $("#file_1").change(function(){    
             var objUrl=getObjectURL(this.files[0]);    
             var size=this.files[0].size;    
-            if(size>=1024000*10)bottomTip("图片超过10M了哦",0);    
+            if(size>7900)bottomTip("选择的图片过大",0);    
             else{    
                  if(objUrl){    
                         $("#img_1").attr("src",objUrl);  
@@ -252,7 +143,7 @@ if (datetime < 10) {
         $("#file_2").change(function(){    
             var objUrl=getObjectURL(this.files[0]);    
             var size=this.files[0].size;    
-            if(size>=1024000*10)bottomTip("图片超过10M了哦",0);    
+            if(size>7900)bottomTip("选择的图片过大",0); 
             else{    
                  if(objUrl){    
                         $("#img_2").attr("src",objUrl);  
@@ -263,10 +154,9 @@ if (datetime < 10) {
 </script>  
 </head>
 <body>
-
+	<!-- enctype="multipart/form-data" -->
 	<form class="container" id="addInfoForm"
-		action="${pageContext.request.contextPath }/suspect_addSuspectInfor.action"
-
+		action="${pageContext.request.contextPath }/suspect/add"
 		enctype="multipart/form-data" method="POST">
 		<c:if test="${!empty message }">
 			<input class="message" type="hidden" value=${message }>
@@ -290,7 +180,7 @@ if (datetime < 10) {
 			<h5 class="col-lg-12 col-md-10 text-center">
 				<span style="color: #389AC7;font-size: large;">档案编号</span>：&nbsp;&nbsp;&nbsp;&nbsp;
 				<input style="width:200px;" type="text" id="suspectID"
-					name="Suspect_ID" value="${Suspect_ID }" />
+					name="suspect_ID" value="${Suspect_ID }" />
 			</h5>
 
 		
@@ -307,7 +197,7 @@ if (datetime < 10) {
 						<img id="img_2" src="" style="border:1px solid #ccc"/>
 		
 							<a href="javascript:;" class="file">选择正面照
-							    <input id="file_1" type="file" name="file" onchange="fileshow1()">
+							    <input id="file_1" type="file" name="file" data onchange="fileshow1()">
 							</a>
 							<a href="javascript:;" class="file">选择侧面照
 							    <input id="file_2" type="file" name="sfile" onchange="fileshow2()">
@@ -414,25 +304,6 @@ if (datetime < 10) {
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
 				<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<tr>
-						<!--  
-						<td style="text-align:center;">入区时间:</td>
-						<td style="width: 50%;">
-							<div class="form-group" style="height: 25px;width: 76%;">
-								<div class="input-group date form_time col-md-5"
-									style="margin-left: 40%;margin-top: 2%;width: 55%;"
-									data-date="" data-date-format="dd MM yyyy"
-									data-link-format="yyyy-mm-dd" data-link-field="dtp_input1">
-									<input class="form-control" name="enter_Time" type="text"
-										style=" height: 31px;" value="" readonly> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-remove"></span></span> <span
-										class="input-group-addon"><span
-										class="glyphicon glyphicon-time"></span></span>
-								</div>
-								<input type="hidden" id="dtp_input1" value="" /><br />
-							</div>
-						</td>
-					-->
 						<td style="width: 22%;text-align:center;color: #389ac7;">RFID手环 :</td>
 						<!--手环选择列-->
 						<td colspan="2" style="text-align-last:center ;text-align:center;"><select
@@ -451,14 +322,7 @@ if (datetime < 10) {
 
 					<tr> -->
 						<td colspan="3" style="text-align:center;">
-							<%--<ol>
-								<!-- 遍历案由数据的字段 -->
-								 <c:forEach items="${actionCause}" var="item" varStatus="status">
-									<li>${item.cause_Name }<input type="checkbox"
-										name="suspected_Cause" value="${item.cause_Name }"
-										style="width:30px;" /></li>
-								</c:forEach> 
-							</ol>--%>
+							
 							<select name="suspected_Cause" id="suspected_Cause" style="margin-left: -87%;">
 								<option value="0">-----请选择-----</option>
 								<c:forEach items="${actionCause}" var="item" varStatus="status">

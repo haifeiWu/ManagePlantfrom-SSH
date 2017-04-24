@@ -64,7 +64,7 @@
 					<td style="width: 160px;" class="show1">
 					<div style="width: 150px; height: 250px; float: left;">
 						<div style="width:150px; float:left; margin-left: -1px;margin-top: 3%;">
-							<img src="${item.identityCard_Photo }" style="width: 150px; height: 200px;"/>
+							<img src="${item.identityCard_Photo}" style="width: 150px; height: 200px;"/>
 							<p >
 								${item.suspect_Name }<br />
 							</p>

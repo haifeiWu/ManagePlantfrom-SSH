@@ -1,8 +1,5 @@
 package com.haifeiWu.action;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,10 +11,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.util.ServletContextAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -25,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.SuspectService;
-import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * 嫌疑人信息管理action，待查嫌疑人信息，历史嫌疑人信息/demoone
@@ -35,9 +27,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 @Controller
 @Scope("prototype")
-public class SuspectManageAction extends ActionSupport implements
-		ServletRequestAware, ServletResponseAware, ServletContextAware {
-
+public class SuspectManageAction {
 	/**
 	 * UUID
 	 */
@@ -51,7 +41,6 @@ public class SuspectManageAction extends ActionSupport implements
 	private SuspectService suspectService;// 嫌疑人信息管理
 	@Autowired
 	private LeaveRecodService leaveRecodService;
-	
 
 	/**
 	 * 加载嫌疑人信息
@@ -135,111 +124,101 @@ public class SuspectManageAction extends ActionSupport implements
 		}
 		return "searchsuspectInfor";
 	}
-	
+
 	/***
 	 * 录像下载失败的嫌疑人信息
+	 * 
 	 * @return
 	 */
-	
-	public String videoDownFailList()
-	{
+
+	public String videoDownFailList() {
 		List<String> leaveTimeList = new ArrayList<String>();
-		try{
-		List<PHCSMP_Suspect> suspectList=suspectService.findAllVideoDownloadFailSuspectInfor();
-		for(int i=0;i<suspectList.size();i++)
-		{
-			
-			String suspectId=suspectList.get(i).getSuspect_ID();
-			System.out.println("suspectId"+suspectId);
-			String leavaTime=leaveRecodService.findLeaveRecordInfor(suspectId).getLeave_Time();
-			System.out.println("leavetime="+leavaTime);
-			leaveTimeList.add(leavaTime);
-			System.out.println("leavetime="+leaveTimeList.get(i));
-		}
-		List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
-		
-		for(int i=0;i<suspectList.size();i++)
-		{
-			Map<String, Object> map=new HashMap<String, Object>();
-			map.put("suspect_Name", suspectList.get(i).getSuspect_Name());
-			map.put("suspect_ID", suspectList.get(i).getSuspect_ID());
-			map.put("enter_Time", suspectList.get(i).getEnter_Time());
-			map.put("identifyCard_Number", suspectList.get(i).getIdentifyCard_Number());
-			map.put("leave_Time", leaveTimeList.get(i));
-			list.add(map);
-			
-			
-		}
-		request.setAttribute("suspect", list);
-		return "videoDownFail";
-		}catch(Exception e)
-		{
+		try {
+			List<PHCSMP_Suspect> suspectList = suspectService
+					.findAllVideoDownloadFailSuspectInfor();
+			for (int i = 0; i < suspectList.size(); i++) {
+
+				String suspectId = suspectList.get(i).getSuspect_ID();
+				System.out.println("suspectId" + suspectId);
+				String leavaTime = leaveRecodService.findLeaveRecordInfor(
+						suspectId).getLeave_Time();
+				System.out.println("leavetime=" + leavaTime);
+				leaveTimeList.add(leavaTime);
+				System.out.println("leavetime=" + leaveTimeList.get(i));
+			}
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+			for (int i = 0; i < suspectList.size(); i++) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("suspect_Name", suspectList.get(i).getSuspect_Name());
+				map.put("suspect_ID", suspectList.get(i).getSuspect_ID());
+				map.put("enter_Time", suspectList.get(i).getEnter_Time());
+				map.put("identifyCard_Number", suspectList.get(i)
+						.getIdentifyCard_Number());
+				map.put("leave_Time", leaveTimeList.get(i));
+				list.add(map);
+
+			}
+			request.setAttribute("suspect", list);
+			return "videoDownFail";
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "videoDownFail";
 		}
-		
-		
-		
+
 	}
 
-	public String videoDownSuccessList()
-	{
+	public String videoDownSuccessList() {
 		List<String> leaveTimeList = new ArrayList<String>();
-		try{
-		List<PHCSMP_Suspect> suspectList=suspectService.findAllByIsRecordVedio();
-		for(int i=0;i<suspectList.size();i++)
-		{
-			
-			String suspectId=suspectList.get(i).getSuspect_ID();
-			System.out.println("suspectId"+suspectId);
-			String leavaTime=leaveRecodService.findLeaveRecordInfor(suspectId).getLeave_Time();
-			System.out.println("leavetime="+leavaTime);
-			leaveTimeList.add(leavaTime);
-			System.out.println("leavetime="+leaveTimeList.get(i));
-		}
-		List<Map<String, Object>> list=new ArrayList<Map<String, Object>>();
-		
-		for(int i=0;i<suspectList.size();i++)
-		{
-			Map<String, Object> map=new HashMap<String, Object>();
-			map.put("suspect_Name", suspectList.get(i).getSuspect_Name());
-			map.put("suspect_ID", suspectList.get(i).getSuspect_ID());
-			map.put("enter_Time", suspectList.get(i).getEnter_Time());
-			map.put("identifyCard_Number", suspectList.get(i).getIdentifyCard_Number());
-			map.put("leave_Time", leaveTimeList.get(i));
-			map.put("vedio_number", suspectList.get(i).getVedio_Number());
-			list.add(map);
-			
-			
-		}
-		request.setAttribute("suspect", list);
-		return "videoDownSuccess";
-		}catch(Exception e)
-		{
+		try {
+			List<PHCSMP_Suspect> suspectList = suspectService
+					.findAllByIsRecordVedio();
+			for (int i = 0; i < suspectList.size(); i++) {
+
+				String suspectId = suspectList.get(i).getSuspect_ID();
+				System.out.println("suspectId" + suspectId);
+				String leavaTime = leaveRecodService.findLeaveRecordInfor(
+						suspectId).getLeave_Time();
+				System.out.println("leavetime=" + leavaTime);
+				leaveTimeList.add(leavaTime);
+				System.out.println("leavetime=" + leaveTimeList.get(i));
+			}
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+
+			for (int i = 0; i < suspectList.size(); i++) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("suspect_Name", suspectList.get(i).getSuspect_Name());
+				map.put("suspect_ID", suspectList.get(i).getSuspect_ID());
+				map.put("enter_Time", suspectList.get(i).getEnter_Time());
+				map.put("identifyCard_Number", suspectList.get(i)
+						.getIdentifyCard_Number());
+				map.put("leave_Time", leaveTimeList.get(i));
+				map.put("vedio_number", suspectList.get(i).getVedio_Number());
+				list.add(map);
+
+			}
+			request.setAttribute("suspect", list);
+			return "videoDownSuccess";
+		} catch (Exception e) {
 			e.printStackTrace();
 			return "videoDownSuccess";
 		}
-		
-		
-		
-	}
-	
-	
-	@Override
-	public void setServletContext(ServletContext application) {
-		this.application = application;
+
 	}
 
-	@Override
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request = request;
-	}
-
-	
+	// @Override
+	// public void setServletContext(ServletContext application) {
+	// this.application = application;
+	// }
+	//
+	// @Override
+	// public void setServletResponse(HttpServletResponse response) {
+	// this.response = response;
+	// }
+	//
+	// @Override
+	// public void setServletRequest(HttpServletRequest request) {
+	// this.request = request;
+	// }
 
 }

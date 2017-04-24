@@ -4,16 +4,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>${main }</title>
+<title>${title }</title>
 
 </head>
 
 <frameset rows="167,*" cols="*" frameborder="no" border="0" framespacing="0">
   <!-- ${pageContext.request.contextPath } 是jsp取得绝对路径的方式，取得的是项目名-->
-  <frame src="${pageContext.request.contextPath }/home_top.action" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame" />
+  <frame src="${pageContext.request.contextPath }/home/top" name="topFrame" scrolling="No" noresize="noresize" id="topFrame" title="topFrame" />
   <frameset cols="120,*" frameborder="no" border="0" framespacing="0">
-    <frame src="${pageContext.request.contextPath }/home_left.action" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame" title="leftFrame" />
-    <frame src="${pageContext.request.contextPath }/home_index.action" name="rightFrame" id="rightFrame" title="rightFrame" />
+    <frame src="${pageContext.request.contextPath }/home/left" name="leftFrame" scrolling="No" noresize="noresize" id="leftFrame" title="leftFrame" />
+    <frame src="${pageContext.request.contextPath }/home/index" name="rightFrame" id="rightFrame" title="rightFrame" />
   </frameset>
 </frameset>
 

@@ -7,16 +7,15 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.util.ServletContextAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.service.RoomService;
-import com.opensymphony.xwork2.ActionSupport;
+
 //import com.sun.tools.internal.ws.processor.model.Request;
 
 /**
@@ -26,9 +25,9 @@ import com.opensymphony.xwork2.ActionSupport;
  * @d2017年3月6日
  */
 @Controller
+@RequestMapping("/room")
 @Scope("prototype")
-public class RoomManageAction extends ActionSupport
-		implements ServletRequestAware, ServletResponseAware, ServletContextAware {
+public class RoomManageAction {
 
 	private static final long serialVersionUID = 4291137271901380604L;
 	protected HttpServletRequest request;
@@ -52,6 +51,7 @@ public class RoomManageAction extends ActionSupport
 	/**
 	 * 查询所有的房间信息
 	 */
+	@RequestMapping(value = "/load", method = RequestMethod.POST)
 	public String loadInfor() {
 		System.out.println("查找所有的房间信息");
 		// 获取所有房间的信息
@@ -66,8 +66,6 @@ public class RoomManageAction extends ActionSupport
 
 			return "loadInfor";
 		}
-
-		// return "loadInfor";
 
 	}
 
@@ -107,11 +105,11 @@ public class RoomManageAction extends ActionSupport
 	public String loadInforByCardReaderID() {
 		try {
 			System.out.println("按设备ID查找");
-			// String query = request.getParameter("query");
 			System.out.println("q" + query);
 			int roomId = Integer.parseInt(query);
 			System.out.println("r" + roomId);
-			List<PHCSMP_Room> roomCheckInfo = roomService.findListByCardReaderID(roomId);
+			List<PHCSMP_Room> roomCheckInfo = roomService
+					.findListByCardReaderID(roomId);
 			if (roomCheckInfo.get(0) == null) {
 				return "NULL";// 处理空的情况
 			} else {
@@ -125,15 +123,12 @@ public class RoomManageAction extends ActionSupport
 			return "error";
 		}
 
-		// return "loadInfor";
-
 	}
 
 	//
 	public String loadInforByIp() {
 		try {
 			System.out.println("按Ip查找");
-			// String query = request.getParameter("query");
 			System.out.println("q" + query);
 			String roomId = query;
 			System.out.println("r" + roomId);
@@ -150,7 +145,6 @@ public class RoomManageAction extends ActionSupport
 			request.setAttribute("result", "不存在的查询条件！");
 			return "error";
 		}
-		// return "loadInfor";
 	}
 
 	/**
@@ -305,19 +299,19 @@ public class RoomManageAction extends ActionSupport
 		this.query = query;
 	}
 
-	@Override
-	public void setServletContext(ServletContext application) {
-		this.application = application;
-	}
-
-	@Override
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request = request;
-	}
+	// @Override
+	// public void setServletContext(ServletContext application) {
+	// this.application = application;
+	// }
+	//
+	// @Override
+	// public void setServletResponse(HttpServletResponse response) {
+	// this.response = response;
+	// }
+	//
+	// @Override
+	// public void setServletRequest(HttpServletRequest request) {
+	// this.request = request;
+	// }
 
 }
