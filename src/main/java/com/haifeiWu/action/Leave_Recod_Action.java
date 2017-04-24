@@ -154,19 +154,23 @@ public class Leave_Recod_Action {
 			} else {
 				leaveRecodService.updateLeaveRecordInfor(model);// 更新嫌疑人离开信息
 			}
-			// // 停止录像
-			String stopRecording = Video.stopRecording(
-					suspectInfor.getBand_ID(), room.getLine_Number(),
-					suspectInfor.getIdentifyCard_Number());
+			// 停止录像// 将录像的标志位置为0
+			if (suspectInfor.getRecordVideo_State() != 0) {
+				String stopRecording = Video.stopRecording(
+						suspectInfor.getBand_ID(), room.getLine_Number(),
+						suspectInfor.getIdentifyCard_Number());
+				suspectService.updateLeaveState(3, -1, 0,
+						suspectInfor.getSuspect_ID());
+			} else {
+				suspectService.updateLeaveState(0, -1, 0,
+						suspectInfor.getSuspect_ID());
+			}
 
 			// 释放回路
 			if (suspectInfor.getRecordVideo_State() != 0)
 				lineService.closeLine();
 			// 释放手环
 			bandService.update(0, suspectInfor.getBand_ID());
-			// 将录像的标志位置为0
-			suspectService.updateLeaveState(3, -1, 0,
-					suspectInfor.getSuspect_ID());
 			// 下载PDF
 			HtmlToPdf.createPdf(suspectID);
 			// 请求上传录像文件
