@@ -3,6 +3,8 @@ package com.haifeiWu.utils;
 import java.util.List;
 
 import com.haifeiWu.entity.PHCSMP_LogInfo;
+import com.haifeiWu.entity.PHCSMP_Process_Log;
+import com.haifeiWu.entity.PHCSMP_Suspect;
 
 /**
  * 日志功能的分页实现
@@ -11,19 +13,55 @@ import com.haifeiWu.entity.PHCSMP_LogInfo;
  * @d2016年11月28日
  */
 public class PageBean {
-	private List<PHCSMP_LogInfo> list; // 通过hql从数据库分页查询出来的list集合
-
+	
+	private List<PHCSMP_Process_Log> processLogList;
+	private List<PHCSMP_LogInfo> loglist; // 通过hql从数据库分页查询出来的list集合
+	private List<PHCSMP_Suspect> list; 
 	private int allRows; // 总记录数
 
 	private int totalPage; // 总页数
 
 	private int currentPage; // 当前页
 
-	public List<PHCSMP_LogInfo> getList() {
+	
+	
+	
+	public List<PHCSMP_Process_Log> getProcessLogList() {
+		return processLogList;
+	}
+
+
+
+
+	public void setProcessLogList(List<PHCSMP_Process_Log> processLogList) {
+		this.processLogList = processLogList;
+	}
+
+
+
+
+	public List<PHCSMP_Suspect> getList() {
 		return list;
 	}
 
-	public void setList(List<PHCSMP_LogInfo> list) {
+	
+	
+
+	public List<PHCSMP_LogInfo> getLoglist() {
+		return loglist;
+	}
+
+
+
+
+	public void setLoglist(List<PHCSMP_LogInfo> loglist) {
+		this.loglist = loglist;
+	}
+
+
+
+
+	public void setList(List<PHCSMP_Suspect> list) {
 		this.list = list;
 	}
 

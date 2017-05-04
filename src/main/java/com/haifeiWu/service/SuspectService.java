@@ -5,6 +5,7 @@ import java.util.List;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.utils.PageBean;
 
 /**
  * 登录犯罪嫌疑人信息的service
@@ -13,6 +14,26 @@ import com.haifeiWu.entity.PHCSMP_Suspect;
  * @d2016年8月14日
  */
 public interface SuspectService {
+	
+	
+	/**
+	 * 通过身份证查询嫌疑人信息
+	 * */
+	public PHCSMP_Suspect findByidentifyCard_Number(String identifyCard_Number);
+	/**
+	 * 视频编号放入嫌疑人表中的vedio_Number列中
+	 * */
+	public void updatevedio_Number(String vedio_Number,String suspectId);
+
+
+	
+	/**
+	 * 历史嫌疑人分页显示
+	 * @param pageSize
+	 * @param page
+	 * @return
+	 */
+	public PageBean getPageBean(int pageSize, int page);
 	/**
 	 * 保存嫌疑人信息到数据库
 	 * 
