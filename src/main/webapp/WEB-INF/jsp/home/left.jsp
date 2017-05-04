@@ -155,7 +155,13 @@ $(document).ready(function (){
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>
-    </dd>    
+    </dd>  
+    
+     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统初始化设置</div>
+	     <ul class="menuson">
+	        <li><cite></cite><a href="${pageContext.request.contextPath }/properties/load" target="rightFrame">配置文件初始化</a><i></i></li>
+	     </ul>
+    </dd>
     </dl>
     
 </body>
