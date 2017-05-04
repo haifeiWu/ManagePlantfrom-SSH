@@ -8,11 +8,11 @@
 <head>
 <meta charset="UTF-8">
 <title>嫌疑人信息管理</title>
-<link rel="stylesheet" href="./css/bootstrap.min.css" />
-<link rel="stylesheet" href="./css/Suspect_info.css" />
-<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/jquery.min.js"></script>
-<script type="text/javascript" src="./js/Suspect_mes.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/Suspect_info.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/Suspect_mes.js"></script>
 </head>
 
 <body>

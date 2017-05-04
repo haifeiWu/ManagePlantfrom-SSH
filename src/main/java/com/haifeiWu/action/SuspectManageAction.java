@@ -7,13 +7,13 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.LeaveRecodService;
@@ -26,6 +26,7 @@ import com.haifeiWu.service.SuspectService;
  * @d2016年10月17日
  */
 @Controller
+@RequestMapping("/Suspectmanage")
 @Scope("prototype")
 public class SuspectManageAction {
 	/**
@@ -33,10 +34,10 @@ public class SuspectManageAction {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected HttpServletRequest request;
-	protected HttpServletResponse response;
-	protected ServletContext application;
-
+	/*
+	 * protected HttpServletRequest request; protected HttpServletResponse
+	 * response; protected ServletContext application;
+	 */
 	@Autowired
 	private SuspectService suspectService;// 嫌疑人信息管理
 	@Autowired
@@ -47,7 +48,9 @@ public class SuspectManageAction {
 	 * 
 	 * @return
 	 */
-	public String loadInfor() {
+	@RequestMapping(value = "load")
+	public String loadInfor(HttpServletRequest request,
+			HttpServletResponse response) {
 		System.out.println("历史记录，待办信息");
 		// 获取待查嫌疑人信息
 		List<PHCSMP_Suspect> suspectCheckInfor = suspectService
@@ -70,7 +73,7 @@ public class SuspectManageAction {
 		}
 
 		// getDistanceTime(suspectCheckedInfor., suspectCheckedInfor.get(14));
-		return "loadInfor";
+		return "WEB-INF/jsp/suspectmanage/historyRecord";
 	}
 
 	/**
@@ -78,7 +81,9 @@ public class SuspectManageAction {
 	 * 
 	 * @return
 	 */
-	public String searchsuspectInfor() {
+	@RequestMapping(value = "searchsuspectInfor")
+	public String searchsuspectInfor(HttpServletRequest request,
+			HttpServletResponse response) {
 		String searchInfor = request.getParameter("searchInfor");
 		/*
 		 * 通过正则表达式来区分嫌疑人姓名
@@ -122,7 +127,7 @@ public class SuspectManageAction {
 			System.out.println(suspect);
 			System.out.println(suspectNow);
 		}
-		return "searchsuspectInfor";
+		return "WEB-INF/suspectmanage/suspectInforList";
 	}
 
 	/***
@@ -131,7 +136,9 @@ public class SuspectManageAction {
 	 * @return
 	 */
 
-	public String videoDownFailList() {
+	@RequestMapping(value = "downVideoFail")
+	public String videoDownFailList(HttpServletRequest request,
+			HttpServletResponse response) {
 		List<String> leaveTimeList = new ArrayList<String>();
 		try {
 			List<PHCSMP_Suspect> suspectList = suspectService
@@ -160,15 +167,17 @@ public class SuspectManageAction {
 
 			}
 			request.setAttribute("suspect", list);
-			return "videoDownFail";
+			return "WEB-INF/jsp/suspectmanage/videoDownloadFailSuspectList";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "videoDownFail";
+			return "WEB-INF/jsp/suspectmanage/videoDownloadFailSuspectList";
 		}
 
 	}
 
-	public String videoDownSuccessList() {
+	@RequestMapping(value = "downVideoSucc")
+	public String videoDownSuccessList(HttpServletRequest request,
+			HttpServletResponse response) {
 		List<String> leaveTimeList = new ArrayList<String>();
 		try {
 			List<PHCSMP_Suspect> suspectList = suspectService
@@ -198,10 +207,10 @@ public class SuspectManageAction {
 
 			}
 			request.setAttribute("suspect", list);
-			return "videoDownSuccess";
+			return "WEB-INF/suspectmanage/videoDownloadSuccess";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "videoDownSuccess";
+			return "WEB-INF/suspectmanage/videoDownloadSuccessSuspectList";
 		}
 
 	}

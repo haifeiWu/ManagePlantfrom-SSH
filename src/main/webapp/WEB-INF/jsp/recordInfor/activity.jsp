@@ -292,7 +292,7 @@
 			<div>
 				<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
 							style="margin-top: 0%;">
-							完整性提示
+							办案区活动记录
 				</h4>
 				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 30px !important;width:960px !important; ">
 					<tr>
@@ -373,7 +373,7 @@
 			<div class="row">
 				<h4 id="activityReco"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					活动记录登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
+					当前活动登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
 				
 				

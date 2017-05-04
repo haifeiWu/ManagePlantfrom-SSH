@@ -263,7 +263,7 @@ function Button1_onclick() {
 				<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<tr>
 						<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
-							style="text-align:center;color: #389ac7;">证件类型：</td>
+							style="text-align:right;color: #389ac7;">证件类型：</td>
 						<td style="text-align:center; width: 168px">
 							<%-- <ol>
 								<!--  -->
@@ -280,20 +280,22 @@ function Button1_onclick() {
 								</c:forEach>
 						</select>
 						</td>
-					<td style="text-align:center;color: #389ac7;">联系方式：</td>
+					<td style="text-align:right;color: #389ac7;width: 150px;">联系方式：</td>
 						<td><input type="text" name="phone" /></td>
 						
 						
 						 </tr>
 					<tr> 
-						<td style="text-align:center;color: #389ac7;">证件号码：</td>
+						<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+							style="text-align:right;color: #389ac7;">证件号码：</td>
 						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number"/>
 					 <!--</tr>
 					<tr>-->
 						
 					 </tr>
 					 <tr>
-					 <td style="text-align:center;color: #389ac7;" >现住址：</td>
+					 <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+							style="text-align:right;color: #389ac7;" >现住址：</td>
 						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address"  /></td>
 					 </tr>
 				</table>
