@@ -48,25 +48,31 @@ public class fileStatusAction {
 	// String identificationCard;
 	@RequestMapping(value = "/fileStatus.action")
 	public String fileStatus() throws IOException {
+		String filename=null;
 		JSONObject jsonRequest = JSONObject.parseObject(this.getJsonData());
 		// 获取json中参数
 		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
 		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
-		System.out.println("fileStatus收到的数据 -----------           "
-				+ uploadType + "     " + policeId + "     "
+		System.out.println("fileStatus收到的数据 ----------- " + uploadType + "     " + policeId + "     "
 				+ identificationCard);
-		if (uploadType == 0) {
+		if (uploadType == 0) {// 注意对下载失败的处理
 			// 查询文件上传状态
-			String filename = Video.queryDownloadFileStatu(policeId,
-					identificationCard);
+			
+			filename = Video.queryDownloadFileStatu(policeId, identificationCard);
+			System.out.println("--------------->"+filename);
+			/*
+			 * 注解
+			 * 如果上传成功的话，filename返回String类型的视频名字
+			 * 如果上传失败，filename返回String类型的0
+			 * */
 			if (!((filename == null) || filename.equals(""))) {// 成功
-				activityRecordService.updatevedio_Number(filename, policeId,
-						identificationCard);
-				suspectService.updateIs_RecordVideo_DownLoad(1, policeId,
-						identificationCard);
+				String suspectId=suspectService.findByidentifyCard_Number(identificationCard).getSuspect_ID();
+				suspectService.updatevedio_Number(filename, suspectId);
+				suspectService.updateIs_RecordVideo_DownLoad(1, policeId, identificationCard);
 			}
 		}
+		System.out.println("-------查询完成-------->");
 		return "success";
 	}
 

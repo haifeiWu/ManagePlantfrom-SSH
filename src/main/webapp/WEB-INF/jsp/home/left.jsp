@@ -93,7 +93,7 @@ $(document).ready(function (){
     <span><img src="${pageContext.request.contextPath }/images/leftico02.png" /></span>嫌疑人信息管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/load" target="rightFrame">入区人员信息汇总</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/GR/load?suspectID=LB-HB-201703175"  target="rightFrame">临时报告区</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/report/load?susptct_id"  target="rightFrame">临时报告区</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoFail" target="rightFrame">录像下载失败信息</a><i></i></li>
          <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoSucc" target="rightFrame">录像下载成功信息</a><i></i></li>
         </ul>     
@@ -111,7 +111,7 @@ $(document).ready(function (){
     
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>房间管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="${pageContext.request.contextPath }/roomManage_loadInfor.action" target="rightFrame">查看所有房间</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/room/load" target="rightFrame">房间设置</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
@@ -121,8 +121,8 @@ $(document).ready(function (){
     
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>采集设备管理</div>
     <ul class="menuson">
-    	<li><cite></cite><a href="${pageContext.request.contextPath }/cardReaderManage/loadInfor" target="rightFrame">查看所有设备</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/BandManage/bandFindAll" target="rightFrame">手环查看</a><i></i></li>      
+    	<li><cite></cite><a href="${pageContext.request.contextPath }/CardReaderManage/loadInfor" target="rightFrame">读卡器设置</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环查看</a><i></i></li>      
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>
@@ -130,8 +130,8 @@ $(document).ready(function (){
     
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统日志管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="${pageContext.request.contextPath}/Log/execute" target="rightFrame" >查看日志</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeinfo?page=1" target="rightFrame" >工作人员日志</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeProcess?page=1" target="rightFrame" >嫌疑人日志</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>

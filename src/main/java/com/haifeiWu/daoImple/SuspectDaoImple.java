@@ -26,6 +26,19 @@ public class SuspectDaoImple extends DaoSupportImpl<PHCSMP_Suspect> implements
 	private Transaction tx = null;
 	private Session session = null;
 	private String hql = "";
+	
+	
+	@Override
+	public PHCSMP_Suspect findByidentifyCard_Number(String identifyCard_Number) {
+	session = this.getSession();
+	tx = session.beginTransaction();// 开启事务
+	hql = "from PHCSMP_Suspect where identifyCard_Number=?";
+	Query query = session.createQuery(hql);
+	query.setParameter(0, identifyCard_Number);
+	PHCSMP_Suspect phcsmp_Suspect = (PHCSMP_Suspect) query.uniqueResult();
+	tx.commit();// 提交事务
+	return phcsmp_Suspect;
+	}
 
 	@Override
 	public PHCSMP_Suspect findByRoomID(int roomId) {
@@ -296,6 +309,63 @@ public List<PHCSMP_Suspect> findAllByIsRecordVedio() {
 	List<PHCSMP_Suspect> phcsmp_Suspect = query.list();
 	tx.commit();// 提交事务
 	return phcsmp_Suspect;
+}
+
+/**
+ * 历史嫌疑人的分页显示
+ */
+@Override
+public List<PHCSMP_Suspect> queryByPage(String hql, int offset, int pageSize) {
+	Session session = this.getSession();
+	Transaction tx = null;
+	List<PHCSMP_Suspect> list = null;
+
+	try {
+		tx = session.beginTransaction();
+
+		Query query = session.createQuery(hql).setFirstResult(offset)
+				.setMaxResults(pageSize);
+
+		list = query.list();
+
+		tx.commit();
+
+	} catch (Exception e) {
+		if (tx != null) {
+			tx.rollback();
+		}
+
+		e.printStackTrace();
+	}
+	return list;
+
+}
+
+
+
+@Override
+public int getAllRowCount(String hql) {
+	Session session = this.getSession();
+	Transaction tx = null;
+	int allRows = 0;
+	try {
+		tx = session.beginTransaction();
+
+		Query query = session.createQuery(hql);
+
+		allRows = query.list().size();
+
+		tx.commit();
+
+	} catch (Exception e) {
+		if (tx != null) {
+			tx.rollback();
+		}
+
+		e.printStackTrace();
+	}
+
+	return allRows;
 }
 
 	// /**

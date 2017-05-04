@@ -24,38 +24,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	-->
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+	
   </head>
   
   <body>
 	
 	<div class="container">
 		<div class="row">
-			<form class="navbar-form navbar-left" action="${pageContext.request.contextPath }/cardReaderManage_findById.action" role="search">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search" name="cardReader_ID">
-				</div>
-				<input type="submit" class="btn btn-primary"  value="查询" /> 
-				
-			</form>
+			
 			<table class="table table-striped">
 				<tr>
 					<th>设备编号</th>
 					<th>设备名称</th>
 					<th>设备类型</th>
 					
-					<th>操作</th>
+					
 				</tr>
-				<c:forEach items="${cardReaderCheckInfo }" var="item">
+				<form class="navbar-form navbar-left" method="post"action="${pageContext.request.contextPath }/CardReaderManage/updateCardReader" >
+				<c:forEach items="${cardReaderlist }" var="item"  varStatus="status">
+				
 					<tr>
-						<td>${item.cardReader_ID }</td>
-						<td>${item.cardReader_Name}</td>
-						<td>${item.cardReader_Type}</td>
-						
 						<td>
-							<a class="text-success glyphicon glyphicon-refresh" href="${pageContext.request.contextPath }/cardReaderManage_toUpdate.action?cardReader_ID=${item.cardReader_ID }"></a>
+							${item.cardReader_ID }<input type="hidden" class="form-control" readonly="readonly" value="${item.cardReader_ID }" name="cardReader_ID"/>
 						</td>
+						<td>
+							<input type="text" class="form-control" value="${item.cardReader_Name}" name="cardReader_Name"/>
+						</td>
+						<td>
+							<input type="text" class="form-control" value="${item.cardReader_Type}" name="cardReader_Type"/>
+						</td>
+						
+						
 					</tr>
+				
 				</c:forEach>
+				<input type="submit"  class="btn btn-primary"  onclick="submit()" value="保存"/>
+			</form>
+			
+			
 			</table>
 		</div>
 

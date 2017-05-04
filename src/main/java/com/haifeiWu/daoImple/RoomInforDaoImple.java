@@ -23,6 +23,7 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements Ro
 	private Session session = null;
 	private String hql = "";
 
+	
 	/**
 	 * 根据读卡器的ID查询房间的ID
 	 */
@@ -102,7 +103,16 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements Ro
 			throw new RuntimeException(e);
 		}
 	}
-
+/**
+ * 房间初始化
+ */
+	@Override
+	public void updateprocess_IDById(int cardReader_ID,int room_ID,String room_IPAddress){
+		hql = "update PHCSMP_Room as room set cardReader_ID=?,room_IPAddress=? where room_ID=?";
+	     update(hql,cardReader_ID,room_IPAddress,room_ID);
+	}
+	
+	
 	@Override
 	public void batchupdate(String roomIdArray, int process_ID) {
 		try {

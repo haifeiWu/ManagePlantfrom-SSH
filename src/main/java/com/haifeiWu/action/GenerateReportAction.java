@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
+import javax.persistence.metamodel.SetAttribute;
 import javax.servlet.http.HttpServletRequest;
 
+import org.aspectj.lang.annotation.Aspect;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -35,7 +37,9 @@ import com.haifeiWu.utils.PropertiesReadUtils;
  * @author wuhaifei
  * @d2016年10月17日
  */
+@Aspect
 @Controller
+@RequestMapping("/report")
 @Scope("prototype")
 public class GenerateReportAction {
 
@@ -74,9 +78,10 @@ public class GenerateReportAction {
 	 * @throws ParseException
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "report")
-	public String loadInfor(@RequestParam("suspectID") String suspectId,
+	@RequestMapping(value = "/load")
+	public String RG_loadInfor(
 			HttpServletRequest request) throws IOException {
+		String suspectId = request.getParameter("suspectID");
 		try {
 			// 查找嫌疑人入区信息
 			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
@@ -101,6 +106,7 @@ public class GenerateReportAction {
 			String reportCreateTime = new DateTime()
 					.toString("yyyy-MM-dd HH:mm");
 			// 将查找到的信息放入request中，然后从页面加载
+			request.setAttribute("suspectId",suspect.getSuspect_ID() );
 			request.setAttribute("suspect", suspect);
 			request.setAttribute("belongingS", belongingS);
 			request.setAttribute("personal_Check", personal_Check);
@@ -112,11 +118,11 @@ public class GenerateReportAction {
 			// request.setAttribute("prisonHour", prisonHour);
 			request.setAttribute("reportCreateTime", reportCreateTime);
 			request.setAttribute("pdfFilePath",
-					PropertiesReadUtils.getRecordConfString("uploadDir") + "//"
+					PropertiesReadUtils.getRecordConfString("uploadDir") + "\\"
 							+ suspectId + ".pdf");
 			// request.setAttribute("detainTime", suspect.getDetain_Time());
 			System.out.println("detainTime=" + detainTime);
-			return "/WEB-INF/jsp/recordInfor/report";
+			return "WEB-INF/jsp/recordInfor/report";
 		} catch (Exception e) {
 			// response.getWriter()
 			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
