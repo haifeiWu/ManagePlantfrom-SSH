@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -17,8 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
@@ -55,6 +56,7 @@ public class SuspectManageAction {
 	 */
 	private static final long serialVersionUID = 1L;
 
+
 	@Autowired
 	private SuspectService suspectService;// 嫌疑人信息管理
 	@Autowired
@@ -81,6 +83,7 @@ public class SuspectManageAction {
 	 * 
 	 * @return
 	 */
+
 	@RequestMapping(value="/load")
 	public String SM_loadInfor(HttpServletRequest request) {
 		System.out.println("历史记录，待办信息");
@@ -115,7 +118,8 @@ public class SuspectManageAction {
 		//获取房间名
 		request.setAttribute("roomNameList", roomnameList);
 		// getDistanceTime(suspectCheckedInfor., suspectCheckedInfor.get(14));
-		return "/WEB-INF/jsp/suspectmanage/historyRecord";
+		return "WEB-INF/jsp/suspectmanage/historyRecord";
+
 	}
 
 	/**
@@ -125,6 +129,7 @@ public class SuspectManageAction {
 	 * @throws IOException 
 	 * @throws ParseException 
 	 */
+
 	@RequestMapping(value=("/search"))
 	public String searchsuspectInfor(HttpServletRequest request,HttpServletResponse response) throws ParseException, IOException {
 		String searchInfor = request.getParameter("searchInfor");
@@ -173,11 +178,12 @@ public class SuspectManageAction {
 			System.out.println(suspect);
 			System.out.println(suspectNow);
 		}
+
 		if(suspect.isEmpty() && (!suspectNow.isEmpty() && suspectNow.size()==1)){
 			return toGR(suspectNow.get(0).getSuspect_ID(),request,response);
 		}
 		else{
-			return "/WEB-INF/jsp/suspectmanage/suspectInforList";
+			return "WEB-INF/jsp/suspectmanage/suspectInforList";
 		}
 	}
 
@@ -186,8 +192,10 @@ public class SuspectManageAction {
 	 * 
 	 * @return
 	 */
+
 	@RequestMapping(value="/downVideoFail")
 	public String videoDownFailList(HttpServletRequest request) {
+
 		List<String> leaveTimeList = new ArrayList<String>();
 //		try {
 			List<PHCSMP_Suspect> suspectList = suspectService
@@ -294,10 +302,11 @@ public class SuspectManageAction {
 
 			}
 			request.setAttribute("suspect", list);
-			return "/WEB-INF/jsp/suspectmanage/videoDownloadSuccessSuspectList";
+			return "WEB-INF/suspectmanage/videoDownloadSuccess";
 		} catch (Exception e) {
 			e.printStackTrace();
-			return "/WEB-INF/jsp/suspectmanage/videoDownloadSuccessSuspectList";
+			return "WEB-INF/suspectmanage/videoDownloadSuccessSuspectList";
+
 		}
 
 	}
