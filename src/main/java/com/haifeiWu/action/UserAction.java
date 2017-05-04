@@ -124,12 +124,22 @@ public class UserAction {
 	 * @return
 	 */
 	@SuppressWarnings("unused")
-	@RequestMapping(value = "/add1", method = RequestMethod.POST)
+	@RequestMapping(value = "/updateuser")
 	public String updateUser(PHCSMP_Staff model, HttpServletRequest request) {
 		System.out.println("修改用户信息-------------------");
 
 		userService.updateStaff(model);
-		return "redirect:/user/load";
+		return "WEB-INF/jsp/rolemanage/RoleEdit";
+
+	}
+
+	@RequestMapping(value = "/update")
+	public String update(HttpServletRequest request) {
+		// Integer id=Integer.valueOf(request.getParameter("staff_ID"));
+		String name = request.getParameter("staff_Name");
+		List<PHCSMP_Staff> staff = userService.findStaff("staff_Name", name);
+		request.setAttribute("staff", staff);
+		return "WEB-INF/jsp/rolemanage/RoleEdit";
 
 	}
 

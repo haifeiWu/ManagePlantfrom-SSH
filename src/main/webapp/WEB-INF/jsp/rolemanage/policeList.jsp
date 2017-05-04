@@ -109,7 +109,7 @@ $(function(){
 							<td><a class="text-danger glyphicon glyphicon-remove"
 								 val="${u.staff_ID }"></a> <a
 								class="text-success glyphicon glyphicon-refresh"
-								href="toUpdateCourse?id=${course.id }"></a></td>
+								href="${pageContext.request.contextPath }/user/update?staff_Name=${u.staff_Name }"></a></td>
 						</tr>
 					</c:forEach>
 			</table>

@@ -35,11 +35,11 @@
 					<tr>
 						<td width="110px" text-align="right"><span>用户名 :</span></td>
 						<td  style="padding-top: 12px;width: 200px;"><input id="name" type="text" name="Staff_Name"
-							placeholder="Your UserName" /></td>
+							placeholder="Your UserName" value="${staff[0].staff_Name }" /></td>
 						<td width="140px"><span>职务 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="Duties_Name" id="type_ID">
-								<option value="0">--------请选择职务-------</option>
+								<option value="${staff[0].duties_Name }">--------请选择职务-------</option>
 								<option >是</option>
 								<option>否</option>
 						</select>
@@ -48,32 +48,32 @@
 					<tr>
 						<td><span>真实姓名:</span></td>
 						<td style="padding-top: 12px;width: 200px;"><input id="name" type="text" name="real_Name"
-							placeholder="Your Full Name" /></td>
+							placeholder="Your Full Name" value="${staff[0].real_Name }" /></td>
 						<td><span>性别 :</span></td>
 						<td style="padding-top: 12px;width: 200px;"><input id="name" type="text" name="Sex"
-							placeholder="Your Sex" /></td>
+							placeholder="Your Sex" value="${staff[0].sex }" /></td>
 					</tr>
 					<tr>
 						<td><span>邮箱 :</span></td>
 						<td style="padding-top: 12px;width: 200px;"><input id="email" type="text" name="Email"
-							placeholder="Valid Email Address" /></td>
+							placeholder="Valid Email Address" value="${staff[0].email }" /></td>
 						<td><span>注册日期 :</span></td>
 						<td style="padding-top: 12px;width: 200px;"><input id="name" type="text" name="RegistedDate"
-							placeholder="Registration Date;" /></td>
+							placeholder="Registration Date" value="${staff[0].registedDate }" /></td>
 					</tr>
 					<tr>
 						<td><span>固定电话 :</span></td>
 						<td style="padding-top: 12px;width: 200px;"><input id="email" type="text" name="Phone"
-							placeholder="Telephone" /></td>
+							placeholder="Telephone" value="${staff[0].phone }"/></td>
 						<td><span>移动电话 :</span></td>
 						<td style="padding-top: 12px;width: 200px;"><input id="name" type="text" name="Mobile"
-							placeholder="Telephone" /></td>
+							placeholder="Telephone" value="${staff[0].mobile }"/></td>
 					</tr>
 					<tr>
 						<td><span>是否离职 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="is_leave" id="Is_Dimission">
-								<option value="0">-------------请选择-------------</option>
+								<option value="${staff[0].is_Dimission }" >-------------请选择-------------</option>
 								<option >是</option>
 								<option>否</option>
 						</select>
@@ -81,7 +81,7 @@
 						<td width="140px"><span>权限 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="role_ID" id="role_Name">
-								<option value="0">-------------请选择------------</option>
+								<option value="${staff[0].role_Name }" >-------------请选择------------</option>
 								<option >是</option>
 								<option>否</option>
 						</select>
