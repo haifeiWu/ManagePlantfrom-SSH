@@ -14,6 +14,19 @@ import com.haifeiWu.entity.PHCSMP_Suspect;
  * @d2016年8月14日
  */
 public interface SuspectDao extends DaoSupport<PHCSMP_Suspect> {
+	
+	/**
+	 * 历史嫌疑人的分页显示
+	 * @param hql
+	 * @param offset
+	 * @param pageSize
+	 * @return
+	 */
+	
+	public PHCSMP_Suspect findByidentifyCard_Number(String identifyCard_Number);
+	public List<PHCSMP_Suspect> queryByPage(String hql, int offset, int pageSize);
+
+	public int getAllRowCount(String hql);
 
 	/**
 	 * 根据RoomID查找用户信息

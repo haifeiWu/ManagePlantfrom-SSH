@@ -16,13 +16,29 @@ public class PHCSMP_Process_Log implements Serializable {
 	private int log_ID;//业务日志ID（主键）
 	private String suspect_ID;//档案编号
 	private int process_ID;//流程ID
+	private String suspect_active;
+	private String date;
 	private String start_Time;//开始时间
 	private String end_Time;//结束时间
-	private int staff_ID;//操作用户
-	private String IP_Address;//操作IP地址
+	private String staff_Name;//操作用户
+	private String iP_Address;//操作IP地址
 	
 	
 	
+	
+	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getSuspect_active() {
+		return suspect_active;
+	}
+	public void setSuspect_active(String suspect_active) {
+		this.suspect_active = suspect_active;
+	}
 	public int getLog_ID() {
 		return log_ID;
 	}
@@ -53,18 +69,21 @@ public class PHCSMP_Process_Log implements Serializable {
 	public void setEnd_Time(String end_Time) {
 		this.end_Time = end_Time;
 	}
-	public int getStaff_ID() {
-		return staff_ID;
+	
+	
+	public String getStaff_Name() {
+		return staff_Name;
 	}
-	public void setStaff_ID(int staff_ID) {
-		this.staff_ID = staff_ID;
+	public void setStaff_Name(String staff_Name) {
+		this.staff_Name = staff_Name;
 	}
-	public String getIP_Address() {
-		return IP_Address;
+	public String getiP_Address() {
+		return iP_Address;
 	}
-	public void setIP_Address(String iP_Address) {
-		IP_Address = iP_Address;
+	public void setiP_Address(String iP_Address) {
+		this.iP_Address = iP_Address;
 	}
+	
 	
 	
 }

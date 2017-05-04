@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>离石区公安局智能化派出所系统</title>
+<title id="title1">离石区公安局智能化派出所系统</title>
 <link href="${pageContext.request.contextPath }/css/style.css"
 	rel="stylesheet" type="text/css" />
 <script language="JavaScript"
@@ -25,6 +25,21 @@
 			});
 		})
 	});
+	window.onload=function(){
+		$.ajax({
+			cache:false,
+			async:true,
+			url:"${pageContext.request.contextPath }/user/title",
+			type:"POST",
+			dataType:"json",
+			error:function(XMLResponse){alert(XMLResponse.responseText);},
+			success:function(result){
+					//alert(result.name);
+					document.getElementById("title").innerHTML=result.name;
+					document.getElementById("title1").innerHTML=result.title;
+			}
+		});
+	}
 </script>
 </head>
 <body
@@ -37,7 +52,7 @@
 		<div id="cloud2" class="cloud"></div>
 	</div>
 	<div class="logintop">
-		<span>欢迎登录离石区公安局智能化派出所系统</span>
+		<span>欢迎登录<lable id="title"></lable>智能化派出所系统</span>
 		<ul>
 			<li><a href="#">回首页</a></li>
 			<li><a href="#">帮助</a></li>

@@ -1,6 +1,11 @@
 package com.haifeiWu.action;
 
+
 import java.util.List;
+
+import java.io.IOException;
+import java.util.Properties;
+
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -52,7 +57,7 @@ public class UserAction {
 		logger.debug("----------" + staff.toString());
 		PHCSMP_Staff user = userService.findUserByStaffNameAndPwd(
 				staff.getStaff_Name(), staff.getPassWord());
-
+		
 		if (user != null) {
 			// // 日志功能
 			// logger.info("用户 " + user.getStaff_Name() + " 登录系统，时间："
@@ -61,6 +66,7 @@ public class UserAction {
 			Cookie cookie = new Cookie("ip", request.getRemoteAddr());
 			cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
 			response.addCookie(cookie);
+			request.getSession().setAttribute("staffname", staff.getStaff_Name());;
 			return "WEB-INF/jsp/home/main";
 		} else {
 			request.setAttribute("loginError", "用户名或密码不正确！");
@@ -206,6 +212,19 @@ public class UserAction {
 
 		return role;
 
+	}
+
+
+	
+	@RequestMapping(value=("/title"))
+	public void updateTitle(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+		Properties pop = new Properties();
+		pop.load(this.getClass().getClassLoader().getResourceAsStream("title.properties"));
+		String title1 = pop.getProperty("title");
+		String title2 = pop.getProperty("name");
+		StringBuilder sb = new StringBuilder("{");
+		sb.append("\"name\"").append(":").append("\""+title2+"\"").append(",").append("\"title\"").append(":").append("\""+title1+"\"").append("}");
+		resp.getWriter().print(sb);
 	}
 
 }

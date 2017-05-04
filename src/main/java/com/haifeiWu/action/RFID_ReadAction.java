@@ -52,7 +52,7 @@ public class RFID_ReadAction {
 	 * @author wuhaifei
 	 * @d2017年4月16日
 	 */
-	@RequestMapping(value = "readRfid.action")
+	@RequestMapping(value = "/readRfid")
 	public String readRFID(HttpServletRequest request) throws IOException {
 		/**
 		 * 控制设备发出不同的声音的话，应该在这里做一下应该返回的参数，建议用json格式的数据
@@ -81,7 +81,9 @@ public class RFID_ReadAction {
 		int cardReader_ID = roomService.findByCardReaderName(cardReader_Name)
 				.getCardReader_ID();
 		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
+		request.setAttribute("suspect", suspect);
 		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
+		request.setAttribute("room", room);
 		/**
 		 * 先判断状态，发对应的录像指令，更新房间和流程号/state
 		 * 

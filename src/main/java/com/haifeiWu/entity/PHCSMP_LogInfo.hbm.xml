@@ -15,6 +15,7 @@
         <property name="Staff_Name"/>
         <property name="Operation_Info"/>
         <property name="Operation_Model"/>
+        <property name="date"/>
     </class>
         
 

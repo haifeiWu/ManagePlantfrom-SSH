@@ -57,7 +57,46 @@
         </property>
         <property name="ignoreAcceptHeader" value="true" />
     </bean> -->
+    
+     <!-- 配置日志拦截器 -->
+    	
+		<mvc:interceptors>
 
+		<mvc:interceptor>
+
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/websocket/**" />
+			<mvc:exclude-mapping path="/**/fonts/*" />
+			<mvc:exclude-mapping path="/**/*.css" />
+			<mvc:exclude-mapping path="/**/*.js" />
+			<mvc:exclude-mapping path="/**/*.png" />
+			<mvc:exclude-mapping path="/**/*.gif" />
+			<mvc:exclude-mapping path="/**/*.jpg" />
+			<mvc:exclude-mapping path="/**/*.jpeg" />
+
+			<bean class="com.haifeiWu.interceptor.LoginfoInterceptors"/>
+
+		
+		</mvc:interceptor>
+		<mvc:interceptor>
+
+			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/websocket/**" />
+			<mvc:exclude-mapping path="/**/fonts/*" />
+			<mvc:exclude-mapping path="/**/*.css" />
+			<mvc:exclude-mapping path="/**/*.js" />
+			<mvc:exclude-mapping path="/**/*.png" />
+			<mvc:exclude-mapping path="/**/*.gif" />
+			<mvc:exclude-mapping path="/**/*.jpg" />
+			<mvc:exclude-mapping path="/**/*.jpeg" />
+
+
+		
+			<bean class="com.haifeiWu.interceptor.ProcessLogInterceptor"/>
+		</mvc:interceptor>
+
+	</mvc:interceptors> 
+		
     <!--配置视图解析器      内部资源视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--设置解析器类-->
@@ -76,6 +115,7 @@
         <property name="defaultEncoding" value="UTF-8" />
         <property name="resolveLazily" value="true" />
     </bean> 
-
+    
+   
 
 </beans>

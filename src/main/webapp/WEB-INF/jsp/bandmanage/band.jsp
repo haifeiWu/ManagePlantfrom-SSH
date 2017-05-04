@@ -23,8 +23,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 	<script language="JavaScript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-	<link rel="stylesheet" href="css/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
   </head>
  <script type="text/javascript">
 $(function(){
@@ -58,30 +58,32 @@ $(".navbar-form").on("submit",function(){
 	
 	<div class="container">
 		<div class="row">
-			<form class="navbar-form navbar-left" role="search" method="post" id="searchband" action="${pageContext.request.contextPath }/BandManage_SearchBandById.action">
-				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Search" name="val">
-				</div>
-				<input type="submit" class="btn btn-primary serch"  value="查询" /> 
-			</form>
-			<table class="table table-striped  bandTable" >
-				<tr>
-				   
-					<th>手环编号</th>
-					<th>手环备注</th>
-					<th>手环类型</th>
-					<th>操作</th>
-					<!-- <th>操作</th> -->
+			
+		<table class="table table-striped  bandTable">
+			<tr>
+				<th >手环编号</th>
+				<th>手环备注</th>
+				<th>手环类型</th>
+			</tr>
+			<form class="navbar-form navbar-left" role="search" method="post"
+		id="searchband"
+		action="${pageContext.request.contextPath }/band/updateBand">
+			<c:forEach items="${bandCheckInfo }" var="item" varStatus="status" >
+				<tr >
+					<td>${item.band_ID }<input type="hidden" class="form-control"
+						name="bandList[${status.index }].band_ID" value="${item.band_ID }">
+					</td>
+					<td><input type="text" class="form-control" name="bandList[${status.index }].remark"
+						value="${item.remark }"></td>
+					<td><input type="text" class="form-control" name="bandList[${status.index }].band_Type"
+						value="${item.band_Type }"></td>
 				</tr>
-				<c:forEach items="${bandCheckInfo }" var="item">
-					<tr>
-						<td>${item.band_ID }</td>
-						<td>${item.remark }</td>
-						<td>${item.band_Type }</td>
-						<td><a class="glyphicon glyphicon-pencil band_edit" href="${pageContext.request.contextPath }/BandManage_toUpdateBand.action?key=${item.band_ID }" val="${item.band_ID }" name="key"></a></td>
-					</tr>
-				</c:forEach>
+			</c:forEach>
+			<table>
+				<input type="submit" class="btn btn-primary serch col-sm-offset-10 col-sm-2" value="修改" />
 			</table>
+		</table>
+	</form>
 		</div>
 
 
