@@ -61,6 +61,15 @@ public class HomeAction {
 		// throw new RuntimeException();
 		// }
 		// String webSocket = prop.getProperty("webSocket");
+		String remoteServerIP = PropertiesReadUtils
+				.getRecordConfString("remoteServerIP");
+		String remoteServerPort = PropertiesReadUtils
+				.getRecordConfString("remoteServerPort");
+		System.out.println("-----------------" + remoteServerIP);
+		System.out.println("-----------------" + remoteServerPort);
+		// String webSocket =
+		// PropertiesReadUtils.getRecordConfString("webSocket");
+
 		String webSocket = PropertiesReadUtils.getRecordConfString("webSocket");
 		request.setAttribute("webSocket", webSocket);
 		return "jsp/index";

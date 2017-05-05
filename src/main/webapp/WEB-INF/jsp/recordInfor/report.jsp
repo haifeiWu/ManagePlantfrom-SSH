@@ -237,8 +237,10 @@
 							<tr>
 								<td style="text-align: center;">进入办案区原因：</td>
 
-								<td colspan="9">${suspect.suspected_Cause }</td>
+								<td colspan="4">${suspect.suspected_Cause }</td>
+								<td style="text-align: center;">音视频编码：</td>
 
+								<td colspan="4">${suspect.vedio_Number }</td>
 							</tr>
 						</table>
 					</div>
@@ -292,7 +294,8 @@
 									style="padding-left: 88px;width:200px; vertical-align: top;font-size: 16px;">检查情况：</td>
 								<td
 									style="text-align: left; vertical-align: top; font-size: 16px;"
-									rea><div style="width: 40%;height: 70px;border: 1px solid;"><p >${personal_Check.check_ReportS }</p></div></td>
+									rea><div style="width: 40%;height: 70px;border: 1px solid;word-wrap: break-word; word-break: normal;
+									">${personal_Check.check_ReportS }</div></td>
 							</tr>
 							<tr>
 								<td
@@ -426,7 +429,7 @@
 							<td>结束时间</td>
 							<td>房间名</td>
 							<td>活动内容</td>
-							<td>音视频编码</td>
+							<!-- <td>音视频编码</td> -->
 							<td>备注</td>
 						</tr>
 
@@ -437,7 +440,7 @@
 								<td>${item.end_Time }</td>
 								<td>${item.room_ID }</td>
 								<td>${item.activity_Record }</td>
-								<td>${item.vedio_Number }</td>
+								<%-- <td>${item.vedio_Number }</td> --%>
 								<td>${item.remark }</td>
 							</tr>
 						</c:forEach>
@@ -448,7 +451,7 @@
 								<td>${item.end_Time }</td>
 								<td>${item.room_ID }</td>
 								<td>${item.activity_Record }</td>
-								<td>${item.vedio_Number }</td>
+								<%-- <td>${item.vedio_Number }</td> --%>
 								<td>${item.remark }</td>
 							</tr>
 						</c:if>

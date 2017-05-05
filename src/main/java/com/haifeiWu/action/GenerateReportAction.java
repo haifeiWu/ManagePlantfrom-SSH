@@ -65,7 +65,7 @@ public class GenerateReportAction {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/load")
-	public String RG_loadInfor(HttpServletRequest request) throws IOException {
+	public String GR_loadInfor(HttpServletRequest request) throws IOException {
 		String suspectId = request.getParameter("suspectID");
 		try {
 			// 查找嫌疑人入区信息

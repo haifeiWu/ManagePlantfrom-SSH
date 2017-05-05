@@ -96,8 +96,8 @@ public class Activity_Record_Action {
 			// 保存
 			activityRecordService.saveActivityRecordInfor(activity);
 			// 提示成功
-			response.getWriter().write("<script>alert('后台提交成功');</script>");
-			response.getWriter().flush();
+			// response.getWriter().write("<script>alert('后台提交成功');</script>");
+			// response.getWriter().flush();
 			return "redirect:/home/index";
 		} catch (Exception e) {
 			// 提示失败
