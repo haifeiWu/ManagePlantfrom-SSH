@@ -130,7 +130,12 @@ public class Leave_Recod_Action {
 		String leavetime = sdf.format(date);
 		model.setLeave_Time(leavetime);
 		model.setTreatment_Time(leavetime);
+  //获取staffID
+  String staff_ID = request.getParameter("staff_ID");
+			model.setStaff_ID(staff_ID);
+			request.setAttribute("staff_ID", staff_ID);
 		// // 设置离区 嫌疑人的ID
+  
 		model.setSuspect_ID(suspectID);
 		suspectInfor = suspectService.findBySuspetcId(suspectID);
 		// 动态设置离区嫌疑人的字段信息
@@ -246,6 +251,7 @@ public class Leave_Recod_Action {
 			// response.getWriter()
 			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
+			request.setAttribute("error", "error");
 			return "redirect:/load";
 		}
 	}

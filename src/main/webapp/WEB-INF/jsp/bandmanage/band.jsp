@@ -33,7 +33,7 @@ $(function(){
 $(".navbar-form").off();
 $(".navbar-form").on("submit",function(){
  var val = $(this).find("input[name=val]").val();
- alert(val);
+ //alert(val);
  $(".table-striped").load("${pageContext.request.contextPath }/BandManage_"+key+".action?val="+val);
  
  

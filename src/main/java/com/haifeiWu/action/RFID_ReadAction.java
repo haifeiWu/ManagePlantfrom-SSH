@@ -70,6 +70,7 @@ public class RFID_ReadAction {
 
 		System.out.println(cardReader_Name + "------cardReader_Name------");
 		System.out.println(remark + "--------remark-----------");
+		request.setAttribute("remark", remark);
 		// 通过获取的属性获取嫌疑人当前信息和所在房间的信息
 		int bandId = bandService.findByRemark(remark).getBand_ID();
 		int cardReader_ID = roomService.findByCardReaderName(cardReader_Name)

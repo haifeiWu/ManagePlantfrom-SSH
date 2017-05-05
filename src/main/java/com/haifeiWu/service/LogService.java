@@ -23,5 +23,7 @@ public interface LogService {
 	public PHCSMP_Process_Log searchEmpEndTime();
 	public void update(PHCSMP_Process_Log process);
 	public PageBean findLogprocess(String param,int pageSize, int page,String hql);
-	public PageBean findLoginfor(String staffName, int i, int page,String hql); 
+	public PageBean findLoginfor(String staffName, int i, int page,String hql);
+	public void updateStaff(PHCSMP_Process_Log process);
+	public PHCSMP_Process_Log searchEmpstaff(); 
 }
