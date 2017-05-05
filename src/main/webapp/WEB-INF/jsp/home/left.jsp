@@ -95,7 +95,7 @@ $(document).ready(function (){
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/load" target="rightFrame">入区人员信息汇总</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/GR/load?suspectID=LB-HB-201703175"  target="rightFrame">临时报告区</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoFail" target="rightFrame">录像下载失败信息</a><i></i></li>
-         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoSucc" target="rightFrame">录像下载成功信息</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoSucc" target="rightFrame">录像下载成功信息</a><i></i></li>
         </ul>     
     </dd> 
     

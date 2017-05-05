@@ -393,7 +393,7 @@
 	</div>
 	<form class="transient"
 		action="${pageContext.request.contextPath }/leave/addtemp"
-		method="post">
+		method="post" style="height: 583px; ">
 		<div class="container">
 			<div class="row">
 				<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
