@@ -27,6 +27,7 @@ import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.PersonalCheckService;
+import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.utils.Base64;
 import com.haifeiWu.utils.CompleteCheck;
@@ -53,6 +54,8 @@ public class PHCSMP_Suspect_Action {
 	private LineService lineService;
 	@Autowired
 	private BandService bandService;
+	@Autowired
+	private RoomService roomService;
 	@Autowired
 	private PersonalCheckService personalCheckService;
 	@Autowired
@@ -158,18 +161,23 @@ public class PHCSMP_Suspect_Action {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addSuspectInfor(PHCSMP_Suspect model,
 			@RequestParam("file") MultipartFile file,
-			@RequestParam("sfile") MultipartFile sfile) throws IOException {
+			@RequestParam("sfile") MultipartFile sfile,
+			HttpServletRequest request) throws IOException {
 		log.debug("-------" + model.toString());
 		boolean useLine = false;// 定义一个标志位，判断是否开启一路回路，便于在异常的时候判断是否需要释放回路
 		try {
 			// 将照片保存到model中
 			if (!file.isEmpty()) {
-				model.setFrontal_Photo(Base64.file2base64(file.getInputStream()));
+				model.setFrontal_Photo("data:image/jpg;base64,"
+						+ Base64.file2base64(file.getInputStream()));
 			}
 			if (!sfile.isEmpty()) {
-				model.setSideWays_Photo(Base64.file2base64(sfile
-						.getInputStream()));
+				model.setSideWays_Photo("data:image/jpg;base64,"
+						+ Base64.file2base64(sfile.getInputStream()));
 			}
+			// 将房间号设置进去
+			model.setRoom_Now(roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID());
 			// 更新手环的is_Used状态
 			bandService.update(1, model.getBand_ID());// 使用时是1，未使用时为0
 			// 回路饱和性验证
@@ -181,6 +189,7 @@ public class PHCSMP_Suspect_Action {
 				model.setRecordVideo_State(0);
 			}
 			fullCheck(model);
+
 			suspectService.saveSuspect(model);// 保存嫌疑人信息，
 			// String vedioState = "";
 			// if (model.getRecordVideo_State() == 0) {
