@@ -106,6 +106,16 @@
 								$(this).parent().prev().html() - 1);
 					}
 				});
+				
+		$("#btnAdd").click(function(){
+			var Staff_ID=document.getElementById("staff1").value;
+			if(Staff_ID==undefined && Staff_ID ==""){
+				alert('提交失败，请填写办案人员');
+			return false;
+		} else
+			return true;
+		});
+		
 	});
 	
 </script>
@@ -471,10 +481,15 @@
 					</tr>
 				</table>
 			</div>
+			<div style="float:left;width:400px;margin-left: 150px">
+				<p id="signature">
+					办案人员:<input type="text" name="staff_ID" id="staff1"/>
+				</p>
+				</div>
 			<p class="row_1">
 				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记<br />遗漏.
 			</p>
-				<input type="submit" value="确认提交" class="sub" />
+				<input type="submit" value="确认提交" class="sub" id="btnAdd" />
 		</div>
 	</form>
 	<div style="height: 400px;"></div>

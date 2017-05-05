@@ -160,6 +160,7 @@ public class PHCSMP_Personal_Check_Action {
 			String[] str = model.getStaff_ID().split(",");
 			
 			model.setStaff_ID(str[0]);
+			request.setAttribute("staff_Name", str[0]);
 			List<PHCSMP_BelongingS> belongs = this.getBelong();
 			List<PHCSMP_BelongingS> vaildBelong = new ArrayList<PHCSMP_BelongingS>();// 填写的有效信息
 			for (PHCSMP_BelongingS belong : belongs) {// 要考虑物品为空的情况
@@ -192,6 +193,7 @@ public class PHCSMP_Personal_Check_Action {
 //			response.getWriter()
 //					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 //			response.getWriter().flush();
+			request.setAttribute("error", "error");
 			request.setAttribute("checkRecord", model);
 			return "redirect:load";
 		}

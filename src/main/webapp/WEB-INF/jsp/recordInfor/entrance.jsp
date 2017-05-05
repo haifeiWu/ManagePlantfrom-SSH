@@ -353,7 +353,7 @@ function Button1_onclick() {
 							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" value="" onKeyPress="Myenter(form1.submit)" /></td>
 					</tr>
 				</table>
-				<input id="btnSave" class="btn" type="button" value="确认提交"
+				<input id="btnSave" class="btn" type="submit" value="确认提交"
 					class="submit" onClick="form1.submit();" name="submit"/>
 			</div>
 		</div>

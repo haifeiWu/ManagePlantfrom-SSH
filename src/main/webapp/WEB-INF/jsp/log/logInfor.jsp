@@ -89,7 +89,7 @@
 	
 	<div> 
 	<table class="All_total col-lg-12  col-sm-12 table table-bordered" style="width: 1168px">
-			<tr style="background: #3c96c8;height: 55px">
+			<tr style="background: #3c96c8;height: 55px;text-align: center;">
 			<th>序号</th>
 			<th>操作时间</th>
 			<th>操作者</th>

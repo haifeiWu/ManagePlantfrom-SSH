@@ -106,7 +106,14 @@
 				$(this).prop("checked",true);
 			}
 		});
-		
+		$("#btnAdd").click(function(){
+			var Staff_ID=document.getElementById("staff1").value;
+			if(Staff_ID==undefined && Staff_ID ==""){
+				alert('提交失败，请填写办案人员');
+			return false;
+		} else
+			return true;
+		});
 });
 </script>
 <style type="text/css">
@@ -502,11 +509,11 @@
 			<div class="row" style="margin-top:30px;width:1000px;">
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
-					管理员:<input type="text" name="staff_ID" value="${PHCSMP_Leave_Record.staff_ID }"/>
+					管理员:<input type="text" name="staff_ID" value="${PHCSMP_Leave_Record.staff_ID }" id="staff1"/>
 				</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
-					<input type="submit" value="确认提交" class="sub" />
+					<input type="submit" value="确认提交" class="sub" id="btnAdd" />
 				</div>
 				
 			</div>

@@ -120,7 +120,7 @@ public class Leave_Recod_Action {
 //			,@RequestParam("suspectID") String suspectID,@RequestParam("suspectInfor")PHCSMP_Suspect suspectInfor
 			) throws Exception
 			 {
-//		try {
+		try {
 		String suspectID = request.getParameter("suspectID");
 		PHCSMP_Suspect suspectInfor =(PHCSMP_Suspect) request.getAttribute("suspectInfor");
 			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
@@ -131,6 +131,9 @@ public class Leave_Recod_Action {
 			model.setLeave_Time(leavetime);
 			model.setTreatment_Time(leavetime);
 			// // 设置离区 嫌疑人的ID
+			String staff_ID = request.getParameter("staff_ID");
+			model.setStaff_ID(staff_ID);
+			request.setAttribute("staff_ID", staff_ID);
 			model.setSuspect_ID(suspectID);
 			suspectInfor = suspectService.findBySuspetcId(suspectID);
 			// 动态设置离区嫌疑人的字段信息
@@ -184,15 +187,16 @@ public class Leave_Recod_Action {
 			Video.uploadRecFile(suspectInfor.getBand_ID(),
 					suspectInfor.getIdentifyCard_Number());
 			return "redirect:/WEB-INF/jsp/home/index";
-//		} catch (Exception e) {
+		} catch (Exception e) {
 //			// response.getWriter()
 //			// .write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
 //			// response.getWriter().flush();
 //			//
-//			// request.setAttribute("leaveRecordLoadInfor", model);
+			request.setAttribute("error", "error");
+			request.setAttribute("leaveRecordLoadInfor", model);
 //
-//			return "redirect:/load";
-//		}
+			return "redirect:/load";
+		}
 
 	}
 
@@ -243,6 +247,7 @@ public class Leave_Recod_Action {
 			// response.getWriter()
 			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
+			request.setAttribute("error", "error");
 			return "redirect:/load";
 		}
 	}

@@ -178,7 +178,7 @@ public class LogServiceImpl implements LogService {
 	
 	
 	/**
-	 * 查询数据库中endtime为空的记录，有且仅可能是最后一条
+	 * 查询数据库中endtime为0-0的记录，有且仅可能是最后一条
 	 */
 	@Override
 	public PHCSMP_Process_Log searchEmpEndTime() {
@@ -196,6 +196,25 @@ public class LogServiceImpl implements LogService {
 		// TODO Auto-generated method stub
 		String hql = "update PHCSMP_Process_Log process set process.end_Time=? where process.log_ID=?";
 		process_logDao.update(hql, process.getEnd_Time(),process.getLog_ID());
+	}
+
+	/**
+	 * 更新staff
+	 */
+	@Override
+	public void updateStaff(PHCSMP_Process_Log process) {
+		String hql = "update PHCSMP_Process_Log process set process.staff_Name=? where process.log_ID=?";
+		process_logDao.update(hql, process.getStaff_Name(),process.getLog_ID());
+		
+	}
+
+	/**
+	 * 查询数据库中staff为xxx的记录，有且仅可能是最后一条
+	 */
+	@Override
+	public PHCSMP_Process_Log searchEmpstaff() {
+		String hql = "from PHCSMP_Process_Log where staff_Name=?";
+		return process_logDao.queryBystaff(hql);
 	}
 
 	

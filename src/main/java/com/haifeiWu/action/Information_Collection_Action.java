@@ -59,10 +59,13 @@ public class Information_Collection_Action {
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
+			String staff_ID = request.getParameter("staff_ID");
 			String suspectId = model.getSuspect_ID();
 			if (model != null) {
 				model.setIc_EndTime(new DateTime().toString("yyyy-mm-dd HH:mm"));
 				model.setRoom_ID(roomId);
+				model.setStaff_ID(staff_ID);
+				request.setAttribute("staff_ID", staff_ID);
 				fullCheck(model);
 				PHCSMP_Information_Collection old = informationCollectionService
 						.findInforBySuspetcId(suspectId);
@@ -76,7 +79,8 @@ public class Information_Collection_Action {
 		} catch (Exception e) {
 			// response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
-			// request.setAttribute("informatCollect", model);
+			request.setAttribute("error", "error");
+			 request.setAttribute("informatCollect", model);
 			return "redirect:load";
 		}
 
@@ -84,7 +88,7 @@ public class Information_Collection_Action {
 
 	// 加载信息，
 	@RequestMapping(value = "/load", method = RequestMethod.GET)
-	public String loadInfor(@RequestParam("suspectID") String suspectId,
+	public String IM_loadInfor(@RequestParam("suspectID") String suspectId,
 			HttpServletRequest request) throws IOException {// 注意处理房间号找不到异常，或者嫌疑人房间号为空的异常
 		// 维护进出门的标志位
 		try {
@@ -127,6 +131,7 @@ public class Information_Collection_Action {
 			// .write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
 			// response.getWriter().flush();
 			// 转到
+			request.setAttribute("error", "error");
 			return "redirect:/home/index";
 		}
 

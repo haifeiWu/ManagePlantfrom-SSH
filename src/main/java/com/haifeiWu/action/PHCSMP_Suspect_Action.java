@@ -140,9 +140,9 @@ public class PHCSMP_Suspect_Action {
 			request.setAttribute("entry_Time", entry_Time);
 			request.setAttribute("actionCause", actionCause);
 		} catch (Exception e) {
-			response.getWriter().write("<script> alert('信息加载失败!'); </script>");
-			response.getWriter().flush();
-			// 失败应该重定向到/home/index
+//			response.getWriter().write("<script> alert('信息加载失败!'); </script>");
+//			response.getWriter().flush();
+//			// 失败应该重定向到/home/index
 			return "redirect:/home/index";
 		}
 		return "WEB-INF/jsp/recordInfor/entrance";
