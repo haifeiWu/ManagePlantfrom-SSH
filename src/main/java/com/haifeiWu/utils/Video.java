@@ -67,6 +67,17 @@ public class Video {
 		String json = packjson(band_ID, identificationCard);
 		// String result = "";
 		// Object code = "";
+		System.out.println("-------dsdd-----"+PropertiesReadUtils.getRecordConfString("SxQueryUploadFileStatus"));
+		try {
+			Thread.sleep(60000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		
+		
 		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils.getRecordConfString("SxQueryUploadFileStatus"),
 				json);
 		System.out.println(result);

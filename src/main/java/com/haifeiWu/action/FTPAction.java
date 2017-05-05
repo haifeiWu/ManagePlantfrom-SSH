@@ -16,8 +16,9 @@ public class FTPAction {
 	@RequestMapping(value = "/ftp")
 	public String configFTP() throws Exception {
 		Video.setRBServerCfg();
-		Video.setFtpServerCfg(1, "55");
-		Video.uploadRecFile(1, "55");
+		Video.setFtpServerCfg(1, "14022229920404222");
+		Video.uploadRecFile(1, "14022229920404222");
 		return "success";
 	}
+	
 }

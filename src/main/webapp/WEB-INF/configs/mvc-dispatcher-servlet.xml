@@ -58,7 +58,7 @@
         <property name="ignoreAcceptHeader" value="true" />
     </bean> -->
     
-    <!-- 配置日志拦截器 -->
+    <!-- 配置日志拦截器 
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
@@ -86,7 +86,7 @@
 			<bean class="com.haifeiWu.interceptor.ProcessLogInterceptor"/>
 		</mvc:interceptor>
 	</mvc:interceptors> 
-		
+		-->
     <!--配置视图解析器      内部资源视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--设置解析器类-->

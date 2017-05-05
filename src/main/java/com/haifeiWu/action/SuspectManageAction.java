@@ -221,6 +221,8 @@ public class SuspectManageAction {
 	@RequestMapping(value = ("/download"))
 	public String downLoadByHands(HttpServletRequest request) throws Exception {
 		String suspect_ID = request.getParameter("suspect_ID");
+		System.out.println("=============");
+		System.out.println("=-----=="+suspect_ID);
 		PHCSMP_Suspect phcsmp_Suspect = suspectService
 				.findBySuspetcId(suspect_ID);
 		try {
@@ -229,9 +231,7 @@ public class SuspectManageAction {
 					phcsmp_Suspect.getIdentifyCard_Number());
 			Video.uploadRecFile(phcsmp_Suspect.getBand_ID(),
 					phcsmp_Suspect.getIdentifyCard_Number());
-			// suspectService.updateIs_RecordVideo_DownLoad(1,
-			// phcsmp_Suspect.getBand_ID(),
-			// phcsmp_Suspect.getIdentifyCard_Number());// 下载成功
+			suspectService.updateIs_RecordVideo_DownLoad(1, phcsmp_Suspect.getBand_ID(),phcsmp_Suspect.getIdentifyCard_Number());// 下载成功
 		} catch (Exception e) {
 			// suspectService.updateIs_RecordVideo_DownLoad(0,
 			// phcsmp_Suspect.getBand_ID(),
@@ -272,7 +272,7 @@ public class SuspectManageAction {
 
 		}
 		request.setAttribute("suspect", list);
-		return "WEB-INF/suspectmanage/videoDownloadSuccess";
+		return "WEB-INF/jsp/suspectmanage/videoDownloadSuccessSuspectList";
 		// } catch (Exception e) {
 		// e.printStackTrace();
 		// return "WEB-INF/suspectmanage/videoDownloadSuccessSuspectList";
