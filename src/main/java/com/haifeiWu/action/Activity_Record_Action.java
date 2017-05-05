@@ -195,7 +195,7 @@ public class Activity_Record_Action {
 			request.setAttribute("start_Time", start_Time);
 			// 维护进出门状态
 			suspectService.updateSwitch(1, suspectId);
-			return "/WEB-INF/jsp/recordInfor/activity";
+			return "WEB-INF/jsp/recordInfor/activity";
 		} catch (Exception e) {
 			// response.getWriter()
 			// .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");

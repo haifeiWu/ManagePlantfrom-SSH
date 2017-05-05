@@ -25,18 +25,14 @@ import com.haifeiWu.utils.PropertiesReadUtils;
 @Scope("prototype")
 public class HomeAction {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2941802033175754434L;
-
 	@RequestMapping(value = "/top")
-	public String top(HttpServletRequest request) throws UnsupportedEncodingException {
+	public String top(HttpServletRequest request)
+			throws UnsupportedEncodingException {
 		// 读取配置文件中的公安局名称
-		String title = new String(PropertiesReadUtils.getTitleString(
-				"title").getBytes("ISO-8859-1"),"utf-8");
-		String name = new String(PropertiesReadUtils.getTitleString(
-				"name").getBytes("ISO-8859-1"),"utf-8");
+		String title = new String(PropertiesReadUtils.getTitleString("title")
+				.getBytes("ISO-8859-1"), "utf-8");
+		String name = new String(PropertiesReadUtils.getTitleString("name")
+				.getBytes("ISO-8859-1"), "utf-8");
 		request.setAttribute("title", title);
 		request.setAttribute("name", name);
 		return "WEB-INF/jsp/home/top";
@@ -56,8 +52,17 @@ public class HomeAction {
 		cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
 		response.addCookie(cookie);
 		// 读取websocket的路径
-		request.setAttribute("webSocket",
-				PropertiesReadUtils.getRecordConfString("webSocket"));
+		// Properties prop = new Properties();
+		// InputStream in = this.getClass().getResourceAsStream(
+		// "/recordConf.properties");// path是录播设备的配置文件
+		// try {
+		// prop.load(in);
+		// } catch (IOException e) {
+		// throw new RuntimeException();
+		// }
+		// String webSocket = prop.getProperty("webSocket");
+		String webSocket = PropertiesReadUtils.getRecordConfString("webSocket");
+		request.setAttribute("webSocket", webSocket);
 		return "jsp/index";
 	}
 

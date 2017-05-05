@@ -111,24 +111,24 @@ $(document).ready(function (){
     </ul>    
     </dd> 
     
-    <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>房间管理</div>
+    <%-- <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>房间管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/room/load" target="rightFrame">房间设置</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>    
-    </dd>  
+    </dd>   --%>
     
     
-    <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>采集设备管理</div>
+    <%-- <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>采集设备管理</div>
     <ul class="menuson">
     	<li><cite></cite><a href="${pageContext.request.contextPath }/CardReaderManage/loadInfor" target="rightFrame">读卡器设置</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环查看</a><i></i></li>      
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>
-    </dd> 
+    </dd>  --%>
     
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统日志管理</div>
     <ul class="menuson">
@@ -160,6 +160,9 @@ $(document).ready(function (){
      <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统初始化设置</div>
 	     <ul class="menuson">
 	        <li><cite></cite><a href="${pageContext.request.contextPath }/properties/load" target="rightFrame">配置文件初始化</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath }/room/load" target="rightFrame">房间初始化</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath }/CardReaderManage/loadInfor" target="rightFrame">读卡器初始化</a><i></i></li>
+        	<li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环初始化</a><i></i></li>    
 	     </ul>
     </dd>
     </dl>
