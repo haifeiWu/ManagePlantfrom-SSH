@@ -1,6 +1,11 @@
 package com.haifeiWu.action;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -223,19 +228,16 @@ public class SuspectManageAction {
 		String suspect_ID = request.getParameter("suspect_ID");
 		PHCSMP_Suspect phcsmp_Suspect = suspectService
 				.findBySuspetcId(suspect_ID);
+
+		// System.out.println("查询到的嫌疑人信息---------------"
+		// + phcsmp_Suspect.toString());
 		try {
 			Video.setRBServerCfg();
 			Video.setFtpServerCfg(phcsmp_Suspect.getBand_ID(),
 					phcsmp_Suspect.getIdentifyCard_Number());
 			Video.uploadRecFile(phcsmp_Suspect.getBand_ID(),
 					phcsmp_Suspect.getIdentifyCard_Number());
-			// suspectService.updateIs_RecordVideo_DownLoad(1,
-			// phcsmp_Suspect.getBand_ID(),
-			// phcsmp_Suspect.getIdentifyCard_Number());// 下载成功
 		} catch (Exception e) {
-			// suspectService.updateIs_RecordVideo_DownLoad(0,
-			// phcsmp_Suspect.getBand_ID(),
-			// phcsmp_Suspect.getIdentifyCard_Number());// 下载失败
 			request.setAttribute("msg", "下载失败，请重新下载");
 		}
 		return videoDownFailList(request);
@@ -271,16 +273,56 @@ public class SuspectManageAction {
 			list.add(map);
 
 		}
-		request.setAttribute("suspect", list);
-		return "WEB-INF/suspectmanage/videoDownloadSuccess";
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// return "WEB-INF/suspectmanage/videoDownloadSuccessSuspectList";
-		//
-		// }
+
+		if (!list.isEmpty()) {
+			request.setAttribute("suspect", list);
+		}
+
+		// 将path放到前台
+		request.setAttribute("vedioPath",
+				PropertiesReadUtils.getRecordConfString("uploadDir"));
+		return "WEB-INF/jsp/suspectmanage/videoDownloadSuccessSuspectList";
 
 	}
 
+	@RequestMapping("/downloadVeio")
+	public String download(String vedioName,HttpServletRequest request, HttpServletResponse response) throws IOException{
+		 response.setCharacterEncoding("utf-8");//设置编码
+	     response.setContentType("multipart/form-data");//设置类型
+	     response.setHeader("Content-Disposition", "attachment;fileName="+ vedioName);                                       //设置响应头
+	     try {
+	    	//获取服务器根目录
+    	    String classPath = Thread.currentThread().getContextClassLoader()  
+    	            .getResource("").getPath();  
+    	    String rootPath = "";  
+    	   
+    	    if ("\\".equals(File.separator)) {  
+    	        String path = classPath.substring(1,  
+    	                classPath.indexOf("/WEB-INF/classes"));  
+    	        rootPath = path.substring(0, path.lastIndexOf("/"));  
+    	        rootPath = rootPath.replace("/", "\\");  
+    	    }  
+    	    
+    	    String filePath=rootPath+"\\"+"ftp"+"\\"+vedioName;
+    	    
+    	    System.out.println(filePath+"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+	        /*String filePath = request.getSession().getServletContext().getRealPath("/"+vedioName);;*/
+	        InputStream inputStream = new FileInputStream(new File(filePath));
+	        OutputStream os = response.getOutputStream();
+	        byte[] b = new byte[2048];
+	        int length;
+	        while ((length = inputStream.read(b)) > 0) {
+	                os.write(b, 0, length);
+	        }//边读模板文件边写入输出流
+	        os.close();
+	        inputStream.close();//关流
+	        } catch (FileNotFoundException e) {
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        return null;                //注意此时return null
+    }
 	/**
 	 * 历史嫌疑人分页显示
 	 */
@@ -312,20 +354,6 @@ public class SuspectManageAction {
 	private String toGR(String suspectId, HttpServletRequest request,
 			HttpServletResponse response) throws ParseException, IOException {
 		try {
-			// System.out.println("嫌疑人入区信息报告");
-			//
-			// System.out.println("嫌疑人姓名：" +
-			// request.getParameter("personName"));
-			// System.out.println("档案编号：" + request.getParameter("suspectID"));
-
-			/*
-			 * 加载当前嫌疑人的所有的信息
-			 */
-			// 获取档案编号
-			// String suspectId = (String) request.getParameter("suspectID");
-			// if (suspectId == null) {
-			// return "NULL";
-			// }
 			// 查找嫌疑人入区信息
 			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
 			// 嫌疑人随身所有物品检查信息s
@@ -350,24 +378,9 @@ public class SuspectManageAction {
 			// 暂时出区
 			List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
 					.findTempLeaveListBySuspectID(suspectId);
-			// 犯人羁押时间
-			// DateTimeFormatter format = DateTimeFormat
-			// .forPattern("yyyy-MM-dd HH:mm");
-			// DateTime startTime = DateTime.parse(suspect.getEnter_Time());
-			// DateTime endTime = DateTime.parse(leave_Record.getLeave_Time());
-
-			// int prisonHour = Hours.hoursBetween(startTime,
-			// endTime).getHours();
 
 			String reportCreateTime = new DateTime()
 					.toString("yyyy-MM-dd HH:mm");
-
-			// if ((suspect == null) && (belongingS == null)
-			// && (personal_Check == null) && (activity_Record == null)
-			// && (information_Collection == null) && (leave_Record == null)
-			// && (temporaryLeaves == null)) {
-			// return "NULL";
-			// }
 
 			// 将查找到的信息放入request中，然后从页面加载
 			request.setAttribute("suspect", suspect);
@@ -378,36 +391,11 @@ public class SuspectManageAction {
 					information_Collection);
 			request.setAttribute("leave_Record", leave_Record);
 			request.setAttribute("temporaryLeaves", temporaryLeaves);
-			// request.setAttribute("prisonHour", prisonHour);
 			request.setAttribute("reportCreateTime", reportCreateTime);
 			request.setAttribute("pdfFilePath",
 					PropertiesReadUtils.getRecordConfString("uploadDir") + "//"
 							+ suspectId + ".pdf");
-			// request.setAttribute("detainTime", suspect.getDetain_Time());
-			// System.out.println("detainTime=" + detainTime);
 
-			// 生成PDF
-
-			// 获取pdf的临时保存路径,getServletContext是Tomcat容器的路径,也就是服务器的路径
-			// System.out.println(request.getSession().getServletContext()
-			// .getRealPath("/pdf"));
-			// String pdfPath = request.getSession().getServletContext()
-			// .getRealPath("/pdf")
-			// + suspectId + ".pdf";
-			// // 判断是否存在该文件，存在则不生成，不存在则生成
-			// if (!new File(pdfPath).exists()) {
-			// // String path = PropertiesReadUtils.getPDFString("sourcePath")
-			// // + request.getParameter("suspectId");
-			// String path = PropertiesReadUtils.getPDFString("sourcePath")
-			// + "LB-HB-20170317005";
-			// if (HtmlToPdf.convert(path, pdfPath)) {
-			// // response.sendRedirect(request.getContextPath() + "/tmp/"
-			// // +
-			// // pdfName);
-			// request.setAttribute("pdfPath", pdfPath);
-			// System.out.println("pdf成功生成！");
-			// }
-			// }
 			return "WEB-INF/jsp/recordInfor/report.jsp";
 		} catch (Exception e) {
 			// response.getWriter()
@@ -416,20 +404,5 @@ public class SuspectManageAction {
 			return "WEB-INF/jsp/suspectmanage/historySuspectInforList.jsp";
 		}
 	}
-
-	// @Override
-	// public void setServletContext(ServletContext application) {
-	// this.application = application;
-	// }
-	//
-	// @Override
-	// public void setServletResponse(HttpServletResponse response) {
-	// this.response = response;
-	// }
-	//
-	// @Override
-	// public void setServletRequest(HttpServletRequest request) {
-	// this.request = request;
-	// }
 
 }

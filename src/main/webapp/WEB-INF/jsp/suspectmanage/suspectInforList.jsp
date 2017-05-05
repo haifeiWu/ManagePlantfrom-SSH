@@ -81,7 +81,7 @@
 						<tr>
 							<td>${status.index+1 }</td>
 							<td><a
-								href="./GR_loadInfor.action?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"
+								href="${pageContext.request.contextPath}/report/load?suspectID=${item.suspect_ID}"
 								style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a></td>
 							<td>${item.suspect_ID }</td>
 							<td>${item.enter_Time }</td>

@@ -96,7 +96,7 @@
 	</error-page>
   <!-- 设置项目的启动页面 -->
   <welcome-file-list>
-    <welcome-file>/jsp/login.jsp</welcome-file>
+    <welcome-file>/jsp/welcome.jsp</welcome-file>
   </welcome-file-list>
    <!-- //设置session永不超时 -->
  <session-config>

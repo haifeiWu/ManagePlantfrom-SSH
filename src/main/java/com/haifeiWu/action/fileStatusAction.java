@@ -37,7 +37,7 @@ public class fileStatusAction {
 	@Autowired
 	private ActivityRecordService activityRecordService;
 
-	@RequestMapping(value = "/fileStatus.action")
+	@RequestMapping(value = "/fileStatus")
 	public String fileStatus(HttpServletRequest request) throws IOException {
 		this.request = request;
 		String filename = null;
