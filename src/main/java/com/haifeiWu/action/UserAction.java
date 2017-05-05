@@ -1,11 +1,8 @@
 package com.haifeiWu.action;
 
-
-import java.util.List;
-
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
-
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -57,7 +54,7 @@ public class UserAction {
 		logger.debug("----------" + staff.toString());
 		PHCSMP_Staff user = userService.findUserByStaffNameAndPwd(
 				staff.getStaff_Name(), staff.getPassWord());
-		
+
 		if (user != null) {
 			// // 日志功能
 			// logger.info("用户 " + user.getStaff_Name() + " 登录系统，时间："
@@ -66,7 +63,9 @@ public class UserAction {
 			Cookie cookie = new Cookie("ip", request.getRemoteAddr());
 			cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
 			response.addCookie(cookie);
-			request.getSession().setAttribute("staffname", staff.getStaff_Name());;
+			request.getSession().setAttribute("staffname",
+					staff.getStaff_Name());
+			;
 			return "WEB-INF/jsp/home/main";
 		} else {
 			request.setAttribute("loginError", "用户名或密码不正确！");
@@ -104,6 +103,8 @@ public class UserAction {
 	 */
 	@RequestMapping(value = "/adduser")
 	public String addUser(HttpServletRequest request) {
+		List<PHCSMP_Staff> staff = null;
+		request.setAttribute("staff", staff);
 		return "WEB-INF/jsp/rolemanage/RoleEdit";
 	}
 
@@ -133,18 +134,26 @@ public class UserAction {
 	@RequestMapping(value = "/updateuser")
 	public String updateUser(PHCSMP_Staff model, HttpServletRequest request) {
 		System.out.println("修改用户信息-------------------");
+		Integer id = Integer.valueOf(request.getParameter("staff_ID"));
+		System.out.println(id+"-------------");
+		userService.deleteByStaffId(id);
 
 		userService.updateStaff(model);
-		return "WEB-INF/jsp/rolemanage/RoleEdit";
+		return "WEB-INF/jsp/rolemanage/policeList";
 
 	}
 
 	@RequestMapping(value = "/update")
 	public String update(HttpServletRequest request) {
+
 		// Integer id=Integer.valueOf(request.getParameter("staff_ID"));
 		String name = request.getParameter("staff_Name");
-		List<PHCSMP_Staff> staff = userService.findStaff("staff_Name", name);
+		System.out.println("准备修改---------------" + name);
+		List<PHCSMP_Staff> staff = userService.findStaff("Staff_Name", name);
 		request.setAttribute("staff", staff);
+		for (PHCSMP_Staff phcsmp_Staff : staff) {
+			System.out.println(phcsmp_Staff.toString());
+		}
 		return "WEB-INF/jsp/rolemanage/RoleEdit";
 
 	}
@@ -209,21 +218,23 @@ public class UserAction {
 		for (PHCSMP_Role phcsmp_Role : role) {
 			System.out.println(phcsmp_Role.toString());
 		}
-
+		request.setAttribute("role", role);
 		return role;
 
 	}
 
-
-	
-	@RequestMapping(value=("/title"))
-	public void updateTitle(HttpServletRequest req, HttpServletResponse resp) throws IOException{
+	@RequestMapping(value = ("/title"))
+	public void updateTitle(HttpServletRequest req, HttpServletResponse resp)
+			throws IOException {
 		Properties pop = new Properties();
-		pop.load(this.getClass().getClassLoader().getResourceAsStream("title.properties"));
+		pop.load(this.getClass().getClassLoader()
+				.getResourceAsStream("title.properties"));
 		String title1 = pop.getProperty("title");
 		String title2 = pop.getProperty("name");
 		StringBuilder sb = new StringBuilder("{");
-		sb.append("\"name\"").append(":").append("\""+title2+"\"").append(",").append("\"title\"").append(":").append("\""+title1+"\"").append("}");
+		sb.append("\"name\"").append(":").append("\"" + title2 + "\"")
+				.append(",").append("\"title\"").append(":")
+				.append("\"" + title1 + "\"").append("}");
 		resp.getWriter().print(sb);
 	}
 
