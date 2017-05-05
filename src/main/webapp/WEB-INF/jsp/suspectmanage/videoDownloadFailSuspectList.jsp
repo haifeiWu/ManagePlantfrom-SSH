@@ -67,8 +67,8 @@
 							<td>${item.enter_Time}</td>
 
 							<td>${item.leave_Time}</td>
-							<td><a class="btn btn-success"
-								href="${pageContext.request.contextPath }/suspectManage/download">点击下载</a>
+							<td><a class="btn btn-default"
+								href="${pageContext.request.contextPath }/suspectManage/download?suspect_ID=${item.suspect_ID}">点击下载</a>
 							</td>
 							<!--  
 								<td><a class="btn btn-success"

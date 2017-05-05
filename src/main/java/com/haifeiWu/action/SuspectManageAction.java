@@ -223,6 +223,9 @@ public class SuspectManageAction {
 		String suspect_ID = request.getParameter("suspect_ID");
 		PHCSMP_Suspect phcsmp_Suspect = suspectService
 				.findBySuspetcId(suspect_ID);
+
+		// System.out.println("查询到的嫌疑人信息---------------"
+		// + phcsmp_Suspect.toString());
 		try {
 			Video.setRBServerCfg();
 			Video.setFtpServerCfg(phcsmp_Suspect.getBand_ID(),
@@ -268,6 +271,10 @@ public class SuspectManageAction {
 		if (!list.isEmpty()) {
 			request.setAttribute("suspect", list);
 		}
+
+		// 将path放到前台
+		request.setAttribute("vedioPath",
+				PropertiesReadUtils.getRecordConfString("uploadDir"));
 		return "WEB-INF/jsp/suspectmanage/videoDownloadSuccessSuspectList";
 
 	}
