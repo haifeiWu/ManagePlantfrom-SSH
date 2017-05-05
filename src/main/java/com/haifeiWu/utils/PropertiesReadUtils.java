@@ -50,7 +50,7 @@ public class PropertiesReadUtils {
 		// recordConf.properties是录播设备的服务器
 		return getInstance().getPropertiesString("/pdf.properties", param);
 	}
-	
+
 	/**
 	 * 获取公安局名称
 	 * 
@@ -61,7 +61,6 @@ public class PropertiesReadUtils {
 		// recordConf.properties是录播设备的服务器
 		return getInstance().getPropertiesString("/title.properties", param);
 	}
-
 
 	/**
 	 * 获取Peoperties文件的参数的值

@@ -70,7 +70,7 @@
 						<div style="width:150px; float:left; margin-left: -1px;margin-top: 3%;" >
 							<img src="${item.identityCard_Photo}" style="width: 150px; height: 200px;"/>
 							<p >
-								<a href="${pageContext.request.contextPath }/report/load?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a><br />
+								<a href="${pageContext.request.contextPath }/report/load?suspectID=${item.suspect_ID}"style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a><br />
 							</p>
 						</div>
 						<!--  -->
@@ -128,7 +128,7 @@
 					varStatus="status" >
 					<tr>
 						<td>${status.index+1 }</td>
-						<td><a href="${pageContext.request.contextPath }/report/load?personName=${item.suspect_Name }&suspectID=${item.suspect_ID}"style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a></td>
+						<td><a href="${pageContext.request.contextPath }/report/load?suspectID=${item.suspect_ID}"style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a></td>
 						<td><a href="${pageContext.request.contextPath }/report/load?suspectID=${item.suspect_ID }"  target="rightFrame">${item.suspect_ID }<a></td>
 						<td>${item.enter_Time }</td>
 						<td>${item.detain_Time }</td>

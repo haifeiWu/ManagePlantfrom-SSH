@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -29,11 +27,7 @@ import com.haifeiWu.utils.Video;
 @Scope("prototype")
 public class fileStatusAction {
 
-	private static final long serialVersionUID = -6226713528433803678L;
-
-	protected HttpServletRequest request;
-	protected HttpServletResponse response;
-	protected ServletContext application;
+	private HttpServletRequest request;
 	// 嫌疑人信息
 	@Autowired
 	private SuspectService suspectService;
@@ -43,33 +37,31 @@ public class fileStatusAction {
 	@Autowired
 	private ActivityRecordService activityRecordService;
 
-	// String uploadType;
-	// String policeId;
-	// String identificationCard;
-	@RequestMapping(value = "/fileStatus.action")
-	public String fileStatus() throws IOException {
-		String filename=null;
+	@RequestMapping(value = "/fileStatus")
+	public String fileStatus(HttpServletRequest request) throws IOException {
+		this.request = request;
+		String filename = null;
 		JSONObject jsonRequest = JSONObject.parseObject(this.getJsonData());
 		// 获取json中参数
 		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
 		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
-		System.out.println("fileStatus收到的数据 ----------- " + uploadType + "     " + policeId + "     "
-				+ identificationCard);
+		System.out.println("fileStatus收到的数据 ----------- " + uploadType
+				+ "     " + policeId + "     " + identificationCard);
 		if (uploadType == 0) {// 注意对下载失败的处理
 			// 查询文件上传状态
-			
-			filename = Video.queryDownloadFileStatu(policeId, identificationCard);
-			System.out.println("--------------->"+filename);
+			filename = Video.queryDownloadFileStatu(policeId,
+					identificationCard);
+			System.out.println("--------------->" + filename);
 			/*
-			 * 注解
-			 * 如果上传成功的话，filename返回String类型的视频名字
-			 * 如果上传失败，filename返回String类型的0
-			 * */
+			 * 注解 如果上传成功的话，filename返回String类型的视频名字 如果上传失败，filename返回String类型的0
+			 */
 			if (!((filename == null) || filename.equals(""))) {// 成功
-				String suspectId=suspectService.findByidentifyCard_Number(identificationCard).getSuspect_ID();
+				String suspectId = suspectService.findByidentifyCard_Number(
+						identificationCard).getSuspect_ID();
 				suspectService.updatevedio_Number(filename, suspectId);
-				suspectService.updateIs_RecordVideo_DownLoad(1, policeId, identificationCard);
+				suspectService.updateIs_RecordVideo_DownLoad(1, policeId,
+						identificationCard);
 			}
 		}
 		System.out.println("-------查询完成-------->");
@@ -82,9 +74,6 @@ public class fileStatusAction {
 	 * @return
 	 */
 	private String getJsonData() {
-		// ActionContext ctx = ActionContext.getContext();
-		// HttpServletRequest request = (HttpServletRequest) ctx
-		// .get(ServletActionContext.HTTP_REQUEST);
 		InputStream inputStream;
 		String strResponse = "";
 		try {
@@ -103,20 +92,4 @@ public class fileStatusAction {
 		}
 		return strResponse;
 	}
-
-	// @Override
-	// public void setServletContext(ServletContext application) {
-	// this.application = application;
-	// }
-	//
-	// @Override
-	// public void setServletResponse(HttpServletResponse response) {
-	// this.response = response;
-	// }
-	//
-	// @Override
-	// public void setServletRequest(HttpServletRequest request) {
-	// this.request = request;
-	// }
-
 }

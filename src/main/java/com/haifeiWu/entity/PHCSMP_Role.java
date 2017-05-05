@@ -16,16 +16,16 @@ public class PHCSMP_Role implements Serializable {
 	 */
 	private static final long serialVersionUID = -5151854432225451697L;
 
-	private int role_ID;// 角色ID
+	private Integer role_ID;// 角色ID
 	private String role_Name;// 角色名称
 	private String role_Description;// 角色说明
 	private String is_Default_Role;
 
-	public int getRole_ID() {
+	public Integer getRole_ID() {
 		return role_ID;
 	}
 
-	public void setRole_ID(int role_ID) {
+	public void setRole_ID(Integer role_ID) {
 		this.role_ID = role_ID;
 	}
 

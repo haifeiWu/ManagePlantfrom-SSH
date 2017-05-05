@@ -20,7 +20,8 @@ public class PHCSMP_Staff implements Serializable {
 	private String PassWord;// 密码
 	private String real_Name;// 真实姓名
 	private String Sex;// 性别
-	private int Duties_ID;// 职务ID
+	private String Duties_Name;// 职务
+	private String role_Name;// 权限，普通干警高级干警和管理员
 	private String Email;// 邮箱
 	private String RegistedDate;// 注册日期
 	private String Is_Dimission;// 是否离职
@@ -52,6 +53,14 @@ public class PHCSMP_Staff implements Serializable {
 		PassWord = passWord;
 	}
 
+	public String getReal_Name() {
+		return real_Name;
+	}
+
+	public void setReal_Name(String real_Name) {
+		this.real_Name = real_Name;
+	}
+
 	public String getSex() {
 		return Sex;
 	}
@@ -60,12 +69,20 @@ public class PHCSMP_Staff implements Serializable {
 		Sex = sex;
 	}
 
-	public int getDuties_ID() {
-		return Duties_ID;
+	public String getDuties_Name() {
+		return Duties_Name;
 	}
 
-	public void setDuties_ID(int duties_ID) {
-		Duties_ID = duties_ID;
+	public void setDuties_Name(String duties_Name) {
+		Duties_Name = duties_Name;
+	}
+
+	public String getRole_Name() {
+		return role_Name;
+	}
+
+	public void setRole_Name(String role_Name) {
+		this.role_Name = role_Name;
 	}
 
 	public String getEmail() {
@@ -116,23 +133,18 @@ public class PHCSMP_Staff implements Serializable {
 		Is_FirstLogin = is_FirstLogin;
 	}
 
-	public String getReal_Name() {
-		return real_Name;
-	}
-
-	public void setReal_Name(String real_Name) {
-		this.real_Name = real_Name;
-	}
-
 	@Override
 	public String toString() {
 		return "PHCSMP_Staff [Staff_ID=" + Staff_ID + ", Staff_Name="
 				+ Staff_Name + ", PassWord=" + PassWord + ", real_Name="
-				+ real_Name + ", Sex=" + Sex + ", Duties_ID=" + Duties_ID
+				+ real_Name + ", Sex=" + Sex + ", Duties_Name=" + Duties_Name
 				+ ", Email=" + Email + ", RegistedDate=" + RegistedDate
 				+ ", Is_Dimission=" + Is_Dimission + ", Phone=" + Phone
 				+ ", Mobile=" + Mobile + ", Is_FirstLogin=" + Is_FirstLogin
 				+ "]";
+	}
+
+	public PHCSMP_Staff() {
 	}
 
 }

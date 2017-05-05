@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.List;
 
-import javax.persistence.metamodel.SetAttribute;
 import javax.servlet.http.HttpServletRequest;
 
 import org.aspectj.lang.annotation.Aspect;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
@@ -42,32 +40,20 @@ import com.haifeiWu.utils.PropertiesReadUtils;
 @RequestMapping("/report")
 @Scope("prototype")
 public class GenerateReportAction {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	protected String detainTime;
 
-	// 嫌疑人的入区登记信息
 	@Autowired
-	private SuspectService suspectService;
-	// 嫌疑人随身物品登记信息
+	private SuspectService suspectService;// 嫌疑人的入区登记信息
 	@Autowired
-	private BelongingInforService belongingInforService;
-	// 嫌疑人的人身检查信息
+	private BelongingInforService belongingInforService;// 嫌疑人随身物品登记信息
 	@Autowired
-	private PersonalCheckService personalCheckService;
-	// 询问讯问记录信息登记
+	private PersonalCheckService personalCheckService; // 嫌疑人的人身检查信息
 	@Autowired
-	private ActivityRecordService activityRecordService;
-	// 信息采集信息登记
+	private ActivityRecordService activityRecordService;// 询问讯问记录信息登记
 	@Autowired
-	private InformationCollectionService informationCollectionService;
-	// 嫌疑人出区信息登记
+	private InformationCollectionService informationCollectionService;// 信息采集信息登记
 	@Autowired
-	private LeaveRecodService leaveRecodService;
+	private LeaveRecodService leaveRecodService;// 嫌疑人出区信息登记
 	@Autowired
 	private TemporaryLeaveService temporaryLeaveService;
 
@@ -79,8 +65,7 @@ public class GenerateReportAction {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/load")
-	public String RG_loadInfor(
-			HttpServletRequest request) throws IOException {
+	public String GR_loadInfor(HttpServletRequest request) throws IOException {
 		String suspectId = request.getParameter("suspectID");
 		try {
 			// 查找嫌疑人入区信息
@@ -106,7 +91,7 @@ public class GenerateReportAction {
 			String reportCreateTime = new DateTime()
 					.toString("yyyy-MM-dd HH:mm");
 			// 将查找到的信息放入request中，然后从页面加载
-			request.setAttribute("suspectId",suspect.getSuspect_ID() );
+			request.setAttribute("suspectId", suspect.getSuspect_ID());
 			request.setAttribute("suspect", suspect);
 			request.setAttribute("belongingS", belongingS);
 			request.setAttribute("personal_Check", personal_Check);
@@ -128,6 +113,7 @@ public class GenerateReportAction {
 			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
 			// response.getWriter().flush();
 			request.setAttribute("error", "error");
+
 			return "redirect:/home/index";
 		}
 	}

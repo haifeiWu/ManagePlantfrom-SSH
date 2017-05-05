@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- 加载jstl的c标签库 -->
@@ -21,13 +22,6 @@
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/noBackspace.js"></script>
-<script type="text/javascript">
-function Myenter(str){
-  if (event.keyCode == 13){  
-    str.focus();}
-}
-</script>
 <script type="text/javascript">
 $(function() {
 	$("#btnSave").click(function() {
@@ -164,7 +158,7 @@ function Button1_onclick() {
 	<!-- enctype="multipart/form-data" -->
 	<form class="container" id="addInfoForm"
 		action="${pageContext.request.contextPath }/suspect/add"
-		enctype="multipart/form-data" method="POST" name="form1">
+		enctype="multipart/form-data" method="POST">
 		<c:if test="${!empty message }">
 			<input class="message" type="hidden" value=${message }>
 		</c:if>
@@ -223,20 +217,20 @@ function Button1_onclick() {
 									<input type="hidden" name="identityCard_Photo" value="value">
 									<p class="info_id">身份证照</p></td>
 								<td colspan="2">姓名:<input type="text" name="suspect_Name"
-									value="" onKeyPress="Myenter(form1.sex)" /></td>
+									value="" /></td>
 
 							</tr>
 							<!--第二行 性别 民族-->
 							<tr>
 								<td>性别：<input style="text-align: center;" type="text"
-									name="sex" value="" onKeyPress="Myenter(form1.nation)" /></td>
+									name="sex" value="" /></td>
 
-								<td>民族：<input type="text" name="nation" value="" onKeyPress="Myenter(form1.birthday)" /></td>
+								<td>民族：<input type="text" name="nation" value="" /></td>
 							</tr>
 							<!--第三行 出生-->
 							<tr>
 								<td colspan="2">出生日期：<input type="text" style="width:70%;"
-									name="birthday" value="" onKeyPress="Myenter(form1.address)" /></td>
+									name="birthday" value="" /></td>
 							</tr>
 							<!--第四行身份证住址-->
 							<tr>
@@ -244,13 +238,13 @@ function Button1_onclick() {
 							</tr>
 
 							<tr>
-								<td colspan="2"><textarea name="address" rows="1" cols="45" onKeyPress="Myenter(form1.identifyCard_Number1)"></textarea></td>
+								<td colspan="2"><textarea name="address" rows="1" cols="45"></textarea></td>
 							</tr>
 
 							<tr>
 								<td><div style="margin-left: 4%;">身份证号码</div></td>
 								<td colspan="2"><input type="text"
-									name="identifyCard_Number1" value="" onKeyPress="Myenter(form1.phone)" /></td>
+									name="identifyCard_Number1" value="" /></td>
 
 							</tr>
 						</table>
@@ -270,7 +264,7 @@ function Button1_onclick() {
 				<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					<tr>
 						<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
-							style="text-align:center;color: #389ac7;">证件类型：</td>
+							style="text-align:right;color: #389ac7;">证件类型：</td>
 						<td style="text-align:center; width: 168px">
 							<%-- <ol>
 								<!--  -->
@@ -280,28 +274,30 @@ function Button1_onclick() {
 										value="${item.type_Name }" style="width:30px;" />${item.type_Name }</li>
 								</c:forEach>
 							</ol> --%>
-							<select name="type_ID" id="type_ID" >
+							<select name="type_ID" id="type_ID">
 								<option value="0">-------------请选择-------------</option>
 								<c:forEach items="${identifyCardType}" var="item" varStatus="status">
 									<option value="${item.type_Name }">${item.type_Name }</option>
 								</c:forEach>
 						</select>
 						</td>
-					<td style="text-align:center;color: #389ac7;">联系方式：</td>
-						<td><input type="text" name="phone" onKeyPress="Myenter(form1.now_address)" /></td>
+					<td style="text-align:right;color: #389ac7;width: 150px;">联系方式：</td>
+						<td><input type="text" name="phone" /></td>
 						
 						
 						 </tr>
 					<tr> 
-						<td style="text-align:center;color: #389ac7;">证件号码：</td>
-						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number"  />
+						<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+							style="text-align:right;color: #389ac7;">证件号码：</td>
+						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number"/>
 					 <!--</tr>
 					<tr>-->
 						
 					 </tr>
 					 <tr>
-					 <td style="text-align:center;color: #389ac7;" >现住址：</td>
-						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address" onKeyPress="Myenter(form1.staff_ID)" /></td>
+					 <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+							style="text-align:right;color: #389ac7;" >现住址：</td>
+						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address"  /></td>
 					 </tr>
 				</table>
 			</div>
@@ -350,16 +346,15 @@ function Button1_onclick() {
 						<td style="width: 22%;color: #389ac7;text-align: center;">办案民警：</td>
 						<td style="width: 24%;text-align: center;">
 						<input
-							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" value="" onKeyPress="Myenter(form1.submit)" /></td>
+							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" value=""/></td>
 					</tr>
 				</table>
 				<input id="btnSave" class="btn" type="submit" value="确认提交"
-					class="submit" onClick="form1.submit();" name="submit"/>
+					class="submit" />
 			</div>
 		</div>
 		<div class="row_4" style="height: 480px;"></div>
 		</div>
 	</form>
 </body>
-
 </html>

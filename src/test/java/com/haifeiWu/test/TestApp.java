@@ -12,6 +12,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 
 public class TestApp {
+	@Test
+	public void testfor() {
+		for (int i = 0; i < 0; i++) {
+			System.out.println("i--------------" + i);
+		}
+		System.out.println("执行完--------------");
+	}
 
 	// {"code":200,"data":{"failFileList":[],"sucFileList":[]},"errMsg":"Operate success."}
 

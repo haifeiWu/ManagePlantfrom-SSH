@@ -1,13 +1,11 @@
 package com.haifeiWu.utils;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 
 import com.haifeiWu.interceptor.HtmlToPdfInterceptor;
 
 public class HtmlToPdf {
-	// wkhtmltopdf在系统中的路径
-	private static final String toPdfTool = PropertiesReadUtils
-			.getPDFString("toolPath");
 
 	/**
 	 * html转pdf
@@ -17,8 +15,13 @@ public class HtmlToPdf {
 	 * @param destPath
 	 *            pdf保存路径
 	 * @return 转换成功返回true
+	 * @throws UnsupportedEncodingException
 	 */
-	private static boolean convert(String srcPath, String destPath) {
+	private static boolean convert(String srcPath, String destPath)
+			throws UnsupportedEncodingException {
+		// wkhtmltopdf在系统中的路径
+		String toPdfTool = new String(PropertiesReadUtils.getPDFString(
+				"toolPath").getBytes("ISO-8859-1"), "utf-8");
 		File file = new File(destPath);
 		File parent = file.getParentFile();
 		// 如果pdf保存路径不存在，则创建路径
@@ -55,14 +58,17 @@ public class HtmlToPdf {
 	 * // 生成PDF
 	 * 
 	 * @param suspectId
+	 * @throws UnsupportedEncodingException
 	 */
-	public static void createPdf(String suspectId) {
+	public static void createPdf(String suspectId)
+			throws UnsupportedEncodingException {
 
 		// 获取pdf的临时保存路径,也就是服务器的路径
-		String pdfPath = PropertiesReadUtils.getPDFString("serverPath")
-				+ suspectId + ".pdf";
-		String path = PropertiesReadUtils.getPDFString("sourcePath")
-				+ suspectId;
+		String pdfPath = new String(PropertiesReadUtils.getPDFString(
+				"serverPath").getBytes("ISO-8859-1"), "utf-8")
+				+ "\\" + suspectId + ".pdf";
+		String path = new String(PropertiesReadUtils.getPDFString("sourcePath")
+				.getBytes("ISO-8859-1"), "utf-8") + suspectId;
 		convert(path, pdfPath);
 	}
 }

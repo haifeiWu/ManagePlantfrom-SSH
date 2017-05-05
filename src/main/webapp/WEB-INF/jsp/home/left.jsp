@@ -92,41 +92,43 @@ $(document).ready(function (){
     <div class="title">
     <span><img src="${pageContext.request.contextPath }/images/leftico02.png" /></span>嫌疑人信息管理</div>
     <ul class="menuson">
+
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/load" target="rightFrame">入区人员信息汇总</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/report/load?susptct_id"  target="rightFrame">临时报告区</a><i></i></li>
+       <!-- <li><cite></cite><a href="${pageContext.request.contextPath }/report/load?susptct_id"  target="rightFrame">临时报告区</a><i></i></li> -->
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoFail" target="rightFrame">录像下载失败信息</a><i></i></li>
          <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoSucc" target="rightFrame">录像下载成功信息</a><i></i></li>
+
         </ul>     
     </dd> 
     
     
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>角色管理</div>
     <ul class="menuson">
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/user/load" target="rightFrame">查看所有用户</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/user/adduser" target="rightFrame">添加用户</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>    
     </dd> 
     
-    <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>房间管理</div>
+    <%-- <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>房间管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/room/load" target="rightFrame">房间设置</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>    
-    </dd>  
+    </dd>   --%>
     
     
-    <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>采集设备管理</div>
+    <%-- <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>采集设备管理</div>
     <ul class="menuson">
     	<li><cite></cite><a href="${pageContext.request.contextPath }/CardReaderManage/loadInfor" target="rightFrame">读卡器设置</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环查看</a><i></i></li>      
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>
-    </dd> 
+    </dd>  --%>
     
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统日志管理</div>
     <ul class="menuson">
@@ -153,7 +155,16 @@ $(document).ready(function (){
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>
-    </dd>    
+    </dd>  
+    
+     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统初始化设置</div>
+	     <ul class="menuson">
+	        <li><cite></cite><a href="${pageContext.request.contextPath }/properties/load" target="rightFrame">配置文件初始化</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath }/room/load" target="rightFrame">房间初始化</a><i></i></li>
+	        <li><cite></cite><a href="${pageContext.request.contextPath }/CardReaderManage/loadInfor" target="rightFrame">读卡器初始化</a><i></i></li>
+        	<li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环初始化</a><i></i></li>    
+	     </ul>
+    </dd>
     </dl>
     
 </body>

@@ -96,21 +96,21 @@
 	</error-page>
   <!-- 设置项目的启动页面 -->
   <welcome-file-list>
-    <welcome-file>/jsp/login.jsp</welcome-file>
+    <welcome-file>/jsp/welcome.jsp</welcome-file>
   </welcome-file-list>
    <!-- //设置session永不超时 -->
  <session-config>
 	<session-timeout>300</session-timeout>
  </session-config>
    <!--避免浏览器直接打开pdf文件 -->
- <mime-mapping>  
+ 	<!-- <mime-mapping>  
         <extension>doc</extension>  
         <mime-type>application/msword</mime-type>  
     </mime-mapping>  
     <mime-mapping>  
         <extension>xls</extension>  
         <mime-type>application/msexcel</mime-type>  
-    </mime-mapping>  
+    </mime-mapping>  --> 
     <mime-mapping>  
         <extension>pdf</extension>  
         <mime-type>application/pdf</mime-type>  
