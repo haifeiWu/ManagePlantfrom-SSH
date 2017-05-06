@@ -15,6 +15,7 @@
      if ('WebSocket' in window) {
 		// alert("${webSocket}");
         // websocket = new WebSocket("${webSocket}"); 
+
           websocket = new WebSocket("ws://localhost:8888/ManagePlantfrom-SSH/websocket");  
      }
      else {

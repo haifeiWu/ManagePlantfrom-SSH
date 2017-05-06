@@ -173,7 +173,7 @@ public class SuspectManageAction {
 
 		if (suspect.isEmpty()
 				&& (!suspectNow.isEmpty() && suspectNow.size() == 1)) {
-			return toGR(suspectNow.get(0).getSuspect_ID(), request, response);
+			return "redirect:/report/load?suspectID="+suspectNow.get(0).getSuspect_ID();
 		} else {
 			return "WEB-INF/jsp/suspectmanage/suspectInforList";
 		}
@@ -422,65 +422,6 @@ public class SuspectManageAction {
 		return "WEB-INF/jsp/suspectmanage/downSucc";
 	}
 
-	/**
-	 * 跳转到入区人员信息总汇
-	 * 
-	 * @return
-	 * @throws ParseException
-	 * @throws IOException
-	 */
-	private String toGR(String suspectId, HttpServletRequest request,
-			HttpServletResponse response) throws ParseException, IOException {
-		try {
-			// 查找嫌疑人入区信息
-			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
-			// 嫌疑人随身所有物品检查信息s
-			List<PHCSMP_BelongingS> belongingS = belongingInforService
-					.selectBelongInfor(suspectId);
-			// 嫌疑人人身检查信息
-			PHCSMP_Personal_Check personal_Check = personalCheckService
-					.findInforBySuspetcId(suspectId);
-			// 嫌疑人所有的办案区记录信息
-			List<PHCSMP_Activity_Record> activity_Record = activityRecordService
-					.selectActivityRecordInfor(suspectId);
-
-			// 嫌疑人信息采集记录
-			PHCSMP_Information_Collection information_Collection = informationCollectionService
-					.findInforBySuspetcId(suspectId);
-			System.out.println("information_Collection="
-					+ information_Collection);
-
-			// 嫌疑人离区信息记录
-			PHCSMP_Leave_Record leave_Record = leaveRecodService
-					.findInforBySuspetcId(suspectId);
-			// 暂时出区
-			List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
-					.findTempLeaveListBySuspectID(suspectId);
-
-			String reportCreateTime = new DateTime()
-					.toString("yyyy-MM-dd HH:mm");
-
-			// 将查找到的信息放入request中，然后从页面加载
-			request.setAttribute("suspect", suspect);
-			request.setAttribute("belongingS", belongingS);
-			request.setAttribute("personal_Check", personal_Check);
-			request.setAttribute("activity_Record", activity_Record);
-			request.setAttribute("information_Collection",
-					information_Collection);
-			request.setAttribute("leave_Record", leave_Record);
-			request.setAttribute("temporaryLeaves", temporaryLeaves);
-			request.setAttribute("reportCreateTime", reportCreateTime);
-			request.setAttribute("pdfFilePath",
-					PropertiesReadUtils.getRecordConfString("uploadDir") + "//"
-							+ suspectId + ".pdf");
-
-			return "WEB-INF/jsp/recordInfor/report.jsp";
-		} catch (Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
-			// response.getWriter().flush();
-			return "WEB-INF/jsp/suspectmanage/historySuspectInforList.jsp";
-		}
-	}
+	
 
 }

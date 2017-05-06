@@ -107,19 +107,6 @@
 								$(this).parent().prev().html() - 1);
 					}
 				});
-				
-		$("#btnAdd").click(function(){
-				var Staff_ID=document.getElementById("staff1").value;
-				alert("1");
-				if(Staff_ID==undefined && Staff_ID ==""){
-					alert("2");
-					alert('提交失败，请填写办案人员');
-				return false;
-			} else{
-			alert("1");
-				return true;
-			}
-		});
 		
 	});
 	
@@ -127,7 +114,7 @@
 </head>
 
 <body>
-	<form class="container"
+	<form class="container" id="form"
 		action="${pageContext.request.contextPath }/activity/add"
 		method="post">
 			<div class="row">
@@ -388,23 +375,25 @@
 			<div class="row">
 				<h4 id="activityReco"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					活动记录登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
+					历史活动记录登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
 				
 				
 				<c:if test="${!empty activity_record_infor}">
 					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
 					<tr style="background-color: rgb(0,112,192);color:white;">
-						<td style="width: 100px">&nbsp活&nbsp动&nbsp内&nbsp容&nbsp</td><!-- 						<td>音视频编码</td> -->
+						<!-- 						<td>音视频编码</td> -->
 						<td>&nbsp房&nbsp间&nbsp号&nbsp</td>
+						<td style="width: 100px">&nbsp活&nbsp动&nbsp内&nbsp容&nbsp</td>
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp开&nbsp&nbsp始&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp结&nbsp&nbsp束&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 					</tr>
 					   <c:forEach items="${activity_record_infor }" var="ari">
 					   <tr style="height: 70px;" >
+					        <td>${ari.room_ID }</td>
 					   		<td>${ari.activity_Record }</td>
-					   		<td>${ari.room_ID }</td>
+					   		
 					   		<td>${ari.start_Time }</td>
 					   		<td>${ari.end_Time }</td>
 					   		<td rows="2"><textarea rows="2" warp="virtual" style="width:100%;height:100" >${ari.remark }</textarea></td>
@@ -416,7 +405,10 @@
 				
 			    </c:if>
 				
-				
+				<h4 id="activityReco"
+					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					询问讯问记录<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
+				</h4>
 				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
 					<tr style="background-color: rgb(0,112,192);color:white;">
 						<!-- <td style="display: none;">序号</td>
@@ -486,21 +478,37 @@
 					</tr>
 				</table>
 			</div>
-			<div style="float:left;width:400px;margin-left: 150px">
+			<div style="float:left;width:400px;margin-left: 287px;font-size: 22px;margin-top: 16px;">
 				<p id="signature">
 					办案人员:<input type="text" name="staff_ID" id="staff1"/>
 				</p>
 				</div>
+				<br />
+				<div style="padding-top: 20px;text-align: center;">
 			<p class="row_1">
-				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记<br />遗漏.
+				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记遗漏.
 			</p>
-				<input id="btnAdd" type="submit" value="确认提交" class="sub"  />
+			<div style="width: 614px;">
+				<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
+				</div>
+
 		</div>
 	</form>
 	<div style="height: 400px;"></div>
 
 
 </body>
+<script type="text/javascript">
+function check(){
+			var Staff_ID=document.getElementById("staff1").value;
+			if(Staff_ID.length==0 || Staff_ID ==""){
+				alert('提交失败，请填写办案人员');
+			return false;
+		} else
+			document.getElementById("form").submit();
+			return true;
+		}
 
+</script>
 
 </html>

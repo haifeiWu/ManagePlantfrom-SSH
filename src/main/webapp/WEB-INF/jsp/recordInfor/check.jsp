@@ -19,8 +19,10 @@
 	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jqCSS_safety.js"></script>
 
+
 <script type="text/javascript">
 	var index = 0;
+	
 	$(function() {
 		$("#add")
 				.click(
@@ -77,21 +79,13 @@
 								$(this).parent().prev().html() - 1);
 					}
 				});
-		$("#btnAdd").click(function(){
-			var Staff_ID=document.getElementById("staff1").value;
-			var belongstaff = document.getElementById("staff2").value;
-			if(Staff_ID==undefined && Staff_ID ==""&&belongstaff==undefined &&belongstaff==""){
-				alert('提交失败，请填写办案人员');
-			return false;
-		} else
-			return true;
-		});
+		
 
 	});
 </script>
 </head>
 <body>
-	<form class="container"
+	<form class="container" id="form"
 		action="${pageContext.request.contextPath }/check/add"
 		method="post">
 		<%-- <c:if test="${! empty message}">
@@ -347,7 +341,7 @@
 							<tr style="height: 5px !important"></tr>
 							<tr  style="margin:5px 5px !important;margin-top:25px !important;">
 								<td style="">检查民警：</td>
-								<td style=""  colspan="2"><input type="text" name="Staff_ID" value="${checkRecord.staff_ID }"/></td>
+								<td style=""  colspan="2"><input type="text" name="Staff_ID" value="${checkRecord.staff_ID }" id="staff3" /></td>
 							</tr>
 						</table>
 						
@@ -417,10 +411,26 @@
 						</li>
 					</ul>
 				</div>
-				<input style="margin-top: 10px;" class="sub" id="btnAdd" type="submit" value="确认提交" />
+				<input style="margin-top: 10px;" class="sub" id="btnAdd" type="button" onclick="check()" value="确认提交" />
 				<div class="row_2 col-lg-12" style="height: 180px;"></div>
 			</div>
 		</div>
 	</form>
 </body>
+<script type="text/javascript">
+	function check(){
+		
+			var Staff_ID=document.getElementById("staff1").value;
+			var belongstaff = document.getElementById("staff2").value;
+			var staff = document.getElementById("staff3").value;
+			
+			if((Staff_ID.length==0 || Staff_ID =="")||(belongstaff.length==0 ||belongstaff=="")||(staff.length==0 ||staff=="")){
+				alert('提交失败，请填写办案人员或检查民警');
+			return false;
+		} else{
+			document.getElementById("form").submit();
+			return true;
+			}
+		}
+</script>
 </html>

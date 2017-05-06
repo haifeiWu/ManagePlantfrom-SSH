@@ -19,19 +19,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/Info_collection.js"></script>
 
 </head>
-<script type="text/javascript">
-$("#btnAdd").click(function(){
-			var Staff_ID=document.getElementById("staff1").value;
-			if(Staff_ID==undefined && Staff_ID ==""){
-				alert('提交失败，请填写办案人员');
-			return false;
-		} else
-			return true;
-		});
 
-</script>
 <body>
-	<form class="container"
+	<form class="container" id="form"
 		action="${pageContext.request.contextPath }/collect/add"
 		method="post">
 		<div class="row">
@@ -266,12 +256,12 @@ $("#btnAdd").click(function(){
 								
 							</script>
 					</table>
-					<div style="float:left;width:400px;margin-left: 150px">
+					<div style="float:left;width:400px;margin-left: 287px;font-size: 22px;margin-top: 16px;">
 				<p id="signature">
 					办案人员:<input type="text" name="staff_ID" id="staff1"/>
 				</p>
 				</div>
-					<input class="sub" id="btnAdd" type="submit" value="确认提交"/>
+					<input class="sub" id="btnAdd" type="button" onclick="check()" value="确认提交"/>
 					<div class="bottom" style="height: 480px;"></div>
 				</div>
 
@@ -279,5 +269,16 @@ $("#btnAdd").click(function(){
 		</div>
 	</form>
 </body>
+<script type="text/javascript">
+function check(){
+			var Staff_ID=document.getElementById("staff1").value;
+			if(Staff_ID.length==0 || Staff_ID ==""){
+				alert('提交失败，请填写办案人员');
+			return false;
+		} else
+			document.getElementById("form").submit();
+			return true;
+		}
 
+</script>
 </html>

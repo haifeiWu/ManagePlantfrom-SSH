@@ -106,14 +106,7 @@
 				$(this).prop("checked",true);
 			}
 		});
-		$("#btnAdd").click(function(){
-			var Staff_ID=document.getElementById("staff1").value;
-			if(Staff_ID==undefined && Staff_ID ==""){
-				alert('提交失败，请填写办案人员');
-			return false;
-		} else
-			return true;
-		});
+		
 });
 </script>
 <style type="text/css">
@@ -456,7 +449,7 @@
 		<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
 	</form>
 	<!--最终离开办案区的信息表-->
-	<form class="final"
+	<form class="final" id="form"
 		action="${pageContext.request.contextPath }/leave/add"
 		method="post">
 		<div class="container ">
@@ -513,7 +506,7 @@
 				</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
-					<input type="submit" value="确认提交" class="sub" id="btnAdd" />
+					<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
 				</div>
 				
 			</div>
@@ -522,4 +515,16 @@
 	</form>
 	<div style="height: 100px;"></div>
 </body>
+<script type="text/javascript">
+function check(){
+			var Staff_ID=document.getElementById("staff1").value;
+			if(Staff_ID.length==0 || Staff_ID ==""){
+				alert('提交失败，请填写办案人员');
+			return false;
+		} else
+			document.getElementById("form").submit();
+			return true;
+		}
+
+</script>
 </html>
