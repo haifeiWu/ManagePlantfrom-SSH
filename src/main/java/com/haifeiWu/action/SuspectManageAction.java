@@ -226,6 +226,8 @@ public class SuspectManageAction {
 	@RequestMapping(value = ("/download"))
 	public String downLoadByHands(HttpServletRequest request) throws Exception {
 		String suspect_ID = request.getParameter("suspect_ID");
+		System.out.println("=============");
+		System.out.println("=-----=="+suspect_ID);
 		PHCSMP_Suspect phcsmp_Suspect = suspectService
 				.findBySuspetcId(suspect_ID);
 
@@ -273,6 +275,7 @@ public class SuspectManageAction {
 			list.add(map);
 
 		}
+
 
 		if (!list.isEmpty()) {
 			request.setAttribute("suspect", list);

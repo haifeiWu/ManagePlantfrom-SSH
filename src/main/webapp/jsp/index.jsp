@@ -15,7 +15,7 @@
      if ('WebSocket' in window) {
 		      alert("${webSocket}");
          websocket = new WebSocket("${webSocket}"); 
-         
+
      }
      else {
          alert('当前浏览器不支持websocket，请使用 IE 11浏览器');

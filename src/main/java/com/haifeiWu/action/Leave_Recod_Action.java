@@ -306,6 +306,8 @@ public class Leave_Recod_Action {
 			if (suspectComplete != 100) {// 信息不完整
 				sb.append("入区登记信息填写不完整!  ");
 			}
+			request.setAttribute("suspectInfor", suspectInfor);
+			request.setAttribute("suspectComplete", suspectComplete);
 			// 查人身检查信息
 			personalCheck = personalCheckService
 					.findInforBySuspetcId(suspectId);
@@ -318,6 +320,7 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行人身检查操作! ");
 			}
+			request.setAttribute("personalCheckComplete", personalCheckComplete);
 			// 查信息采集信息
 			informationCollection = informationCollectionService
 					.findInforBySuspetcId(suspectId);
@@ -332,6 +335,7 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行信息采集操作!  ");
 			}
+			request.setAttribute("informationCollectionComplete", informationCollectionComplete);
 			// 查询问讯问信息
 			activityRecordList = activityRecordService
 					.findInforBySuspetcId(suspectId);
@@ -357,6 +361,7 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行询问讯问操作!  ");
 			}
+			request.setAttribute("activityRecordList", activityRecordList);
 			// 判断是否出区返回
 			temporaryLeave = temporaryLeaveService
 					.IsTemporaryLeaveReturn(suspectId);

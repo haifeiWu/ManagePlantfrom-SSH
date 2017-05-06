@@ -17,14 +17,13 @@ public class FTPAction {
 	@RequestMapping(value = "/ftp")
 	public String configFTP() throws Exception {
 		Video.setRBServerCfg();
-		Video.setFtpServerCfg(1, "1243657687980");
-		Video.uploadRecFile(1, "1243657687980");
+		Video.setFtpServerCfg(1, "14022229920404222");
+		Video.uploadRecFile(1, "14022229920404222");
 		return "success";
 	}
 
 	@RequestMapping(value = "/pdf")
 	public String testpdf() throws Exception {
-
 		HtmlToPdf.createPdf("LB-HB-20170505001");
 		return "success";
 	}
