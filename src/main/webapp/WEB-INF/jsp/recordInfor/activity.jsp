@@ -109,12 +109,16 @@
 				});
 				
 		$("#btnAdd").click(function(){
-			var Staff_ID=document.getElementById("staff1").value;
-			if(Staff_ID==undefined && Staff_ID ==""){
-				alert('提交失败，请填写办案人员');
-			return false;
-		} else
-			return true;
+				var Staff_ID=document.getElementById("staff1").value;
+				alert("1");
+				if(Staff_ID==undefined && Staff_ID ==""){
+					alert("2");
+					alert('提交失败，请填写办案人员');
+				return false;
+			} else{
+			alert("1");
+				return true;
+			}
 		});
 		
 	});
@@ -490,7 +494,7 @@
 			<p class="row_1">
 				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记<br />遗漏.
 			</p>
-				<input type="submit" value="确认提交" class="sub" id="btnAdd" />
+				<input id="btnAdd" type="submit" value="确认提交" class="sub"  />
 		</div>
 	</form>
 	<div style="height: 400px;"></div>
