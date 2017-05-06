@@ -143,9 +143,9 @@ public class PHCSMP_Suspect_Action {
 			request.setAttribute("entry_Time", entry_Time);
 			request.setAttribute("actionCause", actionCause);
 		} catch (Exception e) {
-//			response.getWriter().write("<script> alert('信息加载失败!'); </script>");
-//			response.getWriter().flush();
-//			// 失败应该重定向到/home/index
+			// response.getWriter().write("<script> alert('信息加载失败!'); </script>");
+			// response.getWriter().flush();
+			// // 失败应该重定向到/home/index
 			return "redirect:/home/index";
 		}
 		return "WEB-INF/jsp/recordInfor/entrance";
@@ -206,7 +206,7 @@ public class PHCSMP_Suspect_Action {
 			if (useLine)
 				lineService.closeLine();// 释放一个回路
 			// request.setAttribute("msg", "提交失败，请重新提交");// 异常处理，在页面上提示错误信息
-			return "redirect:load";
+			return "redirect:/load";
 		}
 	}
 

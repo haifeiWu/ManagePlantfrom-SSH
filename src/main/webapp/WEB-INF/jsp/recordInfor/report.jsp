@@ -440,7 +440,6 @@
 								<td>${item.end_Time }</td>
 								<td>${item.room_ID }</td>
 								<td>${item.activity_Record }</td>
-								<%-- <td>${item.vedio_Number }</td> --%>
 								<td>${item.remark }</td>
 							</tr>
 						</c:forEach>
@@ -451,7 +450,6 @@
 								<td>${item.end_Time }</td>
 								<td>${item.room_ID }</td>
 								<td>${item.activity_Record }</td>
-								<%-- <td>${item.vedio_Number }</td> --%>
 								<td>${item.remark }</td>
 							</tr>
 						</c:if>
@@ -506,7 +504,6 @@
 								</tr>
 							</c:if>
 						</table>
-						<%-- </c:if> --%>
 					</div>
 					
 					<!--最终离开办案区的信息表-->
@@ -514,11 +511,6 @@
 					<p></p>
 						<p
 							style="color: #389AC7;margin-top: 9%;margin-left:6%;font-size: 17px;">临时离开办案区</p>
-						<%-- <c:if test="${empty leave_Record }">
-
-							<div
-								style="position: relative;left: 90px;top:0px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
-						</c:if> --%>
 						<div>
 							<table class="final_Leave col-lg-12 col-md-10 col-sm-10">
 								<tr style="background: #0070c0;color: #fff">

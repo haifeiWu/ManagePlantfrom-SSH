@@ -491,6 +491,7 @@
 			<div style="width: 614px;">
 				<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
 				</div>
+
 		</div>
 	</form>
 	<div style="height: 400px;"></div>

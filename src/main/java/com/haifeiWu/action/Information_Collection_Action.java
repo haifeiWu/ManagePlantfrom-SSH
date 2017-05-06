@@ -80,8 +80,8 @@ public class Information_Collection_Action {
 			// response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
 			request.setAttribute("error", "error");
-			 request.setAttribute("informatCollect", model);
-			return "redirect:load";
+			request.setAttribute("informatCollect", model);
+			return "redirect:/load";
 		}
 
 	}
