@@ -16,8 +16,8 @@ public class LineServiceImple implements LineService {
 
 	@Override
 	public boolean isFull() {
-		if (lineDao.findAllInfor().get(0).getLine_Used() < lineDao.findAllInfor().get(0)
-				.getLine_Count()) {
+		if (lineDao.findAllInfor().get(0).getLine_Used() < lineDao
+				.findAllInfor().get(0).getLine_Count()) {
 			// 没有饱和，可以录像
 			return true;
 		} else {
@@ -35,6 +35,6 @@ public class LineServiceImple implements LineService {
 	@Override
 	public void closeLine() {
 		line = lineDao.findObj();
-		lineDao.updateLineUsed(line.getLine_Used());
+		lineDao.updateLineUsed(line.getLine_Used() - 1);
 	}
 }

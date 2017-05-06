@@ -51,11 +51,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>${item.suspect_ID}</td>
 						<td>${item.identifyCard_Number}</td>
 						<td>${item.enter_Time}</td>
-						
 						<td>${item.leave_Time}</td>
+						<%-- <td><a class="button" href="${pageContext.request.contextPath }/suspectManage/downloadVeio?vedioName=${item.vedio_number }">下载</a></td> --%>
+						<%-- <td><a class="button" href="${pageContext.request.contextPath }/suspectManage/downSucc?fileName=${vedioPath}/${item.vedio_number}">下载</a></td> --%>
+						<%-- <td><a class="button" href="${vedioPath}/${item.vedio_number}">下载</a></td> --%>
 						<td><a class="button" href="${pageContext.request.contextPath }/suspectManage/downloadVeio?vedioName=${item.vedio_number }">下载</a></td>
-						<td><a class="button" href="${vedioPath }\\${item.vedio_number }">下载</a></td>
-
 					</tr>
 				</c:forEach>
 			</table>

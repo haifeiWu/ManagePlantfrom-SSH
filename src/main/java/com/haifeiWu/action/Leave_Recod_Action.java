@@ -130,12 +130,12 @@ public class Leave_Recod_Action {
 		String leavetime = sdf.format(date);
 		model.setLeave_Time(leavetime);
 		model.setTreatment_Time(leavetime);
-  //获取staffID
-  String staff_ID = request.getParameter("staff_ID");
-			model.setStaff_ID(staff_ID);
-			request.setAttribute("staff_ID", staff_ID);
+		// 获取staffID
+		String staff_ID = request.getParameter("staff_ID");
+		model.setStaff_ID(staff_ID);
+		request.setAttribute("staff_ID", staff_ID);
 		// // 设置离区 嫌疑人的ID
-  
+
 		model.setSuspect_ID(suspectID);
 		suspectInfor = suspectService.findBySuspetcId(suspectID);
 		// 动态设置离区嫌疑人的字段信息
@@ -182,12 +182,15 @@ public class Leave_Recod_Action {
 		// 下载PDF
 		HtmlToPdf.createPdf(suspectID);
 		// 请求上传录像文件
-		Video.setRBServerCfg();// 远程服务器已配置
-		Video.setFtpServerCfg(suspectInfor.getBand_ID(),
-				suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
-		Video.uploadRecFile(suspectInfor.getBand_ID(),
-				suspectInfor.getIdentifyCard_Number());
-		return "redirect:/WEB-INF/jsp/home/index";
+
+		if (suspectInfor.getRecordVideo_State() != 0) {
+			Video.setRBServerCfg();// 远程服务器已配置
+			Video.setFtpServerCfg(suspectInfor.getBand_ID(),
+					suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
+			Video.uploadRecFile(suspectInfor.getBand_ID(),
+					suspectInfor.getIdentifyCard_Number());
+		}
+		return "redirect:/home/index";
 		// } catch (Exception e) {
 		// // response.getWriter()
 		// //
@@ -203,13 +206,7 @@ public class Leave_Recod_Action {
 	// 保存临时出区的信息
 	@RequestMapping(value = "/addtemp", method = RequestMethod.POST)
 	public String addTemporaryLeaveInfor(Temporary_Leave model,
-			HttpServletRequest request, HttpServletResponse response,
-			@RequestParam("suspectID") String suspectID,
-			@RequestParam("tempLeave_Time") String tempLeave_Time,
-			@RequestParam("tempLeave_Reason") String tempLeave_Reason,
-			@RequestParam("return_Time") String return_Time,
-			@RequestParam("manager") String manager,
-			@RequestParam("temporaryLeave") Temporary_Leave temporaryLeave)
+			HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		try {
 			// 根据ip找到房间
@@ -335,7 +332,8 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行信息采集操作!  ");
 			}
-			request.setAttribute("informationCollectionComplete", informationCollectionComplete);
+			request.setAttribute("informationCollectionComplete",
+					informationCollectionComplete);
 			// 查询问讯问信息
 			activityRecordList = activityRecordService
 					.findInforBySuspetcId(suspectId);
@@ -389,8 +387,9 @@ public class Leave_Recod_Action {
 			if (activityRecordList.size() != 0) {
 				request.setAttribute("activityRecord", activityRecordList);
 			}
+			request.setAttribute("sb", sb);
 			request.setAttribute("suspectInfor", suspectInfor);
-			return "/WEB-INF/jsp/recordInfor/leave";
+			return "WEB-INF/jsp/recordInfor/leave";
 		} catch (Exception e) {
 			// 异常处理
 			// response.getWriter()

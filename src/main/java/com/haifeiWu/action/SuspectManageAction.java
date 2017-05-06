@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_BelongingS;
@@ -227,7 +228,7 @@ public class SuspectManageAction {
 	public String downLoadByHands(HttpServletRequest request) throws Exception {
 		String suspect_ID = request.getParameter("suspect_ID");
 		System.out.println("=============");
-		System.out.println("=-----=="+suspect_ID);
+		System.out.println("=-----==" + suspect_ID);
 		PHCSMP_Suspect phcsmp_Suspect = suspectService
 				.findBySuspetcId(suspect_ID);
 
@@ -276,7 +277,6 @@ public class SuspectManageAction {
 
 		}
 
-
 		if (!list.isEmpty()) {
 			request.setAttribute("suspect", list);
 		}
@@ -289,43 +289,56 @@ public class SuspectManageAction {
 	}
 
 	@RequestMapping("/downloadVeio")
-	public String download(String vedioName,HttpServletRequest request, HttpServletResponse response) throws IOException{
-		 response.setCharacterEncoding("utf-8");//设置编码
-	     response.setContentType("multipart/form-data");//设置类型
-	     response.setHeader("Content-Disposition", "attachment;fileName="+ vedioName);                                       //设置响应头
-	     try {
-	    	//获取服务器根目录
-    	    String classPath = Thread.currentThread().getContextClassLoader()  
-    	            .getResource("").getPath();  
-    	    String rootPath = "";  
-    	   
-    	    if ("\\".equals(File.separator)) {  
-    	        String path = classPath.substring(1,  
-    	                classPath.indexOf("/WEB-INF/classes"));  
-    	        rootPath = path.substring(0, path.lastIndexOf("/"));  
-    	        rootPath = rootPath.replace("/", "\\");  
-    	    }  
-    	    
-    	    String filePath=rootPath+"\\"+"ftp"+"\\"+vedioName;
-    	    
-    	    System.out.println(filePath+"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-	        /*String filePath = request.getSession().getServletContext().getRealPath("/"+vedioName);;*/
-	        InputStream inputStream = new FileInputStream(new File(filePath));
-	        OutputStream os = response.getOutputStream();
-	        byte[] b = new byte[2048];
-	        int length;
-	        while ((length = inputStream.read(b)) > 0) {
-	                os.write(b, 0, length);
-	        }//边读模板文件边写入输出流
-	        os.close();
-	        inputStream.close();//关流
-	        } catch (FileNotFoundException e) {
-	            e.printStackTrace();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	        }
-	        return null;                //注意此时return null
-    }
+	public String download(String vedioName, HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		response.setCharacterEncoding("utf-8");// 设置编码
+		response.setContentType("multipart/form-data");// 设置类型
+		response.setHeader("Content-Disposition", "attachment;fileName="
+				+ vedioName); // 设置响应头
+		try {
+			// 获取服务器根目录
+			String classPath = Thread.currentThread().getContextClassLoader()
+					.getResource("").getPath();
+			// String rootPath = "";
+			//
+			// if ("\\".equals(File.separator)) {
+			// String path = classPath.substring(1,
+			// classPath.indexOf("/WEB-INF/classes"));
+			// rootPath = path.substring(0, path.lastIndexOf("/"));
+			// rootPath = rootPath.replace("/", "\\");
+			// }
+			//
+			// String filePath = rootPath + "\\"
+			// + PropertiesReadUtils.getRecordConfString("uploadDir")
+			// + "\\" + vedioName;
+			String filePath = "\\"
+					+ PropertiesReadUtils.getRecordConfString("uploadDir")
+					+ "\\" + vedioName;
+			System.out
+					.println(filePath
+							+ "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+			/*
+			 * String filePath =
+			 * request.getSession().getServletContext().getRealPath
+			 * ("/"+vedioName);;
+			 */
+			InputStream inputStream = new FileInputStream(new File(filePath));
+			OutputStream os = response.getOutputStream();
+			byte[] b = new byte[2048];
+			int length;
+			while ((length = inputStream.read(b)) > 0) {
+				os.write(b, 0, length);
+			}// 边读模板文件边写入输出流
+			os.close();
+			inputStream.close();// 关流
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null; // 注意此时return null
+	}
+
 	/**
 	 * 历史嫌疑人分页显示
 	 */
@@ -345,6 +358,14 @@ public class SuspectManageAction {
 		request.setAttribute("pageBean", pageBean);
 
 		return "WEB-INF/jsp/suspectmanage/historySuspectInforList";
+	}
+
+	@RequestMapping(value = "/downSucc")
+	public String downSucc(HttpServletRequest request,
+			@RequestParam("fileName") String fileName) {
+		System.out.println("----------fileName-----" + fileName);
+		request.setAttribute("fileName", fileName);
+		return "WEB-INF/jsp/suspectmanage/downSucc";
 	}
 
 	/**

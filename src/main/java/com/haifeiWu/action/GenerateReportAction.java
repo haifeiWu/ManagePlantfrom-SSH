@@ -103,10 +103,14 @@ public class GenerateReportAction {
 			// request.setAttribute("prisonHour", prisonHour);
 			request.setAttribute("reportCreateTime", reportCreateTime);
 			request.setAttribute("pdfFilePath",
-					PropertiesReadUtils.getRecordConfString("uploadDir") + "\\"
+					PropertiesReadUtils.getPDFString("relatePath") + "\\"
 							+ suspectId + ".pdf");
+			// request.setAttribute("pdfFilePath",
+			// PropertiesReadUtils.getRecordConfString("uploadDir") + "\\"
+			// + suspectId + ".pdf");
 			// request.setAttribute("detainTime", suspect.getDetain_Time());
 			System.out.println("detainTime=" + detainTime);
+
 			return "WEB-INF/jsp/recordInfor/report";
 		} catch (Exception e) {
 			// response.getWriter()

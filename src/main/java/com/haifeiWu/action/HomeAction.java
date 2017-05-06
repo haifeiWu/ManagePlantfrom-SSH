@@ -29,10 +29,8 @@ public class HomeAction {
 	public String top(HttpServletRequest request)
 			throws UnsupportedEncodingException {
 		// 读取配置文件中的公安局名称
-		String title = new String(PropertiesReadUtils.getTitleString("title")
-				.getBytes("ISO-8859-1"), "utf-8");
-		String name = new String(PropertiesReadUtils.getTitleString("name")
-				.getBytes("ISO-8859-1"), "utf-8");
+		String title = new String(PropertiesReadUtils.getTitleString("title"));
+		String name = new String(PropertiesReadUtils.getTitleString("name"));
 		request.setAttribute("title", title);
 		request.setAttribute("name", name);
 		return "WEB-INF/jsp/home/top";
@@ -72,7 +70,7 @@ public class HomeAction {
 
 		String webSocket = PropertiesReadUtils.getRecordConfString("webSocket");
 		request.setAttribute("webSocket", webSocket);
-		return "jsp/index";
+		return "WEB-INF/jsp/home/index";
 	}
 
 	@RequestMapping(value = "/main")
