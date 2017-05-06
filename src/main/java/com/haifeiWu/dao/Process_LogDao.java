@@ -14,4 +14,5 @@ public interface Process_LogDao extends DaoSupport<PHCSMP_Process_Log> {
 	public int getAllRowCount(String hql,String param);
 	public List<PHCSMP_Process_Log> queryprocessByPageApram(String hql, int offset,
 			int pageSize, String param);
+	public PHCSMP_Process_Log queryBystaff(String hql);
 }

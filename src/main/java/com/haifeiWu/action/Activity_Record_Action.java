@@ -76,6 +76,7 @@ public class Activity_Record_Action {
 			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
+			String staff_ID = request.getParameter("staff_ID");
 			// PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
 			// 获取前台数据
 			// String start_Time = request.getParameter("start_Time");
@@ -92,12 +93,12 @@ public class Activity_Record_Action {
 			// activity.setSuspect_ID(suspectId);
 			activity.setRoom_ID(roomId);
 			activity.setEnd_Time(End_Time);
+			activity.setStaffS(staff_ID);
+			request.setAttribute("staff_ID", staff_ID);
 			fullCheck(activity);
 			// 保存
 			activityRecordService.saveActivityRecordInfor(activity);
 			// 提示成功
-			response.getWriter().write("<script>alert('后台提交成功');</script>");
-			response.getWriter().flush();
 			return "redirect:/home/index";
 		} catch (Exception e) {
 			// 提示失败
@@ -105,6 +106,7 @@ public class Activity_Record_Action {
 			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
 			// 将信息传递到loadInfor action,显示在页面上
+			request.setAttribute("error", "error");
 			String activity_Record = request.getParameter("activity_Record");
 			String activity_remark = request.getParameter("remark");
 			request.setAttribute("activity_Record", activity_Record);
@@ -133,7 +135,7 @@ public class Activity_Record_Action {
 	 * @throws ClassNotFoundException
 	 */
 	@RequestMapping(value = "/load", method = RequestMethod.GET)
-	public String loadInfor(HttpServletRequest request,
+	public String AR_loadInfor(HttpServletRequest request,
 			@RequestParam("suspectID") String suspectId) throws IOException {
 		try {
 			// 提交失败时将信息再次显示
@@ -200,6 +202,7 @@ public class Activity_Record_Action {
 			// response.getWriter()
 			// .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
 			// response.getWriter().flush();
+			request.setAttribute("error", "error");
 			return "redirect:/load";
 		}
 	}

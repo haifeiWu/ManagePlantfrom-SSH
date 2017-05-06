@@ -17,7 +17,6 @@ import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -114,94 +113,103 @@ public class Leave_Recod_Action {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addLeaveRecordInfor(PHCSMP_Leave_Record model,
 			HttpServletRequest request, HttpServletResponse response
-//			,@RequestParam("suspectID") String suspectID,@RequestParam("suspectInfor")PHCSMP_Suspect suspectInfor
-			) throws Exception
-			 {
-//		try {
+	// ,@RequestParam("suspectID") String
+	// suspectID,@RequestParam("suspectInfor")PHCSMP_Suspect suspectInfor
+	) throws Exception {
+		// try {
 		String suspectID = request.getParameter("suspectID");
-		PHCSMP_Suspect suspectInfor =(PHCSMP_Suspect) request.getAttribute("suspectInfor");
-			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
-			// 设置最终离开时间和 领取时间
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			String leavetime = sdf.format(date);
-			model.setLeave_Time(leavetime);
-			model.setTreatment_Time(leavetime);
-			// // 设置离区 嫌疑人的ID
-			model.setSuspect_ID(suspectID);
-			suspectInfor = suspectService.findBySuspetcId(suspectID);
-			// 动态设置离区嫌疑人的字段信息
-			Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
-			int count1 = CompleteCheck.IsEqualsNull(model, c);
-			int fieldsNumber1 = CompleteCheck.getFieldsNumber(model, c);
-			model.setFill_record(fieldsNumber1 - count1 - 4);// 设置已填写的字段数
-			model.setTotal_record(fieldsNumber1 - 4);// 设置应填写的字段
+		PHCSMP_Suspect suspectInfor = (PHCSMP_Suspect) request
+				.getAttribute("suspectInfor");
+		PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
+		// 设置最终离开时间和 领取时间
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String leavetime = sdf.format(date);
+		model.setLeave_Time(leavetime);
+		model.setTreatment_Time(leavetime);
+  //获取staffID
+  String staff_ID = request.getParameter("staff_ID");
+			model.setStaff_ID(staff_ID);
+			request.setAttribute("staff_ID", staff_ID);
+		// // 设置离区 嫌疑人的ID
+  
+		model.setSuspect_ID(suspectID);
+		suspectInfor = suspectService.findBySuspetcId(suspectID);
+		// 动态设置离区嫌疑人的字段信息
+		Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
+		int count1 = CompleteCheck.IsEqualsNull(model, c);
+		int fieldsNumber1 = CompleteCheck.getFieldsNumber(model, c);
+		model.setFill_record(fieldsNumber1 - count1 - 4);// 设置已填写的字段数
+		model.setTotal_record(fieldsNumber1 - 4);// 设置应填写的字段
 
-			// 设置羁押时间
-			DateTimeFormatter format = DateTimeFormat
-					.forPattern("yyyy-MM-dd HH:mm");
-			DateTime enter = DateTime.parse(suspectInfor.getEnter_Time(),
-					format);
+		// 设置羁押时间
+		DateTimeFormatter format = DateTimeFormat
+				.forPattern("yyyy-MM-dd HH:mm");
+		DateTime enter = DateTime.parse(suspectInfor.getEnter_Time(), format);
 
-			DateTime leave = DateTime.parse(leavetime, format);
-			int hours = Hours.hoursBetween(enter, leave).getHours();
-			// 设置却没有保存到数据库
-			suspectService.updateDetainTime(hours + "小时", suspectID);
-			// 保证不插入重复数据
-			PHCSMP_Leave_Record LeaveRecordInfor = leaveRecodService
-					.findLeaveRecordInfor(suspectID);
-			if (LeaveRecordInfor == null) {
-				leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息，
-			} else {
-				leaveRecodService.updateLeaveRecordInfor(model);// 更新嫌疑人离开信息
-			}
-			// 停止录像// 将录像的标志位置为0
-			if (suspectInfor.getRecordVideo_State() != 0) {
-				String stopRecording = Video.stopRecording(
-						suspectInfor.getBand_ID(), room.getLine_Number(),
-						suspectInfor.getIdentifyCard_Number());
-				suspectService.updateLeaveState(3, -1, 0,
-						suspectInfor.getSuspect_ID());
-			} else {
-				suspectService.updateLeaveState(0, -1, 0,
-						suspectInfor.getSuspect_ID());
-			}
-
-			// 释放回路
-			if (suspectInfor.getRecordVideo_State() != 0)
-				lineService.closeLine();
-			// 释放手环
-			bandService.update(0, suspectInfor.getBand_ID());
-			// 下载PDF
-			HtmlToPdf.createPdf(suspectID);
-			// 请求上传录像文件
-			Video.setRBServerCfg();// 远程服务器已配置
-			Video.setFtpServerCfg(suspectInfor.getBand_ID(),
-					suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
-			Video.uploadRecFile(suspectInfor.getBand_ID(),
+		DateTime leave = DateTime.parse(leavetime, format);
+		int hours = Hours.hoursBetween(enter, leave).getHours();
+		// 设置却没有保存到数据库
+		suspectService.updateDetainTime(hours + "小时", suspectID);
+		// 保证不插入重复数据
+		PHCSMP_Leave_Record LeaveRecordInfor = leaveRecodService
+				.findLeaveRecordInfor(suspectID);
+		if (LeaveRecordInfor == null) {
+			leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息，
+		} else {
+			leaveRecodService.updateLeaveRecordInfor(model);// 更新嫌疑人离开信息
+		}
+		// 停止录像// 将录像的标志位置为0
+		if (suspectInfor.getRecordVideo_State() != 0) {
+			String stopRecording = Video.stopRecording(
+					suspectInfor.getBand_ID(), room.getLine_Number(),
 					suspectInfor.getIdentifyCard_Number());
-			return "redirect:/WEB-INF/jsp/home/index";
-//		} catch (Exception e) {
-//			// response.getWriter()
-//			// .write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
-//			// response.getWriter().flush();
-//			//
-//			// request.setAttribute("leaveRecordLoadInfor", model);
-//
-//			return "redirect:/load";
-//		}
+			suspectService.updateLeaveState(3, -1, 0,
+					suspectInfor.getSuspect_ID());
+		} else {
+			suspectService.updateLeaveState(0, -1, 0,
+					suspectInfor.getSuspect_ID());
+		}
 
+		// 释放回路
+		if (suspectInfor.getRecordVideo_State() != 0)
+			lineService.closeLine();
+		// 释放手环
+		bandService.update(0, suspectInfor.getBand_ID());
+		// 下载PDF
+		HtmlToPdf.createPdf(suspectID);
+		// 请求上传录像文件
+		Video.setRBServerCfg();// 远程服务器已配置
+		Video.setFtpServerCfg(suspectInfor.getBand_ID(),
+				suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
+		Video.uploadRecFile(suspectInfor.getBand_ID(),
+				suspectInfor.getIdentifyCard_Number());
+		return "redirect:/WEB-INF/jsp/home/index";
+		// } catch (Exception e) {
+		// // response.getWriter()
+		// //
+		// .write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
+		// // response.getWriter().flush();
+		// //
+		// // request.setAttribute("leaveRecordLoadInfor", model);
+		//
+		// return "redirect:/load";
+		// }
 	}
 
 	// 保存临时出区的信息
 	@RequestMapping(value = "/addtemp", method = RequestMethod.POST)
 	public String addTemporaryLeaveInfor(Temporary_Leave model,
-			HttpServletRequest request, HttpServletResponse response,@RequestParam("suspectID")String suspectID,@RequestParam("tempLeave_Time")String tempLeave_Time,
-			@RequestParam("tempLeave_Reason")String tempLeave_Reason,@RequestParam("return_Time")String return_Time,@RequestParam("manager")String manager,@RequestParam("temporaryLeave")Temporary_Leave temporaryLeave
-			)
+			HttpServletRequest request, HttpServletResponse response,
+			@RequestParam("suspectID") String suspectID,
+			@RequestParam("tempLeave_Time") String tempLeave_Time,
+			@RequestParam("tempLeave_Reason") String tempLeave_Reason,
+			@RequestParam("return_Time") String return_Time,
+			@RequestParam("manager") String manager,
+			@RequestParam("temporaryLeave") Temporary_Leave temporaryLeave)
 			throws IOException {
 		try {
 			// 根据ip找到房间
@@ -243,19 +251,29 @@ public class Leave_Recod_Action {
 			// response.getWriter()
 			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
+			request.setAttribute("error", "error");
 			return "redirect:/load";
 		}
 	}
 
 	/* 加载界面信息 */
 	@RequestMapping(value = "/load")
-	public String loadInfor(@RequestParam("suspectID") String suspectID,HttpServletRequest request
-//			@RequestParam("sb") StringBuilder sb,@RequestParam("suspectInfor")PHCSMP_Suspect suspectInfor,
-//			@RequestParam("suspectComplete")int suspectComplete,@RequestParam("personalCheck")PHCSMP_Personal_Check personalCheck,
-//			@RequestParam("personalCheckComplete")int personalCheckComplete,@RequestParam("informationCollection")PHCSMP_Information_Collection informationCollection,
-//			@RequestParam("informationCollectionComplete")int informationCollectionComplete,@RequestParam("activityRecordList")List<PHCSMP_Activity_Record> activityRecordList,
-//			@RequestParam("completeMap")Map<Integer, Integer> completeMap,@RequestParam("temporaryLeave")Temporary_Leave temporaryLeave
-			) throws IOException {
+	public String loadInfor(@RequestParam("suspectID") String suspectID,
+			HttpServletRequest request
+	// @RequestParam("sb") StringBuilder
+	// sb,@RequestParam("suspectInfor")PHCSMP_Suspect suspectInfor,
+	// @RequestParam("suspectComplete")int
+	// suspectComplete,@RequestParam("personalCheck")PHCSMP_Personal_Check
+	// personalCheck,
+	// @RequestParam("personalCheckComplete")int
+	// personalCheckComplete,@RequestParam("informationCollection")PHCSMP_Information_Collection
+	// informationCollection,
+	// @RequestParam("informationCollectionComplete")int
+	// informationCollectionComplete,@RequestParam("activityRecordList")List<PHCSMP_Activity_Record>
+	// activityRecordList,
+	// @RequestParam("completeMap")Map<Integer, Integer>
+	// completeMap,@RequestParam("temporaryLeave")Temporary_Leave temporaryLeave
+	) throws IOException {
 		try {
 			// 异常处理的代码
 			if (request.getAttribute("leaveRecordLoadInfor") != null) {
@@ -371,7 +389,7 @@ public class Leave_Recod_Action {
 			if (activityRecordList.size() != 0) {
 				request.setAttribute("activityRecord", activityRecordList);
 			}
-			request.setAttribute("suspectInfor",suspectInfor);
+			request.setAttribute("suspectInfor", suspectInfor);
 			return "/WEB-INF/jsp/recordInfor/leave";
 		} catch (Exception e) {
 			// 异常处理
@@ -387,7 +405,8 @@ public class Leave_Recod_Action {
 	public String unlogin_load() {
 		return "unlogin_load";
 	}
-//-------------------------------------------------------
+
+	// -------------------------------------------------------
 	public LeaveRecodService getLeaveRecodService() {
 		return leaveRecodService;
 	}
@@ -416,7 +435,8 @@ public class Leave_Recod_Action {
 		return temporaryLeaveService;
 	}
 
-	public void setTemporaryLeaveService(TemporaryLeaveService temporaryLeaveService) {
+	public void setTemporaryLeaveService(
+			TemporaryLeaveService temporaryLeaveService) {
 		this.temporaryLeaveService = temporaryLeaveService;
 	}
 
@@ -448,7 +468,8 @@ public class Leave_Recod_Action {
 		return personalCheckService;
 	}
 
-	public void setPersonalCheckService(PersonalCheckService personalCheckService) {
+	public void setPersonalCheckService(
+			PersonalCheckService personalCheckService) {
 		this.personalCheckService = personalCheckService;
 	}
 
@@ -465,7 +486,8 @@ public class Leave_Recod_Action {
 		return activityRecordService;
 	}
 
-	public void setActivityRecordService(ActivityRecordService activityRecordService) {
+	public void setActivityRecordService(
+			ActivityRecordService activityRecordService) {
 		this.activityRecordService = activityRecordService;
 	}
 
@@ -587,7 +609,8 @@ public class Leave_Recod_Action {
 		return informationCollectionComplete;
 	}
 
-	public void setInformationCollectionComplete(int informationCollectionComplete) {
+	public void setInformationCollectionComplete(
+			int informationCollectionComplete) {
 		this.informationCollectionComplete = informationCollectionComplete;
 	}
 
@@ -611,10 +634,6 @@ public class Leave_Recod_Action {
 		return serialVersionUID;
 	}
 
-//================================================
-	
-	
-	
-	
-	
+	// ================================================
+
 }

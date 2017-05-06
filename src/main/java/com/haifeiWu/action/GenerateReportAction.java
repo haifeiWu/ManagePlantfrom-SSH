@@ -65,7 +65,7 @@ public class GenerateReportAction {
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/load")
-	public String RG_loadInfor(HttpServletRequest request) throws IOException {
+	public String GR_loadInfor(HttpServletRequest request) throws IOException {
 		String suspectId = request.getParameter("suspectID");
 		try {
 			// 查找嫌疑人入区信息
@@ -109,6 +109,11 @@ public class GenerateReportAction {
 			System.out.println("detainTime=" + detainTime);
 			return "WEB-INF/jsp/recordInfor/report";
 		} catch (Exception e) {
+			// response.getWriter()
+			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
+			// response.getWriter().flush();
+			request.setAttribute("error", "error");
+
 			return "redirect:/home/index";
 		}
 	}

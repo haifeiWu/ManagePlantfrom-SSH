@@ -119,8 +119,6 @@ public class UserDaoImple extends DaoSupportImpl<PHCSMP_Staff> implements
 
 	@Override
 	public void updateStaff(PHCSMP_Staff model) {
-
-		delete(model);
 		save(model);
 	}
 

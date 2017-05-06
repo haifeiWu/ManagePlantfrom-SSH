@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.haifeiWu.utils.HtmlToPdf;
 import com.haifeiWu.utils.Video;
 
 @Controller
@@ -20,5 +21,11 @@ public class FTPAction {
 		Video.uploadRecFile(1, "14022229920404222");
 		return "success";
 	}
-	
+
+	@RequestMapping(value = "/pdf")
+	public String testpdf() throws Exception {
+		HtmlToPdf.createPdf("LB-HB-20170505001");
+		return "success";
+	}
+
 }

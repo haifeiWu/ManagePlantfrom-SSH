@@ -177,4 +177,20 @@ public class Process_LogDaoImpl extends DaoSupportImpl<PHCSMP_Process_Log>
 		return list;
 	}
 
+
+	/**
+	 * 按staff为"xxx"查找processlog记录
+	 */
+	@Override
+	public PHCSMP_Process_Log queryBystaff(String hql) {
+		Session session = this.getSession();
+		Transaction tx = null;
+		PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
+		tx = session.beginTransaction();
+		Query query = session.createQuery(hql).setParameter(0, "xxx");
+		processLog = (PHCSMP_Process_Log) query.uniqueResult();
+		tx.commit();
+		return processLog;
+	}
+
 }

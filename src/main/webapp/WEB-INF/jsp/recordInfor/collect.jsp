@@ -19,7 +19,17 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/Info_collection.js"></script>
 
 </head>
+<script type="text/javascript">
+$("#btnAdd").click(function(){
+			var Staff_ID=document.getElementById("staff1").value;
+			if(Staff_ID==undefined && Staff_ID ==""){
+				alert('提交失败，请填写办案人员');
+			return false;
+		} else
+			return true;
+		});
 
+</script>
 <body>
 	<form class="container"
 		action="${pageContext.request.contextPath }/collect/add"
@@ -256,7 +266,12 @@
 								
 							</script>
 					</table>
-					<input class="sub" type="submit" value="确认提交"/>
+					<div style="float:left;width:400px;margin-left: 150px">
+				<p id="signature">
+					办案人员:<input type="text" name="staff_ID" id="staff1"/>
+				</p>
+				</div>
+					<input class="sub" id="btnAdd" type="submit" value="确认提交"/>
 					<div class="bottom" style="height: 480px;"></div>
 				</div>
 

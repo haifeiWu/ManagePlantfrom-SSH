@@ -38,7 +38,22 @@
 		    opacity: 0;
 		    margin-right:-10px;
 		}
+		
 	</style>
+	<script>
+		$(function(){				
+			var pdfFile = document.getElementById("pdfFile");
+	        pdfFile.onchange = function () {
+	            pdfFile.select();
+	            document.selection.createRange().text;
+	        }
+			var tomcatFile = document.getElementById("tomcatFile");
+	        tomcatFile.onchange = function () {
+	            tomcatFile.select();
+	            document.selection.createRange().text;
+	        };
+		});
+	</script>
 </head>
 
 <body>
@@ -71,16 +86,19 @@
 					<div class="row ">
 						<table class="final_Leave col-lg-12 col-md-12 col-sm-12">					
 							<tr>
-								<td>pdf工具路径</td>
-								<td><input type="text" name="toolPath"></td>
+								<td>pdf工具路径<br>
+								(例如:C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe)</td>
+								<td><div style="margin-left: 120px;"><input type="file" id="pdfFile" name="toolPath"></div></td>
 							</tr>
 							<tr>
-								<td>源ip地址</td>
+								<td>源ip地址<br>
+								(例如:本机IP地址及端口:192.168.1.4:8080)</td>
 								<td><input type="text" name="sourcePath"></td>
 							</tr>
 							<tr>
-								<td>服务器路径</td>
-								<td><input type="text" name="serverPath"></td>
+								<td>Tomcat下的PDF路径<br>
+								(例如:D:\zhjw\apache-tomcat-7.0.55\webapps\pdf\)</td>
+								<td><div style="margin-left: 120px;"><input type="file" id="tomcatFile" name="serverPath"></div></td>
 							</tr>
 						</table>
 					</div>
@@ -92,11 +110,13 @@
 					<div class="row ">
 						<table class="final_Leave col-lg-12 col-md-12 col-sm-12">					
 							<tr>
-								<td>录播系统IP</td>
+								<td>录播系统IP<br>
+								(例如:192.168.1.108)</td>
 								<td><input type="text" name="recordIp"></td>
 							</tr>
 							<tr>
-								<td>录播系统端口号</td>
+								<td>录播系统端口号<br>
+								(例如:8765)</td>
 								<td><input type="text" name="recordPort"></td>
 							</tr>
 						</table>
@@ -109,13 +129,15 @@
 					<div class="row ">
 						<table class="final_Leave col-lg-12 col-md-12 col-sm-12">					
 							<tr>
-								<td>服务器端口号</td>
+								<td>tomcat服务器端口号<br>
+								(例如:8080)</td>
 								<td><input type="text" name="serverPort"></td>
 							</tr>
-							<tr>
-								<td>录播器上传接口地址</td>
+							<!-- <tr>
+								<td>录播器上传接口地址<br>
+								(例如:ManagePlantfrom-SSH/fileStatus)</td>
 								<td><input type="text" name="url"></td>
-							</tr>
+							</tr> -->
 						</table>
 					</div>
 					

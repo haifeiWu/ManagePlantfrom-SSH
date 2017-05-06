@@ -52,7 +52,7 @@
 		<div id="cloud2" class="cloud"></div>
 	</div>
 	<div class="logintop">
-		<span>欢迎登录<lable id="title"></lable>智能化派出所系统</span>
+		<span>欢迎登录<lable id="title">${name }</lable>智能化派出所系统</span>
 		<ul>
 			<li><a href="#">回首页</a></li>
 			<li><a href="#">帮助</a></li>

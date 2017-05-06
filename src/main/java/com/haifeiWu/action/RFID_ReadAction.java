@@ -52,20 +52,14 @@ public class RFID_ReadAction {
 	 * @author wuhaifei
 	 * @d2017年4月16日
 	 */
-	@RequestMapping(value = "/readRfid")
+	@RequestMapping(value = "/readRfid.action")
 	public String readRFID(HttpServletRequest request) throws IOException {
 		/**
 		 * 控制设备发出不同的声音的话，应该在这里做一下应该返回的参数，建议用json格式的数据
 		 * 
-		 * @author wuhaifei
-		 * @d2017年4月16日
-		 */
-		/**
 		 * 然后树莓派根据返回参数，通过判断来实现发出不同的声音
-		 * 
-		 * @author wuhaifei
-		 * @d2017年4月16日
 		 */
+
 		// 获取BandID和CardReader_ID
 		String cardReader_Name = request.getParameter("deviceId");// 设备号
 		String remark = request.getParameter("wristId");
@@ -76,6 +70,7 @@ public class RFID_ReadAction {
 
 		System.out.println(cardReader_Name + "------cardReader_Name------");
 		System.out.println(remark + "--------remark-----------");
+		request.setAttribute("remark", remark);
 		// 通过获取的属性获取嫌疑人当前信息和所在房间的信息
 		System.out.println("bandSer-----------"+bandService);
 		System.out.println("findby------------"+bandService.findByRemark(remark));

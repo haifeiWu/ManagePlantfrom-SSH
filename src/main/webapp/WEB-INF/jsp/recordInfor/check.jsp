@@ -77,6 +77,15 @@
 								$(this).parent().prev().html() - 1);
 					}
 				});
+		$("#btnAdd").click(function(){
+			var Staff_ID=document.getElementById("staff1").value;
+			var belongstaff = document.getElementById("staff2").value;
+			if(Staff_ID==undefined && Staff_ID ==""&&belongstaff==undefined &&belongstaff==""){
+				alert('提交失败，请填写办案人员');
+			return false;
+		} else
+			return true;
+		});
 
 	});
 </script>
@@ -403,12 +412,12 @@
 						</tr>
 					</table>
 					<ul class="signature col-lg-12 col-md-10 col-sm-10">
-						<li style="margin-left: 65px;">办案人员：<input type="text" name="Staff_ID">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随身财物管理员：<input type="text" name="Staff_ID_Belonging">
+						<li style="margin-left: 65px;">办案人员：<input type="text" name="Staff_ID" id="staff1">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随身财物管理员：<input type="text" id="staff2" name="Staff_ID_Belonging">
 						</li>
 					</ul>
 				</div>
-				<input style="margin-top: 10px;" class="sub" type="submit" value="确认提交" />
+				<input style="margin-top: 10px;" class="sub" id="btnAdd" type="submit" value="确认提交" />
 				<div class="row_2 col-lg-12" style="height: 180px;"></div>
 			</div>
 		</div>
