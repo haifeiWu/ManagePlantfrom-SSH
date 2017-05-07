@@ -20,7 +20,7 @@ $(document).ready(function(){
 	$(".Message textarea").css({"width":"350px","margin-top":"-5%","margin-left": "15%"});
 	//设置活动记录登记表的样式
 	$(".active_check tr:first").css({"background":"#0070c0","color":"#ffffff"});
-	$(".active_check tr").find("td:eq(0)").css("width","5%");
+	/*$(".active_check tr").find("td:eq(0)").css("width","5%");*/
 //	设置input标签
 //	$(".active_check .tb_activity input").css("height","30px");
 //	$(".active_check .tb_activity input:lt(4)").css("width","25%");
