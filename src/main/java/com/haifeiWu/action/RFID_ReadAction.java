@@ -117,6 +117,7 @@ public class RFID_ReadAction {
 		// case 0:// 0是入区登记，不刷卡以及录像
 		// break;
 		case 1:// 人身检查
+			System.out.println(room.getRoom_IPAddress()+"***************************************************");
 			ws.flushPage(room.getRoom_IPAddress() + "*"
 					+ "/check/load?suspectID=" + suspectID);
 			break;

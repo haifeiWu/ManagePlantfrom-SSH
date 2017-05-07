@@ -73,6 +73,7 @@ public class GenerateReportAction {
 			// 嫌疑人随身所有物品检查信息s
 			List<PHCSMP_BelongingS> belongingS = belongingInforService
 					.selectBelongInfor(suspectId);
+			System.out.println(belongingS.toString()+"---------------------------------------------------------------");
 			// 嫌疑人人身检查信息
 			PHCSMP_Personal_Check personal_Check = personalCheckService
 					.findInforBySuspetcId(suspectId);

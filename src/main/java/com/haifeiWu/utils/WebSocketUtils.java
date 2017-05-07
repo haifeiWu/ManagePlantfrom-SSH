@@ -74,6 +74,7 @@ public class WebSocketUtils {
 		if (message.split("\\*").length == 2) {// 主动刷新页面
 			String[] str = message.split("\\*");
 			String ip = str[0];// ip对应的是房间的电子设备
+			System.out.println(ip+"//////////////////////////////////////////////////");
 			String result = str[1];// result对应的是需要刷新的页面
 			WebSocketUtils item = map.get(ip);// 对对象为空的情况主动处理,对象为空
 			try {// 异常处理
