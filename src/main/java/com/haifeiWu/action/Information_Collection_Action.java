@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.haifeiWu.entity.PHCSMP_Dic_Collection_Item;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.InformationCollectionService;
@@ -22,6 +23,7 @@ import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.CompleteCheck;
 
 /**
@@ -36,6 +38,8 @@ import com.haifeiWu.utils.CompleteCheck;
 public class Information_Collection_Action {
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private InformationCollectionService informationCollectionService;
 	@Autowired
@@ -99,6 +103,8 @@ public class Information_Collection_Action {
 					.findBySuspetcId(suspectId);
 			List<PHCSMP_Dic_Collection_Item> collectionItem = informationCollectionService
 					.findAllCollectionItem();
+			List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			request.setAttribute("staff", staff);
 			// 如果再次进入该房间，显示之前填写的信息
 			PHCSMP_Information_Collection collectInfor = informationCollectionService
 					.findInforBySuspetcId(suspectId);

@@ -29,6 +29,7 @@ import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Room;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
@@ -41,6 +42,7 @@ import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.CompleteCheck;
 import com.haifeiWu.utils.HtmlToPdf;
 import com.haifeiWu.utils.Video;
@@ -61,6 +63,8 @@ public class Leave_Recod_Action {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private LeaveRecodService leaveRecodService;
 	// 入区登记
@@ -303,6 +307,7 @@ public class Leave_Recod_Action {
 			if (suspectComplete != 100) {// 信息不完整
 				sb.append("入区登记信息填写不完整!  ");
 			}
+
 			request.setAttribute("suspectInfor", suspectInfor);
 			request.setAttribute("suspectComplete", suspectComplete);
 			// 查人身检查信息
@@ -389,6 +394,9 @@ public class Leave_Recod_Action {
 			}
 			request.setAttribute("sb", sb);
 			request.setAttribute("suspectInfor", suspectInfor);
+			List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			request.setAttribute("staff", staff);
+			System.out.println("+++++++++++++++====" + staff.get(1));
 			return "WEB-INF/jsp/recordInfor/leave";
 		} catch (Exception e) {
 			// 异常处理

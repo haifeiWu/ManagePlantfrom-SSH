@@ -438,7 +438,14 @@
 			<div class="row" style="margin-top:30px;width:1000px;">
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
-					管理员:<input type="text" name="manager" value=""/>			
+					<font color="#389AC7">管理员:</font>
+							<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>		
 				</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
@@ -502,7 +509,14 @@
 			<div class="row" style="margin-top:30px;width:1000px;">
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
-					管理员:<input type="text" name="staff_ID" value="${PHCSMP_Leave_Record.staff_ID }" id="staff1"/>
+					管理员:
+							<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>		
 				</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
@@ -511,7 +525,7 @@
 				
 			</div>
 		</div>
-		<<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
+		<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
 	</form>
 	<div style="height: 100px;"></div>
 </body>

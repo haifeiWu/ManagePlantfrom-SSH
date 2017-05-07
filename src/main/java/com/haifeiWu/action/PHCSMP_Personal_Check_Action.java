@@ -23,6 +23,7 @@ import com.haifeiWu.entity.PHCSMP_Dic_Inspection_Situation;
 import com.haifeiWu.entity.PHCSMP_Dic_Keeping_Way;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
@@ -31,6 +32,7 @@ import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.CompleteCheck;
 
 /**
@@ -58,7 +60,8 @@ public class PHCSMP_Personal_Check_Action {
 	// 随身物品登记
 	@Autowired
 	private BelongingInforService belongingInforService;
-
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private InformationCollectionService informationCollectionService;
 	@Autowired
@@ -108,6 +111,8 @@ public class PHCSMP_Personal_Check_Action {
 			if (updateCheckInfor != null) {
 				request.setAttribute("checkRecord", updateCheckInfor);
 			}
+			List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			request.setAttribute("staff", staff);
 			request.setAttribute("start_time_time", start_time_time);
 			request.setAttribute("SuspectInfor", suspectInfor);
 			request.setAttribute("InspectionSituationType",
@@ -156,9 +161,9 @@ public class PHCSMP_Personal_Check_Action {
 
 			model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));
 			model.setRoom_ID(roomId);
-			
+
 			String[] str = model.getStaff_ID().split(",");
-			
+
 			model.setStaff_ID(str[0]);
 			request.setAttribute("staff_Name", str[0]);
 			List<PHCSMP_BelongingS> belongs = this.getBelong();
@@ -190,9 +195,9 @@ public class PHCSMP_Personal_Check_Action {
 			// response.getWriter().flush();
 			return "redirect:/home/index";
 		} catch (Exception e) {
-//			response.getWriter()
-//					.write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
-//			response.getWriter().flush();
+			// response.getWriter()
+			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+			// response.getWriter().flush();
 			request.setAttribute("error", "error");
 			request.setAttribute("checkRecord", model);
 			return "redirect:load";

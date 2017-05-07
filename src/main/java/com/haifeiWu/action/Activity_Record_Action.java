@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.InformationCollectionService;
@@ -25,6 +26,7 @@ import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.CompleteCheck;
 
 /**
@@ -43,6 +45,8 @@ public class Activity_Record_Action {
 	private static final long serialVersionUID = 1201107017949225716L;
 	@Autowired
 	private RoomService roomService;
+	@Autowired
+	private UserService userService;
 	// 活动记录实例类
 	@Autowired
 	private ActivityRecordService activityRecordService;
@@ -137,6 +141,7 @@ public class Activity_Record_Action {
 	@RequestMapping(value = "/load", method = RequestMethod.GET)
 	public String AR_loadInfor(HttpServletRequest request,
 			@RequestParam("suspectID") String suspectId) throws IOException {
+		// suspectId = "LB-HB-201703115";
 		try {
 			// 提交失败时将信息再次显示
 			if (request.getAttribute("activity_remark") != null) {
@@ -147,12 +152,14 @@ public class Activity_Record_Action {
 				request.setAttribute("activity_remark", activity_remark);
 				request.setAttribute("activity_Record", activity_Record);
 			}
+			System.out.println("进入活动记录");
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
 			PHCSMP_Suspect suspectInfor = suspectService
 					.findBySuspetcId(suspectId);
-
+			List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			request.setAttribute("staff", staff);
 			int complete_degree = (int) (suspectInfor.getFill_record()
 					/ (float) suspectInfor.getTotal_record() * 100);
 			request.setAttribute("complete_degree", complete_degree);

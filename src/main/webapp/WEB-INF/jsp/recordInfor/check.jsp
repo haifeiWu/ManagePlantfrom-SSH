@@ -341,7 +341,14 @@
 							<tr style="height: 5px !important"></tr>
 							<tr  style="margin:5px 5px !important;margin-top:25px !important;">
 								<td style="">检查民警：</td>
-								<td style=""  colspan="2"><input type="text" name="Staff_ID" value="${checkRecord.staff_ID }" id="staff3" /></td>
+								<td style=""  colspan="2">
+								<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select></td>
 							</tr>
 						</table>
 						
@@ -406,8 +413,22 @@
 						</tr>
 					</table>
 					<ul class="signature col-lg-12 col-md-10 col-sm-10">
-						<li style="margin-left: 65px;">办案人员：<input type="text" name="Staff_ID" id="staff1">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随身财物管理员：<input type="text" id="staff2" name="Staff_ID_Belonging">
+						<li style="margin-left: 65px;">办案人员：
+						  <select name="staff_ID" id="staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随身财物管理员：
+							<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
 						</li>
 					</ul>
 				</div>
