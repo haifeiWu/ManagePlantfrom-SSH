@@ -136,17 +136,30 @@ public class PHCSMP_Personal_Check_Action {
 
 	}
 
-	/**
+	/**(王金改：对所属物品的值获取做了修改)
 	 * 添加用户人身检查信息
 	 * 
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addCheckPersonInfor(PHCSMP_Personal_Check model,
+	public String addCheckPersonInfor(@RequestParam List<String> Belonging_Number,
+			@RequestParam List<String> Belonging_Name,
+			@RequestParam List<String> Belonging_Character,
+			@RequestParam List<Integer> Belonging_Count,
+			@RequestParam List<String> Keeping_ID,
+			@RequestParam List<String> Belonging_Unit,
+			@RequestParam List<String> Cabinet_Number,
+			PHCSMP_Personal_Check model,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 		try {
-
+//			System.out.println(Belonging_Number.toString()+"            "+Belonging_Number.size()+"      "+Belonging_Number.get(0));
+//			System.out.println(Belonging_Name.toString()+"           "+Belonging_Name.size());
+//			System.out.println(Belonging_Character.toString());
+//			System.out.println(Belonging_Count.toString());
+//			System.out.println(Keeping_ID.toString());
+//			System.out.println(Belonging_Unit.toString());
+//			System.out.println(Cabinet_Number.toString());
 			System.out.println("ip地址" + request.getRemoteAddr());
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
@@ -160,17 +173,44 @@ public class PHCSMP_Personal_Check_Action {
 			String[] str = model.getStaff_ID().split(",");
 			
 			model.setStaff_ID(str[0]);
+			System.out.println(str[0]);
 			request.setAttribute("staff_Name", str[0]);
-			List<PHCSMP_BelongingS> belongs = this.getBelong();
+			
+			
+			
 			List<PHCSMP_BelongingS> vaildBelong = new ArrayList<PHCSMP_BelongingS>();// 填写的有效信息
-			for (PHCSMP_BelongingS belong : belongs) {// 要考虑物品为空的情况
-				if (!belong.getBelonging_Name().equals("")) {// 提交的信息为空
-					belong.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
-					belong.setRoom_ID(roomId);// 设置登记信息的房间编号
-					belong.setStaff_ID(str[1].equals("") ? null : str[1]);
-					vaildBelong.add(belong);
+			for(int i=0;i<Belonging_Number.size();i++){
+				PHCSMP_BelongingS belongS=new PHCSMP_BelongingS();
+				belongS.setBelonging_Character(Belonging_Character.get(i));
+				belongS.setBelonging_Name(Belonging_Name.get(i));
+				
+				belongS.setBelonging_Count(Belonging_Count.get(i));
+				belongS.setKeeping_ID(Keeping_ID.get(i));
+				belongS.setCabinet_Number(Cabinet_Number.get(i));
+				belongS.setBelonging_Unit(Belonging_Unit.get(i));
+				belongS.setBelonging_Number(Belonging_Number.get(i));
+				System.out.println("belongS               "+belongS.toString());
+				if (!(belongS.getBelonging_Name().equals("")||belongS.getBelonging_Name()==null)) {// 提交的信息为空
+					belongS.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
+					belongS.setRoom_ID(roomId);// 设置登记信息的房间编号
+					belongS.setStaff_ID(str[1].equals("") ? null : str[1]);
+					vaildBelong.add(belongS);
+					System.out.println("vaildBelong                    "+vaildBelong.toString());
 				}
 			}
+			
+			/*List<PHCSMP_BelongingS> belongs = this.getBelong();*/
+//			List<PHCSMP_BelongingS> vaildBelong = new ArrayList<PHCSMP_BelongingS>();// 填写的有效信息
+//			for (PHCSMP_BelongingS belong : belongs) {// 要考虑物品为空的情况
+//				if (!(belong.getBelonging_Name().equals("")||belong.getBelonging_Name()==null)) {// 提交的信息为空
+//					belong.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
+//					belong.setRoom_ID(roomId);// 设置登记信息的房间编号
+//					belong.setStaff_ID(str[1].equals("") ? null : str[1]);
+//					vaildBelong.add(belong);
+//					
+//					System.out.println("vaildBelong                    "+vaildBelong.toString());
+//				}
+//			}
 			fullCheck(model);
 			// 判断要更新还是插入
 			PHCSMP_Personal_Check old = personalCheckService

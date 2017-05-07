@@ -85,7 +85,7 @@
 								style="color:#f69d1f;font-size: large;">${item.suspect_Name }</a></td>
 							<td>${item.suspect_ID }</td>
 							<td>${item.enter_Time }</td>
-							<td><input type="time" /></td>
+							<td>${item.detain_Time }</td>
 							<td>${item.suspected_Cause }</td>
 							<td>教育释放</td>
 							<td>全部反还</td>
