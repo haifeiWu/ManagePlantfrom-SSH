@@ -9,7 +9,7 @@
 <body>
 	<%
 		
-		String str = "operateSuccess------------->"+request.getAttribute("remark")+"\n";
+		String str = "operateSuccess"+"&"+request.getAttribute("remark");
 		response.getWriter().write(str);
 	%>
 </body>
