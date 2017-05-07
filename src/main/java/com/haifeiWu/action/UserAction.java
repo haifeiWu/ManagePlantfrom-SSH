@@ -54,7 +54,6 @@ public class UserAction {
 		logger.debug("----------" + staff.toString());
 		PHCSMP_Staff user = userService.findUserByStaffNameAndPwd(
 				staff.getStaff_Name(), staff.getPassWord());
-
 		if (user != null) {
 			// // 日志功能
 			// logger.info("用户 " + user.getStaff_Name() + " 登录系统，时间："
@@ -65,7 +64,11 @@ public class UserAction {
 			response.addCookie(cookie);
 			request.getSession().setAttribute("staffname",
 					staff.getStaff_Name());
-			;
+			request.getSession().setAttribute("staff_role",
+					staff.getDuties_Name());
+			System.out.println("我是user，刚查出来的-------" + user.toString());
+			request.setAttribute("user", user);
+			System.out.println(staff.getDuties_Name());
 			return "WEB-INF/jsp/home/main";
 		} else {
 			request.setAttribute("loginError", "用户名或密码不正确！");
@@ -80,7 +83,7 @@ public class UserAction {
 	@RequestMapping(value = "/load", method = RequestMethod.GET)
 	public String loadInfor(HttpServletRequest request,
 			HttpServletResponse response) {
-		System.out.println("查找所有  的用户信息");
+		System.out.println("查找所有的用户信息");
 		// 获取所有用户的信息
 		List<PHCSMP_Staff> userCheckInfo = userService.findAllStaffs();
 		for (PHCSMP_Staff phcsmp_Staff : userCheckInfo) {
@@ -105,6 +108,7 @@ public class UserAction {
 	public String addUser(HttpServletRequest request) {
 		List<PHCSMP_Staff> staff = null;
 		request.setAttribute("staff", staff);
+		findAllRole(request, null);
 		return "WEB-INF/jsp/rolemanage/RoleEdit";
 	}
 
@@ -134,12 +138,20 @@ public class UserAction {
 	@RequestMapping(value = "/updateuser")
 	public String updateUser(PHCSMP_Staff model, HttpServletRequest request) {
 		System.out.println("修改用户信息-------------------");
-		Integer id = Integer.valueOf(request.getParameter("staff_ID"));
-		System.out.println(id+"-------------");
-		userService.deleteByStaffId(id);
 
-		userService.updateStaff(model);
-		return "WEB-INF/jsp/rolemanage/policeList";
+		Integer id = Integer.valueOf(request.getParameter("staff_ID"));
+		System.out.println(id + "-------------");
+
+		/*
+		 * Integer id = model.getStaff_ID(); System.out.println(id +
+		 * "-------------------------");
+		 */
+		userService.deleteByStaffId(id);
+		System.out.println(model.getStaff_ID() + model.getStaff_Name()
+				+ model.getDuties_Name() + model.getMobile());
+		/* userService.updateStaff(model); */
+		userService.saveStaff(model);
+		return "redirect:/user/load";
 
 	}
 

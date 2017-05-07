@@ -34,7 +34,7 @@
 		<div class="basic-grey">
 			<form action="${pageContext.request.contextPath }/user/add" method="POST" class="STYLE-NAME">
 				<h1>
-					Contact Form <span>Please fill all the texts in the fields.</span>
+					添加用户信息 <span>Please fill all the texts in the fields.</span>
 				</h1>
 				<table style="margin-left: 20%; text-align: right;">
 					<tr>
@@ -52,7 +52,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span>真实 姓名:</span></td>
+						<td><span>真实姓名:</span></td>
 						<td style="padding-top: 12px;width: 200px;"><input id="name" type="text" name="real_Name"
 							placeholder="Your Full Name" /></td>
 						<td><span>性别 :</span></td>
@@ -79,7 +79,7 @@
 						<td><span>是否离职 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="is_leave" id="Is_Dimission">
-								<option >-------------请选择-------------</option>
+								<option >-------请选择-------</option>
 								<option >是</option>
 								<option>否</option>
 						</select>
@@ -87,7 +87,7 @@
 						<td width="140px"><span>权限 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="role_ID" id="role_Name">
-								<option >-------------请选择------------</option>
+								<option >-------请选择------</option>
 								<option >是</option>
 								<option>否</option>
 						</select>
@@ -112,15 +112,17 @@
 		
 		<c:if test="${!empty staff }">
 		<div class="basic-grey">
-			<form action="${pageContext.request.contextPath }/user/updateuser?Staff_ID=${staff[0].staff_ID }" method="POST" class="STYLE-NAME">
+			<form action="${pageContext.request.contextPath }/user/updateuser" method="POST" class="STYLE-NAME">
 				<h1>
 					修改用户信息  <span>Please fill all the texts in the fields.</span>
 				</h1>
 				<table style="margin-left: 20%; text-align: right;">
+				<input id="name" type="hidden" name="staff_ID" 
+							value="${staff[0].staff_ID }" />
 					<tr>
 						<td width="110px" text-align="right"><span>用户名 :</span></td>
-						<td  style="padding-top: 12px;width: 200px;"><input id="name" type="text" name="Staff_Name"
-							placeholder="Your UserName" value="${staff[0].staff_Name }" disabled="true"/></td>
+						<td  style="padding-top: 12px;width: 200px;"><input id="name" type="text" name="staff_Name"
+							placeholder="Your UserName" value="${staff[0].staff_Name }" readonly="readonly"/></td>
 						<td width="140px"><span>职务 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="Duties_Name" id="type_ID">
