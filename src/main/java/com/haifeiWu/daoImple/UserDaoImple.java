@@ -124,4 +124,18 @@ public class UserDaoImple extends DaoSupportImpl<PHCSMP_Staff> implements
 		save(model);
 	}
 
+	@Override
+	public PHCSMP_Staff findstaffById(int staffid) {
+		
+		session = this.getSession();
+		tx = session.beginTransaction();// 开启事务
+		System.out.println("Dao----1----");
+		PHCSMP_Staff staff = new PHCSMP_Staff();
+		hql = "from PHCSMP_Staff where Staff_ID=?";
+			staff= (PHCSMP_Staff) session.createQuery(hql).setParameter(0, staffid).uniqueResult();
+		tx.commit();// 提交事务
+		System.out.println("Dao--2------");
+		return staff;
+	}
+
 }

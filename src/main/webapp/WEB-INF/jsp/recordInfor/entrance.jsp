@@ -133,6 +133,9 @@ function Button1_onclick() {
 	color: #004974;
 	text-decoration: none;
 }
+.Adress{
+	border:1px;
+}
 </style>
 <script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 <script type="text/javascript">  
@@ -252,10 +255,10 @@ function Button1_onclick() {
 							<!--第四行身份证住址-->
 							<tr>
 								<td colspan="2">家庭住址：</td>
-							</tr>
+							</tr>	
 
 							<tr>
-								<td colspan="2"><textarea name="address" rows="1" cols="45"></textarea></td>
+								<td colspan="2" style="border:1px solid #c1c1c1;"><textarea name="address" rows="1" cols="45" class="Adress" ></textarea></td>
 							</tr>
 
 							<tr>

@@ -2,6 +2,7 @@ package com.haifeiWu.action;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -344,6 +345,7 @@ public class Leave_Recod_Action {
 					.findInforBySuspetcId(suspectId);
 			completeMap = new HashMap<Integer, Integer>();
 			if (activityRecordList != null) {
+				List activityRecordCompleteList = new ArrayList<>();
 				int j = 0;
 				int i = 1;
 				for (PHCSMP_Activity_Record Activity_Record : activityRecordList) {
@@ -351,6 +353,8 @@ public class Leave_Recod_Action {
 							.getFill_record()
 							/ (float) Activity_Record.getTotal_record() * 100);
 					completeMap.put(j, activityRecordComplete);
+					activityRecordCompleteList.add(activityRecordComplete);
+					request.setAttribute("activityRecordCompleteList", activityRecordCompleteList);
 					j++;
 					if (activityRecordComplete != 100) {// 信息不完整
 						sb.append("询问讯问" + i + "信息填写不完整!  ");

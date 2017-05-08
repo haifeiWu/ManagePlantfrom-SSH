@@ -492,7 +492,7 @@
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
 						</td> --%>
-						 <td id="select"><select name="activity_Record" >
+						 <td id="select"><select name="activity_Record" id="activity" >
 						<!--<td id="select"><select name="select_record"> -->
 						<!-- c:foreach    -->
 						
@@ -561,10 +561,16 @@
 <script type="text/javascript">
 function check(){
 			var Staff_ID=document.getElementById("staff_ID").value;
+			var activity = document.getElementById("activity").value;
 			if(Staff_ID.length==0 || Staff_ID ==0){
 				alert('提交失败，请填写办案人员');
 			return false;
-		} else
+		} 
+		else if(activity==0){
+		alert('提交失败，请填写活动内容');
+			return false;
+		}
+		else
 			document.getElementById("form").submit();
 			return true;
 		}

@@ -146,16 +146,17 @@
 					
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
 						<img  src="${pageContext.request.contextPath }/images/fgreen_03.png" />
-						<c:if test="${!empty checkRecord }">
+						
+						<c:if test="${!empty personalCheck }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
-					            $("#identityimg1").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
+					            $("#identityImg1").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
 					       
 					       });
 					    </script>
 						</c:if> 
+						<img id="identityImg1" src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
 						
-						<img id="identityimg1" src="${pageContext.request.contextPath }/images/fgreen_03.png" />
 						<c:if test="${!empty informationCollection }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
@@ -247,7 +248,7 @@
 	
 								</tr>
 							</table>
-						<hr style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top:13%; margin-left:-10%;" />
+						<hr style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top:33%; margin-left:-10%;" />
 					</div>
 				</div>
 			</div>
@@ -345,7 +346,7 @@
 								<td>${a.end_Time }</td>
 								
 								
-								<td class="complete activityComplete">${completeMap[s.index]}%</td>
+								<td class="complete activityComplete">${activityRecordCompleteList[s.index]}%</td>
 								
 								<c:if test="${! empty a.activity_Record }">	
 									<td style="text-align:left;padding-left:30px;" class="activity">活动内容：${a.activity_Record }</td>						
@@ -440,7 +441,7 @@
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
 					<font color="#389AC7">管理员:</font>
-							<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+							<select name="staff_ID" id="L_staff_ID" style=" font-color: black;">
 									<option value="0">--------请选择--------</option>
 									<c:forEach items="${staff }" var="item"
 										varStatus="status">
@@ -533,13 +534,18 @@
 <script type="text/javascript">
 function check(){
 			var Staff_ID=document.getElementById("staff_ID1").value;
+			var L_staff_ID = document.getElementById("L_staff_ID").value;
 			if(Staff_ID.length==0 || Staff_ID ==0){
 				alert('提交失败，请填写办案人员');
 			return false;
-		} else
+		} 
+		else
 			document.getElementById("form").submit();
 			return true;
 		}
+
+		
+
 
 </script>
 </html>
