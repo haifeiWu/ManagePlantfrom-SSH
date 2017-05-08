@@ -16,20 +16,13 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.haifeiWu.entity.PHCSMP_Activity_Record;
-import com.haifeiWu.entity.PHCSMP_BelongingS;
-import com.haifeiWu.entity.PHCSMP_Information_Collection;
-import com.haifeiWu.entity.PHCSMP_Leave_Record;
-import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Suspect;
-import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.InformationCollectionService;
@@ -173,7 +166,8 @@ public class SuspectManageAction {
 
 		if (suspect.isEmpty()
 				&& (!suspectNow.isEmpty() && suspectNow.size() == 1)) {
-			return "redirect:/report/load?suspectID="+suspectNow.get(0).getSuspect_ID();
+			return "redirect:/report/load?suspectID="
+					+ suspectNow.get(0).getSuspect_ID();
 		} else {
 			return "WEB-INF/jsp/suspectmanage/suspectInforList";
 		}
@@ -422,6 +416,12 @@ public class SuspectManageAction {
 		return "WEB-INF/jsp/suspectmanage/downSucc";
 	}
 
-	
+	@RequestMapping(value = "/vedioPlay")
+	public String vedioPlay(@RequestParam("vedioName") String vedioName,
+			HttpServletRequest request) {
+		String uploadDir = PropertiesReadUtils.getRecordConfString("uploadDir");
+		request.setAttribute("vedioPath", uploadDir + "/" + vedioName);
+		return "WEB-INF/jsp/suspectmanage/vedio";
+	}
 
 }

@@ -191,6 +191,7 @@ public class PHCSMP_Suspect_Action {
 			// 将房间号设置进去
 			model.setRoom_Now(roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID());
+			System.out.println("房间ip为------------------------------------------"+request.getRemoteAddr());
 			// 更新手环的is_Used状态
 			bandService.update(1, model.getBand_ID());// 使用时是1，未使用时为0
 			// 回路饱和性验证

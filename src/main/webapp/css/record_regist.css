@@ -216,7 +216,7 @@ input{
 /*活动检查登记表*/
 
 .active_check{
-	margin-top: 3%;
+	margin-top: 1%;
 	margin-left: 9%;
 	width: 80%;
 	font-size: inherit;
@@ -236,8 +236,10 @@ input{
 }
 /*设置活动记录表格下方备注信息*/
 .row_1{
-	margin-left: 10%;
-	margin-top: 2%;
+	margin-left: 5%;
+	margin-top: 41%;
+	margin-bottom: -4px;
+	
 }
 .row_2{
 	margin-left: 12%;
@@ -255,13 +257,13 @@ input{
 }
 /*提交button*/
 .sub{
-width: 15%;
+width: 19%;
 background: #389AC7;
 color: #ffffff;
 border: none;
-height: 40px;
-margin-left: 37%;
-line-height: 40px;
+height: 32px;
+/* margin-left: 37%; */
+/* line-height: 40px; */
 margin-top: 1%;
 border-radius: 4px;
 }

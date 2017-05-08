@@ -41,8 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>入区时间</td>
 					
 					<td>离区时间</td>
-					<td>操作</td>
-					
+					<td>下载操作</td>
+					<td>播放操作</td>
 				</tr>
 				<c:forEach items="${suspect }" var="item" varStatus="status">
 					<tr>
@@ -52,10 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>${item.identifyCard_Number}</td>
 						<td>${item.enter_Time}</td>
 						<td>${item.leave_Time}</td>
-						<%-- <td><a class="button" href="${pageContext.request.contextPath }/suspectManage/downloadVeio?vedioName=${item.vedio_number }">下载</a></td> --%>
-						<%-- <td><a class="button" href="${pageContext.request.contextPath }/suspectManage/downSucc?fileName=${vedioPath}/${item.vedio_number}">下载</a></td> --%>
-						<%-- <td><a class="button" href="${vedioPath}/${item.vedio_number}">下载</a></td> --%>
-						<td><a class="button" href="${pageContext.request.contextPath }/suspectManage/downloadVeio?vedioName=${item.vedio_number }">下载</a></td>
+						<td><a class="button" href="${pageContext.request.contextPath }/suspectManage/downloadVeio?vedioName=${item.vedio_number }">下载</a></td> 
+						<td><a class="button" href="${pageContext.request.contextPath }/suspectManage/vedioPlay?vedioName=${item.vedio_number }">播放</a></td>
 					</tr>
 				</c:forEach>
 			</table>

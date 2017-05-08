@@ -353,6 +353,7 @@ public class Video {
 			String identificationCard, int roomId) throws IOException {
 		String result = "";
 		String json = packjson(band_ID, identificationCard, roomId);
+		System.out.println(band_ID+"    "+identificationCard+"      "+roomId);
 		for (int i = 1; i <= 3; i++) {
 			result = HttpRequest.sendOkMCVPost(
 					PropertiesReadUtils.getRecordConfString("SwitchRecording"),
