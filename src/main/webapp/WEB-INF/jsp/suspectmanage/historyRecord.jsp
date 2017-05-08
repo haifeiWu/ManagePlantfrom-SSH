@@ -97,7 +97,7 @@
 				<input type="button" id="btn1" value="更多>>" style="background: none;border: 0px;"/>
 			</p>
 		</c:if>
-		<div class="row" id="row1" style="height: 321px; overflow: hidden; ">
+		<div class="row" id="row1" style=" overflow: hidden; ">
 			<h4 id="checkedPerson"
 				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">历史嫌疑人查询&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				<font size="4" >入区人员统计时间：</font>
@@ -139,9 +139,11 @@
 				</c:forEach>
 			</table>
 		</div>
-		<p id="more">
+		<c:if test="${fn:length(suspectCheckedInfor) > 10}">
+		<p id="more"style="margin-top:30px">
 				<a href="${pageContext.request.contextPath }/suspectManage/execute?page=1" target="rightFrame">更多>></a>
 		</p>
+		</c:if>
 		<div class="row_2 col-lg-12" style="height: 90px;"></div>
 	</div>
 	

@@ -454,10 +454,6 @@
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					询问讯问记录<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
-
-				<p class="row_1">
-				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记遗漏.
-			</p> 
 				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
 					<tr style="background-color: rgb(0,112,192);color:white;">
 						<!-- <td style="display: none;">序号</td>
@@ -499,6 +495,7 @@
 						 <td id="select"><select name="activity_Record" >
 						<!--<td id="select"><select name="select_record"> -->
 						<!-- c:foreach    -->
+						
 						 <c:if test="${!empty activity_Record}">
 								<option value=>${activity_Record }</option>
 							 </c:if>	
@@ -526,7 +523,11 @@
 					</tr>
 				</table>
 			</div>
+			<p class="row_1">
+				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记遗漏.
+			</p> 
 			<div style="float:left;width:400px;margin-left: 287px;font-size: 22px;margin-top: 16px;">
+			
 				<p id="signature">
 					办案人员:<select name="staff_ID" id="staff_ID" style=" font-color: black;">
 									<option value="0">--------请选择--------</option>
@@ -535,8 +536,11 @@
 										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
 									</c:forEach>
 							</select>
-					<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
+					
 				</p>
+				
+				<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" style="position: relative;left: 93px;top: 15px;width: 98px"/>
+				
 				</div>
 				<br />
 				<div style="padding-top: 20px;text-align: center;">
@@ -556,8 +560,8 @@
 </body>
 <script type="text/javascript">
 function check(){
-			var Staff_ID=document.getElementById("staff1").value;
-			if(Staff_ID.length==0 || Staff_ID ==""){
+			var Staff_ID=document.getElementById("staff_ID").value;
+			if(Staff_ID.length==0 || Staff_ID ==0){
 				alert('提交失败，请填写办案人员');
 			return false;
 		} else
