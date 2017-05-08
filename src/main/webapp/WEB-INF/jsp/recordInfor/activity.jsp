@@ -520,7 +520,6 @@
 							<div class="btn" id="add">+添加</div>
 							<div class="btn" id="delete">-删除</div>
 						</td>
-			
 					</tr>
 				</table>
 			</div>
@@ -569,7 +568,6 @@ function check(){
 			document.getElementById("form").submit();
 			return true;
 		}
-
 </script>
 
 </html>
