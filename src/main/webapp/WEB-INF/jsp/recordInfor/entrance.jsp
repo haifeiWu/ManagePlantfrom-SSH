@@ -9,19 +9,28 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <title>嫌疑人入区信息录入</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/person_info.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/bootstrap.min.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/person_info.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath }/css/bootstrap-datetimepicker.min.css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.min.js"
 	charset="UTF-8"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jqCss_pinfo.js"></script>
+	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.zh-CN.js"
+	charset="UTF-8"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jqCss_pinfo.js"></script>
 <OBJECT classid="clsid:10946843-7507-44FE-ACE8-2B3483D179B7"
 	id="CVR_IDCard" name="CVR_IDCard" width="0" height="0"></OBJECT>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
 <script type="text/javascript">
 $(function() {
 	$("#btnSave").click(function() {
@@ -31,7 +40,6 @@ $(function() {
 			return false;
 		} else
 			return true;
-		
 	});
 });
 
@@ -83,41 +91,44 @@ function Button1_onclick() {
 }); */
 </script>
 <style type="text/css">
-	.colorRed{
-		color:red !important;
-	}
-	.file {
-		margin-left:20px;
-		margin-top:10px;
-	    position: relative;
-	    display: inline-block;
-	    background: #D0EEFF;
-	    border: 1px solid #99D3F5;
-	    border-radius: 4px;
-	    padding: 4px 12px;
-	    overflow: hidden;
-	    color: #1E88C7;
-	    text-decoration: none;
-	    text-indent: 0;
-	    line-height: 20px;
-	    left:45px;
-	}
-	.file input {
-	    position: absolute;
-	    font-size: 100px;
-	    right: 0px;
-	    top: 0;
-	    opacity: 0;
-	    margin-right:-10px;
-	}
-	.file:hover {
-	    background: #AADFFD;
-	    border-color: #78C3F3;
-	    color: #004974;
-	    text-decoration: none;
-	}
+.colorRed {
+	color: red !important;
+}
+
+.file {
+	margin-left: 20px;
+	margin-top: 10px;
+	position: relative;
+	display: inline-block;
+	background: #D0EEFF;
+	border: 1px solid #99D3F5;
+	border-radius: 4px;
+	padding: 4px 12px;
+	overflow: hidden;
+	color: #1E88C7;
+	text-decoration: none;
+	text-indent: 0;
+	line-height: 20px;
+	left: 45px;
+}
+
+.file input {
+	position: absolute;
+	font-size: 100px;
+	right: 0px;
+	top: 0;
+	opacity: 0;
+	margin-right: -10px;
+}
+
+.file:hover {
+	background: #AADFFD;
+	border-color: #78C3F3;
+	color: #004974;
+	text-decoration: none;
+}
 </style>
-<script type="text/javascript" src="js/jquery-1.7.2.js"></script>  
+<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
 <script type="text/javascript">  
     $(function(){  
         function getObjectURL(file){    
@@ -152,7 +163,7 @@ function Button1_onclick() {
             }     
         });  
     })  
-</script>  
+</script>
 </head>
 <body>
 	<!-- enctype="multipart/form-data" -->
@@ -184,7 +195,7 @@ function Button1_onclick() {
 					name="suspect_ID" value="${Suspect_ID }" />
 			</h5>
 
-		
+
 
 			<!--疑犯个人身份证信息-->
 			<div class="container">
@@ -193,22 +204,22 @@ function Button1_onclick() {
 					<h4 id="identityInfor" style="margin-top: -25px;"
 						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">身份证信息</h4>
 					<!-- 正面照、侧面照 -->
-					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4" style="margin-top:20px;">					
-						<img id="img_1" src="" style="border:1px solid #ccc"/>						
-						<img id="img_2" src="" style="border:1px solid #ccc"/>
-		
-							<a href="javascript:;" class="file">选择正面照
-							    <input id="file_1" type="file" name="file" data onchange="fileshow1()">
-							</a>
-							<a href="javascript:;" class="file">选择侧面照
-							    <input id="file_2" type="file" name="sfile" onchange="fileshow2()">
-							</a>	
+					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4"
+						style="margin-top:20px;">
+						<img id="img_1" src="" style="border:1px solid #ccc" /> <img
+							id="img_2" src="" style="border:1px solid #ccc" /> <a
+							href="javascript:;" class="file">选择正面照 <input id="file_1"
+							type="file" name="file" data onchange="fileshow1()">
+						</a> <a href="javascript:;" class="file">选择侧面照 <input id="file_2"
+							type="file" name="sfile" onchange="fileshow2()">
+						</a>
 						<%-- <p class="date_pic col-lg-6 col-md-6 col-sm-6" style="margin-left:0px;">${nEntryTime }嫌疑人入区登记照片</p> --%>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
 						<!-- <hr
 							style="width: 100%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -4%;" /> -->
-						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8" style="margin-top: 20px !important;">
+						<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8"
+							style="margin-top: 20px !important;">
 
 							<tr style="padding: 0px;">
 								<!--图片引入-->
@@ -257,104 +268,111 @@ function Button1_onclick() {
 							onclick="return Button1_onclick()" />
 					</div>
 
-			</div>
-			<div class="row_1" style="margin-top: -60px !important;">
-				<h4 id="personInfor" style="margin-top: -5px;"
-					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
-				<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<tr>
-						<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
-							style="text-align:right;color: #389ac7;">证件类型：</td>
-						<td style="text-align:center; width: 168px">
-							<%-- <ol>
+				</div>
+				<div class="row_1" style="margin-top: -60px !important;">
+					<h4 id="personInfor" style="margin-top: -5px;"
+						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">人员联系信息</h4>
+					<table class="Mes_tab col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<tr>
+							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+								style="text-align:right;color: #389ac7;">证件类型：</td>
+							<td style="text-align:center; width: 168px">
+								<%-- <ol>
 								<!--  -->
 								<c:forEach items="${identifyCardType}" var="item"
 									varStatus="status">
 									<li><input type="checkbox" name="type_ID"
 										value="${item.type_Name }" style="width:30px;" />${item.type_Name }</li>
 								</c:forEach>
-							</ol> --%>
-							<select name="type_ID" id="type_ID">
-								<option value="0">-------------请选择-------------</option>
-								<c:forEach items="${identifyCardType}" var="item" varStatus="status">
-									<option value="${item.type_Name }">${item.type_Name }</option>
-								</c:forEach>
-						</select>
-						</td>
-					<td style="text-align:right;color: #389ac7;width: 150px;">联系方式：</td>
-						<td><input type="text" name="phone" /></td>
-						
-						
-						 </tr>
-					<tr> 
-						<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
-							style="text-align:right;color: #389ac7;">证件号码：</td>
-						<td  colspan="3" style="text-align:center;"><input type="text" name="identifyCard_Number"/>
-					 <!--</tr>
+							</ol> --%> <select name="type_ID" id="type_ID">
+									<option value="0">-------------请选择-------------</option>
+									<c:forEach items="${identifyCardType}" var="item"
+										varStatus="status">
+										<option value="${item.type_Name }">${item.type_Name }</option>
+									</c:forEach>
+							</select>
+							</td>
+							<td style="text-align:right;color: #389ac7;width: 150px;">联系方式：</td>
+							<td><input type="text" name="phone" /></td>
+
+
+						</tr>
+						<tr>
+							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+								style="text-align:right;color: #389ac7;">证件号码：</td>
+							<td colspan="3" style="text-align:center;"><input
+								type="text" name="identifyCard_Number" /> <!--</tr>
 					<tr>-->
-						
-					 </tr>
-					 <tr>
-					 <td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
-							style="text-align:right;color: #389ac7;" >现住址：</td>
-						<td colspan="3" style="width:300px!important" ><input  type="text" name="now_address"  /></td>
-					 </tr>
-				</table>
-			</div>
-			<input type="hidden" name="enter_Time" value="${entry_Time}">
-			<div class="row_2">
-				<h4 id="enterInfor" 
-					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
-				<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					<tr>
-						<td style="width: 22%;text-align:center;color: #389ac7;">RFID手环 :</td>
-						<!--手环选择列-->
-						<td colspan="2" style="text-align-last:center ;text-align:center;"><select
-							name="band_ID" id="band_ID" style="margin-left: -87%;">
-								<option value="0">-----请选择-----</option>
-								<c:forEach items="${bundList}" var="item" varStatus="status">
-									<option value="${item.band_ID }">${item.band_ID }</option>
-								</c:forEach>
-						</select>
-					<!-- </tr>
+						</tr>
+						<tr>
+							<td class="col-lg-2 col-md-2 col-sm-2 col-xs-2"
+								style="text-align:right;color: #389ac7;">现住址：</td>
+							<td colspan="3" style="width:300px!important"><input
+								type="text" name="now_address" /></td>
+						</tr>
+					</table>
+				</div>
+				<input type="hidden" name="enter_Time" value="${entry_Time}">
+				<div class="row_2">
+					<h4 id="enterInfor"
+						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">进入办案区信息</h4>
+					<table class="Mes_case col-lg-12 col-md-12 col-sm-12 col-xs-12">
+						<tr>
+							<td style="width: 22%;text-align:center;color: #389ac7;">RFID手环
+								:</td>
+							<!--手环选择列-->
+							<td colspan="2"
+								style="text-align-last:center ;text-align:center;"><select
+								name="band_ID" id="band_ID" style="margin-left: -87%;">
+									<option value="0">-----请选择-----</option>
+									<c:forEach items="${bundList}" var="item" varStatus="status">
+										<option value="${item.band_ID }">${item.band_ID }</option>
+									</c:forEach>
+							</select> <!-- </tr>
 					
 					<tr> -->
-						<td rowspan="4" style="text-align:center;color: #389ac7;">进入办案区原因：</td>
+							<td rowspan="4" style="text-align:center;color: #389ac7;">进入办案区原因：</td>
 
-					<!-- </tr>
+							<!-- </tr>
 
 					<tr> -->
-						<td colspan="3" style="text-align:center;">
-							
-							<select name="suspected_Cause" id="suspected_Cause" style="margin-left: -87%;">
-								<option value="0">-----请选择-----</option>
-								<c:forEach items="${actionCause}" var="item" varStatus="status">
-									<option value="${item.cause_Name }">${item.cause_Name }</option>
-								</c:forEach>
-						   </select>
-						</td>
-					</tr>
-				</table>
+							<td colspan="3" style="text-align:center;"><select
+								name="suspected_Cause" id="suspected_Cause"
+								style="margin-left: -87%;">
+									<option value="0">-----请选择-----</option>
+									<c:forEach items="${actionCause}" var="item" varStatus="status">
+										<option value="${item.cause_Name }">${item.cause_Name }</option>
+									</c:forEach>
+							</select></td>
+						</tr>
+					</table>
+				</div>
+				<div class="row_3">
+					<h4 id="confirm"
+						class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">干警签名确认</h4>
+					<table
+						class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
+						style="width: 450px;">
+						<tr>
+							<td style="width: 20%;color: #389ac7;text-align: center;">办案民警：</td>
+							<td style="width: 26%;text-align: left;">
+								<select name="staff_ID" id="staff_ID">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
+							</td>
+						</tr>
+					</table>
+					<input id="btnSave" class="btn" type="submit" value="确认提交"
+						class="submit" />
+				</div>
 			</div>
-			<div class="row_3">
-				<h4 id="confirm"
-					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">干警签名确认</h4>
-				<table
-					class="signatuer_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
-					style="width: 450px;">
-					<tr>
-						<td style="width: 22%;color: #389ac7;text-align: center;">办案民警：</td>
-						<td style="width: 24%;text-align: center;">
-						<input
-							type="text" name="staff_ID" style="width:233px;margin-left:-44%; border:0;border-bottom:1px solid #389ac7;background:#fff;" value=""/></td>
-					</tr>
-				</table>
-				<input id="btnSave" class="btn" type="submit" value="确认提交"
-					class="submit" />
-			</div>
-		</div>
-		<div class="row_4" style="height: 480px;"></div>
+			<div class="row_4" style="height: 480px;"></div>
 		</div>
 	</form>
 </body>
+
 </html>

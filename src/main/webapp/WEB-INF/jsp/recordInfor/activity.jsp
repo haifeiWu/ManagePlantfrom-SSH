@@ -294,6 +294,7 @@
 			<div>
 				<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
 							style="margin-top: 0%;">
+
 							活动记录
 				</h4>
 				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 30px !important;width:960px !important; ">
@@ -301,12 +302,14 @@
 						<td>序号</td>				
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp活&nbsp&nbsp&nbsp&nbsp&nbsp动&nbsp&nbsp&nbsp&nbsp&nbsp记&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp录&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 						<td>功能房间</td>
+
 						<td>开始时间</td>
 						<td>结束时间</td>
 						<td>完整性</td>					
 						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
 					</tr>
 				<tr>
+
 				   <td>1</td>
 					<td style="text-align: left;">&nbsp&nbsp入区人员登记信息</td>
 					<td>
@@ -318,6 +321,7 @@
 						</td>
 						<td >
 							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp---&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
 						</td>
 						<td >
 							 <c:if test="${!empty SuspectInfor}">${complete_degree}%</c:if>
@@ -329,11 +333,13 @@
 							 <c:if test="${empty SuspectInfor}">
 							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
 							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp---&nbsp
 							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 				</tr>
 				<tr>
+
 				    <td>2</td>
 					<td style="text-align: left;">&nbsp&nbsp人身安全检查</td>
 					
@@ -361,6 +367,7 @@
 						</td>
 				</tr>
 				<tr>
+
 				    <td>3</td>
 					<td style="text-align: left;">&nbsp&nbsp信息采集</td>
 					<td>
@@ -374,6 +381,7 @@
 						<td >
 							<c:if test="${!empty information_Collection}">${information_Collection.ic_EndTime}</c:if>
 							<c:if test="${empty information_Collection}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp---&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
+
 						</td>
 						<td >
 							 <c:if test="${!empty information_Collection}">${complete_degree2}%</c:if>
@@ -385,6 +393,7 @@
 							  <c:if test="${empty information_Collection}">&nbsp&nbsp未填写信息采集</c:if>
 						</td>
 				</tr>
+
 				<c:if test="${!empty activity_record}">
 				
 				 <c:forEach items="${activity_record }" var="ari" varStatus="s" >
@@ -400,12 +409,13 @@
 					   	</tr>
 					   </c:forEach>
 				</c:if>
-				
+
 				</table>
 			</div>
 			
 			
 			<!--活动记录登记表-->
+
 			<%-- <div class="row">
 				<h4 id="activityReco"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -438,11 +448,13 @@
 					</table>
 				
 			    </c:if>
+
 				 --%>
 				<h4 id="activityReco"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 					询问讯问记录<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
+
 				<p class="row_1">
 				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记遗漏.
 			</p> 
@@ -515,14 +527,21 @@
 					</tr>
 				</table>
 			</div>
-			<div style="float:left;width:400px;margin-left: 287px;font-size: 16px;margin-top: 16px;">
+			<div style="float:left;width:400px;margin-left: 287px;font-size: 22px;margin-top: 16px;">
 				<p id="signature">
-					办案人员：<input type="text" name="staff_ID" id="staff1"/>
+					办案人员:<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
 					<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
 				</p>
 				</div>
 				<br />
 				<div style="padding-top: 20px;text-align: center;">
+
 			<!-- <p class="row_1">
 				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记遗漏.
 			</p> -->

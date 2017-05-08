@@ -13,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BandService;
@@ -29,6 +29,7 @@ import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.Base64;
 import com.haifeiWu.utils.CompleteCheck;
 
@@ -64,6 +65,8 @@ public class PHCSMP_Suspect_Action {
 	private ActivityRecordService activityRecordService;
 	@Autowired
 	private LeaveRecodService leaveRecodService;
+	@Autowired
+	private UserService userService;
 
 	private String message;
 
@@ -137,11 +140,20 @@ public class PHCSMP_Suspect_Action {
 					.findAllIdentifyCardType();
 			List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
 					.findAllSuspectCause();
+			List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			request.setAttribute("staff", staff);
 			request.setAttribute("Suspect_ID", getSuspectId(entry_Time));// 自动生成嫌疑人编号
 			request.setAttribute("bundList", list);
 			request.setAttribute("identifyCardType", identifyCardType);
 			request.setAttribute("entry_Time", entry_Time);
 			request.setAttribute("actionCause", actionCause);
+			/*
+			 * List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			 * request.setAttribute("staff", staff);
+			 * 
+			 * for (PHCSMP_Staff phcsmp_Staff : staff) {
+			 * System.out.println(phcsmp_Staff.toString()); }
+			 */
 		} catch (Exception e) {
 			// response.getWriter().write("<script> alert('信息加载失败!'); </script>");
 			// response.getWriter().flush();
@@ -158,13 +170,14 @@ public class PHCSMP_Suspect_Action {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/add")
 	public String addSuspectInfor(PHCSMP_Suspect model,
 			@RequestParam("file") MultipartFile file,
 			@RequestParam("sfile") MultipartFile sfile,
 			HttpServletRequest request) throws IOException {
 		log.debug("-------" + model.toString());
 		boolean useLine = false;// 定义一个标志位，判断是否开启一路回路，便于在异常的时候判断是否需要释放回路
+
 		try {
 			// 将照片保存到model中
 			if (!file.isEmpty()) {

@@ -44,6 +44,7 @@ public class UserDaoImple extends DaoSupportImpl<PHCSMP_Staff> implements
 		query.setParameter(1, passWord);
 		PHCSMP_Staff user = (PHCSMP_Staff) query.uniqueResult();
 		tx.commit();// 提交事务
+		System.out.println("我是user，刚查出来的-------" + user.toString());
 		return user;
 	}
 
@@ -97,7 +98,8 @@ public class UserDaoImple extends DaoSupportImpl<PHCSMP_Staff> implements
 
 	@Override
 	public void deleteByStaffId(int id) {
-		String hql = "delete from PHCSMP_Staff where Staff_ID=?";
+		System.out.println("执行了删除根据id" + id);
+		hql = "delete from PHCSMP_Staff where Staff_ID=?";
 		tx = getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, id);
@@ -110,7 +112,7 @@ public class UserDaoImple extends DaoSupportImpl<PHCSMP_Staff> implements
 	public List<PHCSMP_Role> findAllRole() {
 		session = this.getSession();
 		tx = session.beginTransaction();// 开启事务
-		hql = "from PHCSMP_role";
+		hql = "from PHCSMP_Role" + "";
 		@SuppressWarnings("unchecked")
 		List<PHCSMP_Role> list = session.createQuery(hql).list();
 		tx.commit();// 提交事务

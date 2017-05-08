@@ -93,6 +93,7 @@ $(function(){
 					<th>性别</th>
 					<th>职务</th>
 					<th>角色</th>
+					<th>邮箱</th>
 					<th>固定电话</th>
 					<th>移动电话</th>
 					<th>操作</th>
@@ -104,6 +105,7 @@ $(function(){
 							<td>${u.sex }</td>
 							<td>${u.duties_Name }</td>
 							<td>${u.role_Name }</td>
+							<td>${u.email }</td>
 							<td>${u.phone }</td>
 							<td>${u.mobile }</td>
 							<td><a class="text-danger glyphicon glyphicon-remove"

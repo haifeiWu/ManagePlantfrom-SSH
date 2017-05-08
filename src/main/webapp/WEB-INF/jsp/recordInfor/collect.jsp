@@ -258,7 +258,13 @@
 					</table>
 					<div style="float:left;width:400px;margin-left: 287px;font-size: 22px;margin-top: 16px;">
 				<p id="signature">
-					办案人员:<input type="text" name="staff_ID" id="staff1"/>
+					办案人员:<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
 				</p>
 				</div>
 					<input class="sub" id="btnAdd" type="button" onclick="check()" value="确认提交"/>

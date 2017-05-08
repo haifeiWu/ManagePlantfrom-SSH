@@ -80,10 +80,10 @@ $(document).ready(function (){
     	<ul class="menuson">
     	<!-- a标签请求action，返回的页面的结果显示在rightFrame -->
         <li><cite></cite><a id="suspect" class="suspect" href="${pageContext.request.contextPath }/suspect/load" target="rightFrame">入区人员信息登记</a><i></i></li>
-<%--         <li><cite></cite><a class="personalCheck" href="${pageContext.request.contextPath }/personalCheck/load" target="rightFrame">人身安全检查</a><i></i></li>
-        <li><cite></cite><a class="inforCollect" href="${pageContext.request.contextPath }/IC/load" target="rightFrame">信息采集</a><i></i></li>
-        <li><cite></cite><a class="activityRecord" href="${pageContext.request.contextPath }/AR/load" target="rightFrame">询问讯问记录</a><i></i></li>
-        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/LR/load" target="rightFrame">出区信息登记</a><i></i></li>  --%>
+         <%-- <li><cite></cite><a class="personalCheck" href="${pageContext.request.contextPath }/check/load?suspectID=LB-HB-20170328002" target="rightFrame">人身安全检查</a><i></i></li>
+        <li><cite></cite><a class="inforCollect" href="${pageContext.request.contextPath }/collect/load?suspectID=LB-HB-20170328002" target="rightFrame">信息采集</a><i></i></li>
+        <li><cite></cite><a class="activityRecord" href="${pageContext.request.contextPath }/activity/load?suspectID=LB-HB-20170328002" target="rightFrame">询问讯问记录</a><i></i></li>
+        <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/leave/load?suspectID=LB-HB-20170328002" target="rightFrame">出区信息登记</a><i></i></li>   --%>
         <li><cite></cite><a class="leaveRecord" href="${pageContext.request.contextPath }/home/index" target="rightFrame">办理其他业务</a><i></i></li>
         </ul>    
     </dd>
