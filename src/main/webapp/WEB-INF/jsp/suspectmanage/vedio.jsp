@@ -15,7 +15,7 @@
 </head>
 
 <body>
-	<video src="${vedioPath }" id="video" width="800" height="580" controls></video>
+	<video style="margin-left:150px;" src="${vedioPath }" id="video" width="880" height="500" controls></video>
 </body>
 
 </html>

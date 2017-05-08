@@ -294,7 +294,6 @@ public class SuspectManageAction {
 			String classPath = Thread.currentThread().getContextClassLoader()
 					.getResource("").getPath();
 			String rootPath = "";
-
 			if ("\\".equals(File.separator)) {
 				String path = classPath.substring(1,
 						classPath.indexOf("/WEB-INF/classes"));
@@ -334,58 +333,6 @@ public class SuspectManageAction {
 		}
 		return null; // 注意此时return null
 	}
-
-	//
-	// @RequestMapping("/downloadVeio")
-	// public String download(String vedioName, HttpServletRequest request,
-	// HttpServletResponse response) throws IOException {
-	// response.setCharacterEncoding("utf-8");// 设置编码
-	// response.setContentType("multipart/form-data");// 设置类型
-	// response.setHeader("Content-Disposition", "attachment;fileName="
-	// + vedioName); // 设置响应头
-	// try {
-	// // 获取服务器根目录
-	// String classPath = Thread.currentThread().getContextClassLoader()
-	// .getResource("").getPath();
-	// // String rootPath = "";
-	// //
-	// // if ("\\".equals(File.separator)) {
-	// // String path = classPath.substring(1,
-	// // classPath.indexOf("/WEB-INF/classes"));
-	// // rootPath = path.substring(0, path.lastIndexOf("/"));
-	// // rootPath = rootPath.replace("/", "\\");
-	// // }
-	// //
-	// // String filePath = rootPath + "\\"
-	// // + PropertiesReadUtils.getRecordConfString("uploadDir")
-	// // + "\\" + vedioName;
-	// String filePath = "\\"
-	// + PropertiesReadUtils.getRecordConfString("uploadDir")
-	// + "\\" + vedioName;
-	// System.out
-	// .println(filePath
-	// + "rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-	// /*
-	// * String filePath =
-	// * request.getSession().getServletContext().getRealPath
-	// * ("/"+vedioName);;
-	// */
-	// InputStream inputStream = new FileInputStream(new File(filePath));
-	// OutputStream os = response.getOutputStream();
-	// byte[] b = new byte[2048];
-	// int length;
-	// while ((length = inputStream.read(b)) > 0) {
-	// os.write(b, 0, length);
-	// }// 边读模板文件边写入输出流
-	// os.close();
-	// inputStream.close();// 关流
-	// } catch (FileNotFoundException e) {
-	// e.printStackTrace();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// return null; // 注意此时return null
-	// }
 
 	/**
 	 * 历史嫌疑人分页显示

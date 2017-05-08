@@ -78,7 +78,7 @@ public class Video {
 				+ PropertiesReadUtils
 						.getRecordConfString("SxQueryUploadFileStatus"));
 		try {
-			Thread.sleep(60000);
+			Thread.sleep(3000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -353,7 +353,8 @@ public class Video {
 			String identificationCard, int roomId) throws IOException {
 		String result = "";
 		String json = packjson(band_ID, identificationCard, roomId);
-		System.out.println(band_ID+"    "+identificationCard+"      "+roomId);
+		System.out.println(band_ID + "    " + identificationCard + "      "
+				+ roomId);
 		for (int i = 1; i <= 3; i++) {
 			result = HttpRequest.sendOkMCVPost(
 					PropertiesReadUtils.getRecordConfString("SwitchRecording"),
