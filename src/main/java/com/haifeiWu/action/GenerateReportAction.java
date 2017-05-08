@@ -73,7 +73,6 @@ public class GenerateReportAction {
 			// 嫌疑人随身所有物品检查信息s
 			List<PHCSMP_BelongingS> belongingS = belongingInforService
 					.selectBelongInfor(suspectId);
-			System.out.println(belongingS.toString()+"---------------------------------------------------------------");
 			// 嫌疑人人身检查信息
 			PHCSMP_Personal_Check personal_Check = personalCheckService
 					.findInforBySuspetcId(suspectId);
@@ -106,19 +105,9 @@ public class GenerateReportAction {
 			request.setAttribute("pdfFilePath",
 					PropertiesReadUtils.getPDFString("relatePath") + "\\"
 							+ suspectId + ".pdf");
-			// request.setAttribute("pdfFilePath",
-			// PropertiesReadUtils.getRecordConfString("uploadDir") + "\\"
-			// + suspectId + ".pdf");
-			// request.setAttribute("detainTime", suspect.getDetain_Time());
-			System.out.println("detainTime=" + detainTime);
-
 			return "WEB-INF/jsp/recordInfor/report";
 		} catch (Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
-			// response.getWriter().flush();
 			request.setAttribute("error", "error");
-
 			return "redirect:/home/index";
 		}
 	}
@@ -130,5 +119,4 @@ public class GenerateReportAction {
 	public void setDetainTime(String detainTime) {
 		this.detainTime = detainTime;
 	}
-
 }

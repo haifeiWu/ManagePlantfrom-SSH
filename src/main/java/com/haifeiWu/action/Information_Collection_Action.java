@@ -150,7 +150,7 @@ public class Information_Collection_Action {
 
 		int count = CompleteCheck.IsEqualsNull(model, c);
 		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
-		model.setFill_record(fieldsNumber - count - 2);// 设置已填写的字段数
+		model.setFill_record(fieldsNumber - count - 2 - 1);// 设置已填写的字段数
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + (fieldsNumber - 3));

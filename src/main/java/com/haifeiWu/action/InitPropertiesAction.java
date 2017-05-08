@@ -1,7 +1,6 @@
 package com.haifeiWu.action;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,19 +23,19 @@ public class InitPropertiesAction {
 	public String load(HttpServletRequest request) {
 		return "WEB-INF/jsp/home/initConfigs";
 	}
-	
+
 	@RequestMapping("/getName")
-	public String getName(HttpServletRequest request){
+	public String getName(HttpServletRequest request) {
 		try {
 			String name = PropertiesReadUtils.getTitleString("name");
-			System.out.println("派出所名称为------------------------》："+name);
+			System.out.println("派出所名称为------------------------》：" + name);
 			request.setAttribute("name", name);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "jsp/login";
 	}
-	
+
 	@RequestMapping("/init")
 	public String init(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
@@ -59,7 +58,8 @@ public class InitPropertiesAction {
 			System.out.println("=====写入了name:" + name);
 			// PDF信息初始化
 			String toolPath = request.getParameter("toolPath");
-			String sourcePath = "http://"+request.getParameter("sourcePath")+"/ManagePlantfrom-SSH/GR_loadInfor.action?suspectID=";
+			String sourcePath = "http://" + request.getParameter("sourcePath")
+					+ "/ManagePlantfrom-SSH/report/load?suspectID=";
 			String serverPath = request.getParameter("serverPath");
 			System.out.println("====从前台获得的PDF:toolPath======" + toolPath);
 			Map<String, String> pdfMap = new HashMap<String, String>();
@@ -143,11 +143,12 @@ public class InitPropertiesAction {
 			 */
 			// 服务器信息初始化
 			String serverPort = request.getParameter("serverPort");
-			/*String url = request.getParameter("url");
-*/
+			/*
+			 * String url = request.getParameter("url");
+			 */
 			Map<String, String> serverMap = new HashMap<String, String>();
 			serverMap.put("serverPort", serverPort);
-			/*serverMap.put("url", url);*/
+			/* serverMap.put("url", url); */
 			PropertiesWriteUtils.updateProperties("recordConf.properties",
 					serverMap);
 

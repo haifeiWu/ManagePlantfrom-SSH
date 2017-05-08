@@ -20,8 +20,7 @@ public class HtmlToPdf {
 	private static boolean convert(String srcPath, String destPath)
 			throws UnsupportedEncodingException {
 		// wkhtmltopdf在系统中的路径
-		String toPdfTool = new String(PropertiesReadUtils.getPDFString(
-				"toolPath").getBytes("ISO-8859-1"), "utf-8");
+		String toPdfTool = PropertiesReadUtils.getPDFString("toolPath");
 		File file = new File(destPath);
 		File parent = file.getParentFile();
 		// 如果pdf保存路径不存在，则创建路径
@@ -63,12 +62,13 @@ public class HtmlToPdf {
 	public static void createPdf(String suspectId)
 			throws UnsupportedEncodingException {
 
-		// 获取pdf的临时保存路径,也就是服务器的路径
-		String pdfPath = new String(PropertiesReadUtils.getPDFString(
-				"serverPath").getBytes("ISO-8859-1"), "utf-8")
-				+ "\\" + suspectId + ".pdf";
-		String path = new String(PropertiesReadUtils.getPDFString("sourcePath")
-				.getBytes("ISO-8859-1"), "utf-8") + suspectId;
+		// 获取pdf的临时保存路径,也就是服务器的路径,+存放的位置
+		String pdfPath = PropertiesReadUtils.getPDFString("serverPath") + "\\"
+				+ PropertiesReadUtils.getPDFString("relatePath") + "\\"
+				+ suspectId + ".pdf";
+		System.out.println("pdf存放的位置------" + pdfPath);
+		String path = PropertiesReadUtils.getPDFString("sourcePath")
+				+ suspectId;
 		convert(path, pdfPath);
 	}
 }

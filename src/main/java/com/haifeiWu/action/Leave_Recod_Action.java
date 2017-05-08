@@ -119,10 +119,8 @@ public class Leave_Recod_Action {
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addLeaveRecordInfor(PHCSMP_Leave_Record model,
-			HttpServletRequest request, HttpServletResponse response
-	// ,@RequestParam("suspectID") String
-	// suspectID,@RequestParam("suspectInfor")PHCSMP_Suspect suspectInfor
-	) throws Exception {
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
 		// try {
 		String suspectID = request.getParameter("suspectID");
 		PHCSMP_Suspect suspectInfor = (PHCSMP_Suspect) request

@@ -24,7 +24,7 @@ public class FTPAction {
 
 	@RequestMapping(value = "/searchFTP")
 	public String searchFTP() throws Exception {
-		Video.queryDownloadFileStatu(1, "22222222222");
+		Video.queryDownloadFileStatu(1, "142334442341243451");
 		return "success";
 	}
 
