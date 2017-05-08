@@ -145,6 +145,7 @@ public class PHCSMP_Personal_Check_Action {
 	 * 添加用户人身检查信息
 	 * 
 	 * @throws IOException
+	 * @throws ClassNotFoundException 
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addCheckPersonInfor(@RequestParam List<String> Belonging_Number,
@@ -156,15 +157,16 @@ public class PHCSMP_Personal_Check_Action {
 			@RequestParam List<String> Cabinet_Number,
 			PHCSMP_Personal_Check model,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		try {
-//			System.out.println(Belonging_Number.toString()+"            "+Belonging_Number.size()+"      "+Belonging_Number.get(0));
-//			System.out.println(Belonging_Name.toString()+"           "+Belonging_Name.size());
-//			System.out.println(Belonging_Character.toString());
-//			System.out.println(Belonging_Count.toString());
-//			System.out.println(Keeping_ID.toString());
-//			System.out.println(Belonging_Unit.toString());
-//			System.out.println(Cabinet_Number.toString());
+			throws IOException, ClassNotFoundException {
+		System.out.println("--------------=============----------");
+//		try {
+			System.out.println(Belonging_Number.toString()+"            "+Belonging_Number.size()+"      "+Belonging_Number.get(0));
+			System.out.println(Belonging_Name.toString()+"           "+Belonging_Name.size());
+			System.out.println(Belonging_Character.toString());
+			System.out.println(Belonging_Count.toString());
+			System.out.println(Keeping_ID.toString());
+			System.out.println(Belonging_Unit.toString());
+			System.out.println(Cabinet_Number.toString());
 			System.out.println("ip地址" + request.getRemoteAddr());
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
@@ -184,7 +186,7 @@ public class PHCSMP_Personal_Check_Action {
 			
 			
 			List<PHCSMP_BelongingS> vaildBelong = new ArrayList<PHCSMP_BelongingS>();// 填写的有效信息
-			for(int i=0;i<Belonging_Number.size();i++){
+			for(int i=0;i<Belonging_Name.size();i++){
 				PHCSMP_BelongingS belongS=new PHCSMP_BelongingS();
 				belongS.setBelonging_Character(Belonging_Character.get(i));
 				belongS.setBelonging_Name(Belonging_Name.get(i));
@@ -234,14 +236,14 @@ public class PHCSMP_Personal_Check_Action {
 			// response.getWriter().write("<script>alert('后台提交成功');</script>");
 			// response.getWriter().flush();
 			return "redirect:/home/index";
-		} catch (Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
-			// response.getWriter().flush();
-			request.setAttribute("error", "error");
-			request.setAttribute("checkRecord", model);
-			return "redirect:load";
-		}
+//		} catch (Exception e) {
+//			// response.getWriter()
+//			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+//			// response.getWriter().flush();
+//			request.setAttribute("error", "error");
+//			request.setAttribute("checkRecord", model);
+//			return "redirect:load";
+//		}
 	}
 
 	// public String unlogin_load() {

@@ -277,8 +277,8 @@
 </body>
 <script type="text/javascript">
 function check(){
-			var Staff_ID=document.getElementById("staff1").value;
-			if(Staff_ID.length==0 || Staff_ID ==""){
+			var Staff_ID=document.getElementById("staff_ID").value;
+			if(Staff_ID.length==0 || Staff_ID ==0){
 				alert('提交失败，请填写办案人员');
 			return false;
 		} else

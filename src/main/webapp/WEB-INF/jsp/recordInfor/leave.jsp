@@ -145,16 +145,17 @@
 					<!--引入状态截图-->
 					
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<img id="identityImg" src="${pageContext.request.contextPath }/images/fgreen_03.png" />
+						<img  src="${pageContext.request.contextPath }/images/fgreen_03.png" />
 						<c:if test="${!empty checkRecord }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
-					            $("#identityImg1").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
+					            $("#identityimg1").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
 					       
 					       });
 					    </script>
 						</c:if> 
-						<img id="identityImg1" src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
+						
+						<img id="identityimg1" src="${pageContext.request.contextPath }/images/fgreen_03.png" />
 						<c:if test="${!empty informationCollection }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
@@ -507,17 +508,17 @@
 				</table>
 			</div>
 			<div class="row" style="margin-top:30px;width:1000px;">
-				<div style="float:left;width:400px;margin-left: 150px">
-				<p id="signature">
+				<div style="float:left;width:400px;margin-left: 150px;position: relative;left: 107px;">
+				
 					管理员:
-							<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+							<select name="staff_ID" id="staff_ID1" style="font-color: black;">
 									<option value="0">--------请选择--------</option>
 									<c:forEach items="${staff }" var="item"
 										varStatus="status">
 										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
 									</c:forEach>
 							</select>		
-				</p>
+				
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
 					<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
@@ -531,8 +532,8 @@
 </body>
 <script type="text/javascript">
 function check(){
-			var Staff_ID=document.getElementById("staff1").value;
-			if(Staff_ID.length==0 || Staff_ID ==""){
+			var Staff_ID=document.getElementById("staff_ID1").value;
+			if(Staff_ID.length==0 || Staff_ID ==0){
 				alert('提交失败，请填写办案人员');
 			return false;
 		} else

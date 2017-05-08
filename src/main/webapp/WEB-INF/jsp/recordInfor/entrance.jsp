@@ -35,10 +35,16 @@
 $(function() {
 	$("#btnSave").click(function() {
 		var x = document.getElementById("band_ID").value;
+		var staff_ID = document.getElementById("staff_ID").value;
 		if (x == 0) {
 			alert('提交失败，请填写手环');
 			return false;
-		} else
+		} 
+		else if(staff_ID==0){
+		alert('提交失败，请填写办案人员');
+			return false;
+		}
+		else
 			return true;
 	});
 });
