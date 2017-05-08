@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,10 +17,9 @@ import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.LogService;
 
 public class ProcessLogInterceptor implements HandlerInterceptor {
-	
-	
+
 	@Autowired
-	private LogService loginfoService ;
+	private LogService loginfoService;
 
 	@Override
 	public void afterCompletion(HttpServletRequest arg0,
@@ -42,24 +40,25 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		String ddate = df.format(date);
 		// 获取拦截到的方法
 		String arg = arg2.toString();
-		if(arg.indexOf("[")==-1){
+		if (arg.indexOf("[") == -1) {
 			arg = arg.substring(0, arg.indexOf("("));
 			arg = arg.substring(arg.lastIndexOf(".") + 1, arg.length());
 		}
-		System.out.println(arg+"---------================");
+		System.out.println(arg + "---------================");
 		// 获取日志实例
-		//PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
+		// PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
 		// 判断拦截的方法,根据方法封装好processLog
-		PHCSMP_Process_Log process = jugeMethod(arg, sdate,ddate, arg0,arg1);
-		System.out.println(process.getEnd_Time()+"============endtime");
-		if(process.getEnd_Time() != null && process.getEnd_Time() != ""&&process.getEnd_Time()=="0-0"){
+		PHCSMP_Process_Log process = jugeMethod(arg, sdate, ddate, arg0, arg1);
+		System.out.println(process.getEnd_Time() + "============endtime");
+		if (process.getEnd_Time() != null && process.getEnd_Time() != ""
+				&& process.getEnd_Time() == "0-0") {
 			saveprocess(process);
 		}
-		if(process.getEnd_Time()!="0-0"){
-			
+		if (process.getEnd_Time() != "0-0") {
+
 			updateprocess(process);
 		}
-		if(process.getStaff_Name()!="xxx"){
+		if (process.getStaff_Name() != "xxx") {
 			updateporStaff(process);
 		}
 	}
@@ -70,20 +69,22 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		// TODO Auto-generated method stub
 		return true;
 	}
-//
-//	/**
-//	 * 判断拦截到的方法，并封装processLog的相应参数
-//	 * 
-//	 * @param method
-//	 * @param processLog
-//	 * @return
-//	 */
-	private PHCSMP_Process_Log jugeMethod(String method,
-			String sdate,String ddate, HttpServletRequest arg0,HttpServletResponse response) throws IOException {
+
+	//
+	// /**
+	// * 判断拦截到的方法，并封装processLog的相应参数
+	// *
+	// * @param method
+	// * @param processLog
+	// * @return
+	// */
+	private PHCSMP_Process_Log jugeMethod(String method, String sdate,
+			String ddate, HttpServletRequest arg0, HttpServletResponse response)
+			throws IOException {
 		PHCSMP_Process_Log log = new PHCSMP_Process_Log();
 		switch (method) {
 		case "readRFID": {
-			log = getProcessLog(arg0, sdate,ddate);
+			log = getProcessLog(arg0, sdate, ddate);
 			int process = log.getProcess_ID();
 			switch (process) {
 			case 1: {
@@ -109,103 +110,107 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			}
 			break;
 		}
-		//人身安全檢查提交
-		case "addCheckPersonInfor":{   
-			if(staffIsNull() != null){
+		// 人身安全檢查提交
+		case "addCheckPersonInfor": {
+			if (staffIsNull() != null) {
 				log = loginfoService.searchEmpstaff();
-				log.setStaff_Name((String)arg0.getAttribute("staff_Name"));
+				log.setStaff_Name((String) arg0.getAttribute("staff_Name"));
 			}
-			String error = (String)arg0.getAttribute("error");
-			   if(error=="error"){
-				   response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
-					 response.getWriter().flush();
-					
-			   }
+			String error = (String) arg0.getAttribute("error");
+			if (error == "error") {
+				response.getWriter().write(
+						"<script>alert('提交失败，请重新提交');</script>");
+				response.getWriter().flush();
+
+			}
 			break;
 		}
-		//信息采集提交
-		case "addInformationCollection":{
-			if(staffIsNull() != null){
+		// 信息采集提交
+		case "addInformationCollection": {
+			if (staffIsNull() != null) {
 				log = loginfoService.searchEmpstaff();
-				log.setStaff_Name((String)arg0.getAttribute("staff_ID"));
+				log.setStaff_Name((String) arg0.getAttribute("staff_ID"));
 			}
-			String error = (String)arg0.getAttribute("error");
-			   if(error=="error"){
-				   response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
-					 response.getWriter().flush();
-					
-			   }
+			String error = (String) arg0.getAttribute("error");
+			if (error == "error") {
+				response.getWriter().write(
+						"<script>alert('提交失败，请重新提交');</script>");
+				response.getWriter().flush();
+
+			}
 			break;
 		}
-		//询问讯问提交
-		case "addActivityRecordInfor":{
-			if(staffIsNull() != null){
+		// 询问讯问提交
+		case "addActivityRecordInfor": {
+			if (staffIsNull() != null) {
 				log = loginfoService.searchEmpstaff();
-				log.setStaff_Name((String)arg0.getAttribute("staff_ID"));
+				log.setStaff_Name((String) arg0.getAttribute("staff_ID"));
 			}
-			String error = (String)arg0.getAttribute("error");
-			   if(error=="error"){
-				   response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
-					 response.getWriter().flush();
-					
-			   }
+			String error = (String) arg0.getAttribute("error");
+			if (error == "error") {
+				response.getWriter().write(
+						"<script>alert('提交失败，请重新提交');</script>");
+				response.getWriter().flush();
+
+			}
 			break;
 		}
-		//离区提交
-		case "addLeaveRecordInfor":{
-			if(staffIsNull() != null){
+		// 离区提交
+		case "addLeaveRecordInfor": {
+			if (staffIsNull() != null) {
 				log = loginfoService.searchEmpstaff();
-				log.setStaff_Name((String)arg0.getAttribute("staff_ID"));
+				log.setStaff_Name((String) arg0.getAttribute("staff_ID"));
 			}
-			String error = (String)arg0.getAttribute("error");
-			   if(error=="error"){
-				   response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
-					 response.getWriter().flush();
-					
-			   }
+			String error = (String) arg0.getAttribute("error");
+			if (error == "error") {
+				response.getWriter().write(
+						"<script>alert('提交失败，请重新提交');</script>");
+				response.getWriter().flush();
+			}
 			break;
 		}
-		//进入询问
-		case "AR_loadInfor":{
-			String error = (String)arg0.getAttribute("error");
-			   if(error=="error"){
-				   response.getWriter()
-					 .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
-					 response.getWriter().flush();
-					
-			   }
+		// 进入询问
+		case "AR_loadInfor": {
+			String error = (String) arg0.getAttribute("error");
+			if (error == "error") {
+				response.getWriter()
+						.write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
+				response.getWriter().flush();
+
+			}
 			break;
 		}
-		//加载入区报告
-		case "RG_loadInfor":{
-			String error = (String)arg0.getAttribute("error");
-			   if(error=="error"){
-				   response.getWriter()
-					 .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
-					 response.getWriter().flush();
-					
-			   }
+		// 加载入区报告
+		case "RG_loadInfor": {
+			String error = (String) arg0.getAttribute("error");
+			if (error == "error") {
+				response.getWriter()
+						.write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
+				response.getWriter().flush();
+
+			}
 			break;
 		}
-		//进入信息采集
-		case "IM_loadInfor":{
-			String error = (String)arg0.getAttribute("error");
-			   if(error=="error"){
-				   response.getWriter()
-					 .write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
-					 response.getWriter().flush();
-					
-			   }
+		// 进入信息采集
+		case "IM_loadInfor": {
+			String error = (String) arg0.getAttribute("error");
+			if (error == "error") {
+				response.getWriter()
+						.write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
+				response.getWriter().flush();
+
+			}
 			break;
 		}
-		//临时离区
-		case "addTemporaryLeaveInfor":{
-			String error = (String)arg0.getAttribute("error");
-			   if(error=="error"){
-				   response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
-					 response.getWriter().flush();
-					
-			   }
+		// 临时离区
+		case "addTemporaryLeaveInfor": {
+			String error = (String) arg0.getAttribute("error");
+			if (error == "error") {
+				response.getWriter().write(
+						"<script>alert('提交失败，请重新提交');</script>");
+				response.getWriter().flush();
+
+			}
 			break;
 		}
 		}
@@ -218,29 +223,31 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 	 * @return
 	 */
 	private PHCSMP_Process_Log endtimeIsZero() {
-			try {
-				PHCSMP_Process_Log processLog=loginfoService.searchEmpEndTime();
-				System.out.println(processLog+"=====____+++++++"+processLog.getLog_ID());
-				return processLog;
-			} catch (Exception e) {
-				return null;
-			}
-	}
-	
-	/**
-	 * 查询数据库中staff为xxx的记录（有且只能能是最后一条） 以Bool作为返回值是为了防止空指针
-	 * @return
-	 */
-	private PHCSMP_Process_Log staffIsNull(){
 		try {
-			PHCSMP_Process_Log processLog=loginfoService.searchEmpstaff();
-			System.out.println(processLog+"=====____+++++++"+processLog.getLog_ID());
+			PHCSMP_Process_Log processLog = loginfoService.searchEmpEndTime();
+			System.out.println(processLog + "=====____+++++++"
+					+ processLog.getLog_ID());
 			return processLog;
 		} catch (Exception e) {
 			return null;
 		}
 	}
-	
+
+	/**
+	 * 查询数据库中staff为xxx的记录（有且只能能是最后一条） 以Bool作为返回值是为了防止空指针
+	 * 
+	 * @return
+	 */
+	private PHCSMP_Process_Log staffIsNull() {
+		try {
+			PHCSMP_Process_Log processLog = loginfoService.searchEmpstaff();
+			System.out.println(processLog + "=====____+++++++"
+					+ processLog.getLog_ID());
+			return processLog;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	/**
 	 * 封装获得processLog
@@ -249,12 +256,12 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 	 * @param sdate
 	 */
 	private PHCSMP_Process_Log getProcessLog(HttpServletRequest arg0,
-			String sdate,String ddate) {
+			String sdate, String ddate) {
 		// 判断数据库中是否存在endtime为空的条目
 		// 不存在，表示没有残缺的记录，每条记录都有成对的出入门时间，则创建新的记录
 		PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
-		if (endtimeIsZero()==null ) {
-			
+		if (endtimeIsZero() == null) {
+
 			PHCSMP_Suspect suspect = (PHCSMP_Suspect) arg0
 					.getAttribute("suspect");
 			String suspectId = suspect.getSuspect_ID(); // 获取嫌疑人id
@@ -267,7 +274,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			processLog.setSuspect_ID(suspectId); // 封装嫌疑人ID
 			processLog.setProcess_ID(room.getProcess_ID()); // 封装流程号
 			processLog.setiP_Address(room.getRoom_IPAddress()); // 获取房间IP
-			System.out.println(suspectId+"----------------进入try");
+			System.out.println(suspectId + "----------------进入try");
 			System.out.println(room.getProcess_ID());
 			System.out.println(room.getRoom_IPAddress());
 		}
@@ -275,34 +282,37 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		else {
 			// 获得当前的残缺记录
 			processLog = loginfoService.searchEmpEndTime();
-			
+
 			processLog.setEnd_Time(sdate);
 		}
 
 		return processLog;
 	}
-	
-	
+
 	/**
 	 * 保存processLog进数据库
+	 * 
 	 * @param process
 	 */
-	private void saveprocess(PHCSMP_Process_Log process){
+	private void saveprocess(PHCSMP_Process_Log process) {
 		loginfoService.save(process);
 	}
-	
+
 	/**
 	 * 更新记录，即补全endtime
+	 * 
 	 * @param process
 	 */
-	private void updateprocess(PHCSMP_Process_Log process){
+	private void updateprocess(PHCSMP_Process_Log process) {
 		loginfoService.update(process);
 	}
+
 	/**
 	 * 更新每个活动的staff
+	 * 
 	 * @param process
 	 */
-	private void updateporStaff(PHCSMP_Process_Log process){
+	private void updateporStaff(PHCSMP_Process_Log process) {
 		loginfoService.updateStaff(process);
 	}
 }
