@@ -53,4 +53,6 @@ public interface UserService {
 	List<PHCSMP_Role> findAllRole();
 
 	void updateStaff(PHCSMP_Staff model);
+
+	PHCSMP_Staff finstaffById(int staffid);
 }

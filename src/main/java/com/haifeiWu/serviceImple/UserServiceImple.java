@@ -56,4 +56,10 @@ public class UserServiceImple implements UserService {
 		userDao.updateStaff(model);
 	}
 
+	@Override
+	public PHCSMP_Staff finstaffById(int staffid) {
+		return userDao.findstaffById(staffid);
+		
+	}
+
 }

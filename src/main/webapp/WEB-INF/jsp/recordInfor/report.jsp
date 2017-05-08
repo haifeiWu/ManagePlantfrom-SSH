@@ -131,7 +131,7 @@
 					<li class="l1">档案编号：<input type="text"
 						value="${suspect.suspect_ID }" readonly="readonly"
 						name="suspectId" /></li>
-					<li class="l2">报告时间：<input type="date"
+					<li class="l2">报告时间：<input type="text"
 						value="${reportCreateTime }" readonly="readonly" /></li>
 					<li class="l3">羁押时间：<input type="text" value="${suspect.detain_Time }"
 						readonly="readonly"></li>
@@ -366,7 +366,7 @@
 						</div>
 						<div>
 							<ul class="signature col-lg-12 col-md-10 col-sm-10">
-								<li>办案人员： ${belongingS[0].staff_ID }</li>
+								<li>办案人员： ${staffname }</li>
 								<li>随身财物管理员：${belongingS[0].staff_ID_Belonging }</li>
 								<li>涉案人员: ${suspect.suspect_Name }</li>
 							</ul>
@@ -510,7 +510,7 @@
 					<div class="row_1" style="margin-top: 20px;">
 					<p></p>
 						<p
-							style="color: #389AC7;margin-top: 9%;margin-left:6%;font-size: 17px;">临时离开办案区</p>
+							style="color: #389AC7;margin-top: 9%;margin-left:6%;font-size: 17px;">最终离开办案区</p>
 						<div>
 							<table class="final_Leave col-lg-12 col-md-10 col-sm-10">
 								<tr style="background: #0070c0;color: #fff">

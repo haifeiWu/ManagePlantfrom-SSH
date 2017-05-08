@@ -450,7 +450,6 @@
 				alert('提交失败，请填写办案人员或检查民警');
 			return false;
 		} else{
-		alert("sb");
 			document.getElementById("form").submit();
 			return true;
 			}

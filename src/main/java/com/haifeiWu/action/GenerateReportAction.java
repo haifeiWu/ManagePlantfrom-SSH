@@ -18,6 +18,7 @@ import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
@@ -27,6 +28,7 @@ import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.PropertiesReadUtils;
 
 /**
@@ -57,6 +59,8 @@ public class GenerateReportAction {
 	@Autowired
 	private TemporaryLeaveService temporaryLeaveService;
 
+	@Autowired
+	private UserService userService;
 	/**
 	 * 生成嫌疑人入区信息报告
 	 * 
@@ -67,12 +71,22 @@ public class GenerateReportAction {
 	@RequestMapping(value = "/load")
 	public String GR_loadInfor(HttpServletRequest request) throws IOException {
 		String suspectId = request.getParameter("suspectID");
-		try {
+//		try {
 			// 查找嫌疑人入区信息
 			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
 			// 嫌疑人随身所有物品检查信息s
 			List<PHCSMP_BelongingS> belongingS = belongingInforService
 					.selectBelongInfor(suspectId);
+
+			//查询办案人名
+				PHCSMP_Personal_Check personcheck = personalCheckService.findInforBySuspetcId(suspectId);
+				if(personcheck!=null){
+				PHCSMP_Staff staff = userService.finstaffById(Integer.parseInt(personcheck.getStaff_ID()));
+				String staffname = staff.getStaff_Name();
+				request.setAttribute("staffname",staffname);
+				}
+			System.out.println(belongingS.toString()+"---------------------------------------------------------------");
+
 			// 嫌疑人人身检查信息
 			PHCSMP_Personal_Check personal_Check = personalCheckService
 					.findInforBySuspetcId(suspectId);
@@ -89,7 +103,7 @@ public class GenerateReportAction {
 			List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
 					.findTempLeaveListBySuspectID(suspectId);
 			String reportCreateTime = new DateTime()
-					.toString("yyyy-MM-dd HH:mm");
+					.toString("yyyy/MM/dd");
 			// 将查找到的信息放入request中，然后从页面加载
 			request.setAttribute("suspectId", suspect.getSuspect_ID());
 			request.setAttribute("suspect", suspect);
@@ -106,10 +120,15 @@ public class GenerateReportAction {
 					PropertiesReadUtils.getPDFString("relatePath") + "\\"
 							+ suspectId + ".pdf");
 			return "WEB-INF/jsp/recordInfor/report";
-		} catch (Exception e) {
-			request.setAttribute("error", "error");
-			return "redirect:/home/index";
-		}
+//		} catch (Exception e) {
+//			// response.getWriter()
+//			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
+//			// response.getWriter().flush();
+//			request.setAttribute("error", "error");
+//
+//			return "redirect:/home/index";
+//		}
+
 	}
 
 	public String getDetainTime() {
