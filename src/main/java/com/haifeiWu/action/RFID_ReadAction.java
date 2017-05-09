@@ -72,12 +72,13 @@ public class RFID_ReadAction {
 		System.out.println(remark + "--------remark-----------");
 		request.setAttribute("remark", remark);
 		// 通过获取的属性获取嫌疑人当前信息和所在房间的信息
-		System.out.println("bandSer-----------"+bandService);
-		System.out.println("findby------------"+bandService.findByRemark(remark));
+		System.out.println("bandSer-----------" + bandService);
+		System.out.println("findby------------"
+				+ bandService.findByRemark(remark));
 		int bandId = bandService.findByRemark(remark).getBand_ID();
-		
-		System.out.println("--------"+bandId);
-		
+
+		System.out.println("--------" + bandId);
+
 		int cardReader_ID = roomService.findByCardReaderName(cardReader_Name)
 				.getCardReader_ID();
 		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
@@ -116,8 +117,8 @@ public class RFID_ReadAction {
 		switch (room.getProcess_ID()) {
 		// case 0:// 0是入区登记，不刷卡以及录像
 		// break;
+
 		case 1:// 人身检查
-			System.out.println(room.getRoom_IPAddress()+"***************************************************");
 			ws.flushPage(room.getRoom_IPAddress() + "*"
 					+ "/check/load?suspectID=" + suspectID);
 			break;

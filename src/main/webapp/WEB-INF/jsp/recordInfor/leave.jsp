@@ -198,7 +198,7 @@
 			</div>
 			<!--疑犯个人身份证信息-->
 			<div class="container">
-				<div class="row" style="margin-bottom:10px;">
+				<div class="row" style="margin-bottom:-20px !important;">
 					<!--身份信息标题-->
 					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						入区事由:<input type="text" value="治安传唤" />
@@ -211,43 +211,38 @@
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-top:30px;">
 						<hr style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -10%;" />
-							<table class="Message col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:15px;">
-								<tr style="padding: 0px;">
-								<!--图片引入-->
-									<td rowspan="5">
-										<img id="pic" src="${suspectInfor.identityCard_Photo }" style="border:1px solid #ccc;width: 100px;height: 108px;position: relative;top: 0px;" />
-										<input type="hidden" name="identityCard_Photo" value="value">
-										<p class="info_id" style="width: 100px;">身份证照</p></td>
-									<td colspan="2">姓名:
-										<input type="text" name="suspect_Name" value="${suspectInfor.suspect_Name }" style="font-size:12px;margin-left:10px;"/>
-									</td>
-								</tr>
-								<!--第二行 性别 民族-->
-								<tr>
-									<td>性别：
-										<input style="font-size:12px;margin-left:10px;" type="text" name="sex" value="${suspectInfor.sex }"/>
-									</td>
-									<td style="margin-left:10px;">民族：<input type="text" name="nation" value="汉" style="font-size:12px;margin-left:10px;"/></td>
-								</tr>
-								<!--第三行 出生-->
-								<tr>
-									<td colspan="8">出生日期：
-										<input type="text" name="birthday" value="${suspectInfor.birthday }" />
-									</td>
-								</tr>
-								<!--第四行身份证住址-->
-								<tr>
-									<td colspan="8">
-									家庭住址：<textarea name="address" rows="4" cols="45"  col-md-offset-2>${suspectInfor.address }</textarea>
-									</td>
-								</tr>			
-								<tr>
-									<td colspan="10">身份证号码:
-										<input type="text" name="identifyCard_Number" value="${suspectInfor.identifyCard_Number }"/>
-									</td>
-	
-								</tr>
-							</table>
+							<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
+
+						<tr style="padding: 0px;">
+							<!--图片引入-->
+							<td rowspan="5"><img
+								style="width:95px;height:108px;"
+								src="${suspectInfor.identityCard_Photo }" />
+								<p class="info_id">身份证照</p></td>
+							<!--<td></td>-->
+							<td colspan="2">姓名:<span style="color: black;">${suspectInfor.suspect_Name } </span></td>
+						</tr>
+						<!--第二行 性别 民族-->
+						<tr>
+							<td>性别：<span style="color: black;">${suspectInfor.sex } </span></td>
+							<td>民族：<span style="color: black;">${suspectInfor.nation }</span></td>
+						</tr>
+						<!--第三行 出生-->
+						<tr>
+							<td colspan="2">出生日期：<span style="color: black;">${suspectInfor.birthday } </span></td>
+						</tr>
+						<!--第四行身份证住址-->
+						<tr>
+							<td colspan="2">住址：</td>
+						</tr>
+						<tr>
+							<td colspan="2"><span style="color: black;">${suspectInfor.address }</span></td>
+						</tr>
+						<tr >
+							<td>&nbsp;身份证号码</td>
+							<td colspan="2"><span style="color: black;">${suspectInfor.identifyCard_Number }</span></td>
+						</tr>
+					</table>
 						<hr style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top:33%; margin-left:-10%;" />
 					</div>
 				</div>
@@ -522,7 +517,7 @@
 				
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
-					<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
+					<input style="height: 30px;text-align:center;line-height: 30px; " type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
 				</div>
 				
 			</div>

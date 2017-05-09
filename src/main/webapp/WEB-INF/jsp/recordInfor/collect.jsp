@@ -122,8 +122,7 @@
 				<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img id="img_1" src="${SuspectInfor.frontal_Photo }" /> <img
 							id="img_2" src="${SuspectInfor.sideWays_Photo}" />
-						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }&nbsp;
-							&nbsp; &nbsp;嫌疑人入区登记照片</p>
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6">${nEntryTime }嫌疑人入区登记照片</p>
 				</div>
 				<!-- <div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 					<img

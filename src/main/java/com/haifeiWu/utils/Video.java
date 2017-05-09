@@ -72,8 +72,6 @@ public class Video {
 	public static String queryDownloadFileStatu(int band_ID,
 			String identificationCard) throws IOException {
 		String json = packjson(band_ID, identificationCard);
-		// String result = "";
-		// Object code = "";
 		System.out.println("-------dsdd-----"
 				+ PropertiesReadUtils
 						.getRecordConfString("SxQueryUploadFileStatus"));

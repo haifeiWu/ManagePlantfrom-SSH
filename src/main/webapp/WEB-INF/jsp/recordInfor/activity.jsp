@@ -385,17 +385,17 @@
 
 				<c:if test="${!empty activity_record}">
 				
-				 <c:forEach items="${activity_record }" var="ari" varStatus="s" >
-					   <tr style="height: 70px;" >
-					   <td>${s.index+4 }</td>
-					   <td>${ari.activity_Record }</td>
-					        <td>${ari.room_Name }</td>
-					   		<td>${ari.start_Time }</td>
-					   		<td>${ari.end_Time }</td>
-					   		<td>---</td>
-					   		<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; ">${ari.remark }</textarea></td>
-					   	</tr>
-					   </c:forEach>
+					 <c:forEach items="${activity_record }" var="ari" varStatus="s" >
+						   <tr style="height: 70px;" >
+						   <td>${s.index+4 }</td>
+						   <td>${ari.activity_Record }</td>
+						        <td>${ari.room_Name }</td>
+						   		<td>${ari.start_Time }</td>
+						   		<td>${ari.end_Time }</td>
+						   		<td>---</td>
+						   		<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; ">${ari.remark }</textarea></td>
+						   	</tr>
+					</c:forEach>
 				</c:if>
 				</table>
 			</div>
@@ -432,7 +432,7 @@
 							</div>
 						</td> --%>
 
-						 <td id="select" ><select name="activity_Record" style="text-align: center;">
+						 <td id="select" ><select name="activity_Record" style="text-align: center; id="active">
 						 	<%-- <c:if test="${!empty activity_Record}">
 								<option value=>${activity_Record }</option>
 							 </c:if> --%>	
@@ -450,13 +450,13 @@
 							<textarea style="" class="textarea" name="remark" style="width: 780px;" clos="300" rows="3" warp="virtual">${activity_remark }</textarea>
 							</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td style="display: none;">1</td>
 						<td style="display: none;">
 							<div class="btn" id="add">+添加</div>
 							<div class="btn" id="delete">-删除</div>
 						</td>
-					</tr>
+					</tr> -->
 				</table>
 			</div>
 			<p class="row_1">
@@ -474,7 +474,7 @@
 							</select>
 					
 				</p>
-				
+				<input name="start_Time" type="hidden" value="${start_Time }">
 				<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" style="position: relative;left: 93px;top: 15px;width: 98px"/>
 				
 				</div>
@@ -497,13 +497,8 @@
 <script type="text/javascript">
 function check(){
 			var Staff_ID=document.getElementById("staff_ID").value;
-			var activity = document.getElementById("activity").value;
 			if(Staff_ID.length==0 || Staff_ID ==0){
 				alert('提交失败，请填写办案人员');
-			return false;
-		} 
-		else if(activity==0){
-		alert('提交失败，请填写活动内容');
 			return false;
 		}
 		else

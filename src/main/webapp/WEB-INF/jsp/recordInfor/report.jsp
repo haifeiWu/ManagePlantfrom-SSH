@@ -240,7 +240,17 @@
 								<td colspan="4">${suspect.suspected_Cause }</td>
 								<td style="text-align: center;">音视频编码：</td>
 
-								<td colspan="4">${suspect.vedio_Number }</td>
+								<td colspan="4">
+								
+								${suspect.vedio_Number }
+								<c:if test="${suspect.process_Now eq -1}">
+									<c:if test="${empty suspect.vedio_Number}">
+										<c:if test="${suspect.recordVideo_State eq 0}">该嫌疑人未进行录像</c:if>
+										<c:if test="${suspect.recordVideo_State != 0}">录像下载失败</c:if>
+									</c:if>
+								</c:if>
+								<c:if test="${suspect.process_Now != -1}">录像未结束</c:if>
+								</td>
 							</tr>
 						</table>
 					</div>

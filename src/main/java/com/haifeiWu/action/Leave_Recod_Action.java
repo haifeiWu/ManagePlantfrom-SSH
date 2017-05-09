@@ -258,22 +258,8 @@ public class Leave_Recod_Action {
 
 	/* 加载界面信息 */
 	@RequestMapping(value = "/load")
-	public String loadInfor(@RequestParam("suspectID") String suspectID,
-			HttpServletRequest request
-	// @RequestParam("sb") StringBuilder
-	// sb,@RequestParam("suspectInfor")PHCSMP_Suspect suspectInfor,
-	// @RequestParam("suspectComplete")int
-	// suspectComplete,@RequestParam("personalCheck")PHCSMP_Personal_Check
-	// personalCheck,
-	// @RequestParam("personalCheckComplete")int
-	// personalCheckComplete,@RequestParam("informationCollection")PHCSMP_Information_Collection
-	// informationCollection,
-	// @RequestParam("informationCollectionComplete")int
-	// informationCollectionComplete,@RequestParam("activityRecordList")List<PHCSMP_Activity_Record>
-	// activityRecordList,
-	// @RequestParam("completeMap")Map<Integer, Integer>
-	// completeMap,@RequestParam("temporaryLeave")Temporary_Leave temporaryLeave
-	) throws IOException {
+	public String loadInfor(@RequestParam("suspectID") String suspectId,
+			HttpServletRequest request) throws IOException {
 		try {
 			// 异常处理的代码
 			if (request.getAttribute("leaveRecordLoadInfor") != null) {
@@ -291,9 +277,6 @@ public class Leave_Recod_Action {
 				request.setAttribute("staff_ID", staff_ID);
 				request.setAttribute("manager_name", manager_name);
 			}
-			// 加载嫌疑人信息
-			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
-			String suspectId = (String) request.getParameter("suspectID");
 
 			// 离区前提示前四个业务的完整性
 			// 根据嫌疑人id查找嫌疑人前四个业务的信息
@@ -352,7 +335,8 @@ public class Leave_Recod_Action {
 							/ (float) Activity_Record.getTotal_record() * 100);
 					completeMap.put(j, activityRecordComplete);
 					activityRecordCompleteList.add(activityRecordComplete);
-					request.setAttribute("activityRecordCompleteList", activityRecordCompleteList);
+					request.setAttribute("activityRecordCompleteList",
+							activityRecordCompleteList);
 					j++;
 					if (activityRecordComplete != 100) {// 信息不完整
 						sb.append("询问讯问" + i + "信息填写不完整!  ");
