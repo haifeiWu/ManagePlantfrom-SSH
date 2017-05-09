@@ -26,6 +26,14 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
 		// TODO Auto-generated method stub
+		String arg = arg2.toString();
+		if (arg.indexOf("[") == -1) {
+			arg = arg.substring(0, arg.indexOf("("));
+			arg = arg.substring(arg.lastIndexOf(".") + 1, arg.length());
+		}
+		if(arg == "addSuspectInfor"){
+			checkWay(arg0, arg1);
+		}
 
 	}
 
@@ -217,6 +225,21 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		return log;
 	}
 
+	private void checkWay(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		String videoStetus = (String) request.getAttribute("videoStetus");
+		if (videoStetus == "1") {
+			response.getWriter().write(
+					"<script>alert('回路正常，开始录像');</script>");
+			response.getWriter().flush();
+
+		}
+		else if(videoStetus == "0"){
+			response.getWriter().write(
+					"<script>alert('回路饱和，录像失败');</script>");
+			response.getWriter().flush();
+		}
+	}
+	
 	/**
 	 * 查询数据库中endtime为0-0的记录（有且只能能是最后一条） 以Bool作为返回值是为了防止空指针
 	 * 

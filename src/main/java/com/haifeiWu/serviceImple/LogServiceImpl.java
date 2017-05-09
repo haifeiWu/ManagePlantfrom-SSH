@@ -217,5 +217,11 @@ public class LogServiceImpl implements LogService {
 		return process_logDao.queryBystaff(hql);
 	}
 
+	@Override
+	public PHCSMP_Process_Log findlogBysuspect(String suspectId) {
+		String hql = "from PHCSMP_Process_Log where suspect_ID=?";
+		return process_logDao.findLogBysuspectId(hql,suspectId);
+	}
+
 	
 }

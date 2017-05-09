@@ -189,10 +189,13 @@ public class SuspectManageAction {
 
 			String suspectId = suspectList.get(i).getSuspect_ID();
 			// System.out.println("suspectId" + suspectId);
-			String leavaTime = leaveRecodService
-					.findLeaveRecordInfor(suspectId).getLeave_Time();
-			// System.out.println("leavetime=sbsbsb+" + leavaTime);
-			leaveTimeList.add(leavaTime);
+			if(leaveRecodService.findLeaveRecordInfor(suspectId)!=null){
+				String leavaTime = leaveRecodService
+						.findLeaveRecordInfor(suspectId).getLeave_Time();
+				// System.out.println("leavetime=sbsbsb+" + leavaTime);
+				leaveTimeList.add(leavaTime);
+			}
+			else{leaveTimeList.add(null);}
 			// System.out.println("leavetime=" + leaveTimeList.get(i));
 		}
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();

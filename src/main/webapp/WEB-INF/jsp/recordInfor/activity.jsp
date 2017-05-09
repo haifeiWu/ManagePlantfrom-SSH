@@ -432,7 +432,7 @@
 							</div>
 						</td> --%>
 
-						 <td id="select" ><select name="activity_Record" style="text-align: center;">
+						 <td id="select" ><select name="activity_Record" style="text-align: center;" id="active">
 						 	<%-- <c:if test="${!empty activity_Record}">
 								<option value=>${activity_Record }</option>
 							 </c:if> --%>	
@@ -497,7 +497,7 @@
 <script type="text/javascript">
 function check(){
 			var Staff_ID=document.getElementById("staff_ID").value;
-			var activity = document.getElementById("activity").value;
+			var activity = document.getElementById("active").value;
 			if(Staff_ID.length==0 || Staff_ID ==0){
 				alert('提交失败，请填写办案人员');
 			return false;
