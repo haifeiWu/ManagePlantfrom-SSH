@@ -48,6 +48,7 @@ public class fileStatusAction {
 		String identificationCard = jsonRequest.getString("identificationCard");
 		System.out.println("fileStatus收到的数据 ----------- " + uploadType
 				+ "     " + policeId + "     " + identificationCard);
+
 		if (uploadType == 0) {// 注意对下载失败的处理
 			// 查询文件上传状态
 			filename = Video.queryDownloadFileStatu(policeId,
@@ -64,7 +65,7 @@ public class fileStatusAction {
 						identificationCard);
 			}
 		}
-		System.out.println("-------查询完成-------->");
+
 		return "success";
 	}
 

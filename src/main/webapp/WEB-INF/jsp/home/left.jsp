@@ -102,35 +102,37 @@ $(document).ready(function (){
     </dd> 
     
     
-    <%-- <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>角色管理</div>
+     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>角色管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/user/load" target="rightFrame">查看所有用户</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/user/adduser" target="rightFrame">添加用户</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>    
-    </dd>  --%>
+    </dd>  
     
-    <%-- <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>房间管理</div>
+     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>房间管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/room/load" target="rightFrame">房间设置</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>    
-    </dd>   --%>
+    </dd>   
     
     
-    <%-- <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>采集设备管理</div>
+     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>采集设备管理</div>
     <ul class="menuson">
     	<li><cite></cite><a href="${pageContext.request.contextPath }/CardReaderManage/loadInfor" target="rightFrame">读卡器设置</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环查看</a><i></i></li>      
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>
-    </dd>  --%>
+    </dd>  
     
+
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统日志管理</div>
+
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeinfo?page=1" target="rightFrame" >工作人员日志</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeProcess?page=1" target="rightFrame" >嫌疑人日志</a><i></i></li>
@@ -163,7 +165,7 @@ $(document).ready(function (){
 	        <li><cite></cite><a href="${pageContext.request.contextPath }/CardReaderManage/loadInfor" target="rightFrame">读卡器初始化</a><i></i></li>
         	<li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环初始化</a><i></i></li>    
 	     </ul>
-    </dd> --%>
+    </dd> 
     </dl>
     
 </body>

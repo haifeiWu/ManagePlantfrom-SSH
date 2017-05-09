@@ -17,14 +17,14 @@ public class FTPAction {
 	@RequestMapping(value = "/ftp")
 	public String configFTP() throws Exception {
 		Video.setRBServerCfg();
-		Video.setFtpServerCfg(1, "22222222222");
-		Video.uploadRecFile(1, "22222222222");
+		Video.setFtpServerCfg(1, "2423134242432423332");
+		Video.uploadRecFile(1, "2423134242432423332");
 		return "success";
 	}
 
 	@RequestMapping(value = "/searchFTP")
 	public String searchFTP() throws Exception {
-		Video.queryDownloadFileStatu(1, "142334442341243451");
+		Video.queryDownloadFileStatu(1, "2423134242432423332");
 		return "success";
 	}
 
