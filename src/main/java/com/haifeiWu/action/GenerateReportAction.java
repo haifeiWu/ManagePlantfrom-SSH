@@ -18,6 +18,7 @@ import com.haifeiWu.entity.PHCSMP_BelongingS;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
+import com.haifeiWu.entity.PHCSMP_Process_Log;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
@@ -25,6 +26,7 @@ import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.LeaveRecodService;
+import com.haifeiWu.service.LogService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
@@ -61,6 +63,8 @@ public class GenerateReportAction {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private LogService logService; //日志
 	/**
 	 * 生成嫌疑人入区信息报告
 	 * 
@@ -71,7 +75,10 @@ public class GenerateReportAction {
 	@RequestMapping(value = "/load")
 	public String GR_loadInfor(HttpServletRequest request) throws IOException {
 		String suspectId = request.getParameter("suspectID");
-//		try {
+		try {
+			//查找嫌疑人日志
+			PHCSMP_Process_Log suspectLog = getLogBysuspectId(suspectId);
+			request.setAttribute("suspectLog", suspectLog);
 			// 查找嫌疑人入区信息
 			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
 			// 嫌疑人随身所有物品检查信息s
@@ -120,17 +127,28 @@ public class GenerateReportAction {
 					PropertiesReadUtils.getPDFString("relatePath") + "\\"
 							+ suspectId + ".pdf");
 			return "WEB-INF/jsp/recordInfor/report";
-//		} catch (Exception e) {
-//			// response.getWriter()
-//			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
-//			// response.getWriter().flush();
-//			request.setAttribute("error", "error");
-//
-//			return "redirect:/home/index";
-//		}
+		} catch (Exception e) {
+			// response.getWriter()
+			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
+			// response.getWriter().flush();
+			request.setAttribute("error", "error");
+
+			return "redirect:/home/index";
+		}
 
 	}
+	
+	/**
+	 * 按suspectId查询嫌疑人日志
+	 * @param suspectId
+	 * @return
+	 */
+	private PHCSMP_Process_Log getLogBysuspectId(String suspectId){
+		return logService.findlogBysuspect(suspectId);
 
+		
+	}
+	
 	public String getDetainTime() {
 		return detainTime;
 	}

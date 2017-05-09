@@ -432,7 +432,9 @@
 							</div>
 						</td> --%>
 
-						 <td id="select" ><select name="activity_Record" style="text-align: center; id="active">
+
+						 <td id="select" ><select name="activity_Record" style="text-align: center;" id="active">
+
 						 	<%-- <c:if test="${!empty activity_Record}">
 								<option value=>${activity_Record }</option>
 							 </c:if> --%>	

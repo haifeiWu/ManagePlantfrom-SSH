@@ -130,15 +130,16 @@ $(document).ready(function (){
     </ul>
     </dd>  
     
-     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统日志管理</div>
+
+    <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统日志管理</div>
+
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeinfo?page=1" target="rightFrame" >工作人员日志</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeProcess?page=1" target="rightFrame" >嫌疑人日志</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        
     </ul>
     </dd> 
-    
+     <%--
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>数据库管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="#">待编辑</a><i></i></li>

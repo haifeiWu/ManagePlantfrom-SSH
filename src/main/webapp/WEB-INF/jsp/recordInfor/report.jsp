@@ -14,6 +14,8 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/Suspect_All.js"></script>
 
+
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		// 数据信息的显示与隐藏
@@ -118,11 +120,6 @@
 				<b style="color: #389ac7;">Suspect</b> information report
 			</h4>
 			<p id="left_title">嫌疑人入区报告</p>
-
-
-
-
-
 			<form class="row">
 				<h1 class="col-lg-12 col-md-10 col-sm-12">
 					<img src="${pageContext.request.contextPath }/images/jinghui.png">&nbsp;&nbsp;&nbsp;&nbsp;交城县公安局嫌疑人入区报告
@@ -139,7 +136,29 @@
 			</form>
 
 			<!-- 文件下载链接   "-->
-
+			<!-- 嫌疑人日志 -->
+			<table class="woods_check col-lg-12 col-md-10 col-sm-10">
+								<tr style="background: #3c96c8;height: 33px;text-align: center;">
+								<th style="text-align: center;font-weight: 10px">序号</th>
+								<th style="text-align: center;">档案编号</th>
+								<th style="text-align: center;">流程号</th>
+								<th style="text-align: center;">活动信息</th>
+								<th style="text-align: center;">开始时间</th>
+								<th style="text-align: center;">结束时间</th>
+								<th style="text-align: center;">办案人员</th>
+								<th style="text-align: center;">房间IP</th>
+								</tr>
+								<tr>
+									<td >${suspectLog.log_ID }</td> 
+									<td >${suspectLog.suspect_ID }</td>
+									<td>${suspectLog.process_ID }</td>
+									<td>${suspectLog.suspect_active }</td>
+									<td>${suspectLog.start_Time }</td>
+									<td>${suspectLog.end_Time }</td>
+									<td>${suspectLog.staff_Name }</td>
+									<td>${suspectLog.iP_Address }</td>
+								</tr>
+			</table>
 			<form class="row">
 				<h4 id="Person_info"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">

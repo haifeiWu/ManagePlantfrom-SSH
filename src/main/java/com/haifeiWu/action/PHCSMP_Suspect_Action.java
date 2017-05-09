@@ -201,8 +201,10 @@ public class PHCSMP_Suspect_Action {
 				model.setRecordVideo_State(1);
 				lineService.startLine();
 				useLine = true;
+				request.setAttribute("videoStetus", "1");
 			} else {// 不可以录像
 				model.setRecordVideo_State(0);
+				request.setAttribute("videoStetus", "0");
 			}
 			fullCheck(model);
 
