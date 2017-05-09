@@ -14,10 +14,18 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/Suspect_All.js"></script>
 
-
-
 <script type="text/javascript">
 	$(document).ready(function() {
+		alert("haha");
+		var arry=new Array(); 
+		<c:forEach items="${room_Name }" var="item" >
+			arry.push("${item }");
+			alert(${item });
+			alert(arry[3]);
+		</c:forEach>
+	
+	
+	
 		// 数据信息的显示与隐藏
 		$(".show").click(function() {
 
@@ -120,6 +128,11 @@
 				<b style="color: #389ac7;">Suspect</b> information report
 			</h4>
 			<p id="left_title">嫌疑人入区报告</p>
+
+
+
+
+
 			<form class="row">
 				<h1 class="col-lg-12 col-md-10 col-sm-12">
 					<img src="${pageContext.request.contextPath }/images/jinghui.png">&nbsp;&nbsp;&nbsp;&nbsp;交城县公安局嫌疑人入区报告
@@ -128,7 +141,7 @@
 					<li class="l1">档案编号：<input type="text"
 						value="${suspect.suspect_ID }" readonly="readonly"
 						name="suspectId" /></li>
-					<li class="l2">报告时间：<input type="text"
+					<li class="l2">报告时间：<input type="date"
 						value="${reportCreateTime }" readonly="readonly" /></li>
 					<li class="l3">羁押时间：<input type="text" value="${suspect.detain_Time }"
 						readonly="readonly"></li>
@@ -136,29 +149,7 @@
 			</form>
 
 			<!-- 文件下载链接   "-->
-			<!-- 嫌疑人日志 -->
-			<table class="woods_check col-lg-12 col-md-10 col-sm-10">
-								<tr style="background: #3c96c8;height: 33px;text-align: center;">
-								<th style="text-align: center;font-weight: 10px">序号</th>
-								<th style="text-align: center;">档案编号</th>
-								<th style="text-align: center;">流程号</th>
-								<th style="text-align: center;">活动信息</th>
-								<th style="text-align: center;">开始时间</th>
-								<th style="text-align: center;">结束时间</th>
-								<th style="text-align: center;">办案人员</th>
-								<th style="text-align: center;">房间IP</th>
-								</tr>
-								<tr>
-									<td >${suspectLog.log_ID }</td> 
-									<td >${suspectLog.suspect_ID }</td>
-									<td>${suspectLog.process_ID }</td>
-									<td>${suspectLog.suspect_active }</td>
-									<td>${suspectLog.start_Time }</td>
-									<td>${suspectLog.end_Time }</td>
-									<td>${suspectLog.staff_Name }</td>
-									<td>${suspectLog.iP_Address }</td>
-								</tr>
-			</table>
+
 			<form class="row">
 				<h4 id="Person_info"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -259,9 +250,7 @@
 								<td colspan="4">${suspect.suspected_Cause }</td>
 								<td style="text-align: center;">音视频编码：</td>
 
-								<td colspan="4">
-								
-								${suspect.vedio_Number }
+								<td colspan="4">${suspect.vedio_Number }
 								<c:if test="${suspect.process_Now eq -1}">
 									<c:if test="${empty suspect.vedio_Number}">
 										<c:if test="${suspect.recordVideo_State eq 0}">该嫌疑人未进行录像</c:if>
@@ -287,22 +276,29 @@
 							style="font-size: 17px;">2.1&nbsp;自述情况</p>
 						<table class="checked_state col-lg-12 col-md-10 col-sm-10"
 							style="margin-top: 6px;margin-left: 56px;">
+							<tr><td>
+							<table style="width: 600px;table-layout:fixed;">
 							<tr>
-								<td style="padding-left: 40px; width: 88px;font-size: 16px;">是否饮酒：</td>
+								<td style="padding-left: 79px; width: 170px;font-size: 16px;">是否饮酒：</td>
 								<td style="font-size: 16px;">${personal_Check.is_Drink }</td>
 
 							</tr>
 							<tr>
-								<td style="padding-left: 40px; width: 203px;font-size: 16px;">是否患有传染性疾病：
+								<td style="padding-left: 0; width: 170px;font-size: 16px;">是否患有传染性疾病：
 									</li>
 								<td style="font-size: 16px;">${personal_Check.is_Diseases }</td>
 							</tr>
+							<tr>
+								<td style="padding-left: 74px; width: 170px;font-size: 16px;align:top;">自述症状：
+									</li>
+								<td style="font-size: 16px; word-wrap:break-word;">${personal_Check.self_ReportS }</td>
+							</tr></td></tr></table>
 						</table>
-						<fieldset class="col-lg-12 col-md-12 col-sm-12"
+						<%-- <fieldset class="col-lg-12 col-md-12 col-sm-12"
 							style="margin-left: 79px;">
 							<font size="3">自述症状：${personal_Check.self_ReportS }</font>
 
-						</fieldset>
+						</fieldset> --%>
 					</div>
 					<!--体检信息表-->
 
@@ -310,32 +306,32 @@
 						<p class="check col-lg-12 col-md-10 col-sm-10"
 							style="font-size: 17px;">2.2&nbsp;检查情况</p>
 						<!--体检信息表-->
-						<table class="checked_state col-lg-12 col-md-10 col-sm-10">
+						<table class="checked_state col-lg-12 col-md-10 col-sm-10" s>
 							<tr>
 								<c:if test="${!empty personal_Check.check_Situation }">
-									<td style="padding-left: 88px; width: 120px;font-size: 16px;">人身检查状态：</td>
+									<td style="padding-left: 96px; width: 120px;font-size: 16px;">人身检查状态：</td>
 									<td style="font-size: 16px;">${personal_Check.check_Situation }</td>
 								</c:if>
 
 							</tr>
 							<tr>
 								<td
-									style="padding-left: 88px;width:200px; vertical-align: top;font-size: 16px;">检查情况：</td>
+									style="padding-left: 127px;width:200px; vertical-align: top;font-size: 16px;">检查情况：</td>
 								<td
 									style="text-align: left; vertical-align: top; font-size: 16px;"
-									rea><div style="width: 40%;height: 70px;border: 1px solid;word-wrap: break-word; word-break: normal;
+									rea><div style="overflow:auto; width: 60%;height: 110px;border: 1px solid;word-wrap: break-word; word-break: normal;
 									">${personal_Check.check_ReportS }</div></td>
 							</tr>
 							<tr>
 								<td
-									style="padding-left:88px;font-size: 16px;padding-top: 5px;width:26%;">被检查人/监护人：
+									style="padding-left:72px;font-size: 16px;padding-top: 5px;width:26%;">被检查人/监护人：
 								</td>
 								<td style="font-size: 16px;">${suspect.suspect_Name }</td>
 								<!--<td></td>-->
 							</tr>
 						</table>
 						<img src="${pageContext.request.contextPath }/images/check_08.png"
-							style="width:24%;position:relative;left: 551px;top:-195px;" />
+							style="width:24%;position:relative;left: 650px;top:-195px;" />
 					</div>
 					<br>
 
@@ -395,7 +391,7 @@
 						</div>
 						<div>
 							<ul class="signature col-lg-12 col-md-10 col-sm-10">
-								<li>办案人员： ${staffname }</li>
+								<li>办案人员： ${belongingS[0].staff_ID }</li>
 								<li>随身财物管理员：${belongingS[0].staff_ID_Belonging }</li>
 								<li>涉案人员: ${suspect.suspect_Name }</li>
 							</ul>
@@ -451,7 +447,7 @@
 							style="position: relative;left: 89px;top:23px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
 					</c:if>
 					<c:if test="${!empty activity_Record }"> --%>
-					<table class="active_check col-lg-12 col-md-10 col-sm-10">
+					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="table-layout:fixed;">
 						<tr>
 							<td>序号</td>
 							<td>开始时间</td>
@@ -462,14 +458,14 @@
 							<td>备注</td>
 						</tr>
 
-						<c:forEach items="${activity_Record }" var="item">
+						<c:forEach items="${activity_Record }" var="item" varStatus="s">
 							<tr>
 								<td>${item.activity_Record_ID }</td>
 								<td>${item.start_Time }</td>
 								<td>${item.end_Time }</td>
-								<td>${item.room_ID }</td>
+								<td>${room_Name[s.index] }</td>
 								<td>${item.activity_Record }</td>
-								<td>${item.remark }</td>
+								<td style="width: 600px; word-wrap:break-word;">${item.remark } </td>
 							</tr>
 						</c:forEach>
 						<c:if test="${empty activity_Record }">
@@ -479,7 +475,7 @@
 								<td>${item.end_Time }</td>
 								<td>${item.room_ID }</td>
 								<td>${item.activity_Record }</td>
-								<td>${item.remark }</td>
+								<td >${item.remark }</td>
 							</tr>
 						</c:if>
 					</table>
@@ -566,14 +562,12 @@
 						</div>
 					</div>
 					<hr style="margin-top: 114px;border: 1px solid darkgray;" />
-
-					<p id="signature">
-						管理员签名：&nbsp;&nbsp;&nbsp;<input type="text" value="admin" />
-					</p>
 					
 						<!-- <input  id="download" type="button" value="下载" /> -->
 						<c:if test="${suspect.process_Now == -1}">
-							<a href="${pdfFilePath }">下载入区报告</a>
+							<a href="${pdfFilePath }" style="margin-left: 36%; margin-top: 10px;position: relative; display: inline-block;background: #D0EEFF;
+								border: 1px solid #99D3F5;border-radius: 4px;padding: 4px 12px;overflow: hidden;color: #1E88C7;text-decoration: none;text-indent: 0;line-height: 20px;left: 45px; "
+							>下载入区报告</a>
 						</c:if>
 						<!-- <script type="text/javascript">
 						    $("#download").click(function(){

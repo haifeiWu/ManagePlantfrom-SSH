@@ -1,5 +1,6 @@
 package com.haifeiWu.action;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,17 +26,26 @@ public class InitPropertiesAction {
 	}
 
 	@RequestMapping("/getName")
-	public String getName(HttpServletRequest request) {
+	public String getName(HttpServletRequest request,HttpServletResponse response){
 		try {
+			String title = PropertiesReadUtils.getTitleString("title");
 			String name = PropertiesReadUtils.getTitleString("name");
-			System.out.println("派出所名称为------------------------》：" + name);
+			String flag=title.substring(0, 1);
+			if(flag!=null&&flag.equals("\\")){
+				title = PropertiesWriteUtils.ascii2Native(title);
+				name = PropertiesWriteUtils.ascii2Native(name);
+				System.out.println(title+"...."+name);
+			}
 			request.setAttribute("name", name);
+			request.setAttribute("title", title);
+			response.setContentType("text/plain; charset=utf-8");
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return "jsp/login";
 	}
-
+	
 	@RequestMapping("/init")
 	public String init(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
@@ -45,32 +55,36 @@ public class InitPropertiesAction {
 			String name = request.getParameter("name");
 			// System.out.println("====从前台获得的title======"+title);
 			Map<String, String> policeTitleMap = new HashMap<String, String>();
-			policeTitleMap.put("title", title);
-			policeTitleMap.put("name", name);
+			policeTitleMap.put("title", PropertiesWriteUtils.native2Ascii(title));
+			policeTitleMap.put("name", PropertiesWriteUtils.native2Ascii(name));
 			PropertiesWriteUtils.updateProperties("title.properties",
 					policeTitleMap);
-
-			title = new String(PropertiesReadUtils.getTitleString("title")
-					.getBytes("ISO-8859-1"), "utf-8");
-			name = new String(PropertiesReadUtils.getTitleString("name")
-					.getBytes("ISO-8859-1"), "utf-8");
-			System.out.println("=====写入了title:" + title);
-			System.out.println("=====写入了name:" + name);
+			title = PropertiesReadUtils.getTitleString("title");
+			name = PropertiesReadUtils.getTitleString("name");
 			// PDF信息初始化
+			String serverIp = request.getParameter("serverIp");
+			String serverPort=request.getParameter("serverPort");
 			String toolPath = request.getParameter("toolPath");
-			String sourcePath = "http://" + request.getParameter("sourcePath")
-					+ "/ManagePlantfrom-SSH/report/load?suspectID=";
-			String serverPath = request.getParameter("serverPath");
+			String sourcePath = "http://"+serverIp+":"+serverPort+"/ManagePlantfrom-SSH/GR_loadInfor.action?suspectID=";
+			String relatePath = request.getParameter("relatePath");
 			System.out.println("====从前台获得的PDF:toolPath======" + toolPath);
 			Map<String, String> pdfMap = new HashMap<String, String>();
 			pdfMap.put("toolPath", toolPath);
 			pdfMap.put("sourcePath", sourcePath);
-			pdfMap.put("serverPath", serverPath);
+			pdfMap.put("relatePath", relatePath);
+			// 获取服务器根目录
+			String classPath = Thread.currentThread().getContextClassLoader()
+					.getResource("").getPath();
+			String rootPath = "";
+			if ("\\".equals(File.separator)) {
+				String path = classPath.substring(1,
+						classPath.indexOf("/WEB-INF/classes"));
+				rootPath = path.substring(0, path.lastIndexOf("/"));
+				rootPath = rootPath.replace("/", "\\");
+			}
+			String serverPath=rootPath;
+			pdfMap.put("serverPath", serverPath);	
 			PropertiesWriteUtils.updateProperties("pdf.properties", pdfMap);
-
-			toolPath = new String(PropertiesReadUtils.getPDFString("toolPath")
-					.getBytes("ISO-8859-1"), "utf-8");
-			System.out.println("=====写入了toolPath:" + toolPath);
 			// 录播系统信息初始化
 			String remoteServerIP = request.getParameter("recordIp");
 			String remoteServerPort = request.getParameter("recordPort");
@@ -128,9 +142,8 @@ public class InitPropertiesAction {
 			PropertiesWriteUtils.updateProperties("recordConf.properties",
 					RecordDeviceMap);
 
-			remoteServerIP = new String(PropertiesReadUtils
-					.getRecordConfString("remoteServerIP").getBytes(
-							"ISO-8859-1"), "utf-8");
+			remoteServerIP = PropertiesReadUtils
+					.getRecordConfString("remoteServerIP");
 			System.out.println("=====写入了录播器remoteServerIP:" + remoteServerIP);
 			/*
 			 * //WebSocket信息初始化 String
@@ -142,22 +155,20 @@ public class InitPropertiesAction {
 			 * map3);
 			 */
 			// 服务器信息初始化
-			String serverPort = request.getParameter("serverPort");
-			/*
-			 * String url = request.getParameter("url");
-			 */
-			Map<String, String> serverMap = new HashMap<String, String>();
-			serverMap.put("serverPort", serverPort);
-			/* serverMap.put("url", url); */
-			PropertiesWriteUtils.updateProperties("recordConf.properties",
-					serverMap);
-
+			String ftpPort=request.getParameter("ftpPort");
+			String uploadDir=request.getParameter("uploadDir");
+			String userName=request.getParameter("userName");
+			String passWord=request.getParameter("passWord");
+			Map<String, String> ftpMap = new HashMap<String, String>();
+			ftpMap.put("serverIp", serverIp);
+			ftpMap.put("ftpPort", ftpPort);
+			ftpMap.put("uploadDir", uploadDir);
+			ftpMap.put("userName", userName);
+			ftpMap.put("passWord", passWord);
+			PropertiesWriteUtils.updateProperties("recordConf.properties",ftpMap);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
-			/*
-			 * response.getWriter().write(
-			 * "<script type='text/javascript'> alert('初始化失败'); </script>");
-			 */
 			return "redirect:/properties/load";
 		}
 		return "WEB-INF/jsp/home/index";

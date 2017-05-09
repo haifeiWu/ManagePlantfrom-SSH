@@ -28,7 +28,7 @@
 			<div class="st_search col-lg-12 col-md-12 col-sm-12 text-center"
 				style="margin: 0px;padding: 0px;">
 				<div id="txt_search" class="col-lg-12 col-md-12 col-sm-12">嫌疑人搜索</div>
-				<input type="text" name="searchInfor" id="search" /> <input
+				<input type="text" name="searchInfor" id="search" placeholder="请输入嫌疑人姓名、身份证号码或档案编号查询" /> <input
 					class="serachImg" type="image" src="${pageContext.request.contextPath }/images/search_03.png"
 					border="0" />
 			</div>
@@ -92,12 +92,7 @@
 			</c:if>
 		</div>
 		
-		<c:if test="${fn:length(suspectCheckInfor) > 5}"> 
-			<p id="more">
-				<input type="button" id="btn1" value="更多>>" style="background: none;border: 0px;"/>
-			</p>
-		</c:if>
-		<div class="row" id="row1" style=" overflow: hidden; ">
+		<div class="row" id="row1" style="height: 321px; overflow: hidden; ">
 			<h4 id="checkedPerson"
 				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">历史嫌疑人查询&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				<font size="4" >入区人员统计时间：</font>
@@ -139,15 +134,13 @@
 				</c:forEach>
 			</table>
 		</div>
-		<c:if test="${fn:length(suspectCheckedInfor) > 10}">
-		<p id="more"style="margin-top:30px">
+		<p id="more">
 				<a href="${pageContext.request.contextPath }/suspectManage/execute?page=1" target="rightFrame">更多>></a>
 		</p>
-		</c:if>
 		<div class="row_2 col-lg-12" style="height: 90px;"></div>
 	</div>
 	
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		// 数据信息的显示与隐藏
 		$("#btn").click(function() {
 			var btn = document.getElementById('btn');
@@ -177,7 +170,7 @@
 		    	btn1.value="更多>>";
 			}
 			});
-</script>
+</script> -->
 </body>
 <script type="text/javascript">
 

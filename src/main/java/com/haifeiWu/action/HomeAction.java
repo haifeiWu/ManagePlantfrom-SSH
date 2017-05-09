@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.haifeiWu.utils.PropertiesReadUtils;
+import com.haifeiWu.utils.PropertiesWriteUtils;
 
 /**
  * 主页面 的设计
@@ -29,8 +30,14 @@ public class HomeAction {
 	public String top(HttpServletRequest request)
 			throws UnsupportedEncodingException {
 		// 读取配置文件中的公安局名称
-		String title = new String(PropertiesReadUtils.getTitleString("title"));
-		String name = new String(PropertiesReadUtils.getTitleString("name"));
+		String title = PropertiesReadUtils.getTitleString("title");
+		String name = PropertiesReadUtils.getTitleString("name");
+		String flag=title.substring(0, 1);
+		if(flag!=null&&flag.equals("\\")){
+			title = PropertiesWriteUtils.ascii2Native(title);
+			name = PropertiesWriteUtils.ascii2Native(name);
+			System.out.println(title+"...."+name);
+		}
 		request.setAttribute("title", title);
 		request.setAttribute("name", name);
 		return "WEB-INF/jsp/home/top";
@@ -70,7 +77,7 @@ public class HomeAction {
 
 		String webSocket = PropertiesReadUtils.getRecordConfString("webSocket");
 		request.setAttribute("webSocket", webSocket);
-		return "WEB-INF/jsp/home/index";
+		return "jsp/index";
 	}
 
 	@RequestMapping(value = "/main")

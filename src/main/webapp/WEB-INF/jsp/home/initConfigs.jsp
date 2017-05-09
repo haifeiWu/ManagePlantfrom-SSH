@@ -69,11 +69,13 @@
 					<div class="row ">
 						<table class="final_Leave col-lg-12 col-md-12 col-sm-12">					
 							<tr>
-								<td>系统名称</td>
+								<td>系统名称<br>
+								(比如：交城县公安局智能化派出所系统)</td>
 								<td><input type="text" name="title"></td>
 							</tr>
 							<tr>
-								<td>派出所名称</td>
+								<td>派出所名称<br>
+								(比如：天宁派出所)</td>
 								<td><input type="text" name="name"></td>
 							</tr>
 						</table>
@@ -86,19 +88,14 @@
 					<div class="row ">
 						<table class="final_Leave col-lg-12 col-md-12 col-sm-12">					
 							<tr>
-								<td>pdf工具路径<br>
+								<td>本机pdf工具路径<br>
 								(例如:C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe)</td>
 								<td><div style="margin-left: 120px;"><input type="file" id="pdfFile" name="toolPath"></div></td>
 							</tr>
 							<tr>
-								<td>源ip地址<br>
-								(例如:本机IP地址及端口:192.168.1.4:8080)</td>
-								<td><input type="text" name="sourcePath"></td>
-							</tr>
-							<tr>
-								<td>Tomcat下的PDF路径<br>
-								(例如:D:\zhjw\apache-tomcat-7.0.55\webapps\pdf\)</td>
-								<td><div style="margin-left: 120px;"><input type="file" id="tomcatFile" name="serverPath"></div></td>
+								<td>Tomcat下存放PDF的文件路径<br>
+								(例如:/pdf)</td>
+								<td><input type="text" id="tomcatFile" name="relatePath"></td>
 							</tr>
 						</table>
 					</div>
@@ -121,23 +118,54 @@
 							</tr>
 						</table>
 					</div>
+					
+					
 					<div class="row">
 						<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							服务器信息初始化
 						</h4>
 					</div>
-					<div class="row ">
+					<div class="row">
 						<table class="final_Leave col-lg-12 col-md-12 col-sm-12">					
+							<tr>
+								<td>tomcat服务器IP地址<br>
+								(例如:192.168.1.4)</td>
+								<td><input type="text" name="serverIp"></td>
+							</tr>
 							<tr>
 								<td>tomcat服务器端口号<br>
 								(例如:8080)</td>
 								<td><input type="text" name="serverPort"></td>
 							</tr>
-							<!-- <tr>
-								<td>录播器上传接口地址<br>
-								(例如:ManagePlantfrom-SSH/fileStatus)</td>
-								<td><input type="text" name="url"></td>
-							</tr> -->
+						</table>
+					</div>
+					<div class="row">
+						<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							FTP信息初始化(ftp的ip地址和Tomcat服务器地址一样)
+						</h4>
+					</div>
+					<div class="row ">
+						<table class="final_Leave col-lg-12 col-md-12 col-sm-12">
+							<tr>
+								<td>FTP服务器的用户名<br>
+								(例如:dell)</td>
+								<td><input type="text" name="userName"></td>
+							</tr>
+							<tr>
+								<td>FTP服务器的密码<br>
+								(例如:123)</td>
+								<td><input type="text" name="passWord"></td>
+							</tr>					
+							<tr>
+								<td>FTP服务器端口号<br>
+								(例如:21)</td>
+								<td><input type="text" name="ftpPort"></td>
+							</tr>
+							<tr>
+								<td>Tomcat服务器下的存放录像文件的路径<br>
+								(例如:/vedioFile)</td>
+								<td><input type="text" id="ftpFile" name="uploadDir"></td>
+							</tr>
 						</table>
 					</div>
 					

@@ -2,17 +2,105 @@ package com.haifeiWu.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+
 public class PropertiesWriteUtils {
+	private static String PREFIX = File.separator +"u";
+	/**
+	 * 传入字符串，返回ASCII码
+	 * @param str
+	 * @return ascii
+	 */
+	public static String native2Ascii(String str) {
+		char[] chars = str.toCharArray();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < chars.length; i++) {
+			sb.append(char2Ascii(chars[i]));
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Native character to ascii string.
+	 * 
+	 * @param c
+	 *            native character
+	 * @return ascii string
+	 */
+	private static String char2Ascii(char c) {
+		if (c > 255) {
+			StringBuilder sb = new StringBuilder();
+			sb.append(PREFIX);
+			int code = (c >> 8);
+			String tmp = Integer.toHexString(code);
+			if (tmp.length() == 1) {
+				sb.append("0");
+			}
+			sb.append(tmp);
+			code = (c & 0xFF);
+			tmp = Integer.toHexString(code);
+			if (tmp.length() == 1) {
+				sb.append("0");
+			}
+			sb.append(tmp);
+			return sb.toString();
+		} else {
+			return Character.toString(c);
+		}
+	}
+	
+	/** 
+     * Ascii to native string 
+     *  
+     * @param str 
+     *            ascii string 
+     * @return native string 
+     */  
+    public static String ascii2Native(String str) {  
+        StringBuilder sb = new StringBuilder();  
+        int begin = 0;  
+        int index = str.indexOf(PREFIX);  
+        while (index != -1) {  
+            sb.append(str.substring(begin, index));  
+            sb.append(ascii2Char(str.substring(index, index + 6)));  
+            begin = index + 6;  
+            index = str.indexOf(PREFIX, begin);  
+        }  
+        sb.append(str.substring(begin));  
+        return sb.toString();  
+    }  
+    
+    /** 
+     * Ascii to native character. 
+     *  
+     * @param str 
+     *            ascii string 
+     * @return native character 
+     */  
+    private static char ascii2Char(String str) {  
+        if (str.length() != 6) {  
+            throw new IllegalArgumentException(  
+                    "Ascii string of a native character must be 6 character.");  
+        }  
+        if (!PREFIX.equals(str.substring(0, 2))) {  
+            throw new IllegalArgumentException(  
+                    "Ascii string of a native character must start with \"\\u\".");  
+        }  
+        String tmp = str.substring(2, 4);  
+        int code = Integer.parseInt(tmp, 16) << 8;  
+        tmp = str.substring(4, 6);  
+        code += Integer.parseInt(tmp, 16);  
+        return (char) code;  
+    }  
+	
 	/**
 	 * 传递键值对的Map，更新properties文件
 	 * 
@@ -31,14 +119,12 @@ public class PropertiesWriteUtils {
 		Properties props = new Properties();
 		BufferedReader br = null;
 		BufferedWriter bw = null;
-
 		try {
 			// 从输入流中读取属性列表（键和元素对）
 			br = new BufferedReader(new InputStreamReader(new FileInputStream(
 					filePath), "UTF-8"));
 			props.load(br);
 			br.close();
-
 			// 写入属性文件
 			bw = new BufferedWriter(new OutputStreamWriter(
 					new FileOutputStream(filePath), "UTF-8"));
@@ -58,39 +144,5 @@ public class PropertiesWriteUtils {
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public static void main(String[] args) throws UnsupportedEncodingException {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("title", "尖草坪");
-		map.put("name", "太原工业学院");
-
-		updateProperties("title.properties", map);
-		// 要进行汉字的转码,否则会出现编码格式的失败
-		String title = new String(PropertiesReadUtils.getTitleString("title")
-				.getBytes("ISO-8859-1"), "utf-8");
-		System.out.println(title);
-		System.out.println(PropertiesReadUtils.getTitleString("name"));
-		map.put("remoteServerIP", "192.168.1.220");
-		updateProperties("recordConf.properties", map);
-		System.out.println(PropertiesReadUtils
-				.getRecordConfString("remoteServerIP"));
-
-		map.put("remoteServerIP", "198.0.0.1");
-		map.put("remoteServerPort", "120");
-		String str = "http://"
-				+ map.put(
-						"StartRecording",
-						"http://"
-								+ PropertiesReadUtils
-										.getRecordConfString("remoteServerIP")
-								+ ":"
-								+ PropertiesReadUtils
-										.getRecordConfString("remoteServerPort")
-								+ "/SxStartRecording.psp");
-		updateProperties("recordConf.properties", map);
-		System.out.println(PropertiesReadUtils
-				.getRecordConfString("StartRecording"));
-
 	}
 }
