@@ -20,7 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+>>>>>>> a04639b63ffa3fdbe59e52d15783de498bb2f32b
 
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
@@ -43,7 +46,11 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
  * @d2016年10月17日
  */
 @Controller
+<<<<<<< HEAD
 @RequestMapping("/suspectManage")
+=======
+@RequestMapping("/suspectmanage")
+>>>>>>> a04639b63ffa3fdbe59e52d15783de498bb2f32b
 @Scope("prototype")
 public class SuspectManageAction {
 
