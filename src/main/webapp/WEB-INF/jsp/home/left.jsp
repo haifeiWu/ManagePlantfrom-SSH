@@ -139,7 +139,7 @@ $(document).ready(function (){
         
     </ul>
     </dd> 
-     <%--
+
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>数据库管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="#">待编辑</a><i></i></li>

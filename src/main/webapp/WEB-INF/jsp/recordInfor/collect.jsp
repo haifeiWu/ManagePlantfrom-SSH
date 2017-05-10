@@ -183,9 +183,9 @@
 					<table class="info_collect col-lg-12 col-md-10 col-sm-10">
 						<tr>
 							<td>信息采集:</td>
-							<td><input type="radio" name="Is_Collected" value="是"
-								 />是</td>
-							<td><input type="radio" name="Is_Collected" value="否" />否</td>
+							<td><label for="Is_Collected_yes" style="font-weight:normal"><input type="radio" name="Is_Collected" id="Is_Collected_yes" value="是"
+								 />是</label></td>
+							<td><label for="Is_Collected_no" style="font-weight:normal"><input type="radio" name="Is_Collected" id="Is_Collected_no" value="否" />否</td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -194,7 +194,7 @@
 							<td>采集项目:</td>
 							<c:forEach items="${collectionItem}" var="items"
 								varStatus="status">
-								<td><input type="checkbox" name="Collected_Item" value="${items.item_Name }" />${items.item_Name }
+								<td><label for="Collected_Item${status.index }" style="font-weight:normal"><input type="checkbox" id="Collected_Item${status.index }" name="Collected_Item" value="${items.item_Name }" />${items.item_Name }</label>
 								</td>
 							</c:forEach>
 							<td>&nbsp;&nbsp;其他<input id="otherCollected_Item" type="text" name="Collected_Item" value=""/></td>
@@ -213,18 +213,18 @@
 						</tr>
 						<tr>
 							<td>信息入库:</td>
-							<td><input type="radio" name="Is_Storaged" value="是" />是
+							<td><label for="Is_Storaged_yes" style="font-weight:normal"><input type="radio" name="Is_Storaged" id="Is_Storaged_yes"value="是" />是</label>
 							</td>
-							<td><input type="radio" name="Is_Storaged" value="否" />否</td>
+							<td><label for="Is_Storaged_no" style="font-weight:normal"><input type="radio" name="Is_Storaged" id="Is_Storaged_no"value="否" />否</td></label>
 							<td></td>
 							<td></td>
 							<td></td>
 						</tr>
 						<tr>
 							<td>检查对比:</td>
-							<td><input type="radio" name="Is_Checked" value="是" />是
+							<td><label for="Is_Checked_yes" style="font-weight:normal"><input type="radio" id="Is_Checked_yes"name="Is_Checked" value="是" />是</label>
 							</td>
-							<td><input type="radio" name="Is_Checked" value="否" />否</td>
+							<td><label for="Is_Checked_no" style="font-weight:normal"><input type="radio" id="Is_Checked_no" name="Is_Checked" value="否" />否</td></label>
 							<td></td>
 							<td></td>
 							<td></td>
