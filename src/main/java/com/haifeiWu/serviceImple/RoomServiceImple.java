@@ -99,4 +99,10 @@ public class RoomServiceImple extends DaoSupportImpl<PHCSMP_Room> implements
 			roomInforDao.batchupdate(roomIdArray,process_ID);
 	}
 
+	@Override
+	public void updateRoomByRoomId(int room_Id, String room_Name,
+			int cardReader_ID, String room_IPAddress) {
+		roomInforDao.updateRoombyRoomId(room_Id, room_Name, cardReader_ID, room_IPAddress);
+	}
+
 }

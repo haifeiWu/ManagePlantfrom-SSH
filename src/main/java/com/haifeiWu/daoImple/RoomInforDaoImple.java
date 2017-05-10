@@ -128,4 +128,11 @@ public class RoomInforDaoImple extends DaoSupportImpl<PHCSMP_Room> implements Ro
 		}
 
 	}
+
+	@Override
+	public void updateRoombyRoomId(int room_Id, String room_Name,
+			int cardReader_ID, String room_IPAddress) {
+		hql = "update PHCSMP_Room set room_Name=?,cardReader_ID=?,room_IPAddress=? where room_ID=?";
+	     update(hql,room_Name,cardReader_ID,room_IPAddress,room_Id);
+	}
 }

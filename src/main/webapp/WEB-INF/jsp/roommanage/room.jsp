@@ -48,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>${item.room_ID }<input type="hidden" class="form-control"
 						name="roomList[${status.index }].room_ID" value="${item.room_ID }">
 					</td>
-					<td>${item.room_Name }<input type="hidden" class="form-control" name="roomList[${status.index }].room_Name"
+					<td><input type="text" class="form-control" name="roomList[${status.index }].room_Name"
 						value="${item.room_Name }"></td>
 					<td><input type="text" class="form-control" name="roomList[${status.index }].cardReader_ID"
 						value="${item.cardReader_ID }"></td>
