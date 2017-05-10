@@ -63,8 +63,8 @@ public class UserAction {
 			Cookie cookie = new Cookie("ip", request.getRemoteAddr());
 			cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
 			response.addCookie(cookie);
-			request.getSession().setAttribute("staffname",
-					staff.getStaff_Name());
+			request.getSession().setAttribute("staffid",
+					staff.getStaff_ID());
 			request.getSession().setAttribute("staff_role",
 					staff.getDuties_Name());
 			System.out.println("我是user，刚查出来的-------" + user.toString());

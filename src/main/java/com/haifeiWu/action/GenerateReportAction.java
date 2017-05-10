@@ -79,9 +79,9 @@ public class GenerateReportAction {
 	@RequestMapping(value = "/load")
 	public String GR_loadInfor(HttpServletRequest request) throws IOException {
 		String suspectId = request.getParameter("suspectID");
-		try {
+//		try {
 			// 查找嫌疑人日志
-			PHCSMP_Process_Log suspectLog = getLogBysuspectId(suspectId);
+			List<PHCSMP_Process_Log> suspectLog = getLogBysuspectId(suspectId);
 			request.setAttribute("suspectLog", suspectLog);
 			// 查找嫌疑人入区信息
 			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
@@ -142,14 +142,14 @@ public class GenerateReportAction {
 					PropertiesReadUtils.getPDFString("relatePath") + "\\"
 							+ suspectId + ".pdf");
 			return "WEB-INF/jsp/recordInfor/report";
-		} catch (Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
-			// response.getWriter().flush();
-			request.setAttribute("error", "error");
-
-			return "redirect:/home/index";
-		}
+//		} catch (Exception e) {
+//			// response.getWriter()
+//			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
+//			// response.getWriter().flush();
+//			request.setAttribute("error", "error");
+//
+//			return "redirect:/home/index";
+//		}
 
 	}
 
@@ -159,7 +159,7 @@ public class GenerateReportAction {
 	 * @param suspectId
 	 * @return
 	 */
-	private PHCSMP_Process_Log getLogBysuspectId(String suspectId) {
+	private List<PHCSMP_Process_Log> getLogBysuspectId(String suspectId) {
 		return logService.findlogBysuspect(suspectId);
 
 	}

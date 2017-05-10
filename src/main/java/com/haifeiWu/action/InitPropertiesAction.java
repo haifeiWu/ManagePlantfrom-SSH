@@ -25,7 +25,7 @@ public class InitPropertiesAction {
 		return "WEB-INF/jsp/home/initConfigs";
 	}
 
-	@RequestMapping("/getName")
+	@RequestMapping(value="/getName")
 	public String getName(HttpServletRequest request,HttpServletResponse response){
 		try {
 			String title = PropertiesReadUtils.getTitleString("title");
@@ -43,7 +43,7 @@ public class InitPropertiesAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "jsp/login";
+		return "WEB-INF/jsp/login";
 	}
 	
 	@RequestMapping("/init")
