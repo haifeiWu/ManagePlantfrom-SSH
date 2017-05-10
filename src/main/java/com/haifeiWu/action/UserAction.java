@@ -70,6 +70,7 @@ public class UserAction {
 			System.out.println("我是user，刚查出来的-------" + user.toString());
 			request.setAttribute("user", user);
 			System.out.println(staff.getDuties_Name());
+			//jsp/home/main改为WEB-INF/
 			return "WEB-INF/jsp/home/main";
 		} else {
 			request.setAttribute("loginError", "用户名或密码不正确！");
