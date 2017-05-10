@@ -138,8 +138,11 @@ $(document).ready(function (){
         <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeProcess?page=1" target="rightFrame" >嫌疑人日志</a><i></i></li>
         
     </ul>
-    </dd> 
-     <%--
+    </dd>
+    <!-- 修改此处body和html注销了 --> 
+    </body>
+</html>
+    <!-- 
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>数据库管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
@@ -166,7 +169,5 @@ $(document).ready(function (){
         	<li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环初始化</a><i></i></li>    
 	     </ul>
     </dd> 
-    </dl>
+    </dl> -->
     
-</body>
-</html>

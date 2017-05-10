@@ -183,7 +183,7 @@ public class Leave_Recod_Action {
 		// 释放手环
 		bandService.update(0, suspectInfor.getBand_ID());
 		// 下载PDF
-		HtmlToPdf.createPdf(suspectID);
+//		HtmlToPdf.createPdf(suspectID);
 		// 请求上传录像文件
 
 		if (suspectInfor.getRecordVideo_State() != 0) {

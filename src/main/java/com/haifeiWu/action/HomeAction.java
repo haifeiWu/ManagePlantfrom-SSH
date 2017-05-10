@@ -77,7 +77,8 @@ public class HomeAction {
 
 		String webSocket = PropertiesReadUtils.getRecordConfString("webSocket");
 		request.setAttribute("webSocket", webSocket);
-		return "jsp/index";
+		//jsp/index改为WEB-INF/jsp/home/index
+		return "WEB-INF/jsp/home/index";
 	}
 
 	@RequestMapping(value = "/main")
