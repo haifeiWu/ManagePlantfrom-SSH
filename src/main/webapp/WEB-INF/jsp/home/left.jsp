@@ -96,8 +96,12 @@ $(document).ready(function (){
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/load" target="rightFrame">入区人员信息汇总</a><i></i></li>
        <!-- <li><cite></cite><a href="${pageContext.request.contextPath }/report/load?susptct_id"  target="rightFrame">临时报告区</a><i></i></li> -->
         <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoFail" target="rightFrame">录像下载失败信息</a><i></i></li>
+<<<<<<< HEAD
          <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoSucc" target="rightFrame">录像下载成功信息</a><i></i></li>
 
+=======
+        <li><cite></cite><a href="${pageContext.request.contextPath }/suspectManage/downVideoSucc" target="rightFrame">录像下载成功信息</a><i></i></li>
+>>>>>>> a04639b63ffa3fdbe59e52d15783de498bb2f32b
         </ul>     
     </dd> 
     
@@ -138,8 +142,11 @@ $(document).ready(function (){
         <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeProcess?page=1" target="rightFrame" >嫌疑人日志</a><i></i></li>
         
     </ul>
-    </dd> 
-     <%--
+    </dd>
+    <!-- 修改此处body和html注销了 --> 
+    </body>
+</html>
+    <!-- 
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>数据库管理</div>
     <ul class="menuson">
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
@@ -166,7 +173,5 @@ $(document).ready(function (){
         	<li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环初始化</a><i></i></li>    
 	     </ul>
     </dd> 
-    </dl>
+    </dl> -->
     
-</body>
-</html>

@@ -13,9 +13,9 @@
 	var websocket = null;
      //判断当前浏览器是否支持WebSocket
      if ('WebSocket' in window) {
-		// alert("${webSocket}");
-         //websocket = new WebSocket("${webSocket}"); 
-          websocket = new WebSocket("ws://192.168.1.123:8080/ManagePlantfrom-SSH/websocket");  
+/*  alert("${webSocket}");
+         websocket = new WebSocket("${webSocket}"); */
+          websocket = new WebSocket("ws://localhost:8080/ManagePlantfrom-SSH/websocket"); 
      }
      else {
          alert('当前浏览器不支持websocket，请使用 IE 11浏览器');

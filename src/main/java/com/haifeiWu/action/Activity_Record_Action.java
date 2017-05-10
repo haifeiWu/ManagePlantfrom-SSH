@@ -159,6 +159,7 @@ public class Activity_Record_Action {
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
+			//嫌疑人信息
 			PHCSMP_Suspect suspectInfor = suspectService
 					.findBySuspetcId(suspectId);
 			List<PHCSMP_Staff> staff = userService.findAllStaffs();
