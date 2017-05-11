@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -19,8 +20,10 @@
 	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jqCSS_safety.js"></script>
 
+
 <script type="text/javascript">
 	var index = 0;
+	
 	$(function() {
 		$("#add")
 				.click(
@@ -31,29 +34,29 @@
 									"td:eq(0)");
 							var lineNum=index-1;
 							//添加下一行
-							var addrow = "<tr>" + "<td><input name=belong["+lineNum+"].Belonging_Number value="+index+" /></td>"
-									+ "<td><input type=text name=belong["
-									+ lineNum
-									+ "].Belonging_Name style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);'/></td>"
-									+ "<td><input type=text name=belong["
-									+ lineNum
-									+ "].Belonging_Character style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
+							var addrow = "<tr>" + "<td><input name=Belonging_Number value="+index+" /></td>"
+									+ "<td><input type=text name="
+									
+									 +"Belonging_Name style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);'/></td>"
+									+ "<td><input type=text name="
+									
+									+ "Belonging_Character style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>"
 									/* + "<td><input type=text name=belong["
 									+ lineNum
 									+ "].Belonging_Number style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' /></td>" */
-									+ "<td><input type=number name=belong["
-									+ lineNum
-									+ "].Belonging_Count style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' value='1'/></td>"
-									+ "<td><input type=text name=belong["
-									+ lineNum
-									+ "].Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' value='个' /></td>"
-									+ "<td> <select name=belong["
-									+ lineNum
+									+ "<td><input type=number name="
+									
+									+ "Belonging_Count style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' value='1'/></td>"
+									+ "<td><input type=text name="
+								
+									+ "Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' value='个' /></td>"
+									+ "<td> <select name="
+									
 
-									+"].Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
-									+ "<td> <select name=belong["
-									+ lineNum
-									+ "].Cabinet_Number> <option value=>---请选择---</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> <lect> </td>"
+									+"Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
+									+ "<td> <select name="
+									
+									+ "Cabinet_Number> <option value=>---请选择---</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> <lect> </td>"
 									+ "</tr>";
 							$("#woods_check tr").eq(
 									$("#woods_check tr").length - 2).after(
@@ -77,12 +80,14 @@
 								$(this).parent().prev().html() - 1);
 					}
 				});
+		
 
 	});
 </script>
+
 </head>
 <body>
-	<form class="container"
+	<form class="container" id="form"
 		action="${pageContext.request.contextPath }/check/add"
 		method="post">
 		<%-- <c:if test="${! empty message}">
@@ -189,7 +194,7 @@
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
 						<img id="img_1"src="${SuspectInfor.frontal_Photo}" /> 
 						<img id = "img_2"src="${SuspectInfor.sideWays_Photo}" />
-						<p  class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
+						<p  class="date_pic col-lg-6 col-md-6 col-sm-6">
 							&nbsp; &nbsp; 嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -259,14 +264,14 @@
 					<table style="margin-left: 25px !important;" class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否饮酒:</td>
-							<td>是<input id="is_Drink_Yes" type="radio" name="is_Drink" value="是" /></td>
-							<td>否<input id="is_Drink_No" type="radio" name="is_Drink" value="否" /></td>
+							<td><label for="is_Drink_Yes" style="font-weight:normal">是<input id="is_Drink_Yes" type="radio" name="is_Drink" value="是" /></label></td>
+							<td><label for="is_Drink_No" style="font-weight:normal">否<input id="is_Drink_No" type="radio" name="is_Drink" value="否" /></label></td>
 						</tr>
 							
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否患有传染性疾病:</td>
-							<td>是<input id="is_Diseases_Yes"  type="radio" name="is_Diseases" value="是" /></td>
-							<td>否<input id="is_Diseases_No"  type="radio" name="is_Diseases" value="否"  /></td>
+							<td><label for="is_Diseases_Yes" style="font-weight:normal">是<input id="is_Diseases_Yes"  type="radio" name="is_Diseases" value="是" /></label></td>
+							<td><label for="is_Diseases_No" style="font-weight:normal">否<input id="is_Diseases_No"  type="radio" name="is_Diseases" value="否"  /></label></td>
 						</tr>
 							<script type="text/javascript">
 								//设定is_Drink
@@ -305,11 +310,13 @@
 					</h4>
 						<table style="width:600px !important; margin:0px 25px !important; margin-top:15px !important;font-size: 15px !important;"  class="checked_state col-lg-12 col-md-10 col-sm-10">
 							<tr style="margin:5px 5px !important;">
-								<c:forEach items="${InspectionSituationType }" var="item" varStatus="status">
+								 <c:forEach items="${InspectionSituationType }" var="item" varStatus="status">
 									
-									<td style="width: 10%;">${item.situation_Name } &nbsp;&nbsp;<input
-										id="Check_Situation" type="checkbox" name="Check_Situation" value="${item.situation_Name }"/></td>
-								</c:forEach>
+									<td style="width: 10%;"><label style="font-weight:normal" for="Check_Situation${status.index}">${item.situation_Name } &nbsp;&nbsp;<input
+										id="Check_Situation${status.index}" type="checkbox" name="Check_Situation" value="${item.situation_Name }"/></label></td>
+										
+								</c:forEach> 
+								
 									<script>
 										var check_Situation="${checkRecord.check_Situation}";
 										var result =check_Situation.split(",");
@@ -338,7 +345,14 @@
 							<tr style="height: 5px !important"></tr>
 							<tr  style="margin:5px 5px !important;margin-top:25px !important;">
 								<td style="">检查民警：</td>
-								<td style=""  colspan="2"><input type="text" name="Staff_ID" value="${checkRecord.staff_ID }"/></td>
+								<td style=""  colspan="2">
+								<select name="staff_ID" id="staff_ID1" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select></td>
 							</tr>
 						</table>
 						
@@ -360,17 +374,17 @@
 							<td>保管柜号</td>
 						</tr>
 						<tr>
-							<td><input name="belong[0].Belonging_Number" value="1" readonly="readonly" style="text-align: center;"/></td>
+							<td><input name="Belonging_Number" value="1" readonly="readonly" style="text-align: center;"/></td>
 
-							<td><input type="text" name="belong[0].Belonging_Name"
+							<td><input type="text" name="Belonging_Name"
 								value="" /></td>
-							<td><input type="text" name="belong[0].Belonging_Character"
+							<td><input type="text" name="Belonging_Character"
 								value="" /></td>
 							<td><input type="number" value="1"
-								name="belong[0].Belonging_Count" /></td>
+								name="Belonging_Count" /></td>
 							<td><input type="text" value="个"
-								name="belong[0].Belonging_Unit" /></td>
-							<td><select name="belong[0].Keeping_ID">
+								name="Belonging_Unit" /></td>
+							<td><select  name="Keeping_ID">
 									<option value="">---请选择---</option>
 									<c:forEach items="${Keeping_WayType }" var="item" varStatus="status">
 										<option value="${item.keeping_ID}">${item.keeping_Name }</option>
@@ -380,7 +394,7 @@
 									<option value="3">代保管</option> -->
 							</select></td>
 							<td>
-								<select name="belong[0].Cabinet_Number">
+								<select name="Cabinet_Number">
 										<option value="">---请选择---</option>
 										<c:forEach items="${PHCSMPCabinetType }" var="item" varStatus="status">
 											<option value="${item.cabinet_Number}">${item.cabinet_Number }</option>
@@ -403,15 +417,46 @@
 						</tr>
 					</table>
 					<ul class="signature col-lg-12 col-md-10 col-sm-10">
-						<li style="margin-left: 65px;">办案人员：<input type="text" name="Staff_ID">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随身财物管理员：<input type="text" name="Staff_ID_Belonging">
+						<li style="margin-left: 65px;">办案人员：
+						  <select name="staff_ID" id="staff_ID2" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;随身财物管理员：
+							<select name="staff_ID" id="staff_ID3" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
 						</li>
 					</ul>
 				</div>
-				<input style="margin-top: 10px;" class="sub" type="submit" value="确认提交" />
+				<input style="margin-top: 10px;" class="sub" id="btnAdd" type="button" onclick="check()" value="确认提交" />
 				<div class="row_2 col-lg-12" style="height: 180px;"></div>
 			</div>
 		</div>
 	</form>
 </body>
+<script type="text/javascript">
+	function check(){
+		
+			var Staff_ID=document.getElementById("staff_ID1").value;
+			var belongstaff = document.getElementById("staff_ID2").value;
+			var staff = document.getElementById("staff_ID3").value;
+			
+			if((Staff_ID.length==0 || Staff_ID ==0)||(belongstaff.length==0 ||belongstaff==0)||(staff.length==0 ||staff==0)){
+				alert('提交失败，请填写办案人员或检查民警');
+			return false;
+		} else{
+			document.getElementById("form").submit();
+			return true;
+			}
+		}
+</script>
+
 </html>

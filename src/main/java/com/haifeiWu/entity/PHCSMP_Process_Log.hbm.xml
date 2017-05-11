@@ -18,12 +18,15 @@
         	<column name="process_ID" not-null="true" /> 
         </property>
         
+        <property name="suspect_active"></property>
+        
         <property name="start_Time"></property>
         <property name="end_Time"></property>
+        <property name="date"></property>
         <property name="staff_ID"></property>
         
-		<property name="IP_Address" type="java.lang.String">
-        	<column name="IP_Address" not-null="true" /> 
+		<property name="iP_Address" type="java.lang.String">
+        	<column name="iP_Address" not-null="true" /> 
         </property>
     </class>
 

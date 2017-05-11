@@ -1,4 +1,5 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -106,13 +107,14 @@
 								$(this).parent().prev().html() - 1);
 					}
 				});
+		
 	});
 	
 </script>
 </head>
 
 <body>
-	<form class="container"
+	<form class="container" id="form"
 		action="${pageContext.request.contextPath }/activity/add"
 		method="post">
 			<div class="row">
@@ -291,127 +293,129 @@
 			<!-- 完整性信息显示 -->
 			<div>
 				<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12"
-							style="margin-top: 0%;">
-							完整性提示
+							style="margin-top: 0%;">活动记录
 				</h4>
-				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 30px !important;width:960px !important; ">
+				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 3px !important;width:960px !important; ">
 					<tr>
-						<td>&nbsp&nbsp&nbsp&nbsp&nbsp业&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp务&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+						<td>序号</td>				
+						<td>活动记录</td>
+						<td>功能房间</td>
 						<td>开始时间</td>
 						<td>结束时间</td>
 						<td>完整性</td>					
-						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
+						<td>备注</td>
 					</tr>
 				<tr>
-					<td style="text-align: left;">&nbsp&nbsp入区人员登记信息</td>
+
+				   <td>1</td>
+					<td>入区人员登记信息</td>
+					<td>  值班室</td>
 						<td >
 							 <c:if test="${!empty SuspectInfor}">${SuspectInfor.enter_Time}</c:if>
-							   <c:if test="${empty SuspectInfor}">&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
+							   <c:if test="${empty SuspectInfor}">&nbsp&nbsp&nbsp&nbsp---&nbsp&nbsp&nbsp&nbsp</c:if>
 						</td>
 						<td >
-							&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+							&nbsp&nbsp---&nbsp&nbsp
+
 						</td>
 						<td >
 							 <c:if test="${!empty SuspectInfor}">${complete_degree}%</c:if>
 							 <c:if test="${empty SuspectInfor}">${complete_degree}</c:if>
 						</td>
-						<td style="text-align: left;">
-							  <c:if test="${!empty SuspectInfor}">
-							 	&nbsp&nbsp进入办案区原因:&nbsp&nbsp&nbsp&nbsp&nbsp${SuspectInfor.suspected_Cause}</c:if>
-							 <c:if test="${empty SuspectInfor}">
-							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp
-							  &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
+						<td>
+							  <c:if test="${!empty SuspectInfor}">进入办案区原因:${SuspectInfor.suspected_Cause}</c:if>
+							 <c:if test="${empty SuspectInfor}">---</c:if>
 						</td>
 				</tr>
 				<tr>
-					<td style="text-align: left;">&nbsp&nbsp人身安全检查</td>
+
+				    <td>2</td>
+					<td>人身安全检查</td>
+					
+					<td >
+							<c:if test="${!empty personal_Check}">${checkRoomName}</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
+					</td>
+					</td>
 						<td >
 							<c:if test="${!empty personal_Check}">${personal_Check.check_StartTime}</c:if>
-							  <c:if test="${empty personal_Check}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
 						</td>
 						<td >
 							<c:if test="${!empty personal_Check}">${personal_Check.check_EndTime}</c:if>
-							  <c:if test="${empty personal_Check}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
 						</td>
 						<td >
 							 <c:if test="${!empty personal_Check}">${complete_degree1 }%</c:if>
 							 <c:if test="${empty personal_Check}">${complete_degree1 }%</c:if>
 						</td>
-						<td style="text-align: left;">
+						<td>
 							<c:if test="${!empty personal_Check}">
-							 	&nbsp&nbsp人身检查状态:&nbsp&nbsp&nbsp&nbsp&nbsp${personal_Check.check_Situation}</c:if>
-						  <c:if test="${empty personal_Check}">&nbsp&nbsp未填写人身安全检查</c:if>
+							 	人身检查状态:${personal_Check.check_Situation}</c:if>
+						  <c:if test="${empty personal_Check}">未填写人身安全检查</c:if>
 						</td>
 				</tr>
 				<tr>
-					<td style="text-align: left;">&nbsp&nbsp信息采集</td>
+
+				    <td>3</td>
+					<td>信息采集</td>
+					<td>
+					  <c:if test="${!empty information_Collection}">${ICRoomName}</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
+				    </td>
 						<td >
 							<c:if test="${!empty information_Collection}">${information_Collection.ic_StartTime}</c:if>
-							<c:if test="${empty information_Collection}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
 						</td>
 						<td >
 							<c:if test="${!empty information_Collection}">${information_Collection.ic_EndTime}</c:if>
-							<c:if test="${empty information_Collection}">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
+
 						</td>
 						<td >
 							 <c:if test="${!empty information_Collection}">${complete_degree2}%</c:if>
 							 <c:if test="${empty information_Collection}">${complete_degree2}%</c:if>
 						</td>
-						<td style="text-align: left;">
+						<td>
 							  <c:if test="${!empty information_Collection}">
-							 	  &nbsp&nbsp采集项目:&nbsp&nbsp&nbsp&nbsp&nbsp${information_Collection.collected_Item}</c:if>
-							  <c:if test="${empty information_Collection}">&nbsp&nbsp未填写信息采集</c:if>
+							 	  采集项目:${information_Collection.collected_Item}</c:if>
+							  <c:if test="${empty information_Collection}">未填写信息采集</c:if>
 						</td>
 				</tr>
+
+				<c:if test="${!empty activity_record}">
+				
+					 <c:forEach items="${activity_record }" var="ari" varStatus="s" >
+						   <tr style="height: 70px;" >
+						   <td>${s.index+4 }</td>
+						   <td>${ari.activity_Record }</td>
+						        <td>${ari.room_Name }</td>
+						   		<td>${ari.start_Time }</td>
+						   		<td>${ari.end_Time }</td>
+						   		<td>---</td>
+						   		<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; " readonly="readonly">${ari.remark }</textarea></td>
+						   	</tr>
+					</c:forEach>
+				</c:if>
 				</table>
 			</div>
 			
 			
 			<!--活动记录登记表-->
-			<div class="row">
+
+			
 				<h4 id="activityReco"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					活动记录登记<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
+					询问讯问记录<!-- <span class="col-lg-12 col-md-12 col-sm-12">填写完整度0%</span> -->
 				</h4>
-				
-				
-				<c:if test="${!empty activity_record_infor}">
-					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
+				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 5px !important;width:960px !important;table-layout:fixed; " >
 					<tr style="background-color: rgb(0,112,192);color:white;">
-						<td style="width: 100px">&nbsp活&nbsp动&nbsp内&nbsp容&nbsp</td><!-- 						<td>音视频编码</td> -->
-						<td>&nbsp房&nbsp间&nbsp号&nbsp</td>
-						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp开&nbsp&nbsp始&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp结&nbsp&nbsp束&nbsp&nbsp时&nbsp&nbsp间&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-						<td>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td>
-					</tr>
-					   <c:forEach items="${activity_record_infor }" var="ari">
-					   <tr style="height: 70px;" >
-					   		<td>${ari.activity_Record }</td>
-					   		<td>${ari.room_ID }</td>
-					   		<td>${ari.start_Time }</td>
-					   		<td>${ari.end_Time }</td>
-					   		<td rows="2"><textarea rows="2" warp="virtual" style="width:100%;height:100" >${ari.remark }</textarea></td>
-					   		
-					   	</tr>
-					   </c:forEach>
 						
-					</table>
-				
-			    </c:if>
-				
-				
-				<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 45px !important;width:960px !important; ">
-					<tr style="background-color: rgb(0,112,192);color:white;">
-						<!-- <td style="display: none;">序号</td>
-						<td style="display: none;">开始时间</td>
-						<td style="display: none;">结束时间</td> -->
-						<td style="width: 100px">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp活&nbsp&nbsp&nbsp动&nbsp&nbsp&nbsp内&nbsp&nbsp&nbsp容&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</td><!-- 						<td>音视频编码</td> -->
-						<td>备&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp注&nbsp&nbsp&nbsp&nbsp&nbsp( 可输入255个字 )</td>
+						<td width="120px">活动内容</td>
+						<td>备注&nbsp( 可输入255个字 )</td>
 					</tr>
 					<tr>
-						<td style="display: none;">0</td>
+						<%-- <td style="display: none;">0</td>
 						<td style="width: 38%;display: none;">
 							<div class="form-group" style="height: 30px;width: 190%;">
 								<div class="input-group date form_time col-md-5"
@@ -426,60 +430,83 @@
 								</div>
 								<input type="hidden" id="dtp_input1" value="" /><br />
 							</div>
-						</td>
-						<%-- <td style="width: 38%;display: none;">
-							<div class="form-group" style="height: 30px;width: 190%;">
-								<div class="input-group date form_time col-md-5"
-									style="margin-left: 8%;margin-top: 2%;" data-date=""
-									data-date-format="yyyy-mm-dd hh:ii" data-link-field="dtp_input1">
-									<input class="form-control" name="activity[0].end_Time"
-										type="text" value="" readonly> 
-										<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> 
-										<span class="input-group-addon"><span class="glyphicon glyphicon-time"></span></span>
-								</div>
-								<input type="hidden" id="dtp_input1" value="" /><br />
-							</div>
 						</td> --%>
-						 <td id="select"><select name="activity_Record" >
-						<!--<td id="select"><select name="select_record"> -->
-						<!-- c:foreach    -->
-						 <c:if test="${!empty activity_Record}">
+
+
+						 <td id="select" ><select name="activity_Record" style="text-align: center;" id="active">
+
+						 	<%-- <c:if test="${!empty activity_Record}">
 								<option value=>${activity_Record }</option>
-							 </c:if>	
+							 </c:if> --%>	
 							  <c:if test="${empty activity_Record}">
 								<option value=>---请选择---</option>
 							 </c:if>
-								<%-- 
-								<c:forEach items="${ }" var="v"></c:forEach> --%>
-								<option value="询问">询问</option>
-								<option value="讯问">讯问</option>
-								<option value="审讯">审讯</option>
-								<option value="传唤">传唤</option>
-						</select></td>
+								<option style="text-align: center;" value="询问">询问</option>
+								<option style="text-align: center;" value="讯问">讯问</option>
+								<option style="text-align: center;" value="审讯">审讯</option>
+								<option style="text-align: center;" value="传唤">传唤</option>
+							</select>
+						</td>
 						<td><!-- <input type="text" name="remark"
 							style="width:790px; height: 80px;text-align: center;" value="${activity_remark }"/> -->
-							<textarea class="textarea" name="remark" style="width: 780px;" clos="300" rows="3" warp="virtual">${activity_remark }</textarea>
+							<textarea style="" class="textarea" name="remark" style="width: 780px;" clos="300" rows="3" warp="virtual">${activity_remark }</textarea>
 							</td>
 					</tr>
-					<tr>
+					<!-- <tr>
 						<td style="display: none;">1</td>
 						<td style="display: none;">
 							<div class="btn" id="add">+添加</div>
 							<div class="btn" id="delete">-删除</div>
 						</td>
-			
-					</tr>
+					</tr> -->
 				</table>
 			</div>
 			<p class="row_1">
-				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记<br />遗漏.
-			</p>
-				<input type="submit" value="确认提交" class="sub" />
-		</div>
+				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记遗漏.
+			</p> 
+			<div style="float:left;width:400px;margin-left: 287px;font-size: 22px;margin-top: 16px;">
+			
+				<p id="signature">
+					办案人员:<select name="staff_ID" id="staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp&nbsp&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
+					
+				</p>
+				<input name="start_Time" type="hidden" value="${start_Time }">
+				<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" style="position: relative;left: 93px;top: 15px;width: 98px"/>
+				
+				</div>
+				<br />
+				<div style="padding-top: 20px;text-align: center;">
+
+			<!-- <p class="row_1">
+				注：1、请办案民警注意对嫌疑人在办案区的活动做详细记录，确保嫌疑人在办案区内无时间盲区的登记遗漏.
+			</p> -->
+			<!-- <div style="width: 614px;">
+				<input type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
+				</div>
+
+		</div> -->
 	</form>
 	<div style="height: 400px;"></div>
 
 
 </body>
+<script type="text/javascript">
+function check(){
+			var Staff_ID=document.getElementById("staff_ID").value;
+			if(Staff_ID.length==0 || Staff_ID ==0){
+				alert('提交失败，请填写办案人员');
+			return false;
+		}
+		else
+			document.getElementById("form").submit();
+			return true;
+		}
+</script>
 
 </html>

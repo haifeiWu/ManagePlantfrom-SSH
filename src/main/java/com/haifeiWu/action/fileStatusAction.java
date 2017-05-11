@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -29,11 +27,7 @@ import com.haifeiWu.utils.Video;
 @Scope("prototype")
 public class fileStatusAction {
 
-	private static final long serialVersionUID = -6226713528433803678L;
-
-	protected HttpServletRequest request;
-	protected HttpServletResponse response;
-	protected ServletContext application;
+	private HttpServletRequest request;
 	// 嫌疑人信息
 	@Autowired
 	private SuspectService suspectService;
@@ -43,31 +37,99 @@ public class fileStatusAction {
 	@Autowired
 	private ActivityRecordService activityRecordService;
 
-	// String uploadType;
-	// String policeId;
-	// String identificationCard;
-	@RequestMapping(value = "/fileStatus.action")
-	public String fileStatus() throws IOException {
+	@RequestMapping(value = "/fileStatus")
+	public String fileStatus(HttpServletRequest request) throws IOException,
+			InterruptedException {
+		long getRequest = System.currentTimeMillis();
+		long sendResponse;
+		this.request = request;
 		JSONObject jsonRequest = JSONObject.parseObject(this.getJsonData());
 		// 获取json中参数
 		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
 		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
-		System.out.println("fileStatus收到的数据 -----------           "
-				+ uploadType + "     " + policeId + "     "
-				+ identificationCard);
-		if (uploadType == 0) {
-			// 查询文件上传状态
-			String filename = Video.queryDownloadFileStatu(policeId,
-					identificationCard);
-			if (!((filename == null) || filename.equals(""))) {// 成功
-				activityRecordService.updatevedio_Number(filename, policeId,
-						identificationCard);
-				suspectService.updateIs_RecordVideo_DownLoad(1, policeId,
-						identificationCard);
+		System.out
+				.println("fileStatus收到的数据 -------------------------------------------------------------------- "
+						+ uploadType
+						+ "     "
+						+ policeId
+						+ "     "
+						+ identificationCard);
+		/**
+		 * 使用另外的线程查询上传结果
+		 */
+		search(uploadType, policeId, identificationCard);
+		sendResponse = System.currentTimeMillis();
+		System.out.println("收到请求----返回结果          耗时"
+				+ (sendResponse - getRequest));
+		return "success";
+	}
+
+	private void search(int uploadType, int policeId, String identificationCard)
+			throws IOException, InterruptedException {
+		SearchVedioUploadStatus t = new SearchVedioUploadStatus(uploadType,
+				policeId, identificationCard);
+		Thread thread = new Thread(t);
+		thread.sleep(400);
+		thread.start();
+	}
+
+	/**
+	 * 内部类，新开启一个线程，执行查询
+	 * 
+	 * @author WXY
+	 * 
+	 */
+	class SearchVedioUploadStatus implements Runnable {
+		private int uploadType;
+		private int policeId;
+		private String identificationCard;
+
+		public SearchVedioUploadStatus(int uploadType, int policeId,
+				String identificationCard) {
+			super();
+			this.uploadType = uploadType;
+			this.policeId = policeId;
+			this.identificationCard = identificationCard;
+		}
+
+		@Override
+		public void run() {
+			long beginQuery, endQuery, beginParse, endParse;
+			if (uploadType == 0) {// 注意对下载失败的处理
+				// 查询文件上传状态
+				beginQuery = System.currentTimeMillis();
+				String result = null;
+				try {
+					result = Video.queryDownloadFileStatu(policeId,
+							identificationCard);
+				} catch (IOException e) {
+					System.out.println("------------------" + "异常");
+					e.printStackTrace();
+				}
+				endQuery = System.currentTimeMillis();
+				System.out.println("开始查询----查询结束          耗时"
+						+ (endQuery - beginQuery));
+				/*
+				 * 注解 如果上传成功的话，filename返回String类型的视频名字
+				 * 如果上传失败，filename返回String类型的0
+				 */
+				beginParse = System.currentTimeMillis();
+				String filename = Video.getSuccessFile(result);
+				endParse = System.currentTimeMillis();
+				System.out.println("开始解析----解析结束          耗时"
+						+ (endParse - beginParse));
+				if (!(filename == null || filename.equals(""))) {// 成功,注意这里有问题，查询Autowired是否注入成功
+					System.out.println("-----" + suspectService);
+					String suspectId = suspectService
+							.findByidentifyCard_Number(identificationCard)
+							.getSuspect_ID();
+					suspectService.updatevedio_Number(filename, suspectId);
+					suspectService.updateIs_RecordVideo_DownLoad(1, policeId,
+							identificationCard);
+				}
 			}
 		}
-		return "success";
 	}
 
 	/**
@@ -76,9 +138,6 @@ public class fileStatusAction {
 	 * @return
 	 */
 	private String getJsonData() {
-		// ActionContext ctx = ActionContext.getContext();
-		// HttpServletRequest request = (HttpServletRequest) ctx
-		// .get(ServletActionContext.HTTP_REQUEST);
 		InputStream inputStream;
 		String strResponse = "";
 		try {
@@ -97,20 +156,4 @@ public class fileStatusAction {
 		}
 		return strResponse;
 	}
-
-	// @Override
-	// public void setServletContext(ServletContext application) {
-	// this.application = application;
-	// }
-	//
-	// @Override
-	// public void setServletResponse(HttpServletResponse response) {
-	// this.response = response;
-	// }
-	//
-	// @Override
-	// public void setServletRequest(HttpServletRequest request) {
-	// this.request = request;
-	// }
-
 }

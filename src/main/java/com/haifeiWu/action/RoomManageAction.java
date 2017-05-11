@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.haifeiWu.entity.PHCSMP_Room;
+import com.haifeiWu.entity.RoomList;
 import com.haifeiWu.service.RoomService;
 
 //import com.sun.tools.internal.ws.processor.model.Request;
@@ -51,8 +52,8 @@ public class RoomManageAction {
 	/**
 	 * 查询所有的房间信息
 	 */
-	@RequestMapping(value = "/load", method = RequestMethod.POST)
-	public String loadInfor() {
+	@RequestMapping(value = "/load")
+	public String RM_loadInfor(HttpServletRequest request) {
 		System.out.println("查找所有的房间信息");
 		// 获取所有房间的信息
 		List<PHCSMP_Room> roomCheckInfo = roomService.findAllRoom();
@@ -63,12 +64,28 @@ public class RoomManageAction {
 			for (PHCSMP_Room phcsmp_Room : roomCheckInfo) {
 				System.out.println(phcsmp_Room.toString());
 			}
-
-			return "loadInfor";
+			
+			return "/WEB-INF/jsp/roommanage/room";
 		}
 
 	}
-
+	/**
+	 * 房间初始化
+	 */
+	@RequestMapping(value = "/updateRoom")
+	public String updateRoom(RoomList roomList,HttpServletRequest request){
+		System.out.println("进入房间初始化方法");
+		for(PHCSMP_Room pHCSMP_Room :roomList.getRoomList()){
+			System.out.println(pHCSMP_Room.getRoom_ID());
+			System.out.println(pHCSMP_Room.getRoom_Name());
+			System.out.println(pHCSMP_Room.getCardReader_ID());
+			System.out.println(pHCSMP_Room.getRoom_IPAddress());
+			//roomService.updateprocess_IDById(pHCSMP_Room.getCardReader_ID(), pHCSMP_Room.getRoom_ID(), pHCSMP_Room.getRoom_IPAddress());
+			roomService.updateRoomByRoomId(pHCSMP_Room.getRoom_ID(), pHCSMP_Room.getRoom_Name(), pHCSMP_Room.getCardReader_ID(), pHCSMP_Room.getRoom_IPAddress());
+		}
+		
+		return RM_loadInfor(request);
+	}
 	/**
 	 * 按条件查找房间信息
 	 */
@@ -180,48 +197,6 @@ public class RoomManageAction {
 		}
 	}
 
-	/**
-	 * 修改房间信息
-	 * 
-	 * @return
-	 */
-	public String UpdateInfor() {
-		PHCSMP_Room room = new PHCSMP_Room();
-		try {
-			room.setRoom_ID(Integer.parseInt(room_ID));
-			room.setRoom_Name(room_Name);
-			room.setCardReader_ID(cardReader_ID);
-			room.setProcess_ID(process_ID);
-			room.setLine_Number(line_Number);
-			room.setRoom_IPAddress(room_IPAddress);
-			roomService.updateRoombyId(room);
-			System.out.println(room);
-			return loadInfor();
-		} catch (Exception e) {
-			request.setAttribute("result", "服务器错误，未能修改！");
-			return "error";
-		}
-	}
-
-	/**
-	 * 批修改房间信息
-	 * 
-	 * @return
-	 */
-	public String batchUpdateInfor() {
-		PHCSMP_Room room = new PHCSMP_Room();// 这个字段没用到，？？？
-		try {
-
-			System.out.println("b" + roomIdArray);
-			roomService.batchupdate(roomIdArray, process_ID);
-
-			return loadInfor();
-		} catch (Exception e) {
-			request.setAttribute("result", "服务器错误，未能修改！");
-			return "error";
-		}
-
-	}
 
 	/*
 	 * setter getter

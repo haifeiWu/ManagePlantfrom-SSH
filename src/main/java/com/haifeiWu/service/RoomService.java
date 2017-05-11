@@ -25,4 +25,8 @@ public interface RoomService {
 	public void updateRoombyId(PHCSMP_Room room);
 	
 	public void batchupdate(String roomIdArray,int process_ID);
+	
+	public void updateprocess_IDById(int cardReader_ID,int room_ID,String room_IPAddress);
+	
+	public void updateRoomByRoomId(int room_Id,String room_Name, int cardReader_ID,String room_IPAddress);
 }

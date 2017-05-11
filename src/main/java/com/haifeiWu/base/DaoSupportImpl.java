@@ -141,13 +141,13 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 
 	@Override
 	public void update(String hql, Object... args) {
-		tx = this.getSession().beginTransaction();// 开启事务
+		//tx = this.getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);
 		for (int i = 0; i < args.length; i++) {
 			query.setParameter(i, args[i]);
 		}
 		query.executeUpdate();
-		tx.commit();// 提交事务
+		//tx.commit();// 提交事务
 	}
 
 	@Override

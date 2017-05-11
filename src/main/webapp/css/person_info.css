@@ -174,8 +174,8 @@ input {
 
 textarea {
 	overflow: hidden;resize: none;
-	height:48px;
-	border:1.5px solid #c1c1c1;padding: 0px;margin: 0 auto; 
+	height:79px;
+	border:1px solid #c1c1c1;padding: 0px;margin: 0px; 
 	position: relative;text-align: center;
 }
 

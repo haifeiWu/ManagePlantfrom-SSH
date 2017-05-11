@@ -12,9 +12,10 @@
             <generator class="native"/>
         </id>
         <property name="Operation_Time"></property>
-        <property name="Staff_Name"/>
+        <property name="Staff_ID"/>
         <property name="Operation_Info"/>
         <property name="Operation_Model"/>
+        <property name="date"/>
     </class>
         
 

@@ -2,6 +2,7 @@ package com.haifeiWu.action;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -29,6 +30,7 @@ import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Leave_Record;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
 import com.haifeiWu.entity.PHCSMP_Room;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
@@ -41,6 +43,7 @@ import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.CompleteCheck;
 import com.haifeiWu.utils.HtmlToPdf;
 import com.haifeiWu.utils.Video;
@@ -61,6 +64,8 @@ public class Leave_Recod_Action {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private LeaveRecodService leaveRecodService;
 	// 入区登记
@@ -111,85 +116,94 @@ public class Leave_Recod_Action {
 
 	/**
 	 * @return
-	 * @throws IOException
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "add", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addLeaveRecordInfor(PHCSMP_Leave_Record model,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		try {
-			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
-			// 设置最终离开时间和 领取时间
-			Date date = new Date();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-			String leavetime = sdf.format(date);
-			model.setLeave_Time(leavetime);
-			model.setTreatment_Time(leavetime);
-			// // 设置离区 嫌疑人的ID
-			model.setSuspect_ID(suspectID);
-			suspectInfor = suspectService.findBySuspetcId(suspectID);
-			// 动态设置离区嫌疑人的字段信息
-			Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
-			int count1 = CompleteCheck.IsEqualsNull(model, c);
-			int fieldsNumber1 = CompleteCheck.getFieldsNumber(model, c);
-			model.setFill_record(fieldsNumber1 - count1 - 4);// 设置已填写的字段数
-			model.setTotal_record(fieldsNumber1 - 4);// 设置应填写的字段
+			throws Exception {
+		// try {
+		String suspectID = request.getParameter("suspectID");
+		PHCSMP_Suspect suspectInfor = (PHCSMP_Suspect) request
+				.getAttribute("suspectInfor");
+		PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
+		// 设置最终离开时间和 领取时间
+		Date date = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String leavetime = sdf.format(date);
+		model.setLeave_Time(leavetime);
+		model.setTreatment_Time(leavetime);
+		// 获取staffID
+		String staff_ID = request.getParameter("staff_ID");
+		model.setStaff_ID(staff_ID);
+		request.setAttribute("staff_ID", staff_ID);
+		// // 设置离区 嫌疑人的ID
 
-			// 设置羁押时间
-			DateTimeFormatter format = DateTimeFormat
-					.forPattern("yyyy-MM-dd HH:mm");
-			DateTime enter = DateTime.parse(suspectInfor.getEnter_Time(),
-					format);
+		model.setSuspect_ID(suspectID);
+		suspectInfor = suspectService.findBySuspetcId(suspectID);
+		// 动态设置离区嫌疑人的字段信息
+		Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
+		int count1 = CompleteCheck.IsEqualsNull(model, c);
+		int fieldsNumber1 = CompleteCheck.getFieldsNumber(model, c);
+		model.setFill_record(fieldsNumber1 - count1 - 4);// 设置已填写的字段数
+		model.setTotal_record(fieldsNumber1 - 4);// 设置应填写的字段
 
-			DateTime leave = DateTime.parse(leavetime, format);
-			int hours = Hours.hoursBetween(enter, leave).getHours();
-			// 设置却没有保存到数据库
-			suspectService.updateDetainTime(hours + "小时", suspectID);
-			// 保证不插入重复数据
-			PHCSMP_Leave_Record LeaveRecordInfor = leaveRecodService
-					.findLeaveRecordInfor(suspectID);
-			if (LeaveRecordInfor == null) {
-				leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息，
-			} else {
-				leaveRecodService.updateLeaveRecordInfor(model);// 更新嫌疑人离开信息
-			}
-			// 停止录像// 将录像的标志位置为0
-			if (suspectInfor.getRecordVideo_State() != 0) {
-				String stopRecording = Video.stopRecording(
-						suspectInfor.getBand_ID(), room.getLine_Number(),
-						suspectInfor.getIdentifyCard_Number());
-				suspectService.updateLeaveState(3, -1, 0,
-						suspectInfor.getSuspect_ID());
-			} else {
-				suspectService.updateLeaveState(0, -1, 0,
-						suspectInfor.getSuspect_ID());
-			}
+		// 设置羁押时间
+		DateTimeFormatter format = DateTimeFormat
+				.forPattern("yyyy-MM-dd HH:mm");
+		DateTime enter = DateTime.parse(suspectInfor.getEnter_Time(), format);
 
-			// 释放回路
-			if (suspectInfor.getRecordVideo_State() != 0)
-				lineService.closeLine();
-			// 释放手环
-			bandService.update(0, suspectInfor.getBand_ID());
-			// 下载PDF
-			HtmlToPdf.createPdf(suspectID);
-			// 请求上传录像文件
+		DateTime leave = DateTime.parse(leavetime, format);
+		int hours = Hours.hoursBetween(enter, leave).getHours();
+		// 设置却没有保存到数据库
+		suspectService.updateDetainTime(hours + "小时", suspectID);
+		// 保证不插入重复数据
+		PHCSMP_Leave_Record LeaveRecordInfor = leaveRecodService
+				.findLeaveRecordInfor(suspectID);
+		if (LeaveRecordInfor == null) {
+			leaveRecodService.saveLeaveRecordInfor(model);// 保存嫌疑人离开信息，
+		} else {
+			leaveRecodService.updateLeaveRecordInfor(model);// 更新嫌疑人离开信息
+		}
+		// 停止录像// 将录像的标志位置为0
+		if (suspectInfor.getRecordVideo_State() != 0) {
+			String stopRecording = Video.stopRecording(
+					suspectInfor.getBand_ID(), room.getLine_Number(),
+					suspectInfor.getIdentifyCard_Number());
+			suspectService.updateLeaveState(3, -1, 0,
+					suspectInfor.getSuspect_ID());
+		} else {
+			suspectService.updateLeaveState(0, -1, 0,
+					suspectInfor.getSuspect_ID());
+		}
+
+		// 释放回路
+		if (suspectInfor.getRecordVideo_State() != 0)
+			lineService.closeLine();
+		// 释放手环
+		bandService.update(0, suspectInfor.getBand_ID());
+		// 下载PDF
+		HtmlToPdf.createPdf(suspectID);
+		// 请求上传录像文件
+
+		if (suspectInfor.getRecordVideo_State() != 0) {
 			Video.setRBServerCfg();// 远程服务器已配置
 			Video.setFtpServerCfg(suspectInfor.getBand_ID(),
 					suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
 			Video.uploadRecFile(suspectInfor.getBand_ID(),
 					suspectInfor.getIdentifyCard_Number());
-			return "redirect:/home/index";
-		} catch (Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
-			// response.getWriter().flush();
-			//
-			// request.setAttribute("leaveRecordLoadInfor", model);
-
-			return "redirect:/load";
 		}
-
+		return "redirect:/home/index";
+		// } catch (Exception e) {
+		// // response.getWriter()
+		// //
+		// .write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
+		// // response.getWriter().flush();
+		// //
+		// // request.setAttribute("leaveRecordLoadInfor", model);
+		//
+		// return "redirect:/load";
+		// }
 	}
 
 	// 保存临时出区的信息
@@ -237,13 +251,14 @@ public class Leave_Recod_Action {
 			// response.getWriter()
 			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
+			request.setAttribute("error", "error");
 			return "redirect:/load";
 		}
 	}
 
 	/* 加载界面信息 */
 	@RequestMapping(value = "/load")
-	public String loadInfor(@RequestParam("suspectID") String suspectID,
+	public String loadInfor(@RequestParam("suspectID") String suspectId,
 			HttpServletRequest request) throws IOException {
 		try {
 			// 异常处理的代码
@@ -262,9 +277,6 @@ public class Leave_Recod_Action {
 				request.setAttribute("staff_ID", staff_ID);
 				request.setAttribute("manager_name", manager_name);
 			}
-			// 加载嫌疑人信息
-			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
-			String suspectId = (String) request.getParameter("suspectID");
 
 			// 离区前提示前四个业务的完整性
 			// 根据嫌疑人id查找嫌疑人前四个业务的信息
@@ -277,6 +289,9 @@ public class Leave_Recod_Action {
 			if (suspectComplete != 100) {// 信息不完整
 				sb.append("入区登记信息填写不完整!  ");
 			}
+
+			request.setAttribute("suspectInfor", suspectInfor);
+			request.setAttribute("suspectComplete", suspectComplete);
 			// 查人身检查信息
 			personalCheck = personalCheckService
 					.findInforBySuspetcId(suspectId);
@@ -289,6 +304,7 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行人身检查操作! ");
 			}
+			request.setAttribute("personalCheckComplete", personalCheckComplete);
 			// 查信息采集信息
 			informationCollection = informationCollectionService
 					.findInforBySuspetcId(suspectId);
@@ -303,11 +319,14 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行信息采集操作!  ");
 			}
+			request.setAttribute("informationCollectionComplete",
+					informationCollectionComplete);
 			// 查询问讯问信息
 			activityRecordList = activityRecordService
 					.findInforBySuspetcId(suspectId);
 			completeMap = new HashMap<Integer, Integer>();
 			if (activityRecordList != null) {
+				List activityRecordCompleteList = new ArrayList<>();
 				int j = 0;
 				int i = 1;
 				for (PHCSMP_Activity_Record Activity_Record : activityRecordList) {
@@ -315,6 +334,9 @@ public class Leave_Recod_Action {
 							.getFill_record()
 							/ (float) Activity_Record.getTotal_record() * 100);
 					completeMap.put(j, activityRecordComplete);
+					activityRecordCompleteList.add(activityRecordComplete);
+					request.setAttribute("activityRecordCompleteList",
+							activityRecordCompleteList);
 					j++;
 					if (activityRecordComplete != 100) {// 信息不完整
 						sb.append("询问讯问" + i + "信息填写不完整!  ");
@@ -328,6 +350,7 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行询问讯问操作!  ");
 			}
+			request.setAttribute("activityRecordList", activityRecordList);
 			// 判断是否出区返回
 			temporaryLeave = temporaryLeaveService
 					.IsTemporaryLeaveReturn(suspectId);
@@ -355,6 +378,12 @@ public class Leave_Recod_Action {
 			if (activityRecordList.size() != 0) {
 				request.setAttribute("activityRecord", activityRecordList);
 			}
+			request.setAttribute("sb", sb);
+			request.setAttribute("suspectInfor", suspectInfor);
+			List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			request.setAttribute("staff", staff);
+			System.out.println("+++++++++++++++====" + staff.get(1));
+			request.setAttribute("temporaryLeave", temporaryLeave);
 			return "WEB-INF/jsp/recordInfor/leave";
 		} catch (Exception e) {
 			// 异常处理
@@ -371,28 +400,89 @@ public class Leave_Recod_Action {
 		return "unlogin_load";
 	}
 
-	public String getPersonName() {
-		return personName;
+	// -------------------------------------------------------
+	public LeaveRecodService getLeaveRecodService() {
+		return leaveRecodService;
 	}
 
-	public void setPersonName(String personName) {
-		this.personName = personName;
+	public void setLeaveRecodService(LeaveRecodService leaveRecodService) {
+		this.leaveRecodService = leaveRecodService;
 	}
 
-	public String getSuspectID() {
-		return suspectID;
+	public SuspectService getSuspectService() {
+		return suspectService;
 	}
 
-	public void setSuspectID(String suspectID) {
-		this.suspectID = suspectID;
+	public void setSuspectService(SuspectService suspectService) {
+		this.suspectService = suspectService;
 	}
 
-	public PHCSMP_Suspect getSuspectInfor() {
-		return suspectInfor;
+	public RoomService getRoomService() {
+		return roomService;
 	}
 
-	public void setSuspectInfor(PHCSMP_Suspect suspectInfor) {
-		this.suspectInfor = suspectInfor;
+	public void setRoomService(RoomService roomService) {
+		this.roomService = roomService;
+	}
+
+	public TemporaryLeaveService getTemporaryLeaveService() {
+		return temporaryLeaveService;
+	}
+
+	public void setTemporaryLeaveService(
+			TemporaryLeaveService temporaryLeaveService) {
+		this.temporaryLeaveService = temporaryLeaveService;
+	}
+
+	public LineService getLineService() {
+		return lineService;
+	}
+
+	public void setLineService(LineService lineService) {
+		this.lineService = lineService;
+	}
+
+	public BandService getBandService() {
+		return bandService;
+	}
+
+	public void setBandService(BandService bandService) {
+		this.bandService = bandService;
+	}
+
+	public DicService getDicService() {
+		return dicService;
+	}
+
+	public void setDicService(DicService dicService) {
+		this.dicService = dicService;
+	}
+
+	public PersonalCheckService getPersonalCheckService() {
+		return personalCheckService;
+	}
+
+	public void setPersonalCheckService(
+			PersonalCheckService personalCheckService) {
+		this.personalCheckService = personalCheckService;
+	}
+
+	public InformationCollectionService getInformationCollectionService() {
+		return informationCollectionService;
+	}
+
+	public void setInformationCollectionService(
+			InformationCollectionService informationCollectionService) {
+		this.informationCollectionService = informationCollectionService;
+	}
+
+	public ActivityRecordService getActivityRecordService() {
+		return activityRecordService;
+	}
+
+	public void setActivityRecordService(
+			ActivityRecordService activityRecordService) {
+		this.activityRecordService = activityRecordService;
 	}
 
 	public Temporary_Leave getTemporaryLeave() {
@@ -401,6 +491,14 @@ public class Leave_Recod_Action {
 
 	public void setTemporaryLeave(Temporary_Leave temporaryLeave) {
 		this.temporaryLeave = temporaryLeave;
+	}
+
+	public PHCSMP_Suspect getSuspectInfor() {
+		return suspectInfor;
+	}
+
+	public void setSuspectInfor(PHCSMP_Suspect suspectInfor) {
+		this.suspectInfor = suspectInfor;
 	}
 
 	public String getTempLeave_Time() {
@@ -435,6 +533,30 @@ public class Leave_Recod_Action {
 		this.staff_ID = staff_ID;
 	}
 
+	public String getManager() {
+		return manager;
+	}
+
+	public void setManager(String manager) {
+		this.manager = manager;
+	}
+
+	public String getPersonName() {
+		return personName;
+	}
+
+	public void setPersonName(String personName) {
+		this.personName = personName;
+	}
+
+	public String getSuspectID() {
+		return suspectID;
+	}
+
+	public void setSuspectID(String suspectID) {
+		this.suspectID = suspectID;
+	}
+
 	public PHCSMP_Personal_Check getPersonalCheck() {
 		return personalCheck;
 	}
@@ -450,6 +572,15 @@ public class Leave_Recod_Action {
 	public void setInformationCollection(
 			PHCSMP_Information_Collection informationCollection) {
 		this.informationCollection = informationCollection;
+	}
+
+	public List<PHCSMP_Activity_Record> getActivityRecordList() {
+		return activityRecordList;
+	}
+
+	public void setActivityRecordList(
+			List<PHCSMP_Activity_Record> activityRecordList) {
+		this.activityRecordList = activityRecordList;
 	}
 
 	public int getSuspectComplete() {
@@ -489,25 +620,14 @@ public class Leave_Recod_Action {
 		return sb;
 	}
 
-	public String getManager() {
-		return manager;
-	}
-
-	public void setManager(String manager) {
-		this.manager = manager;
-	}
-
 	public void setSb(StringBuilder sb) {
 		this.sb = sb;
 	}
 
-	public List<PHCSMP_Activity_Record> getActivityRecordList() {
-		return activityRecordList;
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
-	public void setActivityRecordList(
-			List<PHCSMP_Activity_Record> activityRecordList) {
-		this.activityRecordList = activityRecordList;
-	}
+	// ================================================
 
 }

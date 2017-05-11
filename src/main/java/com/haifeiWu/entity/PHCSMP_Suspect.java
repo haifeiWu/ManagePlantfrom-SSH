@@ -64,6 +64,49 @@ public class PHCSMP_Suspect implements Serializable {
 		return cardReader_Switch;
 	}
 
+	public PHCSMP_Suspect() {
+		super();
+	}
+
+	public PHCSMP_Suspect(int id, String suspect_ID, int band_ID,
+			String suspect_Name, String sex, String birthday, String nation,
+			String phone, String type_ID, String identifyCard_Number,
+			String suspected_Cause, String enter_Time, String detain_Time,
+			String vedio_Number, String staff_ID, String address,
+			String now_address, int total_record, int fill_record,
+			int process_Now, int room_Now, String identityCard_Photo,
+			String frontal_Photo, String sideWays_Photo, int recordVideo_State,
+			int is_RecordVideo_DownLoad, int cardReader_Switch) {
+		super();
+		this.id = id;
+		this.suspect_ID = suspect_ID;
+		this.band_ID = band_ID;
+		this.suspect_Name = suspect_Name;
+		this.sex = sex;
+		this.birthday = birthday;
+		this.nation = nation;
+		this.phone = phone;
+		this.type_ID = type_ID;
+		this.identifyCard_Number = identifyCard_Number;
+		this.suspected_Cause = suspected_Cause;
+		this.enter_Time = enter_Time;
+		this.detain_Time = detain_Time;
+		this.vedio_Number = vedio_Number;
+		this.staff_ID = staff_ID;
+		this.address = address;
+		this.now_address = now_address;
+		this.total_record = total_record;
+		this.fill_record = fill_record;
+		this.process_Now = process_Now;
+		this.room_Now = room_Now;
+		this.identityCard_Photo = identityCard_Photo;
+		this.frontal_Photo = frontal_Photo;
+		this.sideWays_Photo = sideWays_Photo;
+		this.recordVideo_State = recordVideo_State;
+		this.is_RecordVideo_DownLoad = is_RecordVideo_DownLoad;
+		this.cardReader_Switch = cardReader_Switch;
+	}
+
 	public void setCardReader_Switch(int cardReader_Switch) {
 		this.cardReader_Switch = cardReader_Switch;
 	}

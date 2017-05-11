@@ -12,11 +12,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <base href="<%=basePath%>">
 
 <title>录像下载失败的嫌疑人信息</title>
-<link rel="stylesheet" href="./css/bootstrap.min.css" />
-<link rel="stylesheet" href="./css/Suspect_info.css" />
-<script type="text/javascript" src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/jquery.min.js"></script>
-<script type="text/javascript" src="./js/Suspect_mes.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/Suspect_info.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/Suspect_mes.js"></script>
 
 
 
@@ -41,8 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td>入区时间</td>
 					
 					<td>离区时间</td>
-					<td>操作</td>
-					
+					<td>下载操作</td>
+					<td>播放操作</td>
 				</tr>
 				<c:forEach items="${suspect }" var="item" varStatus="status">
 					<tr>
@@ -51,9 +51,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<td>${item.suspect_ID}</td>
 						<td>${item.identifyCard_Number}</td>
 						<td>${item.enter_Time}</td>
-						
 						<td>${item.leave_Time}</td>
-						<td><a class="button" href="${item.vedio_number }">下载</a></td>
+						<td><a class="button" href="${pageContext.request.contextPath }/suspectManage/downloadVeio?vedioName=${item.vedio_number }">下载</a></td> 
+						<td><a class="button" href="${pageContext.request.contextPath }/suspectManage/vedioPlay?vedioName=${item.vedio_number }">播放</a></td>
 					</tr>
 				</c:forEach>
 			</table>

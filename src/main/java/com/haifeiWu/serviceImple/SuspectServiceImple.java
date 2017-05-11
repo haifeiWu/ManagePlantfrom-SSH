@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.haifeiWu.dao.SuspectDao;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
+import com.haifeiWu.entity.PHCSMP_LogInfo;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.utils.PageBean;
 
 /**
  * 登录犯罪嫌疑人信息的service实现类
@@ -22,6 +24,24 @@ public class SuspectServiceImple implements SuspectService {
 
 	@Autowired
 	private SuspectDao suspectDao;
+	
+	
+	/**
+	 * 通过身份证查询嫌疑人信息
+	 * */
+	@Override
+	public PHCSMP_Suspect findByidentifyCard_Number(String identifyCard_Number) {
+		return suspectDao.findByidentifyCard_Number(identifyCard_Number);
+	}
+	
+	/**
+	 * 视频编号放入嫌疑人表中的vedio_Number列中
+	 * */
+	@Override
+	public void updatevedio_Number(String vedio_Number, String suspectId) {
+		String hql = "update PHCSMP_Suspect s set s.vedio_Number=? where s.suspect_ID=?";
+		suspectDao.update(hql, vedio_Number, suspectId);		
+	}
 
 	@Override
 	public void saveSuspect(PHCSMP_Suspect model) {
@@ -33,6 +53,7 @@ public class SuspectServiceImple implements SuspectService {
 		return suspectDao.findByBandId(bandId);
 	}
 
+	
 	@Override
 	public PHCSMP_Suspect findByRoomID(int roomId) {
 		return suspectDao.findByRoomID(roomId);
@@ -142,9 +163,8 @@ public class SuspectServiceImple implements SuspectService {
 
 	public void updateIs_RecordVideo_DownLoad(int is_RecordVideo_DownLoad,
 			int bandID, String identifyCard_Number) {
-		suspectDao.updateIs_RecordVideo_DownLoad(is_RecordVideo_DownLoad,
-				bandID, identifyCard_Number);
-
+		String hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? where s.band_ID=? and s.identifyCard_Number=?";
+		suspectDao.update(hql, is_RecordVideo_DownLoad,bandID,identifyCard_Number);
 	}
 
 	@Override
@@ -171,6 +191,35 @@ public class SuspectServiceImple implements SuspectService {
 		String hql = "update PHCSMP_Suspect s set s.detain_Time=? where s.suspect_ID=?";
 		suspectDao.update(hql, hours, suspectID);
 	}
+	
+	/**
+	 * 历史嫌疑人分页显示 pageSize为每页显示的记录数 page为当前页页码
+	 */
+	@Override
+	public PageBean getPageBean(int pageSize, int page) {
+		PageBean pageBean = new PageBean();
+
+		String hql = "from PHCSMP_Suspect where process_Now=-1";
+
+		int allRows = suspectDao.getAllRowCount(hql);
+
+		int totalPage = pageBean.getTotalPages(pageSize, allRows);
+
+		int currentPage = pageBean.getCurPage(page);
+
+		int offset = pageBean.getCurrentPageOffset(pageSize, currentPage);
+
+		List<PHCSMP_Suspect> list = suspectDao.queryByPage(hql, offset,
+				pageSize);
+
+		pageBean.setList(list);
+		pageBean.setAllRows(allRows);
+		pageBean.setCurrentPage(currentPage);
+		pageBean.setTotalPage(totalPage);
+
+		return pageBean;
+	}
+	
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
 	// // TODO Auto-generated method stub

@@ -83,7 +83,9 @@
 		}
 		function alertInfo(){
 			if(!confirm("信息不完整，你是否要继续办理出区/离区业务！")){
-				window.location.href="${pageContext.request.contextPath }/jsp/home/index.jsp";
+				//window.location.href="${pageContext.request.contextPath }/WEB-INF/jsp/home/index.jsp";
+				window.location.href="${pageContext.request.contextPath }/home/index";
+				
 			}
 		}
 		
@@ -145,8 +147,9 @@
 					<!--引入状态截图-->
 					
 					<div id="state" class="col-lg-12 col-md-10 col-sm-10">
-						<img id="identityImg" src="${pageContext.request.contextPath }/images/fgreen_03.png" />
-						<c:if test="${!empty checkRecord }">
+						<img  src="${pageContext.request.contextPath }/images/fgreen_03.png" />
+						
+						<c:if test="${!empty personalCheck }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
 					            $("#identityImg1").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
@@ -155,6 +158,7 @@
 					    </script>
 						</c:if> 
 						<img id="identityImg1" src="${pageContext.request.contextPath }/images/3-inforCollection_03.png" />
+						
 						<c:if test="${!empty informationCollection }">
 							<script type="text/javascript">
 					       $(document).ready(function(){
@@ -196,7 +200,7 @@
 			</div>
 			<!--疑犯个人身份证信息-->
 			<div class="container">
-				<div class="row" style="margin-bottom:10px;">
+				<div class="row" style="margin-bottom:-20px !important;">
 					<!--身份信息标题-->
 					<h4 class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
 						入区事由:<input type="text" value="治安传唤" />
@@ -209,44 +213,39 @@
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8" style="margin-top:30px;">
 						<hr style="width: 96%;border: 0.2px solid #389ac7;padding: 0px;margin-top: 1%;margin-left: -10%;" />
-							<table class="Message col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:15px;">
-								<tr style="padding: 0px;">
-								<!--图片引入-->
-									<td rowspan="5">
-										<img id="pic" src="${suspectInfor.identityCard_Photo }" style="border:1px solid #ccc;width: 100px;height: 108px;position: relative;top: 0px;" />
-										<input type="hidden" name="identityCard_Photo" value="value">
-										<p class="info_id" style="width: 100px;">身份证照</p></td>
-									<td colspan="2">姓名:
-										<input type="text" name="suspect_Name" value="${suspectInfor.suspect_Name }" style="font-size:12px;margin-left:10px;"/>
-									</td>
-								</tr>
-								<!--第二行 性别 民族-->
-								<tr>
-									<td>性别：
-										<input style="font-size:12px;margin-left:10px;" type="text" name="sex" value="${suspectInfor.sex }"/>
-									</td>
-									<td style="margin-left:10px;">民族：<input type="text" name="nation" value="汉" style="font-size:12px;margin-left:10px;"/></td>
-								</tr>
-								<!--第三行 出生-->
-								<tr>
-									<td colspan="8">出生日期：
-										<input type="text" name="birthday" value="${suspectInfor.birthday }" />
-									</td>
-								</tr>
-								<!--第四行身份证住址-->
-								<tr>
-									<td colspan="8">
-									家庭住址：<textarea name="address" rows="4" cols="45"  col-md-offset-2>${suspectInfor.address }</textarea>
-									</td>
-								</tr>			
-								<tr>
-									<td colspan="10">身份证号码:
-										<input type="text" name="identifyCard_Number" value="${suspectInfor.identifyCard_Number }"/>
-									</td>
-	
-								</tr>
-							</table>
-						<hr style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top:13%; margin-left:-10%;" />
+							<table class="Message col-lg-12 col-md-10 col-sm-8 col-xs-8">
+
+						<tr style="padding: 0px;">
+							<!--图片引入-->
+							<td rowspan="5"><img
+								style="width:95px;height:108px;"
+								src="${suspectInfor.identityCard_Photo }" />
+								<p class="info_id">身份证照</p></td>
+							<!--<td></td>-->
+							<td colspan="2">姓名:<span style="color: black;">${suspectInfor.suspect_Name } </span></td>
+						</tr>
+						<!--第二行 性别 民族-->
+						<tr>
+							<td>性别：<span style="color: black;">${suspectInfor.sex } </span></td>
+							<td>民族：<span style="color: black;">${suspectInfor.nation }</span></td>
+						</tr>
+						<!--第三行 出生-->
+						<tr>
+							<td colspan="2">出生日期：<span style="color: black;">${suspectInfor.birthday } </span></td>
+						</tr>
+						<!--第四行身份证住址-->
+						<tr>
+							<td colspan="2">住址：</td>
+						</tr>
+						<tr>
+							<td colspan="2"><span style="color: black;">${suspectInfor.address }</span></td>
+						</tr>
+						<tr >
+							<td>&nbsp;身份证号码</td>
+							<td colspan="2"><span style="color: black;">${suspectInfor.identifyCard_Number }</span></td>
+						</tr>
+					</table>
+						<hr style="width: 96%; border: 0.2px solid #389ac7; padding: 0px;margin-top:33%; margin-left:-10%;" />
 					</div>
 				</div>
 			</div>
@@ -344,8 +343,8 @@
 								<td>${a.end_Time }</td>
 								
 								
-								<td class="complete activityComplete">${completeMap[s.index]}%</td>
-								
+								<%-- <td class="complete activityComplete">${activityRecordCompleteList[s.index]}%</td> --%>
+								<td class="complete activityComplete">---</td>
 								<c:if test="${! empty a.activity_Record }">	
 									<td style="text-align:left;padding-left:30px;" class="activity">活动内容：${a.activity_Record }</td>						
 								</c:if>
@@ -359,7 +358,7 @@
 						<td>询问讯问</td>
 						<td>空</td>
 						<td>空</td>
-						<td class="complete">0%</td>
+						<td class="complete">---</td>
 						<td style="text-align:left;padding-left:30px;">活动内容：空</td>
 					</c:if>
 					<c:if test="${!empty pastList }">
@@ -438,7 +437,14 @@
 			<div class="row" style="margin-top:30px;width:1000px;">
 				<div style="float:left;width:400px;margin-left: 150px">
 				<p id="signature">
-					管理员:<input type="text" name="manager" value=""/>			
+					<font color="#389AC7">管理员:</font>
+							<select name="staff_ID" id="L_staff_ID" style=" font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>		
 				</p>
 				</div>
 				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
@@ -449,7 +455,7 @@
 		<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
 	</form>
 	<!--最终离开办案区的信息表-->
-	<form class="final"
+	<form class="final" id="form"
 		action="${pageContext.request.contextPath }/leave/add"
 		method="post">
 		<div class="container ">
@@ -471,7 +477,7 @@
 						<td class="td">随身物品处理情况:</td>
 						<td>	
 							<c:forEach items="${keepingWay }" var="v" varStatus="status">
-								<input type="radio" name="belongingS_Treatment_Method" value="${v.keeping_Name }" class="checkRadio">${v.keeping_Name }
+								<label for="belongingS_Treatment_Method${status.index }" style="font-weight:normal"><input type="radio" id="belongingS_Treatment_Method${status.index }"name="belongingS_Treatment_Method" value="${v.keeping_Name }" class="checkRadio">${v.keeping_Name }</label>
 							</c:forEach>
 						</td>
 					</tr>
@@ -479,7 +485,7 @@
 						<td style="color:#000 !important;">未反还物品情况记载:</td>						
 						<td style="padding: 8px 0;">
 							<c:forEach items="${treatmentMethod }" var="t" varStatus="status">
-								<input type="radio" name="belongingS_Treatment_Record" value="${t.treatment_Name }" class="checkRadio1">${t.treatment_Name }
+								<label for="belongingS_Treatment_Record${status.index }" style="font-weight:normal"><input id="belongingS_Treatment_Record${status.index }"type="radio" name="belongingS_Treatment_Record" value="${t.treatment_Name }" class="checkRadio1">${t.treatment_Name }</label>
 							</c:forEach>
 						</td>
 					</tr>
@@ -500,19 +506,44 @@
 				</table>
 			</div>
 			<div class="row" style="margin-top:30px;width:1000px;">
-				<div style="float:left;width:400px;margin-left: 150px">
-				<p id="signature">
-					管理员:<input type="text" name="staff_ID" value="${PHCSMP_Leave_Record.staff_ID }"/>
-				</p>
+				<div style="float:left;width:300px;margin-left: 220px;position: relative;left: 107px;">
+				
+					管理员:
+							<select name="staff_ID" id="staff_ID1" style="font-color: black;">
+									<option value="0">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							<lect>		
+				
 				</div>
-				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
-					<input type="submit" value="确认提交" class="sub" />
+				<div style="float:left;width:460px;margin-left: -80px;margin-top: -10px;">
+					<input style="height: 30px;text-align:center;line-height: 30px; " type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
 				</div>
 				
 			</div>
+
 		</div>
-		<<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
+		<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
 	</form>
 	<div style="height: 100px;"></div>
 </body>
+<script type="text/javascript">
+function check(){
+			var Staff_ID=document.getElementById("staff_ID1").value;
+			var L_staff_ID = document.getElementById("L_staff_ID").value;
+			if(Staff_ID.length==0 || Staff_ID ==0){
+				alert('提交失败，请填写办案人员');
+			return false;
+		} 
+		else
+			document.getElementById("form").submit();
+			return true;
+		}
+
+		
+
+
+</script>
 </html>

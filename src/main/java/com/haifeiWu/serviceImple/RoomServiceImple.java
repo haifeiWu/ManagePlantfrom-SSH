@@ -15,7 +15,9 @@ import com.haifeiWu.service.RoomService;
 @Service("roomService")
 public class RoomServiceImple extends DaoSupportImpl<PHCSMP_Room> implements
 		RoomService {
-
+	
+	
+	
 	@Autowired
 	private RoomInforDao roomInforDao;
 	@Autowired
@@ -84,10 +86,23 @@ public class RoomServiceImple extends DaoSupportImpl<PHCSMP_Room> implements
 		 roomInforDao.updateroom(room);
 		
 	}
-
+/**
+ * 初始化
+ */
+	@Override
+	public void updateprocess_IDById(int cardReader_ID,int room_ID,String room_IPAddress){
+		roomInforDao.updateprocess_IDById(cardReader_ID, room_ID, room_IPAddress);
+	}
+	
 	@Override
 	public void batchupdate(String roomIdArray,int process_ID) {
 			roomInforDao.batchupdate(roomIdArray,process_ID);
+	}
+
+	@Override
+	public void updateRoomByRoomId(int room_Id, String room_Name,
+			int cardReader_ID, String room_IPAddress) {
+		roomInforDao.updateRoombyRoomId(room_Id, room_Name, cardReader_ID, room_IPAddress);
 	}
 
 }

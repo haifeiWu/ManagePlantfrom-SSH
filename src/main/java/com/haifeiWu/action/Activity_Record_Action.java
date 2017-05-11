@@ -2,8 +2,11 @@ package com.haifeiWu.action;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.InformationCollectionService;
@@ -25,6 +29,7 @@ import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.CompleteCheck;
 
 /**
@@ -43,6 +48,8 @@ public class Activity_Record_Action {
 	private static final long serialVersionUID = 1201107017949225716L;
 	@Autowired
 	private RoomService roomService;
+	@Autowired
+	private UserService userService;
 	// 活动记录实例类
 	@Autowired
 	private ActivityRecordService activityRecordService;
@@ -76,6 +83,7 @@ public class Activity_Record_Action {
 			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
+			String staff_ID = request.getParameter("staff_ID");
 			// PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
 			// 获取前台数据
 			// String start_Time = request.getParameter("start_Time");
@@ -92,12 +100,12 @@ public class Activity_Record_Action {
 			// activity.setSuspect_ID(suspectId);
 			activity.setRoom_ID(roomId);
 			activity.setEnd_Time(End_Time);
+			activity.setStaffS(staff_ID);
+			request.setAttribute("staff_ID", staff_ID);
 			fullCheck(activity);
 			// 保存
 			activityRecordService.saveActivityRecordInfor(activity);
 			// 提示成功
-			response.getWriter().write("<script>alert('后台提交成功');</script>");
-			response.getWriter().flush();
 			return "redirect:/home/index";
 		} catch (Exception e) {
 			// 提示失败
@@ -105,6 +113,7 @@ public class Activity_Record_Action {
 			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
 			// 将信息传递到loadInfor action,显示在页面上
+			request.setAttribute("error", "error");
 			String activity_Record = request.getParameter("activity_Record");
 			String activity_remark = request.getParameter("remark");
 			request.setAttribute("activity_Record", activity_Record);
@@ -121,7 +130,7 @@ public class Activity_Record_Action {
 		// 统计所有的字段
 		int fieldsNumber = CompleteCheck.getFieldsNumber(activity, c);
 
-		activity.setFill_record(fieldsNumber - count - 2);// 设置已填写的字段数
+		activity.setFill_record(fieldsNumber - count - 2 - 1);// 设置已填写的字段数
 		activity.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
 	}
 
@@ -133,8 +142,9 @@ public class Activity_Record_Action {
 	 * @throws ClassNotFoundException
 	 */
 	@RequestMapping(value = "/load", method = RequestMethod.GET)
-	public String loadInfor(HttpServletRequest request,
+	public String AR_loadInfor(HttpServletRequest request,
 			@RequestParam("suspectID") String suspectId) throws IOException {
+		// suspectId = "LB-HB-201703115";
 		try {
 			// 提交失败时将信息再次显示
 			if (request.getAttribute("activity_remark") != null) {
@@ -145,12 +155,14 @@ public class Activity_Record_Action {
 				request.setAttribute("activity_remark", activity_remark);
 				request.setAttribute("activity_Record", activity_Record);
 			}
+			System.out.println("进入活动记录");
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
 			PHCSMP_Suspect suspectInfor = suspectService
 					.findBySuspetcId(suspectId);
-
+			List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			request.setAttribute("staff", staff);
 			int complete_degree = (int) (suspectInfor.getFill_record()
 					/ (float) suspectInfor.getTotal_record() * 100);
 			request.setAttribute("complete_degree", complete_degree);
@@ -162,6 +174,9 @@ public class Activity_Record_Action {
 			if (personal_Check != null) {
 				int complete_degree1 = (int) (personal_Check.getFill_record()
 						/ (float) personal_Check.getTotal_record() * 100);
+				String checkRoomName = roomService.findByRoomID(
+						personal_Check.getRoom_ID()).getRoom_Name();
+				request.setAttribute("checkRoomName", checkRoomName);
 				request.setAttribute("complete_degree1", complete_degree1);
 				request.setAttribute("personal_Check", personal_Check);
 			} else {
@@ -175,6 +190,9 @@ public class Activity_Record_Action {
 				int complete_degree2 = (int) (information_Collection
 						.getFill_record()
 						/ (float) information_Collection.getTotal_record() * 100);
+				String ICRoomName = roomService.findByRoomID(
+						information_Collection.getRoom_ID()).getRoom_Name();
+				request.setAttribute("ICRoomName", ICRoomName);
 				request.setAttribute("complete_degree2", complete_degree2);
 				request.setAttribute("information_Collection",
 						information_Collection);
@@ -184,22 +202,47 @@ public class Activity_Record_Action {
 			// 询问讯问活动记录
 			List<PHCSMP_Activity_Record> activity_record_infor = activityRecordService
 					.findInforBySuspetcId(suspectId);
-			if (activity_record_infor.size() != 0) {
-				request.setAttribute("activity_record_infor",
-						activity_record_infor);
+
+			if (activity_record_infor != null) {
+
+				List<String> roomList = new ArrayList<String>();
+				List<Map<String, Object>> activity_record = new ArrayList<Map<String, Object>>();
+				for (PHCSMP_Activity_Record activity : activity_record_infor) {
+					String roomName = roomService.findByRoomID(
+							activity.getRoom_ID()).getRoom_Name();
+
+					roomList.add(roomName);
+				}
+				for (int i = 0; i < activity_record_infor.size(); i++) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("activity_Record", activity_record_infor.get(i)
+							.getActivity_Record());
+					map.put("room_Name", roomList.get(i));
+					map.put("start_Time", activity_record_infor.get(i)
+							.getStart_Time());
+					map.put("end_Time", activity_record_infor.get(i)
+							.getEnd_Time());
+
+					map.put("remark", activity_record_infor.get(i).getRemark());
+					activity_record.add(map);
+				}
+				request.setAttribute("activity_record", activity_record);
 			}
+
 			// 设置询问询问开始的时间
 			Date date = new Date();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 			String start_Time = sdf.format(date);
 			request.setAttribute("start_Time", start_Time);
+
 			// 维护进出门状态
 			suspectService.updateSwitch(1, suspectId);
-			return "/WEB-INF/jsp/recordInfor/activity";
+			return "WEB-INF/jsp/recordInfor/activity";
 		} catch (Exception e) {
 			// response.getWriter()
 			// .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
 			// response.getWriter().flush();
+			request.setAttribute("error", "error");
 			return "redirect:/load";
 		}
 	}

@@ -13,13 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.haifeiWu.entity.PHCSMP_Band;
 import com.haifeiWu.entity.PHCSMP_Dic_Action_Cause;
 import com.haifeiWu.entity.PHCSMP_Dic_IdentifyCard_Type;
+import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BandService;
@@ -27,7 +27,9 @@ import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LineService;
 import com.haifeiWu.service.PersonalCheckService;
+import com.haifeiWu.service.RoomService;
 import com.haifeiWu.service.SuspectService;
+import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.Base64;
 import com.haifeiWu.utils.CompleteCheck;
 
@@ -54,6 +56,8 @@ public class PHCSMP_Suspect_Action {
 	@Autowired
 	private BandService bandService;
 	@Autowired
+	private RoomService roomService;
+	@Autowired
 	private PersonalCheckService personalCheckService;
 	@Autowired
 	private InformationCollectionService informationCollectionService;
@@ -61,6 +65,8 @@ public class PHCSMP_Suspect_Action {
 	private ActivityRecordService activityRecordService;
 	@Autowired
 	private LeaveRecodService leaveRecodService;
+	@Autowired
+	private UserService userService;
 
 	private String message;
 
@@ -134,15 +140,24 @@ public class PHCSMP_Suspect_Action {
 					.findAllIdentifyCardType();
 			List<PHCSMP_Dic_Action_Cause> actionCause = suspectService
 					.findAllSuspectCause();
+			List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			request.setAttribute("staff", staff);
 			request.setAttribute("Suspect_ID", getSuspectId(entry_Time));// 自动生成嫌疑人编号
 			request.setAttribute("bundList", list);
 			request.setAttribute("identifyCardType", identifyCardType);
 			request.setAttribute("entry_Time", entry_Time);
 			request.setAttribute("actionCause", actionCause);
+			/*
+			 * List<PHCSMP_Staff> staff = userService.findAllStaffs();
+			 * request.setAttribute("staff", staff);
+			 * 
+			 * for (PHCSMP_Staff phcsmp_Staff : staff) {
+			 * System.out.println(phcsmp_Staff.toString()); }
+			 */
 		} catch (Exception e) {
-			response.getWriter().write("<script> alert('信息加载失败!'); </script>");
-			response.getWriter().flush();
-			// 失败应该重定向到/home/index
+			// response.getWriter().write("<script> alert('信息加载失败!'); </script>");
+			// response.getWriter().flush();
+			// // 失败应该重定向到/home/index
 			return "redirect:/home/index";
 		}
 		return "WEB-INF/jsp/recordInfor/entrance";
@@ -155,21 +170,30 @@ public class PHCSMP_Suspect_Action {
 	 * @param fileName
 	 * @throws IOException
 	 */
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/add")
 	public String addSuspectInfor(PHCSMP_Suspect model,
 			@RequestParam("file") MultipartFile file,
-			@RequestParam("sfile") MultipartFile sfile) throws IOException {
+			@RequestParam("sfile") MultipartFile sfile,
+			HttpServletRequest request) throws IOException {
 		log.debug("-------" + model.toString());
 		boolean useLine = false;// 定义一个标志位，判断是否开启一路回路，便于在异常的时候判断是否需要释放回路
+
 		try {
 			// 将照片保存到model中
 			if (!file.isEmpty()) {
-				model.setFrontal_Photo(Base64.file2base64(file.getInputStream()));
+				model.setFrontal_Photo("data:image/jpg;base64,"
+						+ Base64.file2base64(file.getInputStream()));
 			}
 			if (!sfile.isEmpty()) {
-				model.setSideWays_Photo(Base64.file2base64(sfile
-						.getInputStream()));
+				model.setSideWays_Photo("data:image/jpg;base64,"
+						+ Base64.file2base64(sfile.getInputStream()));
 			}
+			// 将房间号设置进去
+			model.setRoom_Now(roomService.findbyIp(request.getRemoteAddr())
+					.getRoom_ID());
+			System.out
+					.println("房间ip为------------------------------------------"
+							+ request.getRemoteAddr());
 			// 更新手环的is_Used状态
 			bandService.update(1, model.getBand_ID());// 使用时是1，未使用时为0
 			// 回路饱和性验证
@@ -177,10 +201,13 @@ public class PHCSMP_Suspect_Action {
 				model.setRecordVideo_State(1);
 				lineService.startLine();
 				useLine = true;
+				request.setAttribute("videoStetus", "1");
 			} else {// 不可以录像
 				model.setRecordVideo_State(0);
+				request.setAttribute("videoStetus", "0");
 			}
 			fullCheck(model);
+
 			suspectService.saveSuspect(model);// 保存嫌疑人信息，
 			// String vedioState = "";
 			// if (model.getRecordVideo_State() == 0) {
@@ -197,7 +224,7 @@ public class PHCSMP_Suspect_Action {
 			if (useLine)
 				lineService.closeLine();// 释放一个回路
 			// request.setAttribute("msg", "提交失败，请重新提交");// 异常处理，在页面上提示错误信息
-			return "redirect:load";
+			return "redirect:/load";
 		}
 	}
 

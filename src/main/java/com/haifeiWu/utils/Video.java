@@ -21,7 +21,7 @@ public class Video {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String setFtpServerCfg(int band_ID, String identificationCard)
+	public static String setFtpServerCfg(int Band_ID, String IdentifyCard_Number)
 			throws Exception {
 		// 配置FTP服务器的参数
 		String configJson = packjson();
@@ -71,99 +71,84 @@ public class Video {
 	 */
 	public static String queryDownloadFileStatu(int band_ID,
 			String identificationCard) throws IOException {
-		String json = packjson(band_ID, identificationCard);
-		// String result = "";
-		// Object code = "";
 		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils
-				.getRecordConfString("SxQueryUploadFileStatus"), json);
-		System.out.println("-----json-----" + result);
+				.getRecordConfString("SxQueryUploadFileStatus"),
+				packjson(band_ID, identificationCard));
 
-		return getSuccessFile(result);
+		return result;
 	}
 
 	@SuppressWarnings("unchecked")
-	private static String getSuccessFile(String result) {
+	public static String getSuccessFile(String result) {
 		// List resultList = new ArrayList();
 		String videonumber = null;
-
-		// 此处一系列代码皆为脱壳，为的是获取录像编号
-
-		// 获取result的map
-		/*
-		 * {key:code value:200, key:data value:{"failFileList":[{"fileName":
-		 * "1_140411199408210451_20170317090935_0100.MP4"
-		 * },{"fileName":"1_140411199408210451_20170317082317_0100.MP4"
-		 * }],"sucFileList":[]} key:errMsg value:Operate success.}
-		 */
-		Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
-		Iterator<?> it1 = str.entrySet().iterator();
-		/* 遍历 */
-		while (it1.hasNext()) {
-			/* 从迭代器中获取一个entry对象 */
-			Entry<?, ?> entry = (Entry<?, ?>) it1.next();
-			/* 通过entry.getKey()的方法获取key值 */
-			System.out.println("key:" + entry.getKey());
-			/* 通过entry.getValue()的方法获取value值 */
-			System.out.println("value:" + entry.getValue());
-		}
-
-		/*
-		 * 次处为data的map key:failFileList
-		 * value:[{"fileName":"1_140411199408210451_20170317090935_0100.MP4"
-		 * },{"fileName":"1_140411199408210451_20170317082317_0100.MP4"}]
-		 * key:sucFileList value:[]
-		 */
-		Map<String, Object> data = (Map<String, Object>) str.get("data");
-		Iterator<?> it = data.entrySet().iterator();
-
-		Object value = null;
-		/* 遍历 */
-		while (it.hasNext()) {
-			/* 从迭代器中获取一个entry对象 */
-			Entry<?, ?> entry = (Entry<?, ?>) it.next();
-			/* 通过entry.getKey()的方法获取key值 */
-			if (entry.getKey().equals("sucFileList")) {
-				System.out.println("key:" + entry.getKey());
-				/* 通过entry.getValue()的方法获取value值 */
-				System.out.println("value:" + entry.getValue());
-				value = entry.getValue();
-			} else {
+		try {
+			// 此处一系列代码皆为脱壳，为的是获取录像编号
+			// 获取result的map
+			/*
+			 * key:code value:200 key:data value:{"failFileList":[{"fileName":
+			 * "1_140411199408210451_20170317090935_0100.MP4"
+			 * },{"fileName":"1_140411199408210451_20170317082317_0100.MP4" }],
+			 * "sucFileList":[]} key:errMsg value:Operate success.
+			 */
+			Map<String, Object> str = (Map<String, Object>) JSON.parse(result);
+			Iterator<?> it1 = str.entrySet().iterator();
+			/* 遍历 */
+			while (it1.hasNext()) {
+				/* 从迭代器中获取一个entry对象 */
+				Entry<?, ?> entry = (Entry<?, ?>) it1.next();
+				/* 通过entry.getKey()的方法获取key值 */
 				System.out.println("key:" + entry.getKey());
 				/* 通过entry.getValue()的方法获取value值 */
 				System.out.println("value:" + entry.getValue());
 			}
-		}
-		System.out.println(value);
-
-		/**
-		 * 从json数组中得到相应java数组
-		 * 
-		 * JSONArray下的toArray()方法的使用
-		 */
-		/*
-		 * {"fileName":"1_140411199408210451_20170317090935_0100.MP4"}
-		 * {"fileName":"1_140411199408210451_20170317082317_0100.MP4"}
-		 */
-		Map<String, Object> ob1 = null;
-		Object[] obj = getJsonToArray(value.toString());
-		for (int i = 0; i < obj.length; i++) {
-			System.out.println(obj[i]);
-			// 头一个为最近录取录像编号
-			ob1 = (Map<String, Object>) obj[0];
-		}
-		Iterator<?> it3 = ob1.entrySet().iterator();
-		/* 遍历 */
-		while (it3.hasNext()) {
-			/* 从迭代器中获取一个entry对象 */
-			Entry<?, ?> entry = (Entry<?, ?>) it3.next();
-			/* 通过entry.getKey()的方法获取key值 */
-			System.out.println("key:" + entry.getKey());
-			/* 通过entry.getValue()的方法获取value值 */
-			System.out.println("value:" + entry.getValue());
-			// 直接获得------------1_140411199408210451_20170317090935_0100.MP4
-			videonumber = (String) entry.getValue();
-			// resultList.add(videonumber);
-
+			/*
+			 * 次处为data的map key:failFileList
+			 * value:[{"fileName":"1_140411199408210451_20170317090935_0100.MP4"
+			 * }, {"fileName":"1_140411199408210451_20170317082317_0100.MP4"}]
+			 * key:sucFileList value:[]
+			 */
+			Map<String, Object> data = (Map<String, Object>) str.get("data");
+			Iterator<?> it = data.entrySet().iterator();
+			// 局部变量
+			Object value = null;
+			Object[] true_obj = null;
+			/* 遍历 */
+			while (it.hasNext()) {
+				/* 从迭代器中获取一个entry对象 */
+				Entry<?, ?> entry = (Entry<?, ?>) it.next();
+				/* 通过entry.getKey()的方法获取key值 */
+				System.out.println("key:" + entry.getKey());
+				/* 通过entry.getValue()的方法获取value值 */
+				if (entry.getKey().equals("sucFileList")) {
+					System.out.println("value:" + entry.getValue());
+					value = entry.getValue();
+					true_obj = getJsonToArray(value.toString());
+				}
+			}
+			/**
+			 * 从json数组中得到相应java数组 JSONArray下的toArray()方法的使用
+			 */
+			/*
+			 * [{"fileName":"1_140411199408210451_20170317090935_0100.MP4"}
+			 * {"fileName":"1_140411199408210451_20170317082317_0100.MP4"}]
+			 */
+			Map<String, Object> ob1 = null;
+			if (true_obj.length != 0) {
+				for (int i = 0; i < true_obj.length; i++) {
+					System.out.println(true_obj[i]);
+					ob1 = (Map<String, Object>) true_obj[i];
+				}
+				for (Object s : ob1.values()) {
+					System.out.println(s);
+					videonumber = s.toString();
+				}
+			} else {
+				videonumber = "";
+			}
+		} catch (Exception e) {
+			System.out.println("video的getSuccessFile异常");
+			videonumber = "";
 		}
 		return videonumber;
 	}
@@ -354,6 +339,8 @@ public class Video {
 			String identificationCard, int roomId) throws IOException {
 		String result = "";
 		String json = packjson(band_ID, identificationCard, roomId);
+		System.out.println(band_ID + "    " + identificationCard + "      "
+				+ roomId);
 		for (int i = 1; i <= 3; i++) {
 			result = HttpRequest.sendOkMCVPost(
 					PropertiesReadUtils.getRecordConfString("SwitchRecording"),

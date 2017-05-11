@@ -263,7 +263,9 @@
 			<version>7.0</version>
 			<scope>provided</scope>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/gnu.io/rxtx -->
+		
 	</dependencies>
 	<build>
 		<plugins>

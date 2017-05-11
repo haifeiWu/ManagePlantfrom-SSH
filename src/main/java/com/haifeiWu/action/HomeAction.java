@@ -1,6 +1,7 @@
 package com.haifeiWu.action;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.haifeiWu.utils.PropertiesReadUtils;
+import com.haifeiWu.utils.PropertiesWriteUtils;
 
 /**
  * 主页面 的设计
@@ -24,16 +26,18 @@ import com.haifeiWu.utils.PropertiesReadUtils;
 @Scope("prototype")
 public class HomeAction {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2941802033175754434L;
-
 	@RequestMapping(value = "/top")
-	public String top(HttpServletRequest request) {
+	public String top(HttpServletRequest request)
+			throws UnsupportedEncodingException {
 		// 读取配置文件中的公安局名称
 		String title = PropertiesReadUtils.getTitleString("title");
 		String name = PropertiesReadUtils.getTitleString("name");
+		String flag=title.substring(0, 1);
+		if(flag!=null&&flag.equals("\\")){
+			title = PropertiesWriteUtils.ascii2Native(title);
+			name = PropertiesWriteUtils.ascii2Native(name);
+			System.out.println(title+"...."+name);
+		}
 		request.setAttribute("title", title);
 		request.setAttribute("name", name);
 		return "WEB-INF/jsp/home/top";
@@ -53,9 +57,29 @@ public class HomeAction {
 		cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
 		response.addCookie(cookie);
 		// 读取websocket的路径
-		request.setAttribute("webSocket",
-				PropertiesReadUtils.getRecordConfString("webSocket"));
-		return "jsp/index";
+		// Properties prop = new Properties();
+		// InputStream in = this.getClass().getResourceAsStream(
+		// "/recordConf.properties");// path是录播设备的配置文件
+		// try {
+		// prop.load(in);
+		// } catch (IOException e) {
+		// throw new RuntimeException();
+		// }
+		// String webSocket = prop.getProperty("webSocket");
+		String remoteServerIP = PropertiesReadUtils
+				.getRecordConfString("remoteServerIP");
+		String remoteServerPort = PropertiesReadUtils
+				.getRecordConfString("remoteServerPort");
+		System.out.println("-----------------" + remoteServerIP);
+		System.out.println("-----------------" + remoteServerPort);
+		// String webSocket =
+		// PropertiesReadUtils.getRecordConfString("webSocket");
+
+		String webSocket = PropertiesReadUtils.getRecordConfString("webSocket");
+		request.setAttribute("webSocket", webSocket);
+
+		return "WEB-INF/jsp/home/index";
+
 	}
 
 	@RequestMapping(value = "/main")

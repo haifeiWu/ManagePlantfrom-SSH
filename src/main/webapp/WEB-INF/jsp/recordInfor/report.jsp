@@ -8,14 +8,24 @@
 <head>
 <meta charset="UTF-8">
 <title>嫌疑人全部信息表</title>
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<link rel="stylesheet" href="css/Suspect_All.css" />
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/Suspect_All.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/bootstrap.min.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath }/css/Suspect_All.css" />
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/Suspect_All.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		alert("haha");
+		var arry=new Array(); 
+		<c:forEach items="${room_Name }" var="item" >
+			arry.push("${item }");
+			alert(${item });
+			alert(arry[3]);
+		</c:forEach>
+	
+	
+	
 		// 数据信息的显示与隐藏
 		$(".show").click(function() {
 
@@ -125,25 +135,46 @@
 
 			<form class="row">
 				<h1 class="col-lg-12 col-md-10 col-sm-12">
-					<img src="images/jinghui.png">&nbsp;&nbsp;&nbsp;&nbsp;离石区公安局嫌疑人入区报告
+					<img src="${pageContext.request.contextPath }/images/jinghui.png">&nbsp;&nbsp;&nbsp;&nbsp;交城县公安局嫌疑人入区报告
 				</h1>
 				<ul class="report col-lg-12 col-md-12 col-sm-10">
 					<li class="l1">档案编号：<input type="text"
 						value="${suspect.suspect_ID }" readonly="readonly"
 						name="suspectId" /></li>
-					<li class="l2">报告时间：<input type="date"
+					<li class="l2">报告时间：<input type="text"
 						value="${reportCreateTime }" readonly="readonly" /></li>
 					<li class="l3">羁押时间：<input type="text" value="${suspect.detain_Time }"
 						readonly="readonly"></li>
 				</ul>
 			</form>
 
-			<!-- 文件下载链接   "-->
+			<!-- 日志   "-->
+			<table class="All_total col-lg-12  col-sm-12 table table-bordered" style="width: 916px;text-align: center;">
+									<tr style="background: #3c96c8;height: 36px;text-align: center;">
+									<th style="text-align: center;">序号</th>
+									<th style="text-align: center;">档案编号</th>
+									<th style="text-align: center;">流程号</th>
+									<th style="text-align: center;">开始时间</th>
+									<th style="text-align: center;">结束时间</th>
+									<th style="text-align: center;">办案人员</th>
+								</tr>
 
+								<c:forEach items="${suspectLog }" var="item">
+									<tr>
+										<td>${item.log_ID }</td> 
+										<td>${item.suspect_ID }</td>
+										<td>${item.process_ID }</td>
+										<td>${item.start_Time }</td>
+										<td>${item.end_Time }</td>
+										<td>${item.staff_ID }</td>
+
+									</tr>
+								</c:forEach>
+			</table>
 			<form class="row">
 				<h4 id="Person_info"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					1、入区登记报告<span class="show">隐藏信息</span>
+					1、入区登记报告<!-- <span class="show">隐藏信息</span> -->
 				</h4>
 				<!--嫌疑人身份证信息-->
 				<div id="All_first">
@@ -151,9 +182,9 @@
 						style="border-bottom: 1px solid #389AC7; padding-bottom: 3px;color: #f69d1f;width: 15%;font-size: 17px;margin-top: 6%;margin-left: 23px;">1.1&nbsp;身份证信息</p>
 
 					<div class="pic col-lg-4 col-md-4 col-sm-4 col-xs-4">
-						<img id="img_1" src="images/1-zhengmian_04.png" /> <img
-							id="img_2" src="images/1-cemian_06.png" />
-						<p class="date_pic col-lg-6 col-md-6 col-sm-6">2016年10月20日
+						<img id="img_1" src="${suspect.frontal_Photo }" /> <img
+							id="img_2" src="${suspect.sideWays_Photo }" />
+						<p class="date_pic col-lg-6 col-md-6 col-sm-6">
 							&nbsp; &nbsp; &nbsp;嫌疑人入区登记照片</p>
 					</div>
 					<div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
@@ -219,6 +250,12 @@
 								<td style="text-align: center;">联系方式：</td>
 								<td colspan="4">${suspect.phone }</td>
 							</tr>
+							<tr>
+								<td style="text-align: center;">办案民警签名：</td>
+								<td colspan="4">${suspect.staff_ID }</td>
+								<td style="text-align: center;">管理员签名：</td>
+								<td colspan="4">${suspect.staff_ID }</td>
+							</tr>
 
 							<tr>
 								<td style="text-align: center;">入区时间：</td>
@@ -226,17 +263,23 @@
 								<td style="text-align: center;">RFID:</td>
 								<td colspan="4">${suspect.band_ID }</td>
 							</tr>
+							
+							
 							<tr>
 								<td style="text-align: center;">进入办案区原因：</td>
 
-								<td colspan="9">${suspect.suspected_Cause }</td>
+								<td colspan="4">${suspect.suspected_Cause }</td>
+								<td style="text-align: center;">音视频编码：</td>
 
-							</tr>
-							<tr>
-								<td style="text-align: center;">办案民警签名：</td>
-								<td colspan="4">${suspect.staff_ID }</td>
-								<td style="text-align: center;">管理员签名：</td>
-								<td colspan="4">${suspect.staff_ID }</td>
+								<td colspan="4">${suspect.vedio_Number }
+								<c:if test="${suspect.process_Now eq -1}">
+									<c:if test="${empty suspect.vedio_Number}">
+										<c:if test="${suspect.recordVideo_State eq 0}">该嫌疑人未进行录像</c:if>
+										<c:if test="${suspect.recordVideo_State != 0}">录像下载失败</c:if>
+									</c:if>
+								</c:if>
+								<c:if test="${suspect.process_Now != -1}">录像未结束</c:if>
+								</td>
 							</tr>
 						</table>
 					</div>
@@ -246,7 +289,7 @@
 			<form class="row">
 				<h4 id="Person_safety"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					2、人身安全检查 <span class="show1">显示信息</span>
+					2、人身安全检查 <!-- <span class="show1">显示信息</span> -->
 				</h4>
 				<div id="All_second">
 					<div class="row_1">
@@ -254,22 +297,29 @@
 							style="font-size: 17px;">2.1&nbsp;自述情况</p>
 						<table class="checked_state col-lg-12 col-md-10 col-sm-10"
 							style="margin-top: 6px;margin-left: 56px;">
+							<tr><td>
+							<table style="width: 600px;table-layout:fixed;">
 							<tr>
-								<td style="padding-left: 40px; width: 88px;font-size: 16px;">是否饮酒：</td>
+								<td style="padding-left: 79px; width: 170px;font-size: 16px;">是否饮酒：</td>
 								<td style="font-size: 16px;">${personal_Check.is_Drink }</td>
 
 							</tr>
 							<tr>
-								<td style="padding-left: 40px; width: 203px;font-size: 16px;">是否患有传染性疾病：
+								<td style="padding-left: 0; width: 170px;font-size: 16px;">是否患有传染性疾病：
 									</li>
 								<td style="font-size: 16px;">${personal_Check.is_Diseases }</td>
 							</tr>
+							<tr>
+								<td style="padding-left: 74px; width: 170px;font-size: 16px;align:top;">自述症状：
+									</li>
+								<td style="font-size: 16px; word-wrap:break-word;">${personal_Check.self_ReportS }</td>
+							</tr></td></tr></table>
 						</table>
-						<fieldset class="col-lg-12 col-md-12 col-sm-12"
+						<%-- <fieldset class="col-lg-12 col-md-12 col-sm-12"
 							style="margin-left: 79px;">
 							<font size="3">自述症状：${personal_Check.self_ReportS }</font>
 
-						</fieldset>
+						</fieldset> --%>
 					</div>
 					<!--体检信息表-->
 
@@ -277,31 +327,32 @@
 						<p class="check col-lg-12 col-md-10 col-sm-10"
 							style="font-size: 17px;">2.2&nbsp;检查情况</p>
 						<!--体检信息表-->
-						<table class="checked_state col-lg-12 col-md-10 col-sm-10">
+						<table class="checked_state col-lg-12 col-md-10 col-sm-10" s>
 							<tr>
 								<c:if test="${!empty personal_Check.check_Situation }">
-									<td style="padding-left: 88px; width: 120px;font-size: 16px;">人身检查状态：</td>
+									<td style="padding-left: 96px; width: 120px;font-size: 16px;">人身检查状态：</td>
 									<td style="font-size: 16px;">${personal_Check.check_Situation }</td>
 								</c:if>
 
 							</tr>
 							<tr>
 								<td
-									style="padding-left: 88px;width:200px; vertical-align: top;font-size: 16px;">检查情况：</td>
+									style="padding-left: 127px;width:200px; vertical-align: top;font-size: 16px;">检查情况：</td>
 								<td
 									style="text-align: left; vertical-align: top; font-size: 16px;"
-									rea><div style="width: 40%;height: 70px;border: 1px solid;"><p >${personal_Check.check_ReportS }</p></div></td>
+									rea><div style="overflow:auto; width: 60%;height: 110px;border: 1px solid;word-wrap: break-word; word-break: normal;
+									">${personal_Check.check_ReportS }</div></td>
 							</tr>
 							<tr>
 								<td
-									style="padding-left:88px;font-size: 16px;padding-top: 5px;width:26%;">被检查人/监护人：
+									style="padding-left:72px;font-size: 16px;padding-top: 5px;width:26%;">被检查人/监护人：
 								</td>
 								<td style="font-size: 16px;">${suspect.suspect_Name }</td>
 								<!--<td></td>-->
 							</tr>
 						</table>
-						<img src="images/check_08.png"
-							style="width:24%;position:relative;left: 551px;top:-195px;" />
+						<img src="${pageContext.request.contextPath }/images/check_08.png"
+							style="width:24%;position:relative;left: 650px;top:-195px;" />
 					</div>
 					<br>
 
@@ -314,13 +365,13 @@
 						<p class="check_woods col-lg-12 col-md-10 col-sm-10"
 							style="font-size: 17px;">2.3&nbsp;随身财物检查登记</p>
 						<div>
-							<c:if test="${empty belongingS }">
+							<%-- <c:if test="${empty belongingS }">
 
 								<p
 									style="position: relative;margin-top:59px;left: 89px;top:-4px;width: 58%;color: #f00; text-align: left;padding-right: 367px;">该嫌疑人无随身财物检查登记记录</p>
 								<!-- <div style="margin-left: 12px;margin-top: 45px;">该嫌疑人无随身财物检查登记记录</div> -->
 							</c:if>
-							<c:if test="${!empty belongingS }">
+							<c:if test="${!empty belongingS }"> --%>
 							<table class="woods_check col-lg-12 col-md-10 col-sm-10">
 								<tr>
 									<td>序号</td>
@@ -344,6 +395,18 @@
 
 									</tr>
 								</c:forEach>
+								<c:if test="${empty belongingS }">
+									<tr>
+										<td>${item.belongingS_ID }</td>
+										<td>${item.belonging_Name }</td>
+										<td>${item.belonging_Number }</td>
+										<td>${item.belonging_Count }</td>
+										<td>${item.belonging_Unit }</td>
+										<td>${item.keeping_ID }</td>
+										<td>${item.cabinet_Number }</td>
+
+									</tr>
+								</c:if>
 							</table>
 
 						</div>
@@ -354,7 +417,7 @@
 								<li>涉案人员: ${suspect.suspect_Name }</li>
 							</ul>
 						</div>
-						</c:if>
+						<%-- </c:if> --%>
 					</div>
 
 				</div>
@@ -363,29 +426,32 @@
 			<form class="row">
 				<h4 id="Info_Collect"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					3、信息采集报告<span class="show2">显示信息</span>
+					3、信息采集报告<!-- <span class="show2">显示信息</span> -->
 				</h4>
 				<div id="All_third">
-					<c:if test="${empty information_Collection }">
+					<%-- <c:if test="${empty information_Collection }">
 					<div
 							style="position: relative;left: 89px;top:23px;width: 41%;color: #f00">该嫌疑人无信息采集记录</div>
 					</c:if>
-					<c:if test="${!empty information_Collection }">
-					<table class="info_collect col-lg-12 col-md-10 col-sm-10"
-						style="margin-left: 80px;">
-						<tr>
-							<td style="width: 35px;">信息采集：</td>
-							<td style="width: 55px;">${information_Collection.is_Collected }</td>
-							<td style="width: 35px;">采集项目：</td>
-							<td style="width: 55px;">${information_Collection.collected_Item }</td>
-							<td style="width: 35px;">信息入库：</td>
-							<td style="width: 55px;">${information_Collection.is_Storaged }</td>
-							<td style="width: 35px;">检查对比：</td>
-							<td style="width: 55px;">${information_Collection.is_Checked }</td>
-						</tr>
+					<c:if test="${!empty information_Collection }"> --%>
+					
+					<table class="final_Leave col-lg-12 col-md-10 col-sm-10" style="width: 825px;position: relative;left: 50px;margin-top: 25px;height:50px;">
+								<tr>
 
-					</table>
-					</c:if>
+									<td style="text-align: center;">信息采集</td>
+									<td style="text-align: center;">采集项目</td>
+									<td style="text-align: center;">信息入库</td>
+									<td style="text-align: center;">检查对比</td>
+								</tr>
+								<tr>
+									<td>${information_Collection.is_Collected }</td>
+									<td>${information_Collection.collected_Item }</td>
+									<td>${information_Collection.is_Storaged }</td>
+									<td>${information_Collection.is_Checked }</td>
+								</tr>
+
+							</table>
+					<%-- </c:if> --%>
 					
 				</div>
 			</form>
@@ -393,57 +459,138 @@
 			<form class="row">
 				<h4 id="record_registr"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					4、办案区活动记录<span class="show3">显示信息</span>
+					4、办案区活动记录<!-- <span class="show3">显示信息</span> -->
 				</h4>
 				<div id="All_forth">
-					<c:if test="${empty activity_Record }">
+					<%-- <c:if test="${empty activity_Record }">
 
 						<div
 							style="position: relative;left: 89px;top:23px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
 					</c:if>
-					<c:if test="${!empty activity_Record }">
-					<table class="active_check col-lg-12 col-md-10 col-sm-10">
-						<tr>
-							<td>序号</td>
-							<td>开始时间</td>
-							<td>结束时间</td>
-							<td>房间ID</td>
-							<td>活动内容</td>
-							<td>音视频编码</td>
-							<td>备注</td>
-						</tr>
+					<c:if test="${!empty activity_Record }"> --%>
+					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 3px !important;width:960px !important; ">
+					<tr>
+						<td>序号</td>				
+						<td>活动记录</td>
+						<td>功能房间</td>
+						<td>开始时间</td>
+						<td>结束时间</td>
+						<td>完整性</td>					
+						<td>备注</td>
+					</tr>
+				<tr>
 
-						<c:forEach items="${activity_Record }" var="item">
-							<tr>
-								<td>${item.activity_Record_ID }</td>
-								<td>${item.start_Time }</td>
-								<td>${item.end_Time }</td>
-								<td>${item.room_ID }</td>
-								<td>${item.activity_Record }</td>
-								<td>${item.vedio_Number }</td>
-								<td>${item.remark }</td>
-							</tr>
-						</c:forEach>
-					</table>
-					</c:if>
+				   <td>1</td>
+					<td>入区人员登记信息</td>
+					<td>  值班室</td>
+						<td >
+							 <c:if test="${!empty SuspectInfor}">${SuspectInfor.enter_Time}</c:if>
+							   <c:if test="${empty SuspectInfor}">&nbsp&nbsp&nbsp&nbsp---&nbsp&nbsp&nbsp&nbsp</c:if>
+						</td>
+						<td >
+							&nbsp&nbsp---&nbsp&nbsp
+
+						</td>
+						<td >
+							 <c:if test="${!empty SuspectInfor}">${suspect_complete_degree}%</c:if>
+							 <c:if test="${empty SuspectInfor}">${suspect_complete_degree}%</c:if>
+						</td>
+						<td>
+							  <c:if test="${!empty SuspectInfor}">进入办案区原因:${SuspectInfor.suspected_Cause}</c:if>
+							 <c:if test="${empty SuspectInfor}">---</c:if>
+						</td>
+				</tr>
+				<tr>
+
+				    <td>2</td>
+					<td>人身安全检查</td>
+					
+					<td >
+							<c:if test="${!empty personal_Check}">${checkRoomName}</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
+					</td>
+					</td>
+						<td >
+							<c:if test="${!empty personal_Check}">${personal_Check.check_StartTime}</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
+						</td>
+						<td >
+							<c:if test="${!empty personal_Check}">${personal_Check.check_EndTime}</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
+						</td>
+						<td >
+							 <c:if test="${!empty personal_Check}">${personal_Check_complete_degree }%</c:if>
+							 <c:if test="${empty personal_Check}">${personal_Check_complete_degree }%</c:if>
+						</td>
+						<td>
+							<c:if test="${!empty personal_Check}">
+							 	人身检查状态:${personal_Check.check_Situation}</c:if>
+						  <c:if test="${empty personal_Check}">未填写人身安全检查</c:if>
+						</td>
+				</tr>
+				<tr>
+
+				    <td>3</td>
+					<td>信息采集</td>
+					<td>
+					  <c:if test="${!empty information_Collection}">${ICRoomName}</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
+				    </td>
+						<td >
+							<c:if test="${!empty information_Collection}">${information_Collection.ic_StartTime}</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
+						</td>
+						<td >
+							<c:if test="${!empty information_Collection}">${information_Collection.ic_EndTime}</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
+
+						</td>
+						<td >
+							 <c:if test="${!empty information_Collection}">${information_Collection_complete_degree}%</c:if>
+							 <c:if test="${empty information_Collection}">${information_Collection_complete_degree}%</c:if>
+						</td>
+						<td>
+							  <c:if test="${!empty information_Collection}">
+							 	  采集项目:${information_Collection.collected_Item}</c:if>
+							  <c:if test="${empty information_Collection}">未填写信息采集</c:if>
+						</td>
+				</tr>
+
+				<c:if test="${!empty activity_record}">
+				
+					 <c:forEach items="${activity_record }" var="ari" varStatus="s" >
+						   <tr style="height: 70px;" >
+						   <td>${s.index+4 }</td>
+						   <td>${ari.activity_Record }</td>
+						        <td>${ari.room_Name }</td>
+						   		<td>${ari.start_Time }</td>
+						   		<td>${ari.end_Time }</td>
+						   		<td>---</td>
+						   		<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; ">${ari.remark }</textarea></td>
+						   	</tr>
+					</c:forEach>
+				</c:if>
+				</table>
+					<%-- </c:if> --%>
 				</div>
 			</form>
+			<!--离开办案区登记-->
 			<!--离开办案区登记-->
 			<form class="row">
 				<h4 id="Leave_depart"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
-					5、离开办案区登记<span class="show4">显示信息</span>
+					5、离开办案区登记<!-- <span class="show4">显示信息</span> -->
 				</h4>
 				<div id="fifth">
 					<div class="row_1">
 						<p
 							style="color: #389AC7;margin-top: 6%;margin-left:6%;font-size: 17px;">临时离开办案区</p>
-						<c:if test="${empty temporaryLeaves }">
+						 <%-- <c:if test="${empty temporaryLeaves }"> 
 
 							<div
 								style="position: relative;left: 90px;top:0px;width: 41%;color: #f00">该嫌疑人无临时离区记录</div>
 						</c:if>
-							<c:if test="${!empty temporaryLeaves }">
+							<c:if test="${!empty temporaryLeaves }"> --%>
 						<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td>序号</td>
@@ -463,23 +610,28 @@
 
 								</tr>
 							</c:forEach>
+							<c:if test="${empty temporaryLeaves }"> 
+								<tr>
+									<td>${item.temporary_Leave_Id }</td>
+									<td>${item.tempLeave_Time }</td>
+									<td>${item.tempLeave_Reason }</td>
+									<td>${item.staff_ID }</td>
+									<td>${item.return_Time }</td>
 
+
+								</tr>
+							</c:if>
 						</table>
-						</c:if>
 					</div>
-					<hr style="margin-top: 33px;border: 1px solid darkgray;" />
+					
 					<!--最终离开办案区的信息表-->
 					<div class="row_1" style="margin-top: 20px;">
+					<p></p>
 						<p
-							style="color: #389AC7;margin-top: -1%;margin-left:6%;font-size: 17px;">最终离开办案区:</p>
-						<c:if test="${empty leave_Record }">
-
-							<div
-								style="position: relative;left: 90px;top:0px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
-						</c:if>
+							style="color: #389AC7;margin-top: 9%;margin-left:6%;font-size: 17px;">最终离开办案区</p>
 						<div>
 							<table class="final_Leave col-lg-12 col-md-10 col-sm-10">
-								<tr>
+								<tr style="background: #0070c0;color: #fff">
 
 									<td style="text-align: center;">最终离开时间</td>
 									<td style="text-align: center;">离开原因</td>
@@ -494,7 +646,7 @@
 									<td>${leave_Record.leave_Reason}</td>
 									<td>${leave_Record.belongingS_Treatment_Method}</td>
 									<td>${leave_Record.belongingS_Treatment_Record}</td>
-									<td>${leave_Record.recipient_Person}"</td>
+									<td>${leave_Record.recipient_Person}</td>
 									<td>${leave_Record.recipient_Person_Number }</td>
 									<td>${leave_Record.treatment_Time }</td>
 								</tr>
@@ -503,13 +655,13 @@
 						</div>
 					</div>
 					<hr style="margin-top: 114px;border: 1px solid darkgray;" />
-
-					<p id="signature">
-						管理员签名：&nbsp;&nbsp;&nbsp;<input type="text" value="admin" />
-					</p>
 					
 						<!-- <input  id="download" type="button" value="下载" /> -->
-						<a href="${pdfFilePath }">下载入区报告</a>
+						<c:if test="${suspect.process_Now == -1}">
+							<a href="${pdfFilePath }" style="margin-left: 36%; margin-top: 10px;position: relative; display: inline-block;background: #D0EEFF;
+								border: 1px solid #99D3F5;border-radius: 4px;padding: 4px 12px;overflow: hidden;color: #1E88C7;text-decoration: none;text-indent: 0;line-height: 20px;left: 45px; "
+							>下载入区报告</a>
+						</c:if>
 						<!-- <script type="text/javascript">
 						    $("#download").click(function(){
 						    
