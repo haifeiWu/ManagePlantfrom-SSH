@@ -26,5 +26,5 @@ public interface LogService {
 	public PageBean findLoginfor(String staffName, int i, int page,String hql);
 	public void updateStaff(PHCSMP_Process_Log process);
 	public PHCSMP_Process_Log searchEmpstaff();
-	public PHCSMP_Process_Log findlogBysuspect(String suspectId); 
+	public List<PHCSMP_Process_Log> findlogBysuspect(String suspectId); 
 }

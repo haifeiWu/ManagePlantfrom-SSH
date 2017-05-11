@@ -142,11 +142,14 @@ $(document).ready(function (){
     </ul>
 
 
+
     </dd>
     <!-- 修改此处body和html注销了 --> 
     </body>
 </html>
     <!-- 
+    </dd> 
+     <%--
 
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>数据库管理</div>
     <ul class="menuson">
@@ -174,5 +177,8 @@ $(document).ready(function (){
         	<li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环初始化</a><i></i></li>    
 	     </ul>
     </dd> 
-    </dl> -->
+    </dl>
+
     
+</body>
+</html>

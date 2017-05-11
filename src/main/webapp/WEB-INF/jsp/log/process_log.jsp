@@ -104,7 +104,7 @@
 					<td>${item.suspect_active }</td>
 					<td>${item.start_Time }</td>
 					<td>${item.end_Time }</td>
-					<td>${item.staff_Name }</td>
+					<td>${item.staff_ID }</td>
 					<td>${item.iP_Address }</td>
 				</tr>
 			</c:forEach>
