@@ -83,7 +83,8 @@ public class Activity_Record_Action {
 			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			String staff_ID = request.getParameter("staff_ID");
+			Integer staff_ID = Integer.parseInt(request
+					.getParameter("staff_ID"));
 			// PHCSMP_Activity_Record activity = new PHCSMP_Activity_Record();
 			// 获取前台数据
 			// String start_Time = request.getParameter("start_Time");
@@ -100,7 +101,7 @@ public class Activity_Record_Action {
 			// activity.setSuspect_ID(suspectId);
 			activity.setRoom_ID(roomId);
 			activity.setEnd_Time(End_Time);
-			activity.setStaffS(staff_ID);
+			activity.setStaff_ID(staff_ID);
 			request.setAttribute("staff_ID", staff_ID);
 			fullCheck(activity);
 			// 保存

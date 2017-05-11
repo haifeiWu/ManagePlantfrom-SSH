@@ -16,16 +16,6 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		alert("haha");
-		var arry=new Array(); 
-		<c:forEach items="${room_Name }" var="item" >
-			arry.push("${item }");
-			alert(${item });
-			alert(arry[3]);
-		</c:forEach>
-	
-	
-	
 		// 数据信息的显示与隐藏
 		$(".show").click(function() {
 

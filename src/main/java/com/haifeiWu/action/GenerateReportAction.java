@@ -79,77 +79,77 @@ public class GenerateReportAction {
 	@RequestMapping(value = "/load")
 	public String GR_loadInfor(HttpServletRequest request) throws IOException {
 		String suspectId = request.getParameter("suspectID");
-//		try {
-			// 查找嫌疑人日志
-			List<PHCSMP_Process_Log> suspectLog = getLogBysuspectId(suspectId);
-			request.setAttribute("suspectLog", suspectLog);
-			// 查找嫌疑人入区信息
-			PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
-			// 嫌疑人随身所有物品检查信息s
-			List<PHCSMP_BelongingS> belongingS = belongingInforService
-					.selectBelongInfor(suspectId);
+		// try {
+		// 查找嫌疑人日志
+		List<PHCSMP_Process_Log> suspectLog = getLogBysuspectId(suspectId);
+		request.setAttribute("suspectLog", suspectLog);
+		// 查找嫌疑人入区信息
+		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
+		// 嫌疑人随身所有物品检查信息
+		List<PHCSMP_BelongingS> belongingS = belongingInforService
+				.selectBelongInfor(suspectId);
 
-			// 查询办案人名
-			PHCSMP_Personal_Check personcheck = personalCheckService
-					.findInforBySuspetcId(suspectId);
-			if (personcheck != null) {
-				PHCSMP_Staff staff = userService.finstaffById(Integer
-						.parseInt(personcheck.getStaff_ID()));
-				String staffname = staff.getStaff_Name();
-				request.setAttribute("staffname", staffname);
-			}
-			System.out
-					.println(belongingS.toString()
-							+ "---------------------------------------------------------------");
+		// 查询办案人名
+		PHCSMP_Personal_Check personcheck = personalCheckService
+				.findInforBySuspetcId(suspectId);
+		if (personcheck != null) {
+			PHCSMP_Staff staff = userService.finstaffById(Integer
+					.parseInt(personcheck.getStaff_ID()));
+			String staffname = staff.getStaff_Name();
+			request.setAttribute("staffname", staffname);
+		}
+		System.out
+				.println(belongingS.toString()
+						+ "---------------------------------------------------------------");
 
-			// 嫌疑人人身检查信息
-			PHCSMP_Personal_Check personal_Check = personalCheckService
-					.findInforBySuspetcId(suspectId);
-			// 嫌疑人所有的办案区记录信息
-			List<PHCSMP_Activity_Record> activity_Record = activityRecordService
-					.selectActivityRecordInfor(suspectId);
-			List<String> room_Name = new ArrayList<String>();
-			for (PHCSMP_Activity_Record phcsmp_Activity_Record : activity_Record) {
+		// 嫌疑人人身检查信息
+		PHCSMP_Personal_Check personal_Check = personalCheckService
+				.findInforBySuspetcId(suspectId);
+		// 嫌疑人所有的办案区记录信息
+		List<PHCSMP_Activity_Record> activity_Record = activityRecordService
+				.selectActivityRecordInfor(suspectId);
+		List<String> room_Name = new ArrayList<String>();
+		for (PHCSMP_Activity_Record phcsmp_Activity_Record : activity_Record) {
 
-				room_Name.add(roomService.findByRoomID(
-						phcsmp_Activity_Record.getRoom_ID()).getRoom_Name());
-			}
-			request.setAttribute("room_Name", room_Name);
+			room_Name.add(roomService.findByRoomID(
+					phcsmp_Activity_Record.getRoom_ID()).getRoom_Name());
+		}
+		request.setAttribute("room_Name", room_Name);
 
-			// 嫌疑人信息采集记录
-			PHCSMP_Information_Collection information_Collection = informationCollectionService
-					.findInforBySuspetcId(suspectId);
-			// 嫌疑人离区信息记录
-			PHCSMP_Leave_Record leave_Record = leaveRecodService
-					.findInforBySuspetcId(suspectId);
-			// 暂时出区
-			List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
-					.findTempLeaveListBySuspectID(suspectId);
-			String reportCreateTime = new DateTime().toString("yyyy/MM/dd");
-			// 将查找到的信息放入request中，然后从页面加载
-			request.setAttribute("suspectId", suspect.getSuspect_ID());
-			request.setAttribute("suspect", suspect);
-			request.setAttribute("belongingS", belongingS);
-			request.setAttribute("personal_Check", personal_Check);
-			request.setAttribute("activity_Record", activity_Record);
-			request.setAttribute("information_Collection",
-					information_Collection);
-			request.setAttribute("leave_Record", leave_Record);
-			request.setAttribute("temporaryLeaves", temporaryLeaves);
-			// request.setAttribute("prisonHour", prisonHour);
-			request.setAttribute("reportCreateTime", reportCreateTime);
-			request.setAttribute("pdfFilePath",
-					PropertiesReadUtils.getPDFString("relatePath") + "\\"
-							+ suspectId + ".pdf");
-			return "WEB-INF/jsp/recordInfor/report";
-//		} catch (Exception e) {
-//			// response.getWriter()
-//			// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
-//			// response.getWriter().flush();
-//			request.setAttribute("error", "error");
-//
-//			return "redirect:/home/index";
-//		}
+		// 嫌疑人信息采集记录
+		PHCSMP_Information_Collection information_Collection = informationCollectionService
+				.findInforBySuspetcId(suspectId);
+		// 嫌疑人离区信息记录
+		PHCSMP_Leave_Record leave_Record = leaveRecodService
+				.findInforBySuspetcId(suspectId);
+		// 暂时出区
+		List<Temporary_Leave> temporaryLeaves = temporaryLeaveService
+				.findTempLeaveListBySuspectID(suspectId);
+		String reportCreateTime = new DateTime().toString("yyyy/MM/dd");
+		// 将查找到的信息放入request中，然后从页面加载
+		request.setAttribute("suspectId", suspect.getSuspect_ID());
+		request.setAttribute("suspect", suspect);
+		request.setAttribute("belongingS", belongingS);
+		request.setAttribute("personal_Check", personal_Check);
+		request.setAttribute("activity_Record", activity_Record);
+		request.setAttribute("information_Collection", information_Collection);
+		request.setAttribute("leave_Record", leave_Record);
+		request.setAttribute("temporaryLeaves", temporaryLeaves);
+		// request.setAttribute("prisonHour", prisonHour);
+		request.setAttribute("reportCreateTime", reportCreateTime);
+		request.setAttribute("pdfFilePath",
+				PropertiesReadUtils.getPDFString("relatePath") + "\\"
+						+ suspectId + ".pdf");
+		return "WEB-INF/jsp/recordInfor/report";
+		// } catch (Exception e) {
+		// // response.getWriter()
+		// //
+		// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
+		// // response.getWriter().flush();
+		// request.setAttribute("error", "error");
+		//
+		// return "redirect:/home/index";
+		// }
 
 	}
 

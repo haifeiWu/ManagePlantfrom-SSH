@@ -28,11 +28,11 @@ public class PHCSMP_Suspect implements Serializable {
 	private String suspected_Cause;// 进入办案区原因（案由字典表中ID用逗号分隔）
 	private String enter_Time;// 进入办案区时间
 	private String detain_Time;// 羁押时间
-	
+
 	private String vedio_Number;// 音频视频编码
 
 	// private String quit_time;// 离开信息登记室时间
-	private String staff_ID;// 办案民警,此处的办案民警是哪个流程的民警，还是多个隔开
+	private Integer staff_ID;// 办案民警,此处的办案民警是哪个流程的民警，还是多个隔开
 	// 此记录数据字典中没有，用来记录嫌疑人个人信息
 	private String address;// 家庭住址
 	private String now_address;// 家庭住址
@@ -72,7 +72,7 @@ public class PHCSMP_Suspect implements Serializable {
 			String suspect_Name, String sex, String birthday, String nation,
 			String phone, String type_ID, String identifyCard_Number,
 			String suspected_Cause, String enter_Time, String detain_Time,
-			String vedio_Number, String staff_ID, String address,
+			String vedio_Number, Integer staff_ID, String address,
 			String now_address, int total_record, int fill_record,
 			int process_Now, int room_Now, String identityCard_Photo,
 			String frontal_Photo, String sideWays_Photo, int recordVideo_State,
@@ -271,11 +271,11 @@ public class PHCSMP_Suspect implements Serializable {
 		this.suspected_Cause = suspected_Cause;
 	}
 
-	public String getStaff_ID() {
+	public Integer getStaff_ID() {
 		return staff_ID;
 	}
 
-	public void setStaff_ID(String staff_ID) {
+	public void setStaff_ID(Integer staff_ID) {
 		this.staff_ID = staff_ID;
 	}
 
@@ -295,24 +295,22 @@ public class PHCSMP_Suspect implements Serializable {
 		this.fill_record = fill_record;
 	}
 
-	/*@Override
-	public String toString() {
-		return "PHCSMP_Suspect [id=" + id + ", suspect_ID=" + suspect_ID
-				+ ", band_ID=" + band_ID + ", suspect_Name=" + suspect_Name
-				+ ", sex=" + sex + ", birthday=" + birthday + ", nation="
-				+ nation + ", phone=" + phone + ", type_ID=" + type_ID
-				+ ", identifyCard_Number=" + identifyCard_Number
-				+ ", suspected_Cause=" + suspected_Cause + ", enter_Time="
-				+ enter_Time + ", staff_ID=" + staff_ID + ", address="
-				+ address + ", now_address=" + now_address + ", total_record="
-				+ total_record + ", fill_record=" + fill_record
-				+ ", process_Now=" + process_Now + ", room_Now=" + room_Now
-				+ ", identityCard_Photo=" + identityCard_Photo
-				+ ", frontal_Photo=" + frontal_Photo + ", sideWays_Photo="
-				+ sideWays_Photo + ", recordVideo_State=" + recordVideo_State
-				+ ", is_RecordVideo_DownLoad=" + is_RecordVideo_DownLoad
-				+ ", cardReader_Switch=" + cardReader_Switch + "]";
-	}*/
+	/*
+	 * @Override public String toString() { return "PHCSMP_Suspect [id=" + id +
+	 * ", suspect_ID=" + suspect_ID + ", band_ID=" + band_ID + ", suspect_Name="
+	 * + suspect_Name + ", sex=" + sex + ", birthday=" + birthday + ", nation="
+	 * + nation + ", phone=" + phone + ", type_ID=" + type_ID +
+	 * ", identifyCard_Number=" + identifyCard_Number + ", suspected_Cause=" +
+	 * suspected_Cause + ", enter_Time=" + enter_Time + ", staff_ID=" + staff_ID
+	 * + ", address=" + address + ", now_address=" + now_address +
+	 * ", total_record=" + total_record + ", fill_record=" + fill_record +
+	 * ", process_Now=" + process_Now + ", room_Now=" + room_Now +
+	 * ", identityCard_Photo=" + identityCard_Photo + ", frontal_Photo=" +
+	 * frontal_Photo + ", sideWays_Photo=" + sideWays_Photo +
+	 * ", recordVideo_State=" + recordVideo_State + ", is_RecordVideo_DownLoad="
+	 * + is_RecordVideo_DownLoad + ", cardReader_Switch=" + cardReader_Switch +
+	 * "]"; }
+	 */
 
 	public String getIdentityCard_Photo() {
 		return identityCard_Photo;

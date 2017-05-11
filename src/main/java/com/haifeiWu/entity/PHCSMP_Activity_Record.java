@@ -25,7 +25,7 @@ public class PHCSMP_Activity_Record implements Serializable {
 	private String activity_Record;// 活动内容
 	// private String vedio_Number;// 音频视频编码
 	private String remark;// 备注
-	private String staffS;// 办案民警ID（多个民警ID间逗号间隔）
+	private Integer staff_ID;// 办案民警ID（多个民警ID间逗号间隔）
 
 	private int total_record = 60;// 需要填写的总记录数
 	private int fill_record;// 当前填写的记录数
@@ -93,12 +93,12 @@ public class PHCSMP_Activity_Record implements Serializable {
 		this.remark = remark;
 	}
 
-	public String getStaffS() {
-		return staffS;
+	public Integer getStaff_ID() {
+		return staff_ID;
 	}
 
-	public void setStaffS(String staffS) {
-		this.staffS = staffS;
+	public void setStaff_ID(Integer staff_ID) {
+		this.staff_ID = staff_ID;
 	}
 
 	public int getTotal_record() {
@@ -119,10 +119,13 @@ public class PHCSMP_Activity_Record implements Serializable {
 
 	@Override
 	public String toString() {
-		return "PHCSMP_Activity_Record [activity_Record_ID=" + activity_Record_ID + ", suspect_ID=" + suspect_ID
-				+ ", start_Time=" + start_Time + ", end_Time=" + end_Time + ", room_ID=" + room_ID
-				+ ", activity_Record=" + activity_Record + ", remark=" + remark + ", staffS=" + staffS
-				+ ", total_record=" + total_record + ", fill_record=" + fill_record + "]";
+		return "PHCSMP_Activity_Record [activity_Record_ID="
+				+ activity_Record_ID + ", suspect_ID=" + suspect_ID
+				+ ", start_Time=" + start_Time + ", end_Time=" + end_Time
+				+ ", room_ID=" + room_ID + ", activity_Record="
+				+ activity_Record + ", remark=" + remark + ", staff_ID="
+				+ staff_ID + ", total_record=" + total_record
+				+ ", fill_record=" + fill_record + "]";
 	}
 
 	/*

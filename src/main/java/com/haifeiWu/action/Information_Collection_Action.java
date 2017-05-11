@@ -63,13 +63,16 @@ public class Information_Collection_Action {
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			String staff_ID = request.getParameter("staff_ID");
+			Integer staff_ID = Integer.parseInt(request
+					.getParameter("staff_ID"));
 			String suspectId = model.getSuspect_ID();
 			if (model != null) {
 				model.setIc_EndTime(new DateTime().toString("yyyy-mm-dd HH:mm"));
 				model.setRoom_ID(roomId);
 				model.setStaff_ID(staff_ID);
-				System.out.println(staff_ID+"999999999999999999999999999999999999999999999999999999999");
+				System.out
+						.println(staff_ID
+								+ "999999999999999999999999999999999999999999999999999999999");
 				request.setAttribute("staff_ID", staff_ID);
 				fullCheck(model);
 				PHCSMP_Information_Collection old = informationCollectionService
