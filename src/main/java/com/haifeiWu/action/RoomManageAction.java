@@ -80,7 +80,8 @@ public class RoomManageAction {
 			System.out.println(pHCSMP_Room.getRoom_Name());
 			System.out.println(pHCSMP_Room.getCardReader_ID());
 			System.out.println(pHCSMP_Room.getRoom_IPAddress());
-			roomService.updateprocess_IDById(pHCSMP_Room.getCardReader_ID(), pHCSMP_Room.getRoom_ID(), pHCSMP_Room.getRoom_IPAddress());
+			//roomService.updateprocess_IDById(pHCSMP_Room.getCardReader_ID(), pHCSMP_Room.getRoom_ID(), pHCSMP_Room.getRoom_IPAddress());
+			roomService.updateRoomByRoomId(pHCSMP_Room.getRoom_ID(), pHCSMP_Room.getRoom_Name(), pHCSMP_Room.getCardReader_ID(), pHCSMP_Room.getRoom_IPAddress());
 		}
 		
 		return RM_loadInfor(request);

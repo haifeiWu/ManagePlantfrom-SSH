@@ -28,4 +28,5 @@ public interface RoomService {
 	
 	public void updateprocess_IDById(int cardReader_ID,int room_ID,String room_IPAddress);
 	
+	public void updateRoomByRoomId(int room_Id,String room_Name, int cardReader_ID,String room_IPAddress);
 }
