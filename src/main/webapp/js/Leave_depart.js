@@ -34,7 +34,7 @@ $(function(){
 
 });
 
-window.onload = function(){
+//window.onload = function(){
 // 设置进度条变化
 //if ($(".Message input[type='text']").val()!="") {
 //	$("#state img:eq(0)").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
@@ -55,11 +55,11 @@ window.onload = function(){
 //
 //	}
 		
-	});
+//	});
 
 // 出区登记
 
-$(document).ready(function(){
+//$(document).ready(function(){
 
 //	if ($(".transient_Leave input:lt(2)").val()!="") {
 //	$("#state img:eq(5)").attr("src","${pageContext.request.contextPath }/images/fgreen_03.png");
@@ -83,8 +83,8 @@ $(document).ready(function(){
 //	});
 
 
-});
+//});
 
 
 
-}
+//}
