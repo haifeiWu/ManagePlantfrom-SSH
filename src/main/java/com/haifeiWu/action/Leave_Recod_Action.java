@@ -183,40 +183,15 @@ public class Leave_Recod_Action {
 		// 释放手环
 		bandService.update(0, suspectInfor.getBand_ID());
 		// 下载PDF
-//		HtmlToPdf.createPdf(suspectID);
+		HtmlToPdf.createPdf(suspectID);
 		// 请求上传录像文件
 
-<<<<<<< HEAD
 		if (suspectInfor.getRecordVideo_State() != 0) {
 			Video.setRBServerCfg();// 远程服务器已配置
 			Video.setFtpServerCfg(suspectInfor.getBand_ID(),
 					suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
 			Video.uploadRecFile(suspectInfor.getBand_ID(),
 					suspectInfor.getIdentifyCard_Number());
-=======
-			// 释放回路
-			if (suspectInfor.getRecordVideo_State() != 0)
-				lineService.closeLine();
-			// 释放手环
-			bandService.update(0, suspectInfor.getBand_ID());
-			// 下载PDF
-//			HtmlToPdf.createPdf(suspectID);
-			// 请求上传录像文件
-//			Video.setRBServerCfg();// 远程服务器已配置
-//			Video.setFtpServerCfg(suspectInfor.getBand_ID(),
-//					suspectInfor.getIdentifyCard_Number());// ftp服务器已配置
-//			Video.uploadRecFile(suspectInfor.getBand_ID(),
-//					suspectInfor.getIdentifyCard_Number());
-			return "redirect:/home/index";
-		} catch (Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'> alert('提交失败，请重新提交'); </script>");
-			// response.getWriter().flush();
-			//
-			// request.setAttribute("leaveRecordLoadInfor", model);
-
-			return "redirect:/load";
->>>>>>> a04639b63ffa3fdbe59e52d15783de498bb2f32b
 		}
 		return "redirect:/home/index";
 		// } catch (Exception e) {
@@ -308,18 +283,14 @@ public class Leave_Recod_Action {
 			sb = new StringBuilder("");
 			// 查入区登记信息
 			suspectInfor = suspectService.findBySuspetcId(suspectId);
-			request.setAttribute("suspectInfor", suspectInfor);
 			// 并不需要再次进行完整性检查，只需读取数据，除一下即可
 			suspectComplete = (int) (suspectInfor.getFill_record()
 					/ (float) suspectInfor.getTotal_record() * 100);
 			if (suspectComplete != 100) {// 信息不完整
 				sb.append("入区登记信息填写不完整!  ");
 			}
-<<<<<<< HEAD
 
 			request.setAttribute("suspectInfor", suspectInfor);
-=======
->>>>>>> a04639b63ffa3fdbe59e52d15783de498bb2f32b
 			request.setAttribute("suspectComplete", suspectComplete);
 			// 查人身检查信息
 			personalCheck = personalCheckService
@@ -333,10 +304,6 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行人身检查操作! ");
 			}
-<<<<<<< HEAD
-=======
-			request.setAttribute("personalCheck", personalCheck);
->>>>>>> a04639b63ffa3fdbe59e52d15783de498bb2f32b
 			request.setAttribute("personalCheckComplete", personalCheckComplete);
 			// 查信息采集信息
 			informationCollection = informationCollectionService
@@ -352,13 +319,8 @@ public class Leave_Recod_Action {
 			} else {
 				sb.append("该嫌疑人并未进行信息采集操作!  ");
 			}
-<<<<<<< HEAD
 			request.setAttribute("informationCollectionComplete",
 					informationCollectionComplete);
-=======
-			request.setAttribute("informationCollection", informationCollection);
-			request.setAttribute("informationCollectionComplete", informationCollectionComplete);
->>>>>>> a04639b63ffa3fdbe59e52d15783de498bb2f32b
 			// 查询问讯问信息
 			activityRecordList = activityRecordService
 					.findInforBySuspetcId(suspectId);
@@ -389,10 +351,6 @@ public class Leave_Recod_Action {
 				sb.append("该嫌疑人并未进行询问讯问操作!  ");
 			}
 			request.setAttribute("activityRecordList", activityRecordList);
-<<<<<<< HEAD
-=======
-			request.setAttribute("completeMap", completeMap);
->>>>>>> a04639b63ffa3fdbe59e52d15783de498bb2f32b
 			// 判断是否出区返回
 			temporaryLeave = temporaryLeaveService
 					.IsTemporaryLeaveReturn(suspectId);
