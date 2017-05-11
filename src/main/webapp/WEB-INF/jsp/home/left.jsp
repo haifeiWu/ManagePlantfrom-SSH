@@ -113,24 +113,6 @@ $(document).ready(function (){
     </ul>    
     </dd>  
     
-     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico03.png" /></span>房间管理</div>
-    <ul class="menuson">
-        <li><cite></cite><a href="${pageContext.request.contextPath }/room/load" target="rightFrame">房间设置</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-    </ul>    
-    </dd>   
-    
-    
-     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>采集设备管理</div>
-    <ul class="menuson">
-    	<li><cite></cite><a href="${pageContext.request.contextPath }/CardReaderManage/loadInfor" target="rightFrame">读卡器设置</a><i></i></li>
-        <li><cite></cite><a href="${pageContext.request.contextPath }/band/bandFindAll" target="rightFrame">手环查看</a><i></i></li>      
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-    </ul>
-    </dd>  
     
 
     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统日志管理</div>
@@ -138,7 +120,6 @@ $(document).ready(function (){
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeinfo?page=1" target="rightFrame" >工作人员日志</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath}/log/executeProcess?page=1" target="rightFrame" >嫌疑人日志</a><i></i></li>
-        
     </ul>
     </dd>
 
@@ -153,14 +134,14 @@ $(document).ready(function (){
 	    </ul>
     </dd>
     
-    <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>涉案信息查询汇总</div>
+<%--     <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>涉案信息查询汇总</div>
     <ul class="menuson">
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
         <li><cite></cite><a href="#">待编辑</a><i></i></li>
     </ul>
-    </dd>  
+    </dd>   --%>
     
      <dd><div class="title"><span><img src="${pageContext.request.contextPath }/images/leftico04.png" /></span>系统初始化设置</div>
 	     <ul class="menuson">

@@ -70,7 +70,7 @@ public class GenerateReportAction {
 	private LogService logService; // 日志
 
 	/**
-	 * 生成嫌疑人入区信息报告
+	 * 生成嫌疑人入区信息报告 (杜意权改，嫌疑人报告办离区活动记录模块)
 	 * 
 	 * @return
 	 * @throws ParseException
@@ -85,7 +85,15 @@ public class GenerateReportAction {
 		request.setAttribute("suspectLog", suspectLog);
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
-		// 嫌疑人随身所有物品检查信息
+
+
+		int suspect_complete_degree = (int) (suspect.getFill_record()
+				/ (float) suspect.getTotal_record() * 100);
+		System.out.println("suspect_complete_degree" + suspect_complete_degree
+				+ "------------------------------------");
+		request.setAttribute("suspect_complete_degree", suspect_complete_degree);
+		// 嫌疑人随身所有物品检查信息s
+
 		List<PHCSMP_BelongingS> belongingS = belongingInforService
 				.selectBelongInfor(suspectId);
 
@@ -105,6 +113,17 @@ public class GenerateReportAction {
 		// 嫌疑人人身检查信息
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectId);
+
+		if (personal_Check != null) {
+			int personal_Check_complete_degree = (int) (personal_Check
+					.getFill_record()
+					/ (float) personal_Check.getTotal_record() * 100);
+			System.out.println("personal_Check_complete_degree"
+					+ personal_Check_complete_degree
+					+ "------------------------------------");
+			request.setAttribute("personal_Check_complete_degree",
+					personal_Check_complete_degree);
+		}
 		// 嫌疑人所有的办案区记录信息
 		List<PHCSMP_Activity_Record> activity_Record = activityRecordService
 				.selectActivityRecordInfor(suspectId);
@@ -119,6 +138,18 @@ public class GenerateReportAction {
 		// 嫌疑人信息采集记录
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
 				.findInforBySuspetcId(suspectId);
+
+		if (information_Collection != null) {
+			int information_Collection_complete_degree = (int) (information_Collection
+					.getFill_record()
+					/ (float) information_Collection.getTotal_record() * 100);
+			System.out.println("information_Collection_complete_degree"
+					+ information_Collection_complete_degree
+					+ "------------------------------------");
+			request.setAttribute("information_Collection_complete_degree",
+					information_Collection_complete_degree);
+		}
+
 		// 嫌疑人离区信息记录
 		PHCSMP_Leave_Record leave_Record = leaveRecodService
 				.findInforBySuspetcId(suspectId);
@@ -142,16 +173,16 @@ public class GenerateReportAction {
 						+ suspectId + ".pdf");
 		return "WEB-INF/jsp/recordInfor/report";
 		// } catch (Exception e) {
-		// // response.getWriter()
-		// //
-		// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
-		// // response.getWriter().flush();
-		// request.setAttribute("error", "error");
-		//
-		// return "redirect:/home/index";
-		// }
 
+		// response.getWriter()
+		// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
+		// response.getWriter().flush();
+		// request.setAttribute("error", "error");
+
+		// return "redirect:/home/index";
 	}
+
+	// }
 
 	/**
 	 * 按suspectId查询嫌疑人日志
