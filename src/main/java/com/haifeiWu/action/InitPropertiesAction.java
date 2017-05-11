@@ -25,16 +25,17 @@ public class InitPropertiesAction {
 		return "WEB-INF/jsp/home/initConfigs";
 	}
 
-	@RequestMapping(value="/getName")
-	public String getName(HttpServletRequest request,HttpServletResponse response){
+	@RequestMapping(value = "/getName")
+	public String getName(HttpServletRequest request,
+			HttpServletResponse response) {
 		try {
 			String title = PropertiesReadUtils.getTitleString("title");
 			String name = PropertiesReadUtils.getTitleString("name");
-			String flag=title.substring(0, 1);
-			if(flag!=null&&flag.equals("\\")){
+			String flag = title.substring(0, 1);
+			if (flag != null && flag.equals("\\")) {
 				title = PropertiesWriteUtils.ascii2Native(title);
 				name = PropertiesWriteUtils.ascii2Native(name);
-				System.out.println(title+"...."+name);
+				System.out.println(title + "...." + name);
 			}
 			request.setAttribute("name", name);
 			request.setAttribute("title", title);
@@ -43,9 +44,9 @@ public class InitPropertiesAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "jsp/login";
+		return "WEB-INF/jsp/login";
 	}
-	
+
 	@RequestMapping("/init")
 	public String init(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
@@ -55,17 +56,19 @@ public class InitPropertiesAction {
 			String name = request.getParameter("name");
 			// System.out.println("====从前台获得的title======"+title);
 			Map<String, String> policeTitleMap = new HashMap<String, String>();
-			policeTitleMap.put("title", PropertiesWriteUtils.native2Ascii(title));
+			policeTitleMap.put("title",
+					PropertiesWriteUtils.native2Ascii(title));
 			policeTitleMap.put("name", PropertiesWriteUtils.native2Ascii(name));
 			PropertiesWriteUtils.updateProperties("title.properties",
 					policeTitleMap);
-			title = PropertiesReadUtils.getTitleString("title");
-			name = PropertiesReadUtils.getTitleString("name");
+			// title = PropertiesReadUtils.getTitleString("title");
+			// name = PropertiesReadUtils.getTitleString("name");
 			// PDF信息初始化
 			String serverIp = request.getParameter("serverIp");
-			String serverPort=request.getParameter("serverPort");
+			String serverPort = request.getParameter("serverPort");
 			String toolPath = request.getParameter("toolPath");
-			String sourcePath = "http://"+serverIp+":"+serverPort+"/ManagePlantfrom-SSH/GR_loadInfor.action?suspectID=";
+			String sourcePath = "http://" + serverIp + ":" + serverPort
+					+ "/ManagePlantfrom-SSH/report/load?suspectID=";
 			String relatePath = request.getParameter("relatePath");
 			System.out.println("====从前台获得的PDF:toolPath======" + toolPath);
 			Map<String, String> pdfMap = new HashMap<String, String>();
@@ -82,8 +85,8 @@ public class InitPropertiesAction {
 				rootPath = path.substring(0, path.lastIndexOf("/"));
 				rootPath = rootPath.replace("/", "\\");
 			}
-			String serverPath=rootPath;
-			pdfMap.put("serverPath", serverPath);	
+			String serverPath = rootPath;
+			pdfMap.put("serverPath", serverPath);
 			PropertiesWriteUtils.updateProperties("pdf.properties", pdfMap);
 			// 录播系统信息初始化
 			String remoteServerIP = request.getParameter("recordIp");
@@ -155,18 +158,19 @@ public class InitPropertiesAction {
 			 * map3);
 			 */
 			// 服务器信息初始化
-			String ftpPort=request.getParameter("ftpPort");
-			String uploadDir=request.getParameter("uploadDir");
-			String userName=request.getParameter("userName");
-			String passWord=request.getParameter("passWord");
+			String ftpPort = request.getParameter("ftpPort");
+			String uploadDir = request.getParameter("uploadDir");
+			String userName = request.getParameter("userName");
+			String passWord = request.getParameter("passWord");
 			Map<String, String> ftpMap = new HashMap<String, String>();
 			ftpMap.put("serverIp", serverIp);
 			ftpMap.put("ftpPort", ftpPort);
 			ftpMap.put("uploadDir", uploadDir);
 			ftpMap.put("userName", userName);
 			ftpMap.put("passWord", passWord);
-			PropertiesWriteUtils.updateProperties("recordConf.properties",ftpMap);
-			
+			PropertiesWriteUtils.updateProperties("recordConf.properties",
+					ftpMap);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "redirect:/properties/load";

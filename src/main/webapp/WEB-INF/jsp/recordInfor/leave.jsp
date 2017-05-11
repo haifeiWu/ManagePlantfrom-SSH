@@ -358,7 +358,7 @@
 						<td>询问讯问</td>
 						<td>空</td>
 						<td>空</td>
-						<td class="complete">0%</td>
+						<td class="complete">---</td>
 						<td style="text-align:left;padding-left:30px;">活动内容：空</td>
 					</c:if>
 					<c:if test="${!empty pastList }">
