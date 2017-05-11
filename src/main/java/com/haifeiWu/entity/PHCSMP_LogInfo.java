@@ -17,7 +17,7 @@ public class PHCSMP_LogInfo implements Serializable {
 	private Integer log_ID;
 	private String date;
 	private String operation_Time;//操作时间
-	private String staff_Name;//操作用户
+	private int staff_ID;//操作用户
 	private String operation_Info;//操作内容
 	private String operation_Model;//操作模块
 	
@@ -44,11 +44,12 @@ public class PHCSMP_LogInfo implements Serializable {
 	public void setOperation_Time(String operation_Time) {
 		this.operation_Time = operation_Time;
 	}
-	public String getStaff_Name() {
-		return staff_Name;
+	
+	public int getStaff_ID() {
+		return staff_ID;
 	}
-	public void setStaff_Name(String staff_Name) {
-		this.staff_Name = staff_Name;
+	public void setStaff_ID(int staff_ID) {
+		this.staff_ID = staff_ID;
 	}
 	public String getOperation_Info() {
 		return operation_Info;

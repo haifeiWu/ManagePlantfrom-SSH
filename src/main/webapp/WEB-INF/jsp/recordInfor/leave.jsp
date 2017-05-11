@@ -83,7 +83,9 @@
 		}
 		function alertInfo(){
 			if(!confirm("信息不完整，你是否要继续办理出区/离区业务！")){
-				window.location.href="${pageContext.request.contextPath }/jsp/home/index.jsp";
+				//window.location.href="${pageContext.request.contextPath }/WEB-INF/jsp/home/index.jsp";
+				window.location.href="${pageContext.request.contextPath }/home/index";
+				
 			}
 		}
 		
@@ -475,7 +477,7 @@
 						<td class="td">随身物品处理情况:</td>
 						<td>	
 							<c:forEach items="${keepingWay }" var="v" varStatus="status">
-								<input type="radio" name="belongingS_Treatment_Method" value="${v.keeping_Name }" class="checkRadio">${v.keeping_Name }
+								<label for="belongingS_Treatment_Method${status.index }" style="font-weight:normal"><input type="radio" id="belongingS_Treatment_Method${status.index }"name="belongingS_Treatment_Method" value="${v.keeping_Name }" class="checkRadio">${v.keeping_Name }</label>
 							</c:forEach>
 						</td>
 					</tr>
@@ -483,7 +485,7 @@
 						<td style="color:#000 !important;">未反还物品情况记载:</td>						
 						<td style="padding: 8px 0;">
 							<c:forEach items="${treatmentMethod }" var="t" varStatus="status">
-								<input type="radio" name="belongingS_Treatment_Record" value="${t.treatment_Name }" class="checkRadio1">${t.treatment_Name }
+								<label for="belongingS_Treatment_Record${status.index }" style="font-weight:normal"><input id="belongingS_Treatment_Record${status.index }"type="radio" name="belongingS_Treatment_Record" value="${t.treatment_Name }" class="checkRadio1">${t.treatment_Name }</label>
 							</c:forEach>
 						</td>
 					</tr>

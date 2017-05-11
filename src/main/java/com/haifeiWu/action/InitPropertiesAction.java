@@ -25,7 +25,7 @@ public class InitPropertiesAction {
 		return "WEB-INF/jsp/home/initConfigs";
 	}
 
-	@RequestMapping("/getName")
+	@RequestMapping(value="/getName")
 	public String getName(HttpServletRequest request,HttpServletResponse response){
 		try {
 			String title = PropertiesReadUtils.getTitleString("title");

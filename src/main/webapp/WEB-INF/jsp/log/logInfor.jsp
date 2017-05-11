@@ -101,7 +101,7 @@
 				<tr>
 					<td style="width: 150px">${item.log_ID }</td> 
 					<td style="width: 238px">${item.operation_Time }</td>
-					<td>${item.staff_Name }</td>
+					<td>${item.staff_ID }</td>
 					<td>${item.operation_Info }</td>
 					<td>${item.operation_Model }</td>
 				</tr>

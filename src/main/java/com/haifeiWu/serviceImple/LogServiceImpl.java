@@ -203,8 +203,8 @@ public class LogServiceImpl implements LogService {
 	 */
 	@Override
 	public void updateStaff(PHCSMP_Process_Log process) {
-		String hql = "update PHCSMP_Process_Log process set process.staff_Name=? where process.log_ID=?";
-		process_logDao.update(hql, process.getStaff_Name(),process.getLog_ID());
+		String hql = "update PHCSMP_Process_Log process set process.staff_ID=? where process.log_ID=?";
+		process_logDao.update(hql, process.getStaff_ID(),process.getLog_ID());
 		
 	}
 
@@ -213,12 +213,12 @@ public class LogServiceImpl implements LogService {
 	 */
 	@Override
 	public PHCSMP_Process_Log searchEmpstaff() {
-		String hql = "from PHCSMP_Process_Log where staff_Name=?";
+		String hql = "from PHCSMP_Process_Log where staff_ID=?";
 		return process_logDao.queryBystaff(hql);
 	}
 
 	@Override
-	public PHCSMP_Process_Log findlogBysuspect(String suspectId) {
+	public List<PHCSMP_Process_Log> findlogBysuspect(String suspectId) {
 		String hql = "from PHCSMP_Process_Log where suspect_ID=?";
 		return process_logDao.findLogBysuspectId(hql,suspectId);
 	}

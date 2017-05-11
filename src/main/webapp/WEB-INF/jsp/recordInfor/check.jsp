@@ -84,6 +84,7 @@
 
 	});
 </script>
+
 </head>
 <body>
 	<form class="container" id="form"
@@ -263,14 +264,14 @@
 					<table style="margin-left: 25px !important;" class="zishu_state col-lg-12 col-md-10 col-sm-10">
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否饮酒:</td>
-							<td>是<input id="is_Drink_Yes" type="radio" name="is_Drink" value="是" /></td>
-							<td>否<input id="is_Drink_No" type="radio" name="is_Drink" value="否" /></td>
+							<td><label for="is_Drink_Yes" style="font-weight:normal">是<input id="is_Drink_Yes" type="radio" name="is_Drink" value="是" /></label></td>
+							<td><label for="is_Drink_No" style="font-weight:normal">否<input id="is_Drink_No" type="radio" name="is_Drink" value="否" /></label></td>
 						</tr>
 							
 						<tr style="border-bottom: 1px solid #389AC7; padding-bottom: 4px;">
 							<td>是否患有传染性疾病:</td>
-							<td>是<input id="is_Diseases_Yes"  type="radio" name="is_Diseases" value="是" /></td>
-							<td>否<input id="is_Diseases_No"  type="radio" name="is_Diseases" value="否"  /></td>
+							<td><label for="is_Diseases_Yes" style="font-weight:normal">是<input id="is_Diseases_Yes"  type="radio" name="is_Diseases" value="是" /></label></td>
+							<td><label for="is_Diseases_No" style="font-weight:normal">否<input id="is_Diseases_No"  type="radio" name="is_Diseases" value="否"  /></label></td>
 						</tr>
 							<script type="text/javascript">
 								//设定is_Drink
@@ -309,11 +310,13 @@
 					</h4>
 						<table style="width:600px !important; margin:0px 25px !important; margin-top:15px !important;font-size: 15px !important;"  class="checked_state col-lg-12 col-md-10 col-sm-10">
 							<tr style="margin:5px 5px !important;">
-								<c:forEach items="${InspectionSituationType }" var="item" varStatus="status">
+								 <c:forEach items="${InspectionSituationType }" var="item" varStatus="status">
 									
-									<td style="width: 10%;">${item.situation_Name } &nbsp;&nbsp;<input
-										id="Check_Situation" type="checkbox" name="Check_Situation" value="${item.situation_Name }"/></td>
-								</c:forEach>
+									<td style="width: 10%;"><label style="font-weight:normal" for="Check_Situation${status.index}">${item.situation_Name } &nbsp;&nbsp;<input
+										id="Check_Situation${status.index}" type="checkbox" name="Check_Situation" value="${item.situation_Name }"/></label></td>
+										
+								</c:forEach> 
+								
 									<script>
 										var check_Situation="${checkRecord.check_Situation}";
 										var result =check_Situation.split(",");
@@ -381,7 +384,7 @@
 								name="Belonging_Count" /></td>
 							<td><input type="text" value="个"
 								name="Belonging_Unit" /></td>
-							<td><select name="Keeping_ID">
+							<td><select  name="Keeping_ID">
 									<option value="">---请选择---</option>
 									<c:forEach items="${Keeping_WayType }" var="item" varStatus="status">
 										<option value="${item.keeping_ID}">${item.keeping_Name }</option>

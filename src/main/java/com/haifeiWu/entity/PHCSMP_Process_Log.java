@@ -20,7 +20,7 @@ public class PHCSMP_Process_Log implements Serializable {
 	private String date;
 	private String start_Time;//开始时间
 	private String end_Time;//结束时间
-	private String staff_Name;//操作用户
+	private int staff_ID;//操作用户
 	private String iP_Address;//操作IP地址
 	
 	
@@ -71,11 +71,12 @@ public class PHCSMP_Process_Log implements Serializable {
 	}
 	
 	
-	public String getStaff_Name() {
-		return staff_Name;
+	
+	public int getStaff_ID() {
+		return staff_ID;
 	}
-	public void setStaff_Name(String staff_Name) {
-		this.staff_Name = staff_Name;
+	public void setStaff_ID(int staff_ID) {
+		this.staff_ID = staff_ID;
 	}
 	public String getiP_Address() {
 		return iP_Address;

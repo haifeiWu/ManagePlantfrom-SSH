@@ -83,11 +83,12 @@
 			<mvc:exclude-mapping path="/**/*.gif" />
 			<mvc:exclude-mapping path="/**/*.jpg" />
 			<mvc:exclude-mapping path="/**/*.jpeg" />
+			<mvc:exclude-mapping path="/home/**" />
 			<bean class="com.haifeiWu.interceptor.ProcessLogInterceptor"/>
 		</mvc:interceptor>
-
 	</mvc:interceptors> 
 	-->
+
     <!--配置视图解析器      内部资源视图解析器-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!--设置解析器类-->
