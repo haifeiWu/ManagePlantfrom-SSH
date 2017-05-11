@@ -71,15 +71,25 @@ public class Video {
 	 */
 	public static String queryDownloadFileStatu(int band_ID,
 			String identificationCard) throws IOException {
-		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils
-				.getRecordConfString("SxQueryUploadFileStatus"),
-				packjson(band_ID, identificationCard));
+		String json = packjson(band_ID, identificationCard);
+		System.out.println("-------dsdd-----"
+				+ PropertiesReadUtils
+						.getRecordConfString("SxQueryUploadFileStatus"));
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		return result;
+		String result = HttpRequest.sendOkMCVPost(PropertiesReadUtils
+				.getRecordConfString("SxQueryUploadFileStatus"), json);
+		System.out.println(result);
+		return getSuccessFile(result);
 	}
 
 	@SuppressWarnings("unchecked")
-	public static String getSuccessFile(String result) {
+	private static String getSuccessFile(String result) {
 		// List resultList = new ArrayList();
 		String videonumber = null;
 		try {
@@ -150,7 +160,9 @@ public class Video {
 			System.out.println("video的getSuccessFile异常");
 			videonumber = "";
 		}
+
 		return videonumber;
+
 	}
 
 	public static Object[] getJsonToArray(String str) {

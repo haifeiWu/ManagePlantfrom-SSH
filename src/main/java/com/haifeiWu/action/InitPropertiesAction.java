@@ -43,7 +43,7 @@ public class InitPropertiesAction {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return "WEB-INF/jsp/login";
+		return "jsp/login";
 	}
 	
 	@RequestMapping("/init")
