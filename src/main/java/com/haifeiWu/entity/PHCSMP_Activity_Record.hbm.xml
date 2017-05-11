@@ -19,7 +19,7 @@
        <!--  <property name="vedio_Number"/> -->
         
         <property name="remark"/>
-        <property name="staffS"/>
+        <property name="staff_ID"/>
         
          <!-- 设置total_record属性为默认值 -->
         <property name="total_record" type="java.lang.Integer"> 

@@ -134,7 +134,7 @@ public class Leave_Recod_Action {
 		model.setLeave_Time(leavetime);
 		model.setTreatment_Time(leavetime);
 		// 获取staffID
-		String staff_ID = request.getParameter("staff_ID");
+		Integer staff_ID = Integer.parseInt(request.getParameter("staff_ID"));
 		model.setStaff_ID(staff_ID);
 		request.setAttribute("staff_ID", staff_ID);
 		// // 设置离区 嫌疑人的ID

@@ -19,14 +19,14 @@ public class PHCSMP_Leave_Record implements Serializable {
 	private int leave_Record_ID;// id（主键）
 	private String suspect_ID;// 档案编号
 	private String leave_Time;// 最终离开时间
-	//private String leave_Hour;
+	// private String leave_Hour;
 	private String leave_Reason;// 离开原因（离开原因字典表ID逗号隔开）
 	private String belongingS_Treatment_Method;// 随身物品处理方式字典表ID逗号隔开
 	private String belongingS_Treatment_Record;// 未返还物品处理记录
 	private String recipient_Person;// 领取人姓名
 	private String recipient_Person_Number;// 领取人身份证号码
 	private String treatment_Time;// 随身物品处理时间
-	private String staff_ID;// 办案民警 4
+	private Integer staff_ID;// 办案民警 4
 	private int room_ID;// 信息登记房间
 
 	private int total_record = 60;// 需要填写的总记录数
@@ -56,13 +56,13 @@ public class PHCSMP_Leave_Record implements Serializable {
 		this.leave_Time = leave_Time;
 	}
 
-//	public String getLeave_Hour() {
-//		return leave_Hour;
-//	}
-//
-//	public void setLeave_Hour(String leave_Hour) {
-//		this.leave_Hour = leave_Hour;
-//	}
+	// public String getLeave_Hour() {
+	// return leave_Hour;
+	// }
+	//
+	// public void setLeave_Hour(String leave_Hour) {
+	// this.leave_Hour = leave_Hour;
+	// }
 
 	public String getLeave_Reason() {
 		return leave_Reason;
@@ -114,11 +114,11 @@ public class PHCSMP_Leave_Record implements Serializable {
 		this.treatment_Time = treatment_Time;
 	}
 
-	public String getStaff_ID() {
+	public Integer getStaff_ID() {
 		return staff_ID;
 	}
 
-	public void setStaff_ID(String staff_ID) {
+	public void setStaff_ID(Integer staff_ID) {
 		this.staff_ID = staff_ID;
 	}
 
@@ -162,11 +162,9 @@ public class PHCSMP_Leave_Record implements Serializable {
 				+ fill_record + "]";
 	}
 
-	/*@Override
-	public String toString() {
-		return this.suspect_ID + " " + this.leave_Reason + " "
-				+ this.recipient_Person;
-	}
-*/
-	
+	/*
+	 * @Override public String toString() { return this.suspect_ID + " " +
+	 * this.leave_Reason + " " + this.recipient_Person; }
+	 */
+
 }

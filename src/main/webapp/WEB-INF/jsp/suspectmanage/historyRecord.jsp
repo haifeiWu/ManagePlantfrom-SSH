@@ -26,7 +26,7 @@
 			<p id="left_title">嫌疑人信息管理</p>
 			<!--搜索框设置-->
 			<div class="st_search col-lg-12 col-md-12 col-sm-12 text-center"
-				style="margin: 0px;padding: 0px;">
+				style="margin: -25px 0 30px 0;padding: 0px;">
 				<div id="txt_search" class="col-lg-12 col-md-12 col-sm-12">嫌疑人搜索</div>
 				<input type="text" name="searchInfor" id="search" placeholder="请输入嫌疑人姓名、身份证号码或档案编号查询" /> <input
 					class="serachImg" type="image" src="${pageContext.request.contextPath }/images/search_03.png"
@@ -35,11 +35,11 @@
 		</div>
 	</form>
 	<div class="container">
-		<div class="row" style="margin-top: 3%;text-align: center;">
+		<!-- <div class="row" style="margin-top: 3%;text-align: center;">
 			<a href="#checkingPerson" style="font-size: larger;margin-right: 8%;">待查嫌疑人</a>
 			<a href="#row1" style="font-size: larger;">历史嫌疑人</a>
-		</div>
-		<hr style="width: 100%; border: 0.5px solid #389AC7; margin-top: 5%;" />
+		</div> 
+		<hr style="width: 100%; border: 0.5px solid #389AC7; margin-top: 5%;" /> -->
 		<div class="row" id="row2" style="overflow: hidden; ">
 			<h4 id="checkingPerson"
 				class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">待查嫌疑人

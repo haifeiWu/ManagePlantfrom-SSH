@@ -86,12 +86,14 @@ public class GenerateReportAction {
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
 
+
 		int suspect_complete_degree = (int) (suspect.getFill_record()
 				/ (float) suspect.getTotal_record() * 100);
 		System.out.println("suspect_complete_degree" + suspect_complete_degree
 				+ "------------------------------------");
 		request.setAttribute("suspect_complete_degree", suspect_complete_degree);
 		// 嫌疑人随身所有物品检查信息s
+
 		List<PHCSMP_BelongingS> belongingS = belongingInforService
 				.selectBelongInfor(suspectId);
 
@@ -111,6 +113,7 @@ public class GenerateReportAction {
 		// 嫌疑人人身检查信息
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectId);
+
 		if (personal_Check != null) {
 			int personal_Check_complete_degree = (int) (personal_Check
 					.getFill_record()
@@ -135,6 +138,7 @@ public class GenerateReportAction {
 		// 嫌疑人信息采集记录
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
 				.findInforBySuspetcId(suspectId);
+
 		if (information_Collection != null) {
 			int information_Collection_complete_degree = (int) (information_Collection
 					.getFill_record()
@@ -145,6 +149,7 @@ public class GenerateReportAction {
 			request.setAttribute("information_Collection_complete_degree",
 					information_Collection_complete_degree);
 		}
+
 		// 嫌疑人离区信息记录
 		PHCSMP_Leave_Record leave_Record = leaveRecodService
 				.findInforBySuspetcId(suspectId);
@@ -168,6 +173,7 @@ public class GenerateReportAction {
 						+ suspectId + ".pdf");
 		return "WEB-INF/jsp/recordInfor/report";
 		// } catch (Exception e) {
+
 		// response.getWriter()
 		// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
 		// response.getWriter().flush();
