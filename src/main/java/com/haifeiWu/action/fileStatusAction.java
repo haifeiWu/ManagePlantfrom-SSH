@@ -48,8 +48,13 @@ public class fileStatusAction {
 		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
 		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
-		System.out.println("fileStatus收到的数据 ----------- " + uploadType
-				+ "     " + policeId + "     " + identificationCard);
+		System.out
+				.println("fileStatus收到的数据 -------------------------------------------------------------------- "
+						+ uploadType
+						+ "     "
+						+ policeId
+						+ "     "
+						+ identificationCard);
 		/**
 		 * 使用另外的线程查询上传结果
 		 */
@@ -99,6 +104,7 @@ public class fileStatusAction {
 					result = Video.queryDownloadFileStatu(policeId,
 							identificationCard);
 				} catch (IOException e) {
+					System.out.println("------------------" + "异常");
 					e.printStackTrace();
 				}
 				endQuery = System.currentTimeMillis();
@@ -113,7 +119,8 @@ public class fileStatusAction {
 				endParse = System.currentTimeMillis();
 				System.out.println("开始解析----解析结束          耗时"
 						+ (endParse - beginParse));
-				if (!((filename == null) || filename.equals(""))) {// 成功
+				if (!(filename == null || filename.equals(""))) {// 成功,注意这里有问题，查询Autowired是否注入成功
+					System.out.println("-----" + suspectService);
 					String suspectId = suspectService
 							.findByidentifyCard_Number(identificationCard)
 							.getSuspect_ID();

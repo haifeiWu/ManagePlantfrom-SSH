@@ -48,8 +48,6 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 	@Override
 	public void postHandle(HttpServletRequest arg0, HttpServletResponse arg1,
 			Object arg2, ModelAndView arg3) throws Exception {
-
-		
 	}
 
 	/**
@@ -63,15 +61,15 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest arg0, HttpServletResponse arg1,
 			Object arg2) throws Exception {
-		int username =0;
+		int username = 0;
 		String arg = arg2.toString();
 		if (arg.indexOf("[") == -1) {
 			arg = arg.substring(0, arg.indexOf("("));
 			arg = arg.substring(arg.lastIndexOf(".") + 1, arg.length());
 		}
 		System.out.println("进入拦截器" + arg);
-		if(arg0.getParameter("staffid")!=null){
-		 username =Integer.parseInt(arg0.getParameter("staffid"));
+		if (arg0.getParameter("staffid") != null) {
+			username = Integer.parseInt(arg0.getParameter("staffid"));
 		}
 		System.out.println(username + "===========================");
 		PHCSMP_LogInfo log = judgeRuquest(arg, username, arg0, arg1);
@@ -99,7 +97,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 		switch (arg) {
 		case "searchsuspectInfor":// 查询嫌疑人信息
 		{
-			 pHCSMP_LogInfo.setStaff_ID(username);
+			pHCSMP_LogInfo.setStaff_ID(username);
 			String searchInfor = request.getParameter("searchInfor");
 			pHCSMP_LogInfo.setOperation_Model("入区人员信息汇总模块");
 			pHCSMP_LogInfo.setOperation_Info("通过 " + searchInfor + " 查询嫌疑人信息");
@@ -108,7 +106,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 			break;
 		}
 		case "SM_executee": {
-			 pHCSMP_LogInfo.setStaff_ID(username);
+			pHCSMP_LogInfo.setStaff_ID(username);
 			pHCSMP_LogInfo.setOperation_Time(df.format(new Date()));
 			pHCSMP_LogInfo.setDate(sf.format(new Date()));
 			pHCSMP_LogInfo.setOperation_Model("入区人员信息汇总模块");
@@ -116,7 +114,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 			break;
 		}
 		case "SM_loadInfor": {
-			 pHCSMP_LogInfo.setStaff_ID(username);
+			pHCSMP_LogInfo.setStaff_ID(username);
 			pHCSMP_LogInfo.setOperation_Model("入区人员信息汇总模块");
 			pHCSMP_LogInfo.setOperation_Info("进入入区人员入区汇总");
 			pHCSMP_LogInfo.setOperation_Time(df.format(new Date()));
@@ -125,7 +123,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 		}
 		case "downLoadByHands":// 下载录像
 		{
-			 pHCSMP_LogInfo.setStaff_ID(username);
+			pHCSMP_LogInfo.setStaff_ID(username);
 			String suspect_ID = request.getParameter("suspect_ID");
 			pHCSMP_LogInfo.setOperation_Model("录像下载模块");
 			pHCSMP_LogInfo.setOperation_Info("手动下载" + suspect_ID + "录像信息");
@@ -135,7 +133,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 		}
 
 		case "RG_loadInfor": {
-			 pHCSMP_LogInfo.setStaff_ID(username);
+			pHCSMP_LogInfo.setStaff_ID(username);
 			String suspect_ID = request.getParameter("suspectID");
 			pHCSMP_LogInfo.setOperation_Model("临时报告区模块");
 			pHCSMP_LogInfo.setOperation_Info("查看档案号 " + suspect_ID + " 入区报告");
@@ -145,7 +143,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 		}
 
 		case "updateRoom": {
-			 pHCSMP_LogInfo.setStaff_ID(username);
+			pHCSMP_LogInfo.setStaff_ID(username);
 			pHCSMP_LogInfo.setOperation_Time(df.format(new Date()));
 			pHCSMP_LogInfo.setDate(sf.format(new Date()));
 			pHCSMP_LogInfo.setOperation_Model("房间管理");
@@ -156,7 +154,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 
 		case "updateCardReader":// 读卡器初始化
 		{
-			 pHCSMP_LogInfo.setStaff_ID(username);
+			pHCSMP_LogInfo.setStaff_ID(username);
 			pHCSMP_LogInfo.setOperation_Time(df.format(new Date()));
 			pHCSMP_LogInfo.setDate(sf.format(new Date()));
 			pHCSMP_LogInfo.setOperation_Model("读卡器设置");
@@ -165,7 +163,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 		}
 
 		case "updateBand": {
-			 pHCSMP_LogInfo.setStaff_ID(username);
+			pHCSMP_LogInfo.setStaff_ID(username);
 			pHCSMP_LogInfo.setOperation_Time(df.format(new Date()));
 			pHCSMP_LogInfo.setDate(sf.format(new Date()));
 			pHCSMP_LogInfo.setOperation_Model("手环设置");

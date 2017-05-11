@@ -393,7 +393,7 @@
 						   		<td>${ari.start_Time }</td>
 						   		<td>${ari.end_Time }</td>
 						   		<td>---</td>
-						   		<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; ">${ari.remark }</textarea></td>
+						   		<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; " readonly="readonly">${ari.remark }</textarea></td>
 						   	</tr>
 					</c:forEach>
 				</c:if>

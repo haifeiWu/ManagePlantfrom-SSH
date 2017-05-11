@@ -383,6 +383,7 @@ public class Leave_Recod_Action {
 			List<PHCSMP_Staff> staff = userService.findAllStaffs();
 			request.setAttribute("staff", staff);
 			System.out.println("+++++++++++++++====" + staff.get(1));
+			request.setAttribute("temporaryLeave", temporaryLeave);
 			return "WEB-INF/jsp/recordInfor/leave";
 		} catch (Exception e) {
 			// 异常处理

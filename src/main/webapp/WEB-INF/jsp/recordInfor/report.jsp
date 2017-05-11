@@ -170,7 +170,7 @@
 
 									</tr>
 								</c:forEach>
-							</table>
+			</table>
 			<form class="row">
 				<h4 id="Person_info"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -468,41 +468,113 @@
 							style="position: relative;left: 89px;top:23px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
 					</c:if>
 					<c:if test="${!empty activity_Record }"> --%>
-					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="table-layout:fixed;">
-						<tr>
-							<td>序号</td>
-							<td>开始时间</td>
-							<td>结束时间</td>
-							<td>房间名</td>
-							<td>活动内容</td>
-							<!-- <td>音视频编码</td> -->
-							<td>备注</td>
-						</tr>
+					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="margin-left: 3px !important;width:960px !important; ">
+					<tr>
+						<td>序号</td>				
+						<td>活动记录</td>
+						<td>功能房间</td>
+						<td>开始时间</td>
+						<td>结束时间</td>
+						<td>完整性</td>					
+						<td>备注</td>
+					</tr>
+				<tr>
 
-						<c:forEach items="${activity_Record }" var="item" varStatus="s">
-							<tr>
-								<td>${item.activity_Record_ID }</td>
-								<td>${item.start_Time }</td>
-								<td>${item.end_Time }</td>
-								<td>${room_Name[s.index] }</td>
-								<td>${item.activity_Record }</td>
-								<td style="width: 600px; word-wrap:break-word;">${item.remark } </td>
-							</tr>
-						</c:forEach>
-						<c:if test="${empty activity_Record }">
-							<tr>
-								<td>${item.activity_Record_ID }</td>
-								<td>${item.start_Time }</td>
-								<td>${item.end_Time }</td>
-								<td>${item.room_ID }</td>
-								<td>${item.activity_Record }</td>
-								<td >${item.remark }</td>
-							</tr>
-						</c:if>
-					</table>
+				   <td>1</td>
+					<td>入区人员登记信息</td>
+					<td>  值班室</td>
+						<td >
+							 <c:if test="${!empty SuspectInfor}">${SuspectInfor.enter_Time}</c:if>
+							   <c:if test="${empty SuspectInfor}">&nbsp&nbsp&nbsp&nbsp---&nbsp&nbsp&nbsp&nbsp</c:if>
+						</td>
+						<td >
+							&nbsp&nbsp---&nbsp&nbsp
+
+						</td>
+						<td >
+							 <c:if test="${!empty SuspectInfor}">${suspect_complete_degree}%</c:if>
+							 <c:if test="${empty SuspectInfor}">${suspect_complete_degree}%</c:if>
+						</td>
+						<td>
+							  <c:if test="${!empty SuspectInfor}">进入办案区原因:${SuspectInfor.suspected_Cause}</c:if>
+							 <c:if test="${empty SuspectInfor}">---</c:if>
+						</td>
+				</tr>
+				<tr>
+
+				    <td>2</td>
+					<td>人身安全检查</td>
+					
+					<td >
+							<c:if test="${!empty personal_Check}">${checkRoomName}</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
+					</td>
+					</td>
+						<td >
+							<c:if test="${!empty personal_Check}">${personal_Check.check_StartTime}</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
+						</td>
+						<td >
+							<c:if test="${!empty personal_Check}">${personal_Check.check_EndTime}</c:if>
+							  <c:if test="${empty personal_Check}">---</c:if>
+						</td>
+						<td >
+							 <c:if test="${!empty personal_Check}">${personal_Check_complete_degree }%</c:if>
+							 <c:if test="${empty personal_Check}">${personal_Check_complete_degree }%</c:if>
+						</td>
+						<td>
+							<c:if test="${!empty personal_Check}">
+							 	人身检查状态:${personal_Check.check_Situation}</c:if>
+						  <c:if test="${empty personal_Check}">未填写人身安全检查</c:if>
+						</td>
+				</tr>
+				<tr>
+
+				    <td>3</td>
+					<td>信息采集</td>
+					<td>
+					  <c:if test="${!empty information_Collection}">${ICRoomName}</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
+				    </td>
+						<td >
+							<c:if test="${!empty information_Collection}">${information_Collection.ic_StartTime}</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
+						</td>
+						<td >
+							<c:if test="${!empty information_Collection}">${information_Collection.ic_EndTime}</c:if>
+							<c:if test="${empty information_Collection}">---</c:if>
+
+						</td>
+						<td >
+							 <c:if test="${!empty information_Collection}">${information_Collection_complete_degree}%</c:if>
+							 <c:if test="${empty information_Collection}">${information_Collection_complete_degree}%</c:if>
+						</td>
+						<td>
+							  <c:if test="${!empty information_Collection}">
+							 	  采集项目:${information_Collection.collected_Item}</c:if>
+							  <c:if test="${empty information_Collection}">未填写信息采集</c:if>
+						</td>
+				</tr>
+
+				<c:if test="${!empty activity_record}">
+				
+					 <c:forEach items="${activity_record }" var="ari" varStatus="s" >
+						   <tr style="height: 70px;" >
+						   <td>${s.index+4 }</td>
+						   <td>${ari.activity_Record }</td>
+						        <td>${ari.room_Name }</td>
+						   		<td>${ari.start_Time }</td>
+						   		<td>${ari.end_Time }</td>
+						   		<td>---</td>
+						   		<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; ">${ari.remark }</textarea></td>
+						   	</tr>
+					</c:forEach>
+				</c:if>
+				</table>
 					<%-- </c:if> --%>
 				</div>
 			</form>
+			<!--离开办案区登记-->
 			<!--离开办案区登记-->
 			<form class="row">
 				<h4 id="Leave_depart"

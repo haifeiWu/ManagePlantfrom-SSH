@@ -343,8 +343,8 @@
 								<td>${a.end_Time }</td>
 								
 								
-								<td class="complete activityComplete">${activityRecordCompleteList[s.index]}%</td>
-								
+								<%-- <td class="complete activityComplete">${activityRecordCompleteList[s.index]}%</td> --%>
+								<td class="complete activityComplete">---</td>
 								<c:if test="${! empty a.activity_Record }">	
 									<td style="text-align:left;padding-left:30px;" class="activity">活动内容：${a.activity_Record }</td>						
 								</c:if>
@@ -506,7 +506,7 @@
 				</table>
 			</div>
 			<div class="row" style="margin-top:30px;width:1000px;">
-				<div style="float:left;width:400px;margin-left: 150px;position: relative;left: 107px;">
+				<div style="float:left;width:300px;margin-left: 220px;position: relative;left: 107px;">
 				
 					管理员:
 							<select name="staff_ID" id="staff_ID1" style="font-color: black;">
@@ -515,14 +515,15 @@
 										varStatus="status">
 										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
 									</c:forEach>
-							</select>		
+							<lect>		
 				
 				</div>
-				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
+				<div style="float:left;width:460px;margin-left: -80px;margin-top: -10px;">
 					<input style="height: 30px;text-align:center;line-height: 30px; " type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
 				</div>
 				
 			</div>
+
 		</div>
 		<input type="hidden" name="suspectID" value="${suspectInfor.suspect_ID }"/>
 	</form>
