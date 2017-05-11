@@ -23,7 +23,7 @@
         <property name="start_Time"></property>
         <property name="end_Time"></property>
         <property name="date"></property>
-        <property name="staff_Name"></property>
+        <property name="staff_ID"></property>
         
 		<property name="iP_Address" type="java.lang.String">
         	<column name="iP_Address" not-null="true" /> 

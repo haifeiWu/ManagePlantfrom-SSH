@@ -141,15 +141,36 @@
 					<li class="l1">档案编号：<input type="text"
 						value="${suspect.suspect_ID }" readonly="readonly"
 						name="suspectId" /></li>
-					<li class="l2">报告时间：<input type="date"
+					<li class="l2">报告时间：<input type="text"
 						value="${reportCreateTime }" readonly="readonly" /></li>
 					<li class="l3">羁押时间：<input type="text" value="${suspect.detain_Time }"
 						readonly="readonly"></li>
 				</ul>
 			</form>
 
-			<!-- 文件下载链接   "-->
+			<!-- 日志   "-->
+			<table class="All_total col-lg-12  col-sm-12 table table-bordered" style="width: 916px;text-align: center;">
+									<tr style="background: #3c96c8;height: 36px;text-align: center;">
+									<th style="text-align: center;">序号</th>
+									<th style="text-align: center;">档案编号</th>
+									<th style="text-align: center;">流程号</th>
+									<th style="text-align: center;">开始时间</th>
+									<th style="text-align: center;">结束时间</th>
+									<th style="text-align: center;">办案人员</th>
+								</tr>
 
+								<c:forEach items="${suspectLog }" var="item">
+									<tr>
+										<td>${item.log_ID }</td> 
+										<td>${item.suspect_ID }</td>
+										<td>${item.process_ID }</td>
+										<td>${item.start_Time }</td>
+										<td>${item.end_Time }</td>
+										<td>${item.staff_ID }</td>
+
+									</tr>
+								</c:forEach>
+							</table>
 			<form class="row">
 				<h4 id="Person_info"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">

@@ -187,20 +187,19 @@ public class Process_LogDaoImpl extends DaoSupportImpl<PHCSMP_Process_Log>
 		Transaction tx = null;
 		PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
 		tx = session.beginTransaction();
-		Query query = session.createQuery(hql).setParameter(0, "xxx");
+		Query query = session.createQuery(hql).setParameter(0, 0);
 		processLog = (PHCSMP_Process_Log) query.uniqueResult();
 		tx.commit();
 		return processLog;
 	}
 
 	@Override
-	public PHCSMP_Process_Log findLogBysuspectId(String hql, String suspectId) {
+	public List<PHCSMP_Process_Log> findLogBysuspectId(String hql, String suspectId) {
 		Session session = this.getSession();
 		Transaction tx = null;
-		PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
 		tx = session.beginTransaction();
 		Query query = session.createQuery(hql).setParameter(0, suspectId);
-		processLog = (PHCSMP_Process_Log) query.uniqueResult();
+		List<PHCSMP_Process_Log> processLog = query.list();
 		tx.commit();
 		return processLog;
 	}

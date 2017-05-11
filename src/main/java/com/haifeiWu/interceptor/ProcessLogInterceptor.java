@@ -66,7 +66,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 
 			updateprocess(process);
 		}
-		if (process.getStaff_Name() != "xxx") {
+		if (process.getStaff_ID() != 0) {
 			updateporStaff(process);
 		}
 	}
@@ -90,6 +90,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			String ddate, HttpServletRequest arg0, HttpServletResponse response)
 			throws IOException {
 		PHCSMP_Process_Log log = new PHCSMP_Process_Log();
+		
 		switch (method) {
 		case "readRFID": {
 			log = getProcessLog(arg0, sdate, ddate);
@@ -122,7 +123,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		case "addCheckPersonInfor": {
 			if (staffIsNull() != null) {
 				log = loginfoService.searchEmpstaff();
-				log.setStaff_Name((String) arg0.getAttribute("staff_Name"));
+				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_Name")));
 			}
 			String error = (String) arg0.getAttribute("error");
 			if (error == "error") {
@@ -137,7 +138,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		case "addInformationCollection": {
 			if (staffIsNull() != null) {
 				log = loginfoService.searchEmpstaff();
-				log.setStaff_Name((String) arg0.getAttribute("staff_ID"));
+				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_ID")));
 			}
 			String error = (String) arg0.getAttribute("error");
 			if (error == "error") {
@@ -152,7 +153,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		case "addActivityRecordInfor": {
 			if (staffIsNull() != null) {
 				log = loginfoService.searchEmpstaff();
-				log.setStaff_Name((String) arg0.getAttribute("staff_ID"));
+				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_ID")));
 			}
 			String error = (String) arg0.getAttribute("error");
 			if (error == "error") {
@@ -167,7 +168,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		case "addLeaveRecordInfor": {
 			if (staffIsNull() != null) {
 				log = loginfoService.searchEmpstaff();
-				log.setStaff_Name((String) arg0.getAttribute("staff_ID"));
+				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_ID")));
 			}
 			String error = (String) arg0.getAttribute("error");
 			if (error == "error") {
@@ -284,22 +285,27 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		// 不存在，表示没有残缺的记录，每条记录都有成对的出入门时间，则创建新的记录
 		PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
 		if (endtimeIsZero() == null) {
-
+			
 			PHCSMP_Suspect suspect = (PHCSMP_Suspect) arg0
 					.getAttribute("suspect");
-			String suspectId = suspect.getSuspect_ID(); // 获取嫌疑人id
+			String suspectId = "";
+			if(suspect!=null){
+			 suspectId = suspect.getSuspect_ID(); // 获取嫌疑人id
+			}
 			PHCSMP_Room room = (PHCSMP_Room) arg0.getAttribute("room");
+			if(room!=null){
 			int roomId = room.getRoom_ID(); // 获取房间ID
+			processLog.setProcess_ID(room.getProcess_ID()); // 封装流程号
+			processLog.setiP_Address(room.getRoom_IPAddress()); // 获取房间IP
+			}
 			processLog.setStart_Time(sdate); // 设置开始进入时间
 			processLog.setEnd_Time("0-0");
 			processLog.setDate(ddate);
-			processLog.setStaff_Name("xxx");
+			processLog.setStaff_ID(0);
 			processLog.setSuspect_ID(suspectId); // 封装嫌疑人ID
-			processLog.setProcess_ID(room.getProcess_ID()); // 封装流程号
-			processLog.setiP_Address(room.getRoom_IPAddress()); // 获取房间IP
+			
 			System.out.println(suspectId + "----------------进入try");
-			System.out.println(room.getProcess_ID());
-			System.out.println(room.getRoom_IPAddress());
+
 		}
 		// 存在表示当前记录值记录了入门阶段，则对其进行出门endtime的补全
 		else {

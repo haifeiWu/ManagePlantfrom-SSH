@@ -69,6 +69,7 @@ public class Information_Collection_Action {
 				model.setIc_EndTime(new DateTime().toString("yyyy-mm-dd HH:mm"));
 				model.setRoom_ID(roomId);
 				model.setStaff_ID(staff_ID);
+				System.out.println(staff_ID+"999999999999999999999999999999999999999999999999999999999");
 				request.setAttribute("staff_ID", staff_ID);
 				fullCheck(model);
 				PHCSMP_Information_Collection old = informationCollectionService
