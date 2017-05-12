@@ -354,6 +354,8 @@ public class Leave_Recod_Action {
 			// 判断是否出区返回
 			temporaryLeave = temporaryLeaveService
 					.IsTemporaryLeaveReturn(suspectId);
+			//查询以往出区记录
+			List<Temporary_Leave> temporaryLeaveList=temporaryLeaveService.findTempLeaveListBySuspectID(suspectId);
 			// 向前台放置一些dic表信息
 			List<PHCSMP_Dic_Leaving_Reason> leaveReason = dicService
 					.findLeaveReason();
@@ -364,6 +366,7 @@ public class Leave_Recod_Action {
 			request.setAttribute("leaveReason", leaveReason);
 			request.setAttribute("keepingWay", keepingWay);
 			request.setAttribute("treatmentMethod", treatmentMethod);
+			request.setAttribute("pastList", temporaryLeaveList);
 			// 维护进出门的标志位
 			suspectService.updateSwitch(1, suspectId);
 
@@ -382,7 +385,7 @@ public class Leave_Recod_Action {
 			request.setAttribute("suspectInfor", suspectInfor);
 			List<PHCSMP_Staff> staff = userService.findAllStaffs();
 			request.setAttribute("staff", staff);
-			System.out.println("+++++++++++++++====" + staff.get(1));
+			System.out.println("+++++++++++++++====" + staff.get(0));
 			request.setAttribute("temporaryLeave", temporaryLeave);
 			return "WEB-INF/jsp/recordInfor/leave";
 		} catch (Exception e) {
