@@ -28,6 +28,9 @@
 		$("#add")
 				.click(
 						function() {
+						var typeVal=$("#selectType option:selected").text();
+						var numVal=$("#selectNum option:selected").text();
+						
 							var num = $("#woods_check tr").length;
 							index = num - 1;
 							var tdnum = $("#woods_check tr:last()").find(
@@ -50,13 +53,13 @@
 									+ "<td><input type=text name="
 								
 									+ "Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' value='个' /></td>"
-									+ "<td> <select name="
+									+ "<td> <select id='selectType' name="
 									
 
-									+"Keeping_ID> <option value=>---请选择---</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
+									+"Keeping_ID> <option value=>"+typeVal+"</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
 									+ "<td> <select name="
 									
-									+ "Cabinet_Number> <option value=>---请选择---</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> <lect> </td>"
+									+ "Cabinet_Number> <option value=>"+numVal+"</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> <lect> </td>"
 									+ "</tr>";
 							$("#woods_check tr").eq(
 									$("#woods_check tr").length - 2).after(
@@ -384,7 +387,7 @@
 								name="Belonging_Count" /></td>
 							<td><input type="text" value="个"
 								name="Belonging_Unit" /></td>
-							<td><select  name="Keeping_ID">
+							<td><select id="selectType" name="Keeping_ID">
 									<option value="">---请选择---</option>
 									<c:forEach items="${Keeping_WayType }" var="item" varStatus="status">
 										<option value="${item.keeping_ID}">${item.keeping_Name }</option>
@@ -394,7 +397,7 @@
 									<option value="3">代保管</option> -->
 							</select></td>
 							<td>
-								<select name="Cabinet_Number">
+								<select id="selectNum" name="Cabinet_Number">
 										<option value="">---请选择---</option>
 										<c:forEach items="${PHCSMPCabinetType }" var="item" varStatus="status">
 											<option value="${item.cabinet_Number}">${item.cabinet_Number }</option>
