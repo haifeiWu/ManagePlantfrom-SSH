@@ -80,6 +80,9 @@ public class PHCSMP_Information_Collection implements Serializable {
 		this.is_Checked = is_Checked;
 	}
 
+	
+
+	
 	public Integer getStaff_ID() {
 		return staff_ID;
 	}
