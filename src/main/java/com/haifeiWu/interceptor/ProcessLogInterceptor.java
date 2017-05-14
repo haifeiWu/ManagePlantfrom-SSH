@@ -56,19 +56,30 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		// 获取日志实例
 		// PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
 		// 判断拦截的方法,根据方法封装好processLog
-		PHCSMP_Process_Log process = jugeMethod(arg, sdate, ddate, arg0, arg1);
+		String suspectId = (String)arg0.getAttribute("suspectId");
+		PHCSMP_Process_Log process = jugeMethod(arg, sdate, ddate, arg0, arg1,suspectId);
 		System.out.println(process.getEnd_Time() + "============endtime");
 		if (process.getEnd_Time() != null && process.getEnd_Time() != ""
-				&& process.getEnd_Time() == "0-0") {
+				&& process.getEnd_Time() == "0-0"&&process.getComplete()==-1) {
 			saveprocess(process);
 		}
 		if (process.getEnd_Time() != "0-0") {
-
+			//入区无结束时间
+			if(process.getSuspect_active()=="入区登记"){
+				process.setEnd_Time("------");
+			}
 			updateprocess(process);
 		}
 		if (process.getStaff_ID() != 0) {
 			updateporStaff(process);
+			updateNew(process);
 		}
+		System.out.println(process.getEnd_Time()+"----------------------process.getEnd_Time()");
+//		if(process.getEnd_Time() == "0-0"){
+//			System.out.println("---------------upcomplete");
+//			updateNew(process);
+//			
+//		}
 	}
 
 	@Override
@@ -87,13 +98,14 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 	// * @return
 	// */
 	private PHCSMP_Process_Log jugeMethod(String method, String sdate,
-			String ddate, HttpServletRequest arg0, HttpServletResponse response)
+			String ddate, HttpServletRequest arg0, HttpServletResponse response,String suspectId)
 			throws IOException {
 		PHCSMP_Process_Log log = new PHCSMP_Process_Log();
-		
+		String suspected_Cause = "暂无记录";
+		int complete = -1;
 		switch (method) {
 		case "readRFID": {
-			log = getProcessLog(arg0, sdate, ddate);
+			log = getProcessLog(arg0, sdate, ddate,suspectId);
 			int process = log.getProcess_ID();
 			switch (process) {
 			case 1: {
@@ -110,6 +122,8 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			}
 			case 4: {
 				log.setSuspect_active("侯问时间");
+				log.setComplete(0);
+				log.setStaff_ID(-1);
 				break;
 			}
 			case 5: {
@@ -119,63 +133,111 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			}
 			break;
 		}
+		//进入入区登记
+		case "SUP_loadInfor":{
+			log = getProcessLog(arg0, sdate, ddate,suspectId);
+			log.setSuspect_active("入区登记");
+//			log.setRoomId(6);
+			log.setSuspect_ID((String)arg0.getAttribute("Suspect_ID"));
+			break;
+		}
+		//入区登记提交，获得suspected_Cause
+		case "addSuspectInfor":{
+			if(arg0.getAttribute("suspected_Cause")!=null){
+				suspected_Cause = ((String)arg0.getAttribute("suspected_Cause"));
+			}
+			if(arg0.getAttribute("complete_degree")!=null){
+				complete = (int)arg0.getAttribute("complete_degree");
+			}
+			log.setComplete(complete);
+			log.setSuspected_Cause(suspected_Cause);
+			log.setEnd_Time(sdate); //因为入区登记完成没有刷卡，所以在提交时补全结束时间
+			break;
+		}
 		// 人身安全檢查提交
 		case "addCheckPersonInfor": {
-			if (staffIsNull() != null) {
-				log = loginfoService.searchEmpstaff();
+			log = loginfoService.searchEmpcomplete(suspectId);
+			System.out.println("--------------------log"+log);
+			System.out.println(endtimeIsZero(suspectId)+"-------------------endtime");
+			System.out.println(log.getComplete()+"--------------------complete");
+			if (staffIsNull(suspectId) != null) {
+				log = loginfoService.searchEmpstaff(suspectId);
 				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_Name")));
 			}
-			String error = (String) arg0.getAttribute("error");
-			if (error == "error") {
-				response.getWriter().write(
-						"<script>alert('提交失败，请重新提交');</script>");
-				response.getWriter().flush();
-
+			//完整性检查
+			if(arg0.getAttribute("complete")!=null){
+				complete = (int)arg0.getAttribute("complete");
 			}
+			if(arg0.getAttribute("check_Situation")!=null){
+				suspected_Cause = (String)arg0.getAttribute("check_Situation");
+			}
+			log.setComplete(complete);//完整性
+			log.setSuspected_Cause(suspected_Cause);//备注
+			System.out.println(suspected_Cause+"---------------------suspected_Cause");
+			if(arg0.getAttribute("roomid")!=null){
+				System.out.println(arg0.getAttribute("roomid")+"-------------------roomid");
+				log.setRoomId((int)arg0.getAttribute("roomid"));
+			}
+			
+			System.out.println(log.getComplete()+"--------------------complete");
 			break;
 		}
 		// 信息采集提交
 		case "addInformationCollection": {
-			if (staffIsNull() != null) {
-				log = loginfoService.searchEmpstaff();
-				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_ID")));
+			log = loginfoService.searchEmpcomplete(suspectId);
+			if (staffIsNull(suspectId) != null) {
+				log = loginfoService.searchEmpstaff(suspectId);
+				log.setStaff_ID((int)arg0.getAttribute("staff_ID"));
 			}
-			String error = (String) arg0.getAttribute("error");
-			if (error == "error") {
-				response.getWriter().write(
-						"<script>alert('提交失败，请重新提交');</script>");
-				response.getWriter().flush();
-
+			if(arg0.getAttribute("complete")!=null){
+				complete = (int)arg0.getAttribute("complete");
+			}
+			if(arg0.getAttribute("collected_Item")!=null){
+				suspected_Cause = (String)arg0.getAttribute("collected_Item");
+			}
+			System.out.println(complete+"-------------------------complete");
+			log.setComplete(complete);//完整性
+			log.setSuspected_Cause(suspected_Cause);//备注
+			if(arg0.getAttribute("roomid")!=null){
+//				System.out.println(arg0.getAttribute("roomid")+"-------------------roomid");
+				log.setRoomId((int)arg0.getAttribute("roomid"));
 			}
 			break;
 		}
 		// 询问讯问提交
 		case "addActivityRecordInfor": {
-			if (staffIsNull() != null) {
-				log = loginfoService.searchEmpstaff();
-				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_ID")));
+			log = loginfoService.searchEmpcomplete(suspectId);
+			if (staffIsNull(suspectId) != null) {
+				log = loginfoService.searchEmpstaff(suspectId);
+				log.setStaff_ID((int)arg0.getAttribute("staff_ID"));
 			}
-			String error = (String) arg0.getAttribute("error");
-			if (error == "error") {
-				response.getWriter().write(
-						"<script>alert('提交失败，请重新提交');</script>");
-				response.getWriter().flush();
-
+			if(arg0.getAttribute("remark")!=null){
+				suspected_Cause = (String)arg0.getAttribute("remark");
 			}
+			log.setComplete(0);//完整性
+			
+			log.setSuspected_Cause(suspected_Cause);//备注
+			if(arg0.getAttribute("roomid")!=null){
+//				System.out.println(arg0.getAttribute("roomid")+"-------------------roomid");
+				log.setRoomId((int)arg0.getAttribute("roomid"));
+			}
+			System.out.println(log.getComplete()+"----------------------------complete");
+			break;
+		}
+		// 临时离区
+		case "addTemporaryLeaveInfor": {
+			log = loginfoService.searchEmpEndTime(suspectId);
+			log.setSuspect_active("临时离区");
+			log.setEnd_Time(sdate);
 			break;
 		}
 		// 离区提交
 		case "addLeaveRecordInfor": {
-			if (staffIsNull() != null) {
-				log = loginfoService.searchEmpstaff();
+			if (staffIsNull(suspectId) != null) {
+				log = loginfoService.searchEmpstaff(suspectId);
 				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_ID")));
 			}
-			String error = (String) arg0.getAttribute("error");
-			if (error == "error") {
-				response.getWriter().write(
-						"<script>alert('提交失败，请重新提交');</script>");
-				response.getWriter().flush();
-			}
+			log.setEnd_Time(sdate);
 			break;
 		}
 		// 进入询问
@@ -211,17 +273,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			}
 			break;
 		}
-		// 临时离区
-		case "addTemporaryLeaveInfor": {
-			String error = (String) arg0.getAttribute("error");
-			if (error == "error") {
-				response.getWriter().write(
-						"<script>alert('提交失败，请重新提交');</script>");
-				response.getWriter().flush();
-
-			}
-			break;
-		}
+		
 		}
 		return log;
 	}
@@ -246,9 +298,9 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 	 * 
 	 * @return
 	 */
-	private PHCSMP_Process_Log endtimeIsZero() {
+	private PHCSMP_Process_Log endtimeIsZero(String suspectId) {
 		try {
-			PHCSMP_Process_Log processLog = loginfoService.searchEmpEndTime();
+			PHCSMP_Process_Log processLog = loginfoService.searchEmpEndTime(suspectId);
 			System.out.println(processLog + "=====____+++++++"
 					+ processLog.getLog_ID());
 			return processLog;
@@ -256,15 +308,30 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			return null;
 		}
 	}
+	/**
+	 * 查询数据库中endtime为0-0的记录（有且只能能是最后一条） 以Bool作为返回值是为了防止空指针
+	 * 
+	 * @return
+	 */
+//	private PHCSMP_Process_Log completeIsNull() {
+//		try {
+//			PHCSMP_Process_Log processLog = loginfoService.searchEmpcomplete();
+//			System.out.println(processLog + "=====____+++++++"
+//					+ processLog.getLog_ID());
+//			return processLog;
+//		} catch (Exception e) {
+//			return null;
+//		}
+//	}
 
 	/**
 	 * 查询数据库中staff为xxx的记录（有且只能能是最后一条） 以Bool作为返回值是为了防止空指针
 	 * 
 	 * @return
 	 */
-	private PHCSMP_Process_Log staffIsNull() {
+	private PHCSMP_Process_Log staffIsNull(String suspectId) {
 		try {
-			PHCSMP_Process_Log processLog = loginfoService.searchEmpstaff();
+			PHCSMP_Process_Log processLog = loginfoService.searchEmpstaff(suspectId);
 			System.out.println(processLog + "=====____+++++++"
 					+ processLog.getLog_ID());
 			return processLog;
@@ -280,26 +347,21 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 	 * @param sdate
 	 */
 	private PHCSMP_Process_Log getProcessLog(HttpServletRequest arg0,
-			String sdate, String ddate) {
+			String sdate, String ddate,String suspectId) {
 		// 判断数据库中是否存在endtime为空的条目
 		// 不存在，表示没有残缺的记录，每条记录都有成对的出入门时间，则创建新的记录
 		PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
-		if (endtimeIsZero() == null) {
+		if (endtimeIsZero(suspectId) == null) {
 			
-			PHCSMP_Suspect suspect = (PHCSMP_Suspect) arg0
-					.getAttribute("suspect");
-			String suspectId = "";
-			if(suspect!=null){
-			 suspectId = suspect.getSuspect_ID(); // 获取嫌疑人id
-			}
 			PHCSMP_Room room = (PHCSMP_Room) arg0.getAttribute("room");
 			if(room!=null){
-			int roomId = room.getRoom_ID(); // 获取房间ID
+//			processLog.setRoomId(room.getRoom_ID());// 获取房间ID
 			processLog.setProcess_ID(room.getProcess_ID()); // 封装流程号
 			processLog.setiP_Address(room.getRoom_IPAddress()); // 获取房间IP
 			}
 			processLog.setStart_Time(sdate); // 设置开始进入时间
 			processLog.setEnd_Time("0-0");
+			processLog.setComplete(-1);
 			processLog.setDate(ddate);
 			processLog.setStaff_ID(0);
 			processLog.setSuspect_ID(suspectId); // 封装嫌疑人ID
@@ -307,12 +369,15 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			System.out.println(suspectId + "----------------进入try");
 
 		}
-		// 存在表示当前记录值记录了入门阶段，则对其进行出门endtime的补全
+		// 存在表示当前记录值记录了入门阶段，在提交之时进行完整性等字段的补全，若提交完成则对其进行出门endtime的补全
 		else {
 			// 获得当前的残缺记录
-			processLog = loginfoService.searchEmpEndTime();
-
-			processLog.setEnd_Time(sdate);
+			processLog = loginfoService.searchEmpEndTime(suspectId);
+			//若已提交
+			if(processLog.getComplete() != -1){
+				processLog.setEnd_Time(sdate);
+			}
+		
 		}
 
 		return processLog;
@@ -343,5 +408,11 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 	 */
 	private void updateporStaff(PHCSMP_Process_Log process) {
 		loginfoService.updateStaff(process);
+	}
+	/**
+	 * 更新新增的字段
+	 */
+	private void updateNew(PHCSMP_Process_Log process){
+		loginfoService.updateNew(process);
 	}
 }

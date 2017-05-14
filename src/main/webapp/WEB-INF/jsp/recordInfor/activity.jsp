@@ -302,11 +302,34 @@
 						<td>功能房间</td>
 						<td>开始时间</td>
 						<td>结束时间</td>
-						<td>完整性</td>					
+						<td>完整性</td>	
+						<td>办案人员</td>	
 						<td>备注</td>
 					</tr>
 				<tr>
-
+				<c:forEach items="${suspectLog }" var="item" varStatus="list">
+						<tr>
+							<td>${list.index+1}</td>
+							<td>${item.suspect_active }</td> 
+							<td>${processNameList[list.index] }</td>
+							<td>${item.start_Time }</td>
+							<td>${item.end_Time }</td>
+							<c:choose>
+								<c:when test="${item.complete ne 0}">
+									<td>${item.complete }%</td>
+								</c:when>
+								<c:otherwise>
+									<td style="text-align: center;">------</td>
+								</c:otherwise>
+							</c:choose>
+							<td>${staffNameList[list.index] }</td>
+							<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; " readonly="readonly">${item.suspected_Cause }</textarea></td>
+						</tr>
+				</c:forEach>
+				
+				
+				
+<%-- 
 				   <td>1</td>
 					<td>入区人员登记信息</td>
 					<td>  值班室</td>
@@ -396,7 +419,7 @@
 						   		<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; " readonly="readonly">${ari.remark }</textarea></td>
 						   	</tr>
 					</c:forEach>
-				</c:if>
+				</c:if> --%>
 				</table>
 			</div>
 			

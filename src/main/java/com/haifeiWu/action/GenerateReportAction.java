@@ -25,11 +25,13 @@ import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
+import com.haifeiWu.service.Dic_ProcessService;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LogService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
+import com.haifeiWu.service.StaffService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.service.UserService;
@@ -68,6 +70,10 @@ public class GenerateReportAction {
 	private UserService userService;
 	@Autowired
 	private LogService logService; // 日志
+	@Autowired
+	private Dic_ProcessService processService;//流程名
+	@Autowired
+	private StaffService staffService;//办案人员名
 
 	/**
 	 * 生成嫌疑人入区信息报告 (杜意权改，嫌疑人报告办离区活动记录模块)
@@ -81,8 +87,24 @@ public class GenerateReportAction {
 		String suspectId = request.getParameter("suspectID");
 		// try {
 		// 查找嫌疑人日志
+		//读取加载嫌疑人日志信息
 		List<PHCSMP_Process_Log> suspectLog = getLogBysuspectId(suspectId);
+		List<String> processNameList = new ArrayList<String>();
+		List<String> staffNameList = new ArrayList<String>(); 
 		request.setAttribute("suspectLog", suspectLog);
+		for(PHCSMP_Process_Log suspect : suspectLog){
+			int process = suspect.getProcess_ID();
+			int staffid = suspect.getStaff_ID();
+			if(staffService.getStaffName(staffid)!=null){
+			String staffName = staffService.getStaffName(staffid);
+			staffNameList.add(staffName);
+			}
+			String processName =processService.getProcessName(process);
+			processNameList.add(processName);
+			
+		}
+		request.setAttribute("processNameList", processNameList);
+		request.setAttribute("staffNameList", staffNameList);
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
 

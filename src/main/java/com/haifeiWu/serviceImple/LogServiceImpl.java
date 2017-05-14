@@ -181,10 +181,10 @@ public class LogServiceImpl implements LogService {
 	 * 查询数据库中endtime为0-0的记录，有且仅可能是最后一条
 	 */
 	@Override
-	public PHCSMP_Process_Log searchEmpEndTime() {
+	public PHCSMP_Process_Log searchEmpEndTime(String suspectId) {
 		// TODO Auto-generated method stub
-		String hql = "from PHCSMP_Process_Log where end_Time=?";
-		return process_logDao.queryByEndTime(hql);
+		String hql = "from PHCSMP_Process_Log where end_Time=? and suspect_ID=?";
+		return process_logDao.queryByEndTime(hql,suspectId);
 		
 	}
 
@@ -212,9 +212,9 @@ public class LogServiceImpl implements LogService {
 	 * 查询数据库中staff为xxx的记录，有且仅可能是最后一条
 	 */
 	@Override
-	public PHCSMP_Process_Log searchEmpstaff() {
-		String hql = "from PHCSMP_Process_Log where staff_ID=?";
-		return process_logDao.queryBystaff(hql);
+	public PHCSMP_Process_Log searchEmpstaff(String suspectId) {
+		String hql = "from PHCSMP_Process_Log where staff_ID=? and suspect_ID=?";
+		return process_logDao.queryBystaff(hql,suspectId);
 	}
 
 	@Override
@@ -223,5 +223,18 @@ public class LogServiceImpl implements LogService {
 		return process_logDao.findLogBysuspectId(hql,suspectId);
 	}
 
+	@Override
+	public void updateNew(PHCSMP_Process_Log process) {
+		String hql = "update PHCSMP_Process_Log process set process.complete=?,process.suspected_Cause=?,process.roomId=? where process.log_ID=?";
+		process_logDao.update(hql, process.getComplete(),process.getSuspected_Cause(),process.getRoomId(),process.getLog_ID());
+	}
+
+	@Override
+	public PHCSMP_Process_Log searchEmpcomplete(String suspectId) {
+		String hql = "from PHCSMP_Process_Log where complete=?";
+		return process_logDao.queryByComplete(hql);
+	}
+
+	
 	
 }

@@ -140,28 +140,7 @@
 			</form>
 
 			<!-- 日志   "-->
-			<table class="All_total col-lg-12  col-sm-12 table table-bordered" style="width: 916px;text-align: center;">
-									<tr style="background: #3c96c8;height: 36px;text-align: center;">
-									<th style="text-align: center;">序号</th>
-									<th style="text-align: center;">档案编号</th>
-									<th style="text-align: center;">流程号</th>
-									<th style="text-align: center;">开始时间</th>
-									<th style="text-align: center;">结束时间</th>
-									<th style="text-align: center;">办案人员</th>
-								</tr>
-
-								<c:forEach items="${suspectLog }" var="item">
-									<tr>
-										<td>${item.log_ID }</td> 
-										<td>${item.suspect_ID }</td>
-										<td>${item.process_ID }</td>
-										<td>${item.start_Time }</td>
-										<td>${item.end_Time }</td>
-										<td>${item.staff_ID }</td>
-
-									</tr>
-								</c:forEach>
-							</table>
+			
 			<form class="row">
 				<h4 id="Person_info"
 					class="human_Mes col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -460,36 +439,38 @@
 					</c:if>
 					<c:if test="${!empty activity_Record }"> --%>
 					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="table-layout:fixed;">
+							<tr>
+						<td>序号</td>				
+						<td>活动记录</td>
+						<td>功能房间</td>
+						<td>开始时间</td>
+						<td>结束时间</td>
+						<td>完整性</td>	
+						<td>办案人员</td>	
+						<td>备注</td>
+					</tr>
+				<tr>
+				<c:forEach items="${suspectLog }" var="item" varStatus="list">
 						<tr>
-							<td>序号</td>
-							<td>开始时间</td>
-							<td>结束时间</td>
-							<td>房间名</td>
-							<td>活动内容</td>
-							<!-- <td>音视频编码</td> -->
-							<td>备注</td>
+							<td>${list.index+1}</td>
+							<td>${item.suspect_active }</td> 
+							<td>${processNameList[list.index] }</td>
+							<td>${item.start_Time }</td>
+							<td>${item.end_Time }</td>
+							<c:choose>
+								<c:when test="${item.complete ne 0}">
+									<td>${item.complete }%</td>
+								</c:when>
+								<c:otherwise>
+									<td style="text-align: center;">------</td>
+								</c:otherwise>
+							</c:choose>
+							<td>${staffNameList[list.index] }</td>
+							<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none;width: 100%;height: 100%; " readonly="readonly">${item.suspected_Cause }</textarea></td>
 						</tr>
-
-						<c:forEach items="${activity_Record }" var="item" varStatus="s">
-							<tr>
-								<td>${item.activity_Record_ID }</td>
-								<td>${item.start_Time }</td>
-								<td>${item.end_Time }</td>
-								<td>${room_Name[s.index] }</td>
-								<td>${item.activity_Record }</td>
-								<td style="width: 600px; word-wrap:break-word;">${item.remark } </td>
-							</tr>
-						</c:forEach>
-						<c:if test="${empty activity_Record }">
-							<tr>
-								<td>${item.activity_Record_ID }</td>
-								<td>${item.start_Time }</td>
-								<td>${item.end_Time }</td>
-								<td>${item.room_ID }</td>
-								<td>${item.activity_Record }</td>
-								<td >${item.remark }</td>
-							</tr>
-						</c:if>
+				</c:forEach>
+				
+						
 					</table>
 					<%-- </c:if> --%>
 				</div>

@@ -46,7 +46,7 @@ public class Information_Collection_Action {
 	private SuspectService suspectService;
 	@Autowired
 	private ActivityRecordService activityRecordService;
-	@SuppressWarnings("unused")
+	
 	@Autowired
 	private LeaveRecodService leaveRecodService;
 	@Autowired
@@ -57,33 +57,37 @@ public class Information_Collection_Action {
 
 	// 保存信息
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addInformationCollection(PHCSMP_Information_Collection model,
-			HttpServletRequest request) throws IOException {
+	public String addInformationCollection(
+			PHCSMP_Information_Collection model,
+			HttpServletRequest request) throws IOException, ClassNotFoundException {
+		
 		try {
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
-			Integer staff_ID = Integer.parseInt(request
+				int staff_ID =Integer.parseInt(request
 					.getParameter("staff_ID"));
 			String suspectId = model.getSuspect_ID();
+		request.setAttribute("suspectId", suspectId);
 			if (model != null) {
 				model.setIc_EndTime(new DateTime().toString("yyyy-mm-dd HH:mm"));
 				model.setRoom_ID(roomId);
 				model.setStaff_ID(staff_ID);
-				System.out
-						.println(staff_ID
-								+ "999999999999999999999999999999999999999999999999999999999");
+				
 				request.setAttribute("staff_ID", staff_ID);
-				fullCheck(model);
+				fullCheck(model,request);
 				PHCSMP_Information_Collection old = informationCollectionService
 						.findInforBySuspetcId(suspectId);
 				if (old != null) {// 删除
 					informationCollectionService.deleteInforCollect(old);
 				}
-				// 插入
+				request.setAttribute("collected_Item", model.getCollected_Item());
+				
+//				// 插入
 				informationCollectionService.saveCollectionInfor(model);
+				
 			}
-			return "redirect:/home/index";
+			return "redirect:/home/index";	
 		} catch (Exception e) {
 			// response.getWriter().write("<script>alert('提交失败，请重新提交');</script>");
 			// response.getWriter().flush();
@@ -147,7 +151,7 @@ public class Information_Collection_Action {
 
 	}
 
-	private void fullCheck(PHCSMP_Information_Collection model)
+	private void fullCheck(PHCSMP_Information_Collection model,HttpServletRequest request)
 			throws ClassNotFoundException {
 		Class<?> c = Class.forName(PHCSMP_Information_Collection.class
 				.getName());
@@ -156,6 +160,9 @@ public class Information_Collection_Action {
 		int fieldsNumber = CompleteCheck.getFieldsNumber(model, c);
 		model.setFill_record(fieldsNumber - count - 2 - 1);// 设置已填写的字段数
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
+		int complete = (int) ((fieldsNumber - count - 2 - 1)
+				/ (float) (fieldsNumber - 3) * 100);
+		request.setAttribute("complete", complete);
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + (fieldsNumber - 3));
 		System.out.println("房间号：" + model.getRoom_ID());

@@ -20,11 +20,13 @@ public interface LogService {
 	public List<PHCSMP_Process_Log> findAllProcessLog();
 	public void save(PHCSMP_LogInfo log);
 	public void save(PHCSMP_Process_Log process);
-	public PHCSMP_Process_Log searchEmpEndTime();
+	public PHCSMP_Process_Log searchEmpEndTime(String suspectId);
 	public void update(PHCSMP_Process_Log process);
 	public PageBean findLogprocess(String param,int pageSize, int page,String hql);
 	public PageBean findLoginfor(String staffName, int i, int page,String hql);
 	public void updateStaff(PHCSMP_Process_Log process);
-	public PHCSMP_Process_Log searchEmpstaff();
-	public List<PHCSMP_Process_Log> findlogBysuspect(String suspectId); 
+	public PHCSMP_Process_Log searchEmpstaff(String suspectId);
+	public List<PHCSMP_Process_Log> findlogBysuspect(String suspectId);
+	public void updateNew(PHCSMP_Process_Log process);
+	PHCSMP_Process_Log searchEmpcomplete(String suspectId); 
 }

@@ -21,13 +21,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.haifeiWu.entity.PHCSMP_Activity_Record;
 import com.haifeiWu.entity.PHCSMP_Information_Collection;
 import com.haifeiWu.entity.PHCSMP_Personal_Check;
+import com.haifeiWu.entity.PHCSMP_Process_Log;
 import com.haifeiWu.entity.PHCSMP_Staff;
 import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.service.ActivityRecordService;
+import com.haifeiWu.service.Dic_ProcessService;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.LeaveRecodService;
+import com.haifeiWu.service.LogService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
+import com.haifeiWu.service.StaffService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.UserService;
 import com.haifeiWu.utils.CompleteCheck;
@@ -64,7 +68,15 @@ public class Activity_Record_Action {
 	// 信息采集信息登记
 	@Autowired
 	private InformationCollectionService informationCollectionService;
-
+	@Autowired
+	private LogService logService; // 日志
+	@Autowired
+	private Dic_ProcessService processService;//流程名
+	@Autowired
+	private StaffService staffService;//办案人员名
+	
+	
+	
 	// 活动记录表list，用于前台提交的多个数据
 
 	/**
@@ -80,6 +92,7 @@ public class Activity_Record_Action {
 			PHCSMP_Activity_Record activity, HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		try {
+			request.setAttribute("suspectId", suspectId);
 			// 加载当前房间的嫌疑人
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
@@ -104,6 +117,8 @@ public class Activity_Record_Action {
 			activity.setStaff_ID(staff_ID);
 			request.setAttribute("staff_ID", staff_ID);
 			fullCheck(activity);
+			//将询问记录交给日志
+			request.setAttribute("remark", activity.getRemark());
 			// 保存
 			activityRecordService.saveActivityRecordInfor(activity);
 			// 提示成功
@@ -146,7 +161,7 @@ public class Activity_Record_Action {
 	public String AR_loadInfor(HttpServletRequest request,
 			@RequestParam("suspectID") String suspectId) throws IOException {
 		// suspectId = "LB-HB-201703115";
-		try {
+//		try {
 			// 提交失败时将信息再次显示
 			if (request.getAttribute("activity_remark") != null) {
 				String activity_remark = (String) request
@@ -168,67 +183,85 @@ public class Activity_Record_Action {
 					/ (float) suspectInfor.getTotal_record() * 100);
 			request.setAttribute("complete_degree", complete_degree);
 			request.setAttribute("SuspectInfor", suspectInfor);
-
+			//读取加载嫌疑人日志信息
+			List<PHCSMP_Process_Log> suspectLog = getLogBysuspectId(suspectId);
+			List<String> processNameList = new ArrayList<String>();
+			List<String> staffNameList = new ArrayList<String>(); 
+			request.setAttribute("suspectLog", suspectLog);
+			for(PHCSMP_Process_Log suspect : suspectLog){
+				int process = suspect.getProcess_ID();
+				int staffid = suspect.getStaff_ID();
+				if(staffService.getStaffName(staffid)!=null){
+				String staffName = staffService.getStaffName(staffid);
+				staffNameList.add(staffName);
+				}
+				String processName =processService.getProcessName(process);
+				processNameList.add(processName);
+				
+			}
+			request.setAttribute("processNameList", processNameList);
+			request.setAttribute("staffNameList", staffNameList);
+			
 			// 人身安全检查
-			PHCSMP_Personal_Check personal_Check = personalCheckService
-					.findInforBySuspetcId(suspectId);
-			if (personal_Check != null) {
-				int complete_degree1 = (int) (personal_Check.getFill_record()
-						/ (float) personal_Check.getTotal_record() * 100);
-				String checkRoomName = roomService.findByRoomID(
-						personal_Check.getRoom_ID()).getRoom_Name();
-				request.setAttribute("checkRoomName", checkRoomName);
-				request.setAttribute("complete_degree1", complete_degree1);
-				request.setAttribute("personal_Check", personal_Check);
-			} else {
-				request.setAttribute("complete_degree1", "0");
-			}
-			// 信息采集
-			PHCSMP_Information_Collection information_Collection = informationCollectionService
-					.findInforBySuspetcId(suspectId);
-
-			if (information_Collection != null) {
-				int complete_degree2 = (int) (information_Collection
-						.getFill_record()
-						/ (float) information_Collection.getTotal_record() * 100);
-				String ICRoomName = roomService.findByRoomID(
-						information_Collection.getRoom_ID()).getRoom_Name();
-				request.setAttribute("ICRoomName", ICRoomName);
-				request.setAttribute("complete_degree2", complete_degree2);
-				request.setAttribute("information_Collection",
-						information_Collection);
-			} else {
-				request.setAttribute("complete_degree2", "0");
-			}
-			// 询问讯问活动记录
-			List<PHCSMP_Activity_Record> activity_record_infor = activityRecordService
-					.findInforBySuspetcId(suspectId);
-
-			if (activity_record_infor != null) {
-
-				List<String> roomList = new ArrayList<String>();
-				List<Map<String, Object>> activity_record = new ArrayList<Map<String, Object>>();
-				for (PHCSMP_Activity_Record activity : activity_record_infor) {
-					String roomName = roomService.findByRoomID(
-							activity.getRoom_ID()).getRoom_Name();
-
-					roomList.add(roomName);
-				}
-				for (int i = 0; i < activity_record_infor.size(); i++) {
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("activity_Record", activity_record_infor.get(i)
-							.getActivity_Record());
-					map.put("room_Name", roomList.get(i));
-					map.put("start_Time", activity_record_infor.get(i)
-							.getStart_Time());
-					map.put("end_Time", activity_record_infor.get(i)
-							.getEnd_Time());
-
-					map.put("remark", activity_record_infor.get(i).getRemark());
-					activity_record.add(map);
-				}
-				request.setAttribute("activity_record", activity_record);
-			}
+//			PHCSMP_Personal_Check personal_Check = personalCheckService
+//					.findInforBySuspetcId(suspectId);
+//			if (personal_Check != null) {
+//				int complete_degree1 = (int) (personal_Check.getFill_record()
+//						/ (float) personal_Check.getTotal_record() * 100);
+//				String checkRoomName = roomService.findByRoomID(
+//						personal_Check.getRoom_ID()).getRoom_Name();
+//				request.setAttribute("checkRoomName", checkRoomName);
+//				request.setAttribute("complete_degree1", complete_degree1);
+//				request.setAttribute("personal_Check", personal_Check);
+//			} else {
+//				request.setAttribute("complete_degree1", "0");
+//			}
+//			// 信息采集
+//			PHCSMP_Information_Collection information_Collection = informationCollectionService
+//					.findInforBySuspetcId(suspectId);
+//
+//			if (information_Collection != null) {
+//				int complete_degree2 = (int) (information_Collection
+//						.getFill_record()
+//						/ (float) information_Collection.getTotal_record() * 100);
+//				String ICRoomName = roomService.findByRoomID(
+//						information_Collection.getRoom_ID()).getRoom_Name();
+//				request.setAttribute("ICRoomName", ICRoomName);
+//				request.setAttribute("complete_degree2", complete_degree2);
+//				request.setAttribute("information_Collection",
+//						information_Collection);
+//			} else {
+//				request.setAttribute("complete_degree2", "0");
+//			}
+//			// 询问讯问活动记录
+//			List<PHCSMP_Activity_Record> activity_record_infor = activityRecordService
+//					.findInforBySuspetcId(suspectId);
+//
+//			if (activity_record_infor != null) {
+//
+//				List<String> roomList = new ArrayList<String>();
+//				List<Map<String, Object>> activity_record = new ArrayList<Map<String, Object>>();
+//				for (PHCSMP_Activity_Record activity : activity_record_infor) {
+//					String roomName = roomService.findByRoomID(
+//							activity.getRoom_ID()).getRoom_Name();
+//
+//					roomList.add(roomName);
+//				}
+//				for (int i = 0; i < activity_record_infor.size(); i++) {
+//					Map<String, Object> map = new HashMap<String, Object>();
+//					map.put("activity_Record", activity_record_infor.get(i)
+//							.getActivity_Record());
+//					map.put("room_Name", roomList.get(i));
+//					map.put("start_Time", activity_record_infor.get(i)
+//							.getStart_Time());
+//					map.put("end_Time", activity_record_infor.get(i)
+//							.getEnd_Time());
+//
+//					map.put("remark", activity_record_infor.get(i).getRemark());
+//					activity_record.add(map);
+//				}
+//				request.setAttribute("activity_record", activity_record);
+//			}
 
 			// 设置询问询问开始的时间
 			Date date = new Date();
@@ -239,13 +272,24 @@ public class Activity_Record_Action {
 			// 维护进出门状态
 			suspectService.updateSwitch(1, suspectId);
 			return "WEB-INF/jsp/recordInfor/activity";
-		} catch (Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
-			// response.getWriter().flush();
-			request.setAttribute("error", "error");
-			return "redirect:/load";
-		}
+//		} catch (Exception e) {
+//			// response.getWriter()
+//			// .write("<script type='text/javascript'>alert('当前房间存在多个嫌疑人，可能是上一个嫌疑人出门时未刷卡（请保证进门和出门时成对刷卡），也可能是房间信息不正确');</script>");
+//			// response.getWriter().flush();
+//			request.setAttribute("error", "error");
+//			return "redirect:/load";
+//		}
 	}
 
+	
+	/**
+	 * 按suspectId查询嫌疑人日志
+	 * 
+	 * @param suspectId
+	 * @return
+	 */
+	private List<PHCSMP_Process_Log> getLogBysuspectId(String suspectId) {
+		return logService.findlogBysuspect(suspectId);
+
+	}
 }
