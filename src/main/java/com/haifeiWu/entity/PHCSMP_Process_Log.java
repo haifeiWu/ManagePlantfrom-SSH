@@ -13,10 +13,13 @@ public class PHCSMP_Process_Log implements Serializable {
 	 */
 	private static final long serialVersionUID = -1679947925598059057L;
 	
+	private Integer complete;//完整性
+	private String suspected_Cause;//进入办案区原因
 	private int log_ID;//业务日志ID（主键）
 	private String suspect_ID;//档案编号
 	private int process_ID;//流程ID
-	private String suspect_active;
+	private String suspect_active;//活动记录
+	private int roomId;//房间id
 	private String date;
 	private String start_Time;//开始时间
 	private String end_Time;//结束时间
@@ -27,6 +30,12 @@ public class PHCSMP_Process_Log implements Serializable {
 	
 	
 	
+	public String getSuspected_Cause() {
+		return suspected_Cause;
+	}
+	public void setSuspected_Cause(String suspected_Cause) {
+		this.suspected_Cause = suspected_Cause;
+	}
 	public String getDate() {
 		return date;
 	}
@@ -83,6 +92,18 @@ public class PHCSMP_Process_Log implements Serializable {
 	}
 	public void setiP_Address(String iP_Address) {
 		this.iP_Address = iP_Address;
+	}
+	public Integer getComplete() {
+		return complete;
+	}
+	public void setComplete(Integer complete) {
+		this.complete = complete;
+	}
+	public int getRoomId() {
+		return roomId;
+	}
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 	
 	

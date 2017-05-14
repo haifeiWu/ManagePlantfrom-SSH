@@ -83,6 +83,7 @@ public class RFID_ReadAction {
 				.getCardReader_ID();
 		PHCSMP_Suspect suspect = suspectService.findByBandID(bandId);
 		request.setAttribute("suspect", suspect);
+		request.setAttribute("suspectId", suspect.getSuspect_ID());
 		PHCSMP_Room room = roomService.findByCardReaderID(cardReader_ID);
 		request.setAttribute("room", room);
 		/**
