@@ -16,7 +16,7 @@
         <property name="collected_Item"/>
         <property name="is_Storaged"/>
         <property name="is_Checked"/>
-        <property name="staff_ID"/>
+        <property name="staff_ID" />
         <property name="room_ID"/>
         <!-- 信息採集日期 -->
         <property name="ic_StartTime"/>
