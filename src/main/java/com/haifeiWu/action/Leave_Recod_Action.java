@@ -134,7 +134,7 @@ public class Leave_Recod_Action {
 		model.setLeave_Time(leavetime);
 		model.setTreatment_Time(leavetime);
 		// 获取staffID
-		String staff_ID = request.getParameter("staff_ID");
+		Integer staff_ID = Integer.parseInt(request.getParameter("staff_ID"));
 		model.setStaff_ID(staff_ID);
 		request.setAttribute("staff_ID", staff_ID);
 		// // 设置离区 嫌疑人的ID
@@ -149,14 +149,31 @@ public class Leave_Recod_Action {
 		model.setTotal_record(fieldsNumber1 - 4);// 设置应填写的字段
 
 		// 设置羁押时间
-		DateTimeFormatter format = DateTimeFormat
-				.forPattern("yyyy-MM-dd HH:mm");
-		DateTime enter = DateTime.parse(suspectInfor.getEnter_Time(), format);
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		long diff;
+		long day = 0;
+		long hour = 0;
+		long min = 0;
+		long nd = 1000 * 24 * 60 * 60;// 一天的毫秒数
+		long nh = 1000 * 60 * 60;// 一小时的毫秒数
+		long nm = 1000 * 60;// 一分钟的毫秒数
+		diff = sd.parse(suspectInfor.getEnter_Time()).getTime()
+				- sd.parse(leavetime).getTime();
+		System.out.println(diff + "-----------------------------");
+		System.out.println(suspectInfor.getEnter_Time()
+				+ "-----------------------------");
+		System.out.println(leavetime + "-----------------------------");
+		day = diff / nd;// 计算差多少天
+		hour = diff % nd / nh + day * 24;// 计算差多少小时
+		min = diff % nd % nh / nm + day * 24 * 60;// 计算差多少分钟
+		// 输出结果
+		System.out.println("时间相差：" + day + "天" + (hour - day * 24) + "小时"
+				+ (min - day * 24 * 60) + "分钟");
+		String detain = day + "天" + (hour - day * 24) + "小时"
+				+ (min - day * 24 * 60) + "分钟";
 
-		DateTime leave = DateTime.parse(leavetime, format);
-		int hours = Hours.hoursBetween(enter, leave).getHours();
 		// 设置却没有保存到数据库
-		suspectService.updateDetainTime(hours + "小时", suspectID);
+		suspectService.updateDetainTime(detain, suspectID);
 		// 保证不插入重复数据
 		PHCSMP_Leave_Record LeaveRecordInfor = leaveRecodService
 				.findLeaveRecordInfor(suspectID);
@@ -354,6 +371,8 @@ public class Leave_Recod_Action {
 			// 判断是否出区返回
 			temporaryLeave = temporaryLeaveService
 					.IsTemporaryLeaveReturn(suspectId);
+			//查询以往出区记录
+			List<Temporary_Leave> temporaryLeaveList=temporaryLeaveService.findTempLeaveListBySuspectID(suspectId);
 			// 向前台放置一些dic表信息
 			List<PHCSMP_Dic_Leaving_Reason> leaveReason = dicService
 					.findLeaveReason();
@@ -364,6 +383,7 @@ public class Leave_Recod_Action {
 			request.setAttribute("leaveReason", leaveReason);
 			request.setAttribute("keepingWay", keepingWay);
 			request.setAttribute("treatmentMethod", treatmentMethod);
+			request.setAttribute("pastList", temporaryLeaveList);
 			// 维护进出门的标志位
 			suspectService.updateSwitch(1, suspectId);
 
@@ -382,7 +402,7 @@ public class Leave_Recod_Action {
 			request.setAttribute("suspectInfor", suspectInfor);
 			List<PHCSMP_Staff> staff = userService.findAllStaffs();
 			request.setAttribute("staff", staff);
-			System.out.println("+++++++++++++++====" + staff.get(1));
+			System.out.println("+++++++++++++++====" + staff.get(0));
 			request.setAttribute("temporaryLeave", temporaryLeave);
 			return "WEB-INF/jsp/recordInfor/leave";
 		} catch (Exception e) {

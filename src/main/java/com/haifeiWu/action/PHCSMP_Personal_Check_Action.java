@@ -86,6 +86,7 @@ public class PHCSMP_Personal_Check_Action {
 			// 维护进出门的标志位
 			int roomId = roomService.findbyIp(request.getRemoteAddr())
 					.getRoom_ID();
+			request.setAttribute("roomid", roomId);
 			// 使用log4j打印日志信息
 			logger.debug("Personal_Check----------------------------"
 					+ suspectId);
@@ -175,7 +176,7 @@ public class PHCSMP_Personal_Check_Action {
 		System.out.println("------------" + model.toString());
 
 		String suspectId = model.getSuspect_ID();
-
+		request.setAttribute("suspectId", suspectId);
 		model.setCheck_EndTime(new DateTime().toString("yyyy-MM-dd HH:mm"));
 		model.setRoom_ID(roomId);
 
@@ -188,14 +189,27 @@ public class PHCSMP_Personal_Check_Action {
 		List<PHCSMP_BelongingS> vaildBelong = new ArrayList<PHCSMP_BelongingS>();// 填写的有效信息
 		for (int i = 0; i < Belonging_Name.size(); i++) {
 			PHCSMP_BelongingS belongS = new PHCSMP_BelongingS();
+			if(Belonging_Character.size()!=0){
 			belongS.setBelonging_Character(Belonging_Character.get(i));
+			}
+			if(Belonging_Name.size()!=0){
 			belongS.setBelonging_Name(Belonging_Name.get(i));
-
+			}
+			if(Belonging_Count.size()!=0){
 			belongS.setBelonging_Count(Belonging_Count.get(i));
+			}
+			if(Keeping_ID.size()!=0){
 			belongS.setKeeping_ID(Keeping_ID.get(i));
+			}
+			if(Cabinet_Number.size()!=0){
 			belongS.setCabinet_Number(Cabinet_Number.get(i));
+			}
+			if(Belonging_Unit.size()!=0){
 			belongS.setBelonging_Unit(Belonging_Unit.get(i));
+			}
+			if(Belonging_Number.size()!=0){
 			belongS.setBelonging_Number(Belonging_Number.get(i));
+			}
 			System.out.println("belongS               " + belongS.toString());
 			if (!(belongS.getBelonging_Name().equals("") || belongS
 					.getBelonging_Name() == null)) {// 提交的信息为空
@@ -223,7 +237,8 @@ public class PHCSMP_Personal_Check_Action {
 		// System.out.println("vaildBelong                    "+vaildBelong.toString());
 		// }
 		// }
-		fullCheck(model);
+		fullCheck(model,request);
+		request.setAttribute("check_Situation", model.getCheck_Situation());
 		// 判断要更新还是插入
 		PHCSMP_Personal_Check old = personalCheckService
 				.findInforBySuspetcId(suspectId);
@@ -272,7 +287,7 @@ public class PHCSMP_Personal_Check_Action {
 		this.belong = belongs;
 	}
 
-	private void fullCheck(PHCSMP_Personal_Check model)
+	private void fullCheck(PHCSMP_Personal_Check model,HttpServletRequest request)
 			throws ClassNotFoundException {
 		Class<?> c = Class.forName(PHCSMP_Personal_Check.class.getName());//
 		// 通过反射找到该类的字段
@@ -282,6 +297,8 @@ public class PHCSMP_Personal_Check_Action {
 
 		model.setFill_record(fieldsNumber - count - 3);// 设置已填写的字段数
 		model.setTotal_record(fieldsNumber - 3);// 设置应填写的字段
+		int complete = (int) ((int)(fieldsNumber - count - 3)/(float) (fieldsNumber - 3) * 100);
+		request.setAttribute("complete", complete);
 		System.out.println("未填写的字段：" + count);
 		System.out.println("总字段：" + fieldsNumber);
 	}

@@ -25,11 +25,13 @@ import com.haifeiWu.entity.PHCSMP_Suspect;
 import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
+import com.haifeiWu.service.Dic_ProcessService;
 import com.haifeiWu.service.InformationCollectionService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LogService;
 import com.haifeiWu.service.PersonalCheckService;
 import com.haifeiWu.service.RoomService;
+import com.haifeiWu.service.StaffService;
 import com.haifeiWu.service.SuspectService;
 import com.haifeiWu.service.TemporaryLeaveService;
 import com.haifeiWu.service.UserService;
@@ -68,6 +70,10 @@ public class GenerateReportAction {
 	private UserService userService;
 	@Autowired
 	private LogService logService; // 日志
+	@Autowired
+	private Dic_ProcessService processService;//流程名
+	@Autowired
+	private StaffService staffService;//办案人员名
 
 	/**
 	 * 生成嫌疑人入区信息报告 (杜意权改，嫌疑人报告办离区活动记录模块)
@@ -81,10 +87,27 @@ public class GenerateReportAction {
 		String suspectId = request.getParameter("suspectID");
 		// try {
 		// 查找嫌疑人日志
+		//读取加载嫌疑人日志信息
 		List<PHCSMP_Process_Log> suspectLog = getLogBysuspectId(suspectId);
+		List<String> processNameList = new ArrayList<String>();
+		List<String> staffNameList = new ArrayList<String>(); 
 		request.setAttribute("suspectLog", suspectLog);
+		for(PHCSMP_Process_Log suspect : suspectLog){
+			int process = suspect.getProcess_ID();
+			int staffid = suspect.getStaff_ID();
+			if(staffService.getStaffName(staffid)!=null){
+			String staffName = staffService.getStaffName(staffid);
+			staffNameList.add(staffName);
+			}
+			String processName =processService.getProcessName(process);
+			processNameList.add(processName);
+			
+		}
+		request.setAttribute("processNameList", processNameList);
+		request.setAttribute("staffNameList", staffNameList);
 		// 查找嫌疑人入区信息
 		PHCSMP_Suspect suspect = suspectService.findBySuspetcId(suspectId);
+
 
 		int suspect_complete_degree = (int) (suspect.getFill_record()
 				/ (float) suspect.getTotal_record() * 100);
@@ -92,6 +115,7 @@ public class GenerateReportAction {
 				+ "------------------------------------");
 		request.setAttribute("suspect_complete_degree", suspect_complete_degree);
 		// 嫌疑人随身所有物品检查信息s
+
 		List<PHCSMP_BelongingS> belongingS = belongingInforService
 				.selectBelongInfor(suspectId);
 
@@ -111,6 +135,7 @@ public class GenerateReportAction {
 		// 嫌疑人人身检查信息
 		PHCSMP_Personal_Check personal_Check = personalCheckService
 				.findInforBySuspetcId(suspectId);
+
 		if (personal_Check != null) {
 			int personal_Check_complete_degree = (int) (personal_Check
 					.getFill_record()
@@ -135,6 +160,7 @@ public class GenerateReportAction {
 		// 嫌疑人信息采集记录
 		PHCSMP_Information_Collection information_Collection = informationCollectionService
 				.findInforBySuspetcId(suspectId);
+
 		if (information_Collection != null) {
 			int information_Collection_complete_degree = (int) (information_Collection
 					.getFill_record()
@@ -145,6 +171,7 @@ public class GenerateReportAction {
 			request.setAttribute("information_Collection_complete_degree",
 					information_Collection_complete_degree);
 		}
+
 		// 嫌疑人离区信息记录
 		PHCSMP_Leave_Record leave_Record = leaveRecodService
 				.findInforBySuspetcId(suspectId);
@@ -168,6 +195,7 @@ public class GenerateReportAction {
 						+ suspectId + ".pdf");
 		return "WEB-INF/jsp/recordInfor/report";
 		// } catch (Exception e) {
+
 		// response.getWriter()
 		// .write("<script type='text/javascript'>alert('页面加载失败，可能是pdf配置失败');</script>");
 		// response.getWriter().flush();

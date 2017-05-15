@@ -355,19 +355,23 @@
 						</c:forEach>
 					</c:if>
 					<c:if test="${empty activityRecordList }">
+					<tr>
 						<td>询问讯问</td>
 						<td>空</td>
 						<td>空</td>
 						<td class="complete">---</td>
 						<td style="text-align:left;padding-left:30px;">活动内容：空</td>
+						</tr>
 					</c:if>
 					<c:if test="${!empty pastList }">
 						<c:forEach items="${pastList }" var="p" varStatus="status">
-							<td id="select">${p.tempLeave_Reason }</td>
-							<td style="padding:6px 0 6px 0"><input name="staff_ID" class="staff_ID"
-							type="text" style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;"
-							value="${p.staff_ID }" />
-							</td>		
+						    <tr>
+						    <td>临时离区${status.index+1 }</td> 
+						    <td>${p.tempLeave_Time }</td>
+						    <td>${p.return_Time }</td>
+						    <td class="complete">---</td>
+							<td style="text-align:left;padding-left:30px;">离区原因：${p.tempLeave_Reason }</td>
+							</tr>	
 						</c:forEach>
 					</c:if>
 					

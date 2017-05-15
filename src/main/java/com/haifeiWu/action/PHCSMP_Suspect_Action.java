@@ -129,7 +129,7 @@ public class PHCSMP_Suspect_Action {
 
 	// 加载数据库的信息
 	@RequestMapping(value = "/load")
-	public String loadInfor(HttpServletRequest request,
+	public String SUP_loadInfor(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 
 		try {
@@ -206,8 +206,10 @@ public class PHCSMP_Suspect_Action {
 				model.setRecordVideo_State(0);
 				request.setAttribute("videoStetus", "0");
 			}
-			fullCheck(model);
-
+			fullCheck(model,request);
+			//将suspected_Cause交给日志接收
+			request.setAttribute("suspected_Cause", model.getSuspected_Cause());
+			request.setAttribute("roomid", model.getRoom_Now());
 			suspectService.saveSuspect(model);// 保存嫌疑人信息，
 			// String vedioState = "";
 			// if (model.getRecordVideo_State() == 0) {
@@ -228,13 +230,16 @@ public class PHCSMP_Suspect_Action {
 		}
 	}
 
-	private void fullCheck(PHCSMP_Suspect model) throws ClassNotFoundException {
+	private void fullCheck(PHCSMP_Suspect model,HttpServletRequest request) throws ClassNotFoundException {
 		Class<?> c = Class.forName(PHCSMP_Suspect.class.getName());
 		int count = CompleteCheck.IsEqualsNull(model, c);// 获取model对象不为空的字段的个数
 		// 返回实体类中总字段数
 		model.setFill_record(27 - count + 2);// 填的+
 		// 设置已填写的字段数，，，4应该是除去主键、FillRecord、TotalRecord/羁押时间
 		model.setTotal_record(27);// 设置应填写的字段
+		int complete_degree = (int) (27 - count + 2
+				/ (float) 27 * 100);
+		request.setAttribute("complete_degree", complete_degree);
 
 	}
 

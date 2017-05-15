@@ -12,21 +12,21 @@
         </id>
         
         <property name="suspect_ID" type="java.lang.String">
-        	<column name="suspect_ID" not-null="true" /> 
         </property>
 		<property name="process_ID" type="java.lang.Integer">
-        	<column name="process_ID" not-null="true" /> 
         </property>
         
         <property name="suspect_active"></property>
         
+         <property name="roomId"></property>
+        <property name="suspected_Cause"></property>
+        <property name="complete"></property>
         <property name="start_Time"></property>
         <property name="end_Time"></property>
         <property name="date"></property>
         <property name="staff_ID"></property>
         
 		<property name="iP_Address" type="java.lang.String">
-        	<column name="iP_Address" not-null="true" /> 
         </property>
     </class>
 
