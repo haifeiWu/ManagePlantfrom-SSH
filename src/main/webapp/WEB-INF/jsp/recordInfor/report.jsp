@@ -353,14 +353,14 @@
 									<td>保管柜号</td>
 								</tr>
 
-								<c:forEach items="${belongingS }" var="item">
+								<c:forEach items="${belongingS }" var="item" varStatus="list">
 									<tr>
-										<td>${item.belongingS_ID }</td>
+										<td>${list.index+1 }</td>
 										<td>${item.belonging_Name }</td>
 										<td>${item.belonging_Number }</td>
 										<td>${item.belonging_Count }</td>
 										<td>${item.belonging_Unit }</td>
-										<td>${item.keeping_ID }</td>
+										<td>${keepNameList[list.index] }</td>
 										<td>${item.cabinet_Number }</td>
 
 									</tr>
@@ -382,8 +382,8 @@
 						</div>
 						<div>
 							<ul class="signature col-lg-12 col-md-10 col-sm-10">
-								<li>办案人员： ${belongingS[0].staff_ID }</li>
-								<li>随身财物管理员：${belongingS[0].staff_ID_Belonging }</li>
+								<li>办案人员： ${staffname }</li>
+								<li>随身财物管理员：${belongstaffname }</li>
 								<li>涉案人员: ${suspect.suspect_Name }</li>
 							</ul>
 						</div>
@@ -438,7 +438,7 @@
 							style="position: relative;left: 89px;top:23px;width: 41%;color: #f00">该嫌疑人无办案区活动记录</div>
 					</c:if>
 					<c:if test="${!empty activity_Record }"> --%>
-					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="table-layout:fixed;">
+					<table class="active_check col-lg-12 col-md-10 col-sm-10" style="table-layout:fixed;width: 980px;position: relative;left: -63px;">
 							<tr>
 						<td>序号</td>				
 						<td>活动记录</td>
@@ -447,26 +447,34 @@
 						<td>结束时间</td>
 						<td>完整性</td>	
 						<td>办案人员</td>	
-						<td>备注</td>
+						<td style="width: 347px">备注</td>
 					</tr>
 				<tr>
 				<c:forEach items="${suspectLog }" var="item" varStatus="list">
-						<tr>
+						<tr style="height: 48px;">
 							<td>${list.index+1}</td>
 							<td>${item.suspect_active }</td> 
 							<td>${processNameList[list.index] }</td>
 							<td>${item.start_Time }</td>
 							<td>${item.end_Time }</td>
 							<c:choose>
-								<c:when test="${item.complete ne 0}">
+								<c:when test="${item.complete ne 0 &&item.complete ne -1 }">
 									<td>${item.complete }%</td>
 								</c:when>
 								<c:otherwise>
 									<td style="text-align: center;">------</td>
 								</c:otherwise>
 							</c:choose>
-							<td>${staffNameList[list.index] }</td>
-							<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none;width: 100%;height: 100%; " readonly="readonly">${item.suspected_Cause }</textarea></td>
+							<c:choose>
+								<c:when test="${staffNameList[list.index] ne ' ' }">
+									<td>${staffNameList[list.index] }</td>
+								</c:when>
+								<c:otherwise>
+									<td style="text-align: center;">------</td>
+								</c:otherwise>
+							</c:choose>
+							
+							<td rows="2" style="width: 50px"><textarea cols="66" rows="4" style="overflow:hidden;border: none;width: 100%;height: 100%; " readonly="readonly">${item.suspected_Cause }</textarea></td>
 						</tr>
 				</c:forEach>
 				
@@ -482,15 +490,17 @@
 					5、离开办案区登记<!-- <span class="show4">显示信息</span> -->
 				</h4>
 				<div id="fifth">
-					<div class="row_1">
+					<div class="row_1" style="width: 1158px;height: 100px;position: relative;left: -56px">
 						<p
 							style="color: #389AC7;margin-top: 6%;margin-left:6%;font-size: 17px;">临时离开办案区</p>
+					<!-- </div> -->
 						 <%-- <c:if test="${empty temporaryLeaves }"> 
 
 							<div
 								style="position: relative;left: 90px;top:0px;width: 41%;color: #f00">该嫌疑人无临时离区记录</div>
 						</c:if>
 							<c:if test="${!empty temporaryLeaves }"> --%>
+					<!-- <div class="table1" style="width: 0px;height: 0px;"> -->
 						<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
 							<tr>
 								<td>序号</td>
@@ -499,12 +509,12 @@
 								<td>办案部门负责人签名</td>
 								<td>返回时间</td>
 							</tr>
-							<c:forEach items="${temporaryLeaves }" var="item">
+							<c:forEach items="${temporaryLeaves }" var="item" varStatus="list">
 								<tr>
-									<td>${item.temporary_Leave_Id }</td>
+									<td>${list.index+1 }</td>
 									<td>${item.tempLeave_Time }</td>
 									<td>${item.tempLeave_Reason }</td>
-									<td>${item.staff_ID }</td>
+									<td>${staffNameList[list.index] }</td>
 									<td>${item.return_Time }</td>
 
 
@@ -515,20 +525,20 @@
 									<td>${item.temporary_Leave_Id }</td>
 									<td>${item.tempLeave_Time }</td>
 									<td>${item.tempLeave_Reason }</td>
-									<td>${item.staff_ID }</td>
+									<td>${item.tempLeave_staff_ID }</td>
 									<td>${item.return_Time }</td>
 
 
 								</tr>
 							</c:if>
 						</table>
-					</div>
 					
+					</div>
 					<!--最终离开办案区的信息表-->
-					<div class="row_1" style="margin-top: 20px;">
+					<div class="row_1" style="margin-top: 20px;height: 132px">
 					<p></p>
 						<p
-							style="color: #389AC7;margin-top: 9%;margin-left:6%;font-size: 17px;">最终离开办案区</p>
+							style="color: #389AC7;margin-top: 9%;margin-left:6%;font-size: 17px;position: relative;left: -44px;">最终离开办案区</p>
 						<div>
 							<table class="final_Leave col-lg-12 col-md-10 col-sm-10">
 								<tr style="background: #0070c0;color: #fff">
@@ -554,14 +564,17 @@
 							</table>
 						</div>
 					</div>
-					<hr style="margin-top: 114px;border: 1px solid darkgray;" />
+					<!-- <hr style="margin-top: 114px;border: 1px solid darkgray;" /> -->
 					
 						<!-- <input  id="download" type="button" value="下载" /> -->
+						<div style="clear: both;"></div>
+						<div class="downLoad" style="width: 273px;height: 58px;position: relative;left: 267px">
 						<c:if test="${suspect.process_Now == -1}">
 							<a href="${pdfFilePath }" style="margin-left: 36%; margin-top: 10px;position: relative; display: inline-block;background: #D0EEFF;
 								border: 1px solid #99D3F5;border-radius: 4px;padding: 4px 12px;overflow: hidden;color: #1E88C7;text-decoration: none;text-indent: 0;line-height: 20px;left: 45px; "
 							>下载入区报告</a>
 						</c:if>
+						</div>
 						<!-- <script type="text/javascript">
 						    $("#download").click(function(){
 						    

@@ -20,26 +20,35 @@ public class Temporary_Leave implements Serializable {
 	private String tempLeave_Time;// 临时离开时间 1
 	private String tempLeave_Reason;// 临时离开原因 2
 	private String return_Time;// 返回时间 3
-	private String staff_ID;// 办案民警 4
+	private int tempLeave_staff_ID;// 办案民警 4
+	private int return_staff_ID;
 	private int room_ID;// 信息登记房间 5
-	private String manager;// 管理员
+	private int tempLeave_manager;// 管理员
+	private int return_manager;
 
 	public Temporary_Leave() {
 		super();
 	}
 
-	public Temporary_Leave(String suspect_ID, String tempLeave_Time,
-			String tempLeave_Reason, String return_Time, String staff_ID,
-			int room_ID, String manager) {
+	
+
+	public Temporary_Leave( String suspect_ID,
+			String tempLeave_Time, String tempLeave_Reason, String return_Time,
+			int tempLeave_staff_ID, int return_staff_ID, int room_ID,
+			int tempLeave_manager, int return_manager) {
 		super();
 		this.suspect_ID = suspect_ID;
 		this.tempLeave_Time = tempLeave_Time;
 		this.tempLeave_Reason = tempLeave_Reason;
 		this.return_Time = return_Time;
-		this.staff_ID = staff_ID;
+		this.tempLeave_staff_ID = tempLeave_staff_ID;
+		this.return_staff_ID = return_staff_ID;
 		this.room_ID = room_ID;
-		this.manager = manager;
+		this.tempLeave_manager = tempLeave_manager;
+		this.return_manager = return_manager;
 	}
+
+
 
 	public int getTemporary_Leave_Id() {
 		return temporary_Leave_Id;
@@ -81,14 +90,7 @@ public class Temporary_Leave implements Serializable {
 		this.return_Time = return_Time;
 	}
 
-	public String getStaff_ID() {
-		return staff_ID;
-	}
-
-	public void setStaff_ID(String staff_ID) {
-		this.staff_ID = staff_ID;
-	}
-
+	
 	public int getRoom_ID() {
 		return room_ID;
 	}
@@ -97,13 +99,70 @@ public class Temporary_Leave implements Serializable {
 		this.room_ID = room_ID;
 	}
 
-	public String getManager() {
-		return manager;
+	
+
+
+	public int getTempLeave_staff_ID() {
+		return tempLeave_staff_ID;
 	}
 
-	public void setManager(String manager) {
-		this.manager = manager;
+
+
+	public void setTempLeave_staff_ID(int tempLeave_staff_ID) {
+		this.tempLeave_staff_ID = tempLeave_staff_ID;
 	}
+
+
+
+	public int getReturn_staff_ID() {
+		return return_staff_ID;
+	}
+
+
+
+	public void setReturn_staff_ID(int return_staff_ID) {
+		this.return_staff_ID = return_staff_ID;
+	}
+
+
+
+	public int getTempLeave_manager() {
+		return tempLeave_manager;
+	}
+
+
+
+	public void setTempLeave_manager(int tempLeave_manager) {
+		this.tempLeave_manager = tempLeave_manager;
+	}
+
+
+
+	public int getReturn_manager() {
+		return return_manager;
+	}
+
+
+
+	public void setReturn_manager(int return_manager) {
+		this.return_manager = return_manager;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Temporary_Leave [temporary_Leave_Id=" + temporary_Leave_Id
+				+ ", suspect_ID=" + suspect_ID + ", tempLeave_Time="
+				+ tempLeave_Time + ", tempLeave_Reason=" + tempLeave_Reason
+				+ ", return_Time=" + return_Time + ", tempLeave_staff_ID="
+				+ tempLeave_staff_ID + ", return_staff_ID=" + return_staff_ID
+				+ ", room_ID=" + room_ID + ", tempLeave_manager="
+				+ tempLeave_manager + ", return_manager=" + return_manager
+				+ "]";
+	}
+
+	
 
 	// @Override
 	// public String toString() {
@@ -114,11 +173,7 @@ public class Temporary_Leave implements Serializable {
 	// + ", room_ID=" + room_ID + "]";
 	// }
 
-	@Override
-	public String toString() {// 重写toString方法
-		return "临时离开原因：" + this.tempLeave_Reason + "档案号：" + this.suspect_ID
-				+ "员工编号：" + this.staff_ID + "返回时间：" + this.return_Time;
-	}
+	
 	//
 
 }

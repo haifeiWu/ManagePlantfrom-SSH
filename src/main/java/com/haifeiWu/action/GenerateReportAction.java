@@ -27,6 +27,7 @@ import com.haifeiWu.service.ActivityRecordService;
 import com.haifeiWu.service.BelongingInforService;
 import com.haifeiWu.service.Dic_ProcessService;
 import com.haifeiWu.service.InformationCollectionService;
+import com.haifeiWu.service.KeepService;
 import com.haifeiWu.service.LeaveRecodService;
 import com.haifeiWu.service.LogService;
 import com.haifeiWu.service.PersonalCheckService;
@@ -74,7 +75,8 @@ public class GenerateReportAction {
 	private Dic_ProcessService processService;//流程名
 	@Autowired
 	private StaffService staffService;//办案人员名
-
+	@Autowired
+	KeepService keepService;
 	/**
 	 * 生成嫌疑人入区信息报告 (杜意权改，嫌疑人报告办离区活动记录模块)
 	 * 
@@ -90,6 +92,7 @@ public class GenerateReportAction {
 		//读取加载嫌疑人日志信息
 		List<PHCSMP_Process_Log> suspectLog = getLogBysuspectId(suspectId);
 		List<String> processNameList = new ArrayList<String>();
+		List<String> keepNameList = new ArrayList<String>();
 		List<String> staffNameList = new ArrayList<String>(); 
 		request.setAttribute("suspectLog", suspectLog);
 		for(PHCSMP_Process_Log suspect : suspectLog){
@@ -97,10 +100,17 @@ public class GenerateReportAction {
 			int staffid = suspect.getStaff_ID();
 			if(staffService.getStaffName(staffid)!=null){
 			String staffName = staffService.getStaffName(staffid);
+			
 			staffNameList.add(staffName);
+			
+			}else{
+				staffNameList.add(" ");
 			}
+	System.out.println(process+"-----------------------------process");
+			if(processService.getProcessName(process)!=null){
 			String processName =processService.getProcessName(process);
 			processNameList.add(processName);
+			}
 			
 		}
 		request.setAttribute("processNameList", processNameList);
@@ -118,6 +128,24 @@ public class GenerateReportAction {
 
 		List<PHCSMP_BelongingS> belongingS = belongingInforService
 				.selectBelongInfor(suspectId);
+		if(belongingS!=null && belongingS.size()!=0){
+		int belongstaffid = belongingS.get(0).getStaff_ID_Belonging();
+		int staffid = Integer.parseInt(belongingS.get(0).getStaff_ID());
+		if(staffService.getStaffName(belongstaffid)!=null){
+			String belongstaffname = staffService.getStaffName(belongstaffid);
+			String  staffname = staffService.getStaffName(staffid);
+			request.setAttribute("belongstaffname", belongstaffname);
+			request.setAttribute("staffname", staffname);
+		}
+//		}
+//		if(belongingS!=null){
+			for(PHCSMP_BelongingS belong: belongingS){
+				int keepid = Integer.parseInt(belong.getKeeping_ID());
+			String keepname = keepService.getKeepname(keepid);
+			keepNameList.add(keepname);
+			}
+			request.setAttribute("keepNameList", keepNameList);
+		}
 
 		// 查询办案人名
 		PHCSMP_Personal_Check personcheck = personalCheckService

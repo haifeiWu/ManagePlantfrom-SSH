@@ -28,5 +28,6 @@ public interface LogService {
 	public PHCSMP_Process_Log searchEmpstaff(String suspectId);
 	public List<PHCSMP_Process_Log> findlogBysuspect(String suspectId);
 	public void updateNew(PHCSMP_Process_Log process);
-	PHCSMP_Process_Log searchEmpcomplete(String suspectId); 
+	PHCSMP_Process_Log searchEmpcomplete(String suspectId);
+	public void updateActive(PHCSMP_Process_Log log);
 }
