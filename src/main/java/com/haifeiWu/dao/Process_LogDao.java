@@ -16,5 +16,5 @@ public interface Process_LogDao extends DaoSupport<PHCSMP_Process_Log> {
 			int pageSize, String param);
 	public PHCSMP_Process_Log queryBystaff(String hql,String suspectId);
 	public List<PHCSMP_Process_Log> findLogBysuspectId(String hql, String suspectId);
-	public PHCSMP_Process_Log queryByComplete(String hql);
+	public PHCSMP_Process_Log queryByComplete(String hql,String suspectId);
 }

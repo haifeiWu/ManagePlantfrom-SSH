@@ -16,9 +16,11 @@
         <property name="tempLeave_Reason"/>
         <property name="return_Time"/>
         
-        <property name="staff_ID"/>
+        <property name="return_staff_ID"/>
+         <property name="tempLeave_staff_ID"/>
         <property name="room_ID"/>
-        <property name="manager"></property>
+        <property name="tempLeave_manager"></property>
+        <property name="return_manager"></property>
     </class>
 
 </hibernate-mapping>

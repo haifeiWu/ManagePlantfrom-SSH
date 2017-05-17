@@ -28,13 +28,11 @@
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Dic_Keeping_Way.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Dic_Leaving_Reason.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Dic_Treatment_Method.hbm.xml" />
-		<mapping resource="com/haifeiWu/entity/PHCSMP_Duties.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Information_Collection.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Leave_Record.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Personal_Check.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Role.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Room.hbm.xml" />
-		<mapping resource="com/haifeiWu/entity/PHCSMP_Staff_In_Role.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Staff.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Suspect.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/Temporary_Leave.hbm.xml" />
@@ -42,6 +40,9 @@
 		<!-- wxy 添加POJO类 -->
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Dic_Process.hbm.xml" />
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Process_Log.hbm.xml" />
+		
+		<mapping resource="com/haifeiWu/entity/PHCSMP_Function.hbm.xml" />
+		<mapping resource="com/haifeiWu/entity/PHCSMP_RoleFunction.hbm.xml" />
 
 		<mapping resource="com/haifeiWu/entity/PHCSMP_Line.hbm.xml" />
 	</session-factory>

@@ -134,12 +134,13 @@ public class Leave_Recod_Action {
 		model.setLeave_Time(leavetime);
 		model.setTreatment_Time(leavetime);
 		// 获取staffID
-		Integer staff_ID = Integer.parseInt(request.getParameter("staff_ID"));
+		Integer staff_ID = Integer.parseInt(request.getParameter("tempLeave_manager"));
 		model.setStaff_ID(staff_ID);
 		request.setAttribute("staff_ID", staff_ID);
 		// // 设置离区 嫌疑人的ID
 
 		model.setSuspect_ID(suspectID);
+		request.setAttribute("suspectId", suspectID);
 		suspectInfor = suspectService.findBySuspetcId(suspectID);
 		// 动态设置离区嫌疑人的字段信息
 		Class<?> c = Class.forName(PHCSMP_Leave_Record.class.getName());
@@ -225,19 +226,23 @@ public class Leave_Recod_Action {
 
 	// 保存临时出区的信息
 	@RequestMapping(value = "/addtemp", method = RequestMethod.POST)
-	public String addTemporaryLeaveInfor(Temporary_Leave model,
+	public String addTemporaryLeaveInfor(Temporary_Leave model,@RequestParam("suspectID") String suspectId,
+			//@RequestParam("tempLeave_Reason") String tempLeave_Reason,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		try {
+//		try {
 			// 根据ip找到房间
 			PHCSMP_Room room = roomService.findbyIp(request.getRemoteAddr());
 			// 获取前台表单数据，并封装成对象.
-			Temporary_Leave temporary_Leave = new Temporary_Leave(suspectID,
-					tempLeave_Time, tempLeave_Reason, return_Time,
-					model.getStaff_ID(), room.getRoom_ID(), manager);
+			Temporary_Leave temporary_Leave = new Temporary_Leave(suspectId,
+					tempLeave_Time, model.getTempLeave_Reason(), return_Time,
+					model.getTempLeave_manager(),model.getReturn_staff_ID(), room.getRoom_ID(), model.getTempLeave_manager(),model.getReturn_manager());
 			// 如果是出区保存信息,是出区返回则更新信息
 			temporaryLeave = temporaryLeaveService
-					.IsTemporaryLeaveReturn(suspectID);
+					.IsTemporaryLeaveReturn(suspectId);
+			request.setAttribute("suspectId", suspectId);
+			request.setAttribute("staff_ID", model.getTempLeave_staff_ID());
+	System.out.println(temporaryLeave+"------------------------------------------------temporaryLeave");
 			// 临时离开返回
 			if (temporaryLeave != null) {
 				// 更新临时离开返回时间
@@ -246,38 +251,40 @@ public class Leave_Recod_Action {
 				String temporaryReturnTime = sdf.format(date);
 
 				temporaryLeaveService.updateReturnTime(temporaryReturnTime,
-						suspectID);
-				// 如果出区返回时值班室管理员变了，则将新的管理员也保存进数据库
-				if (temporaryLeave.getManager() != manager) {
-					temporaryLeaveService.updateManager(
-							temporaryLeave.getManager() + "," + manager,
-							suspectID);
-				}
+						suspectId);
+				
+				temporaryLeaveService.updateManager(
+						temporaryLeave.getReturn_manager(),
+						suspectId);
+					
+				
 			} else {// 临时离开
 				// 设置临时离开时间
 				Date date = new Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 				String temporaryLeaveTime = sdf.format(date);
-
 				temporary_Leave.setTempLeave_Time(temporaryLeaveTime);
 				temporaryLeaveService.saveTemporaryLeaveInfo(temporary_Leave);
+				
+				
+				
 			}
 
 			return "redirect:/home/index";
-		} catch (Exception e) {
-			// response.getWriter()
-			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
-			// response.getWriter().flush();
-			request.setAttribute("error", "error");
-			return "redirect:/load";
-		}
+//		} catch (Exception e) {
+//			// response.getWriter()
+//			// .write("<script type='text/javascript'>alert('提交失败，请重新提交');</script>");
+//			// response.getWriter().flush();
+//			request.setAttribute("error", "error");
+//			return "redirect:/load";
+//		}
 	}
 
 	/* 加载界面信息 */
 	@RequestMapping(value = "/load")
 	public String loadInfor(@RequestParam("suspectID") String suspectId,
 			HttpServletRequest request) throws IOException {
-		try {
+//		try {
 			// 异常处理的代码
 			if (request.getAttribute("leaveRecordLoadInfor") != null) {
 				PHCSMP_Leave_Record lr = (PHCSMP_Leave_Record) request
@@ -371,6 +378,7 @@ public class Leave_Recod_Action {
 			// 判断是否出区返回
 			temporaryLeave = temporaryLeaveService
 					.IsTemporaryLeaveReturn(suspectId);
+System.out.println(temporaryLeave+"---------------------------------------------temporaryLeave");
 			//查询以往出区记录
 			List<Temporary_Leave> temporaryLeaveList=temporaryLeaveService.findTempLeaveListBySuspectID(suspectId);
 			// 向前台放置一些dic表信息
@@ -404,17 +412,27 @@ public class Leave_Recod_Action {
 			request.setAttribute("staff", staff);
 			System.out.println("+++++++++++++++====" + staff.get(0));
 			request.setAttribute("temporaryLeave", temporaryLeave);
+			if(staffIdisEmpty()!=0){
+			request.setAttribute("staff_ID", temporaryLeave.getReturn_staff_ID());
+			}
 			return "WEB-INF/jsp/recordInfor/leave";
+//		} catch (Exception e) {
+//			// 异常处理
+//			// response.getWriter()
+//			// .write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
+//			// response.getWriter().flush();
+//			// 转到
+//			return "redirect:/home/index";
+//		}
+	}
+	//判断staffId是否为空
+	private int staffIdisEmpty(){
+		try {
+			return temporaryLeave.getReturn_staff_ID();
 		} catch (Exception e) {
-			// 异常处理
-			// response.getWriter()
-			// .write("<script type='text/javascript'>alert('加载失败，可能是房间或读卡设备配置错误，修改配置后刷新页面');</script>");
-			// response.getWriter().flush();
-			// 转到
-			return "redirect:/home/index";
+			return 0;
 		}
 	}
-
 	// 未登录状态时
 	public String unlogin_load() {
 		return "unlogin_load";

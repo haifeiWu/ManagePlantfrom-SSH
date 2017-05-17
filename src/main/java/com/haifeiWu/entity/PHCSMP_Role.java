@@ -19,7 +19,8 @@ public class PHCSMP_Role implements Serializable {
 	private Integer role_ID;// 角色ID
 	private String role_Name;// 角色名称
 	private String role_Description;// 角色说明
-	private String is_Default_Role;
+
+	// private String is_Default_Role;
 
 	public Integer getRole_ID() {
 		return role_ID;
@@ -43,14 +44,6 @@ public class PHCSMP_Role implements Serializable {
 
 	public void setRole_Description(String role_Description) {
 		this.role_Description = role_Description;
-	}
-
-	public String getIs_Default_Role() {
-		return is_Default_Role;
-	}
-
-	public void setIs_Default_Role(String is_Default_Role) {
-		this.is_Default_Role = is_Default_Role;
 	}
 
 }

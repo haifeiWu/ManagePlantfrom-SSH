@@ -15,15 +15,15 @@
 		<property name="PassWord"></property>
 		<property name="real_Name"></property>
 		<property name="Sex"></property>
-		<property name="Duties_Name"></property>
+		<!-- <property name="Duties_Name"></property> -->
 		<property name="Email"></property>
 		<property name="RegistedDate"></property>
 		<property name="Is_Dimission"></property>
 		
 		<property name="Phone"></property>
 		<property name="Mobile"></property>
-		<property name="Is_FirstLogin"></property>
-		<property name="role_Name"></property>
+		<!-- <property name="Is_FirstLogin"></property> -->
+		<property name="role_Id"></property>
     </class>
 
 </hibernate-mapping>

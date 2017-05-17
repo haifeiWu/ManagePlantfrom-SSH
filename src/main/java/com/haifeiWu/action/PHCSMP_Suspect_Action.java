@@ -207,9 +207,13 @@ public class PHCSMP_Suspect_Action {
 				request.setAttribute("videoStetus", "0");
 			}
 			fullCheck(model,request);
+			//设置入区流程号
+			model.setProcess_Now(6);
 			//将suspected_Cause交给日志接收
 			request.setAttribute("suspected_Cause", model.getSuspected_Cause());
 			request.setAttribute("roomid", model.getRoom_Now());
+			request.setAttribute("suspectId", model.getSuspect_ID());
+			request.setAttribute("staff_ID", model.getStaff_ID());
 			suspectService.saveSuspect(model);// 保存嫌疑人信息，
 			// String vedioState = "";
 			// if (model.getRecordVideo_State() == 0) {

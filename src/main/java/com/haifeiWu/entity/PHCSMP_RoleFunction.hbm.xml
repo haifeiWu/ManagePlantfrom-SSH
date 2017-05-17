@@ -4,15 +4,12 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.haifeiWu.entity">
-
-    <class name="PHCSMP_Duties" table="PHCSMP_Duties" lazy="false">
-    
-        <id name="duties_ID">
+    <class name="PHCSMP_RoleFunction" table="PHCSMP_RoleFunction" dynamic-update="true" lazy="false">
+        <id name="id">
             <generator class="native"/>
         </id>
-        
-        <property name="duties_Name"/>
-        <property name="duties_Desc"/>
+        <property name="roleId"/>
+        <property name="functionId"/>
     </class>
 
 </hibernate-mapping>

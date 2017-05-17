@@ -9,7 +9,7 @@ public interface DaoSupport<T> {
 	 * 
 	 * @param entity
 	 */
-	public void save(T entity);
+	public Integer save(T entity);
 
 	/**
 	 * 更新实体
@@ -24,7 +24,7 @@ public interface DaoSupport<T> {
 	 * 
 	 * @param entity
 	 */
-	public void delete(T entity);
+	// public void delete(T entity);
 
 	/**
 	 * 删除实体
@@ -85,8 +85,10 @@ public interface DaoSupport<T> {
 	public List<T> findListByPropertyName(String propertyName, Object value);
 
 	/**
-	 * 需要的话再加一个通过两个属性名和属性值查询的 可增加一个更新方法，传入更新的属性和根据哪个属性更新，再传入对应的值
+	 * 通过一个属性去删除数据
 	 * 
+	 * @param propertyName
+	 * @param value
 	 */
-	/* public void updateSuspect(PHCSMP_Suspect suspect); */
+	public void deleteByProperty(String propertyName, Object value);
 }

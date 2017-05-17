@@ -108,8 +108,7 @@ $(document).ready(function (){
     <ul class="menuson">
         <li><cite></cite><a href="${pageContext.request.contextPath }/user/load" target="rightFrame">查看所有用户</a><i></i></li>
         <li><cite></cite><a href="${pageContext.request.contextPath }/user/adduser" target="rightFrame">添加用户</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
-        <li><cite></cite><a href="#">待编辑</a><i></i></li>
+        <li><cite></cite><a href="${pageContext.request.contextPath }/role/loadRole" target="rightFrame">查看角色</a><i></i></li>
     </ul>    
     </dd>  
     

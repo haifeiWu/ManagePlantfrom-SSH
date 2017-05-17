@@ -225,15 +225,23 @@ public class LogServiceImpl implements LogService {
 
 	@Override
 	public void updateNew(PHCSMP_Process_Log process) {
-		String hql = "update PHCSMP_Process_Log process set process.complete=?,process.suspected_Cause=?,process.roomId=? where process.log_ID=?";
-		process_logDao.update(hql, process.getComplete(),process.getSuspected_Cause(),process.getRoomId(),process.getLog_ID());
+		String hql = "update PHCSMP_Process_Log process set process.complete=?,process.suspected_Cause=?,process.suspect_active=?,process.roomId=? where process.log_ID=?";
+		process_logDao.update(hql, process.getComplete(),process.getSuspected_Cause(),process.getSuspect_active(),process.getRoomId(),process.getLog_ID());
 	}
 
 	@Override
 	public PHCSMP_Process_Log searchEmpcomplete(String suspectId) {
-		String hql = "from PHCSMP_Process_Log where complete=?";
-		return process_logDao.queryByComplete(hql);
+		String hql = "from PHCSMP_Process_Log where complete=? and suspect_ID=?";
+		return process_logDao.queryByComplete(hql,suspectId);
 	}
+
+	@Override
+	public void updateActive(PHCSMP_Process_Log log) {
+		String hql = "update PHCSMP_Process_Log process set process.suspect_active=? where process.complete=?";
+		process_logDao.update(hql, "临时离区",log.getComplete());
+	}
+
+	
 
 	
 	

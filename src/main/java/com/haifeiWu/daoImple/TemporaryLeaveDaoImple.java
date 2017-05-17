@@ -43,9 +43,16 @@ public class TemporaryLeaveDaoImple extends DaoSupportImpl<Temporary_Leave> impl
 
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, suspectId);
+//		query.setParameter(1, null);
 		Temporary_Leave entity = (Temporary_Leave) query.uniqueResult();
 
 		tx.commit();// 提交事务
 		return entity;
+	}
+
+	@Override
+	public Temporary_Leave findTemporaryreturnById(String suspectId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

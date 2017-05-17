@@ -26,7 +26,7 @@ public class PHCSMP_BelongingS implements Serializable {
 	private String keeping_ID;// 保管措施（随身物品保管措施字典表中ID逗号隔开）
 	private String cabinet_Number;// 保管柜编号
 	private String staff_ID;// 办案民警
-	private String staff_ID_Belonging;// 随身财物管理民警
+	private int staff_ID_Belonging;// 随身财物管理民警
 	private int room_ID;// 信息登记房间
 
 	private int total_record = 60;// 需要填写的总记录数
@@ -103,6 +103,10 @@ public class PHCSMP_BelongingS implements Serializable {
 		this.cabinet_Number = cabinet_Number;
 	}
 
+	
+
+	
+
 	public String getStaff_ID() {
 		return staff_ID;
 	}
@@ -111,11 +115,11 @@ public class PHCSMP_BelongingS implements Serializable {
 		this.staff_ID = staff_ID;
 	}
 
-	public String getStaff_ID_Belonging() {
+	public int getStaff_ID_Belonging() {
 		return staff_ID_Belonging;
 	}
 
-	public void setStaff_ID_Belonging(String staff_ID_Belonging) {
+	public void setStaff_ID_Belonging(int staff_ID_Belonging) {
 		this.staff_ID_Belonging = staff_ID_Belonging;
 	}
 

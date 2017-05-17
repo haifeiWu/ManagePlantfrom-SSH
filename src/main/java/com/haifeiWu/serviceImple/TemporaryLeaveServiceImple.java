@@ -18,15 +18,21 @@ public class TemporaryLeaveServiceImple extends DaoSupportImpl<Temporary_Leave>
 
 	@Override
 	public Temporary_Leave IsTemporaryLeaveReturn(String suspectId) {
-		Temporary_Leave temporaryLeave = temporaryLeaveDao
-				.findTemporaryLeaveInfoById(suspectId);
-		if (temporaryLeave != null) {
-			// 不为空则是出区返回
-			return temporaryLeave;
-		} else {
-			// 出区
+		try {
+			return  temporaryLeaveDao
+					.findTemporaryLeaveInfoById(suspectId);
+		} catch (Exception e) {
 			return null;
 		}
+//		Temporary_Leave temporaryLeave = temporaryLeaveDao
+//				.findTemporaryLeaveInfoById(suspectId);
+//		if (temporaryLeave != null) {
+//			// 不为空则是出区返回
+//			return temporaryLeave; 
+//		} else {
+//			// 出区
+//			return null;
+//		}
 	}
 
 	@Override
@@ -52,9 +58,22 @@ public class TemporaryLeaveServiceImple extends DaoSupportImpl<Temporary_Leave>
 	}
 
 	@Override
-	public void updateManager(String manager, String suspect_ID) {
-		String hql = "update Temporary_Leave s set s.manager=? where s.suspect_ID=?";
+	public void updateManager(int manager, String suspect_ID) {
+		String hql = "update Temporary_Leave s set s.return_manager=? where s.suspect_ID=?";
 		temporaryLeaveDao.update(hql, manager, suspect_ID);
+	}
+
+	@Override
+	public Temporary_Leave IsTemporaryReturn(String suspectId) {
+		Temporary_Leave temporaryLeave = temporaryLeaveDao
+				.findTemporaryreturnById(suspectId);
+		if (temporaryLeave != null) {
+			// 不为空则是出区返回
+			return temporaryLeave;
+		} else {
+			// 出区
+			return null;
+		}
 	}
 
 }

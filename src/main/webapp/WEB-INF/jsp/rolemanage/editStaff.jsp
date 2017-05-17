@@ -44,7 +44,7 @@
 						<td width="140px"><span>职务 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="Duties_Name" id="type_ID">
-								<option >--------请选择职务-------</option>
+								<option >--------请选择角色-------</option>
 								<c:forEach items="${role }" var="item" varStatus="status">
 									<option value="${item.role_Name }">${item.role_Name }</option>
 								</c:forEach>
@@ -84,14 +84,14 @@
 								<option>否</option>
 						</select>
 						</td>
-						<td width="140px"><span>权限 :</span></td>
+						<!-- <td width="140px"><span>权限 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="role_ID" id="role_Name">
 								<option >-------请选择------</option>
 								<option >是</option>
 								<option>否</option>
 						</select>
-						</td>
+						</td> -->
 					</tr>
 					<tr>
 						<td><span>&nbsp;</span></td>
@@ -126,7 +126,7 @@
 						<td width="140px"><span>职务 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="Duties_Name" id="type_ID">
-								<option value="${staff[0].duties_Name }">--------请选择职务-------</option>
+								<option value="${staff[0].duties_Name }">--------请选择角色-------</option>
 								<c:forEach items="${role }" var="item" varStatus="status">
 									<option value="${item.role_Name }">${item.role_Name }</option>
 								</c:forEach>
@@ -166,14 +166,14 @@
 								<option>否</option>
 						</select>
 						</td>
-						<td width="140px"><span>权限 :</span></td>
+						<%-- <td width="140px"><span>权限 :</span></td>
 						<td style="padding-top: 12px;width: 200px;">
 							<select name="role_ID" id="role_Name">
 								<option value="${staff[0].role_Name }" >-------------请选择------------</option>
 								<option >是</option>
 								<option>否</option>
 						</select>
-						</td>
+						</td> --%>
 					</tr>
 					<tr>
 						<td><span>&nbsp;</span></td>
