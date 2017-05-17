@@ -231,7 +231,7 @@ public class LogServiceImpl implements LogService {
 
 	@Override
 	public PHCSMP_Process_Log searchEmpcomplete(String suspectId) {
-		String hql = "from PHCSMP_Process_Log where complete=? and suspect_ID=?";
+		String hql = "from PHCSMP_Process_Log where complete=-1 and suspect_ID=?";
 		return process_logDao.queryByComplete(hql,suspectId);
 	}
 
