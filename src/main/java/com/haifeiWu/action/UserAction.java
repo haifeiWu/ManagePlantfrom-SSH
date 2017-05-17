@@ -78,7 +78,7 @@ public class UserAction {
 	public String loadInfor(HttpServletRequest request) {
 		List<PHCSMP_Staff> userCheckInfo = userService.findAllStaffs();
 		request.setAttribute("userCheckInfo", userCheckInfo);
-		return "WEB-INF/jsp/rolemanage/policeList";
+		return "WEB-INF/jsp/rolemanage/staffManage";
 	}
 
 	/**
@@ -178,7 +178,7 @@ public class UserAction {
 		int id = Integer.parseInt(staffId);
 		userService.deleteByStaffId(id);
 		System.out.println("删除成功");
-		return "WEB-INF/jsp/rolemanage/policeList";
+		return "WEB-INF/jsp/rolemanage/staffManage";
 	}
 
 	/**
@@ -196,7 +196,7 @@ public class UserAction {
 		System.out.println("hql语句正确");
 
 		request.setAttribute("userCheckInfo", list);
-		return "WEB-INF/jsp/rolemanage/policeList";
+		return "WEB-INF/jsp/rolemanage/staffManage";
 	}
 
 	/**

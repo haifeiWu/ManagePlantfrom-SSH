@@ -157,7 +157,7 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		case "addSuspectInfor":{
 			log = loginfoService.searchEmpcomplete(suspectId);
 			if (staffIsNull(suspectId) != null) {
-				log = loginfoService.searchEmpstaff(suspectId);
+//				log = loginfoService.searchEmpstaff(suspectId);
 				log.setStaff_ID((int)arg0.getAttribute("staff_ID"));
 			}
 			System.out.println(suspectId+"------------suspectId");
