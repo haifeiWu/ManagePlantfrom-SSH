@@ -10,4 +10,6 @@ public interface FunctionService {
 	List<PHCSMP_Function> findParentFunctions();
 
 	List<PHCSMP_Function> findChildFunctions(Integer parentId);
+
+	PHCSMP_Function findByFuncId(Integer function_id);
 }
