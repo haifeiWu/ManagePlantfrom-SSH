@@ -82,11 +82,11 @@
 			setTimeout(alertInfo,5000);
 		}
 		function alertInfo(){
-			if(!confirm("信息不完整，你是否要继续办理出区/离区业务！")){
+			/* if(!confirm("信息填写不完整！")){
 				//window.location.href="${pageContext.request.contextPath }/WEB-INF/jsp/home/index.jsp";
-				window.location.href="${pageContext.request.contextPath }/home/index";
-				
-			}
+				window.location.href="${pageContext.request.contextPath }/home/index"; 
+			} */
+			alert("信息填写不完整！");
 		}
 		
 		
@@ -394,33 +394,41 @@
 			</div>
 		</div>
 	</div>
-	<form class="transient"
+	<form class="transient" id="form1"
 		action="${pageContext.request.contextPath }/leave/addtemp"
 		method="post">
 		<div class="container">
 			<div class="row">
 				<table class="transient_Leave col-lg-12 col-md-10 col-sm-10">
-					<tr class="bg1">						
-						<td style="width:30%">离开原因</td>
-						<td style="width:40%">办案部门负责人签名</td>
-					</tr>
+					
 					<c:if test="${!empty temporaryLeave }">
+						<tr class="bg1">						
+						<td style="width:30%">临时离区原因</td>
+						<td style="width:40%">办案部门负责人签名</td>
+						</tr>
 						<tr>							
-							<td id="select"><select name="tempLeave_Reason" >
-									<option value="${temporaryLeave.tempLeave_Reason }">${temporaryLeave.tempLeave_Reason }</option>
-									<option value="">---请选择---</option>
-									<option value="扣押">扣押</option>
-									<option value="暂存">暂存</option>
-									<option value="代保管">代保管</option>
-							</select></td>
-							<td style="padding:6px 0 6px 0"><input name="staff_ID" class="staff_ID"
-								type="text" style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;"
-								value="${temporaryLeave.staff_ID }" />
+							<td id="select">
+								<input 
+								type="text" style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;text-align: center;"
+								value="${temporaryLeave.tempLeave_Reason }" readonly="readonly" />
+							</td>
+							<td style="padding:6px 0 6px 0">
+							<select name="return_staff_ID" value="${temporaryLeave.tempLeave_staff_ID }" id="return_staff_ID">
+									<!-- <option value="">--------请选择--------</option> -->
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select>
 							</td>		
 						</tr>
 					</c:if>
 
 					<c:if test="${empty temporaryLeave }">
+					<tr class="bg1">						
+						<td style="width:30%">临时离开原因</td>
+						<td style="width:40%">办案部门负责人签名</td>
+					</tr>
 						<tr>													
 							<td id="select"><select name="tempLeave_Reason">
 								<c:if test="${!empty tempLeave_Reason }">
@@ -431,18 +439,23 @@
 									<option value="${v.leaving_Name }">${v.leaving_Name }</option>
 								</c:forEach>
 							</select></td>
-							<td style="padding:6px 0 6px 0"><input type="text"
-								name="staff_ID" value="${staff_ID }"
-								style="border-radius:6px;border:1px solid #ccc;padding:8px 0 8px 0;" /></td>							
+							<td style="padding:6px 0 6px 0">
+							<select name="tempLeave_staff_ID" id="tempLeave_staff_ID">
+									<option value="">--------请选择--------</option>
+									<c:forEach items="${staff }" var="item"
+										varStatus="status">
+										<option value="${item.staff_ID }">${item.staff_ID } &nbsp---------&nbsp ${item.staff_Name }</option>
+									</c:forEach>
+							</select></td>							
 						</tr>
 					</c:if>					
 				</table>
 			</div>
 			<div class="row" style="margin-top:30px;width:1000px;">
-				<div style="float:left;width:400px;margin-left: 150px">
+				<div style="width:400px;margin-left: 150px;">
 				<p id="signature">
 					<font color="#389AC7">管理员:</font>
-							<select name="staff_ID" id="L_staff_ID" style=" font-color: black;">
+							<select name="tempLeave_manager" id="tempLeavemanager" style=" font-color: black;">
 									<option value="0">--------请选择--------</option>
 									<c:forEach items="${staff }" var="item"
 										varStatus="status">
@@ -451,8 +464,8 @@
 							</select>		
 				</p>
 				</div>
-				<div style="float:left;width:460px;margin-left: -160px;margin-top: -10px;">
-					<input type="submit" value="确认提交" class="sub" />
+				<div style="width:460px;margin-left: -160px;margin-top: -10px;position: relative;left: 357px;top: 28px;">
+					<input type="submit" value="确认提交" class="sub" onclick="check1()" />
 				</div>			
 			</div>
 		</div>
@@ -513,7 +526,7 @@
 				<div style="float:left;width:300px;margin-left: 220px;position: relative;left: 107px;">
 				
 					管理员:
-							<select name="staff_ID" id="staff_ID1" style="font-color: black;">
+							<select name="tempLeave_manager" id="tempLeave_manager1" style="font-color: black;">
 									<option value="0">--------请选择--------</option>
 									<c:forEach items="${staff }" var="item"
 										varStatus="status">
@@ -523,7 +536,7 @@
 				
 				</div>
 				<div style="float:left;width:460px;margin-left: -80px;margin-top: -10px;">
-					<input style="height: 30px;text-align:center;line-height: 30px; " type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
+					<input style="height: 30px;text-align:center;line-height: 30px;width: 84px;position: relative;left: -61px;top: 21px; " type="button" onclick="check()" value="确认提交" class="sub" id="btnAdd" />
 				</div>
 				
 			</div>
@@ -535,19 +548,46 @@
 </body>
 <script type="text/javascript">
 function check(){
-			var Staff_ID=document.getElementById("staff_ID1").value;
-			var L_staff_ID = document.getElementById("L_staff_ID").value;
-			if(Staff_ID.length==0 || Staff_ID ==0){
+			
+			var tempLeave_manager1 = document.getElementById("tempLeave_manager1").value;
+			
+		 if( tempLeave_manager1==0){
+			alert('提交失败，请填写管理人员');
+			return false;
+		}
+		else{
+			document.getElementById("form").submit();
+			return true;
+			}
+		}
+		
+		function check1(){
+		
+			//var return_staff_ID=document.getElementById("return_staff_ID").value;
+			//var tempLeave_staff_ID = document.getElementById("tempLeave_staff_ID").value;
+			var tempLeave_manager = document.getElementById("tempLeavemanager").value;
+			alert(return_staff_ID+""+tempLeave_staff_ID+""+tempLeave_manager);
+			
+			if(return_staff_ID==0 || tempLeave_staff_ID ==0){
 				alert('提交失败，请填写办案人员');
 			return false;
 		} 
-		else
-			document.getElementById("form").submit();
+		else if(tempLeave_manager==0){
+			alert('提交失败，请填写管理人员');
+			return false;
+		}
+		else{
+			document.getElementById("form1").submit();
 			return true;
+			}
 		}
 
 		
 
 
+</script>
+<script type="text/javascript">
+	document.getElementById("return_staff_ID").value = "${temporaryLeave.tempLeave_staff_ID }";
+	document.getElementById("return_staff_ID")[${temporaryLeave.tempLeave_staff_ID }].selected = true;
 </script>
 </html>

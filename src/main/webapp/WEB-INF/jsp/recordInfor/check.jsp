@@ -19,7 +19,13 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jqCSS_safety.js"></script>
+<script>
+function select(typeVal,numVal){
+	$("select[name=Keeping_ID]   option[value='"+typeVal+"']").attr("selected",true);
+	$("select[name=Cabinet_Number]   option[value='"+numVal+"']").attr("selected",true);
+}
 
+</script>
 
 <script type="text/javascript">
 	var index = 0;
@@ -28,8 +34,8 @@
 		$("#add")
 				.click(
 						function() {
-						var typeVal=$("#selectType option:selected").text();
-						var numVal=$("#selectNum option:selected").text();
+						var typeVal=$("#selectType option:selected").val();
+						var numVal=$("#selectNum option:selected").val();
 						
 							var num = $("#woods_check tr").length;
 							index = num - 1;
@@ -53,14 +59,15 @@
 									+ "<td><input type=text name="
 								
 									+ "Belonging_Unit style='width: 60%; height: 26px; border: none; background: rgb(241, 241, 241);' value='个' /></td>"
-									+ "<td> <select id='selectType' name="
+									+ "<td> <select id='selectType' style='width:100%;height:100%;' name="
 									
 
-									+"Keeping_ID> <option value=>"+typeVal+"</option> <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
-									+ "<td> <select name="
+									+"Keeping_ID>  <c:forEach items='${Keeping_WayType }' var='item' varStatus='status'> <option value='${item.keeping_ID}'>${item.keeping_Name }</option></c:forEach> <lect> </td>"
+									+ "<td> <select style='width:100%;height:100%;' name="
 									
-									+ "Cabinet_Number> <option value=>"+numVal+"</option> <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> <lect> </td>"
+									+ "Cabinet_Number>  <c:forEach items='${PHCSMPCabinetType }' var='item' varStatus='status'> <option value='${item.cabinet_Number}'>${item.cabinet_Number }</option> </c:forEach> <lect> </td>"
 									+ "</tr>";
+					
 							$("#woods_check tr").eq(
 									$("#woods_check tr").length - 2).after(
 									addrow);
@@ -68,6 +75,7 @@
 
 							tdnum.html(num);
 							$(".woods_check input").css({"width":"60%","height":"26px","background":"#fff","border":"none","text-align":"center"});
+							select(typeVal,numVal);
 						});
 		//				删除行
 		$("#delete").click(
@@ -387,7 +395,7 @@
 								name="Belonging_Count" /></td>
 							<td><input type="text" value="个"
 								name="Belonging_Unit" /></td>
-							<td><select id="selectType" name="Keeping_ID">
+							<td><select id="selectType" name="Keeping_ID" style="width: 100%;height: 100%;">
 									<option value="">---请选择---</option>
 									<c:forEach items="${Keeping_WayType }" var="item" varStatus="status">
 										<option value="${item.keeping_ID}">${item.keeping_Name }</option>

@@ -13,8 +13,10 @@ public interface TemporaryLeaveService {
 
 	void updateReturnTime(String return_Time, String suspect_ID);
 
-	void updateManager(String manager,String suspect_ID);
+	void updateManager(int manager,String suspect_ID);
 	
 	public List<Temporary_Leave> findTempLeaveListBySuspectID(String suspectId);
+
+	Temporary_Leave IsTemporaryReturn(String suspectId);
 
 }

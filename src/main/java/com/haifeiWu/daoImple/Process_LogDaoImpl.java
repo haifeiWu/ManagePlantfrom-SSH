@@ -207,12 +207,13 @@ public class Process_LogDaoImpl extends DaoSupportImpl<PHCSMP_Process_Log>
 	}
 
 	@Override
-	public PHCSMP_Process_Log queryByComplete(String hql) {
+	public PHCSMP_Process_Log queryByComplete(String hql,String suspectId) {
 		Session session = this.getSession();
 		Transaction tx = null;
 		PHCSMP_Process_Log processLog = new PHCSMP_Process_Log();
 		tx = session.beginTransaction();
 		Query query = session.createQuery(hql).setParameter(0, -1);
+		query.setParameter(1, suspectId);
 		processLog = (PHCSMP_Process_Log) query.uniqueResult();
 		tx.commit();
 		return processLog;

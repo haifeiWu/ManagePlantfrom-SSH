@@ -315,14 +315,21 @@
 							<td>${item.start_Time }</td>
 							<td>${item.end_Time }</td>
 							<c:choose>
-								<c:when test="${item.complete ne 0}">
+								<c:when test="${item.complete ne 0 && item.complete ne -1}">
 									<td>${item.complete }%</td>
 								</c:when>
 								<c:otherwise>
 									<td style="text-align: center;">------</td>
 								</c:otherwise>
 							</c:choose>
-							<td>${staffNameList[list.index] }</td>
+							<c:choose>
+								<c:when test="${staffNameList[list.index] ne ' ' }">
+									<td>${staffNameList[list.index] }</td>
+								</c:when>
+								<c:otherwise>
+									<td style="text-align: center;">------</td>
+								</c:otherwise>
+							</c:choose>
 							<td rows="2"><textarea cols="66" rows="4" style="overflow:hidden;border: none; " readonly="readonly">${item.suspected_Cause }</textarea></td>
 						</tr>
 				</c:forEach>

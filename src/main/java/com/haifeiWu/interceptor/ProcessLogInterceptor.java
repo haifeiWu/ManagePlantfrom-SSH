@@ -14,12 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.haifeiWu.entity.PHCSMP_Process_Log;
 import com.haifeiWu.entity.PHCSMP_Room;
 import com.haifeiWu.entity.PHCSMP_Suspect;
+import com.haifeiWu.entity.Temporary_Leave;
 import com.haifeiWu.service.LogService;
+import com.haifeiWu.service.TemporaryLeaveService;
 
 public class ProcessLogInterceptor implements HandlerInterceptor {
 
 	@Autowired
 	private LogService loginfoService;
+	@Autowired
+	private TemporaryLeaveService temporaryLeaveService;
 
 	@Override
 	public void afterCompletion(HttpServletRequest arg0,
@@ -64,10 +68,6 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			saveprocess(process);
 		}
 		if (process.getEnd_Time() != "0-0") {
-			//入区无结束时间
-			if(process.getSuspect_active()=="入区登记"){
-				process.setEnd_Time("------");
-			}
 			updateprocess(process);
 		}
 		if (process.getStaff_ID() != 0) {
@@ -117,17 +117,29 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 				break;
 			}
 			case 3: {
-				log.setSuspect_active("进行询问讯问");
+//				log.setSuspect_active("进行询问讯问");
 				break;
 			}
 			case 4: {
+				if(completeIsNull(suspectId)!=null){
+					log = loginfoService.searchEmpcomplete(suspectId);
+					log.setComplete(0);
+					log.setStaff_ID(-1);
+					log.setEnd_Time(sdate);
+				}
 				log.setSuspect_active("侯问时间");
-				log.setComplete(0);
-				log.setStaff_ID(-1);
 				break;
 			}
 			case 5: {
-				log.setSuspect_active("离区");
+				
+//				Temporary_Leave temporaryLeave = temporaryLeaveService
+//						.IsTemporaryLeaveReturn(suspectId);
+				if(temporaryLeaveService.IsTemporaryLeaveReturn(suspectId) == null &&completeIsNull(suspectId)!=null){
+					log = loginfoService.searchEmpcomplete(suspectId);
+					
+					log.setComplete(0);
+					log.setEnd_Time(sdate);
+				}
 				break;
 			}
 			}
@@ -137,12 +149,19 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		case "SUP_loadInfor":{
 			log = getProcessLog(arg0, sdate, ddate,suspectId);
 			log.setSuspect_active("入区登记");
-//			log.setRoomId(6);
+			log.setProcess_ID(6);
 			log.setSuspect_ID((String)arg0.getAttribute("Suspect_ID"));
 			break;
 		}
 		//入区登记提交，获得suspected_Cause
 		case "addSuspectInfor":{
+			log = loginfoService.searchEmpcomplete(suspectId);
+			if (staffIsNull(suspectId) != null) {
+				log = loginfoService.searchEmpstaff(suspectId);
+				log.setStaff_ID((int)arg0.getAttribute("staff_ID"));
+			}
+			System.out.println(suspectId+"------------suspectId");
+			System.out.println(log+"--------------------------log");
 			if(arg0.getAttribute("suspected_Cause")!=null){
 				suspected_Cause = ((String)arg0.getAttribute("suspected_Cause"));
 			}
@@ -151,7 +170,8 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 			}
 			log.setComplete(complete);
 			log.setSuspected_Cause(suspected_Cause);
-			log.setEnd_Time(sdate); //因为入区登记完成没有刷卡，所以在提交时补全结束时间
+			log.setEnd_Time("------"); //因为入区登记完成没有刷卡，所以在提交时补全结束时间
+			System.out.println(log.getComplete()+"--------------------------------complete");
 			break;
 		}
 		// 人身安全檢查提交
@@ -208,14 +228,17 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		case "addActivityRecordInfor": {
 			log = loginfoService.searchEmpcomplete(suspectId);
 			if (staffIsNull(suspectId) != null) {
-				log = loginfoService.searchEmpstaff(suspectId);
+//				log = loginfoService.searchEmpstaff(suspectId);
 				log.setStaff_ID((int)arg0.getAttribute("staff_ID"));
 			}
 			if(arg0.getAttribute("remark")!=null){
 				suspected_Cause = (String)arg0.getAttribute("remark");
 			}
 			log.setComplete(0);//完整性
-			
+			if(arg0.getAttribute("activity_Record")!=null){
+			log.setSuspect_active((String)arg0.getAttribute("activity_Record"));
+			System.out.println(arg0.getAttribute("activity_Record")+"--------------------------------activity_Record");
+			}
 			log.setSuspected_Cause(suspected_Cause);//备注
 			if(arg0.getAttribute("roomid")!=null){
 //				System.out.println(arg0.getAttribute("roomid")+"-------------------roomid");
@@ -226,17 +249,30 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 		}
 		// 临时离区
 		case "addTemporaryLeaveInfor": {
-			log = loginfoService.searchEmpEndTime(suspectId);
+			log = loginfoService.searchEmpcomplete(suspectId);
+	System.out.println(log+"-----------------------------------------------log");
+			if (staffIsNull(suspectId) != null&&arg0.getAttribute("staff_ID")!=null) {
+//				log = loginfoService.searchEmpstaff(suspectId);
+				log.setStaff_ID((int)arg0.getAttribute("staff_ID"));
+				
+			}
+			//将活动记录修改为临时离区
+//			loginfoService.updateActive(log);
 			log.setSuspect_active("临时离区");
-			log.setEnd_Time(sdate);
+		System.out.println(log.getSuspect_active()+"-----------------------------------------active");
 			break;
 		}
 		// 离区提交
 		case "addLeaveRecordInfor": {
+			log = loginfoService.searchEmpcomplete(suspectId);
+			
 			if (staffIsNull(suspectId) != null) {
-				log = loginfoService.searchEmpstaff(suspectId);
-				log.setStaff_ID(Integer.parseInt((String) arg0.getAttribute("staff_ID")));
+//				log = loginfoService.searchEmpstaff(suspectId);
+				log.setStaff_ID((int)arg0.getAttribute("staff_ID"));
 			}
+			System.out.println(log+"---------------------------------log");
+			log.setSuspect_active("离区");
+			log.setComplete(0);//完整性
 			log.setEnd_Time(sdate);
 			break;
 		}
@@ -313,16 +349,16 @@ public class ProcessLogInterceptor implements HandlerInterceptor {
 	 * 
 	 * @return
 	 */
-//	private PHCSMP_Process_Log completeIsNull() {
-//		try {
-//			PHCSMP_Process_Log processLog = loginfoService.searchEmpcomplete();
-//			System.out.println(processLog + "=====____+++++++"
-//					+ processLog.getLog_ID());
-//			return processLog;
-//		} catch (Exception e) {
-//			return null;
-//		}
-//	}
+	private PHCSMP_Process_Log completeIsNull(String suspectId) {
+		try {
+			PHCSMP_Process_Log processLog = loginfoService.searchEmpcomplete(suspectId);
+			System.out.println(processLog + "=====____+++++++"
+					+ processLog.getLog_ID());
+			return processLog;
+		} catch (Exception e) {
+			return null;
+		}
+	}
 
 	/**
 	 * 查询数据库中staff为xxx的记录（有且只能能是最后一条） 以Bool作为返回值是为了防止空指针

@@ -119,6 +119,8 @@ public class Activity_Record_Action {
 			fullCheck(activity);
 			//将询问记录交给日志
 			request.setAttribute("remark", activity.getRemark());
+			String activity_Record = request.getParameter("activity_Record");
+			request.setAttribute("activity_Record", activity_Record);
 			// 保存
 			activityRecordService.saveActivityRecordInfor(activity);
 			// 提示成功
@@ -194,74 +196,79 @@ public class Activity_Record_Action {
 				if(staffService.getStaffName(staffid)!=null){
 				String staffName = staffService.getStaffName(staffid);
 				staffNameList.add(staffName);
+				}else{
+					staffNameList.add(" ");
 				}
-				String processName =processService.getProcessName(process);
-				processNameList.add(processName);
+		System.out.println(process+"------------------------------------------------------process");
+				if(processService.getProcessName(process)!=null){
+					String processName =processService.getProcessName(process);
+					processNameList.add(processName);
+				}
 				
 			}
 			request.setAttribute("processNameList", processNameList);
 			request.setAttribute("staffNameList", staffNameList);
 			
 			// 人身安全检查
-//			PHCSMP_Personal_Check personal_Check = personalCheckService
-//					.findInforBySuspetcId(suspectId);
-//			if (personal_Check != null) {
-//				int complete_degree1 = (int) (personal_Check.getFill_record()
-//						/ (float) personal_Check.getTotal_record() * 100);
-//				String checkRoomName = roomService.findByRoomID(
-//						personal_Check.getRoom_ID()).getRoom_Name();
-//				request.setAttribute("checkRoomName", checkRoomName);
-//				request.setAttribute("complete_degree1", complete_degree1);
-//				request.setAttribute("personal_Check", personal_Check);
-//			} else {
-//				request.setAttribute("complete_degree1", "0");
-//			}
-//			// 信息采集
-//			PHCSMP_Information_Collection information_Collection = informationCollectionService
-//					.findInforBySuspetcId(suspectId);
-//
-//			if (information_Collection != null) {
-//				int complete_degree2 = (int) (information_Collection
-//						.getFill_record()
-//						/ (float) information_Collection.getTotal_record() * 100);
-//				String ICRoomName = roomService.findByRoomID(
-//						information_Collection.getRoom_ID()).getRoom_Name();
-//				request.setAttribute("ICRoomName", ICRoomName);
-//				request.setAttribute("complete_degree2", complete_degree2);
-//				request.setAttribute("information_Collection",
-//						information_Collection);
-//			} else {
-//				request.setAttribute("complete_degree2", "0");
-//			}
-//			// 询问讯问活动记录
-//			List<PHCSMP_Activity_Record> activity_record_infor = activityRecordService
-//					.findInforBySuspetcId(suspectId);
-//
-//			if (activity_record_infor != null) {
-//
-//				List<String> roomList = new ArrayList<String>();
-//				List<Map<String, Object>> activity_record = new ArrayList<Map<String, Object>>();
-//				for (PHCSMP_Activity_Record activity : activity_record_infor) {
-//					String roomName = roomService.findByRoomID(
-//							activity.getRoom_ID()).getRoom_Name();
-//
-//					roomList.add(roomName);
-//				}
-//				for (int i = 0; i < activity_record_infor.size(); i++) {
-//					Map<String, Object> map = new HashMap<String, Object>();
-//					map.put("activity_Record", activity_record_infor.get(i)
-//							.getActivity_Record());
-//					map.put("room_Name", roomList.get(i));
-//					map.put("start_Time", activity_record_infor.get(i)
-//							.getStart_Time());
-//					map.put("end_Time", activity_record_infor.get(i)
-//							.getEnd_Time());
-//
-//					map.put("remark", activity_record_infor.get(i).getRemark());
-//					activity_record.add(map);
-//				}
-//				request.setAttribute("activity_record", activity_record);
-//			}
+			PHCSMP_Personal_Check personal_Check = personalCheckService
+					.findInforBySuspetcId(suspectId);
+			if (personal_Check != null) {
+				int complete_degree1 = (int) (personal_Check.getFill_record()
+						/ (float) personal_Check.getTotal_record() * 100);
+				String checkRoomName = roomService.findByRoomID(
+						personal_Check.getRoom_ID()).getRoom_Name();
+				request.setAttribute("checkRoomName", checkRoomName);
+				request.setAttribute("complete_degree1", complete_degree1);
+				request.setAttribute("personal_Check", personal_Check);
+			} else {
+				request.setAttribute("complete_degree1", "0");
+			}
+			// 信息采集
+			PHCSMP_Information_Collection information_Collection = informationCollectionService
+					.findInforBySuspetcId(suspectId);
+
+			if (information_Collection != null) {
+				int complete_degree2 = (int) (information_Collection
+						.getFill_record()
+						/ (float) information_Collection.getTotal_record() * 100);
+				String ICRoomName = roomService.findByRoomID(
+						information_Collection.getRoom_ID()).getRoom_Name();
+				request.setAttribute("ICRoomName", ICRoomName);
+				request.setAttribute("complete_degree2", complete_degree2);
+				request.setAttribute("information_Collection",
+						information_Collection);
+			} else {
+				request.setAttribute("complete_degree2", "0");
+			}
+			// 询问讯问活动记录
+			List<PHCSMP_Activity_Record> activity_record_infor = activityRecordService
+					.findInforBySuspetcId(suspectId);
+
+			if (activity_record_infor != null) {
+
+				List<String> roomList = new ArrayList<String>();
+				List<Map<String, Object>> activity_record = new ArrayList<Map<String, Object>>();
+				for (PHCSMP_Activity_Record activity : activity_record_infor) {
+					String roomName = roomService.findByRoomID(
+							activity.getRoom_ID()).getRoom_Name();
+
+					roomList.add(roomName);
+				}
+				for (int i = 0; i < activity_record_infor.size(); i++) {
+					Map<String, Object> map = new HashMap<String, Object>();
+					map.put("activity_Record", activity_record_infor.get(i)
+							.getActivity_Record());
+					map.put("room_Name", roomList.get(i));
+					map.put("start_Time", activity_record_infor.get(i)
+							.getStart_Time());
+					map.put("end_Time", activity_record_infor.get(i)
+							.getEnd_Time());
+
+					map.put("remark", activity_record_infor.get(i).getRemark());
+					activity_record.add(map);
+				}
+				request.setAttribute("activity_record", activity_record);
+			}
 
 			// 设置询问询问开始的时间
 			Date date = new Date();

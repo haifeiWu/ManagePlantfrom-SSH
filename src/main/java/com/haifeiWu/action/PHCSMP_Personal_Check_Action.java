@@ -215,7 +215,10 @@ public class PHCSMP_Personal_Check_Action {
 					.getBelonging_Name() == null)) {// 提交的信息为空
 				belongS.setSuspect_ID(model.getSuspect_ID());// 设置档案编号
 				belongS.setRoom_ID(roomId);// 设置登记信息的房间编号
-				belongS.setStaff_ID(str[1].equals("") ? null : str[1]);
+				int staff_ID_Belonging = Integer.parseInt(str[1].equals("") ? null : str[1]);
+				belongS.setStaff_ID_Belonging(staff_ID_Belonging);
+				String staff_ID = (str[0].equals("") ? null : str[0]);
+				belongS.setStaff_ID(staff_ID);
 				vaildBelong.add(belongS);
 				System.out.println("vaildBelong                    "
 						+ vaildBelong.toString());

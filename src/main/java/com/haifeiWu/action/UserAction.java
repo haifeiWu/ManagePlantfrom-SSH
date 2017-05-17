@@ -51,9 +51,16 @@ public class UserAction {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String login(PHCSMP_Staff staff, HttpServletRequest request,
 			HttpServletResponse response) {
+		try {
+			
+		
 		logger.debug("----------" + staff.toString());
-		PHCSMP_Staff user = userService.findUserByStaffNameAndPwd(
+		PHCSMP_Staff user=null;
+		if(userService.findUserByStaffNameAndPwd(
+				staff.getStaff_Name(), staff.getPassWord())!=null){
+		 user = userService.findUserByStaffNameAndPwd(
 				staff.getStaff_Name(), staff.getPassWord());
+		}
 		if (user != null) {
 			// // 日志功能
 			// logger.info("用户 " + user.getStaff_Name() + " 登录系统，时间："
@@ -74,6 +81,10 @@ public class UserAction {
 		} else {
 			request.setAttribute("loginError", "用户名或密码不正确！");
 			return "jsp/login";
+		}
+		} catch (Exception e) {
+			request.setAttribute("loginError", "用户名或密码不正确！");
+			return "WEB-INF/jsp/login";
 		}
 	}
 
