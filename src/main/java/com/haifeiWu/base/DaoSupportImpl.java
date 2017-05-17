@@ -43,11 +43,12 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	/**
 	 * 该save方法是通用的
 	 */
-	public void save(T entity) {
+	public Integer save(T entity) {
 		Session session = getSession();
 		tx = session.beginTransaction();// 开启事务
-		getSession().save(entity);
+		Integer id = (Integer) getSession().save(entity);
 		tx.commit();// 提交事务
+		return id;
 	}
 
 	/**
@@ -75,12 +76,12 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 		return entity;
 	}
 
-	@Override
-	public void delete(T entity) {
-		tx = getSession().beginTransaction();// 开启事务
-		getSession().delete(entity);
-		tx.commit();// 提交事务
-	}
+	// @Override
+	// public void delete(T entity) {
+	// tx = getSession().beginTransaction();// 开启事务
+	// getSession().delete(entity);
+	// tx.commit();// 提交事务
+	// }
 
 	@Override
 	public void saveBatch(List<T> list) {
@@ -104,7 +105,8 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	@Override
 	public T findByPropertyName(String propertyName, Object value) {
 		// String hql = "from " + + " t where t."+propertyName+"=?";
-		String hql = "from " + clazz.getName() + " t where t." + propertyName + " = ? ";
+		String hql = "from " + clazz.getName() + " t where t." + propertyName
+				+ " = ? ";
 		System.out.println(hql);
 		tx = getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);
@@ -128,7 +130,8 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 	@Override
 	public List<T> findListByPropertyName(String propertyName, Object value) {
 		tx = getSession().beginTransaction();// 开启事务
-		String hql = "from " + clazz.getName() + " t where t." + propertyName + " =  ?";
+		String hql = "from " + clazz.getName() + " t where t." + propertyName
+				+ " =  ?";
 		System.out.println(hql);
 		Query query = getSession().createQuery(hql);
 		query.setParameter(0, value);
@@ -141,13 +144,13 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 
 	@Override
 	public void update(String hql, Object... args) {
-		//tx = this.getSession().beginTransaction();// 开启事务
+		// tx = this.getSession().beginTransaction();// 开启事务
 		Query query = getSession().createQuery(hql);
 		for (int i = 0; i < args.length; i++) {
 			query.setParameter(i, args[i]);
 		}
 		query.executeUpdate();
-		//tx.commit();// 提交事务
+		// tx.commit();// 提交事务
 	}
 
 	@Override
@@ -161,4 +164,15 @@ public class DaoSupportImpl<T> implements DaoSupport<T> {
 		tx.commit();// 提交事务
 	}
 
+	@Override
+	public void deleteByProperty(String propertyName, Object value) {
+		tx = getSession().beginTransaction();// 开启事务
+		String hql = "delete from " + clazz.getName() + " t where t."
+				+ propertyName + " =  ?";
+		// System.out.println(hql);
+		Query query = getSession().createQuery(hql);
+		query.setParameter(0, value);
+		query.executeUpdate();
+		tx.commit();// 提交事务
+	}
 }

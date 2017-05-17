@@ -12,7 +12,7 @@
         </id>
         <property name="role_Name"/>
         <property name="role_Description"/>
-        <property name="is_Default_Role"/>
+       <!--  <property name="is_Default_Role"/> -->
     </class>
 
 </hibernate-mapping>

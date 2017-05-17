@@ -4,13 +4,14 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="com.haifeiWu.entity">
-
-    <class name="PHCSMP_Staff_In_Role" table="PHCSMP_Staff_In_Role" lazy="false">
-    
-        <id name="staff_ID">
+    <class name="PHCSMP_Function" table="PHCSMP_Function" dynamic-update="true" lazy="false">
+        <id name="function_id">
             <generator class="native"/>
         </id>
-        <property name="role_ID"/>
+        <property name="function_name"/>
+        <property name="function_desc"/>
+		<!-- wxy增加V1.2版本的字段 -->
+		<property name="function_parentId"/> 
     </class>
 
 </hibernate-mapping>
