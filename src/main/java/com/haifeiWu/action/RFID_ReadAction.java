@@ -34,9 +34,6 @@ public class RFID_ReadAction {
 	private static final long serialVersionUID = 1L;
 	private static WebSocketUtils ws = new WebSocketUtils();
 
-	protected HttpServletRequest request;
-	protected HttpServletResponse response;
-	protected ServletContext application;
 
 	@Autowired
 	private SuspectService suspectService;
@@ -53,7 +50,7 @@ public class RFID_ReadAction {
 	 * @d2017年4月16日
 	 */
 	@RequestMapping(value = "/readRfid.action")
-	public String readRFID(HttpServletRequest request) throws IOException {
+	public String readRFID(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		/**
 		 * 控制设备发出不同的声音的话，应该在这里做一下应该返回的参数，建议用json格式的数据
 		 * 
@@ -108,7 +105,9 @@ public class RFID_ReadAction {
 		} else {
 			suspectService.updateSwitch(0, suspect.getSuspect_ID());
 		}
-		return "operateSucess";// 操作成功
+		String str = "operateSuccess&E20041347213021815207CFB&";
+		response.getWriter().write(str);
+		return "WEB-INF/jsp/RfidRead/OperateSuccess";// 操作成功
 	}
 
 	private void triggerWebsocket(PHCSMP_Room room, String suspectID) {

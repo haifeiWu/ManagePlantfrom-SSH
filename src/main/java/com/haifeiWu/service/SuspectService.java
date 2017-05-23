@@ -127,5 +127,7 @@ public interface SuspectService {
 	public List<PHCSMP_Suspect> findAllByIsRecordVedio();
 
 	public void updateDetainTime(String detain_Time, String suspectID);
+	public void updateIs_filename_DownLoad(int i, int policeId,
+			String identificationCard);
 
 }

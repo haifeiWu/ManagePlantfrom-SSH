@@ -102,7 +102,8 @@ $(function(){
 							<td>${u.staff_Name }</td>
 							<td>${u.real_Name }</td>
 							<td>${u.sex }</td>
-							<td>${u.role_Name }</td>
+							<td>${u.role_Id }</td>
+
 							<td>${u.email }</td>
 							<td>${u.phone }</td>
 							<td>${u.mobile }</td>

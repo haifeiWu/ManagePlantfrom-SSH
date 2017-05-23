@@ -12,6 +12,7 @@
         <property name="function_desc"/>
 		<!-- wxy增加V1.2版本的字段 -->
 		<property name="function_parentId"/> 
+		<property name="url"></property>
     </class>
 
 </hibernate-mapping>

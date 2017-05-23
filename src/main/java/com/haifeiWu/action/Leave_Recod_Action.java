@@ -376,9 +376,7 @@ public class Leave_Recod_Action {
 			}
 			request.setAttribute("activityRecordList", activityRecordList);
 			// 判断是否出区返回
-			temporaryLeave = temporaryLeaveService
-					.IsTemporaryLeaveReturn(suspectId);
-System.out.println(temporaryLeave+"---------------------------------------------temporaryLeave");
+			
 			//查询以往出区记录
 			List<Temporary_Leave> temporaryLeaveList=temporaryLeaveService.findTempLeaveListBySuspectID(suspectId);
 			// 向前台放置一些dic表信息
@@ -411,6 +409,9 @@ System.out.println(temporaryLeave+"---------------------------------------------
 			List<PHCSMP_Staff> staff = userService.findAllStaffs();
 			request.setAttribute("staff", staff);
 			System.out.println("+++++++++++++++====" + staff.get(0));
+			temporaryLeave = temporaryLeaveService
+					.IsTemporaryLeaveReturn(suspectId);
+System.out.println(temporaryLeave+"---------------------------------------------temporaryLeave");
 			request.setAttribute("temporaryLeave", temporaryLeave);
 			if(staffIdisEmpty()!=0){
 			request.setAttribute("staff_ID", temporaryLeave.getReturn_staff_ID());

@@ -27,4 +27,10 @@ public class FunctionServiceImple extends DaoSupportImpl<PHCSMP_Function>
 		return findListByPropertyName("function_parentId", parentId);
 	}
 
+	@Override
+	public PHCSMP_Function findByFuncId(Integer function_id) {
+		// TODO Auto-generated method stub
+		return findByPropertyName("function_id", function_id);
+	}
+
 }

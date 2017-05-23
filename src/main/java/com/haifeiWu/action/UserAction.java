@@ -45,26 +45,25 @@ public class UserAction {
 	public String login(PHCSMP_Staff staff, HttpServletRequest request,
 			HttpServletResponse response) {
 		try {
-			
-		
-		logger.debug("----------" + staff.toString());
-		PHCSMP_Staff user=null;
-		if(userService.findUserByStaffNameAndPwd(
-				staff.getStaff_Name(), staff.getPassWord())!=null){
-		 user = userService.findUserByStaffNameAndPwd(
-				staff.getStaff_Name(), staff.getPassWord());
-		}
-		if (user != null) {
-			// 向客户端输出cookie
-			Cookie cookie = new Cookie("ip", request.getRemoteAddr());
-			cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
-			response.addCookie(cookie);
-			request.setAttribute("user", user);
-			return "WEB-INF/jsp/home/main";
-		} else {
-			request.setAttribute("loginError", "用户名或密码不正确！");
-			return "WEB-INF/jsp/login";
-		}
+
+			logger.debug("----------" + staff.toString());
+			PHCSMP_Staff user = null;
+			if (userService.findUserByStaffNameAndPwd(staff.getStaff_Name(),
+					staff.getPassWord()) != null) {
+				user = userService.findUserByStaffNameAndPwd(
+						staff.getStaff_Name(), staff.getPassWord());
+			}
+			if (user != null) {
+				// 向客户端输出cookie
+				Cookie cookie = new Cookie("ip", request.getRemoteAddr());
+				cookie.setMaxAge(24 * 60 * 60 * 7);// 七天
+				response.addCookie(cookie);
+				request.getSession().setAttribute("user", user);
+				return "WEB-INF/jsp/home/main";
+			} else {
+				request.setAttribute("loginError", "用户名或密码不正确！");
+				return "WEB-INF/jsp/login";
+			}
 		} catch (Exception e) {
 			request.setAttribute("loginError", "用户名或密码不正确！");
 			return "WEB-INF/jsp/login";
@@ -79,7 +78,7 @@ public class UserAction {
 	public String loadInfor(HttpServletRequest request) {
 		List<PHCSMP_Staff> userCheckInfo = userService.findAllStaffs();
 		request.setAttribute("userCheckInfo", userCheckInfo);
-		return "WEB-INF/jsp/rolemanage/policeList";
+		return "WEB-INF/jsp/rolemanage/staffManage";
 	}
 
 	/**
@@ -179,7 +178,7 @@ public class UserAction {
 		int id = Integer.parseInt(staffId);
 		userService.deleteByStaffId(id);
 		System.out.println("删除成功");
-		return "WEB-INF/jsp/rolemanage/policeList";
+		return "WEB-INF/jsp/rolemanage/staffManage";
 	}
 
 	/**
@@ -197,7 +196,7 @@ public class UserAction {
 		System.out.println("hql语句正确");
 
 		request.setAttribute("userCheckInfo", list);
-		return "WEB-INF/jsp/rolemanage/policeList";
+		return "WEB-INF/jsp/rolemanage/staffManage";
 	}
 
 	/**
