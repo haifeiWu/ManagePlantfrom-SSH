@@ -18,11 +18,11 @@ public class LineDaoImple extends DaoSupportImpl<PHCSMP_Line> implements
 
 	public PHCSMP_Line findObj() {
 		session = getSession();
-		tx = session.beginTransaction();// 开启事务
+
 		hql = "from PHCSMP_Line";
 		Query query = getSession().createQuery(hql);
 		PHCSMP_Line entity = (PHCSMP_Line) query.uniqueResult();
-		tx.commit();// 提交事务
+		
 		return entity;
 	}
 

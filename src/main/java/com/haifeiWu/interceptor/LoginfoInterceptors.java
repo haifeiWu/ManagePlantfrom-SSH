@@ -30,7 +30,7 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 	public void afterCompletion(HttpServletRequest arg0,
 			HttpServletResponse arg1, Object arg2, Exception arg3)
 			throws Exception {
-		System.out.println("拦截结束" + arg2.toString());
+		//System.out.println("拦截结束" + arg2.toString());
 
 	}
 
@@ -67,13 +67,13 @@ public class LoginfoInterceptors implements HandlerInterceptor {
 			arg = arg.substring(0, arg.indexOf("("));
 			arg = arg.substring(arg.lastIndexOf(".") + 1, arg.length());
 		}
-		System.out.println("进入拦截器" + arg);
+		//System.out.println("进入拦截器" + arg);
 		if (arg0.getParameter("staffid") != null) {
 			username = Integer.parseInt(arg0.getParameter("staffid"));
 		}
-		System.out.println(username + "===========================");
+		//System.out.println(username + "===========================");
 		PHCSMP_LogInfo log = judgeRuquest(arg, username, arg0, arg1);
-		System.out.println(log.getOperation_Time());
+		//System.out.println(log.getOperation_Time());
 		if (log.getOperation_Time() != null && log.getOperation_Time() != "") {
 			saveLogInfo(log);
 		}
