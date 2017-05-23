@@ -143,6 +143,7 @@ public class PHCSMP_Suspect_Action {
 			List<PHCSMP_Staff> staff = userService.findAllStaffs();
 			request.setAttribute("staff", staff);
 			request.setAttribute("Suspect_ID", getSuspectId(entry_Time));// 自动生成嫌疑人编号
+			request.setAttribute("suspectId", getSuspectId(entry_Time));// 自动生成嫌疑人编号
 			request.setAttribute("bundList", list);
 			request.setAttribute("identifyCardType", identifyCardType);
 			request.setAttribute("entry_Time", entry_Time);

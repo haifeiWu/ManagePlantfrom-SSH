@@ -9,8 +9,11 @@
 <body>
 	<%
 		
-		String str = "operateSuccess"+"&"+request.getAttribute("remark");
-		response.getWriter().write(str);
+		 //String str = "operateSuccess"+"&"+request.getAttribute("remark")+"&"; 
+		  /*  String str = "operateSuccess&E20041347213021815207CFB&"; */
+		  String str = "operateSuccess";
+		response.getWriter().write(str); 
+		//out.write(str);
 	%>
 </body>
 </html>

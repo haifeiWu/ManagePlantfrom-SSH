@@ -48,6 +48,9 @@ public class fileStatusAction {
 		int uploadType = Integer.parseInt(jsonRequest.getString("uploadType"));
 		int policeId = Integer.parseInt(jsonRequest.getString("policeId"));
 		String identificationCard = jsonRequest.getString("identificationCard");
+		request.setAttribute("uploadType", uploadType);
+		request.setAttribute("policeId", policeId);
+		request.setAttribute("identificationCard", identificationCard);
 		System.out
 				.println("fileStatus收到的数据 -------------------------------------------------------------------- "
 						+ uploadType
@@ -55,13 +58,17 @@ public class fileStatusAction {
 						+ policeId
 						+ "     "
 						+ identificationCard);
-		/**
-		 * 使用另外的线程查询上传结果
-		 */
-		search(uploadType, policeId, identificationCard);
-		sendResponse = System.currentTimeMillis();
-		System.out.println("收到请求----返回结果          耗时"
-				+ (sendResponse - getRequest));
+		// 查询
+				if (uploadType == 0) {
+					String result = Video.queryDownloadFileStatu(policeId,
+							identificationCard);
+					String filename = Video.getSuccessFile(result);
+					// 将fileName存到数据库
+					
+					suspectService.updateIs_filename_DownLoad(1, policeId,
+							identificationCard);
+				}
+
 		return "success";
 	}
 

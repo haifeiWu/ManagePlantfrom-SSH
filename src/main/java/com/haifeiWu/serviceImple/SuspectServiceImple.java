@@ -219,6 +219,14 @@ public class SuspectServiceImple implements SuspectService {
 
 		return pageBean;
 	}
+
+	@Override
+	public void updateIs_filename_DownLoad(int i, int policeId,
+			String identificationCard) {
+		String hql = "update PHCSMP_Suspect s set s.is_RecordVideo_DownLoad=? where s.staff_ID=? and s.identifyCard_Number=?";
+		suspectDao.update(hql, i,policeId,identificationCard);
+		
+	}
 	
 	// @Override
 	// public PHCSMP_Suspect findByRemark(String remark) {
